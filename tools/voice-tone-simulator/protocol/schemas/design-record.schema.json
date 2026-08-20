@@ -1,0 +1,138 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/design-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "analysis_profile_id": {
+      "minLength": 1,
+      "title": "Analysis Profile Id",
+      "type": "string"
+    },
+    "authority": {
+      "const": "none",
+      "title": "Authority",
+      "type": "string"
+    },
+    "design_id": {
+      "minLength": 1,
+      "title": "Design Id",
+      "type": "string"
+    },
+    "execution_status": {
+      "enum": [
+        "not_started",
+        "candidate_conformance_only",
+        "complete"
+      ],
+      "title": "Execution Status",
+      "type": "string"
+    },
+    "generating_profile_id": {
+      "minLength": 1,
+      "title": "Generating Profile Id",
+      "type": "string"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "math_profile_id": {
+      "minLength": 1,
+      "title": "Math Profile Id",
+      "type": "string"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_profile_id": {
+      "minLength": 1,
+      "title": "Record Profile Id",
+      "type": "string"
+    },
+    "record_type": {
+      "const": "SimulationDesignRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scenario_grid_id": {
+      "minLength": 1,
+      "title": "Scenario Grid Id",
+      "type": "string"
+    },
+    "schedule_profile_id": {
+      "minLength": 1,
+      "title": "Schedule Profile Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-design-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "design_id",
+    "scenario_grid_id",
+    "generating_profile_id",
+    "math_profile_id",
+    "analysis_profile_id",
+    "schedule_profile_id",
+    "record_profile_id",
+    "execution_status",
+    "authority"
+  ],
+  "title": "SimulationDesignRecord",
+  "type": "object"
+}

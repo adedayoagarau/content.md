@@ -1,0 +1,35 @@
+{
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "parent_design_revision": "design-0.1",
+  "project_status": "research_draft",
+  "execution_status": "non_executable",
+  "canonical": false,
+  "signed": false,
+  "license_status": "unresolved",
+  "review_status": "unreviewed",
+  "holdout_status": "not_created",
+  "calibration_status": "not_run",
+  "b1_ready": false,
+  "package_role": "open_development_only",
+  "private_holdout_eligibility": "never",
+  "comparative_score_eligibility": false,
+  "actual_run_status": "not_run",
+  "actual_result": null,
+  "created_date": "2026-08-18",
+  "evidence_cutoff": "2026-08-17",
+  "authority_boundary": "Materialized research-development records only; no approval, implementation, execution, gate closure, license, or benchmark result.",
+  "source_contracts": [
+    "../../../shared-benchmark-fixture-specification.md",
+    "../../../materials-and-access-register.md"
+  ],
+  "expression_denominator_status": {
+    "historical_design_target": 34,
+    "target_status": "rejected_falsified_by_materialization",
+    "current_normalized_expression_slots": 56,
+    "current_normalized_expression_versions": 56,
+    "finding_ref": "evaluator-open-development/expression-denominator-falsification-and-remap.json"
+  },
+  "official_design_0_2_status": "created_proposed_not_approved_not_for_use",
+  "design_0_1_lifecycle": "iterative_open_development_never_frozen"
+}

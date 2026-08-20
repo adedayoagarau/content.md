@@ -1,0 +1,13 @@
+{
+  "name": "@contentmd/learning",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "build": "tsc -b" },
+  "dependencies": {
+    "@contentmd/core": "workspace:*",
+    "@contentmd/governance": "workspace:*",
+    "@contentmd/memory": "workspace:*"
+  }
+}

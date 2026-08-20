@@ -1,0 +1,382 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/metric-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "estimate_reason_codes": {
+            "minItems": 1
+          },
+          "estimate_value": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "estimate_status": {
+            "const": "estimated"
+          }
+        },
+        "required": [
+          "estimate_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "estimate_reason_codes": {
+            "maxItems": 0
+          },
+          "estimate_value": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    {
+      "else": {
+        "properties": {
+          "synthetic_truth_reason_codes": {
+            "minItems": 1
+          },
+          "synthetic_truth_value": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "synthetic_truth_status": {
+            "enum": [
+              "exact",
+              "reference_approximated"
+            ]
+          }
+        },
+        "required": [
+          "synthetic_truth_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "synthetic_truth_reason_codes": {
+            "maxItems": 0
+          },
+          "synthetic_truth_value": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "denominator": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Denominator"
+    },
+    "denominator_ledger_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Denominator Ledger Refs",
+      "type": "array"
+    },
+    "estimand_id": {
+      "pattern": "^EST-(0[1-9]|1[01])$",
+      "title": "Estimand Id",
+      "type": "string"
+    },
+    "estimand_revision": {
+      "minLength": 1,
+      "title": "Estimand Revision",
+      "type": "string"
+    },
+    "estimate_reason_codes": {
+      "items": {
+        "enum": [
+          "simulation_not_run",
+          "zero_denominator",
+          "minimum_event_profile_not_met",
+          "diagnostic_inapplicable_boundary",
+          "constant_prediction_calibration_not_identifiable",
+          "expected_disagreement_nonpositive",
+          "insufficient_card_coverage",
+          "nonrecurring_entity_identity",
+          "observed_graph_not_strongly_connected",
+          "separation_detected",
+          "assignment_aliased",
+          "order_effect_not_identifiable_single_card",
+          "estimator_nonconvergence",
+          "unsupported_estimand_scope",
+          "invalid_run_propagated"
+        ],
+        "type": "string"
+      },
+      "title": "Estimate Reason Codes",
+      "type": "array"
+    },
+    "estimate_status": {
+      "enum": [
+        "not_run",
+        "estimated",
+        "undefined",
+        "invalid",
+        "unsupported"
+      ],
+      "title": "Estimate Status",
+      "type": "string"
+    },
+    "estimate_value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Estimate Value"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "method_id": {
+      "minLength": 1,
+      "title": "Method Id",
+      "type": "string"
+    },
+    "metric_id": {
+      "minLength": 1,
+      "title": "Metric Id",
+      "type": "string"
+    },
+    "numerator": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Numerator"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "MetricRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "run_validity_reason_codes": {
+      "items": {
+        "enum": [
+          "source_hash_mismatch",
+          "protocol_hash_mismatch",
+          "implementation_hash_mismatch",
+          "runtime_manifest_unfrozen",
+          "scenario_grid_mismatch",
+          "duplicate_record_id",
+          "scenario_id_collision",
+          "prng_conformance_failure",
+          "random_stream_reuse",
+          "canonicalization_failure",
+          "nonfinite_serialized_value",
+          "negative_control_mismatch",
+          "intercept_solver_failure",
+          "held_out_leakage",
+          "split_overlap",
+          "leakage_guard_failure",
+          "prohibited_input",
+          "unrecorded_exclusion",
+          "denominator_mismatch",
+          "record_overwrite",
+          "missing_provenance",
+          "graph_guard_contradiction",
+          "status_value_union_violation"
+        ],
+        "type": "string"
+      },
+      "title": "Run Validity Reason Codes",
+      "type": "array"
+    },
+    "run_validity_status": {
+      "enum": [
+        "not_run",
+        "valid",
+        "invalid_run"
+      ],
+      "title": "Run Validity Status",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scale": {
+      "minLength": 1,
+      "title": "Scale",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-metric-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    },
+    "synthetic_truth_mcse": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Synthetic Truth Mcse"
+    },
+    "synthetic_truth_reason_codes": {
+      "items": {
+        "enum": [
+          "simulation_not_run",
+          "misspecified_model_no_scalar_truth",
+          "reference_precision_unmet",
+          "descriptive_only",
+          "invalid_run_propagated"
+        ],
+        "type": "string"
+      },
+      "title": "Synthetic Truth Reason Codes",
+      "type": "array"
+    },
+    "synthetic_truth_status": {
+      "enum": [
+        "not_run",
+        "exact",
+        "reference_approximated",
+        "undefined",
+        "not_applicable",
+        "invalid"
+      ],
+      "title": "Synthetic Truth Status",
+      "type": "string"
+    },
+    "synthetic_truth_value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Synthetic Truth Value"
+    },
+    "target_population_kind": {
+      "enum": [
+        "fixed_messages_fixed_panel",
+        "new_messages_fixed_panel",
+        "fixed_messages_rater_population",
+        "new_messages_rater_population"
+      ],
+      "title": "Target Population Kind",
+      "type": "string"
+    },
+    "terminal_status": {
+      "enum": [
+        "design_supported",
+        "requires_cognitive_validation",
+        "requires_simulation",
+        "requires_pilot_data",
+        "unsupported"
+      ],
+      "title": "Terminal Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "metric_id",
+    "estimand_id",
+    "estimand_revision",
+    "target_population_kind",
+    "method_id",
+    "scale",
+    "numerator",
+    "denominator",
+    "denominator_ledger_refs",
+    "estimate_status",
+    "estimate_reason_codes",
+    "estimate_value",
+    "synthetic_truth_status",
+    "synthetic_truth_reason_codes",
+    "synthetic_truth_value",
+    "synthetic_truth_mcse",
+    "run_validity_status",
+    "run_validity_reason_codes",
+    "terminal_status"
+  ],
+  "title": "MetricRecord",
+  "type": "object"
+}

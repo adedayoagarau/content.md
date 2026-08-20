@@ -1,0 +1,4 @@
+{"coverage":"C10","profile":"K0-CALIBRATED","split_overlap_rate":"0.00","label_leakage_rate":"0.00","expected_status":"accepted","eligible_count":96}
+{"coverage":"C10","profile":"K0-CALIBRATED","split_overlap_rate":"0.01","label_leakage_rate":"0.00","expected_status":"rejected_input","eligible_count":96}
+{"coverage":"C22","profile":"K3-OVERCONFIDENT","split_overlap_rate":"0.00","label_leakage_rate":"0.20","expected_status":"rejected_input","eligible_count":192}
+{"coverage":"C22","profile":"K3-OVERCONFIDENT","split_overlap_rate":"0.05","label_leakage_rate":"0.05","expected_status":"rejected_input","eligible_count":192}

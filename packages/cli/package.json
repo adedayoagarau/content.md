@@ -1,0 +1,14 @@
+{
+  "name": "@contentmd/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "bin": { "contentmd": "./dist/main.js" },
+  "scripts": { "test": "vitest run", "build": "tsc -b" },
+  "dependencies": {
+    "@contentmd/agent": "workspace:*",
+    "@contentmd/core": "workspace:*",
+    "commander": "15.0.0"
+  }
+}

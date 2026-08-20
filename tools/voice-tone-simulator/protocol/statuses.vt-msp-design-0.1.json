@@ -1,0 +1,27 @@
+{
+  "schema_version": "vt-sim-status-profile/0.1",
+  "profile_id": "VT-MSP-WIRE/design-0.1",
+  "status_unions": {
+    "cell_completion_status": ["not_started", "running", "complete", "simulation_precision_unmet", "incomplete"],
+    "estimate_status": ["not_run", "estimated", "undefined", "invalid", "unsupported"],
+    "estimator_attempt_status": ["not_attempted", "precheck_undefined", "estimated", "estimator_failure"],
+    "input_guard_status": ["not_checked", "accepted", "rejected_input"],
+    "interval_status": ["estimated", "undefined", "invalid", "unsupported_scope", "not_run"],
+    "observed_event_status": ["not_observed", "observed", "abstained", "unsupported_scope", "invalid"],
+    "probability_status": ["not_run", "predicted_uncalibrated", "predicted_calibrated_for_scope", "abstained", "unsupported_scope", "invalid"],
+    "run_completion_status": ["not_started", "running", "complete", "incomplete"],
+    "run_validity_status": ["not_run", "valid", "invalid_run"],
+    "synthetic_truth_status": ["not_run", "exact", "reference_approximated", "undefined", "not_applicable", "invalid"],
+    "terminal_status": ["design_supported", "requires_cognitive_validation", "requires_simulation", "requires_pilot_data", "unsupported"]
+  },
+  "reason_codes": {
+    "run_validity": ["source_hash_mismatch", "protocol_hash_mismatch", "implementation_hash_mismatch", "runtime_manifest_unfrozen", "scenario_grid_mismatch", "duplicate_record_id", "scenario_id_collision", "prng_conformance_failure", "random_stream_reuse", "canonicalization_failure", "nonfinite_serialized_value", "negative_control_mismatch", "intercept_solver_failure", "held_out_leakage", "split_overlap", "leakage_guard_failure", "prohibited_input", "unrecorded_exclusion", "denominator_mismatch", "record_overwrite", "missing_provenance", "graph_guard_contradiction", "status_value_union_violation"],
+    "estimate": ["simulation_not_run", "zero_denominator", "minimum_event_profile_not_met", "diagnostic_inapplicable_boundary", "constant_prediction_calibration_not_identifiable", "expected_disagreement_nonpositive", "insufficient_card_coverage", "nonrecurring_entity_identity", "observed_graph_not_strongly_connected", "separation_detected", "assignment_aliased", "order_effect_not_identifiable_single_card", "estimator_nonconvergence", "unsupported_estimand_scope", "invalid_run_propagated"],
+    "synthetic_truth": ["simulation_not_run", "misspecified_model_no_scalar_truth", "reference_precision_unmet", "descriptive_only", "invalid_run_propagated"],
+    "probability_event": ["simulation_not_run", "predictor_abstained", "unsupported_event_scope", "prediction_generated_after_outcome", "event_not_observed", "observed_event_abstained", "invalid_observed_event", "held_out_leakage", "invalid_run_propagated"],
+    "interval": ["simulation_not_run", "estimate_undefined", "unsupported_target_scope", "insufficient_effective_clusters", "failed_resample_limit", "invalid_run_propagated"],
+    "completion_input": ["monte_carlo_precision_cap_reached", "mandatory_cell_incomplete", "expected_rejected_input", "unexpected_input_acceptance"]
+  },
+  "source_clause": "voice-tone-measurement-simulation-protocol.md#frozen-reason-code-vocabulary",
+  "record_hash": "7a61a4c88243466c7187b99390377079426b46355fd7c23dc55c1ea61afbaeff"
+}

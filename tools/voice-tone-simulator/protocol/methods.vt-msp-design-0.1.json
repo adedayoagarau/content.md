@@ -1,0 +1,12 @@
+{
+  "schema_version": "vt-sim-method-profile/0.1",
+  "profile_id": "VT-MSP-ANALYSIS/design-0.1",
+  "method_ids": ["A-CAL-LOGIT/design-0.1", "A-CAL-MISS-LOGIT/design-0.1", "A-CAT-PROP/design-0.1", "A-CF-PAIRED/design-0.1", "A-ALPHA-NOM/design-0.1", "A-ALPHA-ORD/design-0.1", "A-BT-ML/design-0.1", "A-BT-RIDGE/design-0.1", "A-ORD-ADJ-ML/design-0.1", "A-ORD-PO-ML/design-0.1", "A-SIDEORDER-LOGIT/design-0.1"],
+  "interval_ids": ["I-CROSSED-PCT/design-0.1", "I-FIXED-PARAM-PCT/design-0.1", "I-MESSAGE-PCT/design-0.1", "I-NAIVE-WALD/design-0.1", "I-RATER-PCT/design-0.1"],
+  "solver_profile": {"binary64": true, "gradient_tolerance": "0.0000000001", "maximum_iterations": 200, "parameter_step_tolerance": "0.0000000001", "qr_positive_diagonal": true, "step_halving": true},
+  "intercept_bisection": {"lower": "-40.0", "upper": "40.0", "absolute_mean_error": "0.000000000001", "maximum_iterations": 200},
+  "bootstrap": {"resamples": 1999, "quantile_method": "Hyndman-Fan-type-7", "lower_probability": "0.025", "upper_probability": "0.975", "failed_resample_limit": 100},
+  "estimand_ids": ["EST-01", "EST-02", "EST-03", "EST-04", "EST-05", "EST-06", "EST-07", "EST-08", "EST-09", "EST-10", "EST-11"],
+  "source_clause": "voice-tone-measurement-simulation-protocol.md#frozen-analysis-and-interval-profile",
+  "record_hash": "cd7e2012bf10eaba4a509d3bfc0545a7d72c09bd56d826068fbd31a4e22fb2d7"
+}

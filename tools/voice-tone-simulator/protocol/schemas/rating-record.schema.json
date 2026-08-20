@@ -1,0 +1,168 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/rating-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignment_ref": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Assignment Ref",
+      "type": "string"
+    },
+    "display_left_band": {
+      "anyOf": [
+        {
+          "maximum": 4,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Display Left Band"
+    },
+    "display_pairwise_outcome": {
+      "anyOf": [
+        {
+          "enum": [
+            "LEFT",
+            "RIGHT",
+            "indistinguishable",
+            "both_unacceptable",
+            "insufficient_context"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Display Pairwise Outcome"
+    },
+    "display_right_band": {
+      "anyOf": [
+        {
+          "maximum": 4,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Display Right Band"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "locked": {
+      "title": "Locked",
+      "type": "boolean"
+    },
+    "procedural_reason": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Procedural Reason"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "rating_id": {
+      "minLength": 1,
+      "title": "Rating Id",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "SyntheticRatingRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "response_status": {
+      "enum": [
+        "submitted",
+        "not_observed",
+        "abstained",
+        "invalid"
+      ],
+      "title": "Response Status",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-rating-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "rating_id",
+    "assignment_ref",
+    "response_status",
+    "display_pairwise_outcome",
+    "display_left_band",
+    "display_right_band",
+    "procedural_reason",
+    "locked"
+  ],
+  "title": "SyntheticRatingRecord",
+  "type": "object"
+}

@@ -1,0 +1,54 @@
+{
+  "base_outcome_counts": {
+    "A": 32,
+    "B": 47,
+    "both_unacceptable": 21,
+    "indistinguishable": 10,
+    "insufficient_context": 10
+  },
+  "counterfactual_outcome_counts": {
+    "A": 46,
+    "B": 38,
+    "both_unacceptable": 14,
+    "indistinguishable": 11,
+    "insufficient_context": 11
+  },
+  "denominators": {
+    "base_only": 0,
+    "both_valid": 120,
+    "counterfactual_only": 0,
+    "invalid_operation_rejected": 0,
+    "neither_valid": 0,
+    "paired_band_denominator": 101,
+    "scheduled_pairs": 120,
+    "transition_denominator": 120
+  },
+  "hazards": [
+    ["nonstart", 120, 0, "boundary_zero", 0],
+    ["nonlock", 240, 0, "boundary_zero", 0],
+    ["procedural_abstention", 240, 0, "boundary_zero", 0],
+    ["invalidation", 240, 0, "boundary_zero", 0]
+  ],
+  "pair_count": 120,
+  "pair_disposition_counts": {
+    "both_valid": 120
+  },
+  "replicate_index": 1,
+  "replicate_record_hash": "74a8563d5780795c5a99c713e4ea8742417515bec46aef05a2f9f816c28f41ce",
+  "scenario_parameter_hash": "5de994c365dac8ab562052c206abfa7c28cf99684125768280d7dc482346fd5f",
+  "schedule_hash": "7e412bdba8676823afbe45f0d34c2fb0abb4c8e2c7e90ebe93cb5340dbcc131a",
+  "stream_receipts": [
+    ["finite-effects", "80ab6a45f9684747", 1032],
+    ["finite-effects", "4491524a3c27173e", 1032],
+    ["nonstart", "cc326d7000006e69", 120],
+    ["nonlock", "792f52e3f07cec13", 240],
+    ["procedural-abstention", "9475e2cc7cc05c66", 240],
+    ["procedural-reason", "b4194502fe4a8b9a", 240],
+    ["invalidation", "f895818b94f0e7b4", 480],
+    ["submitted-outcome", "1196bf52c005709f", 120],
+    ["ordinal-band", "e4becec1b4ac1d7f", 240],
+    ["evidence-span", "5d987c17c468788a", 1920],
+    ["counterfactual", "3f7d278a6b2ed803", 360]
+  ],
+  "vector_id": "VT-MSP-COUNTERFACTUAL-CF0-REPLICATE-1/design-0.1"
+}

@@ -1,0 +1,39 @@
+{
+  "vector_id": "VT-MSP-BASELINE-REPLICATE-1/design-0.1",
+  "scenario_parameter_hash": "99174ca8571c01f2decac14e6247398bf5dad82e879a92c4d08fab8883925066",
+  "replicate_index": 1,
+  "schedule_hash": "22f2f62192f18e749b9bec56c55dd3a9ef410d13666e10d4df1ee94b4577c028",
+  "replicate_record_hash": "2bb33e013546f7043e3616b8b48540b4856d4cb9ea5b9587a2807772876db57a",
+  "assignment_count": 120,
+  "disposition_counts": {
+    "abstained": 5,
+    "submitted": 115
+  },
+  "derived_outcome_counts": {
+    "A": 37,
+    "B": 36,
+    "both_unacceptable": 15,
+    "indistinguishable": 15,
+    "insufficient_context": 12
+  },
+  "null_band_row_count": 17,
+  "evidence_applicable_count": 115,
+  "hazards": [
+    ["nonstart", 120, 0, "boundary_zero", 0],
+    ["nonlock", 120, 0, "boundary_zero", 0],
+    ["procedural_abstention", 120, 5, "solved", 39],
+    ["invalidation", 115, 0, "boundary_zero", 0]
+  ],
+  "stream_receipts": [
+    ["finite-effects", "80ab6a45f9684747", 1032],
+    ["finite-effects", "4491524a3c27173e", 1032],
+    ["nonstart", "68aa6fbb749e69b1", 120],
+    ["nonlock", "2485387238dc3a92", 120],
+    ["procedural-abstention", "02a29c4602185ff2", 120],
+    ["procedural-reason", "5adf38fe7c02ad41", 120],
+    ["invalidation", "7d08221fbc1f4ef4", 240],
+    ["submitted-outcome", "2830d0082b2c4541", 120],
+    ["ordinal-band", "2ba9a0e7a85c4801", 240],
+    ["evidence-span", "26abde222de2b3f3", 960]
+  ]
+}

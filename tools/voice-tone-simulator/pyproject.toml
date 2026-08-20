@@ -1,0 +1,23 @@
+[build-system]
+requires = []
+build-backend = "vt_simulator.build_disabled"
+backend-path = ["src"]
+
+[project]
+name = "vt-simulator"
+version = "0.1.0"
+description = "Bounded offline candidate for the VT-MSP synthetic measurement protocol"
+readme = "README.md"
+requires-python = "==3.12.13"
+dependencies = [
+  "annotated-types==0.7.0",
+  "numpy==2.3.5",
+  "pydantic==2.13.4",
+  "pydantic-core==2.46.4",
+  "rfc8785==0.1.4",
+  "typing-extensions==4.16.0",
+  "typing-inspection==0.4.2",
+]
+
+[project.scripts]
+vt-sim = "vt_simulator.cli:main"

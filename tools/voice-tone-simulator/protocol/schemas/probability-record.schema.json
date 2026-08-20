@@ -1,0 +1,237 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/probability-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "probability_reason_codes": {
+            "minItems": 1
+          },
+          "probability_value": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "probability_status": {
+            "enum": [
+              "predicted_uncalibrated",
+              "predicted_calibrated_for_scope"
+            ]
+          }
+        },
+        "required": [
+          "probability_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "probability_reason_codes": {
+            "maxItems": 0
+          },
+          "probability_value": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "event_id": {
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_revision": {
+      "minLength": 1,
+      "title": "Event Revision",
+      "type": "string"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "observed_event_reason_codes": {
+      "items": {
+        "enum": [
+          "simulation_not_run",
+          "predictor_abstained",
+          "unsupported_event_scope",
+          "prediction_generated_after_outcome",
+          "event_not_observed",
+          "observed_event_abstained",
+          "invalid_observed_event",
+          "held_out_leakage",
+          "invalid_run_propagated"
+        ],
+        "type": "string"
+      },
+      "title": "Observed Event Reason Codes",
+      "type": "array"
+    },
+    "observed_event_status": {
+      "enum": [
+        "not_observed",
+        "observed",
+        "abstained",
+        "unsupported_scope",
+        "invalid"
+      ],
+      "title": "Observed Event Status",
+      "type": "string"
+    },
+    "observed_event_value": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Observed Event Value"
+    },
+    "probability_id": {
+      "minLength": 1,
+      "title": "Probability Id",
+      "type": "string"
+    },
+    "probability_reason_codes": {
+      "items": {
+        "enum": [
+          "simulation_not_run",
+          "predictor_abstained",
+          "unsupported_event_scope",
+          "prediction_generated_after_outcome",
+          "event_not_observed",
+          "observed_event_abstained",
+          "invalid_observed_event",
+          "held_out_leakage",
+          "invalid_run_propagated"
+        ],
+        "type": "string"
+      },
+      "title": "Probability Reason Codes",
+      "type": "array"
+    },
+    "probability_status": {
+      "enum": [
+        "not_run",
+        "predicted_uncalibrated",
+        "predicted_calibrated_for_scope",
+        "abstained",
+        "unsupported_scope",
+        "invalid"
+      ],
+      "title": "Probability Status",
+      "type": "string"
+    },
+    "probability_value": {
+      "anyOf": [
+        {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Probability Value"
+    },
+    "proper_score": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Proper Score"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "ProbabilityRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-probability-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "probability_id",
+    "event_id",
+    "event_revision",
+    "probability_status",
+    "probability_reason_codes",
+    "probability_value",
+    "observed_event_status",
+    "observed_event_reason_codes",
+    "observed_event_value",
+    "proper_score"
+  ],
+  "title": "ProbabilityRecord",
+  "type": "object"
+}

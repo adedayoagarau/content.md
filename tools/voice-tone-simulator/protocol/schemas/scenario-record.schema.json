@@ -1,0 +1,151 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/scenario-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "arm_memberships": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Arm Memberships",
+      "type": "array"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_guard_reason_codes": {
+      "items": {
+        "enum": [
+          "source_hash_mismatch",
+          "protocol_hash_mismatch",
+          "implementation_hash_mismatch",
+          "runtime_manifest_unfrozen",
+          "scenario_grid_mismatch",
+          "duplicate_record_id",
+          "scenario_id_collision",
+          "prng_conformance_failure",
+          "random_stream_reuse",
+          "canonicalization_failure",
+          "nonfinite_serialized_value",
+          "negative_control_mismatch",
+          "intercept_solver_failure",
+          "held_out_leakage",
+          "split_overlap",
+          "leakage_guard_failure",
+          "prohibited_input",
+          "unrecorded_exclusion",
+          "denominator_mismatch",
+          "record_overwrite",
+          "missing_provenance",
+          "graph_guard_contradiction",
+          "status_value_union_violation"
+        ],
+        "type": "string"
+      },
+      "title": "Input Guard Reason Codes",
+      "type": "array"
+    },
+    "input_guard_status": {
+      "enum": [
+        "not_checked",
+        "accepted",
+        "rejected_input"
+      ],
+      "title": "Input Guard Status",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "ScenarioRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scenario_id": {
+      "pattern": "^SIM-[0-9a-f]{20}$",
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "scenario_parameter_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Scenario Parameter Hash",
+      "type": "string"
+    },
+    "scenario_parameter_preimage": {
+      "additionalProperties": true,
+      "title": "Scenario Parameter Preimage",
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "vt-sim-scenario-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "scenario_parameter_hash",
+    "scenario_id",
+    "scenario_parameter_preimage",
+    "arm_memberships",
+    "input_guard_status",
+    "input_guard_reason_codes"
+  ],
+  "title": "ScenarioRecord",
+  "type": "object"
+}

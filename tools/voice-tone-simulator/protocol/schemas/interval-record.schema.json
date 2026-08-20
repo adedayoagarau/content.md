@@ -1,0 +1,235 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/interval-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {
+        "properties": {
+          "confidence_level": {
+            "type": "null"
+          },
+          "interval_reason_codes": {
+            "minItems": 1
+          },
+          "lower": {
+            "type": "null"
+          },
+          "upper": {
+            "type": "null"
+          }
+        }
+      },
+      "if": {
+        "properties": {
+          "interval_status": {
+            "const": "estimated"
+          }
+        },
+        "required": [
+          "interval_status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence_level": {
+            "type": "number"
+          },
+          "interval_reason_codes": {
+            "maxItems": 0
+          },
+          "lower": {
+            "type": "number"
+          },
+          "upper": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "confidence_level": {
+      "anyOf": [
+        {
+          "exclusiveMaximum": 1.0,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Confidence Level"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "interval_id": {
+      "minLength": 1,
+      "title": "Interval Id",
+      "type": "string"
+    },
+    "interval_reason_codes": {
+      "items": {
+        "enum": [
+          "simulation_not_run",
+          "estimate_undefined",
+          "unsupported_target_scope",
+          "insufficient_effective_clusters",
+          "failed_resample_limit",
+          "invalid_run_propagated"
+        ],
+        "type": "string"
+      },
+      "title": "Interval Reason Codes",
+      "type": "array"
+    },
+    "interval_status": {
+      "enum": [
+        "estimated",
+        "undefined",
+        "invalid",
+        "unsupported_scope",
+        "not_run"
+      ],
+      "title": "Interval Status",
+      "type": "string"
+    },
+    "lower": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Lower"
+    },
+    "method_id": {
+      "minLength": 1,
+      "title": "Method Id",
+      "type": "string"
+    },
+    "metric_ref": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Metric Ref",
+      "type": "string"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "IntervalRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "resample_repetitions": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Resample Repetitions"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scale": {
+      "minLength": 1,
+      "title": "Scale",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-interval-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    },
+    "target_generalization": {
+      "minLength": 1,
+      "title": "Target Generalization",
+      "type": "string"
+    },
+    "upper": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Upper"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "interval_id",
+    "metric_ref",
+    "interval_status",
+    "interval_reason_codes",
+    "confidence_level",
+    "lower",
+    "upper",
+    "scale",
+    "method_id",
+    "target_generalization",
+    "resample_repetitions"
+  ],
+  "title": "IntervalRecord",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+{
+  "protocol_id": "VT-MSP/design-0.1",
+  "master_seed_hex": "0936b9edacae71a576b398b17e36ea1db4d4f0162706559ce5cd3444f0b3e0cc",
+  "scenario_parameter_hash": "99174ca8571c01f2decac14e6247398bf5dad82e879a92c4d08fab8883925066",
+  "population_block_hash": "ccf7463f2c6c3344ff06421e0e32ceecab30103333eaa82fdd012e8350182e20",
+  "replicate_index": "1",
+  "stream_name": "allocation",
+  "digest_hex": "cf6e7224bce4fd212e66682ed44513c745f8579564c6045573c2f86243f2510f",
+  "key_words": [3480121892, 3169123617],
+  "counter_words": [778463278, 3561296839, 1173903253, 1690698837],
+  "first_output_words": [1645416012, 1502237535, 1934928323, 2231233712],
+  "stream_fingerprint": "73c2f86243f2510f"
+}

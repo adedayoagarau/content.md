@@ -1,0 +1,14 @@
+{
+  "name": "@contentmd/adapter-filesystem",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "build": "tsc -b" },
+  "dependencies": {
+    "@contentmd/adapter-sdk": "workspace:*",
+    "@contentmd/core": "workspace:*",
+    "@contentmd/governance": "workspace:*",
+    "fast-glob": "3.3.3"
+  }
+}

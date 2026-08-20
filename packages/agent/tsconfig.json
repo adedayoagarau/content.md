@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../schemas" },
+    { "path": "../core" },
+    { "path": "../memory" },
+    { "path": "../governance" },
+    { "path": "../adapter-sdk" },
+    { "path": "../adapter-filesystem" },
+    { "path": "../research" },
+    { "path": "../evaluation" },
+    { "path": "../model-provider-sdk" },
+    { "path": "../writer" },
+    { "path": "../learning" }
+  ]
+}

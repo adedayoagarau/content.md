@@ -1,0 +1,167 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/review-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "const": "none",
+      "title": "Authority",
+      "type": "string"
+    },
+    "blocking_issues": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Blocking Issues",
+      "type": "array"
+    },
+    "checklist_dispositions": {
+      "additionalProperties": {
+        "enum": [
+          "pass",
+          "fail",
+          "not_applicable"
+        ],
+        "type": "string"
+      },
+      "title": "Checklist Dispositions",
+      "type": "object"
+    },
+    "design_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Design Hash",
+      "type": "string"
+    },
+    "disposition": {
+      "enum": [
+        "reviewed_no_blocking_issue",
+        "revision_required"
+      ],
+      "title": "Disposition",
+      "type": "string"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "independence_declared": {
+      "title": "Independence Declared",
+      "type": "boolean"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "ReviewRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "review_id": {
+      "minLength": 1,
+      "title": "Review Id",
+      "type": "string"
+    },
+    "review_kind": {
+      "enum": [
+        "method",
+        "operating_rule"
+      ],
+      "title": "Review Kind",
+      "type": "string"
+    },
+    "reviewed_implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Reviewed Implementation Hash",
+      "type": "string"
+    },
+    "reviewed_on": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "title": "Reviewed On",
+      "type": "string"
+    },
+    "reviewer_identity_ref": {
+      "minLength": 1,
+      "title": "Reviewer Identity Ref",
+      "type": "string"
+    },
+    "reviewer_role": {
+      "minLength": 1,
+      "title": "Reviewer Role",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-review-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "review_id",
+    "review_kind",
+    "design_hash",
+    "reviewed_implementation_hash",
+    "reviewer_identity_ref",
+    "reviewer_role",
+    "independence_declared",
+    "checklist_dispositions",
+    "blocking_issues",
+    "disposition",
+    "reviewed_on",
+    "authority"
+  ],
+  "title": "ReviewRecord",
+  "type": "object"
+}

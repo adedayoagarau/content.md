@@ -1,0 +1,11 @@
+# Candidate dependency identities only. Do not install this file until SIM-I1
+# records the approved artifact filename and SHA-256 for every distribution.
+# The RFC 8785 wheel hash is published by PyPI; the remaining artifact hashes
+# are intentionally absent because no acquisition artifact has been approved.
+annotated-types==0.7.0
+numpy==2.3.5
+pydantic==2.13.4
+pydantic-core==2.46.4
+rfc8785==0.1.4 --hash=sha256:520d690b448ecf0703691c76e1a34a24ddcd4fc5bc41d589cb7c58ec651bcd48
+typing-extensions==4.16.0
+typing-inspection==0.4.2

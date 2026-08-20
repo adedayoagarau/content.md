@@ -1,0 +1,72 @@
+{
+  "schema_version": "vt-sim-protocol-manifest/0.1",
+  "protocol_id": "VT-MSP/design-0.1",
+  "implementation_candidate_id": "vt-sim/0.1.0-candidate",
+  "source_locks": [
+    {"path": "research/00-method/research-protocol.md", "sha256": "ed9ba9bc2714a53cf107043e00eee6433ab453d9425a58842adc50abdf685ac4"},
+    {"path": "research/05-technology/security-privacy-and-trust-boundaries.md", "sha256": "7841c183b42c0cbb9c921b93644e68e9120b9b8f1fef3e8820257458057c6da6"},
+    {"path": "research/09-experimental/materials-and-access-register.md", "sha256": "51121966ef93d68ccc83fbced3a2e8f1bc0254c64c3a01edda97471aa70a6292"},
+    {"path": "research/09-experimental/product-study-and-judge-agent-system.md", "sha256": "1f2782f10d180c120798746e267e4b58e40e1b3f6b870d1a98e5d5ec91720946"},
+    {"path": "research/09-experimental/voice-tone-graph-and-measurement.md", "sha256": "b2d9512c904038faf7fb113fa15f98d9a50a4f0e7c713f6e2f53cb3d622b3384"},
+    {"path": "research/09-experimental/voice-tone-human-calibration-instrument.md", "sha256": "cd72336240fa79afed74ad0892967439f231051c6ca49a6e296d8018c767ca8e"},
+    {"path": "research/09-experimental/voice-tone-measurement-estimand-and-coverage-specification.md", "sha256": "46cb3198471bffe0e1159f005d56c83db881a5ca054f502a6d63f227288361d7"},
+    {"path": "research/09-experimental/voice-tone-measurement-primary-research-notes-2026-08-17.md", "sha256": "f4d8c21a1ffebf7048dbdf441030f487aaf12cedca3a257bcec0d63f63a3d35c"},
+    {"path": "research/09-experimental/voice-tone-synthetic-calibration-development-bundle.md", "sha256": "21dd80efb1c2190b75f6367fe4fbcfa7a2dd4ac7762ac1e184074b52c7285f12"}
+  ],
+  "profile_refs": {
+    "factors": {"path": "factors.vt-msp-design-0.1.json", "record_hash": "8da87c46eb146086252f83479ea52a2c12989ffb276a6ae68ad7b111eb9bd9f6"},
+    "leakage": {"path": "leakage.vt-msp-design-0.1.json", "record_hash": "588dcfa4cab63ee1526c69f36299788eda42d86d4b95bcdc7b7bc42228800dbd"},
+    "methods": {"path": "methods.vt-msp-design-0.1.json", "record_hash": "cd7e2012bf10eaba4a509d3bfc0545a7d72c09bd56d826068fbd31a4e22fb2d7"},
+    "statuses": {"path": "statuses.vt-msp-design-0.1.json", "record_hash": "7a61a4c88243466c7187b99390377079426b46355fd7c23dc55c1ea61afbaeff"}
+  },
+  "schema_refs": [
+    "schemas/assignment-record.schema.json",
+    "schemas/calibration-record.schema.json",
+    "schemas/decision-record.schema.json",
+    "schemas/design-record.schema.json",
+    "schemas/interval-record.schema.json",
+    "schemas/mapping-record.schema.json",
+    "schemas/metric-record.schema.json",
+    "schemas/probability-record.schema.json",
+    "schemas/provenance-record.schema.json",
+    "schemas/rating-record.schema.json",
+    "schemas/replicate-record.schema.json",
+    "schemas/review-record.schema.json",
+    "schemas/run-record.schema.json",
+    "schemas/scenario-record.schema.json"
+  ],
+  "negative_control_refs": [
+    "LEAKAGE-MATRIX/design-0.1",
+    "NC-COVERAGE",
+    "NC-GRAPH",
+    "NC-HOLDOUT"
+  ],
+  "expected_counts": {
+    "duplicate_memberships": 154,
+    "estimands": 11,
+    "factor_keys": 26,
+    "multi_arm_bundles": 133,
+    "prededup_rows": 33012,
+    "unique_scenarios": 32858,
+    "deterministic_leakage_cases": 64
+  },
+  "runtime_constraints": {
+    "arbitrary_paths": false,
+    "browser": false,
+    "external_models": false,
+    "full_grid_execution": false,
+    "network": false,
+    "output": "stdout_canonical_jsonl_only",
+    "persistent_result_store": false,
+    "subprocess": false
+  },
+  "interpretation_boundary": {
+    "approval_authority": "none",
+    "current_execution_scope": "candidate_conformance_only",
+    "may_claim_construct_validity": false,
+    "may_claim_pilot_readiness": false,
+    "may_claim_product_effectiveness": false,
+    "phase_advancement": "none"
+  },
+  "record_hash": "0d87d2018d10e271856d832e999aa92488adfefb3afa9e88712641d7497ad9a3"
+}

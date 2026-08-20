@@ -1,0 +1,14 @@
+{
+  "name": "@contentmd/writer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "vitest run", "build": "tsc -b" },
+  "dependencies": {
+    "@contentmd/core": "workspace:*",
+    "@contentmd/evaluation": "workspace:*",
+    "@contentmd/model-provider-sdk": "workspace:*",
+    "@contentmd/research": "workspace:*"
+  }
+}

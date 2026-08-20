@@ -1,0 +1,388 @@
+{
+  "manifest_id": "MANIFEST-SIBF-CHK-001-DESIGN-0.1-OPEN-DRAFT",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "project_status": "research_draft",
+  "execution_status": "non_executable",
+  "canonical": false,
+  "signed": false,
+  "signature": null,
+  "manifest_hash": null,
+  "license_status": "unresolved",
+  "review_status": "unreviewed",
+  "holdout_status": "not_created",
+  "calibration_status": "not_run",
+  "b1_ready": false,
+  "actual_run_status": "not_run",
+  "actual_result": null,
+  "root_policy": "All listed paths are relative to this draft root. No path is executable and no external target is enrolled.",
+  "source_class_targets": [
+    {
+      "source_class": "react_visible_children",
+      "candidates": 10,
+      "user_facing_occurrences": 8,
+      "exclusions": 2
+    },
+    {
+      "source_class": "standard_copy_and_accessibility_attributes",
+      "candidates": 8,
+      "user_facing_occurrences": 6,
+      "exclusions": 2
+    },
+    {
+      "source_class": "custom_wrapper_call_sites",
+      "candidates": 10,
+      "user_facing_occurrences": 8,
+      "exclusions": 2
+    },
+    {
+      "source_class": "icu_locale_catalogs",
+      "candidates": 20,
+      "user_facing_occurrences": 18,
+      "exclusions": 2
+    },
+    {
+      "source_class": "email_and_sms_templates",
+      "candidates": 8,
+      "user_facing_occurrences": 6,
+      "exclusions": 2
+    },
+    {
+      "source_class": "api_problem_details",
+      "candidates": 5,
+      "user_facing_occurrences": 3,
+      "exclusions": 2
+    },
+    {
+      "source_class": "cms_export",
+      "candidates": 6,
+      "user_facing_occurrences": 4,
+      "exclusions": 2
+    },
+    {
+      "source_class": "design_node_export",
+      "candidates": 6,
+      "user_facing_occurrences": 4,
+      "exclusions": 2
+    },
+    {
+      "source_class": "computed_runtime_only_map",
+      "candidates": 5,
+      "user_facing_occurrences": 4,
+      "exclusions": 1
+    },
+    {
+      "source_class": "tests_stories_internal_docs_logs_dead_branches",
+      "candidates": 12,
+      "user_facing_occurrences": 0,
+      "exclusions": 12
+    }
+  ],
+  "files": [
+    {
+      "path": "README.md",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "status.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "manifest.draft.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "provenance/authorship-origin.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "provenance/synthetic-data-register.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "provenance/third-party-exclusion-register.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "provenance/rights-and-permissions-open.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/README.md",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/run-boundary.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/fixture-clock-and-seed.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/behavior-and-unknowns.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/01-react-visible-children.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/02-standard-copy-and-accessibility-attributes.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/03-custom-wrapper-call-sites.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/04-icu-locale-catalogs.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/05-email-and-sms-templates.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/06-api-problem-details.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/07-cms-export.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/08-design-node-export.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/09-computed-runtime-only-map.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "operator-design-open/source-artifacts/10-tests-stories-internal-docs-logs-dead-branches.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/README.md",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/denominator-ledger.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/provisional-occurrence-annotations.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/expression-message-links.jsonl",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/conflicts-and-unknowns.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/accessibility-defects.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/critical-probes.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/security-probes.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/mutation-probes.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "path": "evaluator-open-development/expression-denominator-falsification-and-remap.json",
+      "content_hash": null,
+      "signature": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "current_open_development_denominators": {
+    "candidates": 90,
+    "user_facing_occurrences": 61,
+    "static_occurrences": 57,
+    "runtime_only_unresolvable_static_occurrences": 4,
+    "exclusions": 29,
+    "normalized_expression_slots": 56,
+    "normalized_expression_versions": 56,
+    "semantic_messages": 22,
+    "behavior_facts": 10,
+    "unknowns": 5,
+    "conflicts": 6,
+    "accessibility_defects": 6,
+    "critical_probes": 8,
+    "security_probes": 10,
+    "mutation_probes": 12,
+    "denominator_status": "open_development_pressure_test_not_frozen"
+  },
+  "resource_limit_simulation": {
+    "declaration_id": "LIMIT-SIM-OPEN-001",
+    "candidate_ref": "CAND-INT-007",
+    "data_only": true,
+    "actual_payload_present": false,
+    "byte_limit": 1048576,
+    "declared_simulated_bytes": 1048577,
+    "depth_limit": 32,
+    "declared_simulated_depth": 33,
+    "time_limit_ms": 1000,
+    "expected_disposition": "reject_before_parse_and_report_partial_coverage",
+    "actual_result": null,
+    "run_status": "not_run"
+  },
+  "versioning_note": {
+    "design_0_1_status": "iterative_open_development_never_frozen",
+    "historical_expression_target": 34,
+    "historical_target_status": "rejected",
+    "official_design_0_2_status": "created_proposed_not_approved_not_for_use"
+  },
+  "historical_design_target_denominators": {
+    "candidates": 90,
+    "user_facing_occurrences": 61,
+    "static_occurrences": 57,
+    "runtime_only_unresolvable_static_occurrences": 4,
+    "exclusions": 29,
+    "semantic_messages": 22,
+    "behavior_facts": 10,
+    "unknowns": 5,
+    "conflicts": 6,
+    "accessibility_defects": 6,
+    "critical_probes": 8,
+    "security_probes": 10,
+    "mutation_probes": 12,
+    "expression_target_status": "rejected_falsified_by_open_development_materialization",
+    "expression_target_finding_ref": "evaluator-open-development/expression-denominator-falsification-and-remap.json",
+    "historical_expression_target": 34
+  },
+  "private_holdout_eligibility": "never"
+}
