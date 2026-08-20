@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/workflow-records/0.1.0",
+  "title": "content.md workflow records",
+  "oneOf": [
+    { "$ref": "#/$defs/findingRecord" },
+    { "$ref": "#/$defs/proposalRecord" },
+    { "$ref": "#/$defs/contentDecisionRecord" },
+    { "$ref": "#/$defs/learningCandidateRecord" }
+  ],
+  "$defs": {
+    "findingRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.finding-record" },
+            "payload": {
+              "oneOf": [
+                { "$ref": "#/$defs/hardFindingPayload" },
+                { "$ref": "#/$defs/advisoryFindingPayload" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "hardFindingPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "severity",
+        "classification",
+        "hard_outcome",
+        "occurrence_refs",
+        "evidence_refs",
+        "rationale",
+        "uncertainty",
+        "next_action",
+        "automatic_rewrite_allowed"
+      ],
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["critical", "high", "medium", "low"] },
+        "classification": { "const": "hard" },
+        "hard_outcome": {
+          "enum": ["truthfulness", "non_deception", "material_comprehension", "valid_consent", "accessibility", "autonomy", "safety"]
+        },
+        "occurrence_refs": { "$ref": "#/$defs/refs" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "rationale": { "type": "string", "minLength": 1 },
+        "uncertainty": { "type": "string", "minLength": 1 },
+        "next_action": { "type": "string", "minLength": 1 },
+        "automatic_rewrite_allowed": { "type": "boolean" }
+      }
+    },
+    "advisoryFindingPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "severity",
+        "classification",
+        "advisory_dimension",
+        "occurrence_refs",
+        "evidence_refs",
+        "rationale",
+        "uncertainty",
+        "next_action",
+        "automatic_rewrite_allowed"
+      ],
+      "properties": {
+        "rule_id": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["critical", "high", "medium", "low"] },
+        "classification": { "const": "advisory" },
+        "advisory_dimension": {
+          "enum": ["relevance", "clarity", "usefulness", "concision", "coherence", "voice", "situational_tone", "distinctiveness", "trust", "scannability", "actionability", "localization_readiness", "category_fit"]
+        },
+        "occurrence_refs": { "$ref": "#/$defs/refs" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "rationale": { "type": "string", "minLength": 1 },
+        "uncertainty": { "type": "string", "minLength": 1 },
+        "next_action": { "type": "string", "minLength": 1 },
+        "automatic_rewrite_allowed": { "type": "boolean" }
+      }
+    },
+    "proposalRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.proposal-record" },
+            "payload": { "$ref": "#/$defs/proposalPayload" }
+          }
+        }
+      ]
+    },
+    "proposalPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_packet_ref", "operation", "alternatives", "evidence_refs", "pattern_refs", "tradeoffs"],
+      "properties": {
+        "task_packet_ref": { "type": "string", "minLength": 1 },
+        "operation": { "enum": ["strategy", "draft", "rewrite"] },
+        "alternatives": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "pattern_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "tradeoffs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "contentDecisionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.content-decision-record" },
+            "payload": { "$ref": "#/$defs/contentDecisionPayload" }
+          }
+        }
+      ]
+    },
+    "contentDecisionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proposal_ref", "status", "actor_role", "rationale", "selected_expression", "evidence_reviewed", "decided_at"],
+      "properties": {
+        "proposal_ref": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["accepted", "edited", "rejected", "abstained"] },
+        "actor_role": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "selected_expression": { "type": ["string", "null"] },
+        "evidence_reviewed": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "decided_at": { "type": "string", "minLength": 1 }
+      }
+    },
+    "learningCandidateRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.learning-candidate-record" },
+            "payload": { "$ref": "#/$defs/learningCandidatePayload" }
+          }
+        }
+      ]
+    },
+    "learningCandidatePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hypothesis",
+        "expected_benefit",
+        "supporting_decision_refs",
+        "contradicting_decision_refs",
+        "data_scope",
+        "data_permission_status",
+        "evaluation_plan",
+        "rollback_plan",
+        "promotion_status"
+      ],
+      "properties": {
+        "hypothesis": { "type": "string", "minLength": 1 },
+        "expected_benefit": { "type": "string", "minLength": 1 },
+        "supporting_decision_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "contradicting_decision_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "data_scope": { "enum": ["task", "personal", "project", "organization", "public"] },
+        "data_permission_status": { "enum": ["authorized", "not_authorized", "review_required"] },
+        "evaluation_plan": { "type": "string", "minLength": 1 },
+        "rollback_plan": { "type": "string", "minLength": 1 },
+        "promotion_status": { "enum": ["not_requested", "under_review", "promoted", "rejected", "rolled_back"] }
+      }
+    },
+    "refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

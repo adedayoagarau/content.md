@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/base-record/0.1.0",
+  "title": "content.md durable record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_id",
+    "schema_id",
+    "schema_version",
+    "record_version",
+    "content_digest",
+    "scope",
+    "provenance",
+    "lifecycle_state",
+    "payload"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+    },
+    "schema_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "const": "0.1.0" },
+    "record_version": { "type": "integer", "minimum": 1 },
+    "content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "scope": { "$ref": "#/$defs/recordScope" },
+    "provenance": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/provenanceRef" }
+    },
+    "lifecycle_state": {
+      "enum": ["proposed", "approved", "active", "superseded", "retired", "rejected"]
+    },
+    "payload": { "type": "object" }
+  },
+  "$defs": {
+    "recordScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["memory_scope", "project_id", "resource_refs", "data_classes"],
+      "properties": {
+        "memory_scope": {
+          "enum": ["task", "personal", "project", "organization", "public"]
+        },
+        "project_id": { "type": ["string", "null"] },
+        "resource_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "data_classes": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "provenanceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "relationship", "content_digest"],
+      "properties": {
+        "record_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        },
+        "relationship": { "type": "string", "minLength": 1 },
+        "content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}

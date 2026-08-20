@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/governance-records/0.1.0",
+  "title": "content.md governance records",
+  "oneOf": [
+    { "$ref": "#/$defs/policyDecisionRecord" },
+    { "$ref": "#/$defs/approvalRecord" },
+    { "$ref": "#/$defs/changeTransactionRecord" },
+    { "$ref": "#/$defs/verificationReceiptRecord" },
+    { "$ref": "#/$defs/auditEventRecord" }
+  ],
+  "$defs": {
+    "policyDecisionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.policy-decision-record" },
+            "payload": { "$ref": "#/$defs/policyDecisionPayload" }
+          }
+        }
+      ]
+    },
+    "policyDecisionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation_id", "disposition", "reason_codes", "conditions", "policy_refs", "decided_at"],
+      "properties": {
+        "operation_id": { "type": "string", "minLength": 1 },
+        "disposition": { "enum": ["allow", "deny", "review"] },
+        "reason_codes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "conditions": { "type": "array", "items": { "type": "string" } },
+        "policy_refs": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+        "decided_at": { "type": "string", "minLength": 1 }
+      }
+    },
+    "approvalRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.approval-record" },
+            "payload": { "$ref": "#/$defs/approvalPayload" }
+          }
+        }
+      ]
+    },
+    "approvalPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approval_class", "subject_ref", "subject_digest", "scope", "status", "issued_at", "expires_at", "revocation_state"],
+      "properties": {
+        "approval_class": { "enum": ["semantic_decision", "mutation", "release", "learning_promotion"] },
+        "subject_ref": { "type": "string", "minLength": 1 },
+        "subject_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "scope": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true },
+        "status": { "enum": ["issued", "revoked", "expired", "superseded"] },
+        "issued_at": { "type": "string", "minLength": 1 },
+        "expires_at": { "type": ["string", "null"] },
+        "revocation_state": { "enum": ["current", "revoked", "unknown"] }
+      }
+    },
+    "changeTransactionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.change-transaction-record" },
+            "payload": { "$ref": "#/$defs/changeTransactionPayload" }
+          }
+        }
+      ]
+    },
+    "changeTransactionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proposal_ref", "decision_ref", "approval_ref", "target_path", "before_digest", "after_digest", "unified_diff", "rollback_bytes_digest"],
+      "properties": {
+        "proposal_ref": { "type": "string", "minLength": 1 },
+        "decision_ref": { "type": "string", "minLength": 1 },
+        "approval_ref": { "type": "string", "minLength": 1 },
+        "target_path": { "type": "string", "minLength": 1 },
+        "before_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "after_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "unified_diff": { "type": "string", "minLength": 1 },
+        "rollback_bytes_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "verificationReceiptRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.verification-receipt-record" },
+            "payload": { "$ref": "#/$defs/verificationReceiptPayload" }
+          }
+        }
+      ]
+    },
+    "verificationReceiptPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transaction_ref", "target_path", "expected_digest", "observed_digest", "status", "verified_at", "method"],
+      "properties": {
+        "transaction_ref": { "type": "string", "minLength": 1 },
+        "target_path": { "type": "string", "minLength": 1 },
+        "expected_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "observed_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "status": { "enum": ["passed", "failed", "incomplete"] },
+        "verified_at": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 }
+      }
+    },
+    "auditEventRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.audit-event-record" },
+            "payload": { "$ref": "#/$defs/auditEventPayload" }
+          }
+        }
+      ]
+    },
+    "auditEventPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation_id", "action", "disposition", "actor_ref", "policy_decision_ref", "target_refs", "occurred_at", "details_digest"],
+      "properties": {
+        "operation_id": { "type": "string", "minLength": 1 },
+        "action": { "type": "string", "minLength": 1 },
+        "disposition": { "enum": ["allowed", "denied", "review_required", "completed", "failed"] },
+        "actor_ref": { "type": "string", "minLength": 1 },
+        "policy_decision_ref": { "type": "string", "minLength": 1 },
+        "target_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "occurred_at": { "type": "string", "minLength": 1 },
+        "details_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}
