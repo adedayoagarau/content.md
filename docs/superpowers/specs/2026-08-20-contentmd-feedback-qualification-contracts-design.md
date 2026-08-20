@@ -347,8 +347,7 @@ interface PairwiseReviewPayload {
   rubric_ref: ArtifactRef;
   outcome: "A" | "B" | "tie" | "abstain";
   rationale_codes: [string, ...string[]];
-  conflict_state: "none" | "declared" | "adjudicated" | "unresolved";
-  adjudication_ref: DigestRef | null;
+  conflict_state: "none" | "declared" | "unresolved";
   observed_fact_set_ref: DigestRef;
   observed_policy_ref: DigestRef;
   observed_task_ref: DigestRef;
@@ -421,7 +420,7 @@ Candidate expressions are nonempty and `expression_digest = sha256(UTF8(expressi
 
 `StableSetPayload.set_digest = sha256Canonical({ contract_version: "contentmd.task2-stable-set/0.1.0", item_refs })`. `ReviewerSetPayload.set_digest = sha256Canonical({ contract_version: "contentmd.task2-reviewer-set/0.1.0", entries })`. Both input arrays are unique and sorted before recomputation.
 
-The reviewer-set snapshot contains participants only, never merely eligible nonparticipants. With no adjudication, the pairwise review's reviewer refs must equal both the reviewer-set entry refs and the blinding-proof reviewer refs. With valid adjudication, the union of pairwise-review reviewer refs and the one adjudicator ref must equal both the reviewer-set entry refs and the blinding-proof reviewer refs. Thus an adjudicator whose disposition becomes the effective outcome must be covered by the same passing presentation-blinding proof. None may occur in either candidate's author refs. Every entry must carry nonempty independence evidence and `independent_of_candidate_authorship: true` before it counts toward policy minima. Eligibility counts this exact participant set.
+The pairwise-review snapshot is the immutable pre-adjudication review. It never contains an adjudication ref or the state `adjudicated`; this makes the evidence graph acyclic. A later adjudication snapshot points one way to that already-finalized review through `AdjudicationPayload.review_ref`. The reviewer-set snapshot contains participants only, never merely eligible nonparticipants. With no adjudication, the pairwise review's reviewer refs must equal both the reviewer-set entry refs and the blinding-proof reviewer refs. With valid adjudication, the union of pairwise-review reviewer refs and the one adjudicator ref must equal both the reviewer-set entry refs and the blinding-proof reviewer refs. Thus an adjudicator whose disposition becomes the effective outcome must be covered by the same passing presentation-blinding proof. None may occur in either candidate's author refs. Every entry must carry nonempty independence evidence and `independent_of_candidate_authorship: true` before it counts toward policy minima. Eligibility counts this exact participant set.
 
 The randomization assignment digest is recomputed as `sha256Canonical({ contract_version: "contentmd.task2-presentation-assignment/0.1.0", task_ref, context_ref, candidate_a_ref, candidate_b_ref, canonical_order, presented_order, seed_commitment_digest })`. `blinded` is derived true only from a passing proof with the exact three hidden fields and matching reviewers; `randomized` is derived true only from a passing proof with a matching assignment digest.
 
@@ -442,19 +441,19 @@ State precedence is `invalid` over `abstained` over `not_qualified` over `qualif
 | review-policy ref or digest changed | `invalid` | `policy_changed` |
 | requirements digest changed | `invalid` | `requirements_changed` |
 | task or context changed | `invalid` | `context_changed` |
-| conflict is `unresolved`, or adjudication is inconsistent/invalid | `invalid` | `conflict_unresolved` or `adjudication_invalid` |
+| review conflict is `unresolved`, or a supplied adjudication is inconsistent/invalid | `invalid` | `conflict_unresolved` or `adjudication_invalid` |
 | review outcome is `abstain` and no invalid condition exists | `abstained` | `reviewer_abstained` |
 | review outcome is `tie` | `not_qualified` | `non_decisive_tie` |
 | blinding or randomization proof fails | `not_qualified` | `blinding_required` or `randomization_required` |
 | rubric is not current or mismatches objective/kind | `not_qualified` | `rubric_not_current_or_mismatched` |
 | reviewer set is expired, revoked, unknown, conflicted, or unqualified | `not_qualified` | `reviewer_set_not_qualified` |
 | either lineage is not fully eligible | `not_qualified` | `candidate_lineage_not_learning_eligible` |
-| conflict is merely `declared` without a complete adjudication | `not_qualified` | `conflict_requires_adjudication` |
+| review conflict is `declared` without a complete valid adjudication | `not_qualified` | `conflict_requires_adjudication` |
 | fact-set state is not `current` | `not_qualified` | `fact_set_not_current` |
 | review-policy state is not `current` | `not_qualified` | `review_policy_not_current` |
 | every required condition passes and outcome is A or B | `qualified` | `qualified_decisive_review` |
 
-Conflict handling is total. `none` requires a null adjudication and uses the review outcome. `declared` requires a null adjudication and cannot qualify. `unresolved` requires a null adjudication and is invalid. `adjudicated` requires a non-null snapshot whose review ref matches, status is `complete`, adjudicator is a current independent reviewer-set entry with role `adjudicator`, and disposition is A, B, or tie. Its disposition becomes the effective outcome. A missing, extra, mismatched, invalid, revoked, or `unresolved` adjudication is invalid. The output retains the review's conflict state and stores the effective outcome.
+Conflict handling is total and acyclic. A review state of `none` requires a null adjudication, produces output conflict state `none`, and uses the review outcome. A review state of `declared` with a null adjudication produces output conflict state `declared` and cannot qualify. A review state of `declared` with a non-null adjudication whose `review_ref` matches the already-finalized pairwise-review snapshot, whose status is `complete`, whose adjudicator is a current independent reviewer-set entry with role `adjudicator`, and whose disposition is A, B, or tie produces output conflict state `adjudicated`; that disposition becomes the effective outcome. A review state of `unresolved` requires a null adjudication and is invalid. An adjudication supplied for `none` or `unresolved`, or a missing, mismatched, invalid, revoked, or `unresolved` adjudication for the adjudication path, is invalid. The pairwise-review snapshot never points back to the adjudication snapshot, so the two snapshot digests have a finite construction order: finalize review, then finalize adjudication.
 
 For an effective A or B outcome, the durable decision must be `accepted` or `edited`, and its selected expression must exactly equal the selected candidate expression. An accepted decision requires `comparison_kind: explicit_pairwise` and null original-proposal side. An edited decision requires `comparison_kind: accepted_edit_vs_original`; its selected candidate is the accepted edit, `original_proposal_side` names the other candidate, and that other candidate expression must exactly equal one entry in the verified proposal's alternatives. A tie requires a `rejected` decision with no selected expression. An abstention requires an `abstained` decision with no selected expression. Other status/outcome combinations are `invalid` with `decision_outcome_mismatch`; a malformed edited comparison is invalid with `edited_comparison_invalid`.
 
@@ -472,8 +471,9 @@ The payload mapping is exact:
 | `candidate_a_ref` / `candidate_b_ref` | canonical A and B snapshot refs |
 | `presentation_ref` | presentation snapshot ref |
 | `blinded` / `randomized` | actual derived presentation/proof results; qualified records require both true |
-| `outcome` / `conflict_state` | pairwise-review values, after adjudication consistency checks |
-| `adjudication_ref` | adjudication snapshot ref only for an adjudicated conflict; otherwise null |
+| `outcome` | effective outcome: pairwise-review outcome without adjudication, otherwise the valid adjudication disposition |
+| `conflict_state` | derived `none`, `declared`, `unresolved`, or `adjudicated` state from the total transition above |
+| `adjudication_ref` | adjudication snapshot ref only when the derived conflict state is `adjudicated`; otherwise null |
 | drift flags, state, reason codes | deterministic derivation in this section |
 
 The closed qualification reason-code vocabulary is:
