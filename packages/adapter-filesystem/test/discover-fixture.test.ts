@@ -3,10 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import {
-  AdapterCapabilityError,
-  FilesystemContentAdapter,
-} from "@contentmd/adapter-filesystem";
+import { FilesystemContentAdapter } from "@contentmd/adapter-filesystem";
 
 const fixtureRoot = fileURLToPath(
   new URL("../../../fixtures/synthetic-web-app/", import.meta.url),
@@ -89,13 +86,15 @@ describe("FilesystemContentAdapter discovery", () => {
     expect(allText).not.toContain("IGNORED BUILD TEXT");
   });
 
-  it("keeps mutation methods unsupported until the governed change task", async () => {
+  it("advertises only the implemented governed capabilities", () => {
     const adapter = new FilesystemContentAdapter();
 
-    await expect(
-      adapter.apply({ operation_id: "operation.fixture.unsupported", transaction_ref: "none" }),
-    ).rejects.toEqual(
-      new AdapterCapabilityError("unsupported_capability", "filesystem.apply"),
-    );
+    expect(adapter.descriptor.capabilities).toEqual([
+      "discover",
+      "preview",
+      "apply",
+      "verify",
+      "rollback",
+    ]);
   });
 });

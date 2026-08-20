@@ -15,6 +15,7 @@ export function createGovernanceAuditEvent(input: {
 }): GovernanceAuditEvent {
   const detailsDigest = sha256Canonical({
     operation_id: input.request.operation_id,
+    subject_digest: input.request.subject_digest ?? null,
     disposition: input.disposition,
     reason_codes: [...input.reason_codes],
     policy_refs: [...input.policy_refs],

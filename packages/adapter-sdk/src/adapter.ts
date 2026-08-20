@@ -113,11 +113,20 @@ export class AdapterCapabilityError extends Error {
   }
 }
 
-export interface ContentAdapter {
+export interface ContentAdapter<
+  TPreviewRequest = ChangePreviewRequest,
+  TPreview = ChangePreview,
+  TApplyRequest = ApprovedChangeRequest,
+  TApplyReceipt = ApplyReceipt,
+  TVerificationRequest = VerificationRequest,
+  TVerificationReceipt = VerificationReceipt,
+  TRollbackRequest = RollbackRequest,
+  TRollbackReceipt = RollbackReceipt,
+> {
   descriptor: AdapterDescriptor;
   discover(request: DiscoverRequest): Promise<DiscoverResult>;
-  preview(request: ChangePreviewRequest): Promise<ChangePreview>;
-  apply(request: ApprovedChangeRequest): Promise<ApplyReceipt>;
-  verify(request: VerificationRequest): Promise<VerificationReceipt>;
-  rollback(request: RollbackRequest): Promise<RollbackReceipt>;
+  preview(request: TPreviewRequest): Promise<TPreview>;
+  apply(request: TApplyRequest): Promise<TApplyReceipt>;
+  verify(request: TVerificationRequest): Promise<TVerificationReceipt>;
+  rollback(request: TRollbackRequest): Promise<TRollbackReceipt>;
 }

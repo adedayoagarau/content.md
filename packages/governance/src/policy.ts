@@ -70,6 +70,7 @@ export interface OperationRequest {
   requested_limits: ResourceLimits;
   approval_class: ApprovalClass | null;
   requires_readback: boolean;
+  subject_digest?: string;
 }
 
 export interface CapabilityGrant {
@@ -91,6 +92,7 @@ export interface OperationApproval {
   approval_id: string;
   approval_class: ApprovalClass;
   subject_ref: string;
+  subject_digest?: string;
   status: "issued" | "revoked" | "expired" | "superseded";
   issued_at: string;
   expires_at: string | null;

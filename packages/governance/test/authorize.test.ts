@@ -216,6 +216,7 @@ describe("authorizeOperation", () => {
         approval_id: "approval.fixture.write.001",
         approval_class: "mutation",
         subject_ref: "operation.fixture.write.001",
+        subject_digest: "a".repeat(64),
         status: "revoked",
         issued_at: "2026-08-20T15:30:00.000Z",
         expires_at: "2026-08-20T17:00:00.000Z",
@@ -227,6 +228,40 @@ describe("authorizeOperation", () => {
 
     expect(decision.disposition).toBe("deny");
     expect(decision.reason_codes).toContain("approval_revoked");
+  });
+
+  it("binds mutation approval to the exact operation subject digest", () => {
+    const writeInput = input({
+      request: {
+        ...input().request,
+        operation_id: "operation.fixture.write.digest",
+        intent: "apply",
+        action: "filesystem.write",
+        approval_class: "mutation",
+        requires_readback: true,
+        subject_digest: "a".repeat(64),
+      },
+      capability_grant: {
+        ...input().capability_grant!,
+        action: "filesystem.write",
+      },
+      verification_plan_ref: "verification-plan.fixture.write.digest",
+      approval: {
+        approval_id: "approval.fixture.write.digest",
+        approval_class: "mutation",
+        subject_ref: "operation.fixture.write.digest",
+        subject_digest: "b".repeat(64),
+        status: "issued",
+        issued_at: "2026-08-20T15:30:00.000Z",
+        expires_at: "2026-08-20T17:00:00.000Z",
+        revocation_state: "current",
+      },
+    });
+
+    const decision = authorizeOperation(writeInput);
+
+    expect(decision.disposition).toBe("deny");
+    expect(decision.reason_codes).toContain("approval_subject_digest_mismatch");
   });
 
   it("does not let reliability change an authorization result", () => {

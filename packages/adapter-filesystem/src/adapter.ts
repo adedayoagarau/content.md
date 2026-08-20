@@ -1,48 +1,52 @@
 import {
-  AdapterCapabilityError,
   type AdapterDescriptor,
-  type ApplyReceipt,
-  type ApprovedChangeRequest,
-  type ChangePreview,
-  type ChangePreviewRequest,
   type ContentAdapter,
   type DiscoverRequest,
   type DiscoverResult,
-  type RollbackReceipt,
-  type RollbackRequest,
-  type VerificationReceipt,
-  type VerificationRequest,
 } from "@contentmd/adapter-sdk";
+import { applyFilesystemChange, type FilesystemApplyReceipt, type FilesystemApplyRequest } from "./apply.js";
 import { discoverFilesystemContent } from "./discover.js";
+import { previewFilesystemChange, type FilesystemChangePreviewRequest, type PreparedChangeTransaction } from "./preview.js";
+import { rollbackFilesystemChange, type FilesystemRollbackReceipt, type FilesystemRollbackRequest } from "./rollback.js";
+import { verifyFilesystemChange, type FilesystemVerificationReceipt, type FilesystemVerificationRequest } from "./verify.js";
 
 const descriptor: AdapterDescriptor = {
   adapter_id: "adapter.filesystem",
   adapter_version: "0.1.0",
   display_name: "Local filesystem content adapter",
-  capabilities: ["discover"],
+  capabilities: ["discover", "preview", "apply", "verify", "rollback"],
   authority_effect: "none",
 };
 
-export class FilesystemContentAdapter implements ContentAdapter {
+export class FilesystemContentAdapter implements ContentAdapter<
+  FilesystemChangePreviewRequest,
+  PreparedChangeTransaction,
+  FilesystemApplyRequest,
+  FilesystemApplyReceipt,
+  FilesystemVerificationRequest,
+  FilesystemVerificationReceipt,
+  FilesystemRollbackRequest,
+  FilesystemRollbackReceipt
+> {
   readonly descriptor = descriptor;
 
   async discover(request: DiscoverRequest): Promise<DiscoverResult> {
     return discoverFilesystemContent(request);
   }
 
-  async preview(_request: ChangePreviewRequest): Promise<ChangePreview> {
-    throw new AdapterCapabilityError("unsupported_capability", "filesystem.preview");
+  async preview(request: FilesystemChangePreviewRequest): Promise<PreparedChangeTransaction> {
+    return previewFilesystemChange(request);
   }
 
-  async apply(_request: ApprovedChangeRequest): Promise<ApplyReceipt> {
-    throw new AdapterCapabilityError("unsupported_capability", "filesystem.apply");
+  async apply(request: FilesystemApplyRequest): Promise<FilesystemApplyReceipt> {
+    return applyFilesystemChange(request);
   }
 
-  async verify(_request: VerificationRequest): Promise<VerificationReceipt> {
-    throw new AdapterCapabilityError("unsupported_capability", "filesystem.verify");
+  async verify(request: FilesystemVerificationRequest): Promise<FilesystemVerificationReceipt> {
+    return verifyFilesystemChange(request);
   }
 
-  async rollback(_request: RollbackRequest): Promise<RollbackReceipt> {
-    throw new AdapterCapabilityError("unsupported_capability", "filesystem.rollback");
+  async rollback(request: FilesystemRollbackRequest): Promise<FilesystemRollbackReceipt> {
+    return rollbackFilesystemChange(request);
   }
 }

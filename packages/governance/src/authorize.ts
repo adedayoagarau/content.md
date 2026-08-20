@@ -67,6 +67,12 @@ function validateApproval(
   const reasons: string[] = [];
   if (approval.approval_class !== requiredClass) reasons.push("approval_class_mismatch");
   if (approval.subject_ref !== input.request.operation_id) reasons.push("approval_subject_mismatch");
+  if (
+    input.request.subject_digest !== undefined &&
+    approval.subject_digest !== input.request.subject_digest
+  ) {
+    reasons.push("approval_subject_digest_mismatch");
+  }
   if (approval.status === "revoked" || approval.revocation_state === "revoked") {
     reasons.push("approval_revoked");
   } else if (approval.status !== "issued") {
