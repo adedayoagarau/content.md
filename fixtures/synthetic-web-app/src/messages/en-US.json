@@ -1,0 +1,12 @@
+{
+  "checkout": {
+    "cartTitle": "Your cart",
+    "bagSummary": "2 items in your bag",
+    "basketLink": "Return to basket",
+    "deleteWorkspace": "Delete workspace"
+  },
+  "payment": {
+    "unknownOutcome": "Payment failed. Try again.",
+    "statusAction": "Check payment status"
+  }
+}

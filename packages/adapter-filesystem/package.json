@@ -9,6 +9,7 @@
     "@contentmd/adapter-sdk": "workspace:*",
     "@contentmd/core": "workspace:*",
     "@contentmd/governance": "workspace:*",
-    "fast-glob": "3.3.3"
+    "fast-glob": "3.3.3",
+    "typescript-compiler": "npm:typescript@5.9.3"
   }
 }
