@@ -5,12 +5,13 @@ created: 2026-08-20
 updated: 2026-08-20
 approved: 2026-08-20
 approval_basis: explicit-user-approval-in-task
-design_id: CONTENTMD-UNIVERSAL-AGENT-DESIGN-0.1
+design_id: CONTENTMD-UNIVERSAL-AGENT-DESIGN-0.2
+supersedes_design_id: CONTENTMD-UNIVERSAL-AGENT-DESIGN-0.1
 product_name: content.md
 repository_contract_name: CONTENT.md
 cli_name: contentmd
-architecture_class: portable-local-first-with-optional-durable-runtime
-implementation_status: not-started
+architecture_class: portable-local-first-with-adaptive-host-runtime
+implementation_status: foundation-retained-live-intelligence-and-learning-not-started
 authority_effect: implementation-planning-only
 ---
 
@@ -80,7 +81,7 @@ It may detect observable qualities associated with weak or generic machine-gener
 
 ## 5. Product shape
 
-The implementation is a TypeScript monorepo with an open repository contract, local CLI, adapter SDK, optional workbench, and optional Cloudflare runtime.
+The implementation is a TypeScript monorepo with an open repository contract, local CLI, adapter SDK, optional workbench, and host-adaptive runtime profiles. It fits the runtime a project already uses when a conforming adapter exists; otherwise it remains fully usable through the local runtime.
 
 ```text
 packages/
@@ -100,7 +101,9 @@ packages/
   adapter-web/          # public browser research
   adapter-mcp/          # MCP server/client surfaces
   adapter-hosts/        # AGENTS/Claude/Codex/Gemini/Copilot bridges
-  cloudflare-runtime/   # optional Agents SDK and Workflows deployment
+  runtime-sdk/          # portable durability, jobs, approval pause, progress, export interfaces
+  runtime-local/        # default local Node and SQLite runtime
+  runtime-cloudflare/   # optional Agents SDK and Workflows adapter
   workbench/            # optional local/hosted review interface
 tools/
   voice-tone-simulator/ # existing bounded statistical subsystem
@@ -382,13 +385,23 @@ The repository never needs to commit raw private memory, credentials, transient 
 
 The optional hosted runtime synchronizes immutable events and approved projections, not an opaque model memory blob. Conflicts are resolved through versioned records, not last-write-wins replacement of decisions.
 
-## 15. Cloudflare Agents SDK adapter
+## 15. Host-adaptive runtime boundary
 
-Cloudflare is an optional deployment profile, not a core dependency.
+`content.md` does not require a project to adopt a new application runtime. Read-only detection may identify the project's existing execution environment, state store, job system, real-time channel, deployment platform, and package constraints. Detection produces evidence and an integration proposal; it never installs dependencies, creates infrastructure, deploys, or migrates state.
+
+Every runtime profile implements the same portable contracts for event persistence, jobs, scheduling, approval pauses, progress, synchronization, export, health, and cleanup. A profile declares unsupported capabilities explicitly, and core workflows fail closed or use a declared local fallback rather than simulating durability. The local Node and SQLite profile is always available and remains the reference implementation.
+
+Runtime bindings declare exact consistency, transaction, idempotency, identity, authentication, secret, retry, retention, telemetry, replica, export, and cleanup semantics. Durable project memory is canonical-first: bytes produced in a hosted profile remain an ephemeral uncommitted preview until an adopter-controlled canonical replica stores and acknowledges the event plus its complete referenced-artifact closure. Only then may the hosted profile persist a replaceable durable replica. Synchronization uses idempotent content-addressed events, ordered checkpoints, receipts, fork detection, explicit conflict records, and independent verification; it never relies on last-write-wins for decisions or authority.
+
+Supported projects may embed `content.md` in their existing runtime, run it as a local sidecar, or connect to a separately deployed service. Selection belongs to the adopter and is recorded in a versioned runtime-binding decision. Organization and project policy may forbid an otherwise compatible profile. No runtime adapter may widen model, data, connector, write, publication, or learning authority.
+
+### 15.1 Cloudflare Agents SDK profile
+
+Cloudflare is one optional high-capability deployment profile, not a core dependency or preferred migration target.
 
 The hosted profile uses:
 
-- one durable Agent identity per enrolled workspace or project;
+- one durable Agent instance/shard per enrolled workspace or project, kept separate from authenticated principal and workload identity;
 - Durable Object SQLite for synchronized working state and indexes;
 - callable RPC for typed workbench actions;
 - WebSockets for live progress and review updates;
@@ -397,17 +410,17 @@ The hosted profile uses:
 - React hooks for the workbench client; and
 - MCP clients or a stateless MCP server for tool and host integration.
 
-Long-running or effectful work uses Workflows because steps can retry, persist progress, wait for external events, and pause for approval. The Agent handles identity, conversation, current project state, and client communication.
+Long-running or effectful work uses Workflows because steps can retry, persist progress, wait for external events, and pause for approval. The Agent handles shard routing, bounded conversation state, replicated current-project projections, and client communication; authenticated human and workload identity remain separate inputs to authorization.
 
 New MCP server work uses `createMcpHandler()` rather than the legacy stateful `McpAgent` path. Current upstream contracts are rechecked and pinned during implementation.
 
 No Cloudflare state is the sole copy of a project contract, approval, or learning dataset. Every durable hosted record remains exportable and verifiable locally.
 
-### 15.1 Agents SDK capability disposition
+### 15.2 Agents SDK capability disposition
 
 | Current SDK capability | content.md use |
 | --- | --- |
-| Persistent Agent identity and SQLite state | Adopt for optional hosted workspace state and projections; the exportable event contract remains portable. |
+| Persistent Agent instance and SQLite state | Adopt for optional hosted workspace state and projections; instance names are routing identities, not authentication, and the exportable event contract remains portable. |
 | Callable RPC | Adopt for typed workbench commands after policy and identity checks. |
 | Scheduling | Adopt for freshness, drift, review, evaluation, and approved research reminders. |
 | Workflows | Adopt for durable multi-step research, migration, evaluation, and change operations with explicit approval pauses. |
@@ -561,7 +574,7 @@ The program is divided into independently reviewable subprojects:
 6. **Research:** browser/public-source acquisition, product-pattern records, rights controls, category synthesis, and transfer evaluation.
 7. **Memory and learning:** event memory, retrieval, feedback, learning candidates, evaluation, promotion, monitoring, and rollback.
 8. **Workbench:** local UI, live progress, graph, writing, review, decisions, learning, and adapter control.
-9. **Durable cloud:** Cloudflare Agents SDK, Workflows, sync, scheduling, MCP, identity, and hosted operations.
+9. **Adaptive runtimes:** portable runtime SDK, local reference profile, host detection, conformance, and optional Cloudflare Agents SDK, Workflows, sync, scheduling, MCP, identity, and hosted operations.
 10. **Ecosystem:** Figma, CMS, localization, analytics, support, experiments, domain packs, and external model adapters.
 
 Each subproject receives its own implementation plan and acceptance evidence. No subproject may redefine the shared identities, authority boundaries, or learning lifecycle privately.
@@ -571,7 +584,7 @@ Each subproject receives its own implementation plan and acceptance evidence. No
 This design is ready for implementation planning when the user confirms that:
 
 - `content.md` is an independent, universally adoptable product;
-- the portable TypeScript core is authoritative and Cloudflare is optional;
+- the portable TypeScript core is authoritative, runtime selection adapts to the adopter's codebase, and Cloudflare is optional;
 - the repository artifact is `CONTENT.md` with structured `.contentmd/` data;
 - the system covers research, IA, strategy, writing, critique, governance, application, verification, maintenance, and learning;
 - content governance bootstraps when absent but remains proposed until the project supplies actual authority;
@@ -588,7 +601,7 @@ The following are fixed by this design if approved:
 2. TypeScript portable core and adapter SDK.
 3. Canonical JSON Schema 2020-12 data contracts.
 4. Local-first execution and exportable memory.
-5. Optional Cloudflare Agents SDK and Workflows deployment.
+5. A host-adaptive runtime SDK with a local reference profile and optional Cloudflare Agents SDK and Workflows adapter.
 6. One orchestrator with logical specialist roles before any distributed-agent optimization.
 7. Retrieval-first learning, with preference ranking and fine-tuning gated by evidence.
 8. Policy and authority independent from model reasoning and historical reliability.
@@ -606,7 +619,7 @@ Implementation planning must still verify and pin runtime versions, dependencies
 | Integrate with product and agent instruction files | Adoption discovery and host bridges for `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, `CODEX.md`, Codex, Gemini, and Copilot | Versioned host conformance tests showing the contract is loaded and reminders route relevant work without overwriting existing instructions |
 | Bootstrap governance when none exists | Proposed starter contract, low-risk drafting policy, unresolved owner map, publication prohibition | Empty-repository adoption test proving useful content work can start while unknown authority remains explicit |
 | Remind the user to trigger content.md | One-per-task dismissible `/contentmd` reminder contract | Host tests for relevant, irrelevant, acknowledged, nested, and conflicting instruction cases |
-| Agents SDK integration | Optional runtime and explicit capability-disposition table | Hosted conformance for state, RPC, scheduling, Workflows, approvals, reconnect, MCP, export, and local equivalence |
+| Agents SDK integration without runtime lock-in | Host-adaptive runtime SDK, local reference profile, optional Cloudflare adapter, and explicit capability-disposition table | Detection and no-auto-install tests; local conformance; hosted conformance for state, RPC, scheduling, Workflows, approvals, reconnect, MCP, export, and local equivalence |
 | Agent governance | Independent policy plane and governance-pattern disposition | Negative tests for bypass, denial, approval, expiry, revocation, rate/resource limits, audit, readback, and rollback |
 | Learn good patterns from other products | Research corpus and `ContentPatternRecord` with transfer and rights controls | Multi-product source set, expert pattern review, held-out transfer tasks, similarity/copying checks, and provenance audit |
 | Use learned patterns to write | Context packet, retrieval, writer, critic, alternatives, decision feedback | Blind comparisons against non-pattern and generic baselines with reasons, abstentions, scope, and qualified review |
