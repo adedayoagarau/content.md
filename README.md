@@ -4,18 +4,34 @@ status: active-research
 started: 2026-08-17
 updated: 2026-08-20
 foundation_draft: 0.2
-implementation_status: foundation-workspace-in-progress
+implementation_status: bounded-local-foundation-verified
 ---
 
 # content.md
 
 `content.md` is being investigated as a repository-native content-design system: a durable content contract plus an agent workflow that can understand a product, make governed content decisions, change implementation safely, and keep the product's language coherent over time.
 
-This workspace begins with research. A first foundational desk-research corpus is assembled and under review, but the coverage gate is not closed. No schema, CLI behavior, authority claim, or product promise is canonical until it survives the primary research and benchmark program.
+This workspace began with research and now includes a verified local synthetic foundation. The research and benchmark gates remain open: the implementation proves a bounded workflow, not universal effectiveness, production authority, or a released product.
 
 ## Implementation status
 
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) is approved for implementation planning, and the [foundation vertical-slice plan](docs/superpowers/plans/2026-08-20-contentmd-foundation-vertical-slice.md) is now being executed on `feature/contentmd-foundation`. The repository contains the initial TypeScript workspace and package boundaries. It does not yet contain a functional `contentmd` CLI or retained agent workflow.
+The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and [foundation vertical-slice plan](docs/superpowers/plans/2026-08-20-contentmd-foundation-vertical-slice.md) produced a 13-package TypeScript workspace and a functional local CLI. The [independent verification record](docs/verification/foundation-vertical-slice.md) reports 95 passing tests and 246 passing cross-process checks.
+
+The retained slice can adopt a repository, preserve host instructions, discover web-app content, compile a content graph, ingest rights-bounded patterns, run deterministic review, replay exact recorded strategy/draft/rewrite proposals, record a human decision, preview a source-linked change, deny unauthorized apply, execute one separately approved transaction, verify it, roll it back under separate authority, retain an append-only event chain, and preview uninstall. It is intentionally local and synthetic.
+
+## Run the local foundation
+
+Requirements: Node.js `24.14.x` and `pnpm@11.9.0`.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
+pnpm contentmd init --yes --root /absolute/path/to/project --json
+pnpm contentmd doctor --root /absolute/path/to/project --json
+pnpm contentmd discover --root /absolute/path/to/project --json
+```
+
+The current recorded writing path is a deterministic test fixture, not a live model. Apply and rollback require separate exact authorization records; preview never creates them.
 
 ## Start here
 
@@ -40,7 +56,7 @@ The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-u
 
 ## What is not built yet
 
-This repository does not yet contain the public `CONTENT.md` format, a CLI, a production skill, domain packs, or a claim of universal agent compatibility. Those decisions remain deliberately open until practitioner studies, annotated repositories, adversarial tests, and a hands-on comparison with the closest prior art establish the safe minimum.
+This repository does not yet contain a published installer, production skill, live-provider adapter, browser/desktop research path, hosted runtime, workbench, external product adapters, learned ranking, domain packs, or evidence of universal agent compatibility. The generated `CONTENT.md` contract and CLI are experimental `0.1.0` interfaces. Practitioner studies, qualified review, representative-user testing, Track B, and controlled product benchmarks remain open.
 
 ## Research question
 
@@ -77,7 +93,7 @@ Labels such as law, standard, official guidance, research, practitioner, or vend
 
 ## Current boundary
 
-Research artifacts are working material with an evidence cutoff of 17 August 2026. They are not yet a `CONTENT.md` specification and must not be treated as production-ready content, psychology, behavioral-science, legal, clinical, regulatory, localization, accessibility, security, or safety guidance. In particular, the repository has no executable, connector, credential, or write path; proposed controls have not been implemented or security-tested.
+Research artifacts are working material with their stated evidence cutoffs. They are not production-ready content, psychology, behavioral-science, legal, clinical, regulatory, localization, accessibility, security, or safety guidance. The repository now has a bounded local executable and a synthetic, explicitly approved one-file test write path. It has no live connector, credential path, browser research path, remote write, publication path, or real-product authority; the implemented controls have been tested only within the retained synthetic foundation scope.
 
 ## Next evidence phase
 
@@ -85,4 +101,4 @@ The first conforming primary, product, calibration, fixture, and benchmark studi
 
 The executable sequence is defined by the [practitioner decision-reconstruction protocol](research/09-experimental/practitioner-decision-reconstruction-protocol.md), [field kit](research/09-experimental/practitioner-field-kit.md), [cognitive-ergonomics practitioner protocol](research/10-cognitive-ergonomics/practitioner-review-and-validation-protocol.md), [product desktop study protocol](research/09-experimental/product-desktop-study-protocol.md), [product-study and judge-agent system](research/09-experimental/product-study-and-judge-agent-system.md), [voice/tone graph and measurement model](research/09-experimental/voice-tone-graph-and-measurement.md), and [shared benchmark fixture specification](research/09-experimental/shared-benchmark-fixture-specification.md). The [field-kit tabletop rehearsal](research/09-experimental/practitioner-field-kit-tabletop-rehearsal-2026-08-17.md) traces the synthetic control paths without creating participant evidence. The [human calibration instrument](research/09-experimental/voice-tone-human-calibration-instrument.md) defines hard-before-style admission, pairwise judgments, uncertainty, held-out testing, and multilingual boundaries without assigning gold labels. The [materials and access register](research/09-experimental/materials-and-access-register.md) records what is present, missing, or authorization-gated across phases 1–6; the [dated public-product refresh](research/09-experimental/public-product-source-refresh-2026-08-17.md), [public-source product baseline](research/09-experimental/public-source-product-study-and-judge-baseline-2026-08-17.md), and [public voice-system corpus](research/09-experimental/public-voice-and-tone-systems-corpus-2026-08-17.md) keep official-source claims separate from desktop-observed behavior. The [browser-isolation options paper](research/09-experimental/desktop-research-browser-isolation-options-2026-08-17.md) defines the next action-time environment decision. The underlying priorities and unresolved evidence remain in the [practitioner research plan](research/00-method/practitioner-research-plan.md) and [gap register](research/08-synthesis/research-gap-register.md).
 
-No executable harness has been built. The exact proposed planning boundary is now in the [v0 architecture and bounded-build decision packet](research/09-experimental/v0-architecture-and-build-decision-packet.md). A user direction alone does not close its authority gate: implementation planning begins only after the recorded repository/product-owner decision, research/system-architecture-owner decision, and security/privacy consultation are present and compatible. Executable work then retains its applicable security, privacy, runtime, supply-chain, and task-specific authorization controls.
+A bounded local foundation has been built and independently verified against its own synthetic fixture, but it is not the approved Track B static harness and does not close the Phase 4 or architecture-`r2` gates. The exact proposed experimental-harness boundary remains in the [v0 architecture and bounded-build decision packet](research/09-experimental/v0-architecture-and-build-decision-packet.md). That separate sequence still requires its named fixture, disposition, architecture, security/privacy, and task-specific controls.

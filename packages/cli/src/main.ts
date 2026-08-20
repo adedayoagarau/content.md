@@ -50,7 +50,8 @@ export async function main(argv: string[]): Promise<void> {
   try {
     await buildProgram().parseAsync(argv);
   } catch (error) {
-    if (!(error instanceof CommanderError) || error.code === "commander.helpDisplayed") throw error;
+    if (!(error instanceof CommanderError)) throw error;
+    if (error.code === "commander.helpDisplayed" || error.code === "commander.version") return;
     const wantsJson = argv.includes("--json");
     emitCommandResult(createCommandResult({
       command_id: "command.parse",

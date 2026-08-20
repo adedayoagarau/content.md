@@ -1,7 +1,7 @@
 ---
 title: Research index
 status: active
-updated: 2026-08-19
+updated: 2026-08-20
 ---
 
 # Research index
@@ -45,6 +45,9 @@ updated: 2026-08-19
 
 ## Experience and implementation
 
+- [Universal content.md agent design](../docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) — approved implementation design for a portable content-design agent; broader provider, browser, hosted, workbench, connector, ML, and validation layers remain follow-on work
+- [Foundation vertical-slice plan](../docs/superpowers/plans/2026-08-20-contentmd-foundation-vertical-slice.md) — test-first plan for the retained local synthetic foundation
+- [Foundation vertical-slice verification](../docs/verification/foundation-vertical-slice.md) — 95 tests and 246 independent checks for the bounded local CLI, determinism, governance, exact mutation/readback/rollback, memory retention, and non-effects; no live-provider, browser, real-product, human, or benchmark claim
 - [Surfaces, states, entry points, and delivery context](04-surfaces/surfaces-states-entry-points.md)
 - [Interaction-pattern content practice](04-surfaces/interaction-pattern-content-practice.md)
 - [Channel and modality content practice](04-surfaces/channel-and-modality-content-practice.md)
@@ -114,4 +117,4 @@ updated: 2026-08-19
 
 ## Corpus status
 
-This is a foundational desk-research draft plus an experimental program whose conforming practitioner, calibration, product, fixture, and benchmark studies remain unexecuted—not a frozen `CONTENT.md` specification. A static synthetic tabletop and nonconforming environment reconnaissance have run only to test methods and boundaries; they do not count as practitioner evidence, product comparison, fixture execution, or validation. The coverage matrix records current maturity and open evidence needs; frontmatter status describes document purpose and maturity using the definitions in that matrix. External sources describe standards, documented organizational practice, research, or vendor claims within their own scope; product proposals remain labeled proposals. Experimental protocols and fixture designs do not count as product validation until their stated gates pass and their studies are run.
+This is a foundational desk-research corpus, an experimental program, and a verified bounded local synthetic implementation slice—not a frozen public `CONTENT.md` specification or released universal agent. Conforming practitioner, cognitive, calibration, product, Track B, and benchmark studies remain unexecuted. Static synthetic rehearsals and implementation verification test methods, contracts, determinism, and safety boundaries; they do not count as practitioner evidence, product comparison, real-product safety, user-outcome validation, or benchmark success. The coverage matrix records current maturity and open evidence needs; frontmatter status describes document purpose and maturity using the definitions in that matrix. External sources describe standards, documented organizational practice, research, or vendor claims within their own scope; product proposals remain labeled proposals.
