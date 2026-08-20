@@ -9,5 +9,8 @@
     "@contentmd/core": "workspace:*",
     "@contentmd/governance": "workspace:*",
     "@contentmd/memory": "workspace:*"
+  },
+  "devDependencies": {
+    "@contentmd/schemas": "workspace:*"
   }
 }

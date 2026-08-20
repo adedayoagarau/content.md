@@ -6,6 +6,7 @@ import {
 import baseRecordSchema from "./base-record.schema.json" with { type: "json" };
 import contentRecordsSchema from "./content-records.schema.json" with { type: "json" };
 import governanceRecordsSchema from "./governance-records.schema.json" with { type: "json" };
+import learningRecordsSchema from "./learning-records.schema.json" with { type: "json" };
 import workflowRecordsSchema from "./workflow-records.schema.json" with { type: "json" };
 
 export const SCHEMA_IDS = {
@@ -30,6 +31,29 @@ export const SCHEMA_IDS = {
   changeTransaction: "contentmd.change-transaction-record",
   verificationReceipt: "contentmd.verification-receipt-record",
   auditEvent: "contentmd.audit-event-record",
+  generationRun: "contentmd.generation-run-record",
+  feedbackQualification: "contentmd.feedback-qualification-record",
+  learningEligibility: "contentmd.learning-eligibility-record",
+  preferenceExample: "contentmd.preference-example-record",
+  exemplar: "contentmd.exemplar-record",
+  leakageGroup: "contentmd.leakage-group-record",
+  learningDatasetManifest: "contentmd.learning-dataset-manifest",
+  featureProfile: "contentmd.feature-profile",
+  rankingModel: "contentmd.ranking-model-record",
+  learningEvaluationRun: "contentmd.learning-evaluation-run",
+  shadowEvaluationPlan: "contentmd.shadow-evaluation-plan",
+  shadowBinding: "contentmd.shadow-binding-record",
+  learningPromotionDecision: "contentmd.learning-promotion-decision",
+  learningDeploymentBinding: "contentmd.learning-deployment-binding",
+  learningDriftReport: "contentmd.learning-drift-report",
+  learningRollback: "contentmd.learning-rollback-record",
+  writingBenchmarkManifest: "contentmd.writing-benchmark-manifest",
+  writingBenchmarkTask: "contentmd.writing-benchmark-task-record",
+  benchmarkCandidateSet: "contentmd.benchmark-candidate-set-record",
+  benchmarkSelection: "contentmd.benchmark-selection-record",
+  benchmarkReview: "contentmd.benchmark-review-record",
+  benchmarkAttempt: "contentmd.benchmark-attempt-record",
+  writingBenchmarkRun: "contentmd.writing-benchmark-run",
 } as const;
 
 export type SchemaId = (typeof SCHEMA_IDS)[keyof typeof SCHEMA_IDS];
@@ -39,16 +63,157 @@ export interface ValidationResult {
   errors: string[];
 }
 
+const RFC3339_DATE_TIME = /^([0-9]{4})-([0-9]{2})-([0-9]{2})[Tt]([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]+))?([Zz]|([+-])([0-9]{2}):([0-9]{2}))$/;
+
+function isGregorianLeapYear(year: number): boolean {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+function daysInGregorianMonth(year: number, month: number): number {
+  if (month === 2) return isGregorianLeapYear(year) ? 29 : 28;
+  return [4, 6, 9, 11].includes(month) ? 30 : 31;
+}
+
+function shiftGregorianDate(
+  year: number,
+  month: number,
+  day: number,
+  direction: -1 | 1,
+): readonly [number, number, number] {
+  if (direction === 1) {
+    if (day < daysInGregorianMonth(year, month)) return [year, month, day + 1];
+    if (month < 12) return [year, month + 1, 1];
+    return [year + 1, 1, 1];
+  }
+  if (day > 1) return [year, month, day - 1];
+  if (month > 1) return [year, month - 1, daysInGregorianMonth(year, month - 1)];
+  return [year - 1, 12, 31];
+}
+
+function isPossibleRfc3339LeapSecond(
+  year: number,
+  month: number,
+  day: number,
+  hour: number,
+  minute: number,
+  offsetMinutes: number,
+): boolean {
+  let utcMinuteOfDay = hour * 60 + minute - offsetMinutes;
+  let utcYear = year;
+  let utcMonth = month;
+  let utcDay = day;
+  if (utcMinuteOfDay < 0) {
+    utcMinuteOfDay += 24 * 60;
+    [utcYear, utcMonth, utcDay] = shiftGregorianDate(year, month, day, -1);
+  } else if (utcMinuteOfDay >= 24 * 60) {
+    utcMinuteOfDay -= 24 * 60;
+    [utcYear, utcMonth, utcDay] = shiftGregorianDate(year, month, day, 1);
+  }
+
+  // RFC 3339 permits second 60 only for an inserted UTC leap second. A static,
+  // offline validator cannot know future IERS announcements, so it accepts only
+  // the possible insertion slot: 23:59 UTC on a Gregorian month's final day.
+  // Whether an insertion was actually announced is an evidence/runtime check.
+  return (
+    utcYear >= 0 &&
+    utcYear <= 9999 &&
+    utcMinuteOfDay === 23 * 60 + 59 &&
+    utcDay === daysInGregorianMonth(utcYear, utcMonth)
+  );
+}
+
+function validateRfc3339DateTime(value: string): boolean {
+  const match = RFC3339_DATE_TIME.exec(value);
+  if (match === null) return false;
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  const offsetHour = match[10] === undefined ? 0 : Number(match[10]);
+  const offsetMinute = match[11] === undefined ? 0 : Number(match[11]);
+  if (
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > daysInGregorianMonth(year, month) ||
+    hour > 23 ||
+    minute > 59 ||
+    second > 60 ||
+    offsetHour > 23 ||
+    offsetMinute > 59
+  ) {
+    return false;
+  }
+
+  if (second < 60) return true;
+  const offsetSign = match[9] === "-" ? -1 : 1;
+  const offsetMinutes = match[8]!.toLowerCase() === "z"
+    ? 0
+    : offsetSign * (offsetHour * 60 + offsetMinute);
+  return isPossibleRfc3339LeapSecond(
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    offsetMinutes,
+  );
+}
+
 const ajv = new Ajv2020({
   allErrors: true,
   strict: true,
   strictTypes: false,
 });
 
+ajv.addFormat("date-time", {
+  type: "string",
+  validate: validateRfc3339DateTime,
+});
 ajv.addSchema(baseRecordSchema);
 const contentValidator = ajv.compile(contentRecordsSchema);
 const workflowValidator = ajv.compile(workflowRecordsSchema);
 const governanceValidator = ajv.compile(governanceRecordsSchema);
+ajv.addSchema(learningRecordsSchema);
+
+const learningSchemaDefs = {
+  [SCHEMA_IDS.generationRun]: "generationRunRecord",
+  [SCHEMA_IDS.feedbackQualification]: "feedbackQualificationRecord",
+  [SCHEMA_IDS.learningEligibility]: "learningEligibilityRecord",
+  [SCHEMA_IDS.preferenceExample]: "preferenceExampleRecord",
+  [SCHEMA_IDS.exemplar]: "exemplarRecord",
+  [SCHEMA_IDS.leakageGroup]: "leakageGroupRecord",
+  [SCHEMA_IDS.learningDatasetManifest]: "learningDatasetManifestRecord",
+  [SCHEMA_IDS.featureProfile]: "featureProfileRecord",
+  [SCHEMA_IDS.rankingModel]: "rankingModelRecord",
+  [SCHEMA_IDS.learningEvaluationRun]: "learningEvaluationRunRecord",
+  [SCHEMA_IDS.shadowEvaluationPlan]: "shadowEvaluationPlanRecord",
+  [SCHEMA_IDS.shadowBinding]: "shadowBindingRecord",
+  [SCHEMA_IDS.learningPromotionDecision]: "learningPromotionDecisionRecord",
+  [SCHEMA_IDS.learningDeploymentBinding]: "learningDeploymentBindingRecord",
+  [SCHEMA_IDS.learningDriftReport]: "learningDriftReportRecord",
+  [SCHEMA_IDS.learningRollback]: "learningRollbackRecord",
+  [SCHEMA_IDS.writingBenchmarkManifest]: "writingBenchmarkManifestRecord",
+  [SCHEMA_IDS.writingBenchmarkTask]: "writingBenchmarkTaskRecord",
+  [SCHEMA_IDS.benchmarkCandidateSet]: "benchmarkCandidateSetRecord",
+  [SCHEMA_IDS.benchmarkSelection]: "benchmarkSelectionRecord",
+  [SCHEMA_IDS.benchmarkReview]: "benchmarkReviewRecord",
+  [SCHEMA_IDS.benchmarkAttempt]: "benchmarkAttemptRecord",
+  [SCHEMA_IDS.writingBenchmarkRun]: "writingBenchmarkRunRecord",
+} as const satisfies Partial<Record<SchemaId, string>>;
+
+const learningValidators = new Map<SchemaId, ValidateFunction>(
+  Object.entries(learningSchemaDefs).map(([schemaId, definition]) => [
+    schemaId as SchemaId,
+    ajv.compile({
+      $schema: "https://json-schema.org/draft/2020-12/schema",
+      $ref: `${learningRecordsSchema.$id}#/$defs/${definition}`,
+    }),
+  ]),
+);
 
 const contentSchemaIds = new Set<SchemaId>([
   SCHEMA_IDS.source,
@@ -80,10 +245,15 @@ const governanceSchemaIds = new Set<SchemaId>([
   SCHEMA_IDS.auditEvent,
 ]);
 
+const learningSchemaIds = new Set<SchemaId>(
+  Object.keys(learningSchemaDefs) as SchemaId[],
+);
+
 function validatorFor(schemaId: SchemaId): ValidateFunction {
   if (contentSchemaIds.has(schemaId)) return contentValidator;
   if (workflowSchemaIds.has(schemaId)) return workflowValidator;
   if (governanceSchemaIds.has(schemaId)) return governanceValidator;
+  if (learningSchemaIds.has(schemaId)) return learningValidators.get(schemaId)!;
   throw new TypeError(`Unknown schema_id: ${schemaId}`);
 }
 
@@ -161,4 +331,5 @@ export const schemaDocuments = Object.freeze({
   content: contentRecordsSchema,
   workflow: workflowRecordsSchema,
   governance: governanceRecordsSchema,
+  learning: learningRecordsSchema,
 });

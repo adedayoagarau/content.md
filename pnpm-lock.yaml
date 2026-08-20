@@ -138,6 +138,10 @@ importers:
       '@contentmd/memory':
         specifier: workspace:*
         version: link:../memory
+    devDependencies:
+      '@contentmd/schemas':
+        specifier: workspace:*
+        version: link:../schemas
 
   packages/memory:
     dependencies:
