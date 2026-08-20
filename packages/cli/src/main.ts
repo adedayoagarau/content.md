@@ -12,10 +12,12 @@ import { registerInit } from "./commands/init.js";
 import { registerLearn } from "./commands/learn.js";
 import { registerModel } from "./commands/model.js";
 import { registerResearch } from "./commands/research.js";
+import { registerRollback } from "./commands/rollback.js";
 import { registerReview } from "./commands/review.js";
 import { registerRewrite } from "./commands/rewrite.js";
 import { registerStrategy } from "./commands/strategy.js";
 import { registerVerify } from "./commands/verify.js";
+import { registerUninstall } from "./commands/uninstall.js";
 import { createCommandResult, emitCommandResult } from "./output.js";
 
 export function buildProgram(): Command {
@@ -39,6 +41,8 @@ export function buildProgram(): Command {
   registerDiff(program);
   registerApply(program);
   registerVerify(program);
+  registerRollback(program);
+  registerUninstall(program);
   return program;
 }
 

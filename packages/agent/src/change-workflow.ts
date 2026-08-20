@@ -1,10 +1,12 @@
 import {
   applyFilesystemChange,
+  rollbackFilesystemChange,
   verifyFilesystemChange,
   type ChangeAuthorization,
   type FilesystemApplyReceipt,
   type FilesystemVerificationReceipt,
   type PreparedChangeTransaction,
+  type FilesystemRollbackReceipt,
 } from "@contentmd/adapter-filesystem";
 import {
   authorizeOperation,
@@ -28,15 +30,16 @@ function handoff(
   input: AuthorizationInput,
   decision: AuthorizationDecision,
   transaction: PreparedChangeTransaction,
+  action: "filesystem.write" | "filesystem.rollback" = "filesystem.write",
 ): ChangeAuthorization {
   const approval = input.approval;
   if (approval === null) throw new Error("change_not_authorized:approval_missing");
-  if (input.request.action !== "filesystem.write") {
+  if (input.request.action !== action) {
     throw new Error("change_not_authorized:action_mismatch");
   }
   return {
     operation_id: input.request.operation_id,
-    action: "filesystem.write",
+    action,
     disposition: decision.disposition,
     approval_id: approval.approval_id,
     approval_class: approval.approval_class,
@@ -47,6 +50,18 @@ function handoff(
     subject_digest: input.request.subject_digest ?? "",
     verification_plan_ref: input.verification_plan_ref,
   };
+}
+
+export interface GovernedRollbackInput {
+  project_root: string;
+  transaction: PreparedChangeTransaction;
+  apply_receipt: FilesystemApplyReceipt;
+  authorization_input: AuthorizationInput;
+}
+
+export interface GovernedRollbackResult {
+  authorization: AuthorizationDecision;
+  rollback_receipt: FilesystemRollbackReceipt;
 }
 
 export async function executeGovernedChange(
@@ -78,4 +93,27 @@ export async function executeGovernedChange(
     apply_receipt: applyReceipt,
     verification_receipt: verificationReceipt,
   };
+}
+
+export async function executeGovernedRollback(
+  input: GovernedRollbackInput,
+): Promise<GovernedRollbackResult> {
+  if (
+    input.authorization_input.request.subject_digest !== input.transaction.transaction_digest ||
+    input.authorization_input.request.resource_scope.length !== 1 ||
+    input.authorization_input.request.resource_scope[0] !== input.transaction.target_path
+  ) {
+    throw new Error("change_not_authorized:transaction_scope_mismatch");
+  }
+  const authorization = authorizeOperation(input.authorization_input);
+  if (authorization.disposition !== "allow") {
+    throw new Error(`change_not_authorized:${authorization.reason_codes.join(",")}`);
+  }
+  const rollbackReceipt = await rollbackFilesystemChange({
+    project_root: input.project_root,
+    transaction: input.transaction,
+    apply_receipt: input.apply_receipt,
+    authorization: handoff(input.authorization_input, authorization, input.transaction, "filesystem.rollback"),
+  });
+  return { authorization, rollback_receipt: rollbackReceipt };
 }

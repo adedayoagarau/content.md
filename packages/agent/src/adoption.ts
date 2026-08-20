@@ -6,7 +6,7 @@ import {
   unlink,
   writeFile,
 } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join, normalize } from "node:path";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import {
   CONTENTMD_DIRECTORIES,
@@ -223,4 +223,43 @@ export async function readInstalledManifest(projectRoot: string): Promise<unknow
   return JSON.parse(
     await readFile(join(projectRoot, ".contentmd/manifest.json"), "utf8"),
   ) as unknown;
+}
+
+export interface UninstallPreview {
+  schema_version: "contentmd.uninstall-preview/0.1.0";
+  installer_id: "contentmd@0.1.0";
+  owned_files: string[];
+  removed: false;
+  host_files_affected: [];
+}
+
+function assertOwnedRelativePath(path: string): void {
+  const normalized = normalize(path);
+  if (isAbsolute(path) || normalized === ".." || normalized.startsWith("../")) {
+    throw new Error(`invalid_installer_owned_path:${path}`);
+  }
+}
+
+export async function previewUninstall(projectRoot: string): Promise<UninstallPreview> {
+  const root = await realpath(projectRoot);
+  const manifest = JSON.parse(await readFile(join(root, ".contentmd/manifest.json"), "utf8")) as {
+    installer?: unknown;
+    managed_files?: unknown;
+  };
+  if (manifest.installer !== "contentmd@0.1.0" || !Array.isArray(manifest.managed_files)) {
+    throw new Error("invalid_installed_manifest");
+  }
+  const ownedFiles = manifest.managed_files.map((value) => {
+    if (typeof value !== "string") throw new Error("invalid_installer_owned_path");
+    assertOwnedRelativePath(value);
+    return value;
+  });
+  if (new Set(ownedFiles).size !== ownedFiles.length) throw new Error("duplicate_installer_owned_path");
+  return {
+    schema_version: "contentmd.uninstall-preview/0.1.0",
+    installer_id: "contentmd@0.1.0",
+    owned_files: ownedFiles,
+    removed: false,
+    host_files_affected: [],
+  };
 }

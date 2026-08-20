@@ -133,5 +133,25 @@ describe("local CLI vertical slice", () => {
     expect((await run(["apply", "--root", root, "--transaction", "txn_fixture_delete_workspace_v1", "--approval", "apr_fixture_delete_workspace_v1", "--json"])).status).toBe("completed");
     expect((await run(["verify", "--root", root, "--transaction", "txn_fixture_delete_workspace_v1", "--json"])).status).toBe("completed");
     expect(await readFile(join(root, "src/components/CheckoutSummary.tsx"), "utf8")).toContain("Delete this workspace");
+
+    const rollbackAuthorization = JSON.parse(await readFile(approvalPath, "utf8")) as Record<string, any>;
+    rollbackAuthorization.request.operation_id = "operation.fixture.rollback";
+    rollbackAuthorization.request.action = "filesystem.rollback";
+    rollbackAuthorization.policies[0].allowed_actions = ["filesystem.rollback"];
+    rollbackAuthorization.policies[0].human_approval_actions = ["filesystem.rollback"];
+    rollbackAuthorization.capability_grant.action = "filesystem.rollback";
+    rollbackAuthorization.approval.approval_id = "apr_fixture_delete_workspace_rollback_v1";
+    rollbackAuthorization.approval.subject_ref = "operation.fixture.rollback";
+    const rollbackApprovalPath = join(approvalDirectory, "apr_fixture_delete_workspace_rollback_v1.json");
+    await writeFile(rollbackApprovalPath, `${JSON.stringify(rollbackAuthorization, null, 2)}\n`);
+    expect((await run([
+      "rollback", "--root", root, "--transaction", "txn_fixture_delete_workspace_v1",
+      "--approval", "apr_fixture_delete_workspace_rollback_v1", "--json",
+    ])).status).toBe("completed");
+    expect(await readFile(join(root, "src/components/CheckoutSummary.tsx"), "utf8")).toContain("Delete workspace");
+
+    const uninstall = await run(["uninstall", "--root", root, "--preview", "--json"]);
+    expect(uninstall.status).toBe("completed");
+    expect(JSON.stringify(uninstall.data)).not.toContain("PRODUCT.md");
   }, 30_000);
 });

@@ -23,8 +23,13 @@ import {
   type ContentRewriteProposal,
   type ContentStrategyProposal,
 } from "@contentmd/writer";
-import { executeAdoption, planAdoption, type AdoptionReceipt } from "./adoption.js";
-import { executeGovernedChange, type GovernedChangeResult } from "./change-workflow.js";
+import { executeAdoption, planAdoption, previewUninstall, type AdoptionReceipt } from "./adoption.js";
+import {
+  executeGovernedChange,
+  executeGovernedRollback,
+  type GovernedChangeResult,
+  type GovernedRollbackResult,
+} from "./change-workflow.js";
 import { runDoctor, type DoctorReport } from "./doctor.js";
 import { compileProjectModel, type ProjectModelResult } from "./model-workflow.js";
 
@@ -271,6 +276,28 @@ export async function verifyLocalTransaction(root: string, transactionId: string
   const verification = await verifyFilesystemChange({ project_root: root, transaction, apply_receipt: receipt });
   await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.verify.json`), verification);
   return verification;
+}
+
+export async function rollbackLocalTransaction(
+  root: string,
+  transactionId: string,
+  approvalId: string,
+): Promise<GovernedRollbackResult> {
+  const transaction = await readJson<PreparedChangeTransaction>(runtimePath(root, `transactions/${transactionId}.json`));
+  const applyReceipt = await readJson<FilesystemApplyReceipt>(runtimePath(root, `receipts/${transactionId}.apply.json`));
+  const authorization = await readJson<AuthorizationInput>(join(root, `.contentmd/governance/approvals/${approvalId}.json`));
+  const result = await executeGovernedRollback({
+    project_root: root,
+    transaction,
+    apply_receipt: applyReceipt,
+    authorization_input: authorization,
+  });
+  await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.rollback.json`), result.rollback_receipt);
+  return result;
+}
+
+export async function previewLocalUninstall(root: string) {
+  return previewUninstall(root);
 }
 
 export function localArtifactRef(root: string, name: string): string {

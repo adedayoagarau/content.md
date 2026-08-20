@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import {
   executeAdoption,
   planAdoption,
+  previewUninstall,
 } from "@contentmd/agent";
 
 const temporaryDirectories: string[] = [];
@@ -109,5 +110,30 @@ describe("repository adoption", () => {
     await expect(readFile(join(root, "CONTENT.md"), "utf8")).rejects.toMatchObject({
       code: "ENOENT",
     });
+  });
+
+  it("previews only installer-owned files and does not delete them", async () => {
+    const root = await projectDirectory("contentmd-uninstall-preview");
+    await writeFile(join(root, "PRODUCT.md"), "# Keep this host file\n", "utf8");
+    const plan = await planAdoption(root);
+    await executeAdoption(plan, {
+      approval_id: "approval.fixture.adoption.004",
+      plan_digest: plan.plan_digest,
+      approved_paths: plan.creates.map((file) => file.relative_path),
+      status: "current",
+    });
+
+    const preview = await previewUninstall(root);
+    expect(preview.installer_id).toBe("contentmd@0.1.0");
+    expect(preview.owned_files).toEqual([
+      ".contentmd/governance/starter-policy.yaml",
+      ".contentmd/manifest.json",
+      ".contentmd/product/open-questions.json",
+      "CONTENT.md",
+    ]);
+    expect(preview.owned_files).not.toContain("PRODUCT.md");
+    expect(preview.removed).toBe(false);
+    expect(await readFile(join(root, "CONTENT.md"), "utf8")).toContain("# CONTENT.md");
+    expect(await readFile(join(root, "PRODUCT.md"), "utf8")).toBe("# Keep this host file\n");
   });
 });
