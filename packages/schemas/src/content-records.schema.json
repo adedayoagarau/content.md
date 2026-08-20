@@ -311,6 +311,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "evidence_strength",
         "problem",
         "contexts",
         "mechanism",
@@ -322,16 +323,48 @@
         "rights_boundary"
       ],
       "properties": {
+        "evidence_strength": { "type": "string", "minLength": 1 },
         "problem": { "type": "string", "minLength": 1 },
-        "contexts": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "contexts": { "type": "array", "items": { "$ref": "#/$defs/patternContext" }, "minItems": 1 },
         "mechanism": { "type": "string", "minLength": 1 },
         "source_refs": { "$ref": "#/$defs/nonEmptyRefs" },
-        "counterexamples": { "type": "array", "items": { "type": "string" } },
-        "failure_modes": { "type": "array", "items": { "type": "string" } },
-        "transfer_conditions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-        "non_transferable_details": { "type": "array", "items": { "type": "string" } },
+        "counterexamples": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "failure_modes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "transfer_conditions": { "type": "array", "items": { "$ref": "#/$defs/patternTransferCondition" }, "minItems": 1 },
+        "non_transferable_details": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
         "rights_boundary": { "type": "string", "minLength": 1 }
       }
+    },
+    "patternContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["journeys", "stages", "states", "channels", "modalities", "locales", "risk_levels"],
+      "properties": {
+        "journeys": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "stages": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "states": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "channels": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "modalities": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "locales": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "risk_levels": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "patternTransferCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "values"],
+      "properties": {
+        "field": {
+          "enum": ["journey", "stage", "state", "channel", "modality", "locale", "risk_level", "rights_status"]
+        },
+        "values": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
     },
     "nonEmptyRefs": {
       "type": "array",

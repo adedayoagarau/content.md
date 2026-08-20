@@ -2,8 +2,8 @@ import { createHash } from "node:crypto";
 import { readFile, realpath } from "node:fs/promises";
 import { isAbsolute, join, relative, sep } from "node:path";
 import { sha256Canonical } from "@contentmd/core";
+import { convertPatternPacketV01 } from "./pattern-converter.js";
 import type {
-  ContentPatternRecord,
   PatternContext,
   PatternIngestResult,
   PatternQuery,
@@ -11,6 +11,7 @@ import type {
   PatternSourceRecord,
   PatternTransferCondition,
 } from "./pattern-record.js";
+import type { PatternPacketRecordV01 } from "./pattern-packet-v01.js";
 
 const ALLOWED_RIGHTS = new Set<PatternRightsStatus>([
   "project_owned_synthetic",
@@ -145,7 +146,7 @@ function parseTransferConditions(value: unknown): PatternTransferCondition[] {
   });
 }
 
-function parsePattern(record: Record<string, unknown>): ContentPatternRecord {
+function parsePattern(record: Record<string, unknown>): PatternPacketRecordV01 {
   if ("distinctive_expression" in record || "source_expression" in record || "copied_expression" in record) {
     throw new Error("prohibited_distinctive_expression_field");
   }
@@ -245,6 +246,16 @@ export async function ingestPatternPacket(packetRoot: string): Promise<PatternIn
   }
   sources.sort((left, right) => left.source_id.localeCompare(right.source_id));
   patterns.sort((left, right) => left.pattern_id.localeCompare(right.pattern_id));
+  const records = patterns.map((pattern) => convertPatternPacketV01(pattern, {
+    scope: {
+      memory_scope: "public",
+      project_id: null,
+      resource_refs: [manifest.packet_id],
+      data_classes: [manifest.rights_status],
+    },
+    provenance: [],
+    lifecycle_state: "active",
+  }));
   return {
     packet_id: manifest.packet_id,
     packet_digest: sha256Canonical({
@@ -255,5 +266,6 @@ export async function ingestPatternPacket(packetRoot: string): Promise<PatternIn
     rights_status: manifest.rights_status,
     sources,
     patterns,
+    records,
   };
 }

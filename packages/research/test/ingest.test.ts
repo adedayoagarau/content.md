@@ -58,8 +58,10 @@ describe("pattern packet ingestion", () => {
     expect(result.packet_id).toBe("pattern-packet.synthetic-foundation.0.1");
     expect(result.sources).toHaveLength(4);
     expect(result.patterns).toHaveLength(4);
+    expect(result.records).toHaveLength(4);
     expect(result.packet_digest).toMatch(/^[a-f0-9]{64}$/);
     expect(result.patterns.every((pattern) => pattern.transfer_conditions.length > 0)).toBe(true);
+    expect(result.records.every((record) => record.record_id.startsWith("pattern."))).toBe(true);
   });
 
   it("rejects a stale manifest digest", async () => {

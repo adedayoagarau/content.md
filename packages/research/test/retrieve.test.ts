@@ -19,8 +19,8 @@ describe("deterministic pattern retrieval", () => {
       risk_level: "high",
       rights_status: "project_owned_synthetic",
     };
-    const first = retrievePatterns(query, packet.patterns);
-    const second = retrievePatterns(structuredClone(query), structuredClone(packet.patterns));
+    const first = retrievePatterns(query, packet.records);
+    const second = retrievePatterns(structuredClone(query), structuredClone(packet.records));
 
     expect(first).toEqual(second);
     expect(first[0]).toEqual(
@@ -45,7 +45,7 @@ describe("deterministic pattern retrieval", () => {
         risk_level: "high",
         rights_status: "project_owned_synthetic",
       },
-      packet.patterns,
+      packet.records,
     );
     const recovery = results.find((result) => result.pattern_id === "pattern.recovery.unknown-outcome");
 

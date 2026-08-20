@@ -41,20 +41,23 @@ export interface PatternTransferCondition {
   values: string[];
 }
 
-export interface ContentPatternRecord {
-  schema_version: "contentmd.pattern/0.1.0";
-  pattern_id: string;
-  source_refs: string[];
+import type { DurableRecord } from "@contentmd/core";
+import type { PatternPacketRecordV01 } from "./pattern-packet-v01.js";
+
+export interface ContentPatternPayload {
   evidence_strength: string;
   problem: string;
-  context: PatternContext;
+  contexts: PatternContext[];
   mechanism: string;
-  counterexample: string;
-  failure_mode: string;
+  source_refs: string[];
+  counterexamples: string[];
+  failure_modes: string[];
   transfer_conditions: PatternTransferCondition[];
-  non_transferable_detail: string;
-  prohibited_imitation_boundary: string;
+  non_transferable_details: string[];
+  rights_boundary: string;
 }
+
+export type ContentPatternRecord = DurableRecord<ContentPatternPayload>;
 
 export interface PatternMatch {
   pattern_id: string;
@@ -70,5 +73,6 @@ export interface PatternIngestResult {
   packet_digest: string;
   rights_status: PatternRightsStatus;
   sources: PatternSourceRecord[];
-  patterns: ContentPatternRecord[];
+  patterns: PatternPacketRecordV01[];
+  records: ContentPatternRecord[];
 }

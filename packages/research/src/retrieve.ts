@@ -15,12 +15,13 @@ export function retrievePatterns(
   corpus: ContentPatternRecord[],
 ): PatternMatch[] {
   const results = corpus.map((pattern): PatternMatch => {
+    const payload = pattern.payload;
     const reasons: string[] = [];
     const nonmatchReasons: string[] = [];
     let score = 0;
 
     for (const [queryField, contextField, weight] of CONTEXT_FIELDS) {
-      const accepted = pattern.context[contextField];
+      const accepted = payload.contexts.flatMap((context) => context[contextField]);
       const value = query[queryField];
       if (accepted.includes(value)) {
         score += weight;
@@ -32,7 +33,7 @@ export function retrievePatterns(
       }
     }
 
-    for (const condition of pattern.transfer_conditions) {
+    for (const condition of payload.transfer_conditions) {
       const value = query[condition.field];
       if (condition.values.includes(value) || condition.values.includes("any")) {
         reasons.push(`transfer:${condition.field}=${value}`);
@@ -42,7 +43,7 @@ export function retrievePatterns(
     }
     const eligible = !nonmatchReasons.some((reason) => reason.startsWith("transfer_mismatch:"));
     return {
-      pattern_id: pattern.pattern_id,
+      pattern_id: pattern.record_id,
       eligible,
       score,
       reasons: reasons.sort(),
