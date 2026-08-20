@@ -8,7 +8,7 @@
 
 **Tech stack:** Node.js 24.14.0, pnpm 11.9.0, TypeScript 7.0.2, Vitest 4.1.11, AJV 8.20.0, SHA-256, IEEE-754 binary64 identity, Unicode 17.0 frozen tables, canonical JSON, and the retained event store.
 
-**Specs:** [Live Intelligence and Learning 0.1](../specs/2026-08-20-contentmd-live-intelligence-learning-design.md), sections 9–12 and 17.2, plus the normative [Recursive Learning Record Contracts 0.1](../specs/2026-08-20-contentmd-learning-record-contracts-design.md).
+**Specs:** [Live Intelligence and Learning 0.1](../specs/2026-08-20-contentmd-live-intelligence-learning-design.md), sections 9–12 and 17.2, plus the normative [Recursive Learning Record Contracts 0.1](../specs/2026-08-20-contentmd-learning-record-contracts-design.md) and [Feedback Qualification Contracts 0.1](../specs/2026-08-20-contentmd-feedback-qualification-contracts-design.md).
 
 ## Prerequisite and ownership boundary
 
@@ -123,10 +123,17 @@ Add `@contentmd/schemas: workspace:*` as a learning-package development dependen
 - Create: `packages/learning/test/preference.test.ts`
 - Modify: `packages/learning/src/feedback.ts`
 - Modify: `packages/learning/src/index.ts`
+- Modify: `packages/learning/src/records.ts`
+- Modify: `packages/schemas/src/learning-records.schema.json`
+- Modify: `packages/learning/test/records.test.ts`
 
-**Step 1: Write failing qualification tests**
+Implement the exact adapter, complete-input, digest, state, lineage, permission, and preference contract in [Feedback Qualification Contracts 0.1](../specs/2026-08-20-contentmd-feedback-qualification-contracts-design.md). Preserve the legacy event-return API. Never relabel its event digest as a durable decision digest.
 
-Cover blinded A/B review, randomized side/order, stable task/context digests, exact rubric and reviewer qualification, rationale codes, tie, abstention, conflict, adjudication, changed fact/requirement, rights/privacy incident, and browser/competitor source rejection.
+**Step 1: Correct the qualification observability fields and write failing tests**
+
+Change `FeedbackQualificationRecord.blinded` and `.randomized` from literal-true fields to required booleans. This is the narrow cross-task reconciliation that lets failed proof remain an inspectable `not_qualified` record; a `qualified` state still requires both true. Add schema/type parity tests for true and false before writing behavioral tests.
+
+Then cover event-to-durable-decision adaptation, independent event/record/boundary digest recomputation, blinded A/B review, randomized side/order, stable task/context digests, exact rubric and reviewer qualification, rationale codes, tie, abstention, conflict, adjudication, changed fact/requirement, rights/privacy incident, resolver/producer receipts, and browser/competitor source rejection. Start RED.
 
 **Step 2: Implement fail-closed qualification**
 
@@ -144,9 +151,19 @@ Cover blinded A/B review, randomized side/order, stable task/context digests, ex
 
 Edited content may compare against the proposal only when the eligibility record proves the edit reflects content quality under unchanged facts and requirements. Candidate order remains A/B; do not rewrite winner-first.
 
+Malformed/corrupt inputs throw without issuing a learning record. Verified substantive failures remain qualification or eligibility records. `createPreferenceExample` emits only an admitted qualified decisive and eligible pair; it rejects every other input without creating a preference identity. Task 2 binds, but does not temporally validate, the feature-source checkpoint; Task 3 owns that check.
+
 **Step 3: Verify and commit**
 
-    git add packages/learning
+    NODE24=/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node
+    test "$("$NODE24" --version)" = "v24.14.0"
+    "$NODE24" node_modules/vitest/vitest.mjs run packages/learning/test/records.test.ts packages/learning/test/feedback.test.ts packages/learning/test/qualification.test.ts packages/learning/test/eligibility.test.ts packages/learning/test/preference.test.ts packages/schemas/test/schema-registry.test.ts
+    "$NODE24" node_modules/vitest/vitest.mjs run
+    "$NODE24" node_modules/typescript/bin/tsc -b tsconfig.json --pretty false
+    "$NODE24" scripts/check-package-boundaries.mjs
+    PATH="/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH" "$NODE24" scripts/verify-foundation.mjs
+    git diff --check
+    git add packages/learning packages/schemas/src/learning-records.schema.json docs/superpowers/specs/2026-08-20-contentmd-feedback-qualification-contracts-design.md docs/superpowers/specs/2026-08-20-contentmd-learning-record-contracts-design.md docs/superpowers/plans/2026-08-20-contentmd-recursive-learning-ranking.md research/INDEX.md
     git commit -m "feat: qualify content preference evidence"
 
 ---
