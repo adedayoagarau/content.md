@@ -108,8 +108,8 @@ export type FeedbackQualificationPayload = NoAuthorityPayload & {
   candidate_a_ref: DigestRef;
   candidate_b_ref: DigestRef;
   presentation_ref: DigestRef;
-  blinded: true;
-  randomized: true;
+  blinded: boolean;
+  randomized: boolean;
   rationale_codes: NonEmptyArray<string>;
   outcome: "A" | "B" | "tie" | "abstain";
   conflict_state: "none" | "declared" | "adjudicated" | "unresolved";

@@ -595,6 +595,17 @@ describe("canonical learning record contracts", () => {
     expect(verifyRecordDigest(record)).toEqual({ valid: true });
   });
 
+  it("preserves failed blinding and randomization as schema-valid observable booleans", () => {
+    const record = mutatedPayloadRecord(LEARNING_SCHEMA_IDS.feedbackQualification, (payload) => {
+      payload.blinded = false;
+      payload.randomized = false;
+      payload.qualification_state = "not_qualified";
+      payload.reason_codes = ["blinding_required", "randomization_required"];
+    });
+
+    expectSchemaValid(LEARNING_SCHEMA_IDS.feedbackQualification, record);
+  });
+
   it.each(EXPECTED_LEARNING_SCHEMA_IDS)("rejects %s without a common required field", (schemaId) => {
     const record = mutatedPayloadRecord(schemaId, (payload) => {
       delete payload.schema_digest;
@@ -1188,8 +1199,8 @@ const INVALID_CLOSED_VALUE_CASES: readonly {
   { label: "candidate kind", schemaId: LEARNING_SCHEMA_IDS.generationRun, path: ["candidate_kind"], invalidValue: "pattern" },
   { label: "authority effect", schemaId: LEARNING_SCHEMA_IDS.generationRun, path: ["authority_effect"], invalidValue: "writes_everywhere" },
   { label: "digest-ref schema version", schemaId: LEARNING_SCHEMA_IDS.generationRun, path: ["task_ref", "schema_version"], invalidValue: "0.2.0" },
-  { label: "blinded review constant", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["blinded"], invalidValue: false },
-  { label: "randomized review constant", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["randomized"], invalidValue: false },
+  { label: "blinded review boolean", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["blinded"], invalidValue: "unknown" },
+  { label: "randomized review boolean", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["randomized"], invalidValue: "unknown" },
   { label: "qualification outcome", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["outcome"], invalidValue: "C" },
   { label: "conflict state", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["conflict_state"], invalidValue: "waived" },
   { label: "target memory scope", schemaId: LEARNING_SCHEMA_IDS.learningEligibility, path: ["target_memory_scope"], invalidValue: "global" },
