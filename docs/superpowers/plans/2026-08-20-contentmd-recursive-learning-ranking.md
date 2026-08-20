@@ -8,7 +8,7 @@
 
 **Tech stack:** Node.js 24.14.0, pnpm 11.9.0, TypeScript 7.0.2, Vitest 4.1.11, AJV 8.20.0, SHA-256, IEEE-754 binary64 identity, Unicode 17.0 frozen tables, canonical JSON, and the retained event store.
 
-**Spec:** [Live Intelligence and Learning 0.1](../specs/2026-08-20-contentmd-live-intelligence-learning-design.md), sections 9–12 and 17.2.
+**Specs:** [Live Intelligence and Learning 0.1](../specs/2026-08-20-contentmd-live-intelligence-learning-design.md), sections 9–12 and 17.2, plus the normative [Recursive Learning Record Contracts 0.1](../specs/2026-08-20-contentmd-learning-record-contracts-design.md).
 
 ## Prerequisite and ownership boundary
 
@@ -50,10 +50,12 @@ Ranking labels come from a separate path:
 - Modify: `packages/schemas/src/schema-registry.ts`
 - Modify: `packages/schemas/src/index.ts`
 - Modify: `packages/learning/src/index.ts`
+- Modify: `packages/learning/package.json`
+- Modify: `pnpm-lock.yaml`
 
 **Step 1: Write failing closed-schema tests**
 
-Add exact schemas and TypeScript parity checks for:
+Implement the exact shared fields, nullability, schema IDs, local states, authority-effect branches, and structural/runtime boundary in [Recursive Learning Record Contracts 0.1](../specs/2026-08-20-contentmd-learning-record-contracts-design.md). Add exact schemas and TypeScript parity checks for:
 
 - `GenerationRunRecord`
 - `FeedbackQualificationRecord`
@@ -87,7 +89,9 @@ Expected: FAIL because the schemas and types do not exist.
 
 **Step 2: Implement exact identity and state unions**
 
-Every record binds `ranking_objective`, `candidate_kind`, schema/code/input digests, scope, lineage, and `authority_effect`. `BenchmarkAttemptRecord` additionally requires an ordered `provider_operation_plan_set` of exactly 60 unique `{ task_id, plan_id, plan_digest }` entries plus its canonical set digest; the task IDs must exactly equal the sealed manifest task set before the attempt can be issued. `BenchmarkCandidateSetRecord` requires one task ID, exact provider-operation-plan ID and digest, unique nonce-claim receipt ID and digest, provider receipt ID and digest, provider output digest, candidate-set digest, and completed/nonquarantined outcome state. Unknown fields fail. Decision, approval, deployment, and evaluation states remain independent.
+Every record binds the addendum's exact objective, candidate kind, schema/code/input digests, canonical scope and lineage, local state, record mode, and authority effect. `BenchmarkAttemptRecord` additionally requires an ordered `provider_operation_plan_set` of exactly 60 closed `{ task_id, plan_id, plan_digest }` entries plus its canonical set digest. Task 1 enforces shape and whole-entry uniqueness; Task 8 enforces semantic ID uniqueness, manifest-set equality, ordering, and digest recomputation before issuance. `BenchmarkCandidateSetRecord` requires the exact plan-to-nonce-to-provider-receipt/output-to-candidate-set chain and its completed, verified, nonquarantined state. Unknown fields fail. Decision, approval, deployment, evaluation, and attempt states remain independent.
+
+Add `@contentmd/schemas: workspace:*` as a learning-package development dependency so the parity tests exercise the public schema API without introducing a schemas-to-learning dependency cycle. The lockfile change is part of this task.
 
 **Step 3: Verify and commit**
 
