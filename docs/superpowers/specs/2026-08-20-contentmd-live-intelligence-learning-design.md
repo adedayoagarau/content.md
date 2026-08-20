@@ -1,13 +1,15 @@
 ---
 title: "content.md Live Intelligence and Learning 0.1"
-status: written-spec-pending-user-review
+status: approved-for-implementation
 created: 2026-08-20
 updated: 2026-08-20
 design_id: CONTENTMD-LIVE-INTELLIGENCE-LEARNING-0.1
 parent_design_id: CONTENTMD-UNIVERSAL-AGENT-DESIGN-0.2
 chat_design_approval: approved-with-host-adaptation-amendment
-implementation_authority: none-until-written-spec-review
-authority_effect: implementation-planning-only-after-review
+approved: 2026-08-20
+approval_basis: explicit-user-approval-in-task
+implementation_authority: bounded-local-implementation-and-public-read-only-research
+authority_effect: implementation-within-written-scope
 ---
 
 # content.md Live Intelligence and Learning 0.1
@@ -18,7 +20,7 @@ This design turns the retained local foundation into a governed live content-des
 
 The approved amendment makes hosting adaptive to the adopter's existing codebase. Cloudflare remains a supported high-capability profile, not a required platform. The local portable contracts are authoritative, and no runtime may become the sole copy of project memory, approvals, learning data, or promotion decisions.
 
-The user approved the in-chat design and this amendment on 2026-08-20. This written specification does not authorize implementation by itself. Implementation planning begins after the user reviews this exact file.
+The user approved the in-chat design, host-adaptation amendment, and this written specification on 2026-08-20, then directed implementation and bounded public UX-writing research to start. This approval covers local implementation within this specification and public read-only research under the separate evidence plan. It does not authorize production deployment, credential use, publication, third-party account mutation, automatic learning promotion, or treating observed third-party wording as reusable training material.
 
 ## 2. Scope decomposition
 
