@@ -113,6 +113,10 @@ importers:
       '@contentmd/research':
         specifier: workspace:*
         version: link:../research
+    devDependencies:
+      '@contentmd/adapter-filesystem':
+        specifier: workspace:*
+        version: link:../adapter-filesystem
 
   packages/governance:
     dependencies:
