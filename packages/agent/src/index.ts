@@ -6,4 +6,5 @@ export * from "./content-contract.js";
 export * from "./doctor.js";
 export * from "./decision-workflow.js";
 export * from "./host-bridge.js";
+export * from "./local-runtime.js";
 export * from "./model-workflow.js";
