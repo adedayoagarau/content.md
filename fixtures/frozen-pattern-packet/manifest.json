@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentmd.pattern-packet-manifest/0.1.0",
+  "packet_id": "pattern-packet.synthetic-foundation.0.1",
+  "packet_status": "frozen_open_development",
+  "rights_status": "project_owned_synthetic",
+  "holdout_eligibility": "never",
+  "files": [
+    {
+      "path": "LICENSES.md",
+      "sha256": "a295cf4d19a40f55e0ffdaa7f20a7ab99fa11d7adf65032870175d28d4ba2081"
+    },
+    {
+      "path": "patterns.jsonl",
+      "sha256": "9f6a7a80e6c57581f2ffe06f77b0e4affa0b4cceaeb6b89363f164e0ec2dd3e8"
+    },
+    {
+      "path": "sources.jsonl",
+      "sha256": "baf1462ff3dd7a99ca37567ec7db930a93dd99e09f305a93fc347cacda06032e"
+    }
+  ]
+}
