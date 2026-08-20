@@ -1,4 +1,4 @@
-import { finalizeRecord, type DurableRecordInput } from "@contentmd/core";
+import { finalizeRecord, isRecordId, type DurableRecordInput } from "@contentmd/core";
 import type {
   ContentPatternPayload,
   ContentPatternRecord,
@@ -41,6 +41,10 @@ const TRANSFER_FIELDS = new Set<keyof PatternQuery>([
   "risk_level",
   "rights_status",
 ]);
+const MEMORY_SCOPES = new Set(["task", "personal", "project", "organization", "public"]);
+const LIFECYCLE_STATES = new Set(["proposed", "approved", "active", "superseded", "retired", "rejected"]);
+const SCOPE_KEYS = new Set(["memory_scope", "project_id", "resource_refs", "data_classes"]);
+const PROVENANCE_KEYS = new Set(["record_id", "relationship", "content_digest"]);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -59,7 +63,8 @@ function requireStringArray(record: Record<string, unknown>, field: string, kind
   if (!Array.isArray(value) || value.length === 0 || value.some((item) => typeof item !== "string" || item.length === 0)) {
     throw new Error(`invalid_${kind}_record:${field}`);
   }
-  return [...new Set(value as string[])];
+  if (new Set(value).size !== value.length) throw new Error(`invalid_${kind}_record:${field}`);
+  return [...value];
 }
 
 function rejectUnknownFields(record: Record<string, unknown>, allowed: Set<string>, kind: string): void {
@@ -133,6 +138,53 @@ function requireEnvelope(
   }
   for (const field of ["scope", "provenance", "lifecycle_state"] as const) {
     if (!(field in value)) throw new Error(`invalid_pattern_conversion_envelope:${field}`);
+  }
+  validateScope(value.scope);
+  validateProvenance(value.provenance);
+  if (typeof value.lifecycle_state !== "string" || !LIFECYCLE_STATES.has(value.lifecycle_state)) {
+    throw new Error("invalid_pattern_conversion_envelope:lifecycle_state");
+  }
+}
+
+function validateScope(value: unknown): void {
+  if (!isRecord(value)) throw new Error("invalid_pattern_conversion_envelope:scope");
+  for (const key of Object.keys(value)) {
+    if (!SCOPE_KEYS.has(key)) throw new Error(`invalid_pattern_conversion_envelope:scope:unknown_field:${key}`);
+  }
+  if (typeof value.memory_scope !== "string" || !MEMORY_SCOPES.has(value.memory_scope)) {
+    throw new Error("invalid_pattern_conversion_envelope:scope:memory_scope");
+  }
+  if (value.project_id !== null && typeof value.project_id !== "string") {
+    throw new Error("invalid_pattern_conversion_envelope:scope:project_id");
+  }
+  validateScopeStringArray(value.resource_refs, "resource_refs");
+  validateScopeStringArray(value.data_classes, "data_classes");
+}
+
+function validateScopeStringArray(value: unknown, field: "resource_refs" | "data_classes"): void {
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string" || item.length === 0) || new Set(value).size !== value.length) {
+    throw new Error(`invalid_pattern_conversion_envelope:scope:${field}`);
+  }
+}
+
+function validateProvenance(value: unknown): void {
+  if (!Array.isArray(value)) throw new Error("invalid_pattern_conversion_envelope:provenance");
+  for (const [index, item] of value.entries()) {
+    if (!isRecord(item)) throw new Error(`invalid_pattern_conversion_envelope:provenance:${index}`);
+    for (const key of Object.keys(item)) {
+      if (!PROVENANCE_KEYS.has(key)) {
+        throw new Error(`invalid_pattern_conversion_envelope:provenance:${index}:unknown_field:${key}`);
+      }
+    }
+    if (typeof item.record_id !== "string" || !isRecordId(item.record_id)) {
+      throw new Error(`invalid_pattern_conversion_envelope:provenance:${index}:record_id`);
+    }
+    if (typeof item.relationship !== "string" || item.relationship.length === 0) {
+      throw new Error(`invalid_pattern_conversion_envelope:provenance:${index}:relationship`);
+    }
+    if (typeof item.content_digest !== "string" || !/^[a-f0-9]{64}$/u.test(item.content_digest)) {
+      throw new Error(`invalid_pattern_conversion_envelope:provenance:${index}:content_digest`);
+    }
   }
 }
 

@@ -100,4 +100,46 @@ describe("pattern packet conversion", () => {
       "invalid_pattern_conversion_envelope:unknown_field:inferred_authority",
     );
   });
+
+  it("rejects duplicate packet values instead of silently deduplicating them", async () => {
+    const convertPatternPacketV01 = (research as unknown as {
+      convertPatternPacketV01?: (packet: Record<string, unknown>, envelope: typeof conversionEnvelope) => unknown;
+    }).convertPatternPacketV01;
+    const duplicateSourceRef = await firstPacket();
+    duplicateSourceRef.source_refs = ["pattern-source.recovery", "pattern-source.recovery"];
+    const duplicateContextValue = await firstPacket();
+    (duplicateContextValue.context as Record<string, unknown>).journeys = ["checkout", "checkout"];
+    const duplicateTransferValue = await firstPacket();
+    ((duplicateTransferValue.transfer_conditions as Array<Record<string, unknown>>)[0]!).values = ["checkout", "checkout"];
+
+    expect(() => convertPatternPacketV01!(duplicateSourceRef, conversionEnvelope)).toThrow("invalid_pattern_record:source_refs");
+    expect(() => convertPatternPacketV01!(duplicateContextValue, conversionEnvelope)).toThrow("invalid_pattern_context_record:journeys");
+    expect(() => convertPatternPacketV01!(duplicateTransferValue, conversionEnvelope)).toThrow("invalid_transfer_condition_record:values");
+  });
+
+  it("rejects malformed nested conversion-envelope authority fields", async () => {
+    const convertPatternPacketV01 = (research as unknown as {
+      convertPatternPacketV01?: (packet: Record<string, unknown>, envelope: Record<string, unknown>) => unknown;
+    }).convertPatternPacketV01;
+    const packet = await firstPacket();
+    const unknownScopeField = {
+      ...conversionEnvelope,
+      scope: { ...conversionEnvelope.scope, inferred_authority: "not permitted" },
+    };
+    const invalidLifecycle = { ...conversionEnvelope, lifecycle_state: "unreviewed" };
+    const malformedProvenance = {
+      ...conversionEnvelope,
+      provenance: [{ record_id: "source.fixture", relationship: "derived_from", content_digest: "not-a-digest" }],
+    };
+
+    expect(() => convertPatternPacketV01!(packet, unknownScopeField)).toThrow(
+      "invalid_pattern_conversion_envelope:scope:unknown_field:inferred_authority",
+    );
+    expect(() => convertPatternPacketV01!(packet, invalidLifecycle)).toThrow(
+      "invalid_pattern_conversion_envelope:lifecycle_state",
+    );
+    expect(() => convertPatternPacketV01!(packet, malformedProvenance)).toThrow(
+      "invalid_pattern_conversion_envelope:provenance:0:content_digest",
+    );
+  });
 });

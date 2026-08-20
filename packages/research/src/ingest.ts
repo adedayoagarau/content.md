@@ -33,6 +33,15 @@ const PATTERN_KEYS = new Set([
   "source_refs",
   "transfer_conditions",
 ]);
+const CONTEXT_KEYS = new Set([
+  "journeys",
+  "stages",
+  "states",
+  "channels",
+  "modalities",
+  "locales",
+  "risk_levels",
+]);
 const TRANSFER_FIELDS = new Set<keyof PatternQuery>([
   "journey",
   "stage",
@@ -75,7 +84,14 @@ function requireStringArray(record: Record<string, unknown>, field: string, kind
   if (!Array.isArray(value) || value.length === 0 || value.some((item) => typeof item !== "string" || item.length === 0)) {
     throw new Error(`invalid_${kind}_record:${field}`);
   }
-  return [...new Set(value as string[])];
+  if (new Set(value).size !== value.length) throw new Error(`invalid_${kind}_record:${field}`);
+  return [...value];
+}
+
+function rejectUnknownFields(record: Record<string, unknown>, allowed: Set<string>, kind: string): void {
+  for (const key of Object.keys(record)) {
+    if (!allowed.has(key)) throw new Error(`invalid_${kind}_record:unknown_field:${key}`);
+  }
 }
 
 function sha256Bytes(bytes: Uint8Array): string {
@@ -120,6 +136,7 @@ function parseSource(record: Record<string, unknown>): PatternSourceRecord {
 
 function parseContext(value: unknown): PatternContext {
   if (!isRecord(value)) throw new Error("invalid_pattern_record:context");
+  rejectUnknownFields(value, CONTEXT_KEYS, "pattern_context");
   return {
     journeys: requireStringArray(value, "journeys", "pattern_context"),
     stages: requireStringArray(value, "stages", "pattern_context"),
@@ -137,6 +154,7 @@ function parseTransferConditions(value: unknown): PatternTransferCondition[] {
   }
   return value.map((condition) => {
     if (!isRecord(condition)) throw new Error("invalid_pattern_record:transfer_conditions");
+    rejectUnknownFields(condition, new Set(["field", "values"]), "transfer_condition");
     const field = requireString(condition, "field", "transfer_condition") as keyof PatternQuery;
     if (!TRANSFER_FIELDS.has(field)) throw new Error(`invalid_transfer_condition_field:${field}`);
     return {

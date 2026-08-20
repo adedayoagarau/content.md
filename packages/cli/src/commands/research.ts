@@ -12,7 +12,7 @@ export function registerResearch(program: Command): void {
       const result = await ingestLocalResearch(options.root, options.packet);
       return {
         command_id: "research.ingest",
-        record_refs: result.patterns.map((record) => record.pattern_id),
+        record_refs: result.records.map((record) => record.record_id),
         audit_ref: localArtifactRef(options.root, "research.json"),
         data: result,
       };

@@ -93,4 +93,31 @@ describe("pattern packet ingestion", () => {
 
     await expect(ingestPatternPacket(root)).rejects.toThrow("prohibited_distinctive_expression_field");
   });
+
+  it("rejects duplicate packet values instead of normalizing them", async () => {
+    const root = await mutablePacket();
+    await mutateFirstJsonLine(root, "patterns.jsonl", (record) => {
+      record.source_refs = ["pattern-source.recovery", "pattern-source.recovery"];
+    });
+
+    await expect(ingestPatternPacket(root)).rejects.toThrow("invalid_pattern_record:source_refs");
+  });
+
+  it("rejects unknown nested context and transfer-condition fields", async () => {
+    const unknownContext = await mutablePacket();
+    await mutateFirstJsonLine(unknownContext, "patterns.jsonl", (record) => {
+      (record.context as Record<string, unknown>).unrecognized = "must not be stripped";
+    });
+    await expect(ingestPatternPacket(unknownContext)).rejects.toThrow(
+      "invalid_pattern_context_record:unknown_field:unrecognized",
+    );
+
+    const unknownCondition = await mutablePacket();
+    await mutateFirstJsonLine(unknownCondition, "patterns.jsonl", (record) => {
+      ((record.transfer_conditions as Array<Record<string, unknown>>)[0]!).unrecognized = "must not be stripped";
+    });
+    await expect(ingestPatternPacket(unknownCondition)).rejects.toThrow(
+      "invalid_transfer_condition_record:unknown_field:unrecognized",
+    );
+  });
 });

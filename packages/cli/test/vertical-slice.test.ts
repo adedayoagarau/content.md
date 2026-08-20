@@ -63,7 +63,11 @@ describe("local CLI vertical slice", () => {
     expect((await run(["doctor", "--root", root, "--json"])).command_id).toBe("doctor");
     expect((await run(["discover", "--root", root, "--json"])).record_refs.length).toBeGreaterThan(0);
     expect((await run(["model", "--root", root, "--json"])).record_refs.length).toBeGreaterThan(0);
-    expect((await run(["research", "ingest", "--root", root, "--packet", patternPacket, "--json"])).status).toBe("completed");
+    const research = await run(["research", "ingest", "--root", root, "--packet", patternPacket, "--json"]);
+    expect(research.status).toBe("completed");
+    expect(research.record_refs).toEqual(
+      (research.data as { records: Array<{ record_id: string }> }).records.map((record) => record.record_id),
+    );
     expect((await run(["review", "--root", root, "--json"], [10])).status).toBe("findings_present");
     expect((await run(["strategy", "--root", root, "--provider", "recorded", "--json"])).status).toBe("completed");
     expect((await run(["draft", "--root", root, "--provider", "recorded", "--json"])).status).toBe("completed");
