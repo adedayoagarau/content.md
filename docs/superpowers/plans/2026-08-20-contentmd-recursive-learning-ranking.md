@@ -95,7 +95,18 @@ Add `@contentmd/schemas: workspace:*` as a learning-package development dependen
 
 **Step 3: Verify and commit**
 
-    git add packages/schemas packages/learning
+    NODE24=/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node
+    PNPM=/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback/pnpm
+    test "$("$NODE24" --version)" = "v24.14.0"
+    test "$("$PNPM" --version)" = "11.9.0"
+    "$PNPM" install --lockfile-only --offline
+    "$NODE24" node_modules/vitest/vitest.mjs run packages/learning/test/records.test.ts packages/schemas/test/schema-registry.test.ts
+    "$NODE24" node_modules/vitest/vitest.mjs run
+    "$NODE24" node_modules/typescript/bin/tsc -b tsconfig.json --pretty false
+    "$NODE24" scripts/check-package-boundaries.mjs
+    PATH="/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH" "$NODE24" scripts/verify-foundation.mjs
+    git diff --check
+    git add packages/schemas packages/learning pnpm-lock.yaml
     git commit -m "feat: add recursive learning record contracts"
 
 ---
