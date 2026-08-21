@@ -170,34 +170,59 @@ Malformed/corrupt inputs throw without issuing a learning record. Verified subst
 
 ## Task 3: Build transitive leakage groups and sealed datasets
 
+Implement against the exact [Leakage and Dataset Contracts 0.1](../specs/2026-08-20-contentmd-leakage-dataset-contracts-design.md). That addendum is normative for resolver-free evidence, checkpoints, Unicode behavior, group identity, singleton and diagnostic dispositions, dataset state, issuance, and test acceptance.
+
 **Files:**
 
+- Create: `docs/superpowers/specs/2026-08-20-contentmd-leakage-dataset-contracts-design.md`
 - Create: `packages/learning/src/leakage.ts`
 - Create: `packages/learning/src/dataset.ts`
 - Create: `packages/learning/src/unicode-normalization.ts`
+- Modify: `packages/learning/src/index.ts`
 - Create: `packages/learning/test/leakage.test.ts`
 - Create: `packages/learning/test/dataset.test.ts`
+- Create: `packages/learning/test/unicode-normalization.test.ts`
+- Create: `scripts/generate-unicode-17-artifacts.mjs`
+- Create: `scripts/acquire-unicode-17-sources.mjs`
+- Create: `fixtures/learning-ranking/feature-source-store-schema.json`
+- Create: `fixtures/learning-ranking/feature-source-runtime-profile.json`
+- Create: `fixtures/learning-ranking/unicode-17-source-lock.json`
+- Create: `fixtures/learning-ranking/unicode-17-acquisition-receipt.json`
+- Create: `fixtures/learning-ranking/unicode-17-sources/`
+- Create: `fixtures/learning-ranking/unicode-17-normalization.json`
 - Create: `fixtures/learning-ranking/unicode-17-casefold.json`
+- Create: `fixtures/learning-ranking/unicode-17-whitespace.json`
 - Create: `fixtures/learning-ranking/unicode-17-word-break.json`
 - Create: `fixtures/learning-ranking/unicode-17-grapheme-break.json`
 
 **Step 1: Write failing transitive grouping tests**
 
-Union semantic-message lineage, supersession, task/template families, source occurrences, locale/channel variants, and near duplicates. Normalize with Unicode NFKC, frozen Unicode 17 full case folding, whitespace collapse, and consecutive three-scalar sets. Strings under three scalars group only on exact equality; otherwise Jaccard `>= 0.85`.
+If the vendored Unicode 17 source directory is absent, run the contract's one bounded, credential-free `www.unicode.org` acquisition and commit its source lock and development-fixture receipt before generating artifacts. The lock includes exact Unicode 17 UCD inputs, UAX #29 revision 47, and the official word/grapheme conformance files. Every normal build and test run remains offline.
+
+Union the complete resolver-free semantic-message lineage, supersession, task/template family, source-occurrence, locale/channel-variant, and computed near-duplicate evidence. Normalize only with the source-locked Unicode 17 NFKC, full default case-fold, and `White_Space` artifacts. Generate the word/grapheme tables from the exact addendum algorithms and require every vendored UAX #29 conformance case to pass. Use consecutive Unicode-scalar trigram sets and the exact integer threshold `intersection * 20 >= union * 17`. Strings under three scalars group only on exact equality. Preserve the addendum's canonical multi-reason edges, fixed-point admitted-relation closure, and evidence-backed singleton anchor.
 
 **Step 2: Implement deterministic splits**
 
 The split preimage is UTF-8 `contentmd.learning-split/0.1.0\0` plus leakage-group ID. Interpret SHA-256 as unsigned big-endian; buckets 0–79 train, 80–89 validation, and 90–99 test.
 
-Freeze a `FeatureSourceCheckpointSet` before presentation. Reject later/backdated feature sources, cross-split lineage, or unmanifested inputs.
+Freeze and completely validate the addendum's store binding, closed expression-free optional feature payloads, all ten role streams including zero heads, append prefixes, receipts, checkpoint-set preimages, and presentation digest dependency. Keep later-event suffixes outside the immutable checkpoint in the separate post-checkpoint observation witness. Reject later or backdated feature sources by sequence/head commitment and that witness; reject unmanifested inputs and cross-split lineage independently.
 
 **Step 3: Enforce dataset thresholds**
 
-Training eligibility requires at least 100 decisive pairs and 30 leakage groups, with non-empty validation and test splits containing at least 20 pairs and 5 groups each. Below threshold, emit diagnostics-only status and no promotable dataset.
+Training eligibility requires at least 100 decisive pairs and 30 leakage groups, with nonempty train, validation, and test splits and at least 20 pairs and 5 groups in both validation and test. Below threshold, emit only the exact diagnostics disposition in the addendum. When a deterministic split is structurally empty, return non-record diagnostics and no manifest because the Task 1 schema forbids empty split arrays. Seal only a threshold-complete manifest; do not open its test set.
 
 **Step 4: Verify and commit**
 
-    git add packages/learning fixtures/learning-ranking
+    NODE24=/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node
+    test "$("$NODE24" --version)" = "v24.14.0"
+    "$NODE24" node_modules/vitest/vitest.mjs run packages/learning/test/records.test.ts packages/learning/test/qualification.test.ts packages/learning/test/eligibility.test.ts packages/learning/test/preference.test.ts packages/learning/test/unicode-normalization.test.ts packages/learning/test/leakage.test.ts packages/learning/test/dataset.test.ts packages/schemas/test/schema-registry.test.ts
+    "$NODE24" scripts/generate-unicode-17-artifacts.mjs --check
+    "$NODE24" node_modules/vitest/vitest.mjs run
+    "$NODE24" node_modules/typescript/bin/tsc -b tsconfig.json --pretty false
+    "$NODE24" scripts/check-package-boundaries.mjs
+    PATH="/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH" "$NODE24" scripts/verify-foundation.mjs
+    git diff --check
+    git add packages/learning fixtures/learning-ranking scripts/acquire-unicode-17-sources.mjs scripts/generate-unicode-17-artifacts.mjs docs/superpowers/specs/2026-08-20-contentmd-leakage-dataset-contracts-design.md docs/superpowers/plans/2026-08-20-contentmd-recursive-learning-ranking.md
     git commit -m "feat: build leakage safe learning datasets"
 
 ---
