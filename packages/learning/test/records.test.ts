@@ -1266,7 +1266,7 @@ const NONEMPTY_ARRAY_CASES: readonly {
   { label: "feedback rationale codes", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["rationale_codes"] },
   { label: "eligibility reason codes", schemaId: LEARNING_SCHEMA_IDS.learningEligibility, path: ["reason_codes"] },
   { label: "exemplar transfer conditions", schemaId: LEARNING_SCHEMA_IDS.exemplar, path: ["transfer_condition_refs"] },
-  ...["normalization_artifact_refs", "member_refs", "edges"].map((field) => ({ label: `leakage ${field}`, schemaId: LEARNING_SCHEMA_IDS.leakageGroup, path: [field] as JsonPath })),
+  ...["normalization_artifact_refs", "member_refs"].map((field) => ({ label: `leakage ${field}`, schemaId: LEARNING_SCHEMA_IDS.leakageGroup, path: [field] as JsonPath })),
   ...["example_refs", "leakage_group_refs", "train_example_refs", "validation_example_refs", "test_example_refs", "permission_refs", "feature_source_checkpoint_refs"].map((field) => ({ label: `dataset ${field}`, schemaId: LEARNING_SCHEMA_IDS.learningDatasetManifest, path: [field] as JsonPath })),
   ...["features", "source_artifact_refs", "forbidden_input_fields"].map((field) => ({ label: `feature-profile ${field}`, schemaId: LEARNING_SCHEMA_IDS.featureProfile, path: [field] as JsonPath })),
   ...["feature_order", "standardization", "coefficient_bits"].map((field) => ({ label: `ranking-model ${field}`, schemaId: LEARNING_SCHEMA_IDS.rankingModel, path: [field] as JsonPath })),
@@ -1291,6 +1291,7 @@ const EMPTY_ALLOWED_ARRAY_CASES: readonly {
   path: JsonPath;
   sample: unknown;
 }[] = [
+  { label: "leakage edges", schemaId: LEARNING_SCHEMA_IDS.leakageGroup, path: ["edges"], sample: { left_ref: digestRef("empty_allowed_leakage_left"), right_ref: digestRef("empty_allowed_leakage_right"), reason: "near_duplicate" } },
   { label: "generation critiques", schemaId: LEARNING_SCHEMA_IDS.generationRun, path: ["critique_refs"], sample: digestRef("empty_allowed_generation_critique") },
   { label: "qualification reason codes", schemaId: LEARNING_SCHEMA_IDS.feedbackQualification, path: ["reason_codes"], sample: "synthetic_reason" },
   { label: "dataset exclusions", schemaId: LEARNING_SCHEMA_IDS.learningDatasetManifest, path: ["exclusions"], sample: { example_ref: digestRef("empty_allowed_exclusion"), reason_code: "synthetic_exclusion" } },

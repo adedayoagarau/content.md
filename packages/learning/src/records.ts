@@ -183,7 +183,7 @@ export type LeakageGroupPayload = NoAuthorityPayload & {
   rule_version: "contentmd.leakage-group/0.1.0";
   normalization_artifact_refs: NonEmptyArray<ArtifactRef>;
   member_refs: NonEmptyArray<DigestRef>;
-  edges: NonEmptyArray<LeakageEdge>;
+  edges: LeakageEdge[];
   bucket: number;
   split: "train" | "validation" | "test";
   group_state: "frozen";

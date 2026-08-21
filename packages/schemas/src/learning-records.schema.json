@@ -284,7 +284,7 @@
             "rule_version": { "const": "contentmd.leakage-group/0.1.0" },
             "normalization_artifact_refs": { "$ref": "#/$defs/artifactRefArray" },
             "member_refs": { "$ref": "#/$defs/digestRefArray" },
-            "edges": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/leakageEdge" } },
+            "edges": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/leakageEdge" } },
             "bucket": { "type": "integer", "minimum": 0, "maximum": 99 },
             "split": { "enum": ["train", "validation", "test"] },
             "group_state": { "const": "frozen" }

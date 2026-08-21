@@ -43,7 +43,7 @@ The implementation preserves these contracts:
 
 Two Task 1 structural constraints require explicit Task 3 dispositions:
 
-1. `LeakageGroupRecord.edges` is nonempty. A one-example connected component therefore receives one evidence-backed reflexive `message_lineage` anchor edge under section 8. It never invents a second member.
+1. `LeakageGroupRecord.edges` is empty-allowed. A one-example connected component has `edges: []`; its lexically first valid `message_lineage` relation remains committed as component evidence, a relation commitment, and provenance, never as an artificial self-edge. Every serialized edge has distinct endpoints.
 2. A `LearningDatasetManifest` requires nonempty train, validation, and test example arrays and nonempty group arrays. When deterministic buckets leave any split empty, Task 3 returns a digest-bound non-record diagnostic and `manifest: null`; it does not counterfeit sentinel examples or an invalid schema object. A `diagnostics_only` durable manifest is issued only when all three splits are structurally nonempty but one or more promotion thresholds fail.
 
 No current Task 3 function issues `dataset_state: "invalid"` or `"test_opened"`. Those enum members remain reserved for later immutable state-transition contracts. Integrity failures throw without a durable record.
@@ -877,24 +877,15 @@ An output edge is one `(left_ref, right_ref, reason)` triple per distinct reason
 
 All direct edges for a component are stored; transitive closure edges are not invented.
 
-For a singleton component, the subject's lexically first `message_lineage` relation supplies this one required reflexive anchor:
-
-```ts
-{
-  left_ref: singleton_example_ref,
-  right_ref: singleton_example_ref,
-  reason: "message_lineage"
-}
-```
-
-The source relation must contain that subject and must pass all evidence checks. Reflexive edges are forbidden in components of size greater than one and for every reason other than `message_lineage`. This is membership evidence required by the Task 1 nonempty `edges` shape, not a claim that two distinct examples match.
+For a singleton component, `edges` is exactly empty. The subject's lexically first valid `message_lineage` relation must still contain that subject, pass every evidence check, and appear in the component's contributing relation nodes, relation commitments, and provenance. It is not serialized as an edge because no pair of distinct examples exists. Every serialized edge has distinct endpoints; reflexive edges are always forbidden.
 
 The partition equations are exact:
 
 - every admitted example appears in exactly one component;
 - component member sets are pairwise disjoint;
 - the union of component member sets equals the admitted-example set;
-- every non-reflexive edge endpoint is a member of the same component;
+- every edge has two distinct endpoints that are members of the same component;
+- every singleton component has an empty edge set;
 - every component with more than one member is connected by its stored direct edges; and
 - no excluded example, blocking-only ref, browser/competitor/third-party material, or candidate ref appears as a member.
 
@@ -984,7 +975,7 @@ interface ComponentEvidenceProjection {
 }
 ```
 
-Subjects are exactly the sorted component members. `AdmittedGroupingEvidence` is the byte-identical field projection of the submitted `DatasetExampleEvidence` after removing `post_checkpoint_observation` and `blocking_evidence`; admission guarantees the latter is empty and the former is null. These negative-only fields can never change group identity or content. Each contributing-relation ID is the sorted intersection of that subject's full relation IDs and the nodes that contributed a stored edge or singleton anchor; it may be empty for a component connected only by near duplication. Relation nodes are exactly those contributing nodes. Additional materials are exactly the sorted closure of those nodes' non-subject evidence. Section 9.1's fixed-point closure guarantees that every contributing node contains admitted members only; a node or evidence payload naming an excluded example or its candidate/task/context ref is forbidden in a component projection. Pair traces contain every unordered distinct member pair, endpoints canonically oriented and sorted. Each trace's four comparisons retain the exact order `A/A`, `A/B`, `B/A`, `B/B`; scalar arrays are ordered, trigram arrays are lexical sets, and integer sizes are recomputed. `trace_digest = sha256Canonical()` over every pair-trace field except itself, and its evidence ID is `near-duplicate-trace.<trace_digest>`. A singleton has an empty pair trace.
+Subjects are exactly the sorted component members. `AdmittedGroupingEvidence` is the byte-identical field projection of the submitted `DatasetExampleEvidence` after removing `post_checkpoint_observation` and `blocking_evidence`; admission guarantees the latter is empty and the former is null. These negative-only fields can never change group identity or content. Each contributing-relation ID is the sorted intersection of that subject's full relation IDs and the nodes that contributed a stored edge or, for a singleton, the required lexically first committed message-lineage relation; it may be empty for a component connected only by near duplication. Relation nodes are exactly those contributing nodes. Additional materials are exactly the sorted closure of those nodes' non-subject evidence. Section 9.1's fixed-point closure guarantees that every contributing node contains admitted members only; a node or evidence payload naming an excluded example or its candidate/task/context ref is forbidden in a component projection. Pair traces contain every unordered distinct member pair, endpoints canonically oriented and sorted. Each trace's four comparisons retain the exact order `A/A`, `A/B`, `B/A`, `B/B`; scalar arrays are ordered, trigram arrays are lexical sets, and integer sizes are recomputed. `trace_digest = sha256Canonical()` over every pair-trace field except itself, and its evidence ID is `near-duplicate-trace.<trace_digest>`. A singleton has an empty pair trace.
 
 The projection identity preimage contains every projection field except `projection_id` and `projection_digest`. `projection_id = "leakage-component-evidence." + sha256Canonical(identity_preimage)`. `projection_digest = sha256Canonical()` over every projection field except itself, now including the derived ID. Its exact ref uses schema ID `contentmd.task3-leakage-component-evidence` and version `0.1.0`. It deliberately contains no whole-universe snapshot ref, capture time, unrelated subject, or unrelated relation, so adding an unrelated component cannot change an existing group's input digest or provenance.
 
@@ -1331,7 +1322,7 @@ No function catches an integrity error and emits a partial group, manifest, or s
 
 Task 3 implementation begins with failing tests and is complete only when tests prove:
 
-1. a singleton component emits exactly one evidence-backed reflexive `message_lineage` edge and no invented member;
+1. a singleton component emits `edges: []`, no self-loop, and no invented member while retaining its lexically first valid `message_lineage` witness as relation commitment, component evidence, and provenance;
 2. declared multi-reason edges retain every reason, have deterministic orientation/order, and union transitively independent of input order;
 3. every graph endpoint, subject, relation ID, basis ID/value, and relation-evidence ref resolves inside the closed snapshot, and dangling or incomplete relation universes fail; bounded exclusion-only blocking refs remain the sole non-resolving exception;
 4. every admitted preference maps to exactly one component and partition equations hold;
