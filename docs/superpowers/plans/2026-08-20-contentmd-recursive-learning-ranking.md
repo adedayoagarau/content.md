@@ -231,6 +231,7 @@ Training eligibility requires at least 100 decisive pairs and 30 leakage groups,
 
 **Files:**
 
+- Create: `docs/superpowers/specs/2026-08-20-contentmd-retrieval-features-baseline-contracts-design.md`
 - Create: `packages/learning/src/retrieval.ts`
 - Create: `packages/learning/src/features.ts`
 - Create: `packages/learning/src/baseline.ts`
@@ -238,53 +239,183 @@ Training eligibility requires at least 100 decisive pairs and 30 leakage groups,
 - Create: `packages/learning/test/features.test.ts`
 - Create: `packages/learning/test/baseline.test.ts`
 - Create: `fixtures/learning-ranking/generic-language-lexicon.json`
+- Modify: `packages/learning/src/index.ts`
 
-**Step 1: Write failing approved-pattern retrieval tests**
+**Normative contract:** [Retrieval, Feature, and Baseline Contracts 0.1](../specs/2026-08-20-contentmd-retrieval-features-baseline-contracts-design.md). Its closed types, public functions, digest preimages, exclusion and error precedence, Unicode behavior, quarantine rules, official-mode failure, formulas, and TDD acceptance are exact. `RetrievalSnapshot`, feature material/vector objects, and the deterministic baseline are resolver-free auxiliary digest objects; this task does not add a twenty-fourth Task 1 record. `FeatureProfile` remains the one registered durable record.
 
-Filter exact project, memory, product area, journey state, channel, locale, market, risk, lifecycle, rights, freshness, and approval before deterministic lexical scoring. Exclude expired, revoked, unresolved-disputed, rights-blocked, and incompatible records. Store query, candidates, exclusions, component scores, ordering, and registry versions in `RetrievalSnapshot`.
+**Step 1: Write failing retrieval contract tests**
 
-**Step 2: Implement `rank-features/0.1.0`**
+Test the exact closed query and projection, raw query-term plus normalized-sequence/token identity binding, complete canonical-pattern binding, all scope/state filters, fixed exclusion precedence, five-field Unicode lexical score, evidence strength, transfer conditions, stable ties, quarantined no-expression input, zero-hit behavior, full-output snapshot identity/digest/provenance and verification replay, null/non-null and differing producer-receipt identity, exact transitive dependency-manifest closure, one-at-a-time hit/score/exclusion/provenance/dependency mutations, exhaustive nested error mapping, and the top-level official fail-closed path. Run the focused test and require the initial failure to be missing Task 4 behavior, not a syntax or fixture error.
 
-Freeze feature order and transformations for scope matches, required-fact coverage, recovery coverage, terminology ratio, entity/action coverage, evidence coverage, generic-language density, length distance, and a missing indicator for every nullable feature. Bind all term, fact, action, evidence, lexicon, tokenizer, Unicode, and acceptance-criteria digests.
+**Step 2: Implement deterministic retrieval**
 
-Reject forbidden fields and any hard-ineligible candidate before vectorization.
+Implement only `retrieveApprovedPatterns()`, `verifyRetrievalSnapshot()`, and their closed exported types. Consume complete resolver-free inputs, a deterministically re-enumerated transitive runtime dependency manifest, and the committed Task 3 Unicode 17 artifacts; bind exact raw and normalized query identity, every derived snapshot field, and producer_verification_ref before issuance. Verification reruns retrieval and requires byte identity; do not read a registry, file, clock, browser, network, or host Unicode table implicitly. Browser, competitor, and third-party material remains bounded exclusion provenance and never enters tokens, projections, scores, or output wording.
 
-**Step 3: Implement the deterministic baseline**
+**Step 3: Write failing profile and vector tests**
+
+Test the exact 21-position `rank-features/0.1.0` profile, feature-universe and checkpoint closure, acyclic scope/material refs with context_ref owned only by FeatureContextBinding, match semantics, all coverage and missing formulas, generic lexicon overlap rule, Unicode grapheme length, forbidden fields, and per-binding deterministic enumeration. Require canonical complete scope_material_sources to cover the exact unique union of every binding target and permitted-candidate ref, bind that union in profile/vector preimages, and validate every object/ref/project/role/coordinate/locale/right/source-closure/no-back-reference equation at profile construction, including an unused second binding. Require vector target/candidate objects to be canonical-byte-equal to the selected profile sources. For every binding, independently enumerate every exact-schema FeatureMaterial ref in its checkpoint transitive closure and every current exact-project acceptance-criteria entry without a context/source-ref filter; require exact local material, acceptance-criteria, policy StableSet item-ref rule, and rule-artifact sets. Test a truly empty derived material set, omission/addition/substitution, wrong project/rights/source class, exact candidate/material/lexicon-to-target-context locale binding with wrong locale selecting `scope_mismatch`, two distinct checkpoints with disjoint local sets, exact unique manifest/profile global unions across bindings, selected-local-only vector replay, complete multi-rule-set aggregation, and jointly omitted-universe/profile plus missing/extra/duplicate/cross-paired/subset rejection. Add one-at-a-time unused-second-binding scope-source mutations and selected standalone scope replacements. Also test zero/one/multiple/conflicting grapheme-range intersections with exact sorted provenance, hard-ineligible no-vector results, exact local/global-set/value/count/satisfied-ref/provenance preimage identity, project/runtime/context/target-role equality, transitive dependency mutations, public exports, exhaustive nested error mapping, and official/error precedence.
+
+**Step 4: Implement the frozen profile and vectorizer**
+
+Implement only `createFeatureProfile()` and `vectorizeCandidate()` plus their closed exported types. Issue a development-fixture `FeatureProfile` through the existing Task 1 schema and `finalizeRecord()`. Keep `ScopeMaterial`, `FeatureMaterial`, `FeatureUniverseManifest`, and `CandidateFeatureVector` as resolver-free auxiliary digest objects. ScopeMaterial contains no context_ref; FeatureContextBinding owns it. createFeatureProfile() receives the canonical complete scope_material_sources union and verifies every binding, including unused ones, before profile issuance: exact target/permitted refs, complete objects, project/role/coordinate/locale/rights, checkpoint source closure, and one-way no-back-reference graph. Bind the exact global scope refs in profile input_digest. At vectorization, require target_scope and candidate_scope to be canonical-byte-equal to selected objects from that same profile-bound union; never accept standalone scope truth. For each binding and its exact checkpoint, independently enumerate the complete transitive-closure FeatureMaterial ref set and every current exact-project acceptance-criteria entry without using context or caller universe membership as an applicability filter; derive that binding's complete local policy StableSet rule/ref/artifact sets and require its declarations to match. Require createFeatureProfile()'s complete scope, material, and hard-rule sources plus the manifest/profile fields to cover the exact unique unions across bindings. At vectorization and scoring replay, consume only the selected binding's complete local scope/material/acceptance/rule/gate/grapheme set; do not compare a multi-binding global union to one local set. Bind candidate scope, every selected material, every selected rule, and the parsed generic lexicon to the selected Task 2 context locale, with wrong locale failing `scope_mismatch`. Intersect every selected-local grapheme constraint by maximum minimum and minimum maximum, treat no bound as missing, and return hard_rule_failed with no vector for a conflicting intersection. Bind every local and global preimage set, term, fact, recovery action, entity, action, evidence, lexicon, tokenizer, Unicode, grapheme constraint/provenance, gate, value, count, satisfied ref, provenance entry, project/context/target role, runtime, producer verification state, and transitive dependency. No caller-selected, binding-selected, or jointly self-declared scope/material/hard-rule subset is conforming. Create the exact project-owned synthetic lexicon bytes specified by the addendum.
+
+**Step 5: Write failing baseline tests**
+
+Test the exact auxiliary baseline identity/ref and static baseline/profile/project/complete-runtime-witness/dependency binding; reject unavailable universe/checkpoint/scope-source/rule/context/vector/Unicode-table fields at construction. At score, pair, and order time, test exact vector refs, complete paired vectorization replay of feature-universe artifacts, profile-bound scope-source union and selected-source bytes, every selected-binding exact-project acceptance criterion, selected-binding policy-item rule sets, manifest/profile global-union equations, grapheme intersections, gates and dependencies, component projection, contextual-specificity formula, omission and renormalization, finite score, pair symmetry, exact tie, clipping, overflow-safe sigmoid, deterministic digest tie-break, pair/ordering context/universe/checkpoint mismatch, one-at-a-time vector value/count/satisfied-ref/grapheme-constraint-ref/provenance/gate/dependency mutations, nested error precedence, public exports, and official fail-closed path.
+
+**Step 6: Implement the deterministic baseline**
 
 Use applicable weights: facts 0.25, recovery 0.15, terminology 0.15, contextual specificity 0.15, evidence 0.15, one-minus-generic-density 0.10, and one-minus-length-distance 0.05; omit inapplicable components and renormalize. Pair probability is `clip(sigmoid(4 * score_difference), 1e-6, 1 - 1e-6)`.
 
-**Step 4: Verify and commit**
+Implement only `createDeterministicBaseline()`, `scoreDeterministicBaseline()`, `compareDeterministicBaseline()`, and `orderBaselineCandidates()` plus their closed exported types. `createDeterministicBaseline()` reverifies only its dependency-closed producer, the complete static FeatureProfile and project, and the complete frozen Task 3 runtime-profile StoreArtifactWitness; it accepts no feature universe, checkpoint, scope source, hard-rule, context, vector, Unicode-table bundle, or Unicode-runtime aggregate. At scoring time, reverify and cross-bind the baseline and FeatureProfile, then rerun `vectorizeCandidate()` from each complete paired input/result to verify the feature-universe artifact, profile-bound scope-source union and selected-source byte equality, selected-binding materials, acceptance criteria and policy-item rules, manifest/profile global-union equations, Unicode runtime, exact 21-position vector order/value domains, target role, and common context/universe/checkpoint semantics. Require byte-identical eligible output; every score, pair, and ordered row binds the replayed exact vector ref. The baseline remains resolver-free and authority-free; `LearningEvaluationRun.baseline_ref` can bind it without a schema-registry addition.
 
-    git add packages/learning fixtures/learning-ranking/generic-language-lexicon.json
+**Step 7: Verify and commit**
+
+    NODE24=/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node
+    test "$("$NODE24" --version)" = "v24.14.0"
+    "$NODE24" scripts/generate-unicode-17-artifacts.mjs --check
+    "$NODE24" node_modules/vitest/vitest.mjs run packages/learning/test/retrieval.test.ts packages/learning/test/features.test.ts packages/learning/test/baseline.test.ts
+    "$NODE24" node_modules/vitest/vitest.mjs run packages/learning/test/records.test.ts packages/learning/test/qualification.test.ts packages/learning/test/eligibility.test.ts packages/learning/test/preference.test.ts packages/learning/test/leakage.test.ts packages/learning/test/dataset.test.ts packages/learning/test/unicode-normalization.test.ts
+    "$NODE24" node_modules/vitest/vitest.mjs run
+    "$NODE24" node_modules/typescript/bin/tsc -b tsconfig.json --pretty false
+    "$NODE24" scripts/check-package-boundaries.mjs
+    PATH="/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback:$PATH" "$NODE24" scripts/verify-foundation.mjs
+    git diff --check
+    git add docs/superpowers/specs/2026-08-20-contentmd-retrieval-features-baseline-contracts-design.md docs/superpowers/plans/2026-08-20-contentmd-recursive-learning-ranking.md packages/learning/src/retrieval.ts packages/learning/src/features.ts packages/learning/src/baseline.ts packages/learning/src/index.ts packages/learning/test/retrieval.test.ts packages/learning/test/features.test.ts packages/learning/test/baseline.test.ts fixtures/learning-ranking/generic-language-lexicon.json
     git commit -m "feat: freeze content ranking features"
 
 ---
 
 ## Task 5: Train deterministic pairwise logistic regression
 
+**Spec:** [Pairwise Training and Ranking Contracts 0.1](../specs/2026-08-20-contentmd-pairwise-training-ranking-contracts-design.md)
+
 **Files:**
 
+- Modify: `packages/schemas/src/learning-records.schema.json`
+- Create: `packages/schemas/src/model-training-statistics.schema.json`
+- Modify: `packages/schemas/src/schema-registry.ts`
+- Modify: `packages/schemas/test/schema-registry.test.ts`
 - Create: `packages/learning/src/numeric.ts`
 - Create: `packages/learning/src/pairwise-logistic.ts`
 - Create: `packages/learning/src/rank.ts`
+- Create: `packages/learning/src/pairwise-release-profile.ts`
+- Modify: `packages/learning/src/index.ts`
 - Create: `packages/learning/test/numeric.test.ts`
 - Create: `packages/learning/test/pairwise-logistic.test.ts`
 - Create: `packages/learning/test/rank.test.ts`
+- Modify: `packages/learning/test/records.test.ts`
+- Create: `scripts/verify-pairwise-code-manifest.mjs`
+- Create: `fixtures/learning-ranking/pairwise-training-code-manifest.json`
 - Create: `fixtures/learning-ranking/golden-model.json`
+- Create: `fixtures/learning-ranking/golden-model.sha256`
 
-**Step 1: Write failing golden-vector tests**
+**Interfaces:**
 
-Test A/B reversal symmetry, no intercept, exact feature order, zero-variance behavior, missing indicators, train-only standardization, clipping, overflow-safe sigmoid/softplus, Kahan summation, non-finite rejection, deterministic coefficients, predictions, and model digest in independent processes.
+- Consumes: the exact committed Task 3 `BuildLearningDatasetInput`/`buildLearningDataset()` and `SealLearningDatasetInput`/`sealLearningDataset()` contracts, Task 4 `CreateFeatureProfileInput`/`createFeatureProfile()` and `CandidateVectorizationInput`/`vectorizeCandidate()` contracts, Task 1 `RankingModelRecord`, exact code/runtime manifests, and no bare ref/digest/vector or caller-asserted verification boolean.
+- Produces: the exact `PairwiseRankingError`, five numeric helpers, `verifyPairwiseCodeManifest`, `admitPairwiseRuntime`, `verifyLearningDatasetForTraining`, `verifyPairwiseFeatureMatrix`, `verifyPairwiseCandidate`, `trainPairwiseLogistic`, `verifyRankingModel`, `predictPairwise`, and `rankEligibleExpressions` exports and every closed replay/result type in the Task 5 contract.
+- Depends on: `@contentmd/core`, existing learning-record types, Node/ECMAScript primitives, and Vitest only. Add no third-party runtime package.
 
-**Step 2: Implement the exact trainer**
+- [ ] **Step 0: Correct repeated-coefficient schema semantics**
 
-Use L2 pairwise logistic regression with `lambda = 1.0`, learning rate `0.05`, zero initial weights, full-batch gradient descent, at most 2,000 iterations, population standard deviations, standardized clipping to `[-10,10]`, and convergence after absolute unquantized loss change below `1e-9` for 10 consecutive iterations.
+Write failing registry and learning-record tests proving a RankingModelRecord with two or more identical `0000000000000000` coefficient strings is valid by position. Remove only `uniqueItems: true` from `rankingModelPayload.properties.coefficient_bits` in `learning-records.schema.json`; retain the nonempty array, 16-lowercase-hex item pattern, feature-order uniqueness, equal-length runtime invariant, and every other Task 1 field. Run both focused suites and require PASS before trainer work.
 
-Coefficient identity is each binary64 bit pattern encoded as 16 lowercase hex characters. Human decimals are non-authoritative.
+Run:
 
-**Step 3: Verify and commit**
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/schemas/test/schema-registry.test.ts packages/learning/test/records.test.ts
 
-    git add packages/learning fixtures/learning-ranking/golden-model.json
+- [ ] **Step 1: Write failing complete replay-handoff tests**
+
+Test `verifyLearningDatasetForTraining`, `verifyPairwiseFeatureMatrix`, and `verifyPairwiseCandidate` from the exact closed section 3 inputs. Rerun Task 3 build plus internally derived seal, require the same exact Task 3 thresholds for all three Task 5 purposes, rerun Task 4 profile creation and candidate vectorization, derive rows/labels/sides/groups/checkpoints from the replayed subjects, and require byte-equal outputs. Add one-field mutations for every build/seal/profile/vector input and derived output, full caller-rehash attempts, below-threshold and diagnostics-only rejection, bare-ref/digest/vector/receipt/boolean rejection, WeakSet/direct-import bypass, exact stored train order, and unconditional top-level official short-circuit before nested proxy/accessor traps.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/learning/test/pairwise-logistic.test.ts
+
+Expected before implementation: FAIL because the three Task 5 replay verifier exports do not exist.
+
+- [ ] **Step 2: Write and run the failing binary64 tests**
+
+Cover big-endian encodings for positive zero, positive one, and the smallest positive subnormal; negative-zero and non-finite rejection; both stable sigmoid and softplus branches; exact classic-Kahan state order; semantic-array raw UTF-8 ordering; repository `canonicalJson()` object-key compatibility; and non-finite intermediates.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/learning/test/numeric.test.ts
+
+Expected before implementation: FAIL because the five numeric exports do not exist.
+
+- [ ] **Step 3: Implement only the numeric contract and make its tests pass**
+
+Implement section 4 exactly: binary64 big-endian encoding, canonical positive zero, preserved subnormals, classic Kahan, overflow-safe sigmoid, and softplus. Do not add rounding, quantization, locale collation, randomness, native math, or a dependency.
+
+Run the Step 2 command and require PASS.
+
+- [ ] **Step 4: Write and run the failing standardization and trainer tests**
+
+Use independently calculated fixtures for Task 4's exact 21 positions one-to-one, explicit missing-indicator reuse with no second expansion, all value domains, exact stored train-row order, the exact `2N` population, candidate-wise standardization and clipping before `A - B`, zero variance, train-only statistics, duplicate rejection, one-step loss and gradient, A/B reversal, no intercept, simultaneous full-batch updates, the strict convergence boundary, update 2,000 nonconvergence, and every exact invalid stage/non-finite path.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/learning/test/pairwise-logistic.test.ts
+
+Expected before implementation: FAIL at the missing trainer API, not at fixture setup.
+
+- [ ] **Step 5: Add the statistics schema and failing identity/state tests**
+
+Add the exact closed `contentmd.model-training-statistics-record` schema from section 7.2 and its focused registry tests. In `pairwise-logistic.test.ts`, cover the exact schema/code/input/statistics/coefficient/model/replay preimages; purpose and both distinct runtime bindings; every record ID, outer digest, scope, and provenance equation; exact 21-entry equalities; repeated big-endian coefficient bits; caller-rehashed coefficient/model-state attacks; deterministic retraining; the closed completed/nonconverged/invalid statistics table; no invalid model issuance; and exhaustive dual-fault error precedence.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/schemas/test/schema-registry.test.ts packages/learning/test/pairwise-logistic.test.ts
+
+Expected before implementation: FAIL because the schema registration, record producer, and identity verifier are absent.
+
+- [ ] **Step 6: Implement the pure fitter, statistics record, model record, and verifier**
+
+Implement sections 3 and 5–7 without reading a file, store, clock, environment variable, random source, subprocess, or network inside runtime APIs. Implement the three replay verifiers first, with module-private WeakSets and copied/frozen complete values. `admitPairwiseRuntime` alone reads the immutable Node/V8/ICU/Unicode/platform/architecture/endianness tuple. Derive every row/label/side/group/checkpoint/value from replay; never trust a structural cast. Issue a model record only for finite trained or finite nonconverged output. Any invalid path emits no model and uses the exact statistics table. `verifyRankingModel` reruns the complete request including purpose, accepts only a byte-identical trained result, and quarantines a byte-identical nonconverged result.
+
+Run the Step 5 command and require PASS.
+
+- [ ] **Step 7: Write failing rank tests, then implement ranking**
+
+Test complete candidate/profile/vector replay; exact model/profile/project/context/target/checkpoint/universe compatibility; distinct Task 4 feature and Task 5 numeric runtime refs; hard-rule/blocking eligibility with no invented copying/ownership verdict; pairwise reversal; exact development-fixture/authority-none output binding; exact score, unclipped, and clipped bit evidence; finite scores; nonempty rank input; descending order; exact expression-digest ties and tie buckets; duplicate rejection; candidate bijection; and one-field mutations against the exact prediction input/prediction/rank input/tie-trace/output preimages.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/learning/test/rank.test.ts
+
+Expected before `rank.ts`: FAIL at the missing rank exports. Implement section 8, add the Task 5 exports to `packages/learning/src/index.ts`, rerun, and require PASS.
+
+- [ ] **Step 8: Seal the independently fixed golden and official/quarantine negatives**
+
+Write canonical `pairwise-training-code-manifest.json`, implement the bounded read-only `verify-pairwise-code-manifest.mjs` raw-byte gate, and generate its pinned manifest/runtime values into `pairwise-release-profile.ts`. Write the closed canonical `golden-model.json` and separate exact `golden-model.sha256` lock from section 7.6; keep both golden digests out of the release-profile/input/model preimages. Expected one-step values must be calculated independently of production functions. Add two fresh-process comparisons for byte-identical statistics, coefficients, predictions, ranking, semantic digest, model-artifact digest, and outer record digest under the admitted Node `24.14.0` runtime.
+
+Add negative cases for the unconditional official short-circuit before nested traps; unsealed/insufficient/opened-test data; scope, permission, rights, or currentness drift; Task 4 feature-runtime versus Task 5 numeric-runtime substitution; code/schema/manifest/lock substitution; browser/competitor feature or label input; blocking-only leakage; raw structural casts; direct-import bypass; invalid/nonconverged model use; and every exhaustive condition-to-code/precedence boundary.
+
+Run:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/verify-pairwise-code-manifest.mjs
+    shasum -a 256 -c fixtures/learning-ranking/golden-model.sha256
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run packages/learning/test/numeric.test.ts packages/learning/test/pairwise-logistic.test.ts packages/learning/test/rank.test.ts packages/learning/test/records.test.ts packages/schemas/test/schema-registry.test.ts
+
+Expected: PASS with no network or mutable external dependency.
+
+- [ ] **Step 9: Run complete verification and commit**
+
+Run, in order:
+
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/generate-unicode-17-artifacts.mjs --check
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/verify-pairwise-code-manifest.mjs
+    shasum -a 256 -c fixtures/learning-ranking/golden-model.sha256
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/vitest/vitest.mjs run
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node node_modules/typescript/bin/tsc -b tsconfig.json --pretty false
+    /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/check-package-boundaries.mjs
+    PATH="/Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:$PATH" /Users/aagarau/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node scripts/verify-foundation.mjs
+    git diff --check
+
+Require two clean golden subprocesses and stable hashes before claiming completion.
+
+    git add packages/learning packages/schemas scripts/verify-pairwise-code-manifest.mjs fixtures/learning-ranking/pairwise-training-code-manifest.json fixtures/learning-ranking/golden-model.json fixtures/learning-ranking/golden-model.sha256 docs/superpowers/specs/2026-08-20-contentmd-pairwise-training-ranking-contracts-design.md docs/superpowers/plans/2026-08-20-contentmd-recursive-learning-ranking.md
     git commit -m "feat: train deterministic pairwise ranker"
 
 ---
