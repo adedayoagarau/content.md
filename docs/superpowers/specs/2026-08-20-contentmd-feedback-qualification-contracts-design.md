@@ -513,6 +513,7 @@ interface LearningEligibilityInput {
   evaluation_at: Rfc3339;
   producer: ProducerArtifactWitness;
   qualification: FeedbackQualificationRecord;
+  qualification_input: FeedbackQualificationInput;
   decision: DurableContentDecisionRecord;
   learning_policy: EvidenceSnapshot<"learning-policy", LearningPolicyPayload>;
   permission: EvidenceSnapshot<"learning-permission", LearningPermissionPayload> | null;
@@ -523,6 +524,8 @@ interface LearningEligibilityInput {
   target_memory_scope: MemoryScope;
 }
 ```
+
+Before eligibility derivation, the constructor replays `qualifyFeedback(qualification_input)` and requires the resulting complete record—including record ID, scope, payload, provenance, producer digests, input digest, and content digest—to equal `qualification` exactly. The nested input's decision, evidence records, mode, and scope must also equal the corresponding eligibility inputs where they overlap. A caller-re-finalized qualification is therefore not trusted merely because its outer digest verifies.
 
 ```ts
 interface LearningPolicyPayload {
@@ -648,6 +651,7 @@ interface PreferenceExampleInput {
   producer: ProducerArtifactWitness;
   qualification: FeedbackQualificationRecord;
   eligibility: LearningEligibilityRecord;
+  eligibility_input: LearningEligibilityInput;
   decision: DurableContentDecisionRecord;
   task: EvidenceSnapshot<"task", TaskPayload>;
   context: EvidenceSnapshot<"context", ContextPayload>;
@@ -657,6 +661,8 @@ interface PreferenceExampleInput {
   feature_source_checkpoint_set_ref: DigestRef;
 }
 ```
+
+Before preference admission, the constructor replays `determineLearningEligibility(eligibility_input)`, which in turn replays its nested qualification input, and requires the resulting eligibility record to equal `eligibility` exactly. The replayed qualification must equal the separately supplied `qualification`, and every overlapping decision, task, context, candidate, mode, scope, permission, and checkpoint binding must agree. This acyclic replay chain is the development-fixture authenticity boundary: qualification input → qualification record → eligibility input → eligibility record → preference input. No unsigned caller-re-finalized upstream record is accepted as producer truth.
 
 The constructor issues a record only if qualification is `qualified`, eligibility is `eligible`, outcome is A or B, every complete record digest verifies, and every qualification/eligibility/decision/task/context/candidate/presentation ref agrees. Otherwise it throws `Task2ContractError("learning_example_not_eligible:<reason>")` and issues no preference record.
 
@@ -726,6 +732,7 @@ const eligibilityPreimage = {
   derived_output_scope,
   producer,
   qualification,
+  qualification_input,
   decision,
   evidence: { learning_policy, permission, checks, lineage_a, lineage_b, reviewer_set },
   target_memory_scope,
@@ -739,6 +746,7 @@ const preferencePreimage = {
   producer,
   qualification,
   eligibility,
+  eligibility_input,
   decision,
   evidence: { task, context, candidate_a, candidate_b, presentation },
   feature_source_checkpoint_set_ref,
@@ -810,6 +818,8 @@ official_mode_not_supported
 ```
 
 No other `task2_contract_invalid:` suffix is emitted. When more than one integrity failure exists, validation stops at the first check in this listed order.
+
+The ordering applies across the complete input graph, not only the top-level object. Before any event, durable-record, snapshot, receipt, boundary, producer-manifest, or input digest is verified, a descriptor-safe preflight must establish that every nested object and array has the exact permitted keys/cardinality and no accessors, inherited values, symbols, holes, non-enumerable extras, cycles, `undefined`, functions, bigints, non-finite numbers, or negative zero. That full phase emits `input_shape` or `canonical_value` before any stale nested digest can mask the malformed shape; getters are rejected from descriptors and are never invoked. Later semantic enum mismatches explicitly assigned a substantive state in sections 7–9 remain valid-shaped evidence and are not collapsed into this preflight.
 
 Substantive qualification and eligibility failures remain inspectable records. Preference creation is different: an ineligible pair has no valid preference identity, so no `PreferenceExampleRecord` is issued.
 
