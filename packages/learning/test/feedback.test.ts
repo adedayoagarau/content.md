@@ -2,8 +2,13 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { recordContentDecision } from "@contentmd/learning";
+import { adaptContentDecisionEvent, recordContentDecision } from "@contentmd/learning";
 import { SqliteEventStore } from "@contentmd/memory";
+import {
+  producer,
+  PROJECT_ID,
+  proposalRecord,
+} from "./task2-fixtures.js";
 
 const temporaryDirectories: string[] = [];
 
@@ -63,6 +68,25 @@ describe("content decision feedback", () => {
     expect(events[0]?.payload).not.toHaveProperty("mutation_approval_id");
     expect(first.mutation_approval_effect).toBe("none");
     expect(second.sequence).toBe(2);
+    expect(Object.keys(first)).toEqual([
+      "schema_version",
+      "decision_id",
+      "status",
+      "actor_ref",
+      "actor_role",
+      "rationale",
+      "proposal_ref",
+      "selected_expression",
+      "edited_expression",
+      "evidence_reviewed",
+      "scope",
+      "project_id",
+      "occurred_at",
+      "mutation_approval_effect",
+      "sequence",
+      "event_digest",
+    ]);
+    expect(first).not.toHaveProperty("content_digest");
     store.close();
   });
 
@@ -93,5 +117,43 @@ describe("content decision feedback", () => {
     await expect(recordContentDecision({ ...base, status: "accepted" })).rejects.toThrow("accepted_decision_requires_selected_expression");
     await expect(recordContentDecision({ ...base, status: "edited" })).rejects.toThrow("edited_decision_requires_edited_expression");
     store.close();
+  });
+
+  it("preserves legacy UTF-16 evidence order while canonicalizing the durable decision boundary", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-feedback-"));
+    temporaryDirectories.push(root);
+    const store = new SqliteEventStore(join(root, "events.sqlite"), {
+      permitted_data_classes: ["project_feedback"],
+    });
+    const proposal = proposalRecord();
+    const supplementary = "evidence.\u{10000}";
+    const privateUse = "evidence.\uE000";
+    const result = await recordContentDecision({
+      store,
+      stream_id: "decision-stream.canonical-evidence",
+      expected_head_digest: null,
+      decision_id: "decision.fixture.canonical-evidence",
+      status: "accepted",
+      actor_ref: "actor.fixture-reviewer",
+      actor_role: "content_owner",
+      rationale: "Canonical evidence order must cross the adapter boundary.",
+      proposal_ref: proposal.record_id,
+      selected_expression: "Continue",
+      edited_expression: null,
+      evidence_reviewed: [supplementary, privateUse],
+      scope: "project",
+      project_id: PROJECT_ID,
+      occurred_at: "2026-08-20T17:03:00.000Z",
+      data_class: "project_feedback",
+    });
+    const [event] = await store.readStream("decision-stream.canonical-evidence");
+    store.close();
+
+    expect(result.evidence_reviewed).toEqual([supplementary, privateUse]);
+    expect(adaptContentDecisionEvent({
+      event: event!,
+      proposal,
+      producer: producer("content-decision-adapter"),
+    }).decision.payload.evidence_reviewed).toEqual([privateUse, supplementary]);
   });
 });
