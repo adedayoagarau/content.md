@@ -1,0 +1,536 @@
+{
+  "ledger_id": "DENOM-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "ledger_status": "open_development_pressure_test_falsified_design_target",
+  "project_status": "research_draft",
+  "canonical": false,
+  "signed": false,
+  "license_status": "unresolved",
+  "review_status": "unreviewed",
+  "holdout_status": "not_created",
+  "calibration_status": "not_run",
+  "b1_ready": false,
+  "designed_denominators": {
+    "candidates": 90,
+    "user_facing_occurrences": 61,
+    "static_occurrences": 57,
+    "runtime_only_unresolvable_static_occurrences": 4,
+    "exclusions": 29,
+    "semantic_messages": 22,
+    "runtime_states": [
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4a",
+      "F4b",
+      "F5",
+      "F6",
+      "F7",
+      "F8"
+    ],
+    "cross_cutting_sets": [
+      "F9",
+      "F10",
+      "F11",
+      "F12"
+    ],
+    "behavior_facts": 10,
+    "unknowns": 5,
+    "conflicts": 6,
+    "accessibility_defects": 6,
+    "critical_probes": 8,
+    "security_probes": 10,
+    "mutation_probes": 12,
+    "expression_target_status": "rejected_falsified_by_materialization",
+    "expression_target_finding_ref": "expression-denominator-falsification-and-remap.json",
+    "historical_expression_target": 34
+  },
+  "designed_source_class_denominators": [
+    {
+      "source_class": "react_visible_children",
+      "candidates": 10,
+      "occurrences": 8,
+      "exclusions": 2
+    },
+    {
+      "source_class": "standard_copy_and_accessibility_attributes",
+      "candidates": 8,
+      "occurrences": 6,
+      "exclusions": 2
+    },
+    {
+      "source_class": "custom_wrapper_call_sites",
+      "candidates": 10,
+      "occurrences": 8,
+      "exclusions": 2
+    },
+    {
+      "source_class": "icu_locale_catalogs",
+      "candidates": 20,
+      "occurrences": 18,
+      "exclusions": 2
+    },
+    {
+      "source_class": "email_and_sms_templates",
+      "candidates": 8,
+      "occurrences": 6,
+      "exclusions": 2
+    },
+    {
+      "source_class": "api_problem_details",
+      "candidates": 5,
+      "occurrences": 3,
+      "exclusions": 2
+    },
+    {
+      "source_class": "cms_export",
+      "candidates": 6,
+      "occurrences": 4,
+      "exclusions": 2
+    },
+    {
+      "source_class": "design_node_export",
+      "candidates": 6,
+      "occurrences": 4,
+      "exclusions": 2
+    },
+    {
+      "source_class": "computed_runtime_only_map",
+      "candidates": 5,
+      "occurrences": 4,
+      "exclusions": 1
+    },
+    {
+      "source_class": "tests_stories_internal_docs_logs_dead_branches",
+      "candidates": 12,
+      "occurrences": 0,
+      "exclusions": 12
+    }
+  ],
+  "actual_counts": null,
+  "actual_result": null,
+  "count_verification_status": "not_run",
+  "referential_integrity_status": "not_run",
+  "independent_review_status": "not_run",
+  "f10_structural_verification_contract": {
+    "contract_id": "F10-STRUCTURE-SIBF-CHK-001-OPEN-001",
+    "contract_status": "machine_readable_design_data_only",
+    "executable": false,
+    "source_artifact": "../operator-design-open/source-artifacts/04-icu-locale-catalogs.jsonl",
+    "eligible_candidate_ids": [
+      "CAND-ICU-001",
+      "CAND-ICU-002",
+      "CAND-ICU-003",
+      "CAND-ICU-004",
+      "CAND-ICU-005",
+      "CAND-ICU-006",
+      "CAND-ICU-007",
+      "CAND-ICU-008",
+      "CAND-ICU-009",
+      "CAND-ICU-010",
+      "CAND-ICU-011",
+      "CAND-ICU-012",
+      "CAND-ICU-013",
+      "CAND-ICU-014",
+      "CAND-ICU-015",
+      "CAND-ICU-016",
+      "CAND-ICU-017",
+      "CAND-ICU-018"
+    ],
+    "excluded_candidate_ids": [
+      "CAND-ICU-019",
+      "CAND-ICU-020"
+    ],
+    "required_dimensions": [
+      "stable message key",
+      "typed variables",
+      "ICU select and plural selector types",
+      "complete required branches including other",
+      "balanced markup boundaries",
+      "date/time variable type, formatter, calendar, and fixed zone",
+      "decimal amount and ISO-4217 currency variable semantics",
+      "explicit locale direction",
+      "bidi isolation requirements"
+    ],
+    "verification_cases": [
+      {
+        "case_id": "F10-CASE-SELECT",
+        "candidate_refs": [
+          "CAND-ICU-001",
+          "CAND-ICU-007",
+          "CAND-ICU-012",
+          "CAND-ICU-013"
+        ],
+        "expected_selector": "commitVariant",
+        "expected_selector_type": "select",
+        "expected_branches": [
+          "standard",
+          "compact",
+          "other"
+        ],
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "case_id": "F10-CASE-PLURAL-MARKUP",
+        "candidate_refs": [
+          "CAND-ICU-006",
+          "CAND-ICU-011",
+          "CAND-ICU-018"
+        ],
+        "expected_selector": "itemCount",
+        "expected_selector_type": "plural",
+        "expected_branches": [
+          "=0",
+          "one",
+          "other"
+        ],
+        "expected_balanced_markup": [
+          "strong"
+        ],
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "case_id": "F10-CASE-TYPED-DATE-CURRENCY",
+        "candidate_refs": [
+          "CAND-ICU-002",
+          "CAND-ICU-008",
+          "CAND-ICU-014"
+        ],
+        "expected_types": {
+          "quoteExpiresAt": "instant",
+          "total": "decimal",
+          "currency": "iso4217"
+        },
+        "expected_formatters": {
+          "quoteExpiresAt": [
+            "icu_date_short",
+            "icu_time_short"
+          ],
+          "total": "icu_number",
+          "currency": "iso4217_variable"
+        },
+        "expected_currency_authority_ref": "BF-01",
+        "actual_result": null,
+        "run_status": "not_run",
+        "expected_balanced_markup": [
+          "data"
+        ],
+        "expected_expression_version_ids": [
+          "EXP-OPEN-052",
+          "EXP-OPEN-053",
+          "EXP-OPEN-049"
+        ]
+      },
+      {
+        "case_id": "F10-CASE-RTL-BIDI",
+        "candidate_refs": [
+          "CAND-ICU-013",
+          "CAND-ICU-014",
+          "CAND-ICU-015",
+          "CAND-ICU-016",
+          "CAND-ICU-017",
+          "CAND-ICU-018"
+        ],
+        "expected_direction": "rtl",
+        "expected_isolation_required": true,
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "case_id": "F10-CASE-FR-FALLBACK",
+        "candidate_refs": [
+          "CAND-ICU-007",
+          "CAND-ICU-012"
+        ],
+        "expected_fallback_source_locale": "en-US",
+        "linguistic_quality_result": null,
+        "run_status": "not_run",
+        "expected_expression_version_ids": [
+          "EXP-OPEN-008",
+          "EXP-OPEN-009"
+        ],
+        "identity_requirement": "fr-CA requested locale and en-US resolved fallback remain explicit, and primary versus secondary component contexts remain distinct."
+      }
+    ],
+    "non_compensation_boundary": "A structural result cannot establish linguistic quality, cultural fit, accessibility conformance, or user outcome.",
+    "structural_verification_status": "not_run",
+    "actual_result": null
+  },
+  "repeated_literal_pressure_cases": [
+    {
+      "case_id": "PRESSURE-SAME-LITERAL-001",
+      "requirement": "One exact React-visible literal maps to different semantic messages because state and safe consequence differ.",
+      "literal": "Continue",
+      "source_class": "react_visible_children",
+      "occurrences": [
+        {
+          "candidate_id": "CAND-RVC-005",
+          "occurrence_id": "OCC-005",
+          "expression_id": "EXP-OPEN-017",
+          "semantic_message_id": "MSG-05-SMS-PREFERENCE",
+          "state": "F3",
+          "semantic_context": "optional_sms_preference_continuation",
+          "consequence_class": "noncommitting_preference_progression",
+          "destructive": false,
+          "submission_boundary_crossed": false,
+          "slot": "preference_continue_action",
+          "historical_expression_id": "EXP-020",
+          "expression_slot_id": "XSLOT-OPEN-017",
+          "expression_version_id": "EXP-OPEN-017"
+        },
+        {
+          "candidate_id": "CAND-RVC-006",
+          "occurrence_id": "OCC-006",
+          "expression_id": "EXP-OPEN-018",
+          "semantic_message_id": "MSG-06-OFFLINE-PRECOMMIT",
+          "state": "F4a",
+          "semantic_context": "offline_precommit_recovery_action",
+          "consequence_class": "resume_preserved_precommit_checkout",
+          "destructive": false,
+          "submission_boundary_crossed": false,
+          "slot": "recovery_action",
+          "historical_expression_id": "EXP-021",
+          "expression_slot_id": "XSLOT-OPEN-018",
+          "expression_version_id": "EXP-OPEN-018"
+        }
+      ],
+      "required_disposition": "Preserve two occurrence identities, two expression identities, and two semantic-message identities; use state, enabled condition, and consequence to disambiguate and never merge on literal equality.",
+      "actual_result": null,
+      "run_status": "not_run",
+      "review_status": "unreviewed"
+    }
+  ],
+  "a11y_d03_source_configuration": {
+    "configuration_id": "LIVE-REPEAT-001",
+    "source_candidate_ids": [
+      "CAND-RVC-003",
+      "CAND-ATTR-003"
+    ],
+    "required_static_fields": [
+      "aria_live",
+      "aria_atomic",
+      "update_trigger",
+      "configured_interval_ms",
+      "configured_repeat_count",
+      "repeated_value",
+      "changes_semantic_value_between_updates"
+    ],
+    "executable": false,
+    "actual_result": null,
+    "run_status": "not_run",
+    "review_status": "unreviewed"
+  },
+  "f6_source_semantics_contract": {
+    "semantics_id": "F6-SEMANTICS-001",
+    "source_candidate_id": "CAND-RVC-008",
+    "source_field_path": "f6_semantics",
+    "visible_label_expected": "Clear checkout",
+    "accessible_name_expected": "Clear checkout",
+    "required_semantics": [
+      "local cart and entered checkout details are affected",
+      "local deletion is irreversible",
+      "clearing does not cancel or reverse a provider-side payment attempt",
+      "action is unavailable while payment state is unknown",
+      "visible and accessible action names match",
+      "dialog and focus relationships remain explicit"
+    ],
+    "executable": false,
+    "rendered_verification_status": "not_run",
+    "assistive_technology_verification_status": "not_run",
+    "actual_result": null,
+    "review_status": "unreviewed"
+  },
+  "declared_materialized_counts": {
+    "candidates": 90,
+    "user_facing_occurrences": 61,
+    "static_occurrences": 57,
+    "runtime_only_unresolvable_static_occurrences": 4,
+    "exclusions": 29,
+    "normalized_expression_slots": 56,
+    "normalized_expression_versions": 56,
+    "semantic_messages": 22,
+    "runtime_states": [
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4a",
+      "F4b",
+      "F5",
+      "F6",
+      "F7",
+      "F8"
+    ],
+    "cross_cutting_sets": [
+      "F9",
+      "F10",
+      "F11",
+      "F12"
+    ],
+    "behavior_facts": 10,
+    "unknowns": 5,
+    "conflicts": 6,
+    "accessibility_defects": 6,
+    "critical_probes": 8,
+    "security_probes": 10,
+    "mutation_probes": 12,
+    "count_status": "declared_open_development_not_run_result"
+  },
+  "denominator_falsification_ref": "expression-denominator-falsification-and-remap.json",
+  "cross_channel_pressure_case": {
+    "case_id": "PRESSURE-CROSS-CHANNEL-001",
+    "semantic_message_id": "MSG-10-ORDER-CONFIRMED",
+    "event_alignment": "order_created",
+    "required_atomic_contexts": [
+      {
+        "candidate_id": "CAND-DES-002",
+        "channel": "web",
+        "modality": "visible",
+        "expression_version_id": "EXP-OPEN-056"
+      },
+      {
+        "candidate_id": "CAND-DES-004",
+        "channel": "web",
+        "modality": "assistive",
+        "expression_version_id": "EXP-OPEN-033"
+      },
+      {
+        "candidate_id": "CAND-TPL-002",
+        "channel": "email",
+        "modality": "visible",
+        "expression_version_id": "EXP-OPEN-030"
+      },
+      {
+        "candidate_id": "CAND-TPL-005",
+        "channel": "sms",
+        "modality": "visible",
+        "expression_version_id": "EXP-OPEN-031"
+      }
+    ],
+    "required_disposition": "Keep distinct expression versions while aligning event, certainty, consequence, and action at the semantic-message layer.",
+    "actual_result": null,
+    "run_status": "not_run",
+    "review_status": "unreviewed",
+    "wording_requirement": "All four selected safe expressions use different wording while aligning the order-created event; the separate C-03 visible defect is excluded from this alignment case.",
+    "alignment_contract": {
+      "event": "order_created",
+      "certainty": "confirmed",
+      "consequence": "an order exists; no receipt-delivery state is implied",
+      "action_semantics": "SMS may offer the canonical web-status continuation; the visible heading, assistive alt, and email heading make no conflicting action or delivery promise",
+      "web_status_canonical": true,
+      "communication_attempt_state_independent": true
+    }
+  },
+  "locale_identity_pressure_case": {
+    "case_id": "PRESSURE-LOCALE-MODALITY-001",
+    "semantic_message_id": "MSG-02-COMMIT-ORDER",
+    "candidate_refs": [
+      "CAND-ICU-001",
+      "CAND-ICU-007",
+      "CAND-ICU-012",
+      "CAND-ATTR-006"
+    ],
+    "expression_version_ids": [
+      "EXP-OPEN-005",
+      "EXP-OPEN-008",
+      "EXP-OPEN-009",
+      "EXP-OPEN-003"
+    ],
+    "required_disposition": "Never collapse en-US visible, fr-CA inherited-English fallback, and ar-EG English assistive-name defect identities.",
+    "actual_result": null,
+    "run_status": "not_run",
+    "review_status": "unreviewed"
+  },
+  "f9_source_representation_contract": {
+    "page_title": {
+      "candidate_id": "CAND-ATTR-004",
+      "occurrence_id": "OCC-012",
+      "source_field_path": "page_title_materialization",
+      "expression_version_id": "EXP-OPEN-032"
+    },
+    "alt_and_visible_gap": {
+      "candidate_id": "CAND-DES-004",
+      "occurrence_id": "OCC-057",
+      "source_field_path": "accessibility_pair",
+      "expression_version_id": "EXP-OPEN-033",
+      "visible_text_present": false,
+      "alt_text_present": true
+    },
+    "live_region": {
+      "candidate_ids": [
+        "CAND-RVC-003",
+        "CAND-ATTR-003"
+      ],
+      "configuration_id": "LIVE-REPEAT-001"
+    },
+    "tooltip_decoy": {
+      "candidate_id": "CAND-ATTR-008",
+      "disposition": "exclude"
+    },
+    "rendered_verification_status": "not_run",
+    "actual_result": null,
+    "run_status": "not_run",
+    "design_section_deck_title_exclusion": {
+      "candidate_id": "CAND-DES-006",
+      "source_field_path": "design_section_deck_title_exclusion",
+      "disposition": "exclude",
+      "user_facing": false
+    },
+    "rendered_reference_evidence": {
+      "candidate_id": "CAND-DES-006",
+      "source_field_path": "rendered_reference",
+      "image_artifact_present": false,
+      "image_observation_status": "not_observed",
+      "reference_completeness_status": "not_established",
+      "capture_status": "not_run",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  },
+  "channel_representation_contract": {
+    "html_email": {
+      "candidate_id": "CAND-TPL-002",
+      "template_format": "text/html"
+    },
+    "plain_text_email": {
+      "candidate_id": "CAND-TPL-003",
+      "template_format": "text/plain"
+    },
+    "sms": {
+      "candidate_ids": [
+        "CAND-TPL-004",
+        "CAND-TPL-005"
+      ]
+    },
+    "api_problem_details": {
+      "included_candidate_ids": [
+        "CAND-API-001",
+        "CAND-API-002",
+        "CAND-API-003"
+      ],
+      "stable_code_field_path": "problem_contract.stable_code",
+      "human_detail_field": "candidate_text"
+    },
+    "communication_role_record_count": 22,
+    "communication_role_record_set_id": "COMMUNICATION-ROLES-SIBF-CHK-001-OPEN-001",
+    "actual_result": null,
+    "run_status": "not_run"
+  },
+  "private_holdout_eligibility": "never",
+  "expression_link_payload_contract": {
+    "canonical_version_field": "expression_payload",
+    "compatibility_alias_field": "canonical_pattern",
+    "compatibility_alias_status": "retained_for_open_development_readers_only",
+    "equality_required": true,
+    "verified_link_record_count": 56,
+    "version_identity_field": "expression_payload",
+    "identity_or_hash_change_required": false,
+    "reason_no_identity_change": "The new canonical link field exactly copies the already-normalized expression payload used by sources, annotations, and the denominator remap.",
+    "actual_result": null,
+    "run_status": "not_run"
+  }
+}

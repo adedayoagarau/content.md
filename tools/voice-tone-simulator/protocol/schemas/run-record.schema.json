@@ -1,0 +1,172 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/run-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "complete_cell_count": {
+      "minimum": 0,
+      "title": "Complete Cell Count",
+      "type": "integer"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "mandatory_cell_count": {
+      "minimum": 0,
+      "title": "Mandatory Cell Count",
+      "type": "integer"
+    },
+    "precision_unmet_cell_count": {
+      "minimum": 0,
+      "title": "Precision Unmet Cell Count",
+      "type": "integer"
+    },
+    "prohibited_capability_attestation": {
+      "title": "Prohibited Capability Attestation",
+      "type": "boolean"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "SimulationRunRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "run_completion_reason_codes": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Run Completion Reason Codes",
+      "type": "array"
+    },
+    "run_completion_status": {
+      "enum": [
+        "not_started",
+        "running",
+        "complete",
+        "incomplete"
+      ],
+      "title": "Run Completion Status",
+      "type": "string"
+    },
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "run_validity_reason_codes": {
+      "items": {
+        "enum": [
+          "source_hash_mismatch",
+          "protocol_hash_mismatch",
+          "implementation_hash_mismatch",
+          "runtime_manifest_unfrozen",
+          "scenario_grid_mismatch",
+          "duplicate_record_id",
+          "scenario_id_collision",
+          "prng_conformance_failure",
+          "random_stream_reuse",
+          "canonicalization_failure",
+          "nonfinite_serialized_value",
+          "negative_control_mismatch",
+          "intercept_solver_failure",
+          "held_out_leakage",
+          "split_overlap",
+          "leakage_guard_failure",
+          "prohibited_input",
+          "unrecorded_exclusion",
+          "denominator_mismatch",
+          "record_overwrite",
+          "missing_provenance",
+          "graph_guard_contradiction",
+          "status_value_union_violation"
+        ],
+        "type": "string"
+      },
+      "title": "Run Validity Reason Codes",
+      "type": "array"
+    },
+    "run_validity_status": {
+      "enum": [
+        "not_run",
+        "valid",
+        "invalid_run"
+      ],
+      "title": "Run Validity Status",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-run-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "run_id",
+    "run_validity_status",
+    "run_validity_reason_codes",
+    "run_completion_status",
+    "run_completion_reason_codes",
+    "mandatory_cell_count",
+    "complete_cell_count",
+    "precision_unmet_cell_count",
+    "prohibited_capability_attestation"
+  ],
+  "title": "SimulationRunRecord",
+  "type": "object"
+}

@@ -1,0 +1,4153 @@
+{
+  "record_id": "BEHAVIOR-UNKNOWNS-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "record_status": "provisional_unreviewed",
+  "source_contract": "../../../shared-benchmark-fixture-specification.md#known-behavior-packet",
+  "behavior_facts": [
+    {
+      "id": "BF-01",
+      "fact": "The review page obtains total, ISO currency, item count, and quote expiry from the synthetic quote record.",
+      "evidence_control_treatment": "Amount literals in design or CMS are not authoritative.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-02",
+      "fact": "Activating the current Place order occurrence creates one submission attempt and disables duplicate activation while pending.",
+      "evidence_control_treatment": "This behavior contract does not approve the inherited label.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-03",
+      "fact": "Retry is safe before the submission boundary and unsafe while post-submission payment state is unknown.",
+      "evidence_control_treatment": "This distinction controls F4a versus F4b.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-04",
+      "fact": "The synthetic payment service can accept an authorization before order creation fails.",
+      "evidence_control_treatment": "Creates the F5 partial state.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-05",
+      "fact": "The recovery page can query a synthetic attempt reference and represent pending, order-created, or no-order-confirmed.",
+      "evidence_control_treatment": "No other outcome may be invented.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-06",
+      "fact": "Clearing an eligible checkout deletes the local cart and entered checkout details, cannot be undone, and does not cancel or reverse a provider-side payment attempt.",
+      "evidence_control_treatment": "Clear is unavailable while payment state is unknown.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-07",
+      "fact": "Web status is canonical; email and SMS attempts may be queued, delayed, suppressed, or fail independently.",
+      "evidence_control_treatment": "No dispatch event proves comprehension or product transition.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-08",
+      "fact": "Receipt email is created only after order creation; queued is not sent or delivered.",
+      "evidence_control_treatment": "Communication-attempt states remain independent.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-09",
+      "fact": "SMS status updates are optional for one attempt; decline does not block checkout; the synthetic number has only that purpose and is deleted 24 hours after terminal state.",
+      "evidence_control_treatment": "This is not a legal-basis or consent-validity conclusion.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "BF-10",
+      "fact": "An expired quote preserves cart contents but requires refreshed price and availability before a new commitment.",
+      "evidence_control_treatment": "No stale total remains authoritative.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "unknowns": [
+    {
+      "id": "U-01",
+      "unknown": "How long an external financial institution may display an authorization hold.",
+      "required_disposition": "Do not state a duration; route to payment operations and preserve uncertainty.",
+      "decision_state": "intentionally_unresolved",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-02",
+      "unknown": "Whether every F5 authorization is automatically voided or may become an order after reconciliation.",
+      "required_disposition": "Do not promise reversal, refund, or order creation; use only the known status path.",
+      "decision_state": "intentionally_unresolved",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-03",
+      "unknown": "Support response time and hours.",
+      "required_disposition": "Do not invent an estimate or availability promise.",
+      "decision_state": "intentionally_unresolved",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-04",
+      "unknown": "Which jurisdiction-specific consumer or payment instrument applies to a release.",
+      "required_disposition": "Keep applicability unresolved; do not manufacture a legal requirement.",
+      "decision_state": "intentionally_unresolved",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-05",
+      "unknown": "Which authorized role may approve a new cross-market payment-recovery semantic decision.",
+      "required_disposition": "Preserve the missing approver and keep the decision proposed.",
+      "decision_state": "intentionally_unresolved",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "behavior_owner_confirmation": null,
+  "actual_result": null,
+  "run_status": "not_run",
+  "review_status": "unreviewed",
+  "synthetic_control_plane_records": {
+    "record_set_id": "F12-CONTROL-RECORDS-SIBF-CHK-001-OPEN-001",
+    "fixture_id": "SIBF-CHK-001",
+    "design_revision": "design-0.1-open-development",
+    "record_purpose": "Provisional synthetic fixture scenarios for testing separation of semantic decision, approval, delivery, and lifecycle evidence.",
+    "fixture_scenario_only": true,
+    "applies_to_real_product": false,
+    "grants_project_authority": false,
+    "appoints_real_owner_or_approver": false,
+    "real_human_identity_records": [],
+    "role_placeholders": [
+      {
+        "role_id": "ROLE-SYNTHETIC-FIXTURE-DECISION-OWNER",
+        "role_type": "decision_owner",
+        "person_id": null,
+        "authority_source": "synthetic_fixture_scenario_only"
+      },
+      {
+        "role_id": "ROLE-SYNTHETIC-FIXTURE-APPROVER",
+        "role_type": "approver",
+        "person_id": null,
+        "authority_source": "synthetic_fixture_scenario_only"
+      },
+      {
+        "role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "role_type": "delivery_custodian",
+        "person_id": null,
+        "authority_source": "synthetic_fixture_scenario_only"
+      }
+    ],
+    "decision_records": [
+      {
+        "record_id": "DEC-F12-001",
+        "record_type": "semantic_decision",
+        "semantic_message_id": "MSG-10-ORDER-CONFIRMED",
+        "expression_id": "EXP-OPEN-033",
+        "exact_scope": "synthetic en-US F7 assistive success-icon occurrence OCC-057",
+        "decision_state": "proposed",
+        "decision_owner_role_id": "ROLE-SYNTHETIC-FIXTURE-DECISION-OWNER",
+        "approval_record_ids": [
+          "APR-F12-001"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-001",
+          "DEL-F12-002",
+          "DEL-F12-003"
+        ],
+        "authority_boundary": "A proposed fixture decision remains proposed despite implementation, release, or observation.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run",
+        "expression_slot_id": "XSLOT-OPEN-033"
+      },
+      {
+        "record_id": "DEC-F12-002",
+        "record_type": "semantic_decision",
+        "semantic_message_id": "MSG-09-CLEAR-CHECKOUT",
+        "expression_id": "EXP-OPEN-027",
+        "exact_scope": "synthetic en-US F6 clear-checkout dialog occurrence OCC-056",
+        "decision_state": "approved",
+        "decision_owner_role_id": "ROLE-SYNTHETIC-FIXTURE-DECISION-OWNER",
+        "approval_record_ids": [
+          "APR-F12-002"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-004"
+        ],
+        "authority_boundary": "Approved only inside the synthetic fixture scenario; no implementation or project authority follows.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run",
+        "expression_slot_id": "XSLOT-OPEN-027"
+      },
+      {
+        "record_id": "DEC-F12-003",
+        "record_type": "semantic_decision",
+        "semantic_message_id": "MSG-02-COMMIT-ORDER",
+        "expression_id": null,
+        "exact_scope": "synthetic superseded Complete purchase decision evidenced by draft glossary CAND-INT-011; prior approval applied only to a removed hidden exploration",
+        "decision_state": "superseded",
+        "decision_owner_role_id": "ROLE-SYNTHETIC-FIXTURE-DECISION-OWNER",
+        "approval_record_ids": [
+          "APR-F12-003"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-005"
+        ],
+        "authority_boundary": "Superseded hidden material is evidence only and is not a current expression mapping.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run",
+        "source_control_candidate_id": "CAND-INT-011"
+      }
+    ],
+    "approval_records": [
+      {
+        "record_id": "APR-F12-001",
+        "record_type": "semantic_approval",
+        "decision_record_id": "DEC-F12-001",
+        "approval_state": "approved",
+        "applicability_state": "expired",
+        "exact_scope": "synthetic fr-CA F7 email only",
+        "effective_at": "2029-01-01T00:00:00Z",
+        "expires_at": "2029-06-30T23:59:59Z",
+        "approver_role_id": "ROLE-SYNTHETIC-FIXTURE-APPROVER",
+        "approver_person_id": null,
+        "current_occurrence_in_scope": false,
+        "grants_project_authority": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "APR-F12-002",
+        "record_type": "semantic_approval",
+        "decision_record_id": "DEC-F12-002",
+        "approval_state": "approved",
+        "applicability_state": "synthetic_active",
+        "exact_scope": "synthetic en-US F6 clear-checkout dialog occurrence OCC-056",
+        "effective_at": "2030-01-01T00:00:00Z",
+        "expires_at": "2030-06-30T23:59:59Z",
+        "approver_role_id": "ROLE-SYNTHETIC-FIXTURE-APPROVER",
+        "approver_person_id": null,
+        "current_occurrence_in_scope": true,
+        "grants_project_authority": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "APR-F12-003",
+        "record_type": "semantic_approval",
+        "decision_record_id": "DEC-F12-003",
+        "approval_state": "approved",
+        "applicability_state": "expired",
+        "exact_scope": "synthetic hidden design exploration only",
+        "effective_at": "2028-01-01T00:00:00Z",
+        "expires_at": "2028-03-31T23:59:59Z",
+        "approver_role_id": "ROLE-SYNTHETIC-FIXTURE-APPROVER",
+        "approver_person_id": null,
+        "current_occurrence_in_scope": false,
+        "grants_project_authority": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    ],
+    "delivery_records": [
+      {
+        "record_id": "DEL-F12-001",
+        "record_type": "delivery",
+        "delivery_stage": "implementation",
+        "delivery_state": "implemented",
+        "decision_record_id": "DEC-F12-001",
+        "occurrence_id": "OCC-057",
+        "delivery_custodian_role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "proves_semantic_approval": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "DEL-F12-002",
+        "record_type": "delivery",
+        "delivery_stage": "release",
+        "delivery_state": "released",
+        "decision_record_id": "DEC-F12-001",
+        "predecessor_delivery_record_id": "DEL-F12-001",
+        "occurrence_id": "OCC-057",
+        "delivery_custodian_role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "proves_semantic_approval": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "DEL-F12-003",
+        "record_type": "delivery",
+        "delivery_stage": "observation",
+        "delivery_state": "observed-live",
+        "decision_record_id": "DEC-F12-001",
+        "predecessor_delivery_record_id": "DEL-F12-002",
+        "occurrence_id": "OCC-057",
+        "delivery_custodian_role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "proves_semantic_approval": false,
+        "proves_user_outcome": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "DEL-F12-004",
+        "record_type": "delivery",
+        "delivery_stage": "implementation",
+        "delivery_state": "unmapped",
+        "decision_record_id": "DEC-F12-002",
+        "occurrence_id": null,
+        "delivery_custodian_role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "proves_semantic_approval": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "DEL-F12-005",
+        "record_type": "delivery",
+        "delivery_stage": "lifecycle",
+        "delivery_state": "removed",
+        "decision_record_id": "DEC-F12-003",
+        "occurrence_id": null,
+        "delivery_custodian_role_id": "ROLE-SYNTHETIC-FIXTURE-DELIVERY-CUSTODIAN",
+        "proves_semantic_approval": false,
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    ],
+    "lifecycle_records": [
+      {
+        "record_id": "LIFE-F12-001",
+        "record_type": "lifecycle",
+        "semantic_decision_record_id": "DEC-F12-001",
+        "approval_record_ids": [
+          "APR-F12-001"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-001",
+          "DEL-F12-002",
+          "DEL-F12-003"
+        ],
+        "independent_state_summary": {
+          "decision": "proposed",
+          "approval_applicability": "expired_and_out_of_scope",
+          "implementation": "implemented",
+          "release": "released",
+          "observation": "observed-live"
+        },
+        "conflict_id": "C-06",
+        "required_reasoning": "Do not infer current approval from implementation, release, or live observation.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "LIFE-F12-002",
+        "record_type": "lifecycle",
+        "semantic_decision_record_id": "DEC-F12-002",
+        "approval_record_ids": [
+          "APR-F12-002"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-004"
+        ],
+        "independent_state_summary": {
+          "decision": "approved",
+          "approval_applicability": "synthetic_active",
+          "implementation": "not_implemented",
+          "release": "not_released",
+          "observation": "not_observed"
+        },
+        "conflict_id": "C-06",
+        "required_reasoning": "Do not infer delivery from an approved synthetic fixture decision.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "LIFE-F12-003",
+        "record_type": "lifecycle",
+        "semantic_decision_record_id": "DEC-F12-003",
+        "approval_record_ids": [
+          "APR-F12-003"
+        ],
+        "delivery_record_ids": [
+          "DEL-F12-005"
+        ],
+        "independent_state_summary": {
+          "decision": "superseded",
+          "approval_applicability": "expired",
+          "implementation": "removed",
+          "release": "not_current",
+          "observation": "not_current"
+        },
+        "conflict_id": "C-01",
+        "required_reasoning": "Keep superseded hidden exploration separate from current runtime and current decision need.",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    ],
+    "review_status": "unreviewed",
+    "actual_result": null,
+    "run_status": "not_run"
+  },
+  "communication_role_records": {
+    "record_set_id": "COMMUNICATION-ROLES-SIBF-CHK-001-OPEN-001",
+    "record_purpose": "Synthetic provisional communication-role modeling for every semantic message; no real identity or authority is represented.",
+    "role_contract_version": "open-provisional-0.2-structurally-distinct",
+    "fixture_scenario_only": true,
+    "applies_to_real_product": false,
+    "grants_project_authority": false,
+    "role_separation_rules": {
+      "sender_addressee_subject_affected_party_beneficiary_decision_maker_and_approver_are_separate_role_classes": true,
+      "role_equivalence_requires_independent_evidence": true,
+      "cross_channel_recipient_identity_equivalence": "not_asserted",
+      "synthetic_role_placeholder_is_real_person_or_organization": false,
+      "message_wide_real_project_authority_established": false
+    },
+    "channel_recipient_role_vocabulary": {
+      "web": "in_session_interface_no_delivery_endpoint",
+      "email": "fictional_email_endpoint_controller_not_established",
+      "sms": "fictional_attempt_scoped_sms_endpoint_controller_not_established",
+      "api": "synthetic_api_client_distinct_from_end_user_and_affected_party"
+    },
+    "records": [
+      {
+        "record_id": "COMM-ROLE-MSG-01",
+        "semantic_message_id": "MSG-01-REVIEW-SUMMARY",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-001"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-001"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-001"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-CHECKOUT-REVIEW-STATE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_reviewing_checkout",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-REVIEWING-CHECKOUT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-02",
+        "semantic_message_id": "MSG-02-COMMIT-ORDER",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-002",
+          "EXP-OPEN-003",
+          "EXP-OPEN-004",
+          "EXP-OPEN-005",
+          "EXP-OPEN-006",
+          "EXP-OPEN-007",
+          "EXP-OPEN-008",
+          "EXP-OPEN-009"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "assistive",
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-002",
+              "EXP-OPEN-003",
+              "EXP-OPEN-004",
+              "EXP-OPEN-005",
+              "EXP-OPEN-006",
+              "EXP-OPEN-007",
+              "EXP-OPEN-008",
+              "EXP-OPEN-009"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-002",
+              "EXP-OPEN-003",
+              "EXP-OPEN-004",
+              "EXP-OPEN-005",
+              "EXP-OPEN-006",
+              "EXP-OPEN-007",
+              "EXP-OPEN-008",
+              "EXP-OPEN-009"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-ORDER-COMMITMENT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [
+          {
+            "decision_ref": "DEC-F12-003",
+            "approval_ref": "APR-F12-003",
+            "binding_status": "out_of_scope_superseded_excluded_source_only",
+            "scope": "CAND-INT-011 only; no current MSG-02 expression is approved or decided by this record."
+          }
+        ],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-03",
+        "semantic_message_id": "MSG-03-SUBMISSION-PROGRESS",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-010",
+          "EXP-OPEN-011"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "assistive",
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-010",
+              "EXP-OPEN-011"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-010",
+              "EXP-OPEN-011"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-SUBMISSION-ATTEMPT-PENDING-STATE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-04",
+        "semantic_message_id": "MSG-04-POSTAL-CORRECTION",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-012",
+          "EXP-OPEN-013",
+          "EXP-OPEN-014",
+          "EXP-OPEN-015",
+          "EXP-OPEN-016"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "assistive",
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-012",
+              "EXP-OPEN-013",
+              "EXP-OPEN-014",
+              "EXP-OPEN-015",
+              "EXP-OPEN-016"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-012",
+              "EXP-OPEN-013",
+              "EXP-OPEN-014",
+              "EXP-OPEN-015",
+              "EXP-OPEN-016"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-POSTAL-INPUT-VALIDATION",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_who_supplied_postal_input",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-WHO-SUPPLIED-POSTAL-INPUT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-05",
+        "semantic_message_id": "MSG-05-SMS-PREFERENCE",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-017"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-017"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-017"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-ATTEMPT-SCOPED-SMS-PREFERENCE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_controlling_notification_preference",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-CONTROLLING-NOTIFICATION-PREFERENCE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-06",
+        "semantic_message_id": "MSG-06-OFFLINE-PRECOMMIT",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-018"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-018"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-018"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-PRECOMMIT-CONNECTION-STATE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_with_preserved_checkout",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-WITH-PRESERVED-CHECKOUT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-07",
+        "semantic_message_id": "MSG-07-UNKNOWN-POSTCOMMIT",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-019",
+          "EXP-OPEN-020",
+          "EXP-OPEN-021",
+          "EXP-OPEN-022"
+        ],
+        "channel_variants": [
+          {
+            "channel": "api",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-019"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-019"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_api",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "checkout_api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "The direct API addressee is a synthetic client, not an end user, payment account holder, beneficiary, or authority.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic API client only; it is not assumed to be the end user, affected party, beneficiary, decision-maker, or approver.",
+              "evidence_refs": []
+            }
+          },
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-020",
+              "EXP-OPEN-021",
+              "EXP-OPEN-022"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-020",
+              "EXP-OPEN-021",
+              "EXP-OPEN-022"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-POSSIBLE-SUBMISSION-RESULT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-08",
+        "semantic_message_id": "MSG-08-PARTIAL-RECONCILIATION",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-023",
+          "EXP-OPEN-024",
+          "EXP-OPEN-025"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "assistive",
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-023",
+              "EXP-OPEN-024",
+              "EXP-OPEN-025"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-023",
+              "EXP-OPEN-024",
+              "EXP-OPEN-025"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-AUTHORIZATION-AND-ORDER-CREATION-STATE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-09",
+        "semantic_message_id": "MSG-09-CLEAR-CHECKOUT",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-026",
+          "EXP-OPEN-027",
+          "EXP-OPEN-028"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-026",
+              "EXP-OPEN-027",
+              "EXP-OPEN-028"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-026",
+              "EXP-OPEN-027",
+              "EXP-OPEN-028"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-LOCAL-CHECKOUT-DATA-CLEAR-ACTION",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_whose_local_checkout_data_would_be_deleted",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-WHOSE-LOCAL-CHECKOUT-DATA-WOULD-BE-DELETED",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [
+          {
+            "decision_ref": "DEC-F12-002",
+            "approval_ref": "APR-F12-002",
+            "binding_status": "fixture_only_occurrence_scoped",
+            "scope": "OCC-056 only; it does not extend to OCC-008 even though both share EXP-OPEN-027."
+          }
+        ],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "local_clear_action",
+            "relation": "not_equivalent_to",
+            "right_role": "payment_cancellation_or_reversal",
+            "status": "asserted_semantic_boundary",
+            "reason": "Clearing local checkout data does not cancel or reverse a payment."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-10",
+        "semantic_message_id": "MSG-10-ORDER-CONFIRMED",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-030",
+          "EXP-OPEN-031",
+          "EXP-OPEN-029",
+          "EXP-OPEN-032",
+          "EXP-OPEN-033",
+          "EXP-OPEN-034",
+          "EXP-OPEN-056"
+        ],
+        "channel_variants": [
+          {
+            "channel": "email",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-030"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-030"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_email_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-EMAIL-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-EMAIL-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic email addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "email_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-EMAIL-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional endpoint only; controller identity and equivalence with shopper, payer, account holder, order party, or beneficiary are not established.",
+              "evidence_refs": []
+            }
+          },
+          {
+            "channel": "sms",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-031"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-031"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_sms_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-SMS-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-SMS-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic SMS addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "attempt_scoped_sms_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-SMS-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional attempt-scoped endpoint only under BF-09; controller identity, legal-consent status, and equivalence with other parties are not established.",
+              "evidence_refs": [
+                "BF-09"
+              ]
+            }
+          },
+          {
+            "channel": "web",
+            "modalities": [
+              "assistive",
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-029",
+              "EXP-OPEN-032",
+              "EXP-OPEN-033",
+              "EXP-OPEN-034",
+              "EXP-OPEN-056"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-029",
+              "EXP-OPEN-032",
+              "EXP-OPEN-033",
+              "EXP-OPEN-034",
+              "EXP-OPEN-056"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-ORDER-CREATED-EVENT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [
+          {
+            "decision_ref": "DEC-F12-001",
+            "approval_ref": "APR-F12-001",
+            "binding_status": "proposed_with_expired_out_of_scope_approval",
+            "scope": "Decision is scoped to OCC-057/EXP-OPEN-033; expired fr-CA email approval does not apply."
+          }
+        ],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "order_creation",
+            "relation": "not_equivalent_to",
+            "right_role": "receipt_delivery",
+            "status": "asserted_semantic_boundary",
+            "reason": "An order-created event does not establish that a receipt was sent or delivered."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-11",
+        "semantic_message_id": "MSG-11-QUOTE-EXPIRED",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-035"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-035"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-035"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-QUOTE-EXPIRY",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-12",
+        "semantic_message_id": "MSG-12-CHECK-STATUS",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-036",
+          "EXP-OPEN-037",
+          "EXP-OPEN-038"
+        ],
+        "channel_variants": [
+          {
+            "channel": "email",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-036"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-036"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_email_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-EMAIL-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-EMAIL-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic email addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "email_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-EMAIL-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional endpoint only; controller identity and equivalence with shopper, payer, account holder, order party, or beneficiary are not established.",
+              "evidence_refs": []
+            }
+          },
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-037",
+              "EXP-OPEN-038"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-037",
+              "EXP-OPEN-038"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-CANONICAL-CHECKOUT-STATUS",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "status_navigation",
+            "relation": "not_equivalent_to",
+            "right_role": "payment_retry",
+            "status": "asserted_semantic_boundary",
+            "reason": "Checking status is not another payment attempt."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-13",
+        "semantic_message_id": "MSG-13-RECEIPT-ATTEMPT",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-039"
+        ],
+        "channel_variants": [
+          {
+            "channel": "email",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-039"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-039"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_email_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-EMAIL-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-EMAIL-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic email addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "email_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-EMAIL-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional endpoint only; controller identity and equivalence with shopper, payer, account holder, order party, or beneficiary are not established.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-RECEIPT-COMMUNICATION-ATTEMPT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "communication_attempt",
+            "relation": "not_equivalent_to",
+            "right_role": "sent_delivered_opened_or_understood",
+            "status": "asserted_lifecycle_boundary",
+            "reason": "An attempt state does not establish later communication lifecycle states."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-14",
+        "semantic_message_id": "MSG-14-SMS-STATUS",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-040"
+        ],
+        "channel_variants": [
+          {
+            "channel": "sms",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-040"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-040"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_sms_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-SMS-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-SMS-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic SMS addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "attempt_scoped_sms_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-SMS-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional attempt-scoped endpoint only under BF-09; controller identity, legal-consent status, and equivalence with other parties are not established.",
+              "evidence_refs": [
+                "BF-09"
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-SMS-STATUS-COMMUNICATION-ATTEMPT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "attempt_scoped_endpoint_controller",
+          "role_ref": "ROLE-SYNTHETIC-ATTEMPT-SCOPED-ENDPOINT-CONTROLLER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "sms_preference",
+            "relation": "not_equivalent_to",
+            "right_role": "legal_consent_determination",
+            "status": "asserted_scope_boundary",
+            "reason": "The fixture preference is not a legal-consent decision."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-15",
+        "semantic_message_id": "MSG-15-API-UNKNOWN",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-041"
+        ],
+        "channel_variants": [
+          {
+            "channel": "api",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-041"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-041"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_api",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "checkout_api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "The direct API addressee is a synthetic client, not an end user, payment account holder, beneficiary, or authority.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic API client only; it is not assumed to be the end user, affected party, beneficiary, decision-maker, or approver.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-UNKNOWN-RESULT-PROBLEM",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-16",
+        "semantic_message_id": "MSG-16-API-RETRYABLE",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-042"
+        ],
+        "channel_variants": [
+          {
+            "channel": "api",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-042"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-042"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_api",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "checkout_api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "The direct API addressee is a synthetic client, not an end user, payment account holder, beneficiary, or authority.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "api_client",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-API-CLIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic API client only; it is not assumed to be the end user, affected party, beneficiary, decision-maker, or approver.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-PRECOMMIT-RETRYABILITY-PROBLEM",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_with_precommit_checkout",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-WITH-PRECOMMIT-CHECKOUT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-17",
+        "semantic_message_id": "MSG-17-STATUS-ACCESS-DENIED",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-043",
+          "EXP-OPEN-044"
+        ],
+        "channel_variants": [
+          {
+            "channel": "email",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-043"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-043"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_transactional_email_service",
+              "role_ref": "ROLE-SYNTHETIC-TRANSACTIONAL-EMAIL-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "intended_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-INTENDED-EMAIL-ADDRESSEE",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Semantic email addressee only; identity equivalence with the endpoint controller, payer, or order party is not established.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "email_delivery_endpoint",
+              "role_ref": "ENDPOINT-SYNTHETIC-EMAIL-RECIPIENT",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Fictional endpoint only; controller identity and equivalence with shopper, payer, account holder, order party, or beneficiary are not established.",
+              "evidence_refs": []
+            }
+          },
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-044"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-044"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-STATUS-ACCESS-PROOF",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-18",
+        "semantic_message_id": "MSG-18-ATTEMPT-REFERENCE",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-045"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-045"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-045"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-SUBMISSION-ATTEMPT-REFERENCE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-19",
+        "semantic_message_id": "MSG-19-SUPPORT-PATH",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-046",
+          "EXP-OPEN-047"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-046",
+              "EXP-OPEN-047"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-046",
+              "EXP-OPEN-047"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-SUPPORT-REFERENCE-AND-ROUTE",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_seeking_support",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-SEEKING-SUPPORT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "support_path",
+            "relation": "not_equivalent_to",
+            "right_role": "support_availability_or_response_promise",
+            "status": "asserted_scope_boundary",
+            "reason": "A route does not establish availability or response time."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-20",
+        "semantic_message_id": "MSG-20-ITEM-COUNT",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-048"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-048"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-048"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-CART-ITEM-COUNT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_associated_with_cart",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-ASSOCIATED-WITH-CART",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-21",
+        "semantic_message_id": "MSG-21-TOTAL-AND-CURRENCY",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-049",
+          "EXP-OPEN-050",
+          "EXP-OPEN-051",
+          "EXP-OPEN-052",
+          "EXP-OPEN-053"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-049",
+              "EXP-OPEN-050",
+              "EXP-OPEN-051",
+              "EXP-OPEN-052",
+              "EXP-OPEN-053"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-049",
+              "EXP-OPEN-050",
+              "EXP-OPEN-051",
+              "EXP-OPEN-052",
+              "EXP-OPEN-053"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-QUOTE-TOTAL-AND-CURRENCY",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "payment_account_holder",
+          "role_ref": "ROLE-SYNTHETIC-PAYMENT-ACCOUNT-HOLDER",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The synthetic scenario distinguishes the payment account holder from every recipient/client role; no real identity or cross-role equivalence is established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          },
+          {
+            "left_role": "stale_cms_literal",
+            "relation": "not_equivalent_to",
+            "right_role": "authoritative_quote_value",
+            "status": "asserted_authority_boundary",
+            "reason": "The fixed CMS amount is not the authoritative runtime quote."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      },
+      {
+        "record_id": "COMM-ROLE-MSG-22",
+        "semantic_message_id": "MSG-22-RETURN-TO-CART",
+        "role_contract_version": "open-provisional-0.2",
+        "expression_version_refs": [
+          "EXP-OPEN-054",
+          "EXP-OPEN-055"
+        ],
+        "channel_variants": [
+          {
+            "channel": "web",
+            "modalities": [
+              "visible"
+            ],
+            "expression_version_refs": [
+              "EXP-OPEN-054",
+              "EXP-OPEN-055"
+            ],
+            "expression_version_ids_compatibility_alias": [
+              "EXP-OPEN-054",
+              "EXP-OPEN-055"
+            ],
+            "expression_reference_alias_equality_assertion": true,
+            "sender": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "synthetic_checkout_interface",
+              "role_ref": "ROLE-SYNTHETIC-CHECKOUT-INTERFACE-SENDER",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic channel sender only; it is not a real organization, decision-maker, or approver.",
+              "evidence_refs": []
+            },
+            "addressee": {
+              "status": "fixture_defined_non_authoritative",
+              "role_type": "active_checkout_actor",
+              "role_ref": "ROLE-SYNTHETIC-ACTIVE-CHECKOUT-ACTOR",
+              "person_id": null,
+              "organization_id": null,
+              "reason": "Synthetic in-session addressee only; no real human identity or project authority is represented.",
+              "evidence_refs": []
+            },
+            "channel_recipient_or_client": {
+              "status": "not_applicable",
+              "role_type": "delivery_endpoint",
+              "role_ref": null,
+              "person_id": null,
+              "organization_id": null,
+              "reason": "In-session web UI has no separate email, SMS, or API delivery endpoint.",
+              "evidence_refs": []
+            }
+          }
+        ],
+        "subject": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "communication_subject_non_actor",
+          "role_ref": "SUBJECT-SYNTHETIC-PRECOMMIT-NAVIGATION",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic message subject only; it is not a person, organization, recipient, or authority.",
+          "evidence_refs": []
+        },
+        "affected_party": {
+          "status": "fixture_defined_non_authoritative",
+          "role_type": "party_operating_checkout",
+          "role_ref": "ROLE-SYNTHETIC-PARTY-OPERATING-CHECKOUT",
+          "person_id": null,
+          "organization_id": null,
+          "reason": "Synthetic affected-party role for this scenario only; equivalence with any recipient, beneficiary, or authority is not established.",
+          "evidence_refs": []
+        },
+        "beneficiary": {
+          "status": "not_established",
+          "role_type": "ultimate_beneficiary",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "The fixture supplies no evidence that establishes an ultimate beneficiary for this message.",
+          "evidence_refs": []
+        },
+        "semantic_decision_maker": {
+          "status": "not_established",
+          "role_type": "semantic_decision_maker",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project semantic decision-maker is identified for the full message and expression set.",
+          "evidence_refs": []
+        },
+        "semantic_approver": {
+          "status": "not_established",
+          "role_type": "semantic_approver",
+          "role_ref": null,
+          "person_id": null,
+          "organization_id": null,
+          "reason": "No accountable real-project content, product, legal, or accessibility approver is identified for this message.",
+          "evidence_refs": []
+        },
+        "scoped_fixture_authority_bindings": [],
+        "non_equivalence_assertions": [
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_decision_maker",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish semantic decision authority."
+          },
+          {
+            "left_role": "sender",
+            "relation": "not_equivalent_to",
+            "right_role": "semantic_approver",
+            "status": "asserted_by_role_class",
+            "reason": "A channel sender does not establish approval authority."
+          },
+          {
+            "left_role": "addressee",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "affected_party",
+            "status": "requires_independent_evidence",
+            "reason": "Receiving or viewing a message does not prove party identity."
+          },
+          {
+            "left_role": "affected_party",
+            "relation": "not_assumed_equivalent_to",
+            "right_role": "beneficiary",
+            "status": "requires_independent_evidence",
+            "reason": "Being affected does not establish who ultimately benefits."
+          },
+          {
+            "left_role": "subject",
+            "relation": "not_equivalent_to",
+            "right_role": "addressee",
+            "status": "asserted_by_role_class",
+            "reason": "The communication subject is not an actor or recipient."
+          },
+          {
+            "left_role": "semantic_decision_maker",
+            "relation": "separate_from",
+            "right_role": "semantic_approver",
+            "status": "both_not_established",
+            "reason": "Decision and approval are independent governance roles and neither is established here."
+          },
+          {
+            "left_role": "synthetic_role_placeholder",
+            "relation": "not_equivalent_to",
+            "right_role": "real_person_or_organization",
+            "status": "asserted_fixture_boundary",
+            "reason": "No synthetic role binding identifies a real human or organization."
+          }
+        ],
+        "privacy_scope": "fictional_nonfunctional_fixture_only",
+        "review_status": "unreviewed",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    ],
+    "review_status": "unreviewed",
+    "actual_result": null,
+    "run_status": "not_run"
+  }
+}

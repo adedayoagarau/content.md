@@ -1,0 +1,150 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/decision-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "const": "none",
+      "title": "Authority",
+      "type": "string"
+    },
+    "cell_completion_status": {
+      "enum": [
+        "not_started",
+        "running",
+        "complete",
+        "simulation_precision_unmet",
+        "incomplete"
+      ],
+      "title": "Cell Completion Status",
+      "type": "string"
+    },
+    "completed_valid_replicates": {
+      "minimum": 0,
+      "title": "Completed Valid Replicates",
+      "type": "integer"
+    },
+    "decision_id": {
+      "minLength": 1,
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "operating_decision": {
+      "enum": [
+        "design_supported",
+        "requires_cognitive_validation",
+        "requires_simulation",
+        "requires_pilot_data",
+        "unsupported"
+      ],
+      "title": "Operating Decision",
+      "type": "string"
+    },
+    "operating_reason_codes": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Operating Reason Codes",
+      "type": "array"
+    },
+    "prohibited_output_count": {
+      "minimum": 0,
+      "title": "Prohibited Output Count",
+      "type": "integer"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "CellDecisionRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scenario_parameter_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Scenario Parameter Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-decision-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stop_reason": {
+      "minLength": 1,
+      "title": "Stop Reason",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "decision_id",
+    "scenario_parameter_hash",
+    "completed_valid_replicates",
+    "stop_reason",
+    "cell_completion_status",
+    "prohibited_output_count",
+    "operating_decision",
+    "operating_reason_codes",
+    "authority"
+  ],
+  "title": "CellDecisionRecord",
+  "type": "object"
+}

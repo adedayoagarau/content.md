@@ -1,0 +1,28 @@
+{
+  "record_id": "RIGHTS-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "project_status": "research_draft",
+  "canonical": false,
+  "signed": false,
+  "license_status": "unresolved",
+  "redistribution_permission": "not_established",
+  "fixture_source_license": null,
+  "synthetic_content_data_license": null,
+  "annotation_license": null,
+  "translation_contributor_permissions": {
+    "fr-CA": "not_obtained",
+    "ar-EG": "not_obtained"
+  },
+  "accessibility_media_permissions": "not_obtained",
+  "product_generated_export_terms_review": "not_applicable_no_product_export",
+  "accountable_repository_owner": null,
+  "legal_or_licensing_reviewer": null,
+  "publication_status": "not_authorized",
+  "b1_blocking": true,
+  "review_status": "unreviewed",
+  "actual_result": null,
+  "run_status": "not_run",
+  "required_next_decision": "An accountable repository owner and, where required, licensing reviewer must choose compatible licenses, confirm contributor permissions, and add complete notices before publication or B1 use."
+}
+

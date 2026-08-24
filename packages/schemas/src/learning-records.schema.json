@@ -1,0 +1,1071 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/learning-records/0.1.0",
+  "title": "content.md recursive learning records",
+  "oneOf": [
+    { "$ref": "#/$defs/generationRunRecord" },
+    { "$ref": "#/$defs/feedbackQualificationRecord" },
+    { "$ref": "#/$defs/learningEligibilityRecord" },
+    { "$ref": "#/$defs/preferenceExampleRecord" },
+    { "$ref": "#/$defs/exemplarRecord" },
+    { "$ref": "#/$defs/leakageGroupRecord" },
+    { "$ref": "#/$defs/learningDatasetManifestRecord" },
+    { "$ref": "#/$defs/featureProfileRecord" },
+    { "$ref": "#/$defs/rankingModelRecord" },
+    { "$ref": "#/$defs/learningEvaluationRunRecord" },
+    { "$ref": "#/$defs/shadowEvaluationPlanRecord" },
+    { "$ref": "#/$defs/shadowBindingRecord" },
+    { "$ref": "#/$defs/learningPromotionDecisionRecord" },
+    { "$ref": "#/$defs/learningDeploymentBindingRecord" },
+    { "$ref": "#/$defs/learningDriftReportRecord" },
+    { "$ref": "#/$defs/learningRollbackRecord" },
+    { "$ref": "#/$defs/writingBenchmarkManifestRecord" },
+    { "$ref": "#/$defs/writingBenchmarkTaskRecord" },
+    { "$ref": "#/$defs/benchmarkCandidateSetRecord" },
+    { "$ref": "#/$defs/benchmarkSelectionRecord" },
+    { "$ref": "#/$defs/benchmarkReviewRecord" },
+    { "$ref": "#/$defs/benchmarkAttemptRecord" },
+    { "$ref": "#/$defs/writingBenchmarkRunRecord" }
+  ],
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "digestRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "schema_id", "schema_version", "content_digest"],
+      "properties": {
+        "record_id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$" },
+        "schema_id": { "$ref": "#/$defs/nonEmptyString" },
+        "schema_version": { "const": "0.1.0" },
+        "content_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "artifact_version", "artifact_digest"],
+      "properties": {
+        "artifact_id": { "$ref": "#/$defs/nonEmptyString" },
+        "artifact_version": { "$ref": "#/$defs/nonEmptyString" },
+        "artifact_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "digestRefArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/digestRef" }
+    },
+    "digestRefArrayEmptyAllowed": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/digestRef" }
+    },
+    "artifactRefArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/artifactRef" }
+    },
+    "stringArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "stringArrayEmptyAllowed": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "learningPayloadBase": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "record_mode",
+        "ranking_objective",
+        "candidate_kind",
+        "schema_digest",
+        "code_digest",
+        "input_digest",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.learning-record-contract/0.1.0" },
+        "record_mode": { "enum": ["development_fixture", "official"] },
+        "ranking_objective": { "const": "expression_preference" },
+        "candidate_kind": { "const": "expression" },
+        "schema_digest": { "$ref": "#/$defs/digest" },
+        "code_digest": { "$ref": "#/$defs/digest" },
+        "input_digest": { "$ref": "#/$defs/digest" },
+        "authority_effect": {
+          "enum": [
+            "none",
+            "shadow_observation_only",
+            "promotion_decision_only",
+            "deployment_binding",
+            "rollback_binding",
+            "benchmark_attempt_control",
+            "benchmark_attempt_consumption"
+          ]
+        }
+      }
+    },
+    "noAuthority": {
+      "type": "object",
+      "properties": { "authority_effect": { "const": "none" } }
+    },
+    "learningRecordEnvelope": {
+      "type": "object",
+      "properties": {
+        "provenance": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "https://content.md/schemas/base-record/0.1.0#/$defs/provenanceRef" }
+        }
+      }
+    },
+    "generationRunPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["task_ref", "context_ref", "retrieval_snapshot_ref", "prompt_ref", "provider_request_ref", "provider_response_ref", "output_ref", "critique_refs", "proposal_ref", "run_state"],
+          "properties": {
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "context_ref": { "$ref": "#/$defs/digestRef" },
+            "retrieval_snapshot_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "prompt_ref": { "$ref": "#/$defs/artifactRef" },
+            "provider_request_ref": { "$ref": "#/$defs/digestRef" },
+            "provider_response_ref": { "$ref": "#/$defs/digestRef" },
+            "output_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "critique_refs": { "$ref": "#/$defs/digestRefArrayEmptyAllowed" },
+            "proposal_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "run_state": { "enum": ["completed", "refused", "incomplete", "invalid", "transport_failed"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "feedbackQualificationPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["decision_ref", "rubric_ref", "reviewer_qualification_ref", "fact_set_ref", "policy_ref", "task_ref", "context_ref", "candidate_a_ref", "candidate_b_ref", "presentation_ref", "blinded", "randomized", "rationale_codes", "outcome", "conflict_state", "adjudication_ref", "facts_changed", "requirements_changed", "context_changed", "qualification_state", "reason_codes"],
+          "properties": {
+            "decision_ref": { "$ref": "#/$defs/digestRef" },
+            "rubric_ref": { "$ref": "#/$defs/artifactRef" },
+            "reviewer_qualification_ref": { "$ref": "#/$defs/digestRef" },
+            "fact_set_ref": { "$ref": "#/$defs/digestRef" },
+            "policy_ref": { "$ref": "#/$defs/digestRef" },
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "context_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_a_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_b_ref": { "$ref": "#/$defs/digestRef" },
+            "presentation_ref": { "$ref": "#/$defs/digestRef" },
+            "blinded": { "type": "boolean" },
+            "randomized": { "type": "boolean" },
+            "rationale_codes": { "$ref": "#/$defs/stringArray" },
+            "outcome": { "enum": ["A", "B", "tie", "abstain"] },
+            "conflict_state": { "enum": ["none", "declared", "adjudicated", "unresolved"] },
+            "adjudication_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "facts_changed": { "type": "boolean" },
+            "requirements_changed": { "type": "boolean" },
+            "context_changed": { "type": "boolean" },
+            "qualification_state": { "enum": ["qualified", "not_qualified", "abstained", "invalid"] },
+            "reason_codes": { "$ref": "#/$defs/stringArrayEmptyAllowed" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningEligibilityPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["qualification_ref", "decision_ref", "learning_policy_ref", "permission_ref", "target_memory_scope", "rights_check", "privacy_check", "factual_check", "policy_check", "incident_check", "context_check", "eligibility_state", "reason_codes"],
+          "properties": {
+            "qualification_ref": { "$ref": "#/$defs/digestRef" },
+            "decision_ref": { "$ref": "#/$defs/digestRef" },
+            "learning_policy_ref": { "$ref": "#/$defs/digestRef" },
+            "permission_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "target_memory_scope": { "enum": ["task", "personal", "project", "organization", "public"] },
+            "rights_check": { "$ref": "#/$defs/checkResult" },
+            "privacy_check": { "$ref": "#/$defs/checkResult" },
+            "factual_check": { "$ref": "#/$defs/checkResult" },
+            "policy_check": { "$ref": "#/$defs/checkResult" },
+            "incident_check": { "$ref": "#/$defs/checkResult" },
+            "context_check": { "$ref": "#/$defs/checkResult" },
+            "eligibility_state": { "enum": ["eligible", "ineligible"] },
+            "reason_codes": { "$ref": "#/$defs/stringArray" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "checkResult": { "enum": ["pass", "fail", "unknown"] },
+    "preferenceExamplePayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["qualification_ref", "eligibility_ref", "task_ref", "context_ref", "candidate_a_ref", "candidate_b_ref", "presented_order", "preferred_side", "label", "presentation_digest", "feature_source_checkpoint_set_ref", "preference_state"],
+          "properties": {
+            "qualification_ref": { "$ref": "#/$defs/digestRef" },
+            "eligibility_ref": { "$ref": "#/$defs/digestRef" },
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "context_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_a_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_b_ref": { "$ref": "#/$defs/digestRef" },
+            "presented_order": { "oneOf": [{ "const": ["A", "B"] }, { "const": ["B", "A"] }] },
+            "preferred_side": { "enum": ["A", "B"] },
+            "label": { "enum": [0, 1] },
+            "presentation_digest": { "$ref": "#/$defs/digest" },
+            "feature_source_checkpoint_set_ref": { "$ref": "#/$defs/digestRef" },
+            "preference_state": { "enum": ["admitted", "invalidated", "revoked"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "exemplarPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["exemplar_kind", "subject_ref", "approval_ref", "applicability_scope_ref", "transfer_condition_refs", "prohibited_transfer", "rights_ref", "permission_ref", "currentness_state", "exemplar_state"],
+          "properties": {
+            "exemplar_kind": { "enum": ["expression", "mechanism"] },
+            "subject_ref": { "$ref": "#/$defs/digestRef" },
+            "approval_ref": { "$ref": "#/$defs/digestRef" },
+            "applicability_scope_ref": { "$ref": "#/$defs/digestRef" },
+            "transfer_condition_refs": { "$ref": "#/$defs/digestRefArray" },
+            "prohibited_transfer": { "$ref": "#/$defs/nonEmptyString" },
+            "rights_ref": { "$ref": "#/$defs/digestRef" },
+            "permission_ref": { "$ref": "#/$defs/digestRef" },
+            "currentness_state": { "enum": ["current", "expired", "revoked"] },
+            "exemplar_state": { "enum": ["approved_current", "expired", "revoked"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "leakageEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["left_ref", "right_ref", "reason"],
+      "properties": {
+        "left_ref": { "$ref": "#/$defs/digestRef" },
+        "right_ref": { "$ref": "#/$defs/digestRef" },
+        "reason": { "enum": ["message_lineage", "supersession", "task_family", "template_family", "source_occurrence", "locale_variant", "channel_variant", "near_duplicate"] }
+      }
+    },
+    "leakageGroupPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["rule_version", "normalization_artifact_refs", "member_refs", "edges", "bucket", "split", "group_state"],
+          "properties": {
+            "rule_version": { "const": "contentmd.leakage-group/0.1.0" },
+            "normalization_artifact_refs": { "$ref": "#/$defs/artifactRefArray" },
+            "member_refs": { "$ref": "#/$defs/digestRefArray" },
+            "edges": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/leakageEdge" } },
+            "bucket": { "type": "integer", "minimum": 0, "maximum": 99 },
+            "split": { "enum": ["train", "validation", "test"] },
+            "group_state": { "const": "frozen" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "datasetExclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["example_ref", "reason_code"],
+      "properties": {
+        "example_ref": { "$ref": "#/$defs/digestRef" },
+        "reason_code": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "datasetCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["examples", "groups", "train_examples", "train_groups", "validation_examples", "validation_groups", "test_examples", "test_groups"],
+      "properties": {
+        "examples": { "type": "integer", "minimum": 0 },
+        "groups": { "type": "integer", "minimum": 0 },
+        "train_examples": { "type": "integer", "minimum": 0 },
+        "train_groups": { "type": "integer", "minimum": 0 },
+        "validation_examples": { "type": "integer", "minimum": 0 },
+        "validation_groups": { "type": "integer", "minimum": 0 },
+        "test_examples": { "type": "integer", "minimum": 0 },
+        "test_groups": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "learningDatasetManifestPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["example_refs", "exclusions", "leakage_group_refs", "train_example_refs", "validation_example_refs", "test_example_refs", "permission_refs", "feature_source_checkpoint_refs", "counts", "test_open_state", "dataset_state"],
+          "properties": {
+            "example_refs": { "$ref": "#/$defs/digestRefArray" },
+            "exclusions": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/datasetExclusion" } },
+            "leakage_group_refs": { "$ref": "#/$defs/digestRefArray" },
+            "train_example_refs": { "$ref": "#/$defs/digestRefArray" },
+            "validation_example_refs": { "$ref": "#/$defs/digestRefArray" },
+            "test_example_refs": { "$ref": "#/$defs/digestRefArray" },
+            "permission_refs": { "$ref": "#/$defs/digestRefArray" },
+            "feature_source_checkpoint_refs": { "$ref": "#/$defs/digestRefArray" },
+            "counts": { "$ref": "#/$defs/datasetCounts" },
+            "test_open_state": { "enum": ["not_applicable", "sealed", "opened"] },
+            "dataset_state": { "enum": ["diagnostics_only", "training_eligible", "sealed", "test_opened", "invalid"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "featureDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "position", "value_type", "transformation", "nullable", "missing_indicator_name"],
+      "properties": {
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "position": { "type": "integer", "minimum": 0 },
+        "value_type": { "enum": ["boolean", "number", "closed_enum"] },
+        "transformation": { "$ref": "#/$defs/nonEmptyString" },
+        "nullable": { "type": "boolean" },
+        "missing_indicator_name": { "oneOf": [{ "$ref": "#/$defs/nonEmptyString" }, { "type": "null" }] }
+      }
+    },
+    "featureProfilePayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["feature_profile_version", "features", "source_artifact_refs", "forbidden_input_fields", "runtime_profile_ref", "profile_state"],
+          "properties": {
+            "feature_profile_version": { "const": "rank-features/0.1.0" },
+            "features": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/featureDefinition" } },
+            "source_artifact_refs": { "$ref": "#/$defs/artifactRefArray" },
+            "forbidden_input_fields": { "$ref": "#/$defs/stringArray" },
+            "runtime_profile_ref": { "$ref": "#/$defs/artifactRef" },
+            "profile_state": { "const": "frozen" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "modelHyperparameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lambda", "learning_rate", "maximum_iterations", "convergence_delta", "convergence_patience", "standardized_clip_lower", "standardized_clip_upper"],
+      "properties": {
+        "lambda": { "const": 1 },
+        "learning_rate": { "const": 0.05 },
+        "maximum_iterations": { "const": 2000 },
+        "convergence_delta": { "const": 1e-9 },
+        "convergence_patience": { "const": 10 },
+        "standardized_clip_lower": { "const": -10 },
+        "standardized_clip_upper": { "const": 10 }
+      }
+    },
+    "standardizationEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["feature_name", "mean", "population_standard_deviation"],
+      "properties": {
+        "feature_name": { "$ref": "#/$defs/nonEmptyString" },
+        "mean": { "type": "number" },
+        "population_standard_deviation": { "type": "number", "minimum": 0 }
+      }
+    },
+    "rankingModelPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["algorithm", "dataset_ref", "feature_profile_ref", "hyperparameters", "feature_order", "standardization", "coefficient_bits", "training_statistics_ref", "runtime_profile_ref", "model_artifact_digest", "model_state"],
+          "properties": {
+            "algorithm": { "const": "pairwise_logistic_l2" },
+            "dataset_ref": { "$ref": "#/$defs/digestRef" },
+            "feature_profile_ref": { "$ref": "#/$defs/digestRef" },
+            "hyperparameters": { "$ref": "#/$defs/modelHyperparameters" },
+            "feature_order": { "$ref": "#/$defs/stringArray" },
+            "standardization": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/standardizationEntry" } },
+            "coefficient_bits": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[a-f0-9]{16}$" } },
+            "training_statistics_ref": { "$ref": "#/$defs/digestRef" },
+            "runtime_profile_ref": { "$ref": "#/$defs/artifactRef" },
+            "model_artifact_digest": { "$ref": "#/$defs/digest" },
+            "model_state": { "enum": ["trained", "nonconverged", "invalid"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningEvaluationRunPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["dataset_ref", "model_ref", "baseline_ref", "feature_profile_ref", "test_open_receipt_ref", "evaluation_population_ref", "overall_metric_refs", "slice_metric_refs", "failure_refs", "bootstrap_ref", "predicate_result_refs", "attempt_consumed", "evaluation_state"],
+          "properties": {
+            "dataset_ref": { "$ref": "#/$defs/digestRef" },
+            "model_ref": { "$ref": "#/$defs/digestRef" },
+            "baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "feature_profile_ref": { "$ref": "#/$defs/digestRef" },
+            "test_open_receipt_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "evaluation_population_ref": { "$ref": "#/$defs/digestRef" },
+            "overall_metric_refs": { "$ref": "#/$defs/digestRefArray" },
+            "slice_metric_refs": { "$ref": "#/$defs/digestRefArray" },
+            "failure_refs": { "$ref": "#/$defs/digestRefArrayEmptyAllowed" },
+            "bootstrap_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "predicate_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "attempt_consumed": { "type": "boolean" },
+            "evaluation_state": { "enum": ["not_run", "invalid", "failed", "passed"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "shadowEvaluationPlanPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["active_baseline_ref", "candidate_model_ref", "input_selection_ref", "start_rule_ref", "end_rule_ref", "minimum_decisive_pairs", "minimum_leakage_groups", "minimum_calendar_days", "required_slice_refs", "metric_refs", "gate_refs", "no_influence", "plan_state"],
+          "properties": {
+            "active_baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_model_ref": { "$ref": "#/$defs/digestRef" },
+            "input_selection_ref": { "$ref": "#/$defs/digestRef" },
+            "start_rule_ref": { "$ref": "#/$defs/digestRef" },
+            "end_rule_ref": { "$ref": "#/$defs/digestRef" },
+            "minimum_decisive_pairs": { "const": 50 },
+            "minimum_leakage_groups": { "const": 20 },
+            "minimum_calendar_days": { "const": 14 },
+            "required_slice_refs": { "$ref": "#/$defs/digestRefArray" },
+            "metric_refs": { "$ref": "#/$defs/digestRefArray" },
+            "gate_refs": { "$ref": "#/$defs/digestRefArray" },
+            "no_influence": { "const": true },
+            "plan_state": { "enum": ["proposed", "ready", "invalid"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "shadowBindingAuthority": {
+      "oneOf": [
+        { "type": "object", "properties": { "record_mode": { "const": "development_fixture" }, "authority_effect": { "const": "none" }, "binding_state": { "const": "proposed" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "none" }, "binding_state": { "const": "proposed" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "shadow_observation_only" }, "binding_state": { "enum": ["active", "completed", "suspended"] } } }
+      ]
+    },
+    "shadowBindingPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/shadowBindingAuthority" },
+        {
+          "type": "object",
+          "required": ["plan_ref", "active_baseline_ref", "candidate_model_ref", "effective_at", "expires_at", "active_output_digest", "shadow_output_digest", "no_influence", "binding_state"],
+          "properties": {
+            "plan_ref": { "$ref": "#/$defs/digestRef" },
+            "active_baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_model_ref": { "$ref": "#/$defs/digestRef" },
+            "effective_at": { "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+            "expires_at": { "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+            "active_output_digest": { "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+            "shadow_output_digest": { "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+            "no_influence": { "const": true },
+            "binding_state": { "enum": ["proposed", "active", "completed", "suspended"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "promotionDecisionAuthority": {
+      "oneOf": [
+        { "type": "object", "properties": { "record_mode": { "const": "development_fixture" }, "authority_effect": { "const": "none" }, "decision_state": { "enum": ["proposed", "rejected", "superseded"] } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "none" }, "decision_state": { "enum": ["proposed", "rejected", "superseded"] } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "promotion_decision_only" }, "decision_state": { "enum": ["approved", "narrowed"] } } }
+      ]
+    },
+    "learningPromotionDecisionPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/promotionDecisionAuthority" },
+        {
+          "type": "object",
+          "required": ["model_ref", "dataset_ref", "evaluation_ref", "shadow_result_ref", "proposed_scope_ref", "required_slice_refs", "actor_ref", "actor_qualification_ref", "rationale", "approval_ref", "decision_state"],
+          "properties": {
+            "model_ref": { "$ref": "#/$defs/digestRef" },
+            "dataset_ref": { "$ref": "#/$defs/digestRef" },
+            "evaluation_ref": { "$ref": "#/$defs/digestRef" },
+            "shadow_result_ref": { "$ref": "#/$defs/digestRef" },
+            "proposed_scope_ref": { "$ref": "#/$defs/digestRef" },
+            "required_slice_refs": { "$ref": "#/$defs/digestRefArray" },
+            "actor_ref": { "$ref": "#/$defs/digestRef" },
+            "actor_qualification_ref": { "$ref": "#/$defs/digestRef" },
+            "rationale": { "$ref": "#/$defs/nonEmptyString" },
+            "approval_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "decision_state": { "enum": ["proposed", "approved", "rejected", "narrowed", "superseded"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "deploymentBindingAuthority": {
+      "oneOf": [
+        { "type": "object", "properties": { "record_mode": { "const": "development_fixture" }, "authority_effect": { "const": "none" }, "binding_state": { "const": "proposed" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "none" }, "binding_state": { "const": "proposed" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "deployment_binding" }, "binding_state": { "enum": ["active", "suspended", "superseded"] } } }
+      ]
+    },
+    "learningDeploymentBindingPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/deploymentBindingAuthority" },
+        {
+          "type": "object",
+          "required": ["project_id", "model_ref", "baseline_ref", "promotion_decision_ref", "previous_binding_ref", "expected_head_event_digest", "readback_receipt_ref", "effective_at", "binding_state"],
+          "properties": {
+            "project_id": { "$ref": "#/$defs/nonEmptyString" },
+            "model_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "promotion_decision_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "previous_binding_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "expected_head_event_digest": { "$ref": "#/$defs/digest" },
+            "readback_receipt_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "effective_at": { "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+            "binding_state": { "enum": ["proposed", "active", "suspended", "superseded"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningDriftReportPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["binding_ref", "model_ref", "promotion_evaluation_ref", "window_started_at", "window_ended_at", "decisive_pair_count", "leakage_group_count", "metric_delta_refs", "consecutive_degraded_windows", "consecutive_insufficient_windows", "immediate_failure_refs", "disposition", "window_state"],
+          "properties": {
+            "binding_ref": { "$ref": "#/$defs/digestRef" },
+            "model_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "promotion_evaluation_ref": { "$ref": "#/$defs/digestRef" },
+            "window_started_at": { "$ref": "#/$defs/timestamp" },
+            "window_ended_at": { "$ref": "#/$defs/timestamp" },
+            "decisive_pair_count": { "type": "integer", "minimum": 0 },
+            "leakage_group_count": { "type": "integer", "minimum": 0 },
+            "metric_delta_refs": { "$ref": "#/$defs/digestRefArray" },
+            "consecutive_degraded_windows": { "type": "integer", "minimum": 0 },
+            "consecutive_insufficient_windows": { "type": "integer", "minimum": 0 },
+            "immediate_failure_refs": { "$ref": "#/$defs/digestRefArrayEmptyAllowed" },
+            "disposition": { "enum": ["continue", "review", "suspend"] },
+            "window_state": { "enum": ["evaluable", "monitoring_insufficient"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "rollbackAuthority": {
+      "oneOf": [
+        { "type": "object", "properties": { "record_mode": { "const": "development_fixture" }, "authority_effect": { "const": "none" }, "rollback_state": { "enum": ["proposed", "rejected"] } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "none" }, "rollback_state": { "enum": ["proposed", "rejected"] } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "rollback_binding" }, "rollback_state": { "enum": ["restored", "fallback_baseline"] } } }
+      ]
+    },
+    "learningRollbackPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/rollbackAuthority" },
+        {
+          "type": "object",
+          "required": ["current_binding_ref", "target_binding_ref", "target_model_ref", "fallback_baseline_ref", "reason_code", "authorization_ref", "revalidation_refs", "expected_head_event_digest", "resulting_binding_ref", "readback_receipt_ref", "rollback_state"],
+          "properties": {
+            "current_binding_ref": { "$ref": "#/$defs/digestRef" },
+            "target_binding_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "target_model_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "fallback_baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "reason_code": { "$ref": "#/$defs/nonEmptyString" },
+            "authorization_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "revalidation_refs": { "$ref": "#/$defs/digestRefArray" },
+            "expected_head_event_digest": { "$ref": "#/$defs/digest" },
+            "resulting_binding_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "readback_receipt_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "rollback_state": { "enum": ["proposed", "restored", "fallback_baseline", "rejected"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "countEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "count"],
+      "properties": {
+        "key": { "$ref": "#/$defs/nonEmptyString" },
+        "count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "countEntryArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/countEntry" }
+    },
+    "intersectionCount": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keys", "count"],
+      "properties": {
+        "keys": { "$ref": "#/$defs/stringArray" },
+        "count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "writingBenchmarkManifestPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["benchmark_id", "task_refs", "product_counts", "domain_counts", "channel_counts", "locale_counts", "task_type_counts", "family_counts", "intersection_counts", "training_manifest_ref", "disjointness_check_ref", "generation_control_ref", "metric_contract_ref", "missingness_contract_ref", "bootstrap_contract_ref", "quality_gate_ref", "manifest_state"],
+          "properties": {
+            "benchmark_id": { "const": "LIL-WRITE-001" },
+            "task_refs": { "type": "array", "minItems": 60, "maxItems": 60, "uniqueItems": true, "items": { "$ref": "#/$defs/digestRef" } },
+            "product_counts": { "$ref": "#/$defs/countEntryArray" },
+            "domain_counts": { "$ref": "#/$defs/countEntryArray" },
+            "channel_counts": { "$ref": "#/$defs/countEntryArray" },
+            "locale_counts": { "$ref": "#/$defs/countEntryArray" },
+            "task_type_counts": { "$ref": "#/$defs/countEntryArray" },
+            "family_counts": { "$ref": "#/$defs/countEntryArray" },
+            "intersection_counts": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/intersectionCount" } },
+            "training_manifest_ref": { "$ref": "#/$defs/digestRef" },
+            "disjointness_check_ref": { "$ref": "#/$defs/digestRef" },
+            "generation_control_ref": { "$ref": "#/$defs/digestRef" },
+            "metric_contract_ref": { "$ref": "#/$defs/digestRef" },
+            "missingness_contract_ref": { "$ref": "#/$defs/digestRef" },
+            "bootstrap_contract_ref": { "$ref": "#/$defs/digestRef" },
+            "quality_gate_ref": { "$ref": "#/$defs/digestRef" },
+            "manifest_state": { "enum": ["draft", "sealed", "opened", "retired"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "writingBenchmarkTaskPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["benchmark_id", "product_id", "domain", "channel", "locale", "task_type", "family_id", "task_packet_ref", "context_evidence_ref", "semantic_lineage_ids", "template_ids", "leakage_group_ids", "required_facts", "required_actions", "acceptance_criteria", "ownership", "generation_config_ref", "task_state"],
+          "properties": {
+            "benchmark_id": { "const": "LIL-WRITE-001" },
+            "product_id": { "$ref": "#/$defs/nonEmptyString" },
+            "domain": { "$ref": "#/$defs/nonEmptyString" },
+            "channel": { "enum": ["web", "notification"] },
+            "locale": { "$ref": "#/$defs/nonEmptyString" },
+            "task_type": { "enum": ["strategy", "contextual_microcopy"] },
+            "family_id": { "$ref": "#/$defs/nonEmptyString" },
+            "task_packet_ref": { "$ref": "#/$defs/digestRef" },
+            "context_evidence_ref": { "$ref": "#/$defs/digestRef" },
+            "semantic_lineage_ids": { "$ref": "#/$defs/stringArray" },
+            "template_ids": { "$ref": "#/$defs/stringArray" },
+            "leakage_group_ids": { "$ref": "#/$defs/stringArray" },
+            "required_facts": { "$ref": "#/$defs/stringArrayEmptyAllowed" },
+            "required_actions": { "$ref": "#/$defs/stringArrayEmptyAllowed" },
+            "acceptance_criteria": { "$ref": "#/$defs/stringArray" },
+            "ownership": { "const": "project_owned_synthetic" },
+            "generation_config_ref": { "$ref": "#/$defs/digestRef" },
+            "task_state": { "const": "frozen" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "candidateEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "candidate_id", "expression_digest"],
+      "properties": {
+        "position": { "enum": [0, 1, 2, 3] },
+        "candidate_id": { "$ref": "#/$defs/nonEmptyString" },
+        "expression_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "benchmarkCandidateSetPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["task_ref", "provider_operation_plan_id", "provider_operation_plan_digest", "nonce_claim_receipt_ref", "provider_receipt_ref", "provider_output_digest", "provider_profile_ref", "returned_model_id", "prompt_template_ref", "context_ref", "alternatives_count", "output_token_budget", "candidates", "candidate_set_digest", "candidate_set_state"],
+          "properties": {
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "provider_operation_plan_id": { "$ref": "#/$defs/nonEmptyString" },
+            "provider_operation_plan_digest": { "$ref": "#/$defs/digest" },
+            "nonce_claim_receipt_ref": { "$ref": "#/$defs/digestRef" },
+            "provider_receipt_ref": { "$ref": "#/$defs/digestRef" },
+            "provider_output_digest": { "$ref": "#/$defs/digest" },
+            "provider_profile_ref": { "$ref": "#/$defs/digestRef" },
+            "returned_model_id": { "$ref": "#/$defs/nonEmptyString" },
+            "prompt_template_ref": { "$ref": "#/$defs/artifactRef" },
+            "context_ref": { "$ref": "#/$defs/digestRef" },
+            "alternatives_count": { "const": 4 },
+            "output_token_budget": { "const": 512 },
+            "candidates": { "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": { "$ref": "#/$defs/candidateEntry" } },
+            "candidate_set_digest": { "$ref": "#/$defs/digest" },
+            "candidate_set_state": { "const": "completed_verified_nonquarantined" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "exactlyFourDigestRefs": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/digestRef" }
+    },
+    "benchmarkSelectionPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["task_ref", "candidate_set_ref", "selection_path", "ranker_ref", "ordered_candidate_refs", "candidate_evaluation_refs", "selected_candidate_ref", "tie_break_trace_ref", "selection_digest", "frozen_before_blinding", "selection_state"],
+          "properties": {
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_set_ref": { "$ref": "#/$defs/digestRef" },
+            "selection_path": { "enum": ["baseline", "learned"] },
+            "ranker_ref": { "$ref": "#/$defs/digestRef" },
+            "ordered_candidate_refs": { "$ref": "#/$defs/exactlyFourDigestRefs" },
+            "candidate_evaluation_refs": { "$ref": "#/$defs/exactlyFourDigestRefs" },
+            "selected_candidate_ref": { "$ref": "#/$defs/digestRef" },
+            "tie_break_trace_ref": { "$ref": "#/$defs/digestRef" },
+            "selection_digest": { "$ref": "#/$defs/digest" },
+            "frozen_before_blinding": { "const": true },
+            "selection_state": { "const": "frozen" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "benchmarkReviewPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["attempt_ref", "task_ref", "allocation_ref", "randomization_ref", "rubric_ref", "reviewer_qualification_ref", "reviewer_independence_ref", "reviewer_role", "blinded_pair_ref", "hard_result_refs", "advisory_result_refs", "preference", "reason_codes", "accept_as_is", "accepted_edit_ref", "review_duration_ms", "context_changed", "candidate_mismatch", "model_mismatch", "adjudicates_review_refs", "review_state"],
+          "properties": {
+            "attempt_ref": { "$ref": "#/$defs/digestRef" },
+            "task_ref": { "$ref": "#/$defs/digestRef" },
+            "allocation_ref": { "$ref": "#/$defs/digestRef" },
+            "randomization_ref": { "$ref": "#/$defs/digestRef" },
+            "rubric_ref": { "$ref": "#/$defs/artifactRef" },
+            "reviewer_qualification_ref": { "$ref": "#/$defs/digestRef" },
+            "reviewer_independence_ref": { "$ref": "#/$defs/digestRef" },
+            "reviewer_role": { "enum": ["original", "adjudicator"] },
+            "blinded_pair_ref": { "$ref": "#/$defs/digestRef" },
+            "hard_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "advisory_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "preference": { "enum": ["A", "B", "tie", "abstain"] },
+            "reason_codes": { "$ref": "#/$defs/stringArray" },
+            "accept_as_is": { "type": ["boolean", "null"] },
+            "accepted_edit_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "review_duration_ms": { "type": ["integer", "null"], "minimum": 0 },
+            "context_changed": { "type": "boolean" },
+            "candidate_mismatch": { "type": "boolean" },
+            "model_mismatch": { "type": "boolean" },
+            "adjudicates_review_refs": { "$ref": "#/$defs/digestRefArrayEmptyAllowed" },
+            "review_state": { "enum": ["decisive", "tie", "abstained", "invalid"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "providerOperationPlanEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "plan_id", "plan_digest"],
+      "properties": {
+        "task_id": { "$ref": "#/$defs/nonEmptyString" },
+        "plan_id": { "$ref": "#/$defs/nonEmptyString" },
+        "plan_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "benchmarkAttemptAuthority": {
+      "oneOf": [
+        { "type": "object", "properties": { "record_mode": { "const": "development_fixture" }, "authority_effect": { "const": "none" }, "attempt_state": { "const": "draft" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "none" }, "attempt_state": { "const": "draft" } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "benchmark_attempt_control" }, "attempt_state": { "enum": ["sealed", "in_progress", "interrupted"] } } },
+        { "type": "object", "properties": { "record_mode": { "const": "official" }, "authority_effect": { "const": "benchmark_attempt_consumption" }, "attempt_state": { "enum": ["invalid_run", "consumed"] } } }
+      ]
+    },
+    "benchmarkAttemptPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/benchmarkAttemptAuthority" },
+        {
+          "type": "object",
+          "required": ["candidate_model_ref", "manifest_ref", "reviewer_allocation_ref", "rubric_ref", "randomization_ref", "analysis_code_ref", "provider_operation_plan_set", "provider_operation_plan_set_digest", "sealed_at", "readback_receipt_ref", "resume_count", "consumed_at", "consumption_reason", "attempt_state"],
+          "properties": {
+            "candidate_model_ref": { "$ref": "#/$defs/digestRef" },
+            "manifest_ref": { "$ref": "#/$defs/digestRef" },
+            "reviewer_allocation_ref": { "$ref": "#/$defs/digestRef" },
+            "rubric_ref": { "$ref": "#/$defs/artifactRef" },
+            "randomization_ref": { "$ref": "#/$defs/digestRef" },
+            "analysis_code_ref": { "$ref": "#/$defs/artifactRef" },
+            "provider_operation_plan_set": { "type": "array", "minItems": 60, "maxItems": 60, "uniqueItems": true, "items": { "$ref": "#/$defs/providerOperationPlanEntry" } },
+            "provider_operation_plan_set_digest": { "$ref": "#/$defs/digest" },
+            "sealed_at": { "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+            "readback_receipt_ref": { "oneOf": [{ "$ref": "#/$defs/digestRef" }, { "type": "null" }] },
+            "resume_count": { "type": "integer", "minimum": 0 },
+            "consumed_at": { "oneOf": [{ "$ref": "#/$defs/timestamp" }, { "type": "null" }] },
+            "consumption_reason": { "enum": ["invalid_run", "quality_gate_opened", null] },
+            "attempt_state": { "enum": ["draft", "sealed", "in_progress", "interrupted", "invalid_run", "consumed"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "writingBenchmarkRunPayload": {
+      "allOf": [
+        { "$ref": "#/$defs/learningPayloadBase" },
+        { "$ref": "#/$defs/noAuthority" },
+        {
+          "type": "object",
+          "required": ["attempt_ref", "manifest_ref", "baseline_ref", "model_ref", "candidate_set_refs", "selection_refs", "review_refs", "task_disposition_refs", "valid_task_count", "invalid_task_count", "slice_count_refs", "hard_failure_refs", "metric_result_refs", "bootstrap_result_refs", "predicate_result_refs", "attempt_consumed", "bounded_claim_status", "run_state"],
+          "properties": {
+            "attempt_ref": { "$ref": "#/$defs/digestRef" },
+            "manifest_ref": { "$ref": "#/$defs/digestRef" },
+            "baseline_ref": { "$ref": "#/$defs/digestRef" },
+            "model_ref": { "$ref": "#/$defs/digestRef" },
+            "candidate_set_refs": { "$ref": "#/$defs/digestRefArray" },
+            "selection_refs": { "$ref": "#/$defs/digestRefArray" },
+            "review_refs": { "$ref": "#/$defs/digestRefArray" },
+            "task_disposition_refs": { "$ref": "#/$defs/digestRefArray" },
+            "valid_task_count": { "type": "integer", "minimum": 0, "maximum": 60 },
+            "invalid_task_count": { "type": "integer", "minimum": 0, "maximum": 60 },
+            "slice_count_refs": { "$ref": "#/$defs/digestRefArray" },
+            "hard_failure_refs": { "$ref": "#/$defs/digestRefArrayEmptyAllowed" },
+            "metric_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "bootstrap_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "predicate_result_refs": { "$ref": "#/$defs/digestRefArray" },
+            "attempt_consumed": { "const": true },
+            "bounded_claim_status": { "enum": ["none", "synthetic_noninferiority_only", "synthetic_noninferiority_plus_utility"] },
+            "run_state": { "enum": ["not_run", "invalid_run", "failed", "passed"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "generationRunRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.generation-run-record" }, "payload": { "$ref": "#/$defs/generationRunPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "feedbackQualificationRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.feedback-qualification-record" }, "payload": { "$ref": "#/$defs/feedbackQualificationPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningEligibilityRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-eligibility-record" }, "payload": { "$ref": "#/$defs/learningEligibilityPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "preferenceExampleRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.preference-example-record" }, "payload": { "$ref": "#/$defs/preferenceExamplePayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "exemplarRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.exemplar-record" }, "payload": { "$ref": "#/$defs/exemplarPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "leakageGroupRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.leakage-group-record" }, "payload": { "$ref": "#/$defs/leakageGroupPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningDatasetManifestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-dataset-manifest" }, "payload": { "$ref": "#/$defs/learningDatasetManifestPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "featureProfileRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.feature-profile" }, "payload": { "$ref": "#/$defs/featureProfilePayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "rankingModelRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.ranking-model-record" }, "payload": { "$ref": "#/$defs/rankingModelPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningEvaluationRunRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-evaluation-run" }, "payload": { "$ref": "#/$defs/learningEvaluationRunPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "shadowEvaluationPlanRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.shadow-evaluation-plan" }, "payload": { "$ref": "#/$defs/shadowEvaluationPlanPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "shadowBindingRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.shadow-binding-record" }, "payload": { "$ref": "#/$defs/shadowBindingPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningPromotionDecisionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-promotion-decision" }, "payload": { "$ref": "#/$defs/learningPromotionDecisionPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningDeploymentBindingRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-deployment-binding" }, "payload": { "$ref": "#/$defs/learningDeploymentBindingPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningDriftReportRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-drift-report" }, "payload": { "$ref": "#/$defs/learningDriftReportPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "learningRollbackRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.learning-rollback-record" }, "payload": { "$ref": "#/$defs/learningRollbackPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "writingBenchmarkManifestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.writing-benchmark-manifest" }, "payload": { "$ref": "#/$defs/writingBenchmarkManifestPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "writingBenchmarkTaskRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.writing-benchmark-task-record" }, "payload": { "$ref": "#/$defs/writingBenchmarkTaskPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "benchmarkCandidateSetRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.benchmark-candidate-set-record" }, "payload": { "$ref": "#/$defs/benchmarkCandidateSetPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "benchmarkSelectionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.benchmark-selection-record" }, "payload": { "$ref": "#/$defs/benchmarkSelectionPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "benchmarkReviewRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.benchmark-review-record" }, "payload": { "$ref": "#/$defs/benchmarkReviewPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "benchmarkAttemptRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.benchmark-attempt-record" }, "payload": { "$ref": "#/$defs/benchmarkAttemptPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    },
+    "writingBenchmarkRunRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        { "$ref": "#/$defs/learningRecordEnvelope" },
+        { "type": "object", "properties": { "schema_id": { "const": "contentmd.writing-benchmark-run" }, "payload": { "$ref": "#/$defs/writingBenchmarkRunPayload" } } }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

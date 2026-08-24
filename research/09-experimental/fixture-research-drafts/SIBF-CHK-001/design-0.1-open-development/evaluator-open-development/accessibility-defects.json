@@ -1,0 +1,165 @@
+{
+  "record_id": "A11Y-DEFECTS-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "defects": [
+    {
+      "id": "A11Y-D01",
+      "defect": "Visible Place order action and inherited accessible name Pay now describe different consequential actions.",
+      "candidate_refs": [
+        "CAND-RVC-002",
+        "CAND-ATTR-001"
+      ],
+      "occurrence_refs": [
+        "OCC-002",
+        "OCC-009"
+      ],
+      "expected_detection_and_boundary": "Detect semantic mismatch; do not repair without a scoped semantic decision and paired-target mutation authority.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "A11Y-D02",
+      "defect": "Error-summary link text describes the postal error but the stored target points to the phone field.",
+      "candidate_refs": [
+        "CAND-RVC-004",
+        "CAND-ATTR-002"
+      ],
+      "occurrence_refs": [
+        "OCC-004",
+        "OCC-010"
+      ],
+      "expected_detection_and_boundary": "Detect wrong relationship; rendered focus/task success remains unobserved.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "A11Y-D03",
+      "defect": "The pending status is configured as a repeating live-region update rather than one meaningful announcement.",
+      "candidate_refs": [
+        "CAND-RVC-003",
+        "CAND-ATTR-003"
+      ],
+      "occurrence_refs": [
+        "OCC-003",
+        "OCC-011"
+      ],
+      "expected_detection_and_boundary": "Detect chatty announcement design; assistive-technology behavior remains unobserved.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run",
+      "source_materialization": {
+        "configuration_id": "LIVE-REPEAT-001",
+        "materialized_in_source": true,
+        "source_configuration_refs": [
+          {
+            "candidate_id": "CAND-RVC-003",
+            "field_path": "live_region_repeat_configuration"
+          },
+          {
+            "candidate_id": "CAND-ATTR-003",
+            "field_path": "live_region_repeat_configuration"
+          }
+        ],
+        "statically_discoverable": true,
+        "executable": false,
+        "configured_interval_ms": 800,
+        "configured_repeat_count": 8,
+        "repeated_value": "Submitting your order…",
+        "changes_semantic_value_between_updates": false,
+        "actual_announcement_observation": null,
+        "run_status": "not_run"
+      }
+    },
+    {
+      "id": "A11Y-D04",
+      "defect": "The synthetic success node uses a color/icon as visible meaning with no equivalent visible text; separate alt/reference metadata exists but does not repair the visible gap.",
+      "candidate_refs": [
+        "CAND-DES-004"
+      ],
+      "occurrence_refs": [
+        "OCC-057"
+      ],
+      "expected_detection_and_boundary": "Detect missing visible equivalence; do not claim conformance from metadata.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run",
+      "source_materialization": {
+        "pair_id": "PAIR-A11Y-D04",
+        "candidate_id": "CAND-DES-004",
+        "field_path": "accessibility_pair",
+        "visible_indicator_present": true,
+        "visible_text_present": false,
+        "alt_text_present": true,
+        "rendered_observation_status": "not_run",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    },
+    {
+      "id": "A11Y-D05",
+      "defect": "Hidden assistive text reveals authorization/order detail beyond the bounded visible recovery state.",
+      "candidate_refs": [
+        "CAND-RVC-007",
+        "CAND-ATTR-005"
+      ],
+      "occurrence_refs": [
+        "OCC-007",
+        "OCC-013"
+      ],
+      "expected_detection_and_boundary": "Detect privacy and state-disclosure mismatch; minimize to equivalent bounded meaning.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run",
+      "source_materialization": {
+        "pair_id": "PAIR-A11Y-D05",
+        "visible_candidate_id": "CAND-RVC-007",
+        "assistive_candidate_id": "CAND-ATTR-005",
+        "visible_provider_detail_present": false,
+        "assistive_provider_detail_present": true,
+        "rendered_observation_status": "not_run",
+        "actual_result": null,
+        "run_status": "not_run"
+      }
+    },
+    {
+      "id": "A11Y-D06",
+      "defect": "The ar-EG visible action is Arabic while its inherited accessible name remains English.",
+      "candidate_refs": [
+        "CAND-ICU-013",
+        "CAND-ATTR-006"
+      ],
+      "occurrence_refs": [
+        "OCC-035",
+        "OCC-014"
+      ],
+      "expected_detection_and_boundary": "Detect locale mismatch; qualified linguistic and assistive review remains required.",
+      "deterministic_presence_status": "provisional_unreviewed",
+      "rendered_observation_status": "not_run",
+      "specialist_review_status": "not_run",
+      "user_task_result": null,
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "aggregate_actual_result": null,
+  "aggregate_status": "not_run",
+  "review_status": "unreviewed"
+}

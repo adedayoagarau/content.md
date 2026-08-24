@@ -1,0 +1,376 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/content-records/0.1.0",
+  "title": "content.md content records",
+  "oneOf": [
+    { "$ref": "#/$defs/sourceRecord" },
+    { "$ref": "#/$defs/evidenceRecord" },
+    { "$ref": "#/$defs/productRecord" },
+    { "$ref": "#/$defs/audienceRecord" },
+    { "$ref": "#/$defs/journeyStateRecord" },
+    { "$ref": "#/$defs/iaNodeRecord" },
+    { "$ref": "#/$defs/navigationRelationRecord" },
+    { "$ref": "#/$defs/semanticMessageRecord" },
+    { "$ref": "#/$defs/expressionSlotRecord" },
+    { "$ref": "#/$defs/expressionVersionRecord" },
+    { "$ref": "#/$defs/implementationOccurrenceRecord" },
+    { "$ref": "#/$defs/contentPatternRecord" }
+  ],
+  "$defs": {
+    "sourceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.source-record" },
+            "payload": { "$ref": "#/$defs/sourcePayload" }
+          }
+        }
+      ]
+    },
+    "sourcePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_type",
+        "locator",
+        "access_mode",
+        "captured_at",
+        "rights_status",
+        "evidence_strength"
+      ],
+      "properties": {
+        "source_type": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 },
+        "access_mode": { "type": "string", "minLength": 1 },
+        "captured_at": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?Z$"
+        },
+        "rights_status": { "type": "string", "minLength": 1 },
+        "evidence_strength": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidenceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.evidence-record" },
+            "payload": { "$ref": "#/$defs/evidencePayload" }
+          }
+        }
+      ]
+    },
+    "evidencePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_refs", "claim", "observation_strength", "limitations"],
+      "properties": {
+        "source_refs": { "$ref": "#/$defs/nonEmptyRefs" },
+        "claim": { "type": "string", "minLength": 1 },
+        "observation_strength": { "type": "string", "minLength": 1 },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "productRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.product-record" },
+            "payload": { "$ref": "#/$defs/productPayload" }
+          }
+        }
+      ]
+    },
+    "productPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "purpose", "fact_refs", "open_question_refs"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "purpose": { "type": "string", "minLength": 1 },
+        "fact_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "open_question_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "audienceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.audience-record" },
+            "payload": { "$ref": "#/$defs/audiencePayload" }
+          }
+        }
+      ]
+    },
+    "audiencePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "job", "need", "evidence_refs"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "job": { "type": "string", "minLength": 1 },
+        "need": { "type": "string", "minLength": 1 },
+        "evidence_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "journeyStateRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.journey-state-record" },
+            "payload": { "$ref": "#/$defs/journeyStatePayload" }
+          }
+        }
+      ]
+    },
+    "journeyStatePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["journey", "stage", "state", "event", "consequence", "recovery"],
+      "properties": {
+        "journey": { "type": "string", "minLength": 1 },
+        "stage": { "type": "string", "minLength": 1 },
+        "state": { "type": "string", "minLength": 1 },
+        "event": { "type": "string", "minLength": 1 },
+        "consequence": { "type": "string", "minLength": 1 },
+        "recovery": { "type": ["string", "null"] }
+      }
+    },
+    "iaNodeRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.ia-node-record" },
+            "payload": { "$ref": "#/$defs/iaNodePayload" }
+          }
+        }
+      ]
+    },
+    "iaNodePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["concept", "object_type", "route_refs", "label_message_refs"],
+      "properties": {
+        "concept": { "type": "string", "minLength": 1 },
+        "object_type": { "type": "string", "minLength": 1 },
+        "route_refs": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "label_message_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "navigationRelationRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.navigation-relation-record" },
+            "payload": { "$ref": "#/$defs/navigationRelationPayload" }
+          }
+        }
+      ]
+    },
+    "navigationRelationPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from_ia_node_ref", "to_ia_node_ref", "relation", "route"],
+      "properties": {
+        "from_ia_node_ref": { "type": "string", "minLength": 1 },
+        "to_ia_node_ref": { "type": "string", "minLength": 1 },
+        "relation": { "type": "string", "minLength": 1 },
+        "route": { "type": "string", "minLength": 1 }
+      }
+    },
+    "semanticMessageRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.semantic-message-record" },
+            "payload": { "$ref": "#/$defs/semanticMessagePayload" }
+          }
+        }
+      ]
+    },
+    "semanticMessagePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["intent", "required_facts", "prohibited_claims", "journey_state_refs"],
+      "properties": {
+        "intent": { "type": "string", "minLength": 1 },
+        "required_facts": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "prohibited_claims": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "journey_state_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      }
+    },
+    "expressionSlotRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.expression-slot-record" },
+            "payload": { "$ref": "#/$defs/expressionSlotPayload" }
+          }
+        }
+      ]
+    },
+    "expressionSlotPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_message_ref", "channel", "modality", "surface", "slot", "locale", "state_ref"],
+      "properties": {
+        "semantic_message_ref": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1 },
+        "modality": { "type": "string", "minLength": 1 },
+        "surface": { "type": "string", "minLength": 1 },
+        "slot": { "type": "string", "minLength": 1 },
+        "locale": { "type": "string", "minLength": 1 },
+        "state_ref": { "type": "string", "minLength": 1 }
+      }
+    },
+    "expressionVersionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.expression-version-record" },
+            "payload": { "$ref": "#/$defs/expressionVersionPayload" }
+          }
+        }
+      ]
+    },
+    "expressionVersionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression_slot_ref", "expression_payload", "variables", "decision_ref"],
+      "properties": {
+        "expression_slot_ref": { "type": "string", "minLength": 1 },
+        "expression_payload": { "type": "string" },
+        "variables": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "decision_ref": { "type": ["string", "null"] }
+      }
+    },
+    "implementationOccurrenceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.implementation-occurrence-record" },
+            "payload": { "$ref": "#/$defs/implementationOccurrencePayload" }
+          }
+        }
+      ]
+    },
+    "implementationOccurrencePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression_version_ref", "path", "line", "column", "syntax_kind", "component", "route"],
+      "properties": {
+        "expression_version_ref": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "line": { "type": "integer", "minimum": 1 },
+        "column": { "type": "integer", "minimum": 1 },
+        "syntax_kind": { "type": "string", "minLength": 1 },
+        "component": { "type": ["string", "null"] },
+        "route": { "type": ["string", "null"] }
+      }
+    },
+    "contentPatternRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.content-pattern-record" },
+            "payload": { "$ref": "#/$defs/contentPatternPayload" }
+          }
+        }
+      ]
+    },
+    "contentPatternPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_strength",
+        "problem",
+        "contexts",
+        "mechanism",
+        "source_refs",
+        "counterexamples",
+        "failure_modes",
+        "transfer_conditions",
+        "non_transferable_details",
+        "rights_boundary"
+      ],
+      "properties": {
+        "evidence_strength": { "type": "string", "minLength": 1 },
+        "problem": { "type": "string", "minLength": 1 },
+        "contexts": { "type": "array", "items": { "$ref": "#/$defs/patternContext" }, "minItems": 1 },
+        "mechanism": { "type": "string", "minLength": 1 },
+        "source_refs": { "$ref": "#/$defs/nonEmptyRefs" },
+        "counterexamples": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "failure_modes": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "transfer_conditions": { "type": "array", "items": { "$ref": "#/$defs/patternTransferCondition" }, "minItems": 1 },
+        "non_transferable_details": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "rights_boundary": { "type": "string", "minLength": 1 }
+      }
+    },
+    "patternContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["journeys", "stages", "states", "channels", "modalities", "locales", "risk_levels"],
+      "properties": {
+        "journeys": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "stages": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "states": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "channels": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "modalities": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "locales": { "$ref": "#/$defs/nonEmptyStringArray" },
+        "risk_levels": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "patternTransferCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "values"],
+      "properties": {
+        "field": {
+          "enum": ["journey", "stage", "state", "channel", "modality", "locale", "risk_level", "rights_status"]
+        },
+        "values": { "$ref": "#/$defs/nonEmptyStringArray" }
+      }
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "nonEmptyRefs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

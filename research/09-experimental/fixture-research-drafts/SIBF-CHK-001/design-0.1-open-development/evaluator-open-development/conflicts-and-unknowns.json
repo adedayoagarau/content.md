@@ -1,0 +1,256 @@
+{
+  "record_id": "CONFLICTS-UNKNOWNS-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "record_status": "provisional_unreviewed",
+  "conflicts": [
+    {
+      "id": "C-01",
+      "conflict": "Current design evidence says Pay now, current runtime UI says Place order, and the synthetic draft glossary says Complete purchase; the only prior approval is expired and narrower than this journey.",
+      "required_disposition": "Preserve all sources and expired scope; return a terminology decision need.",
+      "candidate_refs": [
+        "CAND-DES-001",
+        "CAND-RVC-002",
+        "CAND-INT-011",
+        "CAND-ATTR-001"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "control_record_refs": [
+        "DEC-F12-003",
+        "APR-F12-003",
+        "LIFE-F12-003"
+      ],
+      "source_truth": {
+        "design_literal": "Pay now",
+        "runtime_literal": "Place order",
+        "draft_glossary_literal": "Complete purchase",
+        "draft_glossary_state": "draft_noncanonical",
+        "prior_approval_applicability": "expired_and_narrower_hidden_exploration_only"
+      }
+    },
+    {
+      "id": "C-02",
+      "conflict": "Inherited API human detail says Payment failed. Try again while the stable code and current behavior contract say the post-submit result is unknown and retry is unsafe until reconciliation.",
+      "required_disposition": "Treat behavior as controlling retry truth; flag inherited wording as high risk.",
+      "candidate_refs": [
+        "CAND-API-003",
+        "CAND-RVC-007",
+        "CAND-ICU-004"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "source_truth": {
+        "seeded_literal": "Payment failed. Try again",
+        "stable_problem_code": "PAYMENT_RESULT_UNKNOWN_AFTER_SUBMIT",
+        "expected_retry_classification": "do_not_retry_until_reconciled",
+        "inherited_retry_classification": "retry_immediately",
+        "classification_matches_behavior": false,
+        "failure_claim_supported": false,
+        "retry_offer_safe": false
+      },
+      "expression_refs": [
+        "EXP-OPEN-019",
+        "EXP-OPEN-020"
+      ]
+    },
+    {
+      "id": "C-03",
+      "conflict": "Visible success UI says Your receipt was emailed while the independent communication-attempt state is only queued.",
+      "required_disposition": "Separate order success from email delivery; flag the emailed claim and do not infer sent, delivered, opened, or understood from queued.",
+      "candidate_refs": [
+        "CAND-ICU-006",
+        "CAND-TPL-001"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "communication_attempt_state": "queued",
+      "claimed_delivery_state": "emailed",
+      "source_truth": {
+        "visible_success_ui_candidate_id": "CAND-ICU-006",
+        "communication_attempt_candidate_id": "CAND-TPL-001",
+        "order_state": "confirmed",
+        "email_attempt_state": "queued",
+        "sent_delivered_opened_or_understood_proven": false
+      },
+      "expression_refs": [
+        "EXP-OPEN-034",
+        "EXP-OPEN-039"
+      ]
+    },
+    {
+      "id": "C-04",
+      "conflict": "CMS help contains the fixed literal $51.40 USD while the authoritative synthetic quote record is 52.10 USD.",
+      "required_disposition": "Preserve stale CMS evidence and bind the displayed amount to BF-01 runtime fields.",
+      "candidate_refs": [
+        "CAND-CMS-001",
+        "CAND-WRP-002",
+        "CAND-RUN-002"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "expression_refs": [
+        "EXP-OPEN-050",
+        "EXP-OPEN-051"
+      ],
+      "identity_boundary": "The fixed stale CMS literal and authoritative runtime-bound pattern are distinct full-tuple expression versions.",
+      "source_truth": {
+        "cms_literal_total": "51.40",
+        "cms_literal_currency": "USD",
+        "authoritative_quote_record_id": "QUOTE-OPEN-000001",
+        "authoritative_total": "52.10",
+        "authoritative_currency": "USD"
+      }
+    },
+    {
+      "id": "C-05",
+      "conflict": "fr-CA says the order is complete in F5 while en-US assistive content, ar-EG visible content, and behavior records keep the authorization/order result unresolved.",
+      "required_disposition": "Revise or replace the locale expression; do not redefine semantic state by translation frequency.",
+      "candidate_refs": [
+        "CAND-ICU-011",
+        "CAND-ATTR-005",
+        "CAND-ICU-016"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "source_truth": {
+        "fr_CA_claim": "Commande terminée",
+        "en_US_state": "authorization accepted; order creation pending",
+        "ar_EG_state": "result unknown; check status before retry",
+        "behavior_refs": [
+          "BF-04",
+          "BF-05"
+        ]
+      },
+      "expression_refs": [
+        "EXP-OPEN-025",
+        "EXP-OPEN-024",
+        "EXP-OPEN-023"
+      ]
+    },
+    {
+      "id": "C-06",
+      "conflict": "One observed-live expression points to a proposed decision and expired approval; another approved decision is not implemented.",
+      "required_disposition": "Report independent decision, approval applicability, implementation, release, observation, and lifecycle states; do not infer approval from delivery or delivery from approval.",
+      "candidate_refs": [
+        "CAND-CMS-006",
+        "CAND-INT-009",
+        "CAND-DES-004"
+      ],
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "control_record_refs": [
+        "DEC-F12-001",
+        "APR-F12-001",
+        "DEL-F12-001",
+        "DEL-F12-002",
+        "DEL-F12-003",
+        "LIFE-F12-001",
+        "DEC-F12-002",
+        "APR-F12-002",
+        "DEL-F12-004",
+        "LIFE-F12-002"
+      ],
+      "expression_refs": [
+        "EXP-OPEN-033",
+        "EXP-OPEN-027"
+      ]
+    }
+  ],
+  "unknowns": [
+    {
+      "id": "U-01",
+      "unknown": "Authorization-hold duration",
+      "required_disposition": "Preserve uncertainty and route to payment operations.",
+      "decision_state": "intentionally_unresolved",
+      "owner_or_approver_id": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-02",
+      "unknown": "Whether every F5 authorization is voided or may reconcile into an order",
+      "required_disposition": "Do not promise reversal, refund, or order creation.",
+      "decision_state": "intentionally_unresolved",
+      "owner_or_approver_id": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-03",
+      "unknown": "Support response time and hours",
+      "required_disposition": "Do not invent an estimate or availability promise.",
+      "decision_state": "intentionally_unresolved",
+      "owner_or_approver_id": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-04",
+      "unknown": "Jurisdiction-specific consumer or payment instrument applicability",
+      "required_disposition": "Keep applicability unresolved.",
+      "decision_state": "intentionally_unresolved",
+      "owner_or_approver_id": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "U-05",
+      "unknown": "Authorized role for a cross-market payment-recovery semantic approval",
+      "required_disposition": "Keep the decision proposed and approver absent.",
+      "decision_state": "intentionally_unresolved",
+      "owner_or_approver_id": null,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "actual_result": null,
+  "run_status": "not_run",
+  "review_status": "unreviewed",
+  "additional_inheritance_traps": [
+    {
+      "id": "TRAP-CMS-NEWER-OUT-OF-SCOPE",
+      "candidate_refs": [
+        "CAND-CMS-005"
+      ],
+      "trap": "The CMS authoring record is newer by timestamp but its support-authoring owner scope and en-GB locale scope do not apply to the checkout decision.",
+      "required_disposition": "Preserve timestamp as freshness evidence while rejecting authority and applicability inference.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "TRAP-FREQUENCY-NOT-AUTHORITY",
+      "candidate_refs": [
+        "CAND-INT-012"
+      ],
+      "trap": "Place order is the dominant observed literal by synthetic frequency, but the frequency summary has no owner, approval, or terminology authority.",
+      "required_disposition": "Report frequency as descriptive evidence only; do not use dominance to decide canon.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "TRAP-RENDERED-REFERENCE-NOT-RELEASE",
+      "candidate_refs": [
+        "CAND-DES-006"
+      ],
+      "trap": "The excluded authoring-only design section/deck title carries a requested synthetic render profile, but no image artifact exists and no rendering was observed.",
+      "required_disposition": "Exclude the section/deck title and do not infer rendered-reference completeness, production release, observation, conformance, or user success from an absent image request.",
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ]
+}

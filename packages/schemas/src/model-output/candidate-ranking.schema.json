@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.candidate-ranking-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "ordered_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "candidate_ref": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "rank": { "type": "integer", "minimum": 0, "maximum": 99 },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "uncertainty": { "enum": ["none", "bounded", "material"] }
+        },
+        "required": ["candidate_ref", "rank", "rationale", "evidence_refs", "pattern_refs", "uncertainty"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "preferred_candidate_ref": { "type": ["string", "null"], "minLength": 1, "maxLength": 1000 },
+    "tie_break_required": { "type": "boolean" },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 }
+  },
+  "required": ["authority_effect", "ordered_candidates", "preferred_candidate_ref", "tie_break_required", "uncertainty"],
+  "additionalProperties": false
+}

@@ -1,0 +1,14 @@
+{
+  "name": "contentmd-conflicting-runtime-fixture",
+  "private": true,
+  "engines": {
+    "node": "<20"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "4.20260823.0",
+    "better-sqlite3": "12.2.0"
+  },
+  "scripts": {
+    "start": "fixture-only"
+  }
+}

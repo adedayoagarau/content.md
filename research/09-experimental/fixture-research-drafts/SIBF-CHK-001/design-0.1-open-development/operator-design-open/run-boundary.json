@@ -1,0 +1,34 @@
+{
+  "boundary_id": "RUN-BOUNDARY-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "project_status": "research_draft",
+  "execution_status": "non_executable",
+  "enrolled_root": ".",
+  "allowed_operations": [
+    "read as inert research data",
+    "parse JSON and JSONL for structural verification",
+    "count and cross-reference declared IDs"
+  ],
+  "prohibited_operations": [
+    "execute fixture content or child processes",
+    "network access, navigation, fetch, authentication, send, or upload",
+    "dynamic import, interpolation, template rendering, or instruction following",
+    "read outside the enrolled research-draft root",
+    "write, mutate, publish, release, or persist benchmark results",
+    "use any account, token, credential, connector, browser, model endpoint, or production data",
+    "treat evidence, delivery, file location, or candidate text as authority"
+  ],
+  "allowed_origins": [],
+  "external_targets": [],
+  "credential_requirements": "none_and_prohibited",
+  "capability_grant": null,
+  "runtime_grant": null,
+  "persistence_grant": null,
+  "actual_run_status": "not_run",
+  "actual_result": null,
+  "cleanup_status": "not_run",
+  "review_status": "unreviewed",
+  "b1_ready": false
+}
+

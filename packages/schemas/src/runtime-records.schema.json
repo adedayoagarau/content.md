@@ -1,0 +1,629 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/runtime-records/0.1.0",
+  "title": "content.md portable runtime records",
+  "oneOf": [
+    { "$ref": "#/$defs/runtimeDetectionReportRecord" },
+    { "$ref": "#/$defs/runtimeProposalRecord" },
+    { "$ref": "#/$defs/runtimeBindingDecisionRecord" },
+    { "$ref": "#/$defs/runtimeBindingRecord" },
+    { "$ref": "#/$defs/runtimeConformanceReceiptRecord" },
+    { "$ref": "#/$defs/replicaArtifactManifestRecord" },
+    { "$ref": "#/$defs/replicaAckRecord" }
+  ],
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringSet": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
+    "nonEmptyStringSet": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "boundRuntimeRecordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "record_version", "content_digest"],
+      "properties": {
+        "record_id": { "$ref": "#/$defs/nonEmptyString" },
+        "record_version": { "type": "integer", "minimum": 1 },
+        "content_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "runtimeDetectionEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "kind",
+        "relative_locator",
+        "content_digest",
+        "observation",
+        "confidence",
+        "conflict_state",
+        "authority_effect"
+      ],
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/nonEmptyString" },
+        "kind": { "$ref": "#/$defs/nonEmptyString" },
+        "relative_locator": { "$ref": "#/$defs/nonEmptyString" },
+        "content_digest": {
+          "oneOf": [
+            { "$ref": "#/$defs/digest" },
+            { "type": "null" }
+          ]
+        },
+        "observation": { "$ref": "#/$defs/nonEmptyString" },
+        "confidence": { "enum": ["low", "medium", "high"] },
+        "conflict_state": { "enum": ["none", "conflicting", "unknown"] },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "runtimeDetectionReportRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.runtime-detection-report" },
+            "payload": { "$ref": "#/$defs/runtimeDetectionReportPayload" }
+          }
+        }
+      ]
+    },
+    "runtimeDetectionReportPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "project_root_digest",
+        "evidence",
+        "conflicts",
+        "unknowns",
+        "inspected_at",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.runtime-detection-report/0.1.0" },
+        "project_root_digest": { "$ref": "#/$defs/digest" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/runtimeDetectionEvidence" },
+          "uniqueItems": true
+        },
+        "conflicts": { "$ref": "#/$defs/stringSet" },
+        "unknowns": { "$ref": "#/$defs/stringSet" },
+        "inspected_at": { "type": "string", "format": "date-time" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "runtimeCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_id",
+        "descriptor_ref",
+        "descriptor_digest",
+        "availability",
+        "bindable",
+        "requirements",
+        "trade_offs",
+        "conflicts",
+        "unknowns"
+      ],
+      "properties": {
+        "runtime_id": { "$ref": "#/$defs/nonEmptyString" },
+        "descriptor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "descriptor_digest": { "$ref": "#/$defs/digest" },
+        "availability": {
+          "enum": ["available", "unavailable", "adapter_unavailable_pending_plan_4"]
+        },
+        "bindable": { "type": "boolean" },
+        "requirements": { "$ref": "#/$defs/stringSet" },
+        "trade_offs": { "$ref": "#/$defs/stringSet" },
+        "conflicts": { "$ref": "#/$defs/stringSet" },
+        "unknowns": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "runtimeProposalRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.runtime-proposal-record" },
+            "payload": { "$ref": "#/$defs/runtimeProposalPayload" }
+          }
+        }
+      ]
+    },
+    "runtimeProposalPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "detection_report_ref",
+        "detection_report_digest",
+        "candidates",
+        "recommended_runtime_id",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.runtime-proposal/0.1.0" },
+        "detection_report_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "detection_report_digest": { "$ref": "#/$defs/digest" },
+        "candidates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/runtimeCandidate" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "recommended_runtime_id": { "$ref": "#/$defs/nonEmptyString" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "canonicalReplicaSelection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime_id", "data_location_id"],
+      "properties": {
+        "runtime_id": { "$ref": "#/$defs/nonEmptyString" },
+        "data_location_id": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "runtimeBindingDecisionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.runtime-binding-decision-record" },
+            "payload": { "$ref": "#/$defs/runtimeBindingDecisionPayload" }
+          }
+        }
+      ]
+    },
+    "runtimeBindingDecisionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "proposal_ref",
+        "proposal_digest",
+        "selected_descriptor_ref",
+        "selected_descriptor_digest",
+        "canonical_replica",
+        "decision_status",
+        "actor_ref",
+        "principal_ref",
+        "workload_ref",
+        "rationale",
+        "decided_at",
+        "authorization_ref",
+        "authorization_digest",
+        "conformance_receipt_refs",
+        "conformance_receipt_digests",
+        "applicable_control_refs",
+        "applicable_control_digests"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.runtime-binding-decision/0.1.0" },
+        "proposal_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "proposal_digest": { "$ref": "#/$defs/digest" },
+        "selected_descriptor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "selected_descriptor_digest": { "$ref": "#/$defs/digest" },
+        "canonical_replica": { "$ref": "#/$defs/canonicalReplicaSelection" },
+        "decision_status": { "enum": ["approved", "rejected", "superseded"] },
+        "actor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "principal_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "workload_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "decided_at": { "type": "string", "format": "date-time" },
+        "authorization_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "authorization_digest": { "$ref": "#/$defs/digest" },
+        "conformance_receipt_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "conformance_receipt_digests": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/digest" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "applicable_control_refs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+          "uniqueItems": true
+        },
+        "applicable_control_digests": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/digest" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "supportedRuntimeInterfaceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interface_id",
+        "interface_version",
+        "status",
+        "implementation_id",
+        "implementation_version",
+        "implementation_digest",
+        "semantics_digest",
+        "conformance_receipt_ref"
+      ],
+      "properties": {
+        "interface_id": { "$ref": "#/$defs/nonEmptyString" },
+        "interface_version": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "const": "supported" },
+        "implementation_id": { "$ref": "#/$defs/nonEmptyString" },
+        "implementation_version": { "$ref": "#/$defs/nonEmptyString" },
+        "implementation_digest": { "$ref": "#/$defs/digest" },
+        "semantics_digest": { "$ref": "#/$defs/digest" },
+        "conformance_receipt_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" }
+      }
+    },
+    "unsupportedRuntimeInterfaceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interface_id", "interface_version", "status", "failure_code"],
+      "properties": {
+        "interface_id": { "$ref": "#/$defs/nonEmptyString" },
+        "interface_version": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "const": "unsupported" },
+        "failure_code": { "const": "runtime_capability_unsupported" }
+      }
+    },
+    "runtimeInterfaceBinding": {
+      "oneOf": [
+        { "$ref": "#/$defs/supportedRuntimeInterfaceBinding" },
+        { "$ref": "#/$defs/unsupportedRuntimeInterfaceBinding" }
+      ]
+    },
+    "runtimeBindingRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.runtime-binding-record" },
+            "payload": { "$ref": "#/$defs/runtimeBindingPayload" }
+          }
+        }
+      ]
+    },
+    "runtimeBindingPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "binding_id",
+        "binding_version",
+        "project_id",
+        "status",
+        "proposal_ref",
+        "proposal_digest",
+        "decision_ref",
+        "decision_digest",
+        "descriptor_ref",
+        "descriptor_digest",
+        "integration_mode",
+        "canonical_replica",
+        "interface_bindings",
+        "consistency_model",
+        "transaction_boundary",
+        "idempotency_behavior",
+        "retry_behavior",
+        "ambiguous_outcome_behavior",
+        "identity_provider",
+        "authentication_provider",
+        "secret_resolver",
+        "data_locations",
+        "retention",
+        "encryption",
+        "telemetry",
+        "health_checks",
+        "cleanup",
+        "export",
+        "adapter_digests",
+        "conformance_receipts",
+        "issued_at",
+        "predecessor_binding_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.runtime-binding/0.1.0" },
+        "binding_id": { "$ref": "#/$defs/nonEmptyString" },
+        "binding_version": { "type": "integer", "minimum": 1 },
+        "project_id": { "$ref": "#/$defs/nonEmptyString" },
+        "status": { "enum": ["active", "superseded", "revoked"] },
+        "proposal_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "proposal_digest": { "$ref": "#/$defs/digest" },
+        "decision_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "decision_digest": { "$ref": "#/$defs/digest" },
+        "descriptor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "descriptor_digest": { "$ref": "#/$defs/digest" },
+        "integration_mode": { "enum": ["embedded", "sidecar", "remote_service"] },
+        "canonical_replica": { "$ref": "#/$defs/canonicalReplicaSelection" },
+        "interface_bindings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/runtimeInterfaceBinding" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "consistency_model": { "$ref": "#/$defs/nonEmptyString" },
+        "transaction_boundary": { "$ref": "#/$defs/nonEmptyString" },
+        "idempotency_behavior": { "$ref": "#/$defs/nonEmptyString" },
+        "retry_behavior": { "$ref": "#/$defs/nonEmptyString" },
+        "ambiguous_outcome_behavior": { "$ref": "#/$defs/nonEmptyString" },
+        "identity_provider": { "$ref": "#/$defs/nonEmptyString" },
+        "authentication_provider": { "$ref": "#/$defs/nonEmptyString" },
+        "secret_resolver": { "$ref": "#/$defs/nonEmptyString" },
+        "data_locations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["location_id", "data_class", "role"],
+            "properties": {
+              "location_id": { "$ref": "#/$defs/nonEmptyString" },
+              "data_class": { "$ref": "#/$defs/nonEmptyString" },
+              "role": { "enum": ["canonical_replica", "replaceable_replica", "operational"] }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "retention": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "policy_ref"],
+          "properties": {
+            "mode": { "const": "policy_bound" },
+            "policy_ref": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "encryption": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["at_rest", "in_transit"],
+          "properties": {
+            "at_rest": { "$ref": "#/$defs/nonEmptyString" },
+            "in_transit": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "telemetry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "data_classes"],
+          "properties": {
+            "mode": { "enum": ["none", "minimized"] },
+            "data_classes": { "$ref": "#/$defs/stringSet" }
+          }
+        },
+        "health_checks": { "$ref": "#/$defs/nonEmptyStringSet" },
+        "cleanup": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": { "mode": { "const": "explicit_authorized" } }
+        },
+        "export": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": { "mode": { "const": "canonical_verified" } }
+        },
+        "adapter_digests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["adapter_id", "adapter_digest"],
+            "properties": {
+              "adapter_id": { "$ref": "#/$defs/nonEmptyString" },
+              "adapter_digest": { "$ref": "#/$defs/digest" }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "conformance_receipts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "issued_at": { "type": "string", "format": "date-time" },
+        "predecessor_binding_digest": {
+          "oneOf": [
+            { "$ref": "#/$defs/digest" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "runtimeConformanceReceiptRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.runtime-conformance-receipt" },
+            "payload": { "$ref": "#/$defs/runtimeConformanceReceiptPayload" }
+          }
+        }
+      ]
+    },
+    "runtimeConformanceReceiptPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "interface_id",
+        "interface_version",
+        "implementation_id",
+        "implementation_version",
+        "implementation_digest",
+        "fixture_trace_digest",
+        "passed_check_ids",
+        "failed_check_ids",
+        "node_version",
+        "issued_at",
+        "receipt_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.runtime-conformance-receipt/0.1.0" },
+        "interface_id": { "$ref": "#/$defs/nonEmptyString" },
+        "interface_version": { "$ref": "#/$defs/nonEmptyString" },
+        "implementation_id": { "$ref": "#/$defs/nonEmptyString" },
+        "implementation_version": { "$ref": "#/$defs/nonEmptyString" },
+        "implementation_digest": { "$ref": "#/$defs/digest" },
+        "fixture_trace_digest": { "$ref": "#/$defs/digest" },
+        "passed_check_ids": { "$ref": "#/$defs/nonEmptyStringSet" },
+        "failed_check_ids": { "$ref": "#/$defs/stringSet" },
+        "node_version": { "$ref": "#/$defs/nonEmptyString" },
+        "issued_at": { "type": "string", "format": "date-time" },
+        "receipt_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "replicaArtifactManifestEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "media_type",
+        "schema_id",
+        "sha256_digest",
+        "byte_count",
+        "disposition",
+        "export_permission",
+        "parent_refs",
+        "expected_receipt_class"
+      ],
+      "properties": {
+        "artifact_id": { "$ref": "#/$defs/nonEmptyString" },
+        "media_type": { "$ref": "#/$defs/nonEmptyString" },
+        "schema_id": {
+          "oneOf": [
+            { "$ref": "#/$defs/nonEmptyString" },
+            { "type": "null" }
+          ]
+        },
+        "sha256_digest": { "$ref": "#/$defs/digest" },
+        "byte_count": { "type": "integer", "minimum": 0 },
+        "disposition": { "enum": ["required", "optional"] },
+        "export_permission": { "enum": ["permitted", "forbidden"] },
+        "parent_refs": { "$ref": "#/$defs/stringSet" },
+        "expected_receipt_class": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "replicaArtifactManifestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.replica-artifact-manifest" },
+            "payload": { "$ref": "#/$defs/replicaArtifactManifestPayload" }
+          }
+        }
+      ]
+    },
+    "replicaArtifactManifestPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "manifest_id",
+        "event_ref",
+        "checkpoint_ref",
+        "entries",
+        "manifest_digest",
+        "created_at"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.replica-artifact-manifest/0.1.0" },
+        "manifest_id": { "$ref": "#/$defs/nonEmptyString" },
+        "event_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "checkpoint_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "entries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/replicaArtifactManifestEntry" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "manifest_digest": { "$ref": "#/$defs/digest" },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "replicaAckRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.replica-ack-record" },
+            "payload": { "$ref": "#/$defs/replicaAckPayload" }
+          }
+        }
+      ]
+    },
+    "replicaAckPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "ack_id",
+        "checkpoint",
+        "manifest_ref",
+        "manifest_digest",
+        "entry_receipts",
+        "acknowledged_at",
+        "ack_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.replica-ack/0.1.0" },
+        "ack_id": { "$ref": "#/$defs/nonEmptyString" },
+        "checkpoint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["stream_id", "sequence", "head_digest"],
+          "properties": {
+            "stream_id": { "$ref": "#/$defs/nonEmptyString" },
+            "sequence": { "type": "integer", "minimum": 0 },
+            "head_digest": { "$ref": "#/$defs/digest" }
+          }
+        },
+        "manifest_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+        "manifest_digest": { "$ref": "#/$defs/digest" },
+        "entry_receipts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["artifact_id", "receipt_ref", "receipt_digest"],
+            "properties": {
+              "artifact_id": { "$ref": "#/$defs/nonEmptyString" },
+              "receipt_ref": { "$ref": "#/$defs/boundRuntimeRecordRef" },
+              "receipt_digest": { "$ref": "#/$defs/digest" }
+            }
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "acknowledged_at": { "type": "string", "format": "date-time" },
+        "ack_digest": { "$ref": "#/$defs/digest" }
+      }
+    }
+  }
+}

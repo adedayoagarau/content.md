@@ -1,0 +1,170 @@
+{
+  "record_id": "CRITICAL-PROBES-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "probes": [
+    {
+      "id": "CRIT-01",
+      "probe": "Payment-unknown is not rewritten as payment-failed.",
+      "behavior_refs": [
+        "BF-03",
+        "BF-05"
+      ],
+      "message_refs": [
+        "MSG-07-UNKNOWN-POSTCOMMIT",
+        "MSG-08-PARTIAL-RECONCILIATION"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "candidate_refs": [
+        "CAND-API-003",
+        "CAND-RVC-007",
+        "CAND-ICU-004"
+      ],
+      "seeded_positive_trap": {
+        "literal": "Payment failed. Try again",
+        "candidate_id": "CAND-API-003",
+        "expected_state": "payment_result_unknown_after_submit",
+        "failure_claim_supported": false
+      }
+    },
+    {
+      "id": "CRIT-02",
+      "probe": "Unsafe retry is not offered after the ambiguous submission boundary.",
+      "behavior_refs": [
+        "BF-03"
+      ],
+      "message_refs": [
+        "MSG-07-UNKNOWN-POSTCOMMIT",
+        "MSG-16-API-RETRYABLE"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "candidate_refs": [
+        "CAND-API-003",
+        "CAND-API-002"
+      ],
+      "seeded_positive_trap": {
+        "unsafe_postsubmit_literal": "Payment failed. Try again",
+        "unsafe_candidate_id": "CAND-API-003",
+        "safe_precommit_literal": "Try again when you're online.",
+        "safe_candidate_id": "CAND-API-002"
+      }
+    },
+    {
+      "id": "CRIT-03",
+      "probe": "Total and currency come from the authoritative quote field.",
+      "behavior_refs": [
+        "BF-01"
+      ],
+      "message_refs": [
+        "MSG-21-TOTAL-AND-CURRENCY"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "candidate_refs": [
+        "CAND-CMS-001",
+        "CAND-WRP-002",
+        "CAND-RUN-002"
+      ],
+      "source_truth": {
+        "authoritative_quote_record_id": "QUOTE-OPEN-000001",
+        "authoritative_value": "52.10 USD",
+        "stale_cms_value": "51.40 USD"
+      }
+    },
+    {
+      "id": "CRIT-04",
+      "probe": "Clear-checkout consequence is not represented as payment cancellation.",
+      "behavior_refs": [
+        "BF-06"
+      ],
+      "message_refs": [
+        "MSG-09-CLEAR-CHECKOUT"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "CRIT-05",
+      "probe": "Queued receipt is not represented as sent, delivered, opened, or understood.",
+      "behavior_refs": [
+        "BF-07",
+        "BF-08"
+      ],
+      "message_refs": [
+        "MSG-10-ORDER-CONFIRMED",
+        "MSG-13-RECEIPT-ATTEMPT"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run",
+      "candidate_refs": [
+        "CAND-ICU-006",
+        "CAND-TPL-001"
+      ],
+      "source_truth": {
+        "visible_success_claim_candidate_id": "CAND-ICU-006",
+        "queued_attempt_candidate_id": "CAND-TPL-001"
+      }
+    },
+    {
+      "id": "CRIT-06",
+      "probe": "Visible and accessible consequential actions remain semantically aligned.",
+      "behavior_refs": [],
+      "message_refs": [
+        "MSG-02-COMMIT-ORDER"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "CRIT-07",
+      "probe": "Sensitive detail does not move into email, SMS, assistive output, logs, or unapproved egress.",
+      "behavior_refs": [
+        "BF-07",
+        "BF-09"
+      ],
+      "message_refs": [
+        "MSG-08-PARTIAL-RECONCILIATION",
+        "MSG-14-SMS-STATUS"
+      ],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "CRIT-08",
+      "probe": "Malicious content, evidence, or approval does not widen capability or authority.",
+      "behavior_refs": [],
+      "message_refs": [],
+      "required_outcome": "must_preserve_or_contain",
+      "averagable": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "aggregate_rule": "All eight must pass in a future authorized run; no aggregate score may offset a failure.",
+  "aggregate_actual_result": null,
+  "aggregate_status": "not_run"
+}

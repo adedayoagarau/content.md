@@ -1,0 +1,2406 @@
+{
+  "project_id": "project.synthetic-web-app",
+  "surface": "checkout",
+  "memory_scope": "project",
+  "requested_provider_id": "provider.recorded-fixture",
+  "requested_model_profile_ref": {
+    "record_id": "model-profile.synthetic-writer-v2",
+    "schema_id": "contentmd.model-profile",
+    "schema_version": "0.1.0",
+    "content_digest": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "requested_model_id": "model.synthetic-writer-v2",
+  "context_packet_ref": {
+    "record_id": "context.synthetic-checkout",
+    "schema_id": "contentmd.context-packet",
+    "schema_version": "0.1.0",
+    "content_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "retrieval_snapshot_ref": {
+    "record_id": "retrieval.synthetic-approved-patterns",
+    "schema_id": "contentmd.retrieval-snapshot",
+    "schema_version": "0.1.0",
+    "content_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "context_items": [
+    {
+      "source_ref": {
+        "content_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+        "record_id": "fact.payment-outcome-can-be-unknown",
+        "schema_id": "contentmd.evidence-record",
+        "schema_version": "0.1.0"
+      },
+      "data_class": "project_fact",
+      "content": {
+        "contract_version": "contentmd.project-fact-prompt-context/0.1.0",
+        "approval_ref": {
+          "content_digest": "d9a33191fd910b706a5aff44624a9d97c0770548812b81d12d007bbefaa397ad",
+          "record_id": "approval.fact.payment-outcome-can-be-unknown",
+          "schema_id": "contentmd.approval-record",
+          "schema_version": "0.1.0"
+        },
+        "authority_effect": "none",
+        "claim": "A submitted payment can remain in an unknown processing state.",
+        "effective_from": "2026-08-20T12:00:00Z",
+        "effective_through": null,
+        "evaluation_at": "2026-08-22T20:00:00Z",
+        "fact_ref": {
+          "content_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+          "record_id": "fact.payment-outcome-can-be-unknown",
+          "schema_id": "contentmd.evidence-record",
+          "schema_version": "0.1.0"
+        },
+        "limitations": [
+          "The exact status destination remains product-owned."
+        ],
+        "observation_strength": "authoritative",
+        "project_id": "project.synthetic-web-app",
+        "raw_source_locators_included": false,
+        "source_refs": [
+          {
+            "content_digest": "f251db3e31b778b48738eef976d9f2eb71638562dcce0e0e9fc5992e473455b3",
+            "record_id": "source.product",
+            "schema_id": "contentmd.source-record",
+            "schema_version": "0.1.0"
+          }
+        ],
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_id": "task.fixture.checkout-content",
+        "qualification_digest": "622ca1978a22304ef02e8914664db723fdc8ac9ce603cae1a188e9da331a5080",
+        "verification_digest": "62bf2ed4661996f519ef8f8f5c956b012981fb0b1b6c9155efd638201a13dbff",
+        "context_digest": "839646748e649c76b45d4f24bc9cfdae5b5fa3c5b2d4798a15bcacdf1446326b"
+      },
+      "verification": {
+        "contract_version": "contentmd.project-fact-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "approval_record": {
+            "content_digest": "d9a33191fd910b706a5aff44624a9d97c0770548812b81d12d007bbefaa397ad",
+            "lifecycle_state": "active",
+            "payload": {
+              "approval_class": "semantic_decision",
+              "expires_at": null,
+              "issued_at": "2026-08-20T12:00:00Z",
+              "revocation_state": "current",
+              "scope": [
+                "data_class:project_fact",
+                "project:project.synthetic-web-app"
+              ],
+              "status": "issued",
+              "subject_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+              "subject_ref": "fact.payment-outcome-can-be-unknown"
+            },
+            "provenance": [
+              {
+                "content_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+                "record_id": "fact.payment-outcome-can-be-unknown",
+                "relationship": "approves"
+              }
+            ],
+            "record_id": "approval.fact.payment-outcome-can-be-unknown",
+            "record_version": 1,
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "project_fact"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "fact_record": {
+            "content_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+            "lifecycle_state": "active",
+            "payload": {
+              "claim": "A submitted payment can remain in an unknown processing state.",
+              "limitations": [
+                "The exact status destination remains product-owned."
+              ],
+              "observation_strength": "authoritative",
+              "source_refs": [
+                "source.product"
+              ]
+            },
+            "provenance": [
+              {
+                "content_digest": "f251db3e31b778b48738eef976d9f2eb71638562dcce0e0e9fc5992e473455b3",
+                "record_id": "source.product",
+                "relationship": "supported_by"
+              }
+            ],
+            "record_id": "fact.payment-outcome-can-be-unknown",
+            "record_version": 1,
+            "schema_id": "contentmd.evidence-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "project_fact"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "project_id": "project.synthetic-web-app",
+          "source_records": [
+            {
+              "content_digest": "f251db3e31b778b48738eef976d9f2eb71638562dcce0e0e9fc5992e473455b3",
+              "lifecycle_state": "active",
+              "payload": {
+                "access_mode": "read_only",
+                "captured_at": "2026-08-20T10:00:00Z",
+                "evidence_strength": "authoritative",
+                "locator": "fixture://product/checkout/payment-status",
+                "rights_status": "product_owned",
+                "source_type": "product_fixture"
+              },
+              "provenance": [],
+              "record_id": "source.product",
+              "record_version": 1,
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0",
+              "scope": {
+                "data_classes": [
+                  "project_fact"
+                ],
+                "memory_scope": "project",
+                "project_id": "project.synthetic-web-app",
+                "resource_refs": [
+                  "product.beacon"
+                ]
+              }
+            }
+          ],
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "eligible_fact": {
+          "approval_ref": {
+            "content_digest": "d9a33191fd910b706a5aff44624a9d97c0770548812b81d12d007bbefaa397ad",
+            "record_id": "approval.fact.payment-outcome-can-be-unknown",
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0"
+          },
+          "authority_effect": "none",
+          "claim": "A submitted payment can remain in an unknown processing state.",
+          "contract_version": "contentmd.eligible-project-fact/0.1.0",
+          "effective_from": "2026-08-20T12:00:00Z",
+          "effective_through": null,
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "fact_ref": {
+            "content_digest": "6ebaae5a446cc4cb4f7cbc2de788ac52adc661df28d5af64e2a28e62d4b1ce23",
+            "record_id": "fact.payment-outcome-can-be-unknown",
+            "schema_id": "contentmd.evidence-record",
+            "schema_version": "0.1.0"
+          },
+          "limitations": [
+            "The exact status destination remains product-owned."
+          ],
+          "observation_strength": "authoritative",
+          "project_id": "project.synthetic-web-app",
+          "qualification_digest": "622ca1978a22304ef02e8914664db723fdc8ac9ce603cae1a188e9da331a5080",
+          "raw_source_locators_included": false,
+          "source_refs": [
+            {
+              "content_digest": "f251db3e31b778b48738eef976d9f2eb71638562dcce0e0e9fc5992e473455b3",
+              "record_id": "source.product",
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0"
+            }
+          ],
+          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_id": "task.fixture.checkout-content"
+        },
+        "verification_digest": "62bf2ed4661996f519ef8f8f5c956b012981fb0b1b6c9155efd638201a13dbff"
+      }
+    },
+    {
+      "source_ref": {
+        "content_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+        "record_id": "fact.workspace-delete-local-only",
+        "schema_id": "contentmd.evidence-record",
+        "schema_version": "0.1.0"
+      },
+      "data_class": "project_fact",
+      "content": {
+        "contract_version": "contentmd.project-fact-prompt-context/0.1.0",
+        "approval_ref": {
+          "content_digest": "c96d0fde03b32e6bb5e185b18dc7472d5c85bf9d9104dc24f7e2d81f5cc7b93d",
+          "record_id": "approval.fact.workspace-delete-local-only",
+          "schema_id": "contentmd.approval-record",
+          "schema_version": "0.1.0"
+        },
+        "authority_effect": "none",
+        "claim": "Deleting a fixture workspace changes local state only and does not cancel or reverse a provider attempt.",
+        "effective_from": "2026-08-20T12:00:00Z",
+        "effective_through": null,
+        "evaluation_at": "2026-08-22T20:00:00Z",
+        "fact_ref": {
+          "content_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+          "record_id": "fact.workspace-delete-local-only",
+          "schema_id": "contentmd.evidence-record",
+          "schema_version": "0.1.0"
+        },
+        "limitations": [
+          "Live provider behavior is outside the synthetic fixture."
+        ],
+        "observation_strength": "authoritative",
+        "project_id": "project.synthetic-web-app",
+        "raw_source_locators_included": false,
+        "source_refs": [
+          {
+            "content_digest": "9c8463c0a7896b166dd9191cc1b59fd49e35e21a69be26cc2bd260ae63999d15",
+            "record_id": "source.design",
+            "schema_id": "contentmd.source-record",
+            "schema_version": "0.1.0"
+          }
+        ],
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_id": "task.fixture.checkout-content",
+        "qualification_digest": "651ea328918f57980338e3605f69c53bd725532ed66cd40549ab5f5191056fe8",
+        "verification_digest": "60ae7a53b2109eeb1a4987b921830d3f9e52be1fd195650be912778088892a72",
+        "context_digest": "a5ee0a3b4d1448280279df5c279461f858db81476123eabd77c4d4506c2ac9ab"
+      },
+      "verification": {
+        "contract_version": "contentmd.project-fact-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "approval_record": {
+            "content_digest": "c96d0fde03b32e6bb5e185b18dc7472d5c85bf9d9104dc24f7e2d81f5cc7b93d",
+            "lifecycle_state": "active",
+            "payload": {
+              "approval_class": "semantic_decision",
+              "expires_at": null,
+              "issued_at": "2026-08-20T12:00:00Z",
+              "revocation_state": "current",
+              "scope": [
+                "data_class:project_fact",
+                "project:project.synthetic-web-app"
+              ],
+              "status": "issued",
+              "subject_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+              "subject_ref": "fact.workspace-delete-local-only"
+            },
+            "provenance": [
+              {
+                "content_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+                "record_id": "fact.workspace-delete-local-only",
+                "relationship": "approves"
+              }
+            ],
+            "record_id": "approval.fact.workspace-delete-local-only",
+            "record_version": 1,
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "project_fact"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "fact_record": {
+            "content_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+            "lifecycle_state": "active",
+            "payload": {
+              "claim": "Deleting a fixture workspace changes local state only and does not cancel or reverse a provider attempt.",
+              "limitations": [
+                "Live provider behavior is outside the synthetic fixture."
+              ],
+              "observation_strength": "authoritative",
+              "source_refs": [
+                "source.design"
+              ]
+            },
+            "provenance": [
+              {
+                "content_digest": "9c8463c0a7896b166dd9191cc1b59fd49e35e21a69be26cc2bd260ae63999d15",
+                "record_id": "source.design",
+                "relationship": "supported_by"
+              }
+            ],
+            "record_id": "fact.workspace-delete-local-only",
+            "record_version": 1,
+            "schema_id": "contentmd.evidence-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "project_fact"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "project_id": "project.synthetic-web-app",
+          "source_records": [
+            {
+              "content_digest": "9c8463c0a7896b166dd9191cc1b59fd49e35e21a69be26cc2bd260ae63999d15",
+              "lifecycle_state": "active",
+              "payload": {
+                "access_mode": "read_only",
+                "captured_at": "2026-08-20T10:00:00Z",
+                "evidence_strength": "authoritative",
+                "locator": "fixture://design/workspace-delete",
+                "rights_status": "product_owned",
+                "source_type": "product_fixture"
+              },
+              "provenance": [],
+              "record_id": "source.design",
+              "record_version": 1,
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0",
+              "scope": {
+                "data_classes": [
+                  "project_fact"
+                ],
+                "memory_scope": "project",
+                "project_id": "project.synthetic-web-app",
+                "resource_refs": [
+                  "product.beacon"
+                ]
+              }
+            }
+          ],
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "eligible_fact": {
+          "approval_ref": {
+            "content_digest": "c96d0fde03b32e6bb5e185b18dc7472d5c85bf9d9104dc24f7e2d81f5cc7b93d",
+            "record_id": "approval.fact.workspace-delete-local-only",
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0"
+          },
+          "authority_effect": "none",
+          "claim": "Deleting a fixture workspace changes local state only and does not cancel or reverse a provider attempt.",
+          "contract_version": "contentmd.eligible-project-fact/0.1.0",
+          "effective_from": "2026-08-20T12:00:00Z",
+          "effective_through": null,
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "fact_ref": {
+            "content_digest": "1a15e732e18f652a871f9498d1bc2d4e624f75d1b07dd4e820205bc45d13cfb5",
+            "record_id": "fact.workspace-delete-local-only",
+            "schema_id": "contentmd.evidence-record",
+            "schema_version": "0.1.0"
+          },
+          "limitations": [
+            "Live provider behavior is outside the synthetic fixture."
+          ],
+          "observation_strength": "authoritative",
+          "project_id": "project.synthetic-web-app",
+          "qualification_digest": "651ea328918f57980338e3605f69c53bd725532ed66cd40549ab5f5191056fe8",
+          "raw_source_locators_included": false,
+          "source_refs": [
+            {
+              "content_digest": "9c8463c0a7896b166dd9191cc1b59fd49e35e21a69be26cc2bd260ae63999d15",
+              "record_id": "source.design",
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0"
+            }
+          ],
+          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_id": "task.fixture.checkout-content"
+        },
+        "verification_digest": "60ae7a53b2109eeb1a4987b921830d3f9e52be1fd195650be912778088892a72"
+      }
+    },
+    {
+      "source_ref": {
+        "record_id": "expression.product-example.safe-recovery",
+        "schema_id": "contentmd.expression-version-record",
+        "schema_version": "0.1.0",
+        "content_digest": "f40906c6dd4db1015d8f91507f7be98c31867d1d91bd620ef7309530d94d56a3"
+      },
+      "data_class": "approved_example",
+      "content": {
+        "contract_version": "contentmd.product-example-prompt-context/0.1.0",
+        "approval_ref": {
+          "content_digest": "44a99560a3c888c1cf31363b5ddec40ad75cf7712895ce38f79b71a0a84b39bb",
+          "record_id": "approval.product-example.safe-recovery",
+          "schema_id": "contentmd.approval-record",
+          "schema_version": "0.1.0"
+        },
+        "authority_effect": "none",
+        "channel": "web",
+        "counterexample_next_action": null,
+        "counterexample_rationale": null,
+        "counterexample_uncertainty": null,
+        "data_class": "approved_example",
+        "evaluation_at": "2026-08-22T20:00:00Z",
+        "expression_payload": "We couldn't confirm this payment. Check its status before trying again.",
+        "expression_ref": {
+          "content_digest": "f40906c6dd4db1015d8f91507f7be98c31867d1d91bd620ef7309530d94d56a3",
+          "record_id": "expression.product-example.safe-recovery",
+          "schema_id": "contentmd.expression-version-record",
+          "schema_version": "0.1.0"
+        },
+        "expression_slot_ref": {
+          "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+          "record_id": "slot.payment-recovery.product-example",
+          "schema_id": "contentmd.expression-slot-record",
+          "schema_version": "0.1.0"
+        },
+        "finding_ref": null,
+        "journey_state_refs": [
+          "journey.checkout",
+          "state.payment-outcome-unknown"
+        ],
+        "lineage_refs": [
+          {
+            "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+            "record_id": "source.product-example",
+            "schema_id": "contentmd.source-record",
+            "schema_version": "0.1.0"
+          }
+        ],
+        "locale": "en-US",
+        "modality": "visual",
+        "prohibited_claims": [
+          "external publication authority",
+          "guaranteed outcome",
+          "smartest"
+        ],
+        "project_id": "project.synthetic-web-app",
+        "raw_source_locators_included": false,
+        "required_fact_refs": [
+          "fact.payment-outcome-can-be-unknown",
+          "fact.workspace-delete-local-only"
+        ],
+        "rights_state": "prompt_permitted",
+        "semantic_intent": "State the unknown payment outcome and provide the safe recovery action.",
+        "semantic_message_ref": {
+          "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+          "record_id": "message.safe-payment-recovery",
+          "schema_id": "contentmd.semantic-message-record",
+          "schema_version": "0.1.0"
+        },
+        "slot": "payment-recovery-message",
+        "source_class": "project_owned",
+        "state_ref": "state.payment-outcome-unknown",
+        "surface": "checkout",
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_id": "task.fixture.checkout-content",
+        "variables": [],
+        "qualification_digest": "e0a1474321a1d336f5b32354ac4761611a33b8ffd40bdd28615d9e98a19b7180",
+        "verification_digest": "ccac20b7a1b3b1c000c686fd716508e1e9d57ed4dff3540a1b12c76808e77ac9",
+        "context_digest": "5753981f96f70cbe6b0b58ce72ef9a11ab852669fe2f479b870f80661ae72af7"
+      },
+      "verification": {
+        "contract_version": "contentmd.product-example-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "approval_record": {
+            "content_digest": "44a99560a3c888c1cf31363b5ddec40ad75cf7712895ce38f79b71a0a84b39bb",
+            "lifecycle_state": "active",
+            "payload": {
+              "approval_class": "semantic_decision",
+              "expires_at": null,
+              "issued_at": "2026-08-20T12:00:00Z",
+              "revocation_state": "current",
+              "scope": [
+                "channel:web",
+                "data_class:approved_example",
+                "locale:en-US",
+                "project:project.synthetic-web-app",
+                "rights:prompt_permitted",
+                "semantic_message:message.safe-payment-recovery",
+                "source_class:project_owned",
+                "state:state.payment-outcome-unknown",
+                "task:task.fixture.checkout-content"
+              ],
+              "status": "issued",
+              "subject_digest": "f40906c6dd4db1015d8f91507f7be98c31867d1d91bd620ef7309530d94d56a3",
+              "subject_ref": "expression.product-example.safe-recovery"
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "approval.product-example.safe-recovery",
+            "record_version": 1,
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "semantic_approval"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "data_class": "approved_example",
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "expression_slot": {
+            "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+            "lifecycle_state": "active",
+            "payload": {
+              "channel": "web",
+              "locale": "en-US",
+              "modality": "visual",
+              "semantic_message_ref": "message.safe-payment-recovery",
+              "slot": "payment-recovery-message",
+              "state_ref": "state.payment-outcome-unknown",
+              "surface": "checkout"
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "slot.payment-recovery.product-example",
+            "record_version": 1,
+            "schema_id": "contentmd.expression-slot-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "expression_slot"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "expression_version": {
+            "content_digest": "f40906c6dd4db1015d8f91507f7be98c31867d1d91bd620ef7309530d94d56a3",
+            "lifecycle_state": "active",
+            "payload": {
+              "decision_ref": "approval.product-example.safe-recovery",
+              "expression_payload": "We couldn't confirm this payment. Check its status before trying again.",
+              "expression_slot_ref": "slot.payment-recovery.product-example",
+              "variables": []
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "expression.product-example.safe-recovery",
+            "record_version": 1,
+            "schema_id": "contentmd.expression-version-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "approved_example"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "lineage_records": [
+            {
+              "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+              "lifecycle_state": "active",
+              "payload": {
+                "access_mode": "read_only",
+                "captured_at": "2026-08-20T10:00:00Z",
+                "evidence_strength": "authoritative",
+                "locator": "fixture://product/example-source",
+                "rights_status": "project_owned",
+                "source_type": "product_fixture"
+              },
+              "provenance": [],
+              "record_id": "source.product-example",
+              "record_version": 1,
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0",
+              "scope": {
+                "data_classes": [
+                  "project_owned_expression_source"
+                ],
+                "memory_scope": "project",
+                "project_id": "project.synthetic-web-app",
+                "resource_refs": [
+                  "product.beacon"
+                ]
+              }
+            }
+          ],
+          "project_id": "project.synthetic-web-app",
+          "review_finding_context": null,
+          "semantic_message": {
+            "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+            "lifecycle_state": "active",
+            "payload": {
+              "intent": "State the unknown payment outcome and provide the safe recovery action.",
+              "journey_state_refs": [
+                "journey.checkout",
+                "state.payment-outcome-unknown"
+              ],
+              "prohibited_claims": [
+                "external publication authority",
+                "guaranteed outcome",
+                "smartest"
+              ],
+              "required_facts": [
+                "fact.payment-outcome-can-be-unknown",
+                "fact.workspace-delete-local-only"
+              ]
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "message.safe-payment-recovery",
+            "record_version": 1,
+            "schema_id": "contentmd.semantic-message-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "semantic_message"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "eligible_example": {
+          "approval_ref": {
+            "content_digest": "44a99560a3c888c1cf31363b5ddec40ad75cf7712895ce38f79b71a0a84b39bb",
+            "record_id": "approval.product-example.safe-recovery",
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0"
+          },
+          "authority_effect": "none",
+          "channel": "web",
+          "contract_version": "contentmd.eligible-product-example/0.1.0",
+          "counterexample_next_action": null,
+          "counterexample_rationale": null,
+          "counterexample_uncertainty": null,
+          "data_class": "approved_example",
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "expression_payload": "We couldn't confirm this payment. Check its status before trying again.",
+          "expression_ref": {
+            "content_digest": "f40906c6dd4db1015d8f91507f7be98c31867d1d91bd620ef7309530d94d56a3",
+            "record_id": "expression.product-example.safe-recovery",
+            "schema_id": "contentmd.expression-version-record",
+            "schema_version": "0.1.0"
+          },
+          "expression_slot_ref": {
+            "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+            "record_id": "slot.payment-recovery.product-example",
+            "schema_id": "contentmd.expression-slot-record",
+            "schema_version": "0.1.0"
+          },
+          "finding_ref": null,
+          "journey_state_refs": [
+            "journey.checkout",
+            "state.payment-outcome-unknown"
+          ],
+          "lineage_refs": [
+            {
+              "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+              "record_id": "source.product-example",
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0"
+            }
+          ],
+          "locale": "en-US",
+          "modality": "visual",
+          "prohibited_claims": [
+            "external publication authority",
+            "guaranteed outcome",
+            "smartest"
+          ],
+          "project_id": "project.synthetic-web-app",
+          "qualification_digest": "e0a1474321a1d336f5b32354ac4761611a33b8ffd40bdd28615d9e98a19b7180",
+          "raw_source_locators_included": false,
+          "required_fact_refs": [
+            "fact.payment-outcome-can-be-unknown",
+            "fact.workspace-delete-local-only"
+          ],
+          "rights_state": "prompt_permitted",
+          "semantic_intent": "State the unknown payment outcome and provide the safe recovery action.",
+          "semantic_message_ref": {
+            "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+            "record_id": "message.safe-payment-recovery",
+            "schema_id": "contentmd.semantic-message-record",
+            "schema_version": "0.1.0"
+          },
+          "slot": "payment-recovery-message",
+          "source_class": "project_owned",
+          "state_ref": "state.payment-outcome-unknown",
+          "surface": "checkout",
+          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_id": "task.fixture.checkout-content",
+          "variables": []
+        },
+        "verification_digest": "ccac20b7a1b3b1c000c686fd716508e1e9d57ed4dff3540a1b12c76808e77ac9"
+      }
+    },
+    {
+      "source_ref": {
+        "record_id": "expression.counterexample.payment-failed",
+        "schema_id": "contentmd.expression-version-record",
+        "schema_version": "0.1.0",
+        "content_digest": "f03fbeae08350a588235f5c10fe71d6243e4faa13475fdf7c702fdcd50c64083"
+      },
+      "data_class": "counterexample",
+      "content": {
+        "contract_version": "contentmd.product-example-prompt-context/0.1.0",
+        "approval_ref": {
+          "content_digest": "6b9483b816efce16c9e6cce99f85fddf4bdd523270a3d57baf4ac65bb126852b",
+          "record_id": "approval.counterexample.payment-failed",
+          "schema_id": "contentmd.approval-record",
+          "schema_version": "0.1.0"
+        },
+        "authority_effect": "none",
+        "channel": "web",
+        "counterexample_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+        "counterexample_rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+        "counterexample_uncertainty": "none",
+        "data_class": "counterexample",
+        "evaluation_at": "2026-08-22T20:00:00Z",
+        "expression_payload": "Payment failed.",
+        "expression_ref": {
+          "content_digest": "f03fbeae08350a588235f5c10fe71d6243e4faa13475fdf7c702fdcd50c64083",
+          "record_id": "expression.counterexample.payment-failed",
+          "schema_id": "contentmd.expression-version-record",
+          "schema_version": "0.1.0"
+        },
+        "expression_slot_ref": {
+          "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+          "record_id": "slot.payment-recovery.product-example",
+          "schema_id": "contentmd.expression-slot-record",
+          "schema_version": "0.1.0"
+        },
+        "finding_ref": {
+          "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475",
+          "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+          "schema_id": "contentmd.content-finding",
+          "schema_version": "0.1.0"
+        },
+        "journey_state_refs": [
+          "journey.checkout",
+          "state.payment-outcome-unknown"
+        ],
+        "lineage_refs": [
+          {
+            "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+            "record_id": "source.product-example",
+            "schema_id": "contentmd.source-record",
+            "schema_version": "0.1.0"
+          }
+        ],
+        "locale": "en-US",
+        "modality": "visual",
+        "prohibited_claims": [
+          "external publication authority",
+          "guaranteed outcome",
+          "smartest"
+        ],
+        "project_id": "project.synthetic-web-app",
+        "raw_source_locators_included": false,
+        "required_fact_refs": [
+          "fact.payment-outcome-can-be-unknown",
+          "fact.workspace-delete-local-only"
+        ],
+        "rights_state": "prompt_permitted",
+        "semantic_intent": "State the unknown payment outcome and provide the safe recovery action.",
+        "semantic_message_ref": {
+          "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+          "record_id": "message.safe-payment-recovery",
+          "schema_id": "contentmd.semantic-message-record",
+          "schema_version": "0.1.0"
+        },
+        "slot": "payment-recovery-message",
+        "source_class": "project_owned",
+        "state_ref": "state.payment-outcome-unknown",
+        "surface": "checkout",
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_id": "task.fixture.checkout-content",
+        "variables": [],
+        "qualification_digest": "aa1546417ee5bdd6ff1c3f4c47e02cd40818317476bbc6936bdf18558e54ebaa",
+        "verification_digest": "ca35f8eb2e4ab17aaf92cddfa1db36843d89f5fc49d60963f3b85ccadb139755",
+        "context_digest": "2ad4d5cecf781700c55742197691451743067b3cfa5d64b0b49cdae0f0358b91"
+      },
+      "verification": {
+        "contract_version": "contentmd.product-example-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "approval_record": {
+            "content_digest": "6b9483b816efce16c9e6cce99f85fddf4bdd523270a3d57baf4ac65bb126852b",
+            "lifecycle_state": "active",
+            "payload": {
+              "approval_class": "semantic_decision",
+              "expires_at": null,
+              "issued_at": "2026-08-20T12:00:00Z",
+              "revocation_state": "current",
+              "scope": [
+                "channel:web",
+                "data_class:counterexample",
+                "finding:finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "locale:en-US",
+                "project:project.synthetic-web-app",
+                "rights:prompt_permitted",
+                "semantic_message:message.safe-payment-recovery",
+                "source_class:project_owned",
+                "state:state.payment-outcome-unknown",
+                "task:task.fixture.checkout-content"
+              ],
+              "status": "issued",
+              "subject_digest": "f03fbeae08350a588235f5c10fe71d6243e4faa13475fdf7c702fdcd50c64083",
+              "subject_ref": "expression.counterexample.payment-failed"
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "approval.counterexample.payment-failed",
+            "record_version": 1,
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "semantic_approval"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "data_class": "counterexample",
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "expression_slot": {
+            "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+            "lifecycle_state": "active",
+            "payload": {
+              "channel": "web",
+              "locale": "en-US",
+              "modality": "visual",
+              "semantic_message_ref": "message.safe-payment-recovery",
+              "slot": "payment-recovery-message",
+              "state_ref": "state.payment-outcome-unknown",
+              "surface": "checkout"
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "slot.payment-recovery.product-example",
+            "record_version": 1,
+            "schema_id": "contentmd.expression-slot-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "expression_slot"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "expression_version": {
+            "content_digest": "f03fbeae08350a588235f5c10fe71d6243e4faa13475fdf7c702fdcd50c64083",
+            "lifecycle_state": "active",
+            "payload": {
+              "decision_ref": "approval.counterexample.payment-failed",
+              "expression_payload": "Payment failed.",
+              "expression_slot_ref": "slot.payment-recovery.product-example",
+              "variables": []
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "expression.counterexample.payment-failed",
+            "record_version": 1,
+            "schema_id": "contentmd.expression-version-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "counterexample"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "lineage_records": [
+            {
+              "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+              "lifecycle_state": "active",
+              "payload": {
+                "access_mode": "read_only",
+                "captured_at": "2026-08-20T10:00:00Z",
+                "evidence_strength": "authoritative",
+                "locator": "fixture://product/example-source",
+                "rights_status": "project_owned",
+                "source_type": "product_fixture"
+              },
+              "provenance": [],
+              "record_id": "source.product-example",
+              "record_version": 1,
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0",
+              "scope": {
+                "data_classes": [
+                  "project_owned_expression_source"
+                ],
+                "memory_scope": "project",
+                "project_id": "project.synthetic-web-app",
+                "resource_refs": [
+                  "product.beacon"
+                ]
+              }
+            }
+          ],
+          "project_id": "project.synthetic-web-app",
+          "review_finding_context": {
+            "content": {
+              "authority_effect": "none",
+              "automatic_rewrite_allowed": false,
+              "context_digest": "34152077fd0458adaf9c0b440f644c83b33d6ccda03f03aa21d36e6a5e3e9fcb",
+              "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
+              "dimension": "state_accuracy",
+              "evidence_refs": [
+                "occurrence.review.payment-failed",
+                "review.fixture"
+              ],
+              "finding_ref": {
+                "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475",
+                "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "schema_id": "contentmd.content-finding",
+                "schema_version": "0.1.0"
+              },
+              "occurrence_refs": [
+                "occurrence.review.payment-failed"
+              ],
+              "outcome_class": "hard",
+              "project_id": "project.synthetic-web-app",
+              "qualification_digest": "8124e21ce8b7ce0862e70098cd3349c3eb5ffa10d3a89e3a91c9d3078fe75e4f",
+              "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+              "raw_expression_included": false,
+              "report_ref": {
+                "content_digest": "1a9ad2969f2947f3f4e720916dab232285b0778abc8fa87e681f17217e442da3",
+                "record_id": "review.5a09ef81016799f3157225b644241f9a",
+                "schema_id": "contentmd.review-report",
+                "schema_version": "0.1.0"
+              },
+              "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+              "rule_id": "content.state-mismatch",
+              "rule_version": "0.1.0",
+              "severity": "critical",
+              "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+              "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+              "task_id": "task.fixture.checkout-content",
+              "uncertainty": "none",
+              "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+            },
+            "data_class": "review_finding",
+            "source_ref": {
+              "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475",
+              "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+              "schema_id": "contentmd.content-finding",
+              "schema_version": "0.1.0"
+            },
+            "verification": {
+              "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
+              "qualification_input": {
+                "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "project_id": "project.synthetic-web-app",
+                "review_input": {
+                  "evidence_refs": [
+                    "review.fixture"
+                  ],
+                  "occurrences": [
+                    {
+                      "channel": "web",
+                      "column": 5,
+                      "component": "CheckoutSummary",
+                      "expression_payload": "Payment failed.",
+                      "line": 5,
+                      "locale": "en-US",
+                      "modality": "visual",
+                      "occurrence_id": "occurrence.review.payment-failed",
+                      "route": "/checkout",
+                      "semantic_context": "payment-status",
+                      "source_artifact": "src/components/CheckoutSummary.tsx",
+                      "syntax_kind": "jsx_text"
+                    },
+                    {
+                      "channel": "web",
+                      "column": 5,
+                      "component": "CheckoutSummary",
+                      "expression_payload": "The smartest checkout.",
+                      "line": 2,
+                      "locale": "en-US",
+                      "modality": "visual",
+                      "occurrence_id": "occurrence.review.smartest",
+                      "route": "/checkout",
+                      "semantic_context": "value-proposition",
+                      "source_artifact": "src/components/CheckoutSummary.tsx",
+                      "syntax_kind": "jsx_text"
+                    },
+                    {
+                      "channel": "web",
+                      "column": 5,
+                      "component": "CheckoutSummary",
+                      "expression_payload": "Try again.",
+                      "line": 6,
+                      "locale": "en-US",
+                      "modality": "visual",
+                      "occurrence_id": "occurrence.review.try-again",
+                      "route": "/checkout",
+                      "semantic_context": "payment-recovery",
+                      "source_artifact": "src/components/CheckoutSummary.tsx",
+                      "syntax_kind": "jsx_text"
+                    }
+                  ],
+                  "product_facts": {
+                    "payment_outcome_after_submission": "unknown_possible",
+                    "workspace_delete_effect": "local_only"
+                  },
+                  "project_id": "project.synthetic-web-app"
+                },
+                "review_report": {
+                  "advisory_dimensions": [
+                    {
+                      "dimension": "information_architecture",
+                      "finding_refs": [
+                        "finding.4be2412c0c6a1a2f9477cc56b4aac7af"
+                      ]
+                    }
+                  ],
+                  "findings": [
+                    {
+                      "automatic_rewrite_allowed": false,
+                      "dimension": "information_architecture",
+                      "evidence_refs": [
+                        "occurrence.review.payment-failed",
+                        "occurrence.review.smartest",
+                        "occurrence.review.try-again",
+                        "review.fixture"
+                      ],
+                      "finding_id": "finding.4be2412c0c6a1a2f9477cc56b4aac7af",
+                      "occurrence_refs": [
+                        "occurrence.review.payment-failed",
+                        "occurrence.review.smartest",
+                        "occurrence.review.try-again"
+                      ],
+                      "outcome_class": "advisory",
+                      "rationale": "The same destination is exposed under multiple labels, weakening recognition and information-architecture consistency.",
+                      "rule_id": "content.duplicate-destination-labels",
+                      "rule_version": "0.1.0",
+                      "severity": "medium",
+                      "suggested_next_action": "Choose one evidence-backed concept label per destination and preserve it across entry points.",
+                      "uncertainty": "none"
+                    },
+                    {
+                      "automatic_rewrite_allowed": false,
+                      "dimension": "recovery_completeness",
+                      "evidence_refs": [
+                        "occurrence.review.payment-failed",
+                        "occurrence.review.try-again",
+                        "review.fixture"
+                      ],
+                      "finding_id": "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                      "occurrence_refs": [
+                        "occurrence.review.payment-failed",
+                        "occurrence.review.try-again"
+                      ],
+                      "outcome_class": "hard",
+                      "rationale": "The unknown-outcome message does not provide the safe status-checking recovery required by the product-state evidence.",
+                      "rule_id": "content.missing-recovery",
+                      "rule_version": "0.1.0",
+                      "severity": "high",
+                      "suggested_next_action": "Add a status-check path and explain when another attempt is safe.",
+                      "uncertainty": "none"
+                    },
+                    {
+                      "automatic_rewrite_allowed": false,
+                      "dimension": "state_accuracy",
+                      "evidence_refs": [
+                        "occurrence.review.payment-failed",
+                        "review.fixture"
+                      ],
+                      "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                      "occurrence_refs": [
+                        "occurrence.review.payment-failed"
+                      ],
+                      "outcome_class": "hard",
+                      "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+                      "rule_id": "content.state-mismatch",
+                      "rule_version": "0.1.0",
+                      "severity": "critical",
+                      "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+                      "uncertainty": "none"
+                    },
+                    {
+                      "automatic_rewrite_allowed": false,
+                      "dimension": "recovery_safety",
+                      "evidence_refs": [
+                        "occurrence.review.try-again",
+                        "review.fixture"
+                      ],
+                      "finding_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+                      "occurrence_refs": [
+                        "occurrence.review.try-again"
+                      ],
+                      "outcome_class": "hard",
+                      "rationale": "A retry invitation can create a duplicate attempt while the submitted payment outcome remains unknown.",
+                      "rule_id": "content.unsafe-retry",
+                      "rule_version": "0.1.0",
+                      "severity": "critical",
+                      "suggested_next_action": "Direct the user to verify status before any new attempt and require review of the final recovery flow.",
+                      "uncertainty": "none"
+                    },
+                    {
+                      "automatic_rewrite_allowed": false,
+                      "dimension": "truth_and_support",
+                      "evidence_refs": [
+                        "occurrence.review.smartest",
+                        "review.fixture"
+                      ],
+                      "finding_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                      "occurrence_refs": [
+                        "occurrence.review.smartest"
+                      ],
+                      "outcome_class": "hard",
+                      "rationale": "The expression makes a comparative or absolute claim without a linked, current substantiation record.",
+                      "rule_id": "content.unsupported-superlative",
+                      "rule_version": "0.1.0",
+                      "severity": "high",
+                      "suggested_next_action": "Remove the unsupported claim or link an approved substantiation record scoped to this exact expression.",
+                      "uncertainty": "none"
+                    }
+                  ],
+                  "hard_outcomes": {
+                    "blocking_finding_refs": [
+                      "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                      "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                      "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                      "finding.f8e9d3acf6bc4755a07e10d4b88b95a8"
+                    ],
+                    "status": "fail"
+                  },
+                  "input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+                  "project_id": "project.synthetic-web-app",
+                  "report_id": "review.5a09ef81016799f3157225b644241f9a",
+                  "schema_version": "contentmd.review-report/0.1.0"
+                },
+                "task": {
+                  "acceptance_criteria": [
+                    "Do not declare failure when the outcome is unknown.",
+                    "Do not invite another payment before status verification.",
+                    "Name destructive actions and their affected object."
+                  ],
+                  "audience_job_refs": [
+                    "audience.merchant-content-designer",
+                    "job.inspect-payment-states"
+                  ],
+                  "authority_effect": "none",
+                  "channel": "web",
+                  "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+                  "evidence_refs": [
+                    "review.fixture",
+                    "source.design",
+                    "source.product"
+                  ],
+                  "journey_state_refs": [
+                    "journey.checkout",
+                    "state.payment-outcome-unknown"
+                  ],
+                  "locale": "en-US",
+                  "product_context_refs": [
+                    "product.beacon"
+                  ],
+                  "prohibited_claims": [
+                    "external publication authority",
+                    "guaranteed outcome",
+                    "smartest"
+                  ],
+                  "recovery": "Check the submitted payment status before another attempt.",
+                  "required_fact_refs": [
+                    "fact.payment-outcome-can-be-unknown",
+                    "fact.workspace-delete-local-only"
+                  ],
+                  "risk": "high",
+                  "schema_version": "contentmd.task-packet/0.1.0",
+                  "semantic_message_ref": "message.safe-payment-recovery",
+                  "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+                  "task_id": "task.fixture.checkout-content"
+                }
+              },
+              "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+            }
+          },
+          "semantic_message": {
+            "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+            "lifecycle_state": "active",
+            "payload": {
+              "intent": "State the unknown payment outcome and provide the safe recovery action.",
+              "journey_state_refs": [
+                "journey.checkout",
+                "state.payment-outcome-unknown"
+              ],
+              "prohibited_claims": [
+                "external publication authority",
+                "guaranteed outcome",
+                "smartest"
+              ],
+              "required_facts": [
+                "fact.payment-outcome-can-be-unknown",
+                "fact.workspace-delete-local-only"
+              ]
+            },
+            "provenance": [
+              {
+                "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+                "record_id": "source.product-example",
+                "relationship": "derived_from"
+              }
+            ],
+            "record_id": "message.safe-payment-recovery",
+            "record_version": 1,
+            "schema_id": "contentmd.semantic-message-record",
+            "schema_version": "0.1.0",
+            "scope": {
+              "data_classes": [
+                "semantic_message"
+              ],
+              "memory_scope": "project",
+              "project_id": "project.synthetic-web-app",
+              "resource_refs": [
+                "product.beacon"
+              ]
+            }
+          },
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "eligible_example": {
+          "approval_ref": {
+            "content_digest": "6b9483b816efce16c9e6cce99f85fddf4bdd523270a3d57baf4ac65bb126852b",
+            "record_id": "approval.counterexample.payment-failed",
+            "schema_id": "contentmd.approval-record",
+            "schema_version": "0.1.0"
+          },
+          "authority_effect": "none",
+          "channel": "web",
+          "contract_version": "contentmd.eligible-product-example/0.1.0",
+          "counterexample_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+          "counterexample_rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+          "counterexample_uncertainty": "none",
+          "data_class": "counterexample",
+          "evaluation_at": "2026-08-22T20:00:00Z",
+          "expression_payload": "Payment failed.",
+          "expression_ref": {
+            "content_digest": "f03fbeae08350a588235f5c10fe71d6243e4faa13475fdf7c702fdcd50c64083",
+            "record_id": "expression.counterexample.payment-failed",
+            "schema_id": "contentmd.expression-version-record",
+            "schema_version": "0.1.0"
+          },
+          "expression_slot_ref": {
+            "content_digest": "086e8335551a03ea2d8736a6327502998c438502a5b58ea84d7d8bd16690a8ac",
+            "record_id": "slot.payment-recovery.product-example",
+            "schema_id": "contentmd.expression-slot-record",
+            "schema_version": "0.1.0"
+          },
+          "finding_ref": {
+            "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475",
+            "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+            "schema_id": "contentmd.content-finding",
+            "schema_version": "0.1.0"
+          },
+          "journey_state_refs": [
+            "journey.checkout",
+            "state.payment-outcome-unknown"
+          ],
+          "lineage_refs": [
+            {
+              "content_digest": "9958d07a95e1fd394924213fd3c4b18d24fb4a9910a58822b7af22b9fc2e4020",
+              "record_id": "source.product-example",
+              "schema_id": "contentmd.source-record",
+              "schema_version": "0.1.0"
+            }
+          ],
+          "locale": "en-US",
+          "modality": "visual",
+          "prohibited_claims": [
+            "external publication authority",
+            "guaranteed outcome",
+            "smartest"
+          ],
+          "project_id": "project.synthetic-web-app",
+          "qualification_digest": "aa1546417ee5bdd6ff1c3f4c47e02cd40818317476bbc6936bdf18558e54ebaa",
+          "raw_source_locators_included": false,
+          "required_fact_refs": [
+            "fact.payment-outcome-can-be-unknown",
+            "fact.workspace-delete-local-only"
+          ],
+          "rights_state": "prompt_permitted",
+          "semantic_intent": "State the unknown payment outcome and provide the safe recovery action.",
+          "semantic_message_ref": {
+            "content_digest": "cdd8e3c8457078e34421da44cfc88389f6ff305b8e5d7ee2b9322d7798c2b111",
+            "record_id": "message.safe-payment-recovery",
+            "schema_id": "contentmd.semantic-message-record",
+            "schema_version": "0.1.0"
+          },
+          "slot": "payment-recovery-message",
+          "source_class": "project_owned",
+          "state_ref": "state.payment-outcome-unknown",
+          "surface": "checkout",
+          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_id": "task.fixture.checkout-content",
+          "variables": []
+        },
+        "verification_digest": "ca35f8eb2e4ab17aaf92cddfa1db36843d89f5fc49d60963f3b85ccadb139755"
+      }
+    },
+    {
+      "source_ref": {
+        "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475",
+        "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+        "schema_id": "contentmd.content-finding",
+        "schema_version": "0.1.0"
+      },
+      "data_class": "review_finding",
+      "content": {
+        "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
+        "project_id": "project.synthetic-web-app",
+        "task_id": "task.fixture.checkout-content",
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+        "report_ref": {
+          "record_id": "review.5a09ef81016799f3157225b644241f9a",
+          "schema_id": "contentmd.review-report",
+          "schema_version": "0.1.0",
+          "content_digest": "1a9ad2969f2947f3f4e720916dab232285b0778abc8fa87e681f17217e442da3"
+        },
+        "finding_ref": {
+          "record_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+          "schema_id": "contentmd.content-finding",
+          "schema_version": "0.1.0",
+          "content_digest": "afc54f477108860b42b3fac744b2085bba0a907b70e64d3281e5cb5772d80475"
+        },
+        "rule_id": "content.state-mismatch",
+        "rule_version": "0.1.0",
+        "severity": "critical",
+        "outcome_class": "hard",
+        "dimension": "state_accuracy",
+        "occurrence_refs": [
+          "occurrence.review.payment-failed"
+        ],
+        "evidence_refs": [
+          "occurrence.review.payment-failed",
+          "review.fixture"
+        ],
+        "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+        "uncertainty": "none",
+        "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+        "automatic_rewrite_allowed": false,
+        "raw_expression_included": false,
+        "authority_effect": "none",
+        "qualification_digest": "8124e21ce8b7ce0862e70098cd3349c3eb5ffa10d3a89e3a91c9d3078fe75e4f",
+        "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489",
+        "context_digest": "34152077fd0458adaf9c0b440f644c83b33d6ccda03f03aa21d36e6a5e3e9fcb"
+      },
+      "verification": {
+        "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+          "project_id": "project.synthetic-web-app",
+          "review_input": {
+            "evidence_refs": [
+              "review.fixture"
+            ],
+            "occurrences": [
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Payment failed.",
+                "line": 5,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.payment-failed",
+                "route": "/checkout",
+                "semantic_context": "payment-status",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "The smartest checkout.",
+                "line": 2,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.smartest",
+                "route": "/checkout",
+                "semantic_context": "value-proposition",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Try again.",
+                "line": 6,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.try-again",
+                "route": "/checkout",
+                "semantic_context": "payment-recovery",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              }
+            ],
+            "product_facts": {
+              "payment_outcome_after_submission": "unknown_possible",
+              "workspace_delete_effect": "local_only"
+            },
+            "project_id": "project.synthetic-web-app"
+          },
+          "review_report": {
+            "advisory_dimensions": [
+              {
+                "dimension": "information_architecture",
+                "finding_refs": [
+                  "finding.4be2412c0c6a1a2f9477cc56b4aac7af"
+                ]
+              }
+            ],
+            "findings": [
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "information_architecture",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.4be2412c0c6a1a2f9477cc56b4aac7af",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "advisory",
+                "rationale": "The same destination is exposed under multiple labels, weakening recognition and information-architecture consistency.",
+                "rule_id": "content.duplicate-destination-labels",
+                "rule_version": "0.1.0",
+                "severity": "medium",
+                "suggested_next_action": "Choose one evidence-backed concept label per destination and preserve it across entry points.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_completeness",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The unknown-outcome message does not provide the safe status-checking recovery required by the product-state evidence.",
+                "rule_id": "content.missing-recovery",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Add a status-check path and explain when another attempt is safe.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "state_accuracy",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+                "rule_id": "content.state-mismatch",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_safety",
+                "evidence_refs": [
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+                "occurrence_refs": [
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "A retry invitation can create a duplicate attempt while the submitted payment outcome remains unknown.",
+                "rule_id": "content.unsafe-retry",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Direct the user to verify status before any new attempt and require review of the final recovery flow.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "truth_and_support",
+                "evidence_refs": [
+                  "occurrence.review.smartest",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "occurrence_refs": [
+                  "occurrence.review.smartest"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The expression makes a comparative or absolute claim without a linked, current substantiation record.",
+                "rule_id": "content.unsupported-superlative",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Remove the unsupported claim or link an approved substantiation record scoped to this exact expression.",
+                "uncertainty": "none"
+              }
+            ],
+            "hard_outcomes": {
+              "blocking_finding_refs": [
+                "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "finding.f8e9d3acf6bc4755a07e10d4b88b95a8"
+              ],
+              "status": "fail"
+            },
+            "input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+            "project_id": "project.synthetic-web-app",
+            "report_id": "review.5a09ef81016799f3157225b644241f9a",
+            "schema_version": "contentmd.review-report/0.1.0"
+          },
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+      }
+    },
+    {
+      "source_ref": {
+        "content_digest": "07bc04e0d67bd8b7ab2d58a9c5d952dc06793dd20e67d1630fb9577de9c5e125",
+        "record_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+        "schema_id": "contentmd.content-finding",
+        "schema_version": "0.1.0"
+      },
+      "data_class": "review_finding",
+      "content": {
+        "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
+        "project_id": "project.synthetic-web-app",
+        "task_id": "task.fixture.checkout-content",
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+        "report_ref": {
+          "record_id": "review.5a09ef81016799f3157225b644241f9a",
+          "schema_id": "contentmd.review-report",
+          "schema_version": "0.1.0",
+          "content_digest": "1a9ad2969f2947f3f4e720916dab232285b0778abc8fa87e681f17217e442da3"
+        },
+        "finding_ref": {
+          "record_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+          "schema_id": "contentmd.content-finding",
+          "schema_version": "0.1.0",
+          "content_digest": "07bc04e0d67bd8b7ab2d58a9c5d952dc06793dd20e67d1630fb9577de9c5e125"
+        },
+        "rule_id": "content.unsafe-retry",
+        "rule_version": "0.1.0",
+        "severity": "critical",
+        "outcome_class": "hard",
+        "dimension": "recovery_safety",
+        "occurrence_refs": [
+          "occurrence.review.try-again"
+        ],
+        "evidence_refs": [
+          "occurrence.review.try-again",
+          "review.fixture"
+        ],
+        "rationale": "A retry invitation can create a duplicate attempt while the submitted payment outcome remains unknown.",
+        "uncertainty": "none",
+        "suggested_next_action": "Direct the user to verify status before any new attempt and require review of the final recovery flow.",
+        "automatic_rewrite_allowed": false,
+        "raw_expression_included": false,
+        "authority_effect": "none",
+        "qualification_digest": "dcc9979fbe3338af38f25a53a91bc0dfc4986c103d4debbdea5d4748a01c6a29",
+        "verification_digest": "031401077a5cc4050592175ffa2836d499a38d5f76ebd8f5143e9fe98d8deb99",
+        "context_digest": "3bc259132e2ba8d52260c36312375c6293b9ff55a6052b191cc6d601baf4d67b"
+      },
+      "verification": {
+        "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "finding_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+          "project_id": "project.synthetic-web-app",
+          "review_input": {
+            "evidence_refs": [
+              "review.fixture"
+            ],
+            "occurrences": [
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Payment failed.",
+                "line": 5,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.payment-failed",
+                "route": "/checkout",
+                "semantic_context": "payment-status",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "The smartest checkout.",
+                "line": 2,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.smartest",
+                "route": "/checkout",
+                "semantic_context": "value-proposition",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Try again.",
+                "line": 6,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.try-again",
+                "route": "/checkout",
+                "semantic_context": "payment-recovery",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              }
+            ],
+            "product_facts": {
+              "payment_outcome_after_submission": "unknown_possible",
+              "workspace_delete_effect": "local_only"
+            },
+            "project_id": "project.synthetic-web-app"
+          },
+          "review_report": {
+            "advisory_dimensions": [
+              {
+                "dimension": "information_architecture",
+                "finding_refs": [
+                  "finding.4be2412c0c6a1a2f9477cc56b4aac7af"
+                ]
+              }
+            ],
+            "findings": [
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "information_architecture",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.4be2412c0c6a1a2f9477cc56b4aac7af",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "advisory",
+                "rationale": "The same destination is exposed under multiple labels, weakening recognition and information-architecture consistency.",
+                "rule_id": "content.duplicate-destination-labels",
+                "rule_version": "0.1.0",
+                "severity": "medium",
+                "suggested_next_action": "Choose one evidence-backed concept label per destination and preserve it across entry points.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_completeness",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The unknown-outcome message does not provide the safe status-checking recovery required by the product-state evidence.",
+                "rule_id": "content.missing-recovery",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Add a status-check path and explain when another attempt is safe.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "state_accuracy",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+                "rule_id": "content.state-mismatch",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_safety",
+                "evidence_refs": [
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+                "occurrence_refs": [
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "A retry invitation can create a duplicate attempt while the submitted payment outcome remains unknown.",
+                "rule_id": "content.unsafe-retry",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Direct the user to verify status before any new attempt and require review of the final recovery flow.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "truth_and_support",
+                "evidence_refs": [
+                  "occurrence.review.smartest",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "occurrence_refs": [
+                  "occurrence.review.smartest"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The expression makes a comparative or absolute claim without a linked, current substantiation record.",
+                "rule_id": "content.unsupported-superlative",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Remove the unsupported claim or link an approved substantiation record scoped to this exact expression.",
+                "uncertainty": "none"
+              }
+            ],
+            "hard_outcomes": {
+              "blocking_finding_refs": [
+                "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "finding.f8e9d3acf6bc4755a07e10d4b88b95a8"
+              ],
+              "status": "fail"
+            },
+            "input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+            "project_id": "project.synthetic-web-app",
+            "report_id": "review.5a09ef81016799f3157225b644241f9a",
+            "schema_version": "contentmd.review-report/0.1.0"
+          },
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "verification_digest": "031401077a5cc4050592175ffa2836d499a38d5f76ebd8f5143e9fe98d8deb99"
+      }
+    },
+    {
+      "source_ref": {
+        "content_digest": "f35388e1a322042992aea0fee83806f8f9a33afe76c0ef02530c12a37cd80fce",
+        "record_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+        "schema_id": "contentmd.content-finding",
+        "schema_version": "0.1.0"
+      },
+      "data_class": "review_finding",
+      "content": {
+        "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
+        "project_id": "project.synthetic-web-app",
+        "task_id": "task.fixture.checkout-content",
+        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+        "report_ref": {
+          "record_id": "review.5a09ef81016799f3157225b644241f9a",
+          "schema_id": "contentmd.review-report",
+          "schema_version": "0.1.0",
+          "content_digest": "1a9ad2969f2947f3f4e720916dab232285b0778abc8fa87e681f17217e442da3"
+        },
+        "finding_ref": {
+          "record_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+          "schema_id": "contentmd.content-finding",
+          "schema_version": "0.1.0",
+          "content_digest": "f35388e1a322042992aea0fee83806f8f9a33afe76c0ef02530c12a37cd80fce"
+        },
+        "rule_id": "content.unsupported-superlative",
+        "rule_version": "0.1.0",
+        "severity": "high",
+        "outcome_class": "hard",
+        "dimension": "truth_and_support",
+        "occurrence_refs": [
+          "occurrence.review.smartest"
+        ],
+        "evidence_refs": [
+          "occurrence.review.smartest",
+          "review.fixture"
+        ],
+        "rationale": "The expression makes a comparative or absolute claim without a linked, current substantiation record.",
+        "uncertainty": "none",
+        "suggested_next_action": "Remove the unsupported claim or link an approved substantiation record scoped to this exact expression.",
+        "automatic_rewrite_allowed": false,
+        "raw_expression_included": false,
+        "authority_effect": "none",
+        "qualification_digest": "476d84649ba803e0072b47512a74df7870d2d867b5a8cf91324b279617f7bfc9",
+        "verification_digest": "f5fc34d44e456a392d82a7d7dc15ddee11f85a04c3ed9150649d0ef3a79add17",
+        "context_digest": "5a7a72cf7937c4f4b75dc38cf02e45b3c3d5cb0aa58fa94fc35d3b034ecc8355"
+      },
+      "verification": {
+        "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
+        "qualification_input": {
+          "finding_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+          "project_id": "project.synthetic-web-app",
+          "review_input": {
+            "evidence_refs": [
+              "review.fixture"
+            ],
+            "occurrences": [
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Payment failed.",
+                "line": 5,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.payment-failed",
+                "route": "/checkout",
+                "semantic_context": "payment-status",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "The smartest checkout.",
+                "line": 2,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.smartest",
+                "route": "/checkout",
+                "semantic_context": "value-proposition",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              },
+              {
+                "channel": "web",
+                "column": 5,
+                "component": "CheckoutSummary",
+                "expression_payload": "Try again.",
+                "line": 6,
+                "locale": "en-US",
+                "modality": "visual",
+                "occurrence_id": "occurrence.review.try-again",
+                "route": "/checkout",
+                "semantic_context": "payment-recovery",
+                "source_artifact": "src/components/CheckoutSummary.tsx",
+                "syntax_kind": "jsx_text"
+              }
+            ],
+            "product_facts": {
+              "payment_outcome_after_submission": "unknown_possible",
+              "workspace_delete_effect": "local_only"
+            },
+            "project_id": "project.synthetic-web-app"
+          },
+          "review_report": {
+            "advisory_dimensions": [
+              {
+                "dimension": "information_architecture",
+                "finding_refs": [
+                  "finding.4be2412c0c6a1a2f9477cc56b4aac7af"
+                ]
+              }
+            ],
+            "findings": [
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "information_architecture",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.4be2412c0c6a1a2f9477cc56b4aac7af",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.smartest",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "advisory",
+                "rationale": "The same destination is exposed under multiple labels, weakening recognition and information-architecture consistency.",
+                "rule_id": "content.duplicate-destination-labels",
+                "rule_version": "0.1.0",
+                "severity": "medium",
+                "suggested_next_action": "Choose one evidence-backed concept label per destination and preserve it across entry points.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_completeness",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed",
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The unknown-outcome message does not provide the safe status-checking recovery required by the product-state evidence.",
+                "rule_id": "content.missing-recovery",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Add a status-check path and explain when another attempt is safe.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "state_accuracy",
+                "evidence_refs": [
+                  "occurrence.review.payment-failed",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "occurrence_refs": [
+                  "occurrence.review.payment-failed"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
+                "rule_id": "content.state-mismatch",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "recovery_safety",
+                "evidence_refs": [
+                  "occurrence.review.try-again",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.f8e9d3acf6bc4755a07e10d4b88b95a8",
+                "occurrence_refs": [
+                  "occurrence.review.try-again"
+                ],
+                "outcome_class": "hard",
+                "rationale": "A retry invitation can create a duplicate attempt while the submitted payment outcome remains unknown.",
+                "rule_id": "content.unsafe-retry",
+                "rule_version": "0.1.0",
+                "severity": "critical",
+                "suggested_next_action": "Direct the user to verify status before any new attempt and require review of the final recovery flow.",
+                "uncertainty": "none"
+              },
+              {
+                "automatic_rewrite_allowed": false,
+                "dimension": "truth_and_support",
+                "evidence_refs": [
+                  "occurrence.review.smartest",
+                  "review.fixture"
+                ],
+                "finding_id": "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "occurrence_refs": [
+                  "occurrence.review.smartest"
+                ],
+                "outcome_class": "hard",
+                "rationale": "The expression makes a comparative or absolute claim without a linked, current substantiation record.",
+                "rule_id": "content.unsupported-superlative",
+                "rule_version": "0.1.0",
+                "severity": "high",
+                "suggested_next_action": "Remove the unsupported claim or link an approved substantiation record scoped to this exact expression.",
+                "uncertainty": "none"
+              }
+            ],
+            "hard_outcomes": {
+              "blocking_finding_refs": [
+                "finding.2c98503aad2a6d6b8f8e4089eef22157",
+                "finding.a6f2690b0207bd5f4c4150d32ac7c16a",
+                "finding.f00afa0b573ad7ebe2f639b6f40ba921",
+                "finding.f8e9d3acf6bc4755a07e10d4b88b95a8"
+              ],
+              "status": "fail"
+            },
+            "input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
+            "project_id": "project.synthetic-web-app",
+            "report_id": "review.5a09ef81016799f3157225b644241f9a",
+            "schema_version": "contentmd.review-report/0.1.0"
+          },
+          "task": {
+            "acceptance_criteria": [
+              "Do not declare failure when the outcome is unknown.",
+              "Do not invite another payment before status verification.",
+              "Name destructive actions and their affected object."
+            ],
+            "audience_job_refs": [
+              "audience.merchant-content-designer",
+              "job.inspect-payment-states"
+            ],
+            "authority_effect": "none",
+            "channel": "web",
+            "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "evidence_refs": [
+              "review.fixture",
+              "source.design",
+              "source.product"
+            ],
+            "journey_state_refs": [
+              "journey.checkout",
+              "state.payment-outcome-unknown"
+            ],
+            "locale": "en-US",
+            "product_context_refs": [
+              "product.beacon"
+            ],
+            "prohibited_claims": [
+              "external publication authority",
+              "guaranteed outcome",
+              "smartest"
+            ],
+            "recovery": "Check the submitted payment status before another attempt.",
+            "required_fact_refs": [
+              "fact.payment-outcome-can-be-unknown",
+              "fact.workspace-delete-local-only"
+            ],
+            "risk": "high",
+            "schema_version": "contentmd.task-packet/0.1.0",
+            "semantic_message_ref": "message.safe-payment-recovery",
+            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+            "task_id": "task.fixture.checkout-content"
+          }
+        },
+        "verification_digest": "f5fc34d44e456a392d82a7d7dc15ddee11f85a04c3ed9150649d0ef3a79add17"
+      }
+    }
+  ],
+  "resource_limits": {
+    "maximum_calls": 1,
+    "maximum_retries": 0,
+    "maximum_input_bytes": 262144,
+    "maximum_output_bytes": 65536,
+    "maximum_input_tokens": 16000,
+    "maximum_output_tokens": 4000,
+    "timeout_ms": 30000
+  }
+}

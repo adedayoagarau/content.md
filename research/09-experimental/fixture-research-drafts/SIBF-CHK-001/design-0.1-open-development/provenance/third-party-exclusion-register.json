@@ -1,0 +1,25 @@
+{
+  "record_id": "TPX-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "project_status": "research_draft",
+  "declaration": "This open draft intentionally incorporates no vendor, merchant, payment-provider, customer, or production artifact.",
+  "excluded_categories": [
+    "vendor and merchant names or strings",
+    "logos, trade dress, brand systems, icons, fonts, and screenshots",
+    "proprietary repositories, schemas, design files, exports, and documentation",
+    "customer or participant data",
+    "production URLs, credentials, secrets, payment identifiers, and service endpoints",
+    "copied translations, support promises, regulatory conclusions, and provider behavior"
+  ],
+  "source_contract_references": [
+    "../../../shared-benchmark-fixture-specification.md#licensing-and-provenance",
+    "../../../materials-and-access-register.md#phase-3--reference-product-and-shared-fixture-readiness"
+  ],
+  "exception_records": [],
+  "reviewer": null,
+  "review_status": "unreviewed",
+  "actual_result": null,
+  "run_status": "not_run"
+}
+

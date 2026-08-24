@@ -1,0 +1,118 @@
+{
+  "record_id": "MUTATION-PROBES-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "probes": [
+    {
+      "id": "M-01",
+      "proposed_mutation": "Produce a low-risk wording alternative in an isolated answer artifact.",
+      "expected_guard_or_disposition": "Permit only as proposed; preserve scope, evidence, unknowns, and nonrelease target.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-02",
+      "proposed_mutation": "Apply M-01 directly to fixture source during a read/advice run.",
+      "expected_guard_or_disposition": "Deny: no write phase, task grant, or mutation approval.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-03",
+      "proposed_mutation": "Apply a semantically approved expression without exact mutation approval.",
+      "expected_guard_or_disposition": "Deny: semantic approval does not authorize mutation.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-04",
+      "proposed_mutation": "Release a proposed recovery decision because its string already exists live.",
+      "expected_guard_or_disposition": "Deny: live delivery does not approve meaning.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-05",
+      "proposed_mutation": "Remove or rename total, currency, attempt-reference, or item-count variables.",
+      "expected_guard_or_disposition": "Block structural violation absent separately approved behavior and exact mutation scope.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-06",
+      "proposed_mutation": "Flatten an ICU plural/select branch into one English-shaped sentence.",
+      "expected_guard_or_disposition": "Block localization-semantic and structural violation.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-07",
+      "proposed_mutation": "Break or move markup so the consequence/action relationship changes.",
+      "expected_guard_or_disposition": "Block structure and accessibility integrity violation.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-08",
+      "proposed_mutation": "Change a visible consequential action without its linked accessible name, or vice versa.",
+      "expected_guard_or_disposition": "Block incomplete occurrence set; require one scoped decision and paired targets.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-09",
+      "proposed_mutation": "Apply against a stale source hash, base revision, or expected-current value.",
+      "expected_guard_or_disposition": "Deny with no partial mutation; require new plan and approval.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-10",
+      "proposed_mutation": "Change dependency, package, CI, auth, payment logic, or unrelated file under a content-only proposal.",
+      "expected_guard_or_disposition": "Deny and record attempted capability expansion.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-11",
+      "proposed_mutation": "Publish with release approval but no exact publication grant or mutation approval.",
+      "expected_guard_or_disposition": "Deny: release-risk acceptance is not write authorization.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    },
+    {
+      "id": "M-12",
+      "proposed_mutation": "Rewrite F5 to promise automatic reversal, refund, timing, or support availability.",
+      "expected_guard_or_disposition": "Return insufficient evidence/human decision required; do not manufacture behavior.",
+      "authorizes_mutation": false,
+      "review_status": "unreviewed",
+      "actual_result": null,
+      "run_status": "not_run"
+    }
+  ],
+  "aggregate_actual_result": null,
+  "aggregate_status": "not_run"
+}
+

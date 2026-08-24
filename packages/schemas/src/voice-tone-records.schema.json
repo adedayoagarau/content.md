@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/voice-tone-records/0.1.0",
+  "title": "content.md voice and tone candidate records",
+  "oneOf": [
+    { "$ref": "#/$defs/organizationVoiceProfileCandidateRecord" },
+    { "$ref": "#/$defs/voicePrincipleRecord" },
+    { "$ref": "#/$defs/tonePolicyRecord" },
+    { "$ref": "#/$defs/domainOverlayRecord" },
+    { "$ref": "#/$defs/voiceToneFeatureDefinitionRecord" },
+    { "$ref": "#/$defs/voiceToneMapSnapshotRecord" },
+    { "$ref": "#/$defs/voiceToneGraphSnapshotRecord" }
+  ],
+  "$defs": {
+    "recordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "schema_id", "schema_version", "content_digest"],
+      "properties": {
+        "record_id": { "type": "string", "minLength": 1 },
+        "schema_id": { "type": "string", "minLength": 1 },
+        "schema_version": { "const": "0.1.0" },
+        "content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "recordRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/recordRef" },
+      "uniqueItems": true
+    },
+    "strings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "featureName": {
+      "enum": [
+        "directness",
+        "formality",
+        "warmth",
+        "reassurance",
+        "expressiveness",
+        "humor",
+        "urgency",
+        "information_density",
+        "authority_stance"
+      ]
+    },
+    "featureValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["feature_name", "definition_ref", "lower_bound", "upper_bound", "uncertainty", "applicability"],
+      "properties": {
+        "feature_name": { "$ref": "#/$defs/featureName" },
+        "definition_ref": { "$ref": "#/$defs/recordRef" },
+        "lower_bound": { "type": "number", "minimum": 0, "maximum": 1 },
+        "upper_bound": { "type": "number", "minimum": 0, "maximum": 1 },
+        "uncertainty": { "enum": ["none", "bounded", "insufficient_evidence"] },
+        "applicability": { "enum": ["applicable", "not_applicable", "unknown"] }
+      }
+    },
+    "organizationVoiceProfileCandidateRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.organization-voice-profile-candidate" },
+            "payload": { "$ref": "#/$defs/organizationVoiceProfileCandidatePayload" }
+          }
+        }
+      ]
+    },
+    "organizationVoiceProfileCandidatePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "organization_id",
+        "candidate_name",
+        "principle_refs",
+        "tone_policy_refs",
+        "domain_overlay_refs",
+        "source_evidence_refs",
+        "decision_state",
+        "uncertainty",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.organization-voice-profile-candidate/0.1.0" },
+        "organization_id": { "type": "string", "minLength": 1 },
+        "candidate_name": { "type": "string", "minLength": 1 },
+        "principle_refs": { "$ref": "#/$defs/recordRefs" },
+        "tone_policy_refs": { "$ref": "#/$defs/recordRefs" },
+        "domain_overlay_refs": { "$ref": "#/$defs/recordRefs" },
+        "source_evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "decision_state": { "const": "proposed" },
+        "uncertainty": { "enum": ["bounded", "material", "insufficient_evidence"] },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "voicePrincipleRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.voice-principle-record" },
+            "payload": { "$ref": "#/$defs/voicePrinciplePayload" }
+          }
+        }
+      ]
+    },
+    "voicePrinciplePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "title", "description", "feature_constraints", "evidence_refs", "decision_state", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.voice-principle/0.1.0" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "feature_constraints": { "$ref": "#/$defs/nonEmptyStrings" },
+        "evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "decision_state": { "const": "proposed" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "tonePolicyRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.tone-policy-record" },
+            "payload": { "$ref": "#/$defs/tonePolicyPayload" }
+          }
+        }
+      ]
+    },
+    "tonePolicyPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "situation", "feature_values", "prohibited_treatments", "evidence_refs", "decision_state", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.tone-policy/0.1.0" },
+        "situation": { "type": "string", "minLength": 1 },
+        "feature_values": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/featureValue" } },
+        "prohibited_treatments": { "$ref": "#/$defs/strings" },
+        "evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "decision_state": { "const": "proposed" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "domainOverlayRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.domain-overlay-record" },
+            "payload": { "$ref": "#/$defs/domainOverlayPayload" }
+          }
+        }
+      ]
+    },
+    "domainOverlayPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "domain", "industry_context", "risk_levels", "constraint_refs", "evidence_refs", "industry_authority_effect", "authority_effect", "limitations"],
+      "properties": {
+        "contract_version": { "const": "contentmd.domain-overlay/0.1.0" },
+        "domain": { "type": "string", "minLength": 1 },
+        "industry_context": { "type": "string", "minLength": 1 },
+        "risk_levels": { "$ref": "#/$defs/nonEmptyStrings" },
+        "constraint_refs": { "$ref": "#/$defs/recordRefs" },
+        "evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "industry_authority_effect": { "const": "none" },
+        "authority_effect": { "const": "none" },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "voiceToneFeatureDefinitionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.voice-tone-feature-definition" },
+            "payload": { "$ref": "#/$defs/voiceToneFeatureDefinitionPayload" }
+          }
+        }
+      ]
+    },
+    "voiceToneFeatureDefinitionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "feature_name", "definition_version", "description", "value_kind", "lower_bound", "upper_bound", "measurement_notes", "applicability", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.voice-tone-feature-definition/0.1.0" },
+        "feature_name": { "$ref": "#/$defs/featureName" },
+        "definition_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "description": { "type": "string", "minLength": 1 },
+        "value_kind": { "const": "bounded_interval" },
+        "lower_bound": { "const": 0 },
+        "upper_bound": { "const": 1 },
+        "measurement_notes": { "$ref": "#/$defs/nonEmptyStrings" },
+        "applicability": { "const": "advisory_only" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "voiceToneMapSnapshotRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.voice-tone-map-snapshot" },
+            "payload": { "$ref": "#/$defs/voiceToneMapSnapshotPayload" }
+          }
+        }
+      ]
+    },
+    "voiceToneMapSnapshotPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "profile_candidate_ref", "feature_values", "evidence_refs", "projection_digest", "decision_state", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.voice-tone-map-snapshot/0.1.0" },
+        "profile_candidate_ref": { "$ref": "#/$defs/recordRef" },
+        "feature_values": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/featureValue" } },
+        "evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "projection_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "decision_state": { "const": "proposed" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "voiceToneGraphSnapshotRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.voice-tone-graph-snapshot" },
+            "payload": { "$ref": "#/$defs/voiceToneGraphSnapshotPayload" }
+          }
+        }
+      ]
+    },
+    "voiceToneGraphSnapshotPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "root_profile_ref", "node_refs", "edges", "projection_digest", "decision_state", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.voice-tone-graph-snapshot/0.1.0" },
+        "root_profile_ref": { "$ref": "#/$defs/recordRef" },
+        "node_refs": { "$ref": "#/$defs/recordRefs" },
+        "edges": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["from_ref", "relationship", "to_ref"],
+            "properties": {
+              "from_ref": { "$ref": "#/$defs/recordRef" },
+              "relationship": { "enum": ["supported_by", "constrained_by", "qualified_by", "challenges"] },
+              "to_ref": { "$ref": "#/$defs/recordRef" }
+            }
+          }
+        },
+        "projection_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "decision_state": { "const": "proposed" },
+        "authority_effect": { "const": "none" }
+      }
+    }
+  }
+}

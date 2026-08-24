@@ -1,0 +1,209 @@
+{
+  "$defs": {
+    "EstimatorAttempt": {
+      "additionalProperties": false,
+      "properties": {
+        "method_id": {
+          "minLength": 1,
+          "title": "Method Id",
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "simulation_not_run",
+                "zero_denominator",
+                "minimum_event_profile_not_met",
+                "diagnostic_inapplicable_boundary",
+                "constant_prediction_calibration_not_identifiable",
+                "expected_disagreement_nonpositive",
+                "insufficient_card_coverage",
+                "nonrecurring_entity_identity",
+                "observed_graph_not_strongly_connected",
+                "separation_detected",
+                "assignment_aliased",
+                "order_effect_not_identifiable_single_card",
+                "estimator_nonconvergence",
+                "unsupported_estimand_scope",
+                "invalid_run_propagated"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "status": {
+          "enum": [
+            "not_attempted",
+            "precheck_undefined",
+            "estimated",
+            "estimator_failure"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "method_id",
+        "status",
+        "reason"
+      ],
+      "title": "EstimatorAttempt",
+      "type": "object"
+    },
+    "ReplicateCounts": {
+      "additionalProperties": false,
+      "properties": {
+        "eligible": {
+          "minimum": 0,
+          "title": "Eligible",
+          "type": "integer"
+        },
+        "invalid": {
+          "minimum": 0,
+          "title": "Invalid",
+          "type": "integer"
+        },
+        "submitted": {
+          "minimum": 0,
+          "title": "Submitted",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "eligible",
+        "submitted",
+        "invalid"
+      ],
+      "title": "ReplicateCounts",
+      "type": "object"
+    }
+  },
+  "$id": "https://content.md.invalid/vt-sim/replicate-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "counts": {
+      "$ref": "#/$defs/ReplicateCounts"
+    },
+    "estimator_attempts": {
+      "items": {
+        "$ref": "#/$defs/EstimatorAttempt"
+      },
+      "title": "Estimator Attempts",
+      "type": "array"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "leakage_flags": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Leakage Flags",
+      "type": "array"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "ReplicateRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "replicate_id": {
+      "minLength": 1,
+      "title": "Replicate Id",
+      "type": "string"
+    },
+    "replicate_index": {
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "title": "Replicate Index",
+      "type": "string"
+    },
+    "run_ref": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Run Ref",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "scenario_parameter_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Scenario Parameter Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-replicate-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "replicate_id",
+    "run_ref",
+    "scenario_parameter_hash",
+    "replicate_index",
+    "counts",
+    "estimator_attempts",
+    "leakage_flags"
+  ],
+  "title": "ReplicateRecord",
+  "type": "object"
+}

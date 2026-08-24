@@ -1,0 +1,20 @@
+{
+  "record_id": "CLOCK-SEED-SIBF-CHK-001-OPEN-001",
+  "fixture_id": "SIBF-CHK-001",
+  "design_revision": "design-0.1-open-development",
+  "fixed_utc_instant": "2030-01-15T17:30:00Z",
+  "locale_display_design_examples": {
+    "en-US": "January 15, 2030 at 9:30 AM PST",
+    "fr-CA": "15 janvier 2030 à 9 h 30 HNP",
+    "ar-EG": "١٥ يناير ٢٠٣٠، ٩:٣٠ ص بتوقيت المحيط الهادئ"
+  },
+  "display_examples_status": "unreviewed_non_gold",
+  "deterministic_seed_label": "SIBF-CHK-001-OPEN-DEV-SEED-001",
+  "seed_purpose": "Stable synthetic ID/value selection for this research draft only",
+  "cryptographic_seed": false,
+  "reset_rehearsal_status": "not_run",
+  "calibration_status": "not_run",
+  "actual_result": null,
+  "review_status": "unreviewed"
+}
+

@@ -1,0 +1,140 @@
+{
+  "$id": "https://content.md.invalid/vt-sim/mapping-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignment_ref": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Assignment Ref",
+      "type": "string"
+    },
+    "derived_canonical_outcome": {
+      "enum": [
+        "A",
+        "B",
+        "indistinguishable",
+        "both_unacceptable",
+        "insufficient_context"
+      ],
+      "title": "Derived Canonical Outcome",
+      "type": "string"
+    },
+    "display_left_candidate_id": {
+      "minLength": 1,
+      "title": "Display Left Candidate Id",
+      "type": "string"
+    },
+    "display_right_candidate_id": {
+      "minLength": 1,
+      "title": "Display Right Candidate Id",
+      "type": "string"
+    },
+    "implementation_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Implementation Hash",
+      "type": "string"
+    },
+    "input_refs": {
+      "items": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "title": "Input Refs",
+      "type": "array"
+    },
+    "mapping_id": {
+      "minLength": 1,
+      "title": "Mapping Id",
+      "type": "string"
+    },
+    "mapping_profile_id": {
+      "minLength": 1,
+      "title": "Mapping Profile Id",
+      "type": "string"
+    },
+    "protocol_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Protocol Hash",
+      "type": "string"
+    },
+    "rating_ref": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Rating Ref",
+      "type": "string"
+    },
+    "raw_display_outcome": {
+      "enum": [
+        "LEFT",
+        "RIGHT",
+        "indistinguishable",
+        "both_unacceptable",
+        "insufficient_context"
+      ],
+      "title": "Raw Display Outcome",
+      "type": "string"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Record Hash",
+      "type": "string"
+    },
+    "record_hash_algorithm": {
+      "const": "sha256",
+      "title": "Record Hash Algorithm",
+      "type": "string"
+    },
+    "record_ordinal": {
+      "minimum": 0,
+      "title": "Record Ordinal",
+      "type": "integer"
+    },
+    "record_type": {
+      "const": "SyntheticMappingRecord",
+      "title": "Record Type",
+      "type": "string"
+    },
+    "runtime_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Runtime Manifest Hash",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "vt-sim-mapping-record/0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_manifest_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Manifest Hash",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 1,
+      "title": "Stream Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_hash",
+    "schema_version",
+    "record_type",
+    "protocol_hash",
+    "implementation_hash",
+    "runtime_manifest_hash",
+    "source_manifest_hash",
+    "stream_id",
+    "record_ordinal",
+    "input_refs",
+    "record_hash_algorithm",
+    "mapping_id",
+    "rating_ref",
+    "assignment_ref",
+    "raw_display_outcome",
+    "derived_canonical_outcome",
+    "display_left_candidate_id",
+    "display_right_candidate_id",
+    "mapping_profile_id"
+  ],
+  "title": "SyntheticMappingRecord",
+  "type": "object"
+}

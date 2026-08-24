@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.recorded-computer-use-capture/0.1.0",
+  "capture_id": "govuk-passport-synthetic-normalization",
+  "captured_at": "2026-08-20T19:00:00.000Z",
+  "requested_url": "https://www.gov.uk/passport-advice",
+  "canonical_url": "https://www.gov.uk/apply-renew-passport",
+  "effective_url": "https://www.gov.uk/apply-renew-passport",
+  "redirects": [
+    "https://www.gov.uk/apply-renew-passport"
+  ],
+  "publisher": "GOV.UK synthetic normalization fixture",
+  "title": "Synthetic passport journey validation fixture",
+  "access_method": "recorded_fixture",
+  "access_disposition": "public_unauthenticated",
+  "rights_disposition": "rights_unknown_evidence_only",
+  "profile_isolation_state": "not_established",
+  "privacy_class": "public_no_personal_data",
+  "body_retained": false,
+  "capture_disposition": {
+    "controlled_corpus_eligibility": false,
+    "benchmark_eligibility": false,
+    "source_evidence_effect": "none"
+  },
+  "observations": [
+    {
+      "surface": "passport_application_entry",
+      "journey": "passport_application",
+      "state": "entry",
+      "channel": "web",
+      "locale": "en-GB",
+      "locator": "main a[data-synthetic-start]",
+      "bounded_span": "Synthetic start action",
+      "availability": "observed",
+      "direct_exercise_state": "visible_not_exercised",
+      "observation_strength": "official_example",
+      "evidence_dimensions": {
+        "behavior": "observed_indirect",
+        "meaning": "explicit",
+        "accessibility": "not_observed",
+        "localization": "not_observed",
+        "outcome": "not_observed"
+      },
+      "taint_flags": ["project_owned_synthetic_fixture"],
+      "limitations": ["Synthetic normalization data; not direct product evidence."]
+    },
+    {
+      "surface": "passport_eligibility_question",
+      "journey": "passport_application",
+      "state": "eligibility_question",
+      "channel": "web",
+      "locale": "en-GB",
+      "locator": "main fieldset[data-synthetic-residence]",
+      "bounded_span": "Synthetic residence question",
+      "availability": "observed",
+      "direct_exercise_state": "visible_not_exercised",
+      "observation_strength": "official_example",
+      "evidence_dimensions": {
+        "behavior": "observed_indirect",
+        "meaning": "explicit",
+        "accessibility": "not_observed",
+        "localization": "not_observed",
+        "outcome": "not_observed"
+      },
+      "taint_flags": ["project_owned_synthetic_fixture"],
+      "limitations": ["Synthetic normalization data; not direct product evidence."]
+    },
+    {
+      "surface": "passport_date_input",
+      "journey": "passport_application",
+      "state": "data_entry",
+      "channel": "web",
+      "locale": "en-GB",
+      "locator": "main input[data-synthetic-date]",
+      "bounded_span": null,
+      "availability": "observed",
+      "direct_exercise_state": "directly_exercised_synthetic_input",
+      "observation_strength": "direct_visible_observation",
+      "evidence_dimensions": {
+        "behavior": "observed_direct",
+        "meaning": "inferred_from_visible_context",
+        "accessibility": "not_observed",
+        "localization": "not_observed",
+        "outcome": "not_observed"
+      },
+      "taint_flags": ["project_owned_synthetic_fixture"],
+      "limitations": ["Synthetic normalization data; not direct product evidence."]
+    },
+    {
+      "surface": "passport_validation",
+      "journey": "passport_application",
+      "state": "empty_submit_validation",
+      "channel": "web",
+      "locale": "en-GB",
+      "locator": "main [data-synthetic-error-summary]",
+      "bounded_span": "Synthetic validation summary",
+      "availability": "observed",
+      "direct_exercise_state": "directly_exercised_synthetic_input",
+      "observation_strength": "direct_visible_observation",
+      "evidence_dimensions": {
+        "behavior": "observed_direct",
+        "meaning": "explicit",
+        "accessibility": "not_observed",
+        "localization": "not_observed",
+        "outcome": "not_observed"
+      },
+      "taint_flags": ["project_owned_synthetic_fixture"],
+      "limitations": ["Synthetic normalization data; not direct product evidence."]
+    }
+  ],
+  "limitations": [
+    "Project-owned synthetic fixture modeled on bounded public-journey fields.",
+    "No screenshot, page body, credential, cookie, personal data, or unrelated browser state is retained."
+  ]
+}

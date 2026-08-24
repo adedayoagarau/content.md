@@ -1,0 +1,22 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/schemas" },
+    { "path": "packages/core" },
+    { "path": "packages/memory" },
+    { "path": "packages/governance" },
+    { "path": "packages/runtime-sdk" },
+    { "path": "packages/runtime-local" },
+    { "path": "packages/adapter-sdk" },
+    { "path": "packages/adapter-filesystem" },
+    { "path": "packages/adapter-web" },
+    { "path": "packages/research" },
+    { "path": "packages/evaluation" },
+    { "path": "packages/model-provider-sdk" },
+    { "path": "packages/model-provider-openai" },
+    { "path": "packages/writer" },
+    { "path": "packages/learning" },
+    { "path": "packages/agent" },
+    { "path": "packages/cli" }
+  ]
+}

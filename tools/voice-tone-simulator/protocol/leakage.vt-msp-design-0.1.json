@@ -1,0 +1,17 @@
+{
+  "schema_version": "vt-sim-leakage-profile/0.1",
+  "profile_id": "LEAKAGE-MATRIX/design-0.1",
+  "axes": {
+    "coverage": ["C10", "C22"],
+    "profile": ["K0-CALIBRATED", "K3-OVERCONFIDENT"],
+    "split_overlap_rate": ["0.00", "0.01", "0.05", "0.20"],
+    "label_leakage_rate": ["0.00", "0.01", "0.05", "0.20"]
+  },
+  "sort_order": ["coverage", "profile", "split_overlap_rate", "label_leakage_rate"],
+  "expected_case_count": 64,
+  "eligible_count_by_coverage": {"C10": 96, "C22": 192},
+  "clean_case_expected_status": "accepted",
+  "injected_case_expected_status": "rejected_input",
+  "source_clause": "voice-tone-measurement-simulation-protocol.md#leakage-invalid-runs-and-failure-states",
+  "record_hash": "588dcfa4cab63ee1526c69f36299788eda42d86d4b95bcdc7b7bc42228800dbd"
+}

@@ -1,0 +1,26 @@
+schema_version: contentmd.governance-policy/0.1.0
+policy_id: policy.contentmd.starter-local
+policy_version: 1
+status: proposed
+governance_level: strict
+allowed:
+  local_discovery: true
+  local_proposed_records: true
+  deterministic_review: true
+  patch_preview: true
+requires_review:
+  local_product_mutation: true
+  learning_promotion: true
+denied:
+  network_access: true
+  credential_access: true
+  external_publication: deny
+  remote_write: true
+  arbitrary_command_execution: true
+limits:
+  files: project_root_only
+  egress: none
+  learning_scope_widening: denied
+authority_status:
+  content_owner: not_established
+  release_approver: not_established

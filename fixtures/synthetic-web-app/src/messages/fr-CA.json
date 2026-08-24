@@ -1,0 +1,10 @@
+{
+  "checkout": {
+    "cartTitle": "Votre panier",
+    "deleteWorkspace": "Delete workspace"
+  },
+  "payment": {
+    "unknownOutcome": "Payment failed. Try again.",
+    "statusAction": "Vérifier l’état du paiement"
+  }
+}
