@@ -3,13 +3,21 @@
 **Status:** Canonical
 **Date:** 2026-08-25
 
+## Product name
+
+Synthetic Studio
+
 ## One sentence
 
 Synthetic Studio is where checkout content designers review and improve product messages.
 
-## Primary user
+## Primary audience
 
-Checkout content designers who need evidence, recovery context, and an approval-ready diff.
+checkout content designers
+
+## Primary job
+
+Review and improve product messages with evidence, recovery context, and an approval-ready diff.
 
 ## Workflow
 

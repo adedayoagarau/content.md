@@ -2,11 +2,48 @@ import { describe, expect, it } from "vitest";
 import {
   compileContentContext,
   contentGraphBytes,
+  resolveAuthority,
+  sha256Canonical,
   type ContextCompilerInput,
+  type EvidenceClaim,
+  type JsonValue,
 } from "@contentmd/core";
+
+function evidenceClaim(input: {
+  id: string;
+  kind: EvidenceClaim["claim_kind"];
+  subject: string;
+  value: JsonValue;
+}): EvidenceClaim {
+  const preimage = {
+    claim_id: input.id,
+    claim_kind: input.kind,
+    subject: input.subject,
+    value: input.value,
+    evidence_class: "documented" as const,
+    source_ref: "source.product",
+    source_span: { start_line: 1, end_line: 1 },
+    lifecycle: "active" as const,
+    effective_date: null,
+    scope: ["repository"],
+    confidence: "high" as const,
+    limitations: [],
+    authority_effect: "none" as const,
+  };
+  return { ...preimage, claim_digest: sha256Canonical(preimage) };
+}
+
+const claims: EvidenceClaim[] = [
+  evidenceClaim({ id: "claim.product", kind: "product_identity", subject: "Product name", value: "Beacon" }),
+  evidenceClaim({ id: "claim.audience", kind: "audience_job", subject: "Primary audience", value: "merchant content designer" }),
+  evidenceClaim({ id: "claim.job", kind: "audience_job", subject: "Primary job", value: "create workspaces and inspect simulated payment states" }),
+  evidenceClaim({ id: "claim.workflow", kind: "workflow_stage", subject: "Workflow", value: ["Create", "Configure", "Inspect"] }),
+];
 
 const input: ContextCompilerInput = {
   project_id: "project.beacon",
+  claims,
+  authority_assessments: resolveAuthority(claims),
   sources: [
     {
       source_id: "source.product",
@@ -79,6 +116,8 @@ describe("content context compiler", () => {
         "expression_slot",
         "expression_version",
         "implementation_occurrence",
+        "evidence_claim",
+        "authority_assessment",
         "open_question",
       ]),
     );
@@ -98,6 +137,24 @@ describe("content context compiler", () => {
         "Which discovered strings are observed in a live product?",
       ]),
     );
+  });
+
+  it("emits evidence-linked gaps instead of inventing product, audience, job, or workflow facts", () => {
+    const graph = compileContentContext({
+      ...input,
+      claims: [],
+      authority_assessments: [],
+    });
+    const gaps = graph.nodes.filter((node) => node.node_type === "coverage_gap");
+
+    expect(gaps.map((node) => node.attributes.missing_claim).sort()).toEqual([
+      "primary_audience",
+      "primary_job",
+      "product_identity",
+      "workflow",
+    ]);
+    expect(graph.nodes.some((node) => node.node_type === "audience")).toBe(false);
+    expect(graph.nodes.some((node) => node.node_type === "job")).toBe(false);
   });
 
   it("rebuilds to byte-identical canonical graph output", () => {

@@ -123,9 +123,12 @@ function markdownClaims(source: string, sourceRef: string): RepositoryClaimDraft
     }
     const paragraph = firstParagraph(section);
     if (paragraph === null) continue;
-    if (normalized === "one sentence" || normalized === "product identity") {
+    if (normalized === "one sentence" || normalized === "product identity" || normalized === "product name") {
       claims.push(claim(sourceRef, "product_identity", section.heading, paragraph.value, paragraph.start, paragraph.end));
-    } else if (normalized === "primary user" || normalized === "users and jobs") {
+    } else if (
+      normalized === "primary user" || normalized === "primary audience" ||
+      normalized === "primary job" || normalized === "users and jobs"
+    ) {
       claims.push(claim(sourceRef, "audience_job", section.heading, paragraph.value, paragraph.start, paragraph.end));
     } else if (normalized === "workflow" || normalized === "journey") {
       const stages = paragraph.value.split("→").map((stage, index, all) => {
