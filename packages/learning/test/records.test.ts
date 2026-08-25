@@ -350,7 +350,7 @@ const payloadFactories = {
   }),
   [LEARNING_SCHEMA_IDS.writingBenchmarkTask]: () => ({
     ...commonPayload(),
-    manifest_ref: digestRef("benchmark_task_manifest"),
+    benchmark_id: "LIL-WRITE-001",
     product_id: "synthetic_product",
     domain: "synthetic_domain",
     channel: "web",
@@ -592,6 +592,25 @@ describe("canonical learning record contracts", () => {
     const record = validRecord(schemaId);
 
     expectSchemaValid(schemaId, record);
+    expect(verifyRecordDigest(record)).toEqual({ valid: true });
+  });
+
+  it("uses one-way benchmark task membership without a manifest digest cycle", () => {
+    const current = validRecord(LEARNING_SCHEMA_IDS.writingBenchmarkTask);
+    const { content_digest: _contentDigest, ...recordWithoutDigest } = current;
+    const {
+      manifest_ref: _manifestRef,
+      ...payloadWithoutManifestRef
+    } = current.payload as JsonObject;
+    const record = finalizeRecord({
+      ...recordWithoutDigest,
+      payload: {
+        ...payloadWithoutManifestRef,
+        benchmark_id: "LIL-WRITE-001",
+      },
+    });
+
+    expectSchemaValid(LEARNING_SCHEMA_IDS.writingBenchmarkTask, record);
     expect(verifyRecordDigest(record)).toEqual({ valid: true });
   });
 
@@ -1269,7 +1288,7 @@ const NONEMPTY_ARRAY_CASES: readonly {
   ...["normalization_artifact_refs", "member_refs"].map((field) => ({ label: `leakage ${field}`, schemaId: LEARNING_SCHEMA_IDS.leakageGroup, path: [field] as JsonPath })),
   ...["example_refs", "leakage_group_refs", "train_example_refs", "validation_example_refs", "test_example_refs", "permission_refs", "feature_source_checkpoint_refs"].map((field) => ({ label: `dataset ${field}`, schemaId: LEARNING_SCHEMA_IDS.learningDatasetManifest, path: [field] as JsonPath })),
   ...["features", "source_artifact_refs", "forbidden_input_fields"].map((field) => ({ label: `feature-profile ${field}`, schemaId: LEARNING_SCHEMA_IDS.featureProfile, path: [field] as JsonPath })),
-  ...["feature_order", "standardization", "coefficient_bits"].map((field) => ({ label: `ranking-model ${field}`, schemaId: LEARNING_SCHEMA_IDS.rankingModel, path: [field] as JsonPath })),
+  ...["feature_order", "standardization"].map((field) => ({ label: `ranking-model ${field}`, schemaId: LEARNING_SCHEMA_IDS.rankingModel, path: [field] as JsonPath })),
   ...["overall_metric_refs", "slice_metric_refs", "predicate_result_refs"].map((field) => ({ label: `evaluation ${field}`, schemaId: LEARNING_SCHEMA_IDS.learningEvaluationRun, path: [field] as JsonPath })),
   ...["required_slice_refs", "metric_refs", "gate_refs"].map((field) => ({ label: `shadow-plan ${field}`, schemaId: LEARNING_SCHEMA_IDS.shadowEvaluationPlan, path: [field] as JsonPath })),
   { label: "promotion required slices", schemaId: LEARNING_SCHEMA_IDS.learningPromotionDecision, path: ["required_slice_refs"] },
@@ -1492,6 +1511,30 @@ describe("string, number, and timestamp boundaries", () => {
         ((payload.standardization as JsonObject[])[0]).population_standard_deviation = invalidDeviation;
       }));
     }
+  });
+
+  it("accepts repeated coefficient encodings at distinct feature positions", () => {
+    const schemaId = LEARNING_SCHEMA_IDS.rankingModel;
+    const record = mutatedPayloadRecord(schemaId, (payload) => {
+      payload.feature_order = ["project_match", "product_area_match"];
+      payload.standardization = [
+        { feature_name: "project_match", mean: 0, population_standard_deviation: 1 },
+        { feature_name: "product_area_match", mean: 0, population_standard_deviation: 1 },
+      ];
+      payload.coefficient_bits = ["0000000000000000", "0000000000000000"];
+    });
+
+    expectSchemaValid(schemaId, record);
+  });
+
+  it("keeps coefficient arrays nonempty and each encoding exactly 16 lowercase hex characters", () => {
+    const schemaId = LEARNING_SCHEMA_IDS.rankingModel;
+    expectSchemaInvalid(schemaId, mutatedPayloadRecord(schemaId, (payload) => {
+      payload.coefficient_bits = [];
+    }));
+    expectSchemaInvalid(schemaId, mutatedPayloadRecord(schemaId, (payload) => {
+      payload.coefficient_bits = ["0000000000000000", "000000000000000g"];
+    }));
   });
 
   it("enforces all candidate position members and their numeric types", () => {

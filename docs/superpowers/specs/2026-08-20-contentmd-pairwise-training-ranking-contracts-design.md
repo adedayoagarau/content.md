@@ -22,7 +22,7 @@ source_documents:
 
 This addendum freezes the executable contract for Recursive Learning Task 5. It resolves the public API, complete resolver-free upstream replay, numeric representation and operation order, one-to-one feature handling and standardization, training and ranking behavior, model and statistics identity, runtime admission, error precedence, record issuance, quarantine, and golden verification for the deterministic expression-preference ranker.
 
-This document is additive except for the explicit Task 1 `coefficient_bits` schema correction in section 7.1 and the sharpened `model_artifact_digest` preimage in section 7.5. It does not modify Task 3 or Task 4 contracts or implementation. Task 5 consumes only their independently verified, immutable outputs. It does not access a browser, competitor source, provider, network, credential, live store, clock, random source, test split, promotion, deployment, or product mutation.
+This document is additive except for the explicit Task 1 `coefficient_bits` schema correction in section 7.1, the sharpened `model_artifact_digest` preimage in section 7.5, and the Task 3 authority-cycle correction required by section 3 replay. That correction preserves two independently verified layers: checkpointed product-policy authority is frozen before presentation and has no learning authority, while the later Task 2 permission/check replay separately authorizes the learning example and covers the resolved subjects and rights. Task 5 otherwise consumes Task 3 and Task 4 through their independently verified, immutable outputs. It does not access a browser, competitor source, provider, network, credential, live store, clock, random source, test split, promotion, deployment, or product mutation.
 
 Version 0.1 supports only:
 
@@ -112,7 +112,7 @@ interface PairwiseFeatureProfileReplay {
 
 interface PairwiseCandidateVectorReplay {
   contract_version: "contentmd.pairwise-candidate-vector-replay/0.1.0";
-  vectorization_input: Omit<CandidateVectorizationInput, "record_mode" | "profile">;
+  vectorization_input: Omit<CandidateVectorizationInput, "record_mode" | "profile" | "profile_input">;
   expected_vector: CandidateFeatureVector;
 }
 
@@ -378,7 +378,7 @@ sha256Canonical({
 })
 ```
 
-`verifyPairwiseFeatureMatrix()` reruns the dataset token's WeakSet-backed verification, calls `createFeatureProfile(replay.profile.profile_input)`, and requires byte equality with `expected_profile`. The profile equals the dataset project and every replayed vector profile. Rows equal the sealed manifest's stored `train_example_refs` position-for-position: one row per train ref, no independent resort, validation/test ref, omission, addition, or duplicate. For each row the verifier locates the complete admitted Task 3 subject in `dataset.replay.build_input.leakage_evidence.subjects`, whose admission is reproduced by `dataset.replayed_build_result`, and derives the label, candidate A/B refs and complete candidate snapshots, unique train leakage-group ref, and feature-source checkpoint ref; no row field is treated as an assertion. It injects `{record_mode: "development_fixture", profile: expected_profile}` into each closed `vectorization_input`, calls `vectorizeCandidate()`, requires `status: "eligible"`, and requires `result.vector` byte-equal to `expected_vector`. Both candidates' complete snapshots equal the exact Task 3 subject snapshots. Their vectorization inputs have empty blocking evidence and their complete gate replay is pass/clear. A/B vectors bind the same project, context, target scope/role, checkpoint, feature universe, Task 4 feature-runtime profile, and Unicode runtime; the checkpoint equals the preference record's checkpoint. The exact Task 4 auxiliary vector ref is `{record_id: vector_id, schema_id: "contentmd.task4-candidate-feature-vector", schema_version: "0.1.0", content_digest: vector_digest}`.
+`verifyPairwiseFeatureMatrix()` reruns the dataset token's WeakSet-backed verification, calls `createFeatureProfile(replay.profile.profile_input)`, and requires byte equality with `expected_profile`. The profile equals the dataset project and every replayed vector profile. Rows equal the sealed manifest's stored `train_example_refs` position-for-position: one row per train ref, no independent resort, validation/test ref, omission, addition, or duplicate. For each row the verifier locates the complete admitted Task 3 subject in `dataset.replay.build_input.leakage_evidence.subjects`, whose admission is reproduced by `dataset.replayed_build_result`, and derives the label, candidate A/B refs and complete candidate snapshots, unique train leakage-group ref, and feature-source checkpoint ref; no row field is treated as an assertion. It injects the one top-level replay's exact `{record_mode: "development_fixture", profile_input: replay.profile.profile_input, profile: expected_profile}` into each closed `vectorization_input`, calls `vectorizeCandidate()`, requires `status: "eligible"`, and requires `result.vector` byte-equal to `expected_vector`. A row never duplicates or overrides that profile construction input. Both candidates' complete snapshots equal the exact Task 3 subject snapshots. Their vectorization inputs have empty blocking evidence and their complete gate replay is pass/clear. A/B vectors bind the same project, context, target scope/role, checkpoint, feature universe, Task 4 feature-runtime profile, and Unicode runtime; the checkpoint equals the preference record's checkpoint. The exact Task 4 auxiliary vector ref is `{record_id: vector_id, schema_id: "contentmd.task4-candidate-feature-vector", schema_version: "0.1.0", content_digest: vector_digest}`.
 
 Task 5 does not create a second feature-vector identity. `feature_order` and each value array equal the Task 4 vector's exact 21-position tuple byte-for-byte. The matrix digest is:
 
@@ -398,7 +398,7 @@ sha256Canonical({
 
 `training_rows` in that preimage includes every field in `PairwiseTrainingRow`, including values, full Task 4 vector refs/digests, and all shared scope/runtime bindings. `ordered_row_refs` is exactly `training_rows.map((row) => row.example_ref)`. `ordered_candidate_vector_refs` is exactly `training_rows.flatMap((row) => [row.candidate_a_vector_ref, row.candidate_b_vector_ref])`, preserving row order and A-before-B order. `blocking_only_verification_digest` is SHA-256 over canonical JSON of `{contract_version: "contentmd.pairwise-blocking-only-verification/0.1.0", ordered_row_refs, ordered_candidate_vector_refs, all_vector_replays_eligible: true, all_blocking_evidence_empty: true, browser_feature_count: 0, competitor_feature_count: 0, third_party_label_count: 0}`. The matrix verification digest is SHA-256 over canonical JSON of `{contract_version: "contentmd.verified-pairwise-feature-matrix/0.1.0", record_mode: "development_fixture", dataset_verification_digest, replay, matrix_digest}`.
 
-`verifyPairwiseCandidate()` calls `createFeatureProfile(input.profile.profile_input)`, requires byte equality with `expected_profile`, injects that derived profile and `development_fixture` into the complete vectorization input, and calls `vectorizeCandidate()`. It requires `status: "eligible"`, requires `result.vector` byte-equal to `expected_vector`, requires empty blocking evidence, and requires every complete gate pass/clear. It derives the expression digest from the complete candidate snapshot, rechecks it against the expression bytes, and returns the exact Task 4 vector/ref. Its verification digest is SHA-256 over canonical JSON of `{contract_version: "contentmd.verified-pairwise-candidate/0.1.0", record_mode: "development_fixture", profile, replay, vector_ref, candidate_ref, expression_digest}`. No caller-supplied eligibility, copying, currentness, ownership, scope, or provenance state exists in this input. Task 4's complete hard-rule and blocking-evidence replay is the sole v0.1 candidate gate; no unsupported copying or ownership verdict is invented.
+`verifyPairwiseCandidate()` calls `createFeatureProfile(input.profile.profile_input)`, requires byte equality with `expected_profile`, injects that one exact profile input, the derived profile, and `development_fixture` into the complete vectorization input, and calls `vectorizeCandidate()`. The candidate replay cannot carry a duplicate `profile_input`, so no row-local profile override or quadratic serialization exists. It requires `status: "eligible"`, requires `result.vector` byte-equal to `expected_vector`, requires empty blocking evidence, and requires every complete gate pass/clear. It derives the expression digest from the complete candidate snapshot, rechecks it against the expression bytes, and returns the exact Task 4 vector/ref. Its verification digest is SHA-256 over canonical JSON of `{contract_version: "contentmd.verified-pairwise-candidate/0.1.0", record_mode: "development_fixture", profile, replay, vector_ref, candidate_ref, expression_digest}`. No caller-supplied eligibility, copying, currentness, ownership, scope, or provenance state exists in this input. Task 4's complete hard-rule and blocking-evidence replay is the sole v0.1 candidate gate; no unsupported copying or ownership verdict is invented.
 
 The code-manifest token's `verification_digest` is SHA-256 over canonical JSON of `{contract_version: "contentmd.pairwise-code-verification/0.1.0", manifest_digest, manifest_raw_bytes_digest, release_profile_contract_digest}`. The runtime token's digest is SHA-256 over canonical JSON of `{contract_version: "contentmd.pairwise-runtime-verification/0.1.0", profile_digest, artifact_ref, observed_node_version, observed_v8_version, observed_icu_version, observed_unicode_version, observed_platform, observed_architecture, observed_endianness}`. The model token's digest is SHA-256 over canonical JSON of `{contract_version: "contentmd.verified-ranking-model/0.1.0", model_ref, training_input_digest, statistics_ref, coefficient_set_digest, code_verification_digest, runtime_verification_digest, deterministic_replay_digest}`. Every named value is derived by the fresh replay in section 7.5; `training_input_digest` is the exact section 7.5 digest and transitively binds the complete serializable dataset, matrix, code, and runtime replay inputs through their verification digests.
 
@@ -422,7 +422,7 @@ predictPairwise(model: VerifiedRankingModel, candidateA: VerifiedPairwiseCandida
 rankEligibleExpressions(model: VerifiedRankingModel, candidates: readonly [VerifiedPairwiseCandidate, ...VerifiedPairwiseCandidate[]]): PairwiseRankResult;
 ```
 
-`VerifiedLearningDatasetForTraining`, `VerifiedPairwiseFeatureMatrix`, `VerifiedPairwiseCandidate`, `VerifiedPairwiseCodeManifest`, `VerifiedPairwiseRuntime`, and `VerifiedRankingModel` are opaque, frozen values authenticated by module-private `WeakSet` membership; no symbol or enumerable brand participates in canonical data. A structural cast or direct-package import does not create one. Reconstructing serialized upstream dataset, matrix, or candidate data always uses the three replay verifiers above; serialized code and runtime data use `verifyPairwiseCodeManifest()` and `admitPairwiseRuntime()`. Input objects and every nested object must be plain closed data objects with enumerable data properties; accessors, proxies that fail descriptor inspection, symbols, sparse arrays, cycles, aliases that create mutable shared state, and unknown keys fail before arithmetic.
+`VerifiedLearningDatasetForTraining`, `VerifiedPairwiseFeatureMatrix`, `VerifiedPairwiseCandidate`, `VerifiedPairwiseCodeManifest`, `VerifiedPairwiseRuntime`, and `VerifiedRankingModel` are opaque, frozen values authenticated by module-private `WeakSet` membership; no symbol or enumerable brand participates in canonical data. A structural cast or direct-package import does not create one. Reconstructing serialized upstream dataset, matrix, or candidate data always uses the three replay verifiers above; serialized code and runtime data use `verifyPairwiseCodeManifest()` and `admitPairwiseRuntime()`. Input objects and every nested object must be plain closed data objects with enumerable data properties; accessors, proxies that fail descriptor inspection, symbols, sparse arrays, cycles, aliases that create mutable shared state, and unknown keys fail before arithmetic. A verified `contentmd.canonical-dag/0.1.0` decoder may reconstruct repeated canonical subtrees as shared object identities only when the complete shared subtree is recursively frozen. The closed-graph verifier must reject a cycle and every repeated object whose complete subtree is not frozen; it must accept the recursively frozen sharing without treating the alias itself as mutable input.
 
 ## 4. Binary64 and deterministic numeric primitives
 
@@ -685,27 +685,40 @@ interface PairwiseGoldenOneStepWitness {
 
 interface PairwiseGoldenPredictionCase {
   case_id: string;
-  candidate_a_input: VerifyPairwiseCandidateInput;
-  candidate_b_input: VerifyPairwiseCandidateInput;
+  candidate_a: PairwiseGoldenCandidateSelector;
+  candidate_b: PairwiseGoldenCandidateSelector;
   expected_prediction: PairwisePrediction;
 }
 
 interface PairwiseGoldenRankCase {
-  candidate_inputs: readonly [
-    VerifyPairwiseCandidateInput,
-    VerifyPairwiseCandidateInput,
-    ...VerifyPairwiseCandidateInput[]
+  candidates: readonly [
+    PairwiseGoldenCandidateSelector,
+    PairwiseGoldenCandidateSelector,
+    ...PairwiseGoldenCandidateSelector[]
   ];
   expected_result: PairwiseRankResult;
+}
+
+interface PairwiseGoldenCandidateSelector {
+  example_ref: DigestRef;
+  side: "candidate_a" | "candidate_b";
+}
+
+interface PairwiseGoldenReplayCommitment {
+  contract_version: "contentmd.pairwise-golden-replay-commitment/0.1.0";
+  dataset_replay_verification_digest: Digest;
+  matrix_replay_verification_digest: Digest;
+  sealed_dataset_ref: DigestRef;
+  feature_profile_ref: DigestRef;
+  training_row_digests: readonly [Digest, ...Digest[]];
 }
 
 interface PairwiseGoldenModelFixture {
   contract_version: "contentmd.pairwise-golden-model/0.1.0";
   record_mode: "development_fixture";
   purpose: "golden_conformance";
-  dataset_replay: LearningDatasetTrainingReplay;
-  matrix_replay: PairwiseFeatureMatrixReplay;
-  code_manifest: PairwiseCodeManifest;
+  replay_commitment: PairwiseGoldenReplayCommitment;
+  code_manifest_digest: Digest;
   runtime_profile: PairwiseRuntimeProfile;
   one_step_witness: PairwiseGoldenOneStepWitness;
   expected_statistics_record: ModelTrainingStatisticsRecord;
@@ -722,13 +735,13 @@ interface PairwiseGoldenModelFixture {
 }
 ```
 
-In `PairwiseGoldenOneStepWitness`, `feature_order` is the exact 21-name tuple; the outer `population_value_bits_by_feature` array and each of `mean_bits`, `population_standard_deviation_bits`, `first_row_delta_bits`, `initial_coefficient_bits`, `first_gradient_bits`, and `first_updated_coefficient_bits` have length exactly 21 in that order. For `N = matrix_replay.rows.length`, each population inner array has length exactly `2N` and is the corresponding raw Task 4 value bits in stored row order, A then B. `initial_coefficient_bits` contains exactly 21 positive-zero encodings. Every witness field must equal the independently calculated first update for that same matrix and the fixed section 6 operation order.
+In `PairwiseGoldenOneStepWitness`, `feature_order` is the exact 21-name tuple; the outer `population_value_bits_by_feature` array and each of `mean_bits`, `population_standard_deviation_bits`, `first_row_delta_bits`, `initial_coefficient_bits`, `first_gradient_bits`, and `first_updated_coefficient_bits` have length exactly 21 in that order. For `N = reconstructed_matrix_replay.rows.length`, each population inner array has length exactly `2N` and is the corresponding raw Task 4 value bits in stored row order, A then B. `initial_coefficient_bits` contains exactly 21 positive-zero encodings. Every witness field must equal the independently calculated first update for that same matrix and the fixed section 6 operation order.
 
-The fixture contains raw serializable replay inputs, never an opaque token. Tests reconstruct the dataset, profile, matrix, candidates, code token, runtime token, and model token only through their public verifiers. `code_manifest` is the exact pinned Task 5 manifest, not a synthetic substitute. The four mandatory prediction cases are an ordinary pair, its exact A/B reversal, an exact score tie, and a clipping-boundary case; case IDs are unique and in that order.
+The golden file deliberately does not duplicate the complete Task 3/4 replay graph. That graph is reconstructed in each process from the repository's deterministic serializable fixture builder, never from an opaque token, and is admitted only after the public complete replayers return `dataset_replay_verification_digest` and `matrix_replay_verification_digest` equal to `replay_commitment`; the sealed dataset/profile refs and every stored-order `training_row_digest = sha256Canonical(row)` must also match. These verifier digests already bind the complete raw replay inputs and byte-equal derived outputs, so the golden gate must not canonicalize and hash the roughly 415 MB replay graph a second time. This keeps the external golden lock compact while still making any replay-byte, row-order, or selected-output change fail closed. Tests then reconstruct the dataset, profile, matrix, candidates, code token, runtime token, and model token only through their public verifiers. `code_manifest_digest` must equal the separately verified exact pinned Task 5 manifest; it is not a synthetic substitute. Candidate selectors resolve exactly one stored matrix row by byte-equal `example_ref` and then one named side; missing or duplicate resolution fails. The four mandatory prediction cases are an ordinary pair, its exact A/B reversal, an exact score tie, and the valid admitted pair with the greatest absolute score delta; case IDs are unique and in that order. Because valid replay bounds its score delta, the fourth case proves the declared clip postcondition and does not bypass candidate verification to manufacture an unreachable clipping event.
 
 `fixture_semantic_digest` is exactly `sha256Canonical({contract_version: "contentmd.pairwise-golden-model-preimage/0.1.0", fixture: complete_fixture_without_fixture_semantic_digest})`. The file bytes are exactly `canonicalJson(complete_fixture)`. The separate file `fixtures/learning-ranking/golden-model.sha256` contains exactly `<sha256-of-golden-model.json><two ASCII spaces>fixtures/learning-ranking/golden-model.json<LF>`, so the plan's repository-root `shasum -a 256 -c` command resolves the target without an implicit working-directory rule. Tests validate that external raw-byte lock before parsing and then validate the semantic digest. The lock and semantic digest are excluded from `pairwise-release-profile.ts`, every code-verification digest, every training input, and every model preimage; this prevents a golden → expected model → code verification → release profile → golden cycle.
 
-Final coefficients, statistics, prediction, rank, and one-step expectations must not be generated by `numeric.ts`, `pairwise-logistic.ts`, or `rank.ts`. The one-step witness is independently calculated from the fixture's exact replayed training rows, Task 4 values, fixed hyperparameters, and stored order, and stores every binary64 bit pattern needed to reproduce the exact operation order. Running the externally locked fixture in two fresh Node processes must produce byte-identical canonical statistics, model, predictions, rank result, semantic digest, model-artifact digest, and outer record digest. `--update`, snapshot regeneration, lock regeneration, and accepting current output are forbidden test modes.
+Final coefficients, statistics, prediction, rank, and one-step expectations must not be generated by `numeric.ts`, `pairwise-logistic.ts`, or `rank.ts`. The one-step witness is independently calculated from the fixture's exact replayed training rows, Task 4 values, fixed hyperparameters, and stored order, and stores every binary64 bit pattern needed to reproduce the exact operation order. Running the externally locked fixture in two fresh Node processes must first reproduce the exact replay commitment and then produce byte-identical canonical statistics, model, predictions, rank result, semantic digest, model-artifact digest, and outer record digest. `--update`, snapshot regeneration, lock regeneration, and accepting current output are forbidden test modes.
 
 ## 8. Model verification, prediction, and ranking
 
@@ -900,13 +913,46 @@ After that preflight, validation stops at the first class in this exact preceden
 11. training convergence or model/statistics/state equations; and
 12. candidate replay eligibility.
 
+### 9.1 Upstream error normalization and replay arbitration
+
+Task 5 catches upstream contract failures only by exact class and exact `code`: `Task3ContractError` from the committed Task 3 module and `Task4ContractError` from the committed Task 4 module. It never matches `message`, accepts an error-like caller object, or exports either normalizer. The following tables are total for the exact upstream contract versions bound by the Task 5 release profile.
+
+| Exact Task 3 suffix after `task3_contract_invalid:` | Task 5 code |
+| --- | --- |
+| `input_shape`, `canonical_value`, `timestamp`, `set_uniqueness_or_order` | `ranking_input_shape_invalid` |
+| `official_mode_not_supported` | `ranking_mode_mismatch` |
+| `digest`, `durable_record_digest`, `snapshot_digest`, `receipt_digest`, `producer_artifact`, `producer_manifest`, `unicode_artifact`, `unicode_scalar` | `ranking_digest_invalid` |
+| `record_id`, `schema_id`, `receipt_binding`, `reference_integrity`, `checkpoint_chain`, `checkpoint_binding`, `leakage_universe`, `leakage_relationship`, `group_identity`, `provenance` | `ranking_reference_invalid` |
+| `scope_mismatch` | `ranking_scope_mismatch` |
+| `split_assignment`, `dataset_partition` | `ranking_test_state_invalid` |
+| `dataset_counts`, `dataset_state` | `ranking_dataset_state_invalid` |
+
+A valid Task 3 build result that is below the Task 5 training threshold is not an upstream integrity exception and maps separately to `learning_dataset_insufficient`. Likewise, a valid sealed record whose test state is not `sealed` maps by the Task 5 condition table, not by manufacturing a Task 3 exception.
+
+| Exact Task 4 suffix after `task4_contract_invalid:` | Task 5 code |
+| --- | --- |
+| `input_shape`, `canonical_value` | `ranking_input_shape_invalid` |
+| `official_mode_not_supported` | `ranking_mode_mismatch` |
+| `producer_witness`, `unicode_runtime`, `digest` | `ranking_digest_invalid` |
+| `reference_binding`, `provenance` | `ranking_reference_invalid` |
+| `scope_mismatch`, `checkpoint_binding` | `ranking_scope_mismatch` |
+| `feature_profile_binding` | `ranking_feature_profile_mismatch` |
+| `quarantined_expression_present`, `forbidden_input_field` | `ranking_source_quarantined` |
+| `numeric_nonfinite` | `ranking_non_finite`; `trainPairwiseLogistic()` remaps it to `ranking_training_invalid` only after the complete training request has reached the trainer numeric stage |
+
+Within one call to an upstream public constructor, that upstream contract's first thrown code is authoritative. Task 5 does not duplicate private Task 3 or Task 4 validation or reinterpret a later condition that the upstream constructor did not reach. The mapped result then participates in Task 5 arbitration against local failures and mapped results from every other executable replay slot.
+
+For one Task 5 call, all independent sibling replay slots whose required parents succeeded are executed and their mapped failures retained without issuing an output. A failed parent makes only its dependent child slots non-executable; it does not suppress independent siblings. Examples are: a failed dataset build prevents only the derived seal; a failed profile construction prevents only vectors that require that derived profile; and a failed candidate replay does not prevent another independent row or rank candidate from being checked. Arbitration selects the earliest row in the condition-to-code table below, excluding the already exhausted top-level official row. If two retained failures map to the same row, the winner is the earliest replay slot in literal closed-interface field order, with arrays in stored order, each matrix row A before B, prediction A before B, and rank candidates in supplied order. Derived seal follows build; profile follows dataset; vectors follow profile; model reauthentication precedes prediction or rank candidates. No wall-clock completion order, thrown-error arrival order, host property order, or early loop exit may choose the result.
+
+An exact upstream error class carrying a suffix absent from the applicable table, an upstream-version mismatch, or any non-upstream exception is an unexpected implementation boundary and is normalized to `ranking_input_shape_invalid`; no record, token, prediction, or rank output may issue. Release verification must independently reject an upstream contract/code digest change before such a mismatch can be accepted as a valid Task 5 handoff.
+
 The condition-to-code mapping is exhaustive:
 
 | Condition | Exact code |
 | --- | --- |
 | Any otherwise-unmapped closed-shape/domain failure; bad literal; unknown/missing/extra/inherited/accessor/symbol/cyclic/non-enumerable/non-plain value; sparse/aliased array; malformed `Binary64Hex` text | `ranking_input_shape_invalid` |
 | Top-level exact `official` after the bounded descriptor preflight | `ranking_official_mode_not_supported` |
-| Malformed SHA digest; claimed digest/preimage mismatch; derived-ID/ref-content mismatch; outer record mismatch | `ranking_digest_invalid` |
+| Malformed SHA digest; claimed digest/preimage mismatch; derived-ID/ref-content mismatch; outer record mismatch; mapped upstream producer/dependency/Unicode/digest proof failure | `ranking_digest_invalid` |
 | Complete replay output mismatch; wrong complete object for a ref; candidate/example/group/row/ref mismatch; duplicate candidate/vector/expression identity across a prediction or rank call; byte inequality not assigned below | `ranking_reference_invalid` |
 | Ranking objective or candidate kind mismatch | `ranking_objective_mismatch` |
 | Any nested token/request/record mode inequality after the official gate | `ranking_mode_mismatch` |
@@ -927,7 +973,7 @@ The condition-to-code mapping is exhaustive:
 | A byte-valid replayed nonconverged model is passed to model verification, prediction, or ranking | `ranking_model_quarantined` |
 | Complete Task 4 candidate replay returns ineligible for any semantic reason | `ranking_candidate_ineligible` |
 
-Within one class, object fields are checked in the literal order written in the applicable closed interface or preimage and arrays in stored order. Repository canonical object-key ordering does not define validation precedence. When one condition could match a general and a specific row, the specific row wins; when independent rows apply, the numbered precedence wins. There is no unspecified integrity catch-all, automatic retry, fallback, or error replacement.
+Within one class, object fields are checked in the literal order written in the applicable closed interface or preimage and arrays in stored order. Repository canonical object-key ordering does not define validation precedence. When one condition could match a general and a specific row, the specific row wins; when independent rows apply, the numbered precedence wins subject only to the authoritative within-one-upstream-call rule in section 9.1. There is no unspecified integrity catch-all, automatic retry, fallback, or error replacement.
 
 ## 10. Development, official, quarantine, and side effects
 
@@ -948,7 +994,7 @@ Task 5 uses Node `24.14.0` exactly. The minimum executable evidence is:
 5. independently calculated trainer tests cover exact `2N` population standardization, zero variance, clipping-before-difference, train-only statistics, one-step loss/gradient, A/B reversal, simultaneous updates, strict convergence, update 2,000 nonconvergence, and the exact invalid-stage reset table;
 6. identity tests cover exact code/schema/input/statistics/coefficient/model/replay preimages, all record IDs and outer digests, repeated coefficients, purpose binding, every state equation, model-state flips, recomputed-digest forged coefficients, deterministic retraining, nonconverged quarantine, and no invalid model issuance;
 7. prediction/rank tests cover complete candidate replay, distinct Task 4 feature and Task 5 numeric runtimes, common project/context/target/checkpoint/universe bindings, stored-stat reuse, exact bits and clipping, A/B reversal, exact ties, tie buckets, expression-digest order, candidate bijection, and one-at-a-time input/prediction/trace/output digest mutations;
-8. every mode-bearing API tests top-level `official` short-circuit before nested access using accessor/proxy traps; exhaustive dual-fault tests cover every condition-to-code row, exact precedence, trainer nonfinite remapping, raw structural casts, and direct-import/WeakSet bypass;
+8. every mode-bearing API tests top-level `official` short-circuit before nested access using accessor/proxy traps; exhaustive dual-fault tests cover every condition-to-code row, every Task 3 and Task 4 suffix-to-Task-5 normalization row, authoritative within-one-upstream-call precedence, mapped arbitration across independent replay slots, blocked-child versus executable-sibling behavior, deterministic same-code slot ties, unknown suffix/class normalization, trainer nonfinite remapping, raw structural casts, and direct-import/WeakSet bypass;
 9. quarantine tests cover stale/mismatched permission and rights, opened test, unadmitted runtime, altered code/schema manifest, browser/competitor feature or label input, and blocking-only leakage; and
 10. the external code-manifest gate and golden SHA lock run before two fresh-process golden comparisons with byte-identical statistics, coefficients, predictions, rank result, semantic digest, model-artifact digest, and outer record digest, followed by full Vitest, TypeScript build, package-boundary check, foundation verifier, Unicode/check-only fixtures, and `git diff --check`.
 

@@ -8,7 +8,9 @@
   "dependencies": {
     "@contentmd/core": "workspace:*",
     "@contentmd/governance": "workspace:*",
-    "@contentmd/memory": "workspace:*"
+    "@contentmd/memory": "workspace:*",
+    "@contentmd/runtime-sdk": "workspace:*",
+    "typescript-compiler": "npm:typescript@5.9.3"
   },
   "devDependencies": {
     "@contentmd/schemas": "workspace:*"

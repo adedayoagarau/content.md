@@ -1,0 +1,5 @@
+{"term":"pricing table","system":"Stripe pricing","meaning":"embedded product-price selector","notes":"checkout terminology"}
+{"term":"per location","system":"Square pricing","meaning":"location-based billing modifier","notes":"billing terminology"}
+{"term":"Shopify Plus","system":"Shopify pricing","meaning":"enterprise commerce tier","notes":"pricing terminology"}
+{"term":"PayPal Business account","system":"PayPal fees","meaning":"merchant account type","notes":"account terminology"}
+{"term":"Public access","system":"Shopify pricing","meaning":"visibility setting for price lists","notes":"configuration terminology"}

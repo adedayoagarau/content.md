@@ -1,0 +1,412 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/human-calibration-artifacts/0.1.0",
+  "title": "content.md governed human calibration artifacts",
+  "oneOf": [
+    { "$ref": "#/$defs/splitManifest" },
+    { "$ref": "#/$defs/humanRaterQualification" },
+    { "$ref": "#/$defs/blindAssignment" },
+    { "$ref": "#/$defs/humanRating" },
+    { "$ref": "#/$defs/ratingMapping" },
+    { "$ref": "#/$defs/prediction" },
+    { "$ref": "#/$defs/effectivenessReport" }
+  ],
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "nonempty": { "type": "string", "minLength": 1 },
+    "stringSet": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonempty" },
+      "uniqueItems": true
+    },
+    "dimension": {
+      "enum": [
+        "directness",
+        "formality",
+        "warmth",
+        "reassurance",
+        "expressiveness",
+        "humor",
+        "urgency",
+        "information_density",
+        "authority_stance"
+      ]
+    },
+    "split": { "enum": ["calibration", "analysis_locked_public_test"] },
+    "fitBand": {
+      "enum": ["strong_fit", "acceptable_fit", "weak_fit", "unacceptable", "not_rateable"]
+    },
+    "splitManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "corpus_id",
+        "corpus_manifest_digest",
+        "calibration_leakage_group_ids",
+        "analysis_locked_leakage_group_ids",
+        "rater_partition_policy",
+        "authority_effect",
+        "split_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-calibration-split/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "corpus_id": { "const": "voice-comparison.project-owned.v1" },
+        "corpus_manifest_digest": { "$ref": "#/$defs/digest" },
+        "calibration_leakage_group_ids": {
+          "allOf": [{ "$ref": "#/$defs/stringSet" }, { "minItems": 1 }]
+        },
+        "analysis_locked_leakage_group_ids": {
+          "allOf": [{ "$ref": "#/$defs/stringSet" }, { "minItems": 1 }]
+        },
+        "rater_partition_policy": { "const": "disjoint_between_calibration_and_test" },
+        "authority_effect": { "const": "none" },
+        "split_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "humanRaterQualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "qualification_id",
+        "rater_id",
+        "qualification_state",
+        "qualified_dimensions",
+        "qualified_locales",
+        "qualified_channels",
+        "participation_consent",
+        "rating_and_notes_consent",
+        "model_processing_consent",
+        "training_evidence_digests",
+        "conflict_candidate_ids",
+        "data_minimization_profile",
+        "authority_effect",
+        "qualification_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-rater-qualification/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "qualification_id": { "$ref": "#/$defs/nonempty" },
+        "rater_id": { "$ref": "#/$defs/nonempty" },
+        "qualification_state": { "enum": ["eligible", "ineligible"] },
+        "qualified_dimensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/dimension" },
+          "uniqueItems": true
+        },
+        "qualified_locales": { "$ref": "#/$defs/stringSet" },
+        "qualified_channels": { "$ref": "#/$defs/stringSet" },
+        "participation_consent": { "enum": ["granted", "not_granted"] },
+        "rating_and_notes_consent": { "enum": ["granted", "not_granted"] },
+        "model_processing_consent": { "enum": ["granted", "not_granted"] },
+        "training_evidence_digests": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/digest" },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "conflict_candidate_ids": { "$ref": "#/$defs/stringSet" },
+        "data_minimization_profile": {
+          "const": "pseudonymous_no_protected_attributes"
+        },
+        "authority_effect": { "const": "none" },
+        "qualification_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "blindAssignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "assignment_id",
+        "split_manifest_digest",
+        "split",
+        "comparison_id",
+        "comparison_digest",
+        "leakage_group_id",
+        "dimension",
+        "rater_id",
+        "rater_qualification_digest",
+        "assignment_index",
+        "display_labels",
+        "left_expression",
+        "left_expression_digest",
+        "right_expression",
+        "right_expression_digest",
+        "presentation_order_digest",
+        "expected_answer",
+        "authority_effect",
+        "assignment_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.blind-calibration-assignment/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "assignment_id": { "$ref": "#/$defs/nonempty" },
+        "split_manifest_digest": { "$ref": "#/$defs/digest" },
+        "split": { "$ref": "#/$defs/split" },
+        "comparison_id": { "$ref": "#/$defs/nonempty" },
+        "comparison_digest": { "$ref": "#/$defs/digest" },
+        "leakage_group_id": { "$ref": "#/$defs/nonempty" },
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "rater_id": { "$ref": "#/$defs/nonempty" },
+        "rater_qualification_digest": { "$ref": "#/$defs/digest" },
+        "assignment_index": { "type": "integer", "minimum": 0 },
+        "display_labels": {
+          "type": "array",
+          "prefixItems": [{ "const": "LEFT" }, { "const": "RIGHT" }],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "left_expression": { "$ref": "#/$defs/nonempty" },
+        "left_expression_digest": { "$ref": "#/$defs/digest" },
+        "right_expression": { "$ref": "#/$defs/nonempty" },
+        "right_expression_digest": { "$ref": "#/$defs/digest" },
+        "presentation_order_digest": { "$ref": "#/$defs/digest" },
+        "expected_answer": { "type": "null" },
+        "authority_effect": { "const": "none" },
+        "assignment_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "humanRating": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "rating_id",
+        "assignment_id",
+        "assignment_digest",
+        "split",
+        "comparison_id",
+        "comparison_digest",
+        "leakage_group_id",
+        "dimension",
+        "rater_id",
+        "rater_qualification_digest",
+        "response_state",
+        "display_outcome",
+        "left_fit",
+        "right_fit",
+        "ordinal_uncertainty",
+        "evidence_spans",
+        "missing_context_fields",
+        "procedural_abstention_reason",
+        "hard_issue_suspected",
+        "blindness_breach",
+        "authority_effect",
+        "rating_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-dimension-rating/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "rating_id": { "$ref": "#/$defs/nonempty" },
+        "assignment_id": { "$ref": "#/$defs/nonempty" },
+        "assignment_digest": { "$ref": "#/$defs/digest" },
+        "split": { "$ref": "#/$defs/split" },
+        "comparison_id": { "$ref": "#/$defs/nonempty" },
+        "comparison_digest": { "$ref": "#/$defs/digest" },
+        "leakage_group_id": { "$ref": "#/$defs/nonempty" },
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "rater_id": { "$ref": "#/$defs/nonempty" },
+        "rater_qualification_digest": { "$ref": "#/$defs/digest" },
+        "response_state": { "enum": ["submitted", "abstained"] },
+        "display_outcome": {
+          "type": ["string", "null"],
+          "enum": ["LEFT", "RIGHT", "indistinguishable", "both_unacceptable", "insufficient_context", null]
+        },
+        "left_fit": { "anyOf": [{ "$ref": "#/$defs/fitBand" }, { "type": "null" }] },
+        "right_fit": { "anyOf": [{ "$ref": "#/$defs/fitBand" }, { "type": "null" }] },
+        "ordinal_uncertainty": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "evidence_spans": { "$ref": "#/$defs/stringSet" },
+        "missing_context_fields": { "$ref": "#/$defs/stringSet" },
+        "procedural_abstention_reason": { "type": ["string", "null"], "minLength": 1 },
+        "hard_issue_suspected": { "type": "boolean" },
+        "blindness_breach": { "type": "boolean" },
+        "authority_effect": { "const": "none" },
+        "rating_digest": { "$ref": "#/$defs/digest" }
+      },
+      "allOf": [{
+        "oneOf": [
+          {
+            "properties": {
+              "response_state": { "const": "submitted" },
+              "display_outcome": { "enum": ["LEFT", "RIGHT", "indistinguishable", "both_unacceptable"] },
+              "left_fit": { "enum": ["strong_fit", "acceptable_fit", "weak_fit", "unacceptable"] },
+              "right_fit": { "enum": ["strong_fit", "acceptable_fit", "weak_fit", "unacceptable"] },
+              "ordinal_uncertainty": { "enum": [1, 2, 3] },
+              "evidence_spans": { "minItems": 1 },
+              "missing_context_fields": { "maxItems": 0 },
+              "procedural_abstention_reason": { "type": "null" }
+            }
+          },
+          {
+            "properties": {
+              "response_state": { "const": "submitted" },
+              "display_outcome": { "const": "insufficient_context" },
+              "left_fit": { "const": "not_rateable" },
+              "right_fit": { "const": "not_rateable" },
+              "ordinal_uncertainty": { "const": 0 },
+              "evidence_spans": { "maxItems": 0 },
+              "missing_context_fields": { "minItems": 1 },
+              "procedural_abstention_reason": { "type": "null" }
+            }
+          },
+          {
+            "properties": {
+              "response_state": { "const": "abstained" },
+              "display_outcome": { "type": "null" },
+              "left_fit": { "type": "null" },
+              "right_fit": { "type": "null" },
+              "ordinal_uncertainty": { "const": 0 },
+              "evidence_spans": { "maxItems": 0 },
+              "missing_context_fields": { "maxItems": 0 },
+              "procedural_abstention_reason": { "$ref": "#/$defs/nonempty" }
+            }
+          }
+        ]
+      }]
+    },
+    "ratingMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "mapping_id",
+        "raw_rating_id",
+        "raw_rating_digest",
+        "assignment_id",
+        "assignment_digest",
+        "split",
+        "comparison_id",
+        "comparison_digest",
+        "leakage_group_id",
+        "dimension",
+        "rater_id",
+        "rater_qualification_digest",
+        "canonical_outcome",
+        "canonical_winner_candidate_id",
+        "authority_effect",
+        "mapping_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-dimension-rating-mapping/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "mapping_id": { "$ref": "#/$defs/nonempty" },
+        "raw_rating_id": { "$ref": "#/$defs/nonempty" },
+        "raw_rating_digest": { "$ref": "#/$defs/digest" },
+        "assignment_id": { "$ref": "#/$defs/nonempty" },
+        "assignment_digest": { "$ref": "#/$defs/digest" },
+        "split": { "$ref": "#/$defs/split" },
+        "comparison_id": { "$ref": "#/$defs/nonempty" },
+        "comparison_digest": { "$ref": "#/$defs/digest" },
+        "leakage_group_id": { "$ref": "#/$defs/nonempty" },
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "rater_id": { "$ref": "#/$defs/nonempty" },
+        "rater_qualification_digest": { "$ref": "#/$defs/digest" },
+        "canonical_outcome": {
+          "enum": ["candidate_a", "candidate_b", "indistinguishable", "both_unacceptable", "insufficient_context", "abstained"]
+        },
+        "canonical_winner_candidate_id": { "type": ["string", "null"], "minLength": 1 },
+        "authority_effect": { "const": "none" },
+        "mapping_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "comparison_id",
+        "comparison_digest",
+        "predicted_candidate_id",
+        "model_ref",
+        "authority_effect",
+        "prediction_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-calibration-prediction/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "comparison_id": { "$ref": "#/$defs/nonempty" },
+        "comparison_digest": { "$ref": "#/$defs/digest" },
+        "predicted_candidate_id": { "$ref": "#/$defs/nonempty" },
+        "model_ref": { "$ref": "#/$defs/nonempty" },
+        "authority_effect": { "const": "none" },
+        "prediction_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "effectivenessReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "corpus_manifest_digest",
+        "split_manifest_digest",
+        "model_ref",
+        "status",
+        "minimum_independent_raters",
+        "expected_group_count",
+        "expected_pair_count",
+        "evaluated_group_count",
+        "evaluated_pair_count",
+        "missing_comparison_ids",
+        "pair_accuracy",
+        "group_macro_accuracy",
+        "evaluation_input_digest",
+        "authority_effect",
+        "approval_effect",
+        "publication_effect",
+        "report_digest"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.human-calibration-effectiveness/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "corpus_manifest_digest": { "$ref": "#/$defs/digest" },
+        "split_manifest_digest": { "$ref": "#/$defs/digest" },
+        "model_ref": { "type": ["string", "null"], "minLength": 1 },
+        "status": { "enum": ["measured", "insufficient_human_evidence"] },
+        "minimum_independent_raters": { "const": 3 },
+        "expected_group_count": { "type": "integer", "minimum": 1 },
+        "expected_pair_count": { "type": "integer", "minimum": 1 },
+        "evaluated_group_count": { "type": "integer", "minimum": 0 },
+        "evaluated_pair_count": { "type": "integer", "minimum": 0 },
+        "missing_comparison_ids": { "$ref": "#/$defs/stringSet" },
+        "pair_accuracy": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "group_macro_accuracy": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "evaluation_input_digest": { "$ref": "#/$defs/digest" },
+        "authority_effect": { "const": "none" },
+        "approval_effect": { "const": "none" },
+        "publication_effect": { "const": "none" },
+        "report_digest": { "$ref": "#/$defs/digest" }
+      },
+      "allOf": [{
+        "oneOf": [
+          {
+            "properties": {
+              "status": { "const": "measured" },
+              "model_ref": { "$ref": "#/$defs/nonempty" },
+              "missing_comparison_ids": { "maxItems": 0 },
+              "pair_accuracy": { "type": "number" },
+              "group_macro_accuracy": { "type": "number" }
+            }
+          },
+          {
+            "properties": {
+              "status": { "const": "insufficient_human_evidence" },
+              "pair_accuracy": { "type": "null" },
+              "group_macro_accuracy": { "type": "null" }
+            }
+          }
+        ]
+      }]
+    }
+  }
+}

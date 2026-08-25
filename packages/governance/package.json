@@ -7,6 +7,7 @@
   "scripts": { "test": "vitest run", "build": "tsc -b" },
   "dependencies": {
     "@contentmd/core": "workspace:*",
-    "@contentmd/memory": "workspace:*"
+    "@contentmd/memory": "workspace:*",
+    "@contentmd/model-provider-sdk": "workspace:*"
   }
 }

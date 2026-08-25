@@ -1,0 +1,5 @@
+{
+  "payments and billing": ["pricing", "fees", "checkout", "connect"],
+  "payments and commerce": ["pricing", "fees", "online store"],
+  "commerce and marketplaces": ["pricing", "plus", "collective"]
+}

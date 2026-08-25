@@ -1,23 +1,27 @@
 ---
-title: content.md research program
-status: active-research
+title: content.md
+status: active-build
 started: 2026-08-17
-updated: 2026-08-20
+updated: 2026-08-23
 foundation_draft: 0.2
-implementation_status: bounded-local-foundation-verified
+implementation_status: governed-development-system-active
 ---
 
 # content.md
 
-`content.md` is being investigated as a repository-native content-design system: a durable content contract plus an agent workflow that can understand a product, make governed content decisions, change implementation safely, and keep the product's language coherent over time.
+`content.md` is a repository-native content-design system: a durable content contract plus a governed agent workflow that can understand a product, make content decisions, draft and evaluate language, learn from project-owned comparisons, change implementation safely, and keep the product's language coherent over time.
 
-This workspace began with research and now includes a verified local synthetic foundation. The research and benchmark gates remain open: the implementation proves a bounded workflow, not universal effectiveness, production authority, or a released product.
+The system owns the content-design process and its structured memory. Products and organizations retain authority over facts, policies, approvals, provider access, publication, and product outcomes. The implementation is substantial but remains a development system: it does not prove universal writing effectiveness, production authority, or a released product.
 
 ## Implementation status
 
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and [foundation vertical-slice plan](docs/superpowers/plans/2026-08-20-contentmd-foundation-vertical-slice.md) produced a 13-package TypeScript workspace and a functional local CLI. The [independent verification record](docs/verification/foundation-vertical-slice.md) reports 95 passing tests and 246 passing cross-process checks.
+The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce a 17-package TypeScript workspace and a functional local CLI. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
 
-The retained slice can adopt a repository, preserve host instructions, discover web-app content, compile a content graph, ingest rights-bounded patterns, run deterministic review, replay exact recorded strategy/draft/rewrite proposals, record a human decision, preview a source-linked change, deny unauthorized apply, execute one separately approved transaction, verify it, roll it back under separate authority, retain an append-only event chain, and preview uninstall. It is intentionally local and synthetic.
+The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; discover web-app content; compile a content graph; ingest rights-bounded research; compile voice/tone maps and evidence graphs; run deterministic review; use recorded or governed OpenAI model execution; validate model output before it reaches writer APIs; learn and independently reproduce a deterministic pairwise ranker from sealed project-owned comparisons; use a verified learned model to rank writer alternatives with a deterministic fallback; create leakage-safe blinded human-calibration assignments and analysis-locked effectiveness reports; evaluate, shadow, monitor drift, suspend on revocation, and roll back; record a human decision; preview and execute separately authorized changes; retain append-only audit state; and preview uninstall.
+
+Recorded browser evidence is supported through a bounded adapter, but live browser acquisition is not implied by a record. The current public UX-writing corpus is project-owned and synthetic; it contains no competitor wording as model input.
+
+The verified portable local runtime exposes 12 focused interfaces for authorized event storage, blobs, jobs, approvals, progress, export, scheduling, ingress, secrets, synchronization, health, and cleanup. Every operation is bound to a current opaque authorization, append-only audit, replay control, and independently verified binding readback. A Cloudflare-shaped host can be detected, but the candidate is deliberately non-bindable: this repository has no Cloudflare adapter, Agents SDK production dependency, deployment, or production-host verification.
 
 ## Run the local foundation
 
@@ -31,7 +35,21 @@ pnpm contentmd doctor --root /absolute/path/to/project --json
 pnpm contentmd discover --root /absolute/path/to/project --json
 ```
 
-The current recorded writing path is a deterministic test fixture, not a live model. Apply and rollback require separate exact authorization records; preview never creates them.
+The CLI supports recorded-provider replay and a governed OpenAI adapter. Provider configuration, execution planning, authorization, output-schema validation, and audit records are separate steps; model access never grants edit, approval, or publication authority. Apply and rollback require separate exact authorization records, and preview never creates them.
+
+## Verify and use a local learning candidate
+
+After a sealed project-owned training replay has completed, independently reverify the persisted model artifact before using it to rank alternatives:
+
+```bash
+pnpm contentmd learn verify-model --root /absolute/path/to/project --json
+pnpm contentmd draft-select \
+  --root /absolute/path/to/project \
+  --input /absolute/path/to/complete-draft-selection-replay.json \
+  --json
+```
+
+`learn verify-model` only replays and verifies the immutable local training artifact; it does not activate or promote a model. `draft-select` requires complete verified candidate replays and an admitted binding projection. If those conditions are not present, it returns the deterministic safe fallback instead of treating a learned ranking as authority.
 
 ## Start here
 
@@ -54,9 +72,9 @@ The current recorded writing path is a deterministic test fixture, not a live mo
 - Accessibility, localization, verification, maintenance, and measurement belong in the architecture from the beginning.
 - Cognitive ergonomics must be evidence- and context-bound: named effects are not universal writing rules, individual cognitive or emotional states must not be inferred from proxies, and business outcomes cannot compensate for failures in truthfulness, non-deception, material comprehension, valid consent, accessibility, user autonomy, or safety.
 
-## What is not built yet
+## What remains unproven or unavailable
 
-This repository does not yet contain a published installer, production skill, live-provider adapter, browser/desktop research path, hosted runtime, workbench, external product adapters, learned ranking, domain packs, or evidence of universal agent compatibility. The generated `CONTENT.md` contract and CLI are experimental `0.1.0` interfaces. Practitioner studies, qualified review, representative-user testing, Track B, and controlled product benchmarks remain open.
+This repository does not yet contain a published installer, production skill, hosted runtime, workbench, broad external-product adapters, production domain packs, or evidence of universal agent compatibility. Official learning, promotion, deployment, and publication still require authenticated product-owned resolvers and authority that development fixtures do not provide. Live public-product research has not been completed in the current environment. Chrome control is available, but saved per-domain Browser Use preferences can block individual sites (GOV.UK was blocked in the current session), and the active profile has not established the dedicated signed-out isolation required for a controlled corpus. Permitted observations therefore remain evidence-only. Practitioner studies, qualified review, representative-user testing, multilingual calibration, and controlled product-outcome benchmarks remain open.
 
 ## Research question
 
@@ -93,7 +111,7 @@ Labels such as law, standard, official guidance, research, practitioner, or vend
 
 ## Current boundary
 
-Research artifacts are working material with their stated evidence cutoffs. They are not production-ready content, psychology, behavioral-science, legal, clinical, regulatory, localization, accessibility, security, or safety guidance. The repository now has a bounded local executable and a synthetic, explicitly approved one-file test write path. It has no live connector, credential path, browser research path, remote write, publication path, or real-product authority; the implemented controls have been tested only within the retained synthetic foundation scope.
+Research artifacts are working material with their stated evidence cutoffs. They are not production-ready content, psychology, behavioral-science, legal, clinical, regulatory, localization, accessibility, security, or safety guidance. The repository has a bounded local executable, governed provider adapters, a recorded browser-evidence adapter, and synthetic development fixtures. It has no granted real-product authority, authenticated official learning handoff, live public-product observation from the current session, remote publication authority, or demonstrated product outcome. The implemented controls establish deterministic development behavior—not organizational approval or effectiveness.
 
 ## Next evidence phase
 

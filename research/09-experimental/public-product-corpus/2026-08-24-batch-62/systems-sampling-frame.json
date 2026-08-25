@@ -1,0 +1,15 @@
+[
+  {
+    "company": "eBay",
+    "product_system": "eBay marketplace",
+    "industry": "commerce and marketplaces",
+    "observed_slots_added": [
+      "core task/commitment: results populated",
+      "core task/commitment: deal discovery"
+    ],
+    "combined_direct_state_count": 5,
+    "blocked_slots": [
+      "error/recovery: no-results"
+    ]
+  }
+]

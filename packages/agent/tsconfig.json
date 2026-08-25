@@ -17,6 +17,8 @@
     { "path": "../evaluation" },
     { "path": "../model-provider-sdk" },
     { "path": "../writer" },
-    { "path": "../learning" }
+    { "path": "../learning" },
+    { "path": "../runtime-sdk" },
+    { "path": "../runtime-local" }
   ]
 }

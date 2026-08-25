@@ -6,11 +6,14 @@ import {
   proposeContentDraft,
   proposeContentRewrite,
   proposeContentStrategy,
+  type WriterModelExecutionContext,
 } from "@contentmd/writer";
+import executionContextFixture from "../../../fixtures/synthetic-web-app/.contentmd-test/writer-execution-context.json" with { type: "json" };
 
 const cassettePath = fileURLToPath(
   new URL("../../../fixtures/synthetic-web-app/.contentmd-test/recorded-model-responses.jsonl", import.meta.url),
 );
+const execution = executionContextFixture as WriterModelExecutionContext;
 
 const task = createContentTaskPacket({
   task_id: "task.fixture.checkout-content",
@@ -36,20 +39,36 @@ const task = createContentTaskPacket({
 describe("recorded strategy and writing flow", () => {
   it("creates proposal-only strategy, draft, and exact rewrite artifacts", async () => {
     const provider = await RecordedModelProvider.fromFile(cassettePath);
+    const reviewFindingRefs = execution.context_items
+      .filter((item) => item.data_class === "review_finding")
+      .map((item) => item.source_ref.record_id)
+      .sort();
     const strategy = await proposeContentStrategy(provider, {
       task,
-      review_finding_refs: [
-        "finding.unsupported-claim",
-        "finding.state-mismatch",
-        "finding.unsafe-retry",
-      ],
+      review_finding_refs: reviewFindingRefs,
       pattern_refs: [
         "pattern.recovery.unknown-outcome",
         "pattern.navigation.stable-destination-name",
       ],
+      execution,
     });
-    const draft = await proposeContentDraft(provider, { task, strategy });
-    const rewrite = await proposeContentRewrite(provider, { task, strategy, draft });
+    const postStrategyExecution = {
+      ...execution,
+      context_items: execution.context_items.filter((item) => (
+        item.data_class !== "review_finding"
+      )),
+    };
+    const draft = await proposeContentDraft(provider, {
+      task,
+      strategy,
+      execution: postStrategyExecution,
+    });
+    const rewrite = await proposeContentRewrite(provider, {
+      task,
+      strategy,
+      draft,
+      execution: postStrategyExecution,
+    });
 
     expect(strategy.authority_effect).toBe("none");
     expect(strategy.lifecycle_state).toBe("proposed");

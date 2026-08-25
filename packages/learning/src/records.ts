@@ -488,7 +488,7 @@ export type WritingBenchmarkManifestPayload = NoAuthorityPayload & {
 };
 
 export type WritingBenchmarkTaskPayload = NoAuthorityPayload & {
-  manifest_ref: DigestRef;
+  benchmark_id: "LIL-WRITE-001";
   product_id: string;
   domain: string;
   channel: "web" | "notification";

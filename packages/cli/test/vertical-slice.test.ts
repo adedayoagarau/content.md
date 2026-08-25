@@ -5,6 +5,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { runtimeDecisionAuthorityFixture } from "./runtime-decision-authority-fixture.js";
 
 const execute = promisify(execFile);
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
@@ -74,7 +75,8 @@ describe("local CLI vertical slice", () => {
     expect((await run(["rewrite", "--root", root, "--provider", "recorded", "--json"])).status).toBe("completed");
 
     const decisionFile = join(root, ".contentmd-test", "decision.json");
-    await writeFile(decisionFile, `${JSON.stringify({
+    const decisionInput = {
+      expected_head_digest: null,
       decision_id: "decision.fixture.accepted.cli",
       status: "accepted",
       actor_ref: "actor.fixture-reviewer",
@@ -88,7 +90,15 @@ describe("local CLI vertical slice", () => {
       project_id: "project.beacon-checkout-lab-fixture",
       occurred_at: "2026-08-20T18:00:00.000Z",
       data_class: "project_feedback"
-    }, null, 2)}\n`);
+    } as const;
+    await writeFile(decisionFile, `${JSON.stringify(decisionInput, null, 2)}\n`);
+    const runtimeAuthorityPath = join(root, ".contentmd/governance/runtime-decision-authority.json");
+    await mkdir(dirname(runtimeAuthorityPath), { recursive: true });
+    await writeFile(runtimeAuthorityPath, `${JSON.stringify(
+      runtimeDecisionAuthorityFixture(decisionInput),
+      null,
+      2,
+    )}\n`);
     expect((await run(["decision", "record", "--root", root, "--file", decisionFile, "--json"])).status).toBe("completed");
     expect((await run(["learn", "--root", root, "--json"], [20])).status).toBe("blocked_by_evidence");
     expect((await run(["diff", "--root", root, "--proposal", "prop_fixture_delete_workspace_v1", "--json"])).status).toBe("completed");

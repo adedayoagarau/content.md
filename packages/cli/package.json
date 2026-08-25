@@ -9,6 +9,7 @@
   "dependencies": {
     "@contentmd/agent": "workspace:*",
     "@contentmd/core": "workspace:*",
+    "@contentmd/model-provider-openai": "workspace:*",
     "commander": "15.0.0"
   }
 }

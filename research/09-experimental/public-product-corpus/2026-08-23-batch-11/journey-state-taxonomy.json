@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "pricing or homepage landing",
+  "core task/commitment": "sites, billing, plan review, or help guidance",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready states and continuation prompts",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "help and account-management moments"
+}

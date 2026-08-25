@@ -1,0 +1,5 @@
+{"source_id":"src-cleveland-home-60","access_result":"observed","access_method":"Codex in-app browser","access_boundary":"signed-out public page; no appointment or care flow entered"}
+{"source_id":"src-service-nsw-home-60","access_result":"observed","access_method":"Codex in-app browser","access_boundary":"public page; no transaction entered"}
+{"source_id":"src-duo-home-60","access_result":"observed","access_method":"Codex in-app browser","access_boundary":"public page; no trial or admin flow entered"}
+{"source_id":"src-yubico-home-60","access_result":"observed","access_method":"Codex in-app browser","access_boundary":"public page; no store flow entered"}
+{"system":"Signal","domain":"signal.org","access_result":"access_blocked","returned_reason":"Block IM Apps","access_method":"Codex in-app browser","access_boundary":"policy block was not bypassed"}

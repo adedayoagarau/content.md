@@ -1,0 +1,227 @@
+{
+  "contract_version": "contentmd.public-product-industry-taxonomy/0.1.0",
+  "industries": [
+    {
+      "industry_id": "ai_and_machine_learning",
+      "name": "AI and machine learning",
+      "aliases": [
+        "AI assistants and AI-enabled products",
+        "ai assistant"
+      ]
+    },
+    {
+      "industry_id": "cloud_storage_and_file_sharing",
+      "name": "Cloud storage and file sharing",
+      "aliases": [
+        "cloud storage",
+        "file storage and sharing"
+      ]
+    },
+    {
+      "industry_id": "collaboration_and_communication",
+      "name": "Collaboration and communication",
+      "aliases": [
+        "collaborative whiteboard",
+        "communications and collaboration",
+        "productivity and collaboration",
+        "project collaboration",
+        "team communication",
+        "team messaging and collaboration",
+        "video communication",
+        "video communications",
+        "video meetings",
+        "video messaging",
+        "visual collaboration",
+        "whiteboarding",
+        "whiteboarding and collaboration"
+      ]
+    },
+    {
+      "industry_id": "commerce_and_marketplaces",
+      "name": "Commerce and marketplaces",
+      "aliases": [
+        "commerce and marketplaces",
+        "commerce platforms"
+      ]
+    },
+    {
+      "industry_id": "content_and_knowledge_management",
+      "name": "Content and knowledge management",
+      "aliases": [
+        "content management",
+        "knowledge publishing",
+        "knowledge workspace"
+      ]
+    },
+    {
+      "industry_id": "creative_and_design_software",
+      "name": "Creative and design software",
+      "aliases": [
+        "creative and collaboration software",
+        "creative editing",
+        "creative software and document management",
+        "creative suite",
+        "creative/design software",
+        "design collaboration",
+        "design creation"
+      ]
+    },
+    {
+      "industry_id": "customer_service_and_crm",
+      "name": "Customer service and CRM",
+      "aliases": [
+        "customer platform",
+        "customer service",
+        "customer service platform"
+      ]
+    },
+    {
+      "industry_id": "data_and_database_tools",
+      "name": "Data and database tools",
+      "aliases": [
+        "database and workflow apps",
+        "database workspace",
+        "fileless database"
+      ]
+    },
+    {
+      "industry_id": "delivery_and_logistics",
+      "name": "Delivery and logistics",
+      "aliases": [
+        "delivery and logistics"
+      ]
+    },
+    {
+      "industry_id": "developer_tools_and_platforms",
+      "name": "Developer tools and platforms",
+      "aliases": [
+        "developer platform",
+        "developer platforms",
+        "developer tools and AI",
+        "enterprise and developer tools"
+      ]
+    },
+    {
+      "industry_id": "education",
+      "name": "Education",
+      "aliases": [
+        "education"
+      ]
+    },
+    {
+      "industry_id": "financial_services",
+      "name": "Financial services",
+      "aliases": [
+        "banking and investing",
+        "finance and investing"
+      ]
+    },
+    {
+      "industry_id": "government_and_public_services",
+      "name": "Government and public services",
+      "aliases": [
+        "government and public services",
+        "government/public services"
+      ]
+    },
+    {
+      "industry_id": "healthcare_and_wellbeing",
+      "name": "Healthcare and wellbeing",
+      "aliases": [
+        "healthcare and wellbeing"
+      ]
+    },
+    {
+      "industry_id": "incident_management",
+      "name": "Incident management",
+      "aliases": [
+        "incident communications"
+      ]
+    },
+    {
+      "industry_id": "insurance",
+      "name": "Insurance",
+      "aliases": [
+        "insurance"
+      ]
+    },
+    {
+      "industry_id": "media_and_entertainment",
+      "name": "Media and entertainment",
+      "aliases": [
+        "media and entertainment"
+      ]
+    },
+    {
+      "industry_id": "payments_and_billing",
+      "name": "Payments and billing",
+      "aliases": [
+        "finance and payments",
+        "payments and billing",
+        "payments and commerce"
+      ]
+    },
+    {
+      "industry_id": "productivity_and_work_management",
+      "name": "Productivity and work management",
+      "aliases": [
+        "productivity and knowledge work",
+        "project tracking",
+        "task management",
+        "work management",
+        "workspace software"
+      ]
+    },
+    {
+      "industry_id": "security_and_identity",
+      "name": "Security and identity",
+      "aliases": [
+        "security and identity"
+      ]
+    },
+    {
+      "industry_id": "signature_workflow",
+      "name": "Signature workflow",
+      "aliases": [
+        "signature workflow"
+      ]
+    },
+    {
+      "industry_id": "social_media_and_community",
+      "name": "Social media and community",
+      "aliases": [
+        "communications and social products"
+      ]
+    },
+    {
+      "industry_id": "telecommunications",
+      "name": "Telecommunications",
+      "aliases": [
+        "telecom"
+      ]
+    },
+    {
+      "industry_id": "travel_and_mobility",
+      "name": "Travel and mobility",
+      "aliases": [
+        "travel and mobility"
+      ]
+    },
+    {
+      "industry_id": "utilities_and_energy",
+      "name": "Utilities and energy",
+      "aliases": [
+        "utilities and energy"
+      ]
+    },
+    {
+      "industry_id": "website_building_and_hosting",
+      "name": "Website building and hosting",
+      "aliases": [
+        "site building",
+        "site building and hosting"
+      ]
+    }
+  ],
+  "authority_effect": "none"
+}

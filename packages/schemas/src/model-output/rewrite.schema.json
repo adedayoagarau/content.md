@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.rewrite-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "approval_status": { "const": "not_requested" },
+    "diffs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_artifact": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "line": { "type": "integer", "minimum": 1 },
+          "column": { "type": "integer", "minimum": 1 },
+          "before": { "type": "string", "maxLength": 10000 },
+          "after": { "type": "string", "minLength": 1, "maxLength": 10000 },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 500 },
+          "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "acceptance_criteria": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 1, "maxItems": 100 },
+          "mutation_status": { "const": "not_applied" }
+        },
+        "required": ["source_artifact", "line", "column", "before", "after", "rationale", "evidence_refs", "pattern_refs", "acceptance_criteria", "mutation_status"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 500 },
+    "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "tradeoffs": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "verification_plan": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 1, "maxItems": 100 },
+    "rollback_plan": { "type": "string", "minLength": 1, "maxLength": 4000 }
+  },
+  "required": ["authority_effect", "approval_status", "diffs", "evidence_refs", "pattern_refs", "uncertainty", "tradeoffs", "verification_plan", "rollback_plan"],
+  "additionalProperties": false
+}

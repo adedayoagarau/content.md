@@ -67,6 +67,8 @@ describe("repository adoption", () => {
       "PRODUCT.md": "# Existing product\nAuthoritative facts require owner review.\n",
       "DESIGN.md": "# Existing design\nDo not replace this file.\n",
       "AGENTS.md": "# Existing agent instructions\nKeep this exact text.\n",
+      "CLAUDE.md": "# Existing Claude instructions\nKeep this exact text.\n",
+      "CODEX.md": "# Existing Codex instructions\nKeep this exact text.\n",
     };
     await Promise.all(
       Object.entries(existingFiles).map(([path, content]) =>
@@ -78,10 +80,22 @@ describe("repository adoption", () => {
 
     expect(plan.existing_sources.map((source) => source.relative_path)).toEqual([
       "AGENTS.md",
+      "CLAUDE.md",
+      "CODEX.md",
       "DESIGN.md",
       "PRODUCT.md",
     ]);
     expect(plan.existing_sources.every((source) => source.authority_effect === "none")).toBe(true);
+    expect(plan.bridge_previews.map((preview) => preview.host)).toEqual([
+      "agents",
+      "claude",
+      "codex",
+    ]);
+    expect(plan.bridge_previews.every((preview) => preview.status === "change_proposed")).toBe(true);
+    for (const preview of plan.bridge_previews) {
+      expect(preview.after_content).toContain(existingFiles[preview.relative_path as keyof typeof existingFiles]);
+      expect(preview.after_content).toContain("<!-- contentmd:bridge:start -->");
+    }
 
     await executeAdoption(plan, {
       approval_id: "approval.fixture.adoption.002",
@@ -93,6 +107,42 @@ describe("repository adoption", () => {
     for (const [path, content] of Object.entries(existingFiles)) {
       expect(await readFile(join(root, path), "utf8")).toBe(content);
     }
+  });
+
+  it("discovers lower-case product and host contracts and previews bridges at their real paths", async () => {
+    const root = await projectDirectory("contentmd-lower-case-host-contracts");
+    const existingFiles = {
+      "product.md": "# Product context\nFacts retain product ownership.\n",
+      "claude.md": "# Claude guidance\nKeep this exact text.\n",
+      "codex.md": "# Codex guidance\nKeep this exact text.\n",
+    };
+    await Promise.all(
+      Object.entries(existingFiles).map(([path, content]) =>
+        writeFile(join(root, path), content, "utf8"),
+      ),
+    );
+
+    const plan = await planAdoption(root);
+
+    expect(plan.existing_sources.map((source) => source.relative_path)).toEqual([
+      "claude.md",
+      "codex.md",
+      "product.md",
+    ]);
+    expect(plan.bridge_previews.map((preview) => ({
+      host: preview.host,
+      relative_path: preview.relative_path,
+    }))).toEqual([
+      { host: "claude", relative_path: "claude.md" },
+      { host: "codex", relative_path: "codex.md" },
+    ]);
+    for (const preview of plan.bridge_previews) {
+      expect(preview.after_content).toContain(
+        existingFiles[preview.relative_path as keyof typeof existingFiles],
+      );
+      expect(preview.after_content).toContain("Run /contentmd (or `contentmd doctor` in a terminal)");
+    }
+    expect(plan.governance_bootstrap.external_publication).toBe("denied");
   });
 
   it("rejects stale or widened local write approvals", async () => {

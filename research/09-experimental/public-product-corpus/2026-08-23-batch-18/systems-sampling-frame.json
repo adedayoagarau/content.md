@@ -1,0 +1,6 @@
+[
+  {"company":"Stripe","product_system":"Stripe pricing","surface":"pricing"},
+  {"company":"Zoom","product_system":"Zoom Workplace pricing","surface":"pricing"},
+  {"company":"Shopify","product_system":"Shopify pricing","surface":"pricing"},
+  {"company":"Stripe","product_system":"Stripe Billing","surface":"billing"}
+]

@@ -1,0 +1,9 @@
+[
+  {"company":"Notion","product_system":"Notion pricing","surface":"pricing"},
+  {"company":"Linear","product_system":"Linear pricing","surface":"pricing"},
+  {"company":"Atlassian","product_system":"Jira pricing","surface":"pricing"},
+  {"company":"Slack","product_system":"Slack pricing","surface":"pricing"},
+  {"company":"Dropbox","product_system":"Dropbox Basic","surface":"landing"},
+  {"company":"Zoom","product_system":"Zoom Workplace pricing","surface":"pricing"},
+  {"company":"Miro","product_system":"Miro pricing","surface":"pricing"}
+]

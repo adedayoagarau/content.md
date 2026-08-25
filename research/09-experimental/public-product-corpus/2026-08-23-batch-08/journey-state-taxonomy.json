@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing or first public touchpoint",
+  "core task/commitment": "status checking, help, or plan review",
+  "pending/progress": "application tracking, order status, or verification",
+  "success": "ready to proceed or confirmation of next step",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "support or access-control related moments"
+}

@@ -1,0 +1,14 @@
+[
+  {"company":"Revolut","product_system":"Revolut banking","industry":"banking and investing","pages":["https://www.revolut.com/","https://www.revolut.com/en-US/"]},
+  {"company":"Monzo","product_system":"Monzo bank account","industry":"banking and investing","pages":["https://monzo.com/","https://monzo.com/current-account/personal"]},
+  {"company":"Airbnb","product_system":"Airbnb hosting","industry":"travel and mobility","pages":["https://www.airbnb.com/host/homes","https://www.airbnb.com/help/article/1189"]},
+  {"company":"Duolingo","product_system":"Duolingo learning","industry":"education","pages":["https://www.duolingo.com/","https://www.duolingo.com/courses"]},
+  {"company":"Canva","product_system":"Canva design suite","industry":"creative/design software","pages":["https://www.canva.com/","https://www.canva.com/pro/"]},
+  {"company":"Cloudflare","product_system":"Cloudflare platform","industry":"security and identity","pages":["https://www.cloudflare.com/","https://www.cloudflare.com/plans/"]},
+  {"company":"Mailchimp","product_system":"Mailchimp marketing","industry":"communications and social products","pages":["https://mailchimp.com/","https://mailchimp.com/pricing/marketing/"]},
+  {"company":"1Password","product_system":"1Password security","industry":"security and identity","pages":["https://1password.com/","https://1password.com/personal-family-security"]},
+  {"company":"Okta","product_system":"Okta identity","industry":"security and identity","pages":["https://www.okta.com/","https://login.okta.com/"]},
+  {"company":"LinkedIn","product_system":"LinkedIn professional network","industry":"communications and social products","pages":["https://www.linkedin.com/","https://www.linkedin.com/login"]},
+  {"company":"Coursera","product_system":"Coursera learning","industry":"education","pages":["https://www.coursera.org/","https://www.coursera.org/login"]},
+  {"company":"ChatGPT","product_system":"ChatGPT assistant","industry":"AI assistants and AI-enabled products","pages":["https://chatgpt.com/","https://chatgpt.com/overview/"]}
+]

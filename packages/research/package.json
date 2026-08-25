@@ -7,6 +7,7 @@
   "scripts": { "test": "vitest run", "build": "tsc -b" },
   "dependencies": {
     "@contentmd/core": "workspace:*",
+    "@contentmd/governance": "workspace:*",
     "@contentmd/schemas": "workspace:*"
   }
 }

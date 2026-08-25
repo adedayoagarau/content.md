@@ -1,0 +1,14 @@
+[
+  {"company":"GOV.UK","product_system":"Passport service","industry":"government/public services","pages":["https://www.gov.uk/apply-renew-passport","https://www.gov.uk/check-british-citizenship"]},
+  {"company":"NHS","product_system":"NHS website and 111","industry":"healthcare and wellbeing","pages":["https://www.nhs.uk/","https://111.nhs.uk/"]},
+  {"company":"GitHub","product_system":"GitHub account access","industry":"enterprise and developer tools","pages":["https://github.com/login","https://github.com/signup"]},
+  {"company":"Atlassian","product_system":"Atlassian Design System","industry":"productivity and collaboration","pages":["https://atlassian.design/","https://atlassian.design/components"]},
+  {"company":"Stripe","product_system":"Stripe pricing","industry":"finance and payments","pages":["https://stripe.com/","https://stripe.com/pricing"]},
+  {"company":"PayPal","product_system":"PayPal consumer entry","industry":"finance and payments","pages":["https://www.paypal.com/"]},
+  {"company":"Shopify","product_system":"Shopify commerce entry","industry":"commerce and marketplaces","pages":["https://www.shopify.com/"]},
+  {"company":"Canva","product_system":"Canva entry","industry":"creative/design software","pages":["https://www.canva.com/"]},
+  {"company":"Figma","product_system":"Figma community entry","industry":"creative/design software","pages":["https://www.figma.com/"]},
+  {"company":"Slack","product_system":"Slack entry","industry":"productivity and collaboration","pages":["https://slack.com/"]},
+  {"company":"Airbnb","product_system":"Airbnb travel entry","industry":"travel and mobility","pages":["https://www.airbnb.com/"]},
+  {"company":"Uber","product_system":"Uber entry","industry":"travel and mobility","pages":["https://www.uber.com/"]}
+]

@@ -1,6 +1,14 @@
 import { sha256Canonical } from "@contentmd/core";
-import { createModelRequest, type ModelProvider, type ModelResponse } from "@contentmd/model-provider-sdk";
+import type {
+  GovernedModelResponse,
+  ModelExecutionPort,
+} from "@contentmd/model-provider-sdk";
 import type { ContentDraftProposal } from "./draft.js";
+import {
+  executeCompiledWriterPrompt,
+  type WriterModelExecutionContext,
+} from "./prompt-compiler.js";
+import { compileRewritePrompt } from "./prompts/rewrite.js";
 import type { ContentStrategyProposal, ModelTrace } from "./strategy.js";
 import type { ContentTaskPacket } from "./task-packet.js";
 
@@ -8,6 +16,7 @@ export interface RewriteRequest {
   task: ContentTaskPacket;
   strategy: ContentStrategyProposal;
   draft: ContentDraftProposal;
+  execution: WriterModelExecutionContext;
 }
 
 export interface ProposedContentDiff {
@@ -50,7 +59,7 @@ function stringArray(value: unknown, field: string): string[] {
   return value as string[];
 }
 
-function trace(response: ModelResponse): ModelTrace {
+function trace(response: GovernedModelResponse): ModelTrace {
   return {
     request_id: response.request_id,
     input_digest: response.input_digest,
@@ -102,33 +111,33 @@ function parseRewriteOutput(value: unknown): Omit<ContentRewriteProposal, "schem
 }
 
 export async function proposeContentRewrite(
-  provider: ModelProvider,
+  provider: ModelExecutionPort,
   input: RewriteRequest,
 ): Promise<ContentRewriteProposal> {
-  const request = createModelRequest({
+  const prompt = compileRewritePrompt({
+    project_id: input.execution.project_id,
+    task: input.task,
+    strategy: input.strategy,
+    draft: input.draft,
+    context_packet_ref: input.execution.context_packet_ref,
+    retrieval_snapshot_ref: input.execution.retrieval_snapshot_ref,
+    context_items: input.execution.context_items,
+  });
+  const executed = await executeCompiledWriterPrompt(provider, {
     operation: "rewrite",
     output_schema_id: "contentmd.rewrite-model-output/0.1.0",
-    input: {
-      task: input.task,
-      strategy: input.strategy,
-      draft: input.draft,
-      constraints: {
-        proposal_only: true,
-        approval_status: "not_requested",
-        mutation_status: "not_applied",
-        exact_coordinate_required: true,
-      },
-    },
+    task: input.task,
+    prompt,
+    execution: input.execution,
   });
-  const response = await provider.generate(request);
-  const output = parseRewriteOutput(response.output);
+  const output = parseRewriteOutput(executed.output);
   return {
     schema_version: "contentmd.rewrite-proposal/0.1.0",
-    proposal_id: `proposal.rewrite.${sha256Canonical({ request, output }).slice(0, 24)}`,
+    proposal_id: `proposal.rewrite.${sha256Canonical({ request: executed.request, output }).slice(0, 24)}`,
     lifecycle_state: "proposed",
     authority_effect: "none",
     approval_status: "not_requested",
     ...output,
-    model_trace: trace(response),
+    model_trace: trace(executed.response),
   };
 }

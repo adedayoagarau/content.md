@@ -1,0 +1,10 @@
+[
+  {"company":"GOV.UK","product_system":"Passport service","industry":"government/public services","pages":["https://www.gov.uk/track-passport-application","https://www.gov.uk/get-a-passport-urgently","https://www.gov.uk/browse/abroad/passports","https://www.gov.uk/how-the-post-office-check-and-send-service-works"]},
+  {"company":"CDC","product_system":"CDC public health","industry":"healthcare and wellbeing","pages":["https://www.cdc.gov/index.html","https://www.cdc.gov/vaccines/index.html","https://www.cdc.gov/about/cdc/index.html","https://www.cdc.gov/media/index.html"]},
+  {"company":"Coinbase","product_system":"Coinbase crypto","industry":"finance and investing","pages":["https://www.coinbase.com/","https://help.coinbase.com/","https://www.coinbase.com/blog","https://investor.coinbase.com/home/default.aspx"]},
+  {"company":"Klarna","product_system":"Klarna payments","industry":"finance and payments","pages":["https://www.klarna.com/us/","https://www.klarna.com/us/klarna-app/","https://www.klarna.com/us/payments/"]},
+  {"company":"DoorDash","product_system":"DoorDash tracking","industry":"telecom, utilities, delivery, and logistics","pages":["https://track.doordash.com/","https://help.doordash.com/en-us/consumers/article/customer-where-is-my-order","https://developer.doordash.com/docs/drive/how_to/configure_sms/","https://www.doordash.com/"]},
+  {"company":"Spotify","product_system":"Spotify Premium","industry":"media and entertainment","pages":["https://www.spotify.com/us/premium/","https://www.spotify.com/in-en/premium/","https://www.spotify.com/ca-en/premium/"]},
+  {"company":"Mayo Clinic","product_system":"Mayo Clinic health","industry":"healthcare and wellbeing","pages":["https://www.mayoclinic.org/"]},
+  {"company":"Wise","product_system":"Wise money transfer","industry":"banking and investing","pages":["https://wise.com/"]}
+]

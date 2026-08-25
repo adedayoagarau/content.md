@@ -1,0 +1,2 @@
+{"term":"Delivery or Pickup","company":"Instacart","product_system":"Instacart grocery delivery","evidence_source":"src-instacart-food-category-63","role":"fulfillment-route pairing","rights_boundary":"evidence only"}
+{"term":"deals","company":"Instacart","product_system":"Instacart grocery delivery","evidence_source":"src-instacart-deals-63","role":"local-offer discovery","rights_boundary":"evidence only"}

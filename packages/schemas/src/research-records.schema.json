@@ -1,0 +1,466 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/research-records/0.1.0",
+  "title": "content.md public research records",
+  "oneOf": [
+    { "$ref": "#/$defs/researchAcquisitionManifestRecord" },
+    { "$ref": "#/$defs/researchSourceRecord" },
+    { "$ref": "#/$defs/browserObservationRecord" },
+    { "$ref": "#/$defs/researchClaimRecord" },
+    { "$ref": "#/$defs/observedExpressionEvidenceRecord" },
+    { "$ref": "#/$defs/patternDispositionRecord" },
+    { "$ref": "#/$defs/researchBatchManifestRecord" }
+  ],
+  "$defs": {
+    "recordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "schema_id", "schema_version", "content_digest"],
+      "properties": {
+        "record_id": { "type": "string", "minLength": 1 },
+        "schema_id": { "type": "string", "minLength": 1 },
+        "schema_version": { "const": "0.1.0" },
+        "content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "recordRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/recordRef" },
+      "uniqueItems": true
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "strings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "researchAcquisitionManifestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.research-acquisition-manifest" },
+            "payload": { "$ref": "#/$defs/researchAcquisitionManifestPayload" }
+          }
+        }
+      ]
+    },
+    "researchAcquisitionManifestPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "batch_id",
+        "systems",
+        "source_classes",
+        "state_slots",
+        "page_limit",
+        "observation_limit",
+        "allowed_origins",
+        "allowed_routes",
+        "profile_isolation_state",
+        "runtime_verification_ref",
+        "external_research_grant_ref",
+        "capture_plan",
+        "teardown_plan",
+        "no_login",
+        "no_account_creation",
+        "no_purchase",
+        "no_personal_data",
+        "no_submission",
+        "no_mutation",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.research-acquisition-manifest/0.1.0" },
+        "batch_id": { "type": "string", "minLength": 1 },
+        "systems": { "$ref": "#/$defs/nonEmptyStrings" },
+        "source_classes": { "$ref": "#/$defs/nonEmptyStrings" },
+        "state_slots": { "$ref": "#/$defs/nonEmptyStrings" },
+        "page_limit": { "type": "integer", "minimum": 1 },
+        "observation_limit": { "type": "integer", "minimum": 1 },
+        "allowed_origins": { "$ref": "#/$defs/nonEmptyStrings" },
+        "allowed_routes": { "$ref": "#/$defs/nonEmptyStrings" },
+        "profile_isolation_state": {
+          "enum": [
+            "established_signed_out_ephemeral",
+            "not_established",
+            "expired",
+            "revoked"
+          ]
+        },
+        "runtime_verification_ref": {
+          "oneOf": [{ "$ref": "#/$defs/recordRef" }, { "type": "null" }]
+        },
+        "external_research_grant_ref": {
+          "oneOf": [{ "$ref": "#/$defs/recordRef" }, { "type": "null" }]
+        },
+        "capture_plan": { "$ref": "#/$defs/nonEmptyStrings" },
+        "teardown_plan": { "$ref": "#/$defs/nonEmptyStrings" },
+        "no_login": { "const": true },
+        "no_account_creation": { "const": true },
+        "no_purchase": { "const": true },
+        "no_personal_data": { "const": true },
+        "no_submission": { "const": true },
+        "no_mutation": { "const": true },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "researchSourceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.research-source-record" },
+            "payload": { "$ref": "#/$defs/researchSourcePayload" }
+          }
+        }
+      ]
+    },
+    "researchSourcePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "requested_url",
+        "canonical_url",
+        "effective_url",
+        "publisher",
+        "title",
+        "accessed_at",
+        "access_method",
+        "body_retention_state",
+        "retained_content_digest",
+        "access_disposition",
+        "rights_disposition",
+        "profile_isolation_state",
+        "privacy_class",
+        "redirects",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.research-source/0.1.0" },
+        "requested_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "canonical_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "effective_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "publisher": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "accessed_at": { "type": "string", "format": "date-time" },
+        "access_method": {
+          "enum": [
+            "operator_directed_computer_use_public_web",
+            "official_document_download",
+            "recorded_fixture"
+          ]
+        },
+        "body_retention_state": { "enum": ["body_not_retained", "bounded_span_retained"] },
+        "retained_content_digest": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "access_disposition": {
+          "enum": ["public_unauthenticated", "not_observed", "access_blocked"]
+        },
+        "rights_disposition": {
+          "enum": [
+            "rights_unknown_evidence_only",
+            "licensed_evidence_only",
+            "public_domain_evidence_only",
+            "project_owned"
+          ]
+        },
+        "profile_isolation_state": {
+          "enum": ["established_signed_out_ephemeral", "not_established"]
+        },
+        "privacy_class": { "enum": ["public_no_personal_data"] },
+        "redirects": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri", "pattern": "^https://" }
+        },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "body_retention_state": { "const": "body_not_retained" } } },
+          "then": { "properties": { "retained_content_digest": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "body_retention_state": { "const": "bounded_span_retained" } } },
+          "then": {
+            "properties": {
+              "retained_content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      ]
+    },
+    "browserObservationRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.browser-observation-record" },
+            "payload": { "$ref": "#/$defs/browserObservationPayload" }
+          }
+        }
+      ]
+    },
+    "browserObservationPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "source_ref",
+        "surface",
+        "journey",
+        "state",
+        "channel",
+        "locale",
+        "locator",
+        "capture_ref",
+        "bounded_span",
+        "bounded_span_digest",
+        "availability",
+        "direct_exercise_state",
+        "observation_strength",
+        "evidence_dimensions",
+        "taint_flags",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.browser-observation/0.1.0" },
+        "source_ref": { "$ref": "#/$defs/recordRef" },
+        "surface": { "type": "string", "minLength": 1 },
+        "journey": { "type": "string", "minLength": 1 },
+        "state": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1 },
+        "locale": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 },
+        "capture_ref": {
+          "oneOf": [{ "$ref": "#/$defs/recordRef" }, { "type": "null" }]
+        },
+        "bounded_span": { "type": ["string", "null"], "maxLength": 280 },
+        "bounded_span_digest": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "availability": { "enum": ["observed", "not_observed", "access_blocked"] },
+        "direct_exercise_state": {
+          "enum": ["directly_exercised_synthetic_input", "visible_not_exercised", "not_observed"]
+        },
+        "observation_strength": {
+          "enum": ["direct_visible_observation", "official_example", "not_observed"]
+        },
+        "evidence_dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["behavior", "meaning", "accessibility", "localization", "outcome"],
+          "properties": {
+            "behavior": { "enum": ["observed_direct", "observed_indirect", "not_observed"] },
+            "meaning": {
+              "enum": ["explicit", "inferred_from_visible_context", "not_observed"]
+            },
+            "accessibility": { "enum": ["observed", "not_observed"] },
+            "localization": { "enum": ["observed", "not_observed"] },
+            "outcome": { "enum": ["observed", "not_observed"] }
+          }
+        },
+        "taint_flags": { "$ref": "#/$defs/strings" },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "researchClaimRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.research-claim-record" },
+            "payload": { "$ref": "#/$defs/researchClaimPayload" }
+          }
+        }
+      ]
+    },
+    "researchClaimPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "claim",
+        "source_refs",
+        "observation_refs",
+        "evidence_strength",
+        "uncertainty",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.research-claim/0.1.0" },
+        "claim": { "type": "string", "minLength": 1 },
+        "source_refs": { "$ref": "#/$defs/recordRefs" },
+        "observation_refs": { "$ref": "#/$defs/recordRefs" },
+        "evidence_strength": { "enum": ["direct", "corroborated", "limited"] },
+        "uncertainty": { "enum": ["none", "bounded", "material"] },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "observedExpressionEvidenceRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.observed-expression-evidence-record" },
+            "payload": { "$ref": "#/$defs/observedExpressionEvidencePayload" }
+          }
+        }
+      ]
+    },
+    "observedExpressionEvidencePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "source_ref",
+        "observation_ref",
+        "source_class",
+        "bounded_span",
+        "span_digest",
+        "reuse_disposition",
+        "prompt_eligibility",
+        "training_eligibility",
+        "benchmark_eligibility",
+        "authority_effect",
+        "rights_review_state",
+        "distinctive_expression_fingerprint",
+        "limitations"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.observed-expression-evidence/0.1.0" },
+        "source_ref": { "$ref": "#/$defs/recordRef" },
+        "observation_ref": { "$ref": "#/$defs/recordRef" },
+        "source_class": { "const": "other_product_public" },
+        "bounded_span": { "type": "string", "minLength": 1, "maxLength": 280 },
+        "span_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "reuse_disposition": { "const": "evidence_only" },
+        "prompt_eligibility": { "const": "never" },
+        "training_eligibility": { "const": "never" },
+        "benchmark_eligibility": { "const": false },
+        "authority_effect": { "const": "none" },
+        "rights_review_state": { "enum": ["not_established", "reviewed_evidence_only"] },
+        "distinctive_expression_fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "patternDispositionRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.pattern-disposition-record" },
+            "payload": { "$ref": "#/$defs/patternDispositionPayload" }
+          }
+        }
+      ]
+    },
+    "patternDispositionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "pattern_ref",
+        "evidence_refs",
+        "disposition",
+        "prompt_eligibility",
+        "training_eligibility",
+        "benchmark_eligibility",
+        "rights_review_state",
+        "similarity_review_state",
+        "reviewer_refs",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.pattern-disposition/0.1.0" },
+        "pattern_ref": { "$ref": "#/$defs/recordRef" },
+        "evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "disposition": { "enum": ["evidence_only", "candidate_abstraction", "rejected"] },
+        "prompt_eligibility": { "enum": ["never", "review_required"] },
+        "training_eligibility": { "enum": ["never", "project_owned_application_only"] },
+        "benchmark_eligibility": { "const": false },
+        "rights_review_state": { "enum": ["not_established", "reviewed"] },
+        "similarity_review_state": { "enum": ["not_run", "passed", "failed"] },
+        "reviewer_refs": { "$ref": "#/$defs/recordRefs" },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "researchBatchManifestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.research-batch-manifest" },
+            "payload": { "$ref": "#/$defs/researchBatchManifestPayload" }
+          }
+        }
+      ]
+    },
+    "researchBatchManifestPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "acquisition_manifest_ref",
+        "source_refs",
+        "observation_refs",
+        "claim_refs",
+        "expression_evidence_refs",
+        "pattern_disposition_refs",
+        "counts",
+        "protocol_conformance",
+        "controlled_corpus_eligibility",
+        "limitations",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.research-batch-manifest/0.1.0" },
+        "acquisition_manifest_ref": { "$ref": "#/$defs/recordRef" },
+        "source_refs": { "$ref": "#/$defs/recordRefs" },
+        "observation_refs": { "$ref": "#/$defs/recordRefs" },
+        "claim_refs": { "$ref": "#/$defs/recordRefs" },
+        "expression_evidence_refs": { "$ref": "#/$defs/recordRefs" },
+        "pattern_disposition_refs": { "$ref": "#/$defs/recordRefs" },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sources", "observations", "claims", "expressions", "patterns"],
+          "properties": {
+            "sources": { "type": "integer", "minimum": 0 },
+            "observations": { "type": "integer", "minimum": 0 },
+            "claims": { "type": "integer", "minimum": 0 },
+            "expressions": { "type": "integer", "minimum": 0 },
+            "patterns": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "protocol_conformance": {
+          "enum": ["conforming", "nonconforming_profile", "nonconforming_authorization"]
+        },
+        "controlled_corpus_eligibility": { "type": "boolean" },
+        "limitations": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    }
+  }
+}

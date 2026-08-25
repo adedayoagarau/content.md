@@ -6,5 +6,9 @@
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../core" }, { "path": "../research" }]
+  "references": [
+    { "path": "../core" },
+    { "path": "../research" },
+    { "path": "../schemas" }
+  ]
 }

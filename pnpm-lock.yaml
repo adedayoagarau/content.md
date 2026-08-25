@@ -48,6 +48,18 @@ importers:
         specifier: workspace:*
         version: link:../governance
 
+  packages/adapter-web:
+    dependencies:
+      '@contentmd/core':
+        specifier: workspace:*
+        version: link:../core
+      '@contentmd/research':
+        specifier: workspace:*
+        version: link:../research
+      '@contentmd/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+
   packages/agent:
     dependencies:
       '@contentmd/adapter-filesystem':
@@ -77,6 +89,12 @@ importers:
       '@contentmd/research':
         specifier: workspace:*
         version: link:../research
+      '@contentmd/runtime-local':
+        specifier: workspace:*
+        version: link:../runtime-local
+      '@contentmd/runtime-sdk':
+        specifier: workspace:*
+        version: link:../runtime-sdk
       '@contentmd/schemas':
         specifier: workspace:*
         version: link:../schemas
@@ -95,6 +113,9 @@ importers:
       '@contentmd/core':
         specifier: workspace:*
         version: link:../core
+      '@contentmd/model-provider-openai':
+        specifier: workspace:*
+        version: link:../model-provider-openai
       commander:
         specifier: 15.0.0
         version: 15.0.0
@@ -113,6 +134,9 @@ importers:
       '@contentmd/research':
         specifier: workspace:*
         version: link:../research
+      '@contentmd/schemas':
+        specifier: workspace:*
+        version: link:../schemas
     devDependencies:
       '@contentmd/adapter-filesystem':
         specifier: workspace:*
@@ -126,6 +150,9 @@ importers:
       '@contentmd/memory':
         specifier: workspace:*
         version: link:../memory
+      '@contentmd/model-provider-sdk':
+        specifier: workspace:*
+        version: link:../model-provider-sdk
 
   packages/learning:
     dependencies:
@@ -138,6 +165,12 @@ importers:
       '@contentmd/memory':
         specifier: workspace:*
         version: link:../memory
+      '@contentmd/runtime-sdk':
+        specifier: workspace:*
+        version: link:../runtime-sdk
+      typescript-compiler:
+        specifier: npm:typescript@5.9.3
+        version: typescript@5.9.3
     devDependencies:
       '@contentmd/schemas':
         specifier: workspace:*
@@ -149,13 +182,22 @@ importers:
         specifier: workspace:*
         version: link:../core
 
-  packages/model-provider-sdk:
+  packages/model-provider-openai:
     dependencies:
       '@contentmd/core':
         specifier: workspace:*
         version: link:../core
+      '@contentmd/governance':
+        specifier: workspace:*
+        version: link:../governance
+      '@contentmd/memory':
+        specifier: workspace:*
+        version: link:../memory
+      '@contentmd/model-provider-sdk':
+        specifier: workspace:*
+        version: link:../model-provider-sdk
 
-  packages/research:
+  packages/model-provider-sdk:
     dependencies:
       '@contentmd/core':
         specifier: workspace:*
@@ -163,6 +205,42 @@ importers:
       '@contentmd/schemas':
         specifier: workspace:*
         version: link:../schemas
+
+  packages/research:
+    dependencies:
+      '@contentmd/core':
+        specifier: workspace:*
+        version: link:../core
+      '@contentmd/governance':
+        specifier: workspace:*
+        version: link:../governance
+      '@contentmd/schemas':
+        specifier: workspace:*
+        version: link:../schemas
+
+  packages/runtime-local:
+    dependencies:
+      '@contentmd/core':
+        specifier: workspace:*
+        version: link:../core
+      '@contentmd/governance':
+        specifier: workspace:*
+        version: link:../governance
+      '@contentmd/memory':
+        specifier: workspace:*
+        version: link:../memory
+      '@contentmd/runtime-sdk':
+        specifier: workspace:*
+        version: link:../runtime-sdk
+
+  packages/runtime-sdk:
+    dependencies:
+      '@contentmd/core':
+        specifier: workspace:*
+        version: link:../core
+      '@contentmd/governance':
+        specifier: workspace:*
+        version: link:../governance
 
   packages/schemas:
     dependencies:

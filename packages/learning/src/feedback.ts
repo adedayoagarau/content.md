@@ -9,13 +9,18 @@ import {
   type ProvenanceRef,
   type RecordScope,
 } from "@contentmd/core";
-import type { AppendOnlyEventStore, StoredEvent } from "@contentmd/memory";
+import type { StoredEvent } from "@contentmd/memory";
+import type {
+  AuthorizedAppendOnlyEventStore,
+  AuthorizedRuntimeOperation,
+} from "@contentmd/runtime-sdk";
 import type { ArtifactRef, DigestRef } from "./records.js";
 
 export type ContentDecisionStatus = "accepted" | "edited" | "rejected" | "abstained";
 
 export interface ContentDecisionInput {
-  store: AppendOnlyEventStore;
+  store: AuthorizedAppendOnlyEventStore;
+  operation: AuthorizedRuntimeOperation;
   stream_id: string;
   expected_head_digest: string | null;
   decision_id: string;
@@ -123,7 +128,7 @@ export async function recordContentDecision(
     data_class: input.data_class,
     payload,
     expected_head_digest: input.expected_head_digest,
-  });
+  }, input.operation);
   return { ...payload, sequence: event.sequence, event_digest: event.event_digest };
 }
 

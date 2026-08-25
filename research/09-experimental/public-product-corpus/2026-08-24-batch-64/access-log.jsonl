@@ -1,0 +1,5 @@
+{"source_id":"src-mercado-libre-country-entry-64","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public country-selection page; no regional marketplace entered"}
+{"source_id":"src-ikea-us-entry-64","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public storefront; no product, cart, purchase, location, or account action"}
+{"source_id":"src-grab-sg-entry-64","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public product page; no booking, location, app, or account action"}
+{"source_id":"src-nubank-br-entry-64","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public banking page; no application, account, financial, or form action"}
+{"source_id":"src-gojek-id-entry-64","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public product page; no booking, location, app, or account action"}

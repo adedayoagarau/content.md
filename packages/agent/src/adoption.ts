@@ -1,6 +1,7 @@
 import {
   access,
   mkdir,
+  readdir,
   readFile,
   realpath,
   unlink,
@@ -17,6 +18,11 @@ import {
   type ExistingSource,
   type OpenQuestion,
 } from "./content-contract.js";
+import {
+  planHostBridge,
+  type HostBridgePreview,
+  type HostKind,
+} from "./host-bridge.js";
 
 export interface ProposedFile {
   relative_path: string;
@@ -37,7 +43,7 @@ export interface AdoptionPlan {
   project_root: string;
   existing_sources: ExistingSource[];
   creates: ProposedFile[];
-  bridge_previews: [];
+  bridge_previews: HostBridgePreview[];
   unresolved_questions: OpenQuestion[];
   governance_bootstrap: GovernanceBootstrap;
   plan_digest: string;
@@ -64,8 +70,25 @@ const detectedSourceTypes: Record<string, string> = {
   "DESIGN.md": "design_document",
   "GEMINI.md": "agent_instructions",
   "PRODUCT.md": "product_document",
+  "agents.md": "agent_instructions",
+  "claude.md": "agent_instructions",
+  "codex.md": "agent_instructions",
+  "gemini.md": "agent_instructions",
+  "product.md": "product_document",
   "package.json": "package_manifest",
   ".github/copilot-instructions.md": "agent_instructions",
+};
+
+const hostKindByPath: Partial<Record<keyof typeof detectedSourceTypes, HostKind>> = {
+  "AGENTS.md": "agents",
+  "CLAUDE.md": "claude",
+  "CODEX.md": "codex",
+  "GEMINI.md": "gemini",
+  "agents.md": "agents",
+  "claude.md": "claude",
+  "codex.md": "codex",
+  "gemini.md": "gemini",
+  ".github/copilot-instructions.md": "copilot",
 };
 
 async function exists(path: string): Promise<boolean> {
@@ -75,6 +98,25 @@ async function exists(path: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+async function discoverExistingSourcePaths(root: string): Promise<Set<string>> {
+  const rootEntries = new Set(await readdir(root));
+  let githubEntries = new Set<string>();
+  try {
+    githubEntries = new Set(await readdir(join(root, ".github")));
+  } catch {
+    // A missing .github directory is not a source-discovery failure.
+  }
+  const discovered = new Set<string>();
+  for (const relativePath of Object.keys(detectedSourceTypes)) {
+    if (relativePath === ".github/copilot-instructions.md") {
+      if (githubEntries.has("copilot-instructions.md")) discovered.add(relativePath);
+    } else if (rootEntries.has(relativePath)) {
+      discovered.add(relativePath);
+    }
+  }
+  return discovered;
 }
 
 function proposedFile(relativePath: string, content: string): ProposedFile {
@@ -92,8 +134,9 @@ function adoptionPlanDigest(plan: Omit<AdoptionPlan, "plan_digest">): string {
 export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
   const root = await realpath(projectRoot);
   const existingSources: ExistingSource[] = [];
+  const discoveredPaths = await discoverExistingSourcePaths(root);
   for (const relativePath of Object.keys(detectedSourceTypes).sort()) {
-    if (await exists(join(root, relativePath))) {
+    if (discoveredPaths.has(relativePath)) {
       existingSources.push({
         relative_path: relativePath,
         source_type: detectedSourceTypes[relativePath] ?? "unknown",
@@ -109,6 +152,13 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
     external_publication: "denied",
     owner_status: "not_established",
   };
+  const bridgePreviews: HostBridgePreview[] = [];
+  for (const source of existingSources) {
+    const host = hostKindByPath[source.relative_path as keyof typeof detectedSourceTypes];
+    if (host !== undefined) {
+      bridgePreviews.push(await planHostBridge(root, host, source.relative_path));
+    }
+  }
   const unresolvedQuestions = defaultOpenQuestions();
   const alreadyAdopted = await exists(join(root, "CONTENT.md"));
   const creates = alreadyAdopted
@@ -150,7 +200,7 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
     project_root: root,
     existing_sources: existingSources,
     creates,
-    bridge_previews: [],
+    bridge_previews: bridgePreviews,
     unresolved_questions: unresolvedQuestions,
     governance_bootstrap: governanceBootstrap,
   };

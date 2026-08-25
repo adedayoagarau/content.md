@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.evaluation-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "verdict": { "enum": ["pass", "fail", "unknown"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rule_id": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "severity": { "enum": ["low", "medium", "high", "critical"] },
+          "outcome_class": { "enum": ["hard", "advisory"] },
+          "dimension": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "uncertainty": { "enum": ["none", "bounded", "material"] },
+          "suggested_next_action": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "automatic_rewrite_allowed": { "type": "boolean" }
+        },
+        "required": ["rule_id", "severity", "outcome_class", "dimension", "rationale", "evidence_refs", "uncertainty", "suggested_next_action", "automatic_rewrite_allowed"],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 500
+    },
+    "strengths": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "risks": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "recommendation": { "enum": ["proceed_to_human_review", "revise", "hold_for_evidence", "reject"] }
+  },
+  "required": ["authority_effect", "verdict", "findings", "strengths", "risks", "recommendation"],
+  "additionalProperties": false
+}

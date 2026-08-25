@@ -61,10 +61,101 @@ function canonicalize(value: unknown, path: string, ancestors: Set<object>): str
   }
 }
 
+function streamCanonical(
+  value: unknown,
+  path: string,
+  ancestors: Set<object>,
+  write: (chunk: string) => void,
+): void {
+  if (value === null) {
+    write("null");
+    return;
+  }
+
+  if (typeof value === "string" || typeof value === "boolean") {
+    write(JSON.stringify(value));
+    return;
+  }
+
+  if (typeof value === "number") {
+    if (!Number.isFinite(value)) fail(path, "numbers must be finite");
+    write(JSON.stringify(Object.is(value, -0) ? 0 : value));
+    return;
+  }
+
+  if (typeof value !== "object") {
+    fail(path, `unsupported ${typeof value} value`);
+  }
+
+  if (ancestors.has(value)) {
+    throw new TypeError(`Canonical JSON cycle detected at ${path}`);
+  }
+
+  ancestors.add(value);
+  try {
+    if (Array.isArray(value)) {
+      write("[");
+      value.forEach((item, index) => {
+        if (index > 0) write(",");
+        streamCanonical(item, `${path}[${index}]`, ancestors, write);
+      });
+      write("]");
+      return;
+    }
+
+    const prototype = Object.getPrototypeOf(value);
+    if (prototype !== Object.prototype && prototype !== null) {
+      fail(path, "objects must be plain records");
+    }
+
+    const ownKeys = Reflect.ownKeys(value);
+    if (ownKeys.some((key) => typeof key !== "string")) {
+      fail(path, "symbol keys are not supported");
+    }
+
+    const keys = (ownKeys as string[]).sort((left, right) => left.localeCompare(right, "en"));
+    write("{");
+    keys.forEach((key, index) => {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key);
+      if (!descriptor?.enumerable || !("value" in descriptor)) {
+        fail(`${path}.${key}`, "properties must be enumerable data properties");
+      }
+      if (index > 0) write(",");
+      write(JSON.stringify(key));
+      write(":");
+      streamCanonical(descriptor.value, `${path}.${key}`, ancestors, write);
+    });
+    write("}");
+  } finally {
+    ancestors.delete(value);
+  }
+}
+
 export function canonicalJson(value: unknown): string {
   return `${canonicalize(value, "$", new Set())}\n`;
 }
 
 export function sha256Canonical(value: unknown): string {
-  return createHash("sha256").update(canonicalJson(value), "utf8").digest("hex");
+  const hash = createHash("sha256");
+  let buffered = "";
+  const write = (chunk: string): void => {
+    if (buffered.length + chunk.length <= 65_536) {
+      buffered += chunk;
+      return;
+    }
+    if (buffered.length > 0) {
+      hash.update(buffered, "utf8");
+      buffered = "";
+    }
+    if (chunk.length > 65_536) {
+      hash.update(chunk, "utf8");
+    } else {
+      buffered = chunk;
+    }
+  };
+
+  streamCanonical(value, "$", new Set(), write);
+  write("\n");
+  if (buffered.length > 0) hash.update(buffered, "utf8");
+  return hash.digest("hex");
 }

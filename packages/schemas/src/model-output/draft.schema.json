@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.draft-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "alternatives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "purpose": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "original_text": { "type": ["string", "null"], "maxLength": 10000 },
+          "proposed_text": { "type": "string", "minLength": 1, "maxLength": 10000 },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "occurrence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 500 },
+          "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+          "uncertainty": { "type": "string", "minLength": 1, "maxLength": 4000 }
+        },
+        "required": ["purpose", "original_text", "proposed_text", "rationale", "occurrence_refs", "evidence_refs", "pattern_refs", "uncertainty"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "message_hierarchy": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 1000 }, "minItems": 1, "maxItems": 100 },
+    "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 500 },
+    "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+    "prohibited_claims_omitted": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "tradeoffs": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 }
+  },
+  "required": ["authority_effect", "alternatives", "message_hierarchy", "evidence_refs", "pattern_refs", "prohibited_claims_omitted", "uncertainty", "tradeoffs"],
+  "additionalProperties": false
+}

@@ -6,5 +6,9 @@
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../core" }, { "path": "../memory" }]
+  "references": [
+    { "path": "../core" },
+    { "path": "../memory" },
+    { "path": "../model-provider-sdk" }
+  ]
 }

@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing or first product exposure",
+  "core task/commitment": "plan review, login, or environment setup",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready, confirmation, or continuation CTA",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "support or access-constraint moments"
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/model-training-statistics/0.1.0",
+  "title": "content.md deterministic pairwise model-training statistics",
+  "allOf": [
+    { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+    {
+      "type": "object",
+      "properties": {
+        "schema_id": { "const": "contentmd.model-training-statistics-record" },
+        "schema_version": { "const": "0.1.0" },
+        "record_version": { "const": 1 },
+        "lifecycle_state": { "const": "active" },
+        "provenance": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": { "$ref": "https://content.md/schemas/base-record/0.1.0#/$defs/provenanceRef" }
+        },
+        "payload": { "$ref": "#/$defs/modelTrainingStatisticsPayload" }
+      }
+    }
+  ],
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "binary64Hex": { "type": "string", "pattern": "^[a-f0-9]{16}$" },
+    "digestRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "schema_id", "schema_version", "content_digest"],
+      "properties": {
+        "record_id": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$" },
+        "schema_id": { "type": "string", "minLength": 1 },
+        "schema_version": { "const": "0.1.0" },
+        "content_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "artifact_version", "artifact_digest"],
+      "properties": {
+        "artifact_id": { "type": "string", "minLength": 1 },
+        "artifact_version": { "const": "0.1.0" },
+        "artifact_digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "rankingErrorCode": {
+      "enum": [
+        "ranking_input_shape_invalid",
+        "ranking_official_mode_not_supported",
+        "ranking_digest_invalid",
+        "ranking_reference_invalid",
+        "ranking_objective_mismatch",
+        "ranking_mode_mismatch",
+        "ranking_scope_mismatch",
+        "learning_data_not_authorized",
+        "ranking_source_quarantined",
+        "learning_dataset_insufficient",
+        "ranking_dataset_state_invalid",
+        "ranking_test_state_invalid",
+        "ranking_feature_profile_mismatch",
+        "ranking_feature_order_invalid",
+        "ranking_runtime_profile_unsupported",
+        "ranking_code_manifest_invalid",
+        "ranking_non_finite",
+        "ranking_training_invalid",
+        "ranking_training_nonconverged",
+        "ranking_model_invalid",
+        "ranking_model_quarantined",
+        "ranking_candidate_ineligible"
+      ]
+    },
+    "modelTrainingStatisticsPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "record_mode",
+        "ranking_objective",
+        "candidate_kind",
+        "schema_digest",
+        "dataset_ref",
+        "feature_profile_ref",
+        "purpose",
+        "training_input_digest",
+        "code_digest",
+        "runtime_profile_ref",
+        "pair_count",
+        "feature_count",
+        "iterations_completed",
+        "convergence_streak",
+        "converged",
+        "initial_loss_bits",
+        "final_loss_bits",
+        "coefficient_set_digest",
+        "statistics_state",
+        "invalid_stage",
+        "error_code",
+        "authority_effect"
+      ],
+      "properties": {
+        "contract_version": { "const": "contentmd.model-training-statistics/0.1.0" },
+        "record_mode": { "const": "development_fixture" },
+        "ranking_objective": { "const": "expression_preference" },
+        "candidate_kind": { "const": "expression" },
+        "schema_digest": { "$ref": "#/$defs/digest" },
+        "dataset_ref": { "$ref": "#/$defs/digestRef" },
+        "feature_profile_ref": { "$ref": "#/$defs/digestRef" },
+        "purpose": { "enum": ["golden_conformance", "diagnostic", "candidate"] },
+        "training_input_digest": { "$ref": "#/$defs/digest" },
+        "code_digest": { "$ref": "#/$defs/digest" },
+        "runtime_profile_ref": { "$ref": "#/$defs/artifactRef" },
+        "pair_count": { "type": "integer", "minimum": 1 },
+        "feature_count": { "const": 21 },
+        "iterations_completed": { "type": "integer", "minimum": 0, "maximum": 2000 },
+        "convergence_streak": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "converged": { "type": "boolean" },
+        "initial_loss_bits": { "anyOf": [{ "$ref": "#/$defs/binary64Hex" }, { "type": "null" }] },
+        "final_loss_bits": { "anyOf": [{ "$ref": "#/$defs/binary64Hex" }, { "type": "null" }] },
+        "coefficient_set_digest": { "anyOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "statistics_state": { "enum": ["completed", "nonconverged", "invalid"] },
+        "invalid_stage": {
+          "enum": ["input_numeric", "standardization", "initial_loss", "gradient_update", "updated_loss", null]
+        },
+        "error_code": { "anyOf": [{ "$ref": "#/$defs/rankingErrorCode" }, { "type": "null" }] },
+        "authority_effect": { "const": "none" }
+      }
+    }
+  }
+}

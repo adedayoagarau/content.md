@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.strategy-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "value_proposition": {
+      "type": "object",
+      "properties": {
+        "headline": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "explanation": { "type": "string", "minLength": 1, "maxLength": 4000 },
+        "fact_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 100 }
+      },
+      "required": ["headline", "explanation", "fact_refs"],
+      "additionalProperties": false
+    },
+    "message_hierarchy": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "priority": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "purpose": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "guidance": { "type": "string", "minLength": 1, "maxLength": 4000 }
+        },
+        "required": ["priority", "purpose", "guidance"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "navigation_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "destination": { "type": "string", "minLength": 1, "maxLength": 1000 },
+          "preferred_label": { "type": "string", "minLength": 1, "maxLength": 500 },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 }
+        },
+        "required": ["destination", "preferred_label", "rationale"],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "prohibited_claim_handling": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "disposition": { "enum": ["remove", "hold_for_evidence"] },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 }
+        },
+        "required": ["claim", "disposition", "rationale"],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 500 },
+    "pattern_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 },
+    "tradeoffs": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 }
+  },
+  "required": ["authority_effect", "value_proposition", "message_hierarchy", "navigation_recommendations", "prohibited_claim_handling", "evidence_refs", "pattern_refs", "uncertainty", "tradeoffs"],
+  "additionalProperties": false
+}

@@ -145,7 +145,11 @@ async function runCli(projectRoot, verificationRoot, networkGuard, args, accepte
   } catch {
     throw new Error(`cli_non_json:${args.join(" ")}:${result.stdout}:${result.stderr}`);
   }
-  invariant(accepted.includes(result.code), `cli.${args.join(".")}.exit`, `exit ${result.code}; accepted ${accepted.join(",")}`);
+  invariant(
+    accepted.includes(result.code),
+    `cli.${args.join(".")}.exit`,
+    `exit ${result.code}; accepted ${accepted.join(",")}; findings ${canonical(parsed.findings ?? [])}`,
+  );
   invariant(parsed.exit_code === result.code, `cli.${args.join(".")}.envelope`, "process and envelope exit codes match");
   invariant(parsed.schema_version === "contentmd.command-result/0.1.0", `cli.${args.join(".")}.schema`, "stable command envelope");
   return parsed;
@@ -155,11 +159,60 @@ async function verifyPackageInventory(verificationRoot) {
   const rootManifest = JSON.parse(await readFile(join(workspaceRoot, "package.json"), "utf8"));
   invariant(rootManifest.packageManager === "pnpm@11.9.0", "inventory.package-manager", "pnpm is exactly pinned");
   invariant(rootManifest.engines?.node === ">=24.14.0 <25", "inventory.node-range", "Node runtime range is exact");
+  invariant(
+    rootManifest.scripts?.["generate:learning-fixtures"] === "node --import tsx scripts/generate-learning-fixtures.mts",
+    "inventory.learning-fixture-generator",
+    "deterministic learning-fixture generator is exposed",
+  );
+  invariant(
+    rootManifest.scripts?.["verify:learning"] === "node scripts/verify-learning.mjs",
+    "inventory.learning-verifier",
+    "independent learning verifier is exposed",
+  );
+  for (const relativePath of [
+    "scripts/generate-learning-fixtures.mts",
+    "scripts/verify-learning.mjs",
+    "fixtures/learning-ranking/preferences.jsonl",
+    "fixtures/learning-ranking/leakage-groups.jsonl",
+    "fixtures/learning-ranking/dataset-manifest.json",
+    "fixtures/learning-ranking/feature-profile.json",
+    "fixtures/learning-ranking/shadow-plan.json",
+  ]) {
+    const artifact = await stat(join(workspaceRoot, relativePath));
+    invariant(artifact.isFile() && artifact.size > 0, `inventory.learning-release.${relativePath}`, "release artifact is present and nonempty");
+  }
   const packageDirectories = (await readdir(join(workspaceRoot, "packages"), { withFileTypes: true }))
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort();
-  invariant(packageDirectories.length === 13, "inventory.package-count", `found ${packageDirectories.length} packages`);
+  const requiredPackageDirectories = [
+    "adapter-filesystem",
+    "adapter-sdk",
+    "agent",
+    "cli",
+    "core",
+    "evaluation",
+    "governance",
+    "learning",
+    "memory",
+    "model-provider-openai",
+    "model-provider-sdk",
+    "research",
+    "schemas",
+    "writer",
+  ];
+  invariant(
+    packageDirectories.length >= requiredPackageDirectories.length,
+    "inventory.package-count",
+    `found ${packageDirectories.length} packages`,
+  );
+  for (const directory of requiredPackageDirectories) {
+    invariant(
+      packageDirectories.includes(directory),
+      `inventory.required-package.${directory}`,
+      "required retained package is present",
+    );
+  }
   for (const directory of packageDirectories) {
     const manifest = JSON.parse(await readFile(join(workspaceRoot, "packages", directory, "package.json"), "utf8"));
     invariant(manifest.version === "0.1.0", `inventory.${directory}.version`, "package version is 0.1.0");
@@ -184,15 +237,33 @@ async function verifyPackageInventory(verificationRoot) {
       join(installRoot, "packages", directory, "package.json"),
     );
   }
-  const cleanInstall = await run("pnpm", [
+  const modulesMetadata = await readFile(join(workspaceRoot, "node_modules/.modules.yaml"), "utf8");
+  const activeStoreMatch = modulesMetadata.match(/^\s*["']?storeDir["']?:\s*["']([^"']+)["']\s*,?\s*$/mu);
+  invariant(activeStoreMatch !== null, "inventory.offline-store", "active pnpm store is recorded");
+  const activeStoreVersionRoot = await realpath(activeStoreMatch[1]);
+  const activeStoreRoot = dirname(activeStoreVersionRoot);
+  const pnpmCli = resolve(dirname(process.execPath), "../node_modules/pnpm/bin/pnpm.mjs");
+  const pnpmVersion = await run(process.execPath, [pnpmCli, "--version"]);
+  invariant(
+    pnpmVersion.code === 0 && pnpmVersion.stdout.trim() === "11.9.0",
+    "inventory.pnpm-runtime",
+    pnpmVersion.stderr.trim() || pnpmVersion.stdout.trim() || "pinned pnpm CLI unavailable",
+  );
+  const cleanInstall = await run(process.execPath, [pnpmCli,
     "install",
     "--frozen-lockfile",
+    "--trust-lockfile",
+    "--frozen-store",
     "--ignore-scripts",
-    "--prefer-offline",
+    "--offline",
     "--store-dir",
-    join(verificationRoot, "pnpm-store"),
+    activeStoreRoot,
   ], { cwd: installRoot });
-  invariant(cleanInstall.code === 0, "inventory.clean-install", cleanInstall.stderr.trim() || "clean frozen-lockfile install passed");
+  invariant(
+    cleanInstall.code === 0,
+    "inventory.clean-install",
+    cleanInstall.stderr.trim() || cleanInstall.stdout.trim() || "clean frozen-lockfile install passed",
+  );
   return { package_count: packageDirectories.length, package_manager: rootManifest.packageManager };
 }
 
@@ -229,6 +300,7 @@ async function verifySchemaClosure() {
 
 function decisionInput() {
   return {
+    expected_head_digest: null,
     decision_id: "decision.fixture.accepted.verifier",
     status: "accepted",
     actor_ref: "actor.fixture-independent-verifier",
@@ -242,6 +314,195 @@ function decisionInput() {
     project_id: "project.beacon-checkout-lab-fixture",
     occurred_at: "2026-08-20T18:00:00.000Z",
     data_class: "project_feedback",
+  };
+}
+
+async function runtimeDecisionAuthority(decision) {
+  const { sha256Canonical: runtimeSha256Canonical } = await import(pathToFileURL(join(
+    workspaceRoot,
+    "packages/core/dist/index.js",
+  )).href);
+  const {
+    eventStoreEffectClaims,
+    finalizeGovernedRuntimeAuthorizationRecord,
+  } = await import(pathToFileURL(join(
+    workspaceRoot,
+    "packages/runtime-local/dist/index.js",
+  )).href);
+  const digest = "f".repeat(64);
+  const binding = {
+    contract_version: "contentmd.runtime-binding/0.1.0",
+    binding_id: `runtime.binding.${decision.project_id}`,
+    binding_version: 1,
+    project_id: decision.project_id,
+    status: "active",
+    proposal_ref: "runtime.proposal.fixture",
+    proposal_digest: digest,
+    decision_ref: "runtime.binding-decision.fixture",
+    decision_digest: digest,
+    descriptor_ref: "runtime.descriptor.local",
+    descriptor_digest: digest,
+    integration_mode: "sidecar",
+    canonical_replica: { runtime_id: "runtime.local", data_location_id: "runtime.local.canonical" },
+    interface_bindings: [],
+    consistency_model: "single_writer_strong",
+    transaction_boundary: "sqlite_immediate_transaction",
+    idempotency_behavior: "event_id_plus_digest",
+    retry_behavior: "explicit_authorized_only",
+    ambiguous_outcome_behavior: "read_before_retry",
+    identity_provider: "runtime.local.identity",
+    authentication_provider: "runtime.local.authentication",
+    secret_resolver: "runtime.local.environment",
+    data_locations: [{ location_id: "runtime.local.canonical", data_class: "runtime-metadata", role: "canonical_replica" }],
+    retention: { mode: "policy_bound", policy_ref: "policy.runtime.retention" },
+    encryption: { at_rest: "platform-filesystem", in_transit: "not_applicable" },
+    telemetry: { mode: "minimized", data_classes: ["runtime-metadata"] },
+    health_checks: ["runtime.node", "runtime.sqlite"],
+    cleanup: { mode: "explicit_authorized" },
+    export: { mode: "canonical_verified" },
+    adapter_digests: [{ adapter_id: "runtime.local", adapter_digest: digest }],
+    conformance_receipts: [{ record_id: "runtime.conformance.fixture", record_version: 1, content_digest: digest }],
+    issued_at: "2026-08-23T12:00:00.000Z",
+    predecessor_binding_digest: null,
+  };
+  const streamId = `decision-stream.${decision.project_id}`;
+  const command = {
+    event_id: `event.${decision.decision_id}`,
+    stream_id: streamId,
+    event_type: "content_decision_recorded",
+    occurred_at: decision.occurred_at,
+    actor_ref: decision.actor_ref,
+    data_class: decision.data_class,
+    payload: {
+      schema_version: "contentmd.content-decision/0.1.0",
+      decision_id: decision.decision_id,
+      status: decision.status,
+      actor_ref: decision.actor_ref,
+      actor_role: decision.actor_role,
+      rationale: decision.rationale,
+      proposal_ref: decision.proposal_ref,
+      selected_expression: decision.selected_expression,
+      edited_expression: decision.edited_expression,
+      evidence_reviewed: [...new Set(decision.evidence_reviewed)].sort(),
+      scope: decision.scope,
+      project_id: decision.project_id,
+      occurred_at: decision.occurred_at,
+      mutation_approval_effect: "none",
+    },
+    expected_head_digest: decision.expected_head_digest,
+  };
+  const operationInputs = [
+    {
+      action: "runtime.event-store.open",
+      resources: [{ resource_id: binding.binding_id, content_digest: null }],
+      effect_input: { binding_id: binding.binding_id },
+    },
+    {
+      action: "runtime.event.head",
+      resources: [{ resource_id: streamId, content_digest: null }],
+      effect_input: { stream_id: streamId },
+    },
+    {
+      action: "runtime.event.append",
+      resources: [{ resource_id: streamId, content_digest: decision.expected_head_digest }],
+      effect_input: command,
+    },
+    {
+      action: "runtime.event-store.close",
+      resources: [{ resource_id: binding.binding_id, content_digest: null }],
+      effect_input: { binding_id: binding.binding_id },
+    },
+  ];
+  const authorizationRecords = operationInputs.map((operation, index) => {
+    const ordinal = index + 1;
+    const limits = eventStoreEffectClaims(
+      operation.action,
+      operation.resources,
+      [decision.data_class],
+      operation.effect_input,
+      1,
+    );
+    const policy = {
+      policy_id: `policy.runtime.local-decision.${ordinal}`,
+      policy_version: 1,
+      status: "current",
+      effective_at: "2020-01-01T00:00:00.000Z",
+      expires_at: "2099-01-01T00:00:00.000Z",
+      allowed_actions: [operation.action],
+      denied_actions: [],
+      review_actions: [],
+      allowed_adapters: ["runtime.local"],
+      denied_adapters: [],
+      permitted_data_classes: [decision.data_class],
+      denied_data_classes: [],
+      permitted_egress: ["none"],
+      max_limits: limits,
+      human_approval_actions: [],
+      required_control_types: [],
+    };
+    const grant = {
+      grant_id: `grant.runtime.local-decision.${ordinal}`,
+      principal_ref: "principal.fixture-reviewer",
+      workload_ref: "workload.contentmd",
+      action: operation.action,
+      adapter_id: "runtime.local",
+      resource_scope: operation.resources.map((resource) => resource.resource_id),
+      data_classes: [decision.data_class],
+      egress: "none",
+      max_limits: limits,
+      issued_at: "2020-01-01T00:00:00.000Z",
+      expires_at: "2099-01-01T00:00:00.000Z",
+      revocation_state: "current",
+    };
+    const capabilityId = `capability.runtime.local-decision.${ordinal}`;
+    const claims = {
+      capability_id: capabilityId,
+      tenant_ref: "tenant.runtime.fixture",
+      principal_ref: grant.principal_ref,
+      workload_ref: grant.workload_ref,
+      project_ref: decision.project_id,
+      action: operation.action,
+      resources: operation.resources,
+      data_classes: [decision.data_class],
+      policy_refs: [{ record_id: policy.policy_id, record_version: 1, content_digest: runtimeSha256Canonical(policy) }],
+      capability_grant_ref: { record_id: grant.grant_id, record_version: 1, content_digest: runtimeSha256Canonical(grant) },
+      control_refs: [],
+      resource_limits: limits,
+      issued_at: grant.issued_at,
+      expires_at: grant.expires_at,
+      revocation_checkpoint: { stream_id: "stream.governance.fixture", sequence: 8, head_digest: "e".repeat(64) },
+      nonce: `nonce.runtime.local-decision.${ordinal}`,
+      nonce_mode: "single_use",
+      runtime_binding_digest: binding.descriptor_digest,
+      audit_target: { stream_id: "stream.audit.fixture", data_class: "runtime-metadata" },
+    };
+    const authorization = {
+      now: "2026-08-23T12:00:00.000Z",
+      request: {
+        operation_id: capabilityId,
+        intent: "apply",
+        action: operation.action,
+        adapter_id: "runtime.local",
+        resource_scope: operation.resources.map((resource) => resource.resource_id),
+        data_classes: [decision.data_class],
+        egress: "none",
+        requested_limits: limits,
+        approval_class: null,
+        requires_readback: false,
+      },
+      policies: [policy],
+      capability_grant: grant,
+      approval: null,
+      control_dispositions: [],
+      verification_plan_ref: null,
+      reliability_evidence: null,
+    };
+    return finalizeGovernedRuntimeAuthorizationRecord({ authorization, claims });
+  });
+  return {
+    contract_version: "contentmd.local-decision-runtime-authority/0.1.0",
+    runtime_binding: binding,
+    authorization_records: authorizationRecords,
   };
 }
 
@@ -424,7 +685,14 @@ async function verifyCliWorkflow(verificationRoot) {
   );
 
   const decisionPath = join(projectA, ".contentmd-test/decision-verifier.json");
-  await writeFile(decisionPath, `${JSON.stringify(decisionInput(), null, 2)}\n`);
+  const exactDecisionInput = decisionInput();
+  await writeFile(decisionPath, `${JSON.stringify(exactDecisionInput, null, 2)}\n`);
+  const runtimeDecisionAuthorityPath = join(projectA, ".contentmd/governance/runtime-decision-authority.json");
+  await mkdir(dirname(runtimeDecisionAuthorityPath), { recursive: true });
+  await writeFile(
+    runtimeDecisionAuthorityPath,
+    `${JSON.stringify(await runtimeDecisionAuthority(exactDecisionInput), null, 2)}\n`,
+  );
   await runCli(projectA, verificationRoot, networkGuard, ["decision", "record", "--file", decisionPath]);
   const learn = await runCli(projectA, verificationRoot, networkGuard, ["learn"], [20]);
   invariant(learn.data.disposition === "not_authorized", "learning.fail-closed", "CLI does not infer learning permission");
@@ -485,8 +753,16 @@ async function verifyCliWorkflow(verificationRoot) {
 async function main() {
   const startedAt = new Date().toISOString();
   invariant(process.versions.node === "24.14.0", "runtime.node", `running Node ${process.versions.node}`);
-  const build = await run("pnpm", ["build"]);
-  invariant(build.code === 0, "runtime.build", build.stderr.trim() || "compiled JavaScript build passed");
+  const build = await run(process.execPath, [
+    join(workspaceRoot, "node_modules/typescript/bin/tsc"),
+    "-b",
+    "tsconfig.json",
+  ]);
+  invariant(
+    build.code === 0,
+    "runtime.build",
+    build.stderr.trim() || build.stdout.trim() || "compiled JavaScript build passed",
+  );
   const verificationRoot = await realpath(await mkdtemp(join(tmpdir(), "contentmd-foundation-verifier-")));
   try {
     const packageInventory = await verifyPackageInventory(verificationRoot);
@@ -508,6 +784,7 @@ async function main() {
       failures,
       nonclaims: [
         "No live model writing quality was tested.",
+        "No live registry supply-chain policy service was contacted; clean installation used the frozen lock and active content-addressed offline pnpm store.",
         "No browser or desktop research was performed.",
         "No hosted runtime or external connector was exercised.",
         "No real-product safety or user outcome was established.",

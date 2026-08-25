@@ -14,7 +14,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "node scripts/check-package-boundaries.mjs && tsc -b tsconfig.json --pretty false",
-    "verify:foundation": "node scripts/verify-foundation.mjs"
+    "verify:foundation": "node scripts/verify-foundation.mjs",
+    "generate:learning-fixtures": "node --import tsx scripts/generate-learning-fixtures.mts",
+    "verify:learning": "node scripts/verify-learning.mjs",
+    "verify:runtime": "node scripts/verify-portable-runtime.mjs",
+    "verify:voice-research": "node scripts/verify-voice-tone-research.mjs"
   },
   "devDependencies": {
     "@types/node": "26.2.0",

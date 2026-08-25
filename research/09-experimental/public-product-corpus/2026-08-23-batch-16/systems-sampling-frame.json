@@ -1,0 +1,6 @@
+[
+  {"company":"GitHub","product_system":"GitHub Copilot","surface":"pricing"},
+  {"company":"Cloudflare","product_system":"Cloudflare Workers","surface":"pricing"},
+  {"company":"OpenAI","product_system":"OpenAI API pricing","surface":"pricing"},
+  {"company":"Notion","product_system":"Notion pricing","surface":"pricing"}
+]

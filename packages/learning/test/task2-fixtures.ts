@@ -206,12 +206,16 @@ export function proposalRecord() {
 export interface DecisionFixtureOptions {
   status?: "accepted" | "edited" | "rejected" | "abstained";
   selectedSide?: "A" | "B";
+  expressionA?: string;
+  expressionB?: string;
 }
 
 export function decisionAdapterInput(options: DecisionFixtureOptions = {}) {
   const proposal = proposalRecord();
   const status = options.status ?? "accepted";
-  const selectedExpression = options.selectedSide === "B" ? EXPRESSION_B : EXPRESSION_A;
+  const expressionA = options.expressionA ?? EXPRESSION_A;
+  const expressionB = options.expressionB ?? EXPRESSION_B;
+  const selectedExpression = options.selectedSide === "B" ? expressionB : expressionA;
   const payload = {
     schema_version: "contentmd.content-decision/0.1.0" as const,
     decision_id: `decision.task2.${status}.${(options.selectedSide ?? "A").toLowerCase()}`,
@@ -344,6 +348,8 @@ export interface QualificationFixtureOptions {
   observedRequirementsChanged?: boolean;
   observedTaskChanged?: boolean;
   observedContextChanged?: boolean;
+  expressionA?: string;
+  expressionB?: string;
 }
 
 export type AdaptFunction = (
@@ -366,7 +372,9 @@ export function qualificationFixture(
   const status = options.status
     ?? (effectiveOutcome === "tie" ? "rejected" : effectiveOutcome === "abstain" ? "abstained" : "accepted");
   const selectedSide = effectiveOutcome === "B" ? "B" : "A";
-  const adapted = adapt(decisionAdapterInput({ status, selectedSide }));
+  const expressionA = options.expressionA ?? EXPRESSION_A;
+  const expressionB = options.expressionB ?? EXPRESSION_B;
+  const adapted = adapt(decisionAdapterInput({ status, selectedSide, expressionA, expressionB }));
   const proposal = proposalRecord();
 
   const factItem = bareRef("fact.item");
@@ -441,8 +449,8 @@ export function qualificationFixture(
       context_ref: snapshotRef(context),
       content_slot: "primary_action",
       author_refs: [] as ReturnType<typeof bareRef>[],
-      expression: EXPRESSION_A,
-      expression_digest: sha256Utf8(EXPRESSION_A),
+      expression: expressionA,
+      expression_digest: sha256Utf8(expressionA),
     },
     [bareRef("candidate-a.source")],
   );
@@ -454,8 +462,8 @@ export function qualificationFixture(
       context_ref: snapshotRef(context),
       content_slot: "primary_action",
       author_refs: [] as ReturnType<typeof bareRef>[],
-      expression: EXPRESSION_B,
-      expression_digest: sha256Utf8(EXPRESSION_B),
+      expression: expressionB,
+      expression_digest: sha256Utf8(expressionB),
     },
     [bareRef("candidate-b.source")],
   );
@@ -653,7 +661,7 @@ export function qualificationFixture(
     record_mode: "development_fixture" as const,
     evaluation_at: EVALUATION_AT,
     producer: producer("feedback-qualification"),
-    decision_event: decisionAdapterInput({ status, selectedSide }).event,
+    decision_event: decisionAdapterInput({ status, selectedSide, expressionA, expressionB }).event,
     proposal,
     decision: adapted.decision,
     decision_boundary: adapted.boundary,

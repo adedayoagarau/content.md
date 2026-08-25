@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing or first help/troubleshooting screen",
+  "core task/commitment": "support contact, billing help, or setup instruction",
+  "pending/progress": "troubleshooting or mitigation states not strongly separated here",
+  "success": "ready to reconnect, self-serve, or continue",
+  "error/recovery": "technical errors and recovery instructions",
+  "destructive/permission/support": "support-contact and account-recovery moments"
+}

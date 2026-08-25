@@ -1,0 +1,7 @@
+[
+  {"company":"Mercado Libre","product_system":"Mercado Libre marketplace","industry":"commerce and marketplaces","observed_slots":["entry/onboarding: locale selection"],"not_observed_slots":["core task/commitment","pending/progress","success","error/recovery"]},
+  {"company":"IKEA","product_system":"IKEA online shopping","industry":"commerce and marketplaces","observed_slots":["entry/onboarding: market landing"],"not_observed_slots":["core task/commitment","pending/progress","success","error/recovery"]},
+  {"company":"Grab","product_system":"Grab super app","industry":"travel and mobility","observed_slots":["entry/onboarding: service landing"],"not_observed_slots":["core task/commitment","pending/progress","success","error/recovery"]},
+  {"company":"Nubank","product_system":"Nubank digital banking","industry":"banking and investing","observed_slots":["entry/onboarding: brand landing"],"not_observed_slots":["core task/commitment","pending/progress","success","error/recovery"]},
+  {"company":"Gojek","product_system":"Gojek super app","industry":"travel and mobility","observed_slots":["entry/onboarding: service landing"],"not_observed_slots":["core task/commitment","pending/progress","success","error/recovery"]}
+]

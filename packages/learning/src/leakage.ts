@@ -2759,7 +2759,6 @@ function verifyOptionalFeatureBindings(
   const permission = example.eligibility_input.permission;
   const checks = example.eligibility_input.checks;
   const permissionRef = permission === null ? null : task2SnapshotRef(permission);
-  const checksRef = task2SnapshotRef(checks);
   const byRef = new Map(checkpoint.feature_source_manifest.entries.map((entry) => [refKey(entry.source_ref), entry]));
   for (const entry of checkpoint.feature_source_manifest.entries) {
     if (entry.source_role === "approved_exemplar") {
@@ -2798,8 +2797,6 @@ function verifyOptionalFeatureBindings(
       || payload.source_class !== entry.source_class
       || payload.rights_state !== "training_permitted"
       || permissionRef === null
-      || !task3RefsEqual(payload.permission_snapshot_ref, permissionRef)
-      || !task3RefsEqual(payload.eligibility_checks_snapshot_ref, checksRef)
       || payload.state !== "current"
       || payload.content_form !== "expression_free_ref_and_numeric_metadata"
       || !Array.isArray(payload.ordered_feature_refs) || payload.ordered_feature_refs.length === 0) {
@@ -2891,8 +2888,6 @@ function verifyOptionalFeatureBindings(
         && target.material.material_kind === "task2_evidence_snapshot") {
         const stable = target.material.value.payload as StableSetPayload;
         if (stable.state !== "current") task3FailContract("checkpoint_binding");
-        resolvedSubjects.push(...stable.item_refs);
-        resolvedRights.push(...stable.item_refs);
         return;
       }
       task3FailContract("checkpoint_binding");

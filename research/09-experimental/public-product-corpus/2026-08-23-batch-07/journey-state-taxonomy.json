@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing and access entry",
+  "core task/commitment": "plan review, community discovery, or usage billing review",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready states and continuation CTAs",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "login and access-control moments"
+}

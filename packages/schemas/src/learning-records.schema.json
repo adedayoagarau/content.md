@@ -411,7 +411,7 @@
             "hyperparameters": { "$ref": "#/$defs/modelHyperparameters" },
             "feature_order": { "$ref": "#/$defs/stringArray" },
             "standardization": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/standardizationEntry" } },
-            "coefficient_bits": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-f0-9]{16}$" } },
+            "coefficient_bits": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[a-f0-9]{16}$" } },
             "training_statistics_ref": { "$ref": "#/$defs/digestRef" },
             "runtime_profile_ref": { "$ref": "#/$defs/artifactRef" },
             "model_artifact_digest": { "$ref": "#/$defs/digest" },
@@ -679,9 +679,9 @@
         { "$ref": "#/$defs/noAuthority" },
         {
           "type": "object",
-          "required": ["manifest_ref", "product_id", "domain", "channel", "locale", "task_type", "family_id", "task_packet_ref", "context_evidence_ref", "semantic_lineage_ids", "template_ids", "leakage_group_ids", "required_facts", "required_actions", "acceptance_criteria", "ownership", "generation_config_ref", "task_state"],
+          "required": ["benchmark_id", "product_id", "domain", "channel", "locale", "task_type", "family_id", "task_packet_ref", "context_evidence_ref", "semantic_lineage_ids", "template_ids", "leakage_group_ids", "required_facts", "required_actions", "acceptance_criteria", "ownership", "generation_config_ref", "task_state"],
           "properties": {
-            "manifest_ref": { "$ref": "#/$defs/digestRef" },
+            "benchmark_id": { "const": "LIL-WRITE-001" },
             "product_id": { "$ref": "#/$defs/nonEmptyString" },
             "domain": { "$ref": "#/$defs/nonEmptyString" },
             "channel": { "enum": ["web", "notification"] },

@@ -1,0 +1,6 @@
+[
+  {"company":"eBay","product_system":"eBay marketplace","industry":"commerce and marketplaces","observed_slots":["entry/onboarding","core task/commitment","success"],"not_observed_slots":["pending/progress","error/recovery","destructive/permission/support"]},
+  {"company":"Instacart","product_system":"Instacart grocery delivery","industry":"delivery and logistics","observed_slots":["entry/onboarding","core task/commitment","success"],"not_observed_slots":["pending/progress","error/recovery","destructive/permission/support"]},
+  {"company":"T-Mobile","product_system":"T-Mobile wireless","industry":"telecom","observed_slots":["entry/onboarding","core task/commitment","success"],"not_observed_slots":["pending/progress","error/recovery","destructive/permission/support"]},
+  {"company":"Octopus Energy","product_system":"Octopus Energy US","industry":"utilities and energy","observed_slots":["entry/onboarding","core task/commitment","success"],"not_observed_slots":["pending/progress","error/recovery","destructive/permission/support"]}
+]

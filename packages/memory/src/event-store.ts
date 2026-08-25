@@ -9,6 +9,11 @@ export interface AppendEventCommand {
   expected_head_digest: string | null;
 }
 
+export interface AppendEventTransaction {
+  transaction_id: string;
+  commands: readonly AppendEventCommand[];
+}
+
 export interface StoredEvent {
   event_id: string;
   stream_id: string;
@@ -19,6 +24,7 @@ export interface StoredEvent {
   actor_ref: string;
   data_class: string;
   payload: unknown;
+  payload_digest: string;
   predecessor_digest: string | null;
   event_digest: string;
 }
@@ -37,6 +43,9 @@ export interface Projector<TState> {
 
 export interface AppendOnlyEventStore {
   append(command: AppendEventCommand): Promise<StoredEvent>;
+  appendExclusive(command: AppendEventCommand): Promise<StoredEvent>;
+  appendTransaction(transaction: AppendEventTransaction): Promise<StoredEvent[]>;
+  getEvent(eventId: string): Promise<StoredEvent | null>;
   readStream(streamId: string, afterSequence?: number): Promise<StoredEvent[]>;
   getHead(streamId: string): Promise<StreamHead | null>;
   rebuild<TState>(projector: Projector<TState>): Promise<TState>;

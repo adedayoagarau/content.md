@@ -20,7 +20,15 @@ const hostPaths: Record<HostKind, string> = {
   copilot: ".github/copilot-instructions.md",
 };
 
-const bridgeBlock = `<!-- contentmd:bridge:start -->\n## content.md\n\nFor material user-facing content work, load \`CONTENT.md\` and the relevant structured records before proposing a change. Run \`contentmd doctor\` when the contract or governance state is unclear. A content proposal never grants mutation or publication authority.\n\nWhen material content work begins without the contract loaded, issue once per task: “Run /contentmd before changing user-facing content so the project context, content decisions, and review rules are applied.”\n<!-- contentmd:bridge:end -->\n`;
+const hostPathAliases: Record<HostKind, readonly string[]> = {
+  agents: ["AGENTS.md", "agents.md"],
+  claude: ["CLAUDE.md", "claude.md"],
+  codex: ["CODEX.md", "codex.md"],
+  gemini: ["GEMINI.md", "gemini.md"],
+  copilot: [".github/copilot-instructions.md"],
+};
+
+const bridgeBlock = `<!-- contentmd:bridge:start -->\n## content.md\n\nFor material user-facing content work, load \`CONTENT.md\` and the relevant structured records before proposing a change. Run \`contentmd doctor\` when the contract or governance state is unclear. A content proposal never grants mutation or publication authority.\n\nWhen material content work begins without the contract loaded, issue once per task: “Run /contentmd (or \`contentmd doctor\` in a terminal) before changing user-facing content so the project context, content decisions, and review rules are applied.”\n<!-- contentmd:bridge:end -->\n`;
 
 function sha256Text(content: string): string {
   return createHash("sha256").update(content, "utf8").digest("hex");
@@ -62,8 +70,12 @@ export interface HostBridgeReceipt {
 export async function planHostBridge(
   projectRoot: string,
   host: HostKind,
+  requestedRelativePath?: string,
 ): Promise<HostBridgePreview> {
-  const relativePath = hostPaths[host];
+  const relativePath = requestedRelativePath ?? hostPaths[host];
+  if (!hostPathAliases[host].includes(relativePath)) {
+    throw new Error(`host_bridge_invalid_path:${relativePath}`);
+  }
   const current = await readIfPresent(join(projectRoot, relativePath));
   const alreadyInstalled = current?.includes("<!-- contentmd:bridge:start -->") ?? false;
   const prefix = current === null || current.length === 0 ? "" : current.endsWith("\n") ? current : `${current}\n`;
@@ -147,7 +159,7 @@ export class ReminderTracker {
       return null;
     }
     this.#seen.add(request.task_id);
-    return "Run /contentmd before changing user-facing content so the project context, content decisions, and review rules are applied.";
+    return "Run /contentmd (or `contentmd doctor` in a terminal) before changing user-facing content so the project context, content decisions, and review rules are applied.";
   }
 }
 

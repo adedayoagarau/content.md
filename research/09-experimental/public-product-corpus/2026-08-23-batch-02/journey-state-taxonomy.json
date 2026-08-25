@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing, awareness, or first-entry screens",
+  "core task/commitment": "plan review, feature review, signup pitch, or authentication",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "next-step confirmation or ready state",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "not strongly observed in this batch"
+}

@@ -1,0 +1,25 @@
+{
+  "slots": [
+    "headline",
+    "body",
+    "label",
+    "button",
+    "helper",
+    "error",
+    "status",
+    "disclosure",
+    "navigation",
+    "confirmation",
+    "recovery"
+  ],
+  "required_fields": [
+    "source_url",
+    "canonical_url",
+    "accessed_at",
+    "content_slot_type",
+    "exact_wording_span",
+    "journey",
+    "event_state",
+    "rights_boundary"
+  ]
+}

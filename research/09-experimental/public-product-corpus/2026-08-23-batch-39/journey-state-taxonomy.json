@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing pages and initial plan comparison",
+  "core task/commitment": "pricing details, AI features, free-vs-paid limits, portals, or add-on rules",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready states, start actions, and continuation prompts",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "support and account-management moments"
+}

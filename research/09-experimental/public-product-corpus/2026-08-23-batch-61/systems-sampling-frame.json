@@ -1,0 +1,6 @@
+[
+  {"company":"Visa","product_system":"Visa consumer payments","industry":"finance and payments","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Aflac","product_system":"Aflac supplemental insurance","industry":"insurance","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"edX","product_system":"edX learning","industry":"education","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Pinterest","product_system":"Pinterest discovery","industry":"communications and social products","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]}
+]

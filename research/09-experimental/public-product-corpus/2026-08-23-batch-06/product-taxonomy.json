@@ -1,0 +1,10 @@
+{
+  "commerce and marketplaces": ["orders", "payment terms"],
+  "productivity and collaboration": ["project progress", "status updates", "export", "support"],
+  "telecom, utilities, delivery, and logistics": ["disconnect", "cancel", "support"],
+  "creative/design software": ["cancel", "refund", "help"],
+  "travel and mobility": ["extranet", "partner hub"],
+  "enterprise and developer tools": ["codespaces", "docs"],
+  "security and identity": ["support", "recovery"],
+  "banking and investing": ["account management"]
+}

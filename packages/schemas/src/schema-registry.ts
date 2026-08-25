@@ -7,6 +7,10 @@ import baseRecordSchema from "./base-record.schema.json" with { type: "json" };
 import contentRecordsSchema from "./content-records.schema.json" with { type: "json" };
 import governanceRecordsSchema from "./governance-records.schema.json" with { type: "json" };
 import learningRecordsSchema from "./learning-records.schema.json" with { type: "json" };
+import modelTrainingStatisticsSchema from "./model-training-statistics.schema.json" with { type: "json" };
+import researchRecordsSchema from "./research-records.schema.json" with { type: "json" };
+import runtimeRecordsSchema from "./runtime-records.schema.json" with { type: "json" };
+import voiceToneRecordsSchema from "./voice-tone-records.schema.json" with { type: "json" };
 import workflowRecordsSchema from "./workflow-records.schema.json" with { type: "json" };
 
 export const SCHEMA_IDS = {
@@ -40,6 +44,7 @@ export const SCHEMA_IDS = {
   learningDatasetManifest: "contentmd.learning-dataset-manifest",
   featureProfile: "contentmd.feature-profile",
   rankingModel: "contentmd.ranking-model-record",
+  modelTrainingStatistics: "contentmd.model-training-statistics-record",
   learningEvaluationRun: "contentmd.learning-evaluation-run",
   shadowEvaluationPlan: "contentmd.shadow-evaluation-plan",
   shadowBinding: "contentmd.shadow-binding-record",
@@ -54,6 +59,27 @@ export const SCHEMA_IDS = {
   benchmarkReview: "contentmd.benchmark-review-record",
   benchmarkAttempt: "contentmd.benchmark-attempt-record",
   writingBenchmarkRun: "contentmd.writing-benchmark-run",
+  researchAcquisitionManifest: "contentmd.research-acquisition-manifest",
+  researchSource: "contentmd.research-source-record",
+  browserObservation: "contentmd.browser-observation-record",
+  researchClaim: "contentmd.research-claim-record",
+  observedExpressionEvidence: "contentmd.observed-expression-evidence-record",
+  patternDisposition: "contentmd.pattern-disposition-record",
+  researchBatchManifest: "contentmd.research-batch-manifest",
+  organizationVoiceProfileCandidate: "contentmd.organization-voice-profile-candidate",
+  voicePrinciple: "contentmd.voice-principle-record",
+  tonePolicy: "contentmd.tone-policy-record",
+  domainOverlay: "contentmd.domain-overlay-record",
+  voiceToneFeatureDefinition: "contentmd.voice-tone-feature-definition",
+  voiceToneMapSnapshot: "contentmd.voice-tone-map-snapshot",
+  voiceToneGraphSnapshot: "contentmd.voice-tone-graph-snapshot",
+  runtimeDetectionReport: "contentmd.runtime-detection-report",
+  runtimeProposal: "contentmd.runtime-proposal-record",
+  runtimeBindingDecision: "contentmd.runtime-binding-decision-record",
+  runtimeBinding: "contentmd.runtime-binding-record",
+  runtimeConformanceReceipt: "contentmd.runtime-conformance-receipt",
+  replicaArtifactManifest: "contentmd.replica-artifact-manifest",
+  replicaAck: "contentmd.replica-ack-record",
 } as const;
 
 export type SchemaId = (typeof SCHEMA_IDS)[keyof typeof SCHEMA_IDS];
@@ -173,11 +199,26 @@ ajv.addFormat("date-time", {
   type: "string",
   validate: validateRfc3339DateTime,
 });
+ajv.addFormat("uri", {
+  type: "string",
+  validate(value: string): boolean {
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol.length > 1 && parsed.hostname.length > 0;
+    } catch {
+      return false;
+    }
+  },
+});
 ajv.addSchema(baseRecordSchema);
 const contentValidator = ajv.compile(contentRecordsSchema);
 const workflowValidator = ajv.compile(workflowRecordsSchema);
 const governanceValidator = ajv.compile(governanceRecordsSchema);
 ajv.addSchema(learningRecordsSchema);
+const modelTrainingStatisticsValidator = ajv.compile(modelTrainingStatisticsSchema);
+const researchValidator = ajv.compile(researchRecordsSchema);
+const runtimeValidator = ajv.compile(runtimeRecordsSchema);
+const voiceToneValidator = ajv.compile(voiceToneRecordsSchema);
 
 const learningSchemaDefs = {
   [SCHEMA_IDS.generationRun]: "generationRunRecord",
@@ -249,11 +290,45 @@ const learningSchemaIds = new Set<SchemaId>(
   Object.keys(learningSchemaDefs) as SchemaId[],
 );
 
+const researchSchemaIds = new Set<SchemaId>([
+  SCHEMA_IDS.researchAcquisitionManifest,
+  SCHEMA_IDS.researchSource,
+  SCHEMA_IDS.browserObservation,
+  SCHEMA_IDS.researchClaim,
+  SCHEMA_IDS.observedExpressionEvidence,
+  SCHEMA_IDS.patternDisposition,
+  SCHEMA_IDS.researchBatchManifest,
+]);
+
+const voiceToneSchemaIds = new Set<SchemaId>([
+  SCHEMA_IDS.organizationVoiceProfileCandidate,
+  SCHEMA_IDS.voicePrinciple,
+  SCHEMA_IDS.tonePolicy,
+  SCHEMA_IDS.domainOverlay,
+  SCHEMA_IDS.voiceToneFeatureDefinition,
+  SCHEMA_IDS.voiceToneMapSnapshot,
+  SCHEMA_IDS.voiceToneGraphSnapshot,
+]);
+
+const runtimeSchemaIds = new Set<SchemaId>([
+  SCHEMA_IDS.runtimeDetectionReport,
+  SCHEMA_IDS.runtimeProposal,
+  SCHEMA_IDS.runtimeBindingDecision,
+  SCHEMA_IDS.runtimeBinding,
+  SCHEMA_IDS.runtimeConformanceReceipt,
+  SCHEMA_IDS.replicaArtifactManifest,
+  SCHEMA_IDS.replicaAck,
+]);
+
 function validatorFor(schemaId: SchemaId): ValidateFunction {
   if (contentSchemaIds.has(schemaId)) return contentValidator;
   if (workflowSchemaIds.has(schemaId)) return workflowValidator;
   if (governanceSchemaIds.has(schemaId)) return governanceValidator;
   if (learningSchemaIds.has(schemaId)) return learningValidators.get(schemaId)!;
+  if (schemaId === SCHEMA_IDS.modelTrainingStatistics) return modelTrainingStatisticsValidator;
+  if (researchSchemaIds.has(schemaId)) return researchValidator;
+  if (runtimeSchemaIds.has(schemaId)) return runtimeValidator;
+  if (voiceToneSchemaIds.has(schemaId)) return voiceToneValidator;
   throw new TypeError(`Unknown schema_id: ${schemaId}`);
 }
 
@@ -332,4 +407,8 @@ export const schemaDocuments = Object.freeze({
   workflow: workflowRecordsSchema,
   governance: governanceRecordsSchema,
   learning: learningRecordsSchema,
+  modelTrainingStatistics: modelTrainingStatisticsSchema,
+  research: researchRecordsSchema,
+  runtime: runtimeRecordsSchema,
+  voiceTone: voiceToneRecordsSchema,
 });

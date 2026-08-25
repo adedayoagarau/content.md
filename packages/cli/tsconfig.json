@@ -6,5 +6,9 @@
     "tsBuildInfoFile": "dist/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "references": [{ "path": "../agent" }, { "path": "../core" }]
+  "references": [
+    { "path": "../agent" },
+    { "path": "../core" },
+    { "path": "../model-provider-openai" }
+  ]
 }

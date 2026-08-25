@@ -1,11 +1,20 @@
 import { sha256Canonical } from "@contentmd/core";
-import { createModelRequest, type ModelProvider, type ModelResponse } from "@contentmd/model-provider-sdk";
+import type {
+  GovernedModelResponse,
+  ModelExecutionPort,
+} from "@contentmd/model-provider-sdk";
+import {
+  executeCompiledWriterPrompt,
+  type WriterModelExecutionContext,
+} from "./prompt-compiler.js";
+import { compileDraftPrompt } from "./prompts/draft.js";
 import type { ContentStrategyProposal, ModelTrace } from "./strategy.js";
 import type { ContentTaskPacket } from "./task-packet.js";
 
 export interface DraftRequest {
   task: ContentTaskPacket;
   strategy: ContentStrategyProposal;
+  execution: WriterModelExecutionContext;
 }
 
 export interface ContentAlternative {
@@ -45,7 +54,7 @@ function stringArray(value: unknown, field: string): string[] {
   return value as string[];
 }
 
-function trace(response: ModelResponse): ModelTrace {
+function trace(response: GovernedModelResponse): ModelTrace {
   return {
     request_id: response.request_id,
     input_digest: response.input_digest,
@@ -88,31 +97,31 @@ function parseDraftOutput(value: unknown): Omit<ContentDraftProposal, "schema_ve
 }
 
 export async function proposeContentDraft(
-  provider: ModelProvider,
+  provider: ModelExecutionPort,
   input: DraftRequest,
 ): Promise<ContentDraftProposal> {
-  const request = createModelRequest({
+  const prompt = compileDraftPrompt({
+    project_id: input.execution.project_id,
+    task: input.task,
+    strategy: input.strategy,
+    context_packet_ref: input.execution.context_packet_ref,
+    retrieval_snapshot_ref: input.execution.retrieval_snapshot_ref,
+    context_items: input.execution.context_items,
+  });
+  const executed = await executeCompiledWriterPrompt(provider, {
     operation: "draft",
     output_schema_id: "contentmd.draft-model-output/0.1.0",
-    input: {
-      task: input.task,
-      strategy: input.strategy,
-      constraints: {
-        proposal_only: true,
-        preserve_required_facts: true,
-        omit_prohibited_claims: true,
-        may_apply_change: false,
-      },
-    },
+    task: input.task,
+    prompt,
+    execution: input.execution,
   });
-  const response = await provider.generate(request);
-  const output = parseDraftOutput(response.output);
+  const output = parseDraftOutput(executed.output);
   return {
     schema_version: "contentmd.draft-proposal/0.1.0",
-    proposal_id: `proposal.draft.${sha256Canonical({ request, output }).slice(0, 24)}`,
+    proposal_id: `proposal.draft.${sha256Canonical({ request: executed.request, output }).slice(0, 24)}`,
     lifecycle_state: "proposed",
     authority_effect: "none",
     ...output,
-    model_trace: trace(response),
+    model_trace: trace(executed.response),
   };
 }

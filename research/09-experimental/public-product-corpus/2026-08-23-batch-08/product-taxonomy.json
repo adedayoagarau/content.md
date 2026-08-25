@@ -1,0 +1,9 @@
+{
+  "government/public services": ["passport tracking", "urgent passport"],
+  "healthcare and wellbeing": ["public health", "vaccines", "homepage"],
+  "finance and investing": ["crypto", "help", "blog", "money transfer"],
+  "finance and payments": ["payments", "app", "pay later"],
+  "telecom, utilities, delivery, and logistics": ["tracking"],
+  "media and entertainment": ["premium"],
+  "banking and investing": ["homepage"]
+}

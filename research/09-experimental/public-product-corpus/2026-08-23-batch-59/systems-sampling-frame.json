@@ -1,0 +1,6 @@
+[
+  {"company":"Government of Canada","product_system":"Canada.ca","industry":"government and public services","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Alaska Airlines","product_system":"Alaska Airlines travel","industry":"travel and mobility","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Headspace","product_system":"Headspace wellbeing","industry":"healthcare and wellbeing","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Khan Academy","product_system":"Khan Academy learning","industry":"education","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]}
+]

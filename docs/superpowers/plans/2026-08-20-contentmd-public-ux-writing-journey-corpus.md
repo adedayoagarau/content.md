@@ -10,6 +10,8 @@
 
 **Specs:** [Universal agent architecture](../specs/2026-08-20-contentmd-universal-agent-design.md) and [Live Intelligence and Learning 0.1](../specs/2026-08-20-contentmd-live-intelligence-learning-design.md).
 
+**Governed v0.2 migration:** The versioned experience taxonomy, immutable evidence-supersession ledger, normalized coverage projection, and portable review boundary are specified in [Public-Product Taxonomy and Immutable Evidence-Supersession Architecture](../specs/2026-08-24-contentmd-public-product-taxonomy-supersession-design.md). v0.1 remains a historical diagnostic until the reviewed v0.2 artifacts exist; raw batch bytes remain immutable.
+
 ## Global constraints
 
 1. “Best UX writing” is a research question, not a source attribute. The corpus records publicly inspectable candidate systems; qualified comparative evaluation must establish performance.
@@ -55,19 +57,45 @@ The six state slots are:
 
 The first Computer Use observation is GOV.UK passport application entry, eligibility question, date-of-birth input, and empty-submit validation on 20 August 2026. It is public, unauthenticated, synthetic, directly exercised, profile-isolation-unestablished, and nonconforming for the controlled corpus. It is retained only to design the record contract.
 
-### Expansion VTM-02
+### Expansions VTM-02 and VTM-03
 
-Expansion starts only after the record validator, rights disposition, similarity guard, and graph projection pass VTM-01. It adds the remaining systems already identified by the public systems corpus:
+VTM-02 starts only after the record validator, rights disposition, similarity guard, and graph projection pass VTM-01. It grows the controlled frame to 60 systems across at least 15 materially different strata. VTM-03 is the broad comparative frame requested for content.md: at least 20,000 distinct products or product systems from at least 5,000 independently identifiable companies or public organizations across at least 250 normalized industry and sub-industry strata. Industry breadth is counted only through the controlled `industry-taxonomy.json`; synonymous, stylistic, or compound raw labels do not create additional strata. It targets broad regional, organizational-size, business-model, and product-state representation. No company contributes more than five systems unless the comparison explicitly tests product-specific differences within that company. Source-page count, observation count, raw industry-label count, and repeated URLs do not count toward organizational, product, or industry breadth.
 
-- Shopify and Mailchimp for commerce and customer communications;
-- GitLab for handbook-led DevSecOps;
-- Johns Hopkins and The Conversation for education, research, and media;
-- Alaska Auro plus a second primary travel system for travel;
-- Adobe and Intuit for creative, multi-product, and AI-assisted software;
-- CRIF NEXT for white-label financial software;
-- Google and Microsoft as multilingual infrastructure controls.
+The candidate frame includes:
 
-The expansion target is 18 systems across 10 materially different strata, no more than three public pages per system, and the same six state slots. Missing states remain `not_observed`. This target does not claim exhaustive industry coverage.
+- finance, payments, banking, investing, and insurance: PayPal, Stripe, Wise, Monzo, Revolut, Visa, Klarna, Coinbase, and Lemonade;
+- commerce and marketplaces: Shopify, Amazon, Etsy, eBay, and Instacart;
+- travel and mobility: Airbnb, Booking.com, Uber, Lyft, Alaska Airlines, and Delta;
+- health, wellbeing, and crisis: NHS England, CDC or Canada.ca, Mayo Clinic, One Medical, Teladoc, and Headspace;
+- public services: GOV.UK, Home Office, USA.gov, Canada.ca, and Service NSW;
+- enterprise and developer tools: GitHub, GitLab, Atlassian, Slack, Notion, Cloudflare, and Datadog;
+- productivity and creative software: Google Workspace, Microsoft 365, Adobe, Canva, and Figma;
+- communications and communities: Discord, WhatsApp, LinkedIn, Reddit, and Mailchimp;
+- media and entertainment: Netflix, Spotify, YouTube, and The New York Times;
+- education and research: Coursera, Duolingo, Khan Academy, Canvas LMS, Johns Hopkins, and The Conversation;
+- security and identity: Okta, Auth0, 1Password, and Duo;
+- telecommunications, utilities, logistics, and delivery: Verizon, T-Mobile, Octopus Energy, DoorDash, and Deliveroo;
+- AI assistants and AI-enabled products: ChatGPT, Claude, Gemini, Perplexity, Adobe, Intuit, and Canva;
+- industrial and white-label software: Siemens, CRIF NEXT, and additional primary systems selected before batch freeze;
+- multilingual infrastructure controls: Google, Microsoft, and at least two non-US primary systems.
+
+Each expansion remains batched and preregistered. It attempts the same six state slots, retains no more than three public pages per system, and requires at least five directly observed state slots for a system to enter comparative synthesis. A marketing headline, documentation description, search snippet, or inferred journey label is not a directly observed product state. Missing or inaccessible states remain `not_observed`; blocked domains remain `access_blocked`. The 20,000-product target is a comparative sampling frame, not a claim of exhaustive industry coverage or a basis for an industry-wide voice.
+
+The aggregate release gate is `scripts/verify-public-product-corpus.mjs`. It must be run with an explicit RFC3339 timestamp or date-only `--as-of` value and the frozen VTM-03 thresholds `--min-companies 5000 --min-products 20000 --min-industries 250 --min-direct-states-per-product 5`. It must fail closed on future-dated evidence, duplicate source or observation identities, duplicate canonical URLs, broken source projections, insufficient company/product/industry breadth, fewer than five distinct directly observed states per product, quotation overcollection, or any public-evidence prompt, training, benchmark, or authority eligibility. A batch count or row count alone can never satisfy VTM-03.
+
+Concurrent acquisition uses a single coordinator-produced `contentmd.public-product-corpus-worker-plan/0.1.0`. `scripts/partition-public-product-corpus-workers.mjs` digest-verifies the current expansion plan, assigns each company to one and only one worker, and reserves a distinct numeric batch root per worker. The plan is portable across local execution and an optional Agents SDK scheduler, but scheduling supplies durability only: it cannot change assignments, browser authority, evidence eligibility, or promotion status. Workers have read-only corpus access plus exclusive write access to their reserved append-only batch root. After collection, the coordinator reruns the aggregate verifier over the integrated corpus; worker success messages are never acceptance evidence.
+
+`scripts/verify-public-product-corpus-worker-batches.mjs` is the pre-integration ownership gate. It digest-verifies the worker plan, requires every reserved batch, rejects unreserved company/product evidence and duplicate identities across batches, checks observation-to-source projection, and reports every assigned product that produced no retained observation. Only a passing ownership report may proceed to aggregate corpus verification. A blocked public surface is not fabricated as product evidence and does not satisfy an assignment; blocked-attempt accounting remains explicit and non-promotable.
+
+Previously unseen companies enter through the separate `contentmd.public-product-discovery-report/0.1.0` lane. `scripts/verify-public-product-discovery-seeds.mjs` validates closed, authority-free candidate records against the current qualified corpus and controlled industry taxonomy, rejects duplicate or already-evidenced products and URLs, and prioritizes candidates in less-covered industries. Discovery seeds remain outside source and observation counts and explicitly report `corpus_products_added: 0`; they become corpus members only through a later direct-UI acquisition batch and the normal aggregate gate.
+
+`scripts/partition-public-product-discovery-workers.mjs` turns only a digest-valid, scheduling-eligible discovery report into a `contentmd.public-product-discovery-worker-plan/0.1.0`. It keeps every company under one exclusive worker and reserves a separate append-only batch root. The frozen first plan is `research/09-experimental/public-product-corpus/worker-plans/2026-08-24-discovery-batches-69-72.json`, plan digest `c09cb45a2fb5dff8db63ce65d91dc99593d04eb2cca39b50c9500bf6005421e8`, covering 31 candidate products across four workers. `scripts/verify-public-product-corpus-worker-batches.mjs` verifies both known-product and discovery plan contracts before aggregate verification; neither worker-plan class grants evidence, prompt, training, benchmark, policy, or publication authority.
+
+The evidence-to-pattern bridge is `scripts/compile-public-product-pattern-hypotheses.mjs`. It consumes only the verifier's explicit qualified-evidence projection. It may emit an unreviewed structural hypothesis only after five-state product coverage and support from at least five independent companies, five products, and three normalized industries. Its output contains only journey/state/slot/channel structure, counts, and opaque evidence refs; it cannot copy wording or name companies. The report and every hypothesis are fixed to `authority_effect: none`, `prompt_eligibility: never`, `training_eligibility: never`, `benchmark_eligibility: false`, and `promotion_eligibility: false`. Per-batch `pattern-candidates.jsonl` files remain informal notes and never satisfy this bridge. Promotion requires a separately authored canonical `ContentPattern`, two qualified reviews, a conforming `PatternDisposition`, rights and similarity review, and clean controlled-corpus lineage.
+
+The review bridge is `scripts/review-public-product-pattern-hypotheses.mjs`. It produces closed review tasks over nine dimensions: state accuracy, user-goal alignment, clarity, actionable recovery, accessibility, localization transferability, evidence quality, counterexample coverage, and rights abstraction. Two unique reviewer identities with claimed `qualified_content_designer` qualification must independently pass every dimension and recommend canonical authoring. Failure rejects; insufficient evidence or fewer than two reviewers holds. A passing adjudication is still only `ready_for_canonical_authoring`, remains ineligible for every model-input or learning path, and explicitly requires the canonical `ContentPattern` and `PatternDisposition` workflow to verify reviewer qualification, author the mechanism and counterexamples, run rights/similarity/lineage checks, and obtain project approval. No experimental review record can be supplied directly to the writer or ranker.
+
+The concurrent acquisition planner is `scripts/plan-public-product-corpus-expansion.mjs`. It consumes the verifier's qualified source and observation projection, groups exact products under normalized industries, and produces two deterministic work queues: products nearest the five-state threshold and products with no direct-UI evidence. Near-complete products sort by missing-state count; first-evidence products prioritize industries with the fewest direct-UI products. The plan also reports company, product, industry, and state gaps against VTM-03. It is explicitly `collection_operator_only`, never model input, and exits nonzero while the source corpus release gate fails even though it still prints the actionable backlog.
 
 ---
 

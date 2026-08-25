@@ -1,0 +1,2 @@
+{"source_id":"src-instacart-food-category-63","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public category page; no address, item, cart, purchase, or account action"}
+{"source_id":"src-instacart-deals-63","access_result":"observed","access_method":"Codex Chrome controller","access_boundary":"signed-out public deals page; no address, offer, cart, purchase, or account action"}

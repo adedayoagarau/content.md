@@ -1,0 +1,13 @@
+[
+  {
+    "company": "Instacart",
+    "product_system": "Instacart grocery delivery",
+    "industry": "delivery and logistics",
+    "observed_slots_added": [
+      "core task/commitment: category browsing",
+      "core task/commitment: deal discovery"
+    ],
+    "combined_direct_state_count": 5,
+    "blocked_slots": []
+  }
+]

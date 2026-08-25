@@ -1,0 +1,7 @@
+[
+  {"company":"Cleveland Clinic","product_system":"Cleveland Clinic care access","industry":"healthcare and wellbeing","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Service NSW","product_system":"Service NSW","industry":"government and public services","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Cisco Duo","product_system":"Cisco Duo identity security","industry":"security and identity","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Yubico","product_system":"YubiKey authentication","industry":"security and identity","observed_slots":["entry/onboarding","core task/commitment","destructive/permission/support"],"not_observed_slots":["pending/progress","success","error/recovery"]},
+  {"company":"Signal","product_system":"Signal","industry":"communications and social products","access_status":"access_blocked","not_observed_slots":["entry/onboarding","core task/commitment","pending/progress","success","error/recovery","destructive/permission/support"]}
+]

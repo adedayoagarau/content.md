@@ -1,0 +1,10 @@
+{
+  "government/public services": ["passport service", "citizenship check"],
+  "healthcare and wellbeing": ["site home", "triage help"],
+  "enterprise and developer tools": ["authentication", "account creation"],
+  "productivity and collaboration": ["design system home", "components index"],
+  "finance and payments": ["homepage", "pricing"],
+  "commerce and marketplaces": ["homepage"],
+  "creative/design software": ["homepage"],
+  "travel and mobility": ["homepage"]
+}

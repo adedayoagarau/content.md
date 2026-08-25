@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.classification-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "intent": { "enum": ["discover", "advise", "draft", "apply", "enforce"] },
+    "risk_level": { "enum": ["low", "medium", "high", "critical"] },
+    "risk_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": { "enum": ["truth", "policy", "privacy", "regulated", "accessibility", "localization", "financial_consequence", "mutation", "publication", "unknown"] },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "evidence_refs": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 0, "maxItems": 500 }
+        },
+        "required": ["category", "rationale", "evidence_refs"],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "review_requirements": {
+      "type": "array",
+      "items": { "enum": ["content_owner", "product_owner", "legal", "privacy", "accessibility", "localization", "security"] },
+      "minItems": 0,
+      "maxItems": 20
+    },
+    "uncertainty": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 4000 }, "minItems": 0, "maxItems": 100 }
+  },
+  "required": ["authority_effect", "intent", "risk_level", "risk_signals", "review_requirements", "uncertainty"],
+  "additionalProperties": false
+}

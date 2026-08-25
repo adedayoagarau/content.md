@@ -3,6 +3,8 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Command, CommanderError } from "commander";
 import { registerApply } from "./commands/apply.js";
+import { registerBridge } from "./commands/bridge.js";
+import { registerConnect } from "./commands/connect.js";
 import { registerDecision } from "./commands/decision.js";
 import { registerDiff } from "./commands/diff.js";
 import { registerDiscover } from "./commands/discover.js";
@@ -14,7 +16,9 @@ import { registerModel } from "./commands/model.js";
 import { registerResearch } from "./commands/research.js";
 import { registerRollback } from "./commands/rollback.js";
 import { registerReview } from "./commands/review.js";
+import { registerRuntime } from "./commands/runtime.js";
 import { registerRewrite } from "./commands/rewrite.js";
+import { registerStart } from "./commands/start.js";
 import { registerStrategy } from "./commands/strategy.js";
 import { registerVerify } from "./commands/verify.js";
 import { registerUninstall } from "./commands/uninstall.js";
@@ -27,12 +31,16 @@ export function buildProgram(): Command {
     .version("0.1.0")
     .showHelpAfterError()
     .exitOverride();
+  registerStart(program);
   registerInit(program);
+  registerBridge(program);
+  registerConnect(program);
   registerDoctor(program);
   registerDiscover(program);
   registerModel(program);
   registerResearch(program);
   registerReview(program);
+  registerRuntime(program);
   registerStrategy(program);
   registerDraft(program);
   registerRewrite(program);

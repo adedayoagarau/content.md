@@ -1,0 +1,6 @@
+[
+  {"company":"Stripe","product_system":"Stripe pricing","surface":"pricing"},
+  {"company":"Square","product_system":"Square pricing","surface":"pricing"},
+  {"company":"Shopify","product_system":"Shopify pricing","surface":"pricing"},
+  {"company":"PayPal","product_system":"PayPal fees","surface":"fees"}
+]

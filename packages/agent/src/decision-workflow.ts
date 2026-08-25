@@ -6,11 +6,15 @@ import {
   type LearningCandidateInput,
   type LearningCandidateRecord,
 } from "@contentmd/learning";
-import type { AppendOnlyEventStore } from "@contentmd/memory";
+import type {
+  AuthorizedAppendOnlyEventStore,
+  AuthorizedRuntimeOperation,
+} from "@contentmd/runtime-sdk";
 
 export interface DecisionWorkflowInput {
-  store: AppendOnlyEventStore;
-  decision: Omit<ContentDecisionInput, "store">;
+  store: AuthorizedAppendOnlyEventStore;
+  operation: AuthorizedRuntimeOperation;
+  decision: Omit<ContentDecisionInput, "store" | "operation">;
   candidate: Omit<LearningCandidateInput, "supporting_decision_refs">;
 }
 
@@ -22,7 +26,11 @@ export interface DecisionWorkflowResult {
 export async function recordDecisionAndCreateCandidate(
   input: DecisionWorkflowInput,
 ): Promise<DecisionWorkflowResult> {
-  const decision = await recordContentDecision({ ...input.decision, store: input.store });
+  const decision = await recordContentDecision({
+    ...input.decision,
+    store: input.store,
+    operation: input.operation,
+  });
   const candidate = createLearningCandidate({
     ...input.candidate,
     supporting_decision_refs: [decision.decision_id],

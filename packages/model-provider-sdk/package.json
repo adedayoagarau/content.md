@@ -5,5 +5,8 @@
   "type": "module",
   "exports": { ".": { "types": "./src/index.ts", "development": "./src/index.ts", "default": "./dist/index.js" } },
   "scripts": { "test": "vitest run", "build": "tsc -b" },
-  "dependencies": { "@contentmd/core": "workspace:*" }
+  "dependencies": {
+    "@contentmd/core": "workspace:*",
+    "@contentmd/schemas": "workspace:*"
+  }
 }

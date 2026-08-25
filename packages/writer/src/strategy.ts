@@ -1,11 +1,20 @@
 import { sha256Canonical } from "@contentmd/core";
-import { createModelRequest, type ModelProvider, type ModelResponse } from "@contentmd/model-provider-sdk";
+import type {
+  GovernedModelResponse,
+  ModelExecutionPort,
+} from "@contentmd/model-provider-sdk";
+import {
+  executeCompiledWriterPrompt,
+  type WriterModelExecutionContext,
+} from "./prompt-compiler.js";
+import { compileStrategyPrompt } from "./prompts/strategy.js";
 import type { ContentTaskPacket } from "./task-packet.js";
 
 export interface StrategyRequest {
   task: ContentTaskPacket;
   review_finding_refs: string[];
   pattern_refs: string[];
+  execution: WriterModelExecutionContext;
 }
 
 export interface ContentStrategyProposal {
@@ -34,7 +43,7 @@ export interface ModelTrace {
   output_digest: string;
   provider_id: string;
   model_id: string;
-  deterministic_status: ModelResponse["deterministic_status"];
+  deterministic_status: GovernedModelResponse["deterministic_status"];
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -48,7 +57,7 @@ function stringArray(value: unknown, field: string): string[] {
   return value as string[];
 }
 
-function modelTrace(response: ModelResponse): ModelTrace {
+function modelTrace(response: GovernedModelResponse): ModelTrace {
   return {
     request_id: response.request_id,
     input_digest: response.input_digest,
@@ -85,32 +94,32 @@ function parseStrategyOutput(value: unknown): Omit<ContentStrategyProposal, "sch
 }
 
 export async function proposeContentStrategy(
-  provider: ModelProvider,
+  provider: ModelExecutionPort,
   input: StrategyRequest,
 ): Promise<ContentStrategyProposal> {
-  const request = createModelRequest({
+  const prompt = compileStrategyPrompt({
+    project_id: input.execution.project_id,
+    task: input.task,
+    review_finding_refs: input.review_finding_refs,
+    pattern_refs: input.pattern_refs,
+    context_packet_ref: input.execution.context_packet_ref,
+    retrieval_snapshot_ref: input.execution.retrieval_snapshot_ref,
+    context_items: input.execution.context_items,
+  });
+  const executed = await executeCompiledWriterPrompt(provider, {
     operation: "strategy",
     output_schema_id: "contentmd.strategy-model-output/0.1.0",
-    input: {
-      task: input.task,
-      review_finding_refs: [...new Set(input.review_finding_refs)].sort(),
-      pattern_refs: [...new Set(input.pattern_refs)].sort(),
-      constraints: {
-        proposal_only: true,
-        may_create_decision: false,
-        may_create_approval: false,
-        may_apply_change: false,
-      },
-    },
+    task: input.task,
+    prompt,
+    execution: input.execution,
   });
-  const response = await provider.generate(request);
-  const output = parseStrategyOutput(response.output);
+  const output = parseStrategyOutput(executed.output);
   return {
     schema_version: "contentmd.strategy-proposal/0.1.0",
-    proposal_id: `proposal.strategy.${sha256Canonical({ request, output }).slice(0, 24)}`,
+    proposal_id: `proposal.strategy.${sha256Canonical({ request: executed.request, output }).slice(0, 24)}`,
     lifecycle_state: "proposed",
     authority_effect: "none",
     ...output,
-    model_trace: modelTrace(response),
+    model_trace: modelTrace(executed.response),
   };
 }

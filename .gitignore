@@ -8,4 +8,5 @@ coverage/
 .contentmd/local/
 .contentmd/cache/
 .contentmd/runtime/
+.pnpm-store/
 .worktrees/

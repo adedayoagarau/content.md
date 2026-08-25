@@ -1,0 +1,9 @@
+{
+  "banking and investing": ["banking home", "bank account", "pricing"],
+  "travel and mobility": ["hosting home", "host guidance"],
+  "education": ["homepage", "courses index", "login"],
+  "creative/design software": ["homepage", "pro pricing"],
+  "security and identity": ["homepage", "pricing", "login"],
+  "communications and social products": ["homepage", "login"],
+  "AI assistants and AI-enabled products": ["homepage", "overview"]
+}

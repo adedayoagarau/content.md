@@ -42,6 +42,11 @@ for (const [packageName, { directory, manifest }] of manifests) {
   const src = fileURLToPath(new URL(`../packages/${directory}/src/`, import.meta.url));
   for (const file of await sourceFiles(src)) {
     const source = await readFile(file, "utf8");
+    if (/\bSqliteEventStore\b/.test(source)
+      && packageName !== "@contentmd/memory"
+      && packageName !== "@contentmd/runtime-local") {
+      errors.push(`${relative(workspaceRoot, file)} constructs or imports raw SqliteEventStore`);
+    }
     for (const match of source.matchAll(importPattern)) {
       const importedPackage = match[1];
       if (importedPackage !== packageName && !declared.has(importedPackage)) {
