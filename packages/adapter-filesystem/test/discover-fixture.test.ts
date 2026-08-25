@@ -63,6 +63,25 @@ describe("FilesystemContentAdapter discovery", () => {
       ]),
     );
     expect(result.occurrences.every((item) => item.line >= 1 && item.column >= 1)).toBe(true);
+    expect(result.occurrences.filter((item) => [
+      "public/index.html",
+      "src/App.tsx",
+      "src/components/CheckoutSummary.tsx",
+      "src/messages/fr-CA.json",
+      "src/routes.ts",
+    ].includes(item.source_artifact) && [
+      "The smartest way to buy anything",
+      "Unlock a seamless experience that empowers your journey.",
+      "Action",
+      "Payment failed. Try again.",
+      "Hub",
+    ].includes(item.expression_payload)).map((item) => item.occurrence_id)).toEqual([
+      "occurrence.135fb5c15917add5cff7cdaa",
+      "occurrence.730b395d263e52ac61683e8e",
+      "occurrence.afb5aeb56b2e70391a8099ca",
+      "occurrence.bc8aa288c70c16e396415fd2",
+      "occurrence.3165c4299af9aae4ef7bba24",
+    ]);
     expect(result.scan_digest).toMatch(/^[a-f0-9]{64}$/);
   });
 

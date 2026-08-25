@@ -119,6 +119,27 @@ export interface ProjectIdentityProposal {
   proposal_digest: string;
 }
 
+export interface RepositoryClaimDraft {
+  claim_kind:
+    | "product_identity"
+    | "audience_job"
+    | "workflow_stage"
+    | "product_scope"
+    | "architecture_decision"
+    | "implemented_behavior"
+    | "content_expression"
+    | "voice_guidance"
+    | "terminology_guidance";
+  subject: string;
+  value: string | string[];
+  source_ref: string;
+  source_span: { start_line: number; end_line: number };
+  source_links: Array<{ label: string; target: string; line: number }>;
+  confidence: "high" | "medium" | "low";
+  limitations: string[];
+  authority_effect: "none";
+}
+
 export type ContentSyntaxKind =
   | "jsx_text"
   | "jsx_attribute"
@@ -154,6 +175,10 @@ export interface DiscoverResult {
   adapter_version: string;
   project_root: string;
   scan_digest: string;
+  inventory: RepositoryInventory;
+  source_candidates: SourceCandidate[];
+  parser_claims: RepositoryClaimDraft[];
+  coverage: DiscoveryCoverage;
   scanned_artifacts: string[];
   occurrences: DiscoveredContentOccurrence[];
   warnings: string[];

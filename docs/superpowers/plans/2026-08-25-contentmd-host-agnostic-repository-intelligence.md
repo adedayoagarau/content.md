@@ -464,9 +464,12 @@ export interface RepositoryClaimDraft {
     | "terminology_guidance";
   subject: string;
   value: string | string[];
+  source_ref: string;
   source_span: { start_line: number; end_line: number };
+  source_links: Array<{ label: string; target: string; line: number }>;
   confidence: "high" | "medium" | "low";
   limitations: string[];
+  authority_effect: "none";
 }
 ```
 

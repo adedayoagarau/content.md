@@ -107,4 +107,19 @@ describe("repository inventory", () => {
     expect(JSON.stringify(first)).not.toContain("VCS_METADATA_CANARY");
     expect(second).toEqual(first);
   });
+
+  it("excludes local test cassettes before parser federation", async () => {
+    const repository = await mkdtemp(join(tmpdir(), "contentmd-inventory-cassette-"));
+    temporaryDirectories.push(repository);
+    await mkdir(join(repository, ".contentmd-test"));
+    await writeFile(join(repository, ".contentmd-test", "responses.jsonl"), "CASSETTE_PRIVATE_CANARY\n", "utf8");
+
+    const result = await adapterFilesystem.inventoryRepository({ project_root: repository });
+
+    expect(result.exclusions).toContainEqual({
+      relative_path: ".contentmd-test",
+      reason: "dependency_or_cache",
+    });
+    expect(JSON.stringify(result)).not.toContain("CASSETTE_PRIVATE_CANARY");
+  });
 });

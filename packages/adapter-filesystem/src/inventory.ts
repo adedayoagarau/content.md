@@ -14,6 +14,7 @@ import type {
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const EXCLUDED_DIRECTORY_PATTERNS = [
   "**/.git",
+  "**/.contentmd-test",
   "**/.next",
   "**/.venv",
   "**/build",
