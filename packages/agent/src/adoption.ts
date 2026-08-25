@@ -1,7 +1,6 @@
 import {
   access,
   mkdir,
-  readdir,
   readFile,
   realpath,
   unlink,
@@ -9,6 +8,14 @@ import {
 } from "node:fs/promises";
 import { dirname, isAbsolute, join, normalize } from "node:path";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
+import {
+  detectStacks,
+  discoverSourceCandidates,
+  inventoryRepository,
+  proposeProjectIdentity,
+  type ProjectIdentityProposal,
+  type StackFact,
+} from "@contentmd/adapter-filesystem";
 import {
   CONTENTMD_DIRECTORIES,
   defaultOpenQuestions,
@@ -41,6 +48,8 @@ export interface GovernanceBootstrap {
 export interface AdoptionPlan {
   status: "ready_for_local_approval" | "already_adopted";
   project_root: string;
+  identity: ProjectIdentityProposal;
+  stacks: StackFact[];
   existing_sources: ExistingSource[];
   creates: ProposedFile[];
   bridge_previews: HostBridgePreview[];
@@ -63,23 +72,7 @@ export interface AdoptionReceipt {
   receipt_digest: string;
 }
 
-const detectedSourceTypes: Record<string, string> = {
-  "AGENTS.md": "agent_instructions",
-  "CLAUDE.md": "agent_instructions",
-  "CODEX.md": "agent_instructions",
-  "DESIGN.md": "design_document",
-  "GEMINI.md": "agent_instructions",
-  "PRODUCT.md": "product_document",
-  "agents.md": "agent_instructions",
-  "claude.md": "agent_instructions",
-  "codex.md": "agent_instructions",
-  "gemini.md": "agent_instructions",
-  "product.md": "product_document",
-  "package.json": "package_manifest",
-  ".github/copilot-instructions.md": "agent_instructions",
-};
-
-const hostKindByPath: Partial<Record<keyof typeof detectedSourceTypes, HostKind>> = {
+const hostKindByPath: Record<string, HostKind> = {
   "AGENTS.md": "agents",
   "CLAUDE.md": "claude",
   "CODEX.md": "codex",
@@ -100,25 +93,6 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
-async function discoverExistingSourcePaths(root: string): Promise<Set<string>> {
-  const rootEntries = new Set(await readdir(root));
-  let githubEntries = new Set<string>();
-  try {
-    githubEntries = new Set(await readdir(join(root, ".github")));
-  } catch {
-    // A missing .github directory is not a source-discovery failure.
-  }
-  const discovered = new Set<string>();
-  for (const relativePath of Object.keys(detectedSourceTypes)) {
-    if (relativePath === ".github/copilot-instructions.md") {
-      if (githubEntries.has("copilot-instructions.md")) discovered.add(relativePath);
-    } else if (rootEntries.has(relativePath)) {
-      discovered.add(relativePath);
-    }
-  }
-  return discovered;
-}
-
 function proposedFile(relativePath: string, content: string): ProposedFile {
   return {
     relative_path: relativePath,
@@ -133,17 +107,23 @@ function adoptionPlanDigest(plan: Omit<AdoptionPlan, "plan_digest">): string {
 
 export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
   const root = await realpath(projectRoot);
-  const existingSources: ExistingSource[] = [];
-  const discoveredPaths = await discoverExistingSourcePaths(root);
-  for (const relativePath of Object.keys(detectedSourceTypes).sort()) {
-    if (discoveredPaths.has(relativePath)) {
-      existingSources.push({
-        relative_path: relativePath,
-        source_type: detectedSourceTypes[relativePath] ?? "unknown",
-        authority_effect: "none",
-      });
-    }
-  }
+  const inventory = await inventoryRepository({ project_root: root });
+  const stacks = await detectStacks(inventory);
+  const sourceCandidates = await discoverSourceCandidates(inventory);
+  const identity = await proposeProjectIdentity(root, inventory);
+  const existingSources: ExistingSource[] = sourceCandidates.map((source) => ({
+    relative_path: source.relative_path,
+    source_type: source.source_type,
+    source_id: source.source_id,
+    adapter_id: source.adapter_id,
+    adapter_version: source.adapter_version,
+    content_digest: source.content_digest,
+    lifecycle: source.lifecycle,
+    evidence_class: source.evidence_class,
+    scope: source.scope,
+    limitations: source.limitations,
+    authority_effect: "none",
+  }));
 
   const governanceBootstrap: GovernanceBootstrap = {
     policy_status: "proposed",
@@ -154,7 +134,7 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
   };
   const bridgePreviews: HostBridgePreview[] = [];
   for (const source of existingSources) {
-    const host = hostKindByPath[source.relative_path as keyof typeof detectedSourceTypes];
+    const host = hostKindByPath[source.relative_path];
     if (host !== undefined) {
       bridgePreviews.push(await planHostBridge(root, host, source.relative_path));
     }
@@ -198,6 +178,8 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
   const preimage: Omit<AdoptionPlan, "plan_digest"> = {
     status: alreadyAdopted ? "already_adopted" : "ready_for_local_approval",
     project_root: root,
+    identity,
+    stacks,
     existing_sources: existingSources,
     creates,
     bridge_previews: bridgePreviews,
@@ -219,6 +201,8 @@ export async function executeAdoption(
   const expectedPlanDigest = adoptionPlanDigest({
     status: plan.status,
     project_root: plan.project_root,
+    identity: plan.identity,
+    stacks: plan.stacks,
     existing_sources: plan.existing_sources,
     creates: plan.creates,
     bridge_previews: plan.bridge_previews,

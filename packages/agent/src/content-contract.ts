@@ -23,6 +23,21 @@ export const CONTENTMD_DIRECTORIES = [
 export interface ExistingSource {
   relative_path: string;
   source_type: string;
+  source_id?: string;
+  adapter_id?: string;
+  adapter_version?: string;
+  content_digest?: string;
+  lifecycle?: string;
+  evidence_class?: string;
+  scope?: {
+    products: string[];
+    services: string[];
+    markets: string[];
+    locales: string[];
+    surfaces: string[];
+    versions: string[];
+  };
+  limitations?: string[];
   authority_effect: "none";
 }
 

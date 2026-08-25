@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   executeAdoption,
@@ -9,6 +10,9 @@ import {
 } from "@contentmd/agent";
 
 const temporaryDirectories: string[] = [];
+const mixedStackFixture = fileURLToPath(
+  new URL("../../../fixtures/synthetic-mixed-stack/", import.meta.url),
+);
 
 async function projectDirectory(name: string): Promise<string> {
   const directory = await mkdtemp(join(tmpdir(), `${name}-`));
@@ -25,6 +29,34 @@ afterEach(async () => {
 });
 
 describe("repository adoption", () => {
+  it("previews adoption from detected mixed-stack identity and contextual sources", async () => {
+    const plan = await planAdoption(mixedStackFixture);
+
+    expect(plan.identity).toMatchObject({
+      proposed_project_id: "project.synthetic-content-studio",
+      confidence: "high",
+      authority_effect: "none",
+    });
+    expect(plan.stacks).toEqual(expect.arrayContaining([
+      expect.objectContaining({ kind: "python", manifest_ref: "pyproject.toml" }),
+      expect.objectContaining({ kind: "typescript", manifest_ref: "studio/package.json" }),
+    ]));
+    expect(plan.existing_sources.map((source) => source.relative_path)).toEqual(expect.arrayContaining([
+      "CLAUDE.md",
+      "PRD.md",
+      "docs/context/PRODUCT-IDENTITY.md",
+      "docs/adr/0001-current-product-shape.md",
+    ]));
+    expect(plan.existing_sources.every((source) => source.authority_effect === "none")).toBe(true);
+    expect(plan.existing_sources.find((source) => source.relative_path.endsWith("PRODUCT-IDENTITY.md")))
+      .toMatchObject({
+        adapter_id: "adapter.filesystem",
+        adapter_version: "0.1.0",
+        lifecycle: "canonical",
+        scope: { products: [], markets: [], locales: [], surfaces: [] },
+      });
+  });
+
   it("bootstraps a proposed content contract without publication authority", async () => {
     const root = await projectDirectory("contentmd-empty-project");
     const plan = await planAdoption(root);

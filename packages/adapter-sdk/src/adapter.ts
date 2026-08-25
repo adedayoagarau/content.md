@@ -68,6 +68,57 @@ export interface RepositoryInventory {
   inventory_digest: string;
 }
 
+export type SourceLifecycle =
+  | "canonical"
+  | "active"
+  | "draft"
+  | "historical"
+  | "superseded"
+  | "rejected"
+  | "unknown";
+
+export type EvidenceClass =
+  | "documented"
+  | "implemented"
+  | "tested"
+  | "observed"
+  | "approved"
+  | "historical";
+
+export interface SourceCandidate {
+  source_id: string;
+  relative_path: string;
+  source_type: string;
+  adapter_id: string;
+  adapter_version: string;
+  content_digest: string;
+  lifecycle: SourceLifecycle;
+  evidence_class: EvidenceClass;
+  declared_date: string | null;
+  declared_owner: string | null;
+  scope: {
+    products: string[];
+    services: string[];
+    markets: string[];
+    locales: string[];
+    surfaces: string[];
+    versions: string[];
+  };
+  discovery_reason: string;
+  limitations: string[];
+  authority_effect: "none";
+}
+
+export interface ProjectIdentityProposal {
+  contract_version: "contentmd.project-identity-proposal/0.2.0";
+  proposed_project_id: string;
+  proposed_name: string;
+  evidence_refs: string[];
+  confidence: "high" | "medium" | "low";
+  authority_effect: "none";
+  proposal_digest: string;
+}
+
 export type ContentSyntaxKind =
   | "jsx_text"
   | "jsx_attribute"

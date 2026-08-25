@@ -7,4 +7,6 @@ export * from "./discover.js";
 export * from "./inventory.js";
 export * from "./preview.js";
 export * from "./rollback.js";
+export * from "./source-candidates.js";
+export * from "./stack-detection.js";
 export * from "./verify.js";

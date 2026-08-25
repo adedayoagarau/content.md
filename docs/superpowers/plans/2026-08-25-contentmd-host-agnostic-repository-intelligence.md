@@ -235,6 +235,8 @@ export interface RepositoryInventory {
   exclusions: InventoryExclusion[];
   stacks: StackFact[];
   coverage: DiscoveryCoverage;
+  bytes_read: number;
+  resource_ceiling: { max_file_bytes: number };
   authority_effect: "none";
   inventory_digest: string;
 }
@@ -281,10 +283,10 @@ git commit -m "feat: inventory mixed-stack repositories safely"
 
 **Interfaces:**
 - Consumes: `RepositoryInventory`
-- Produces: `detectStacks(inventory): StackFact[]`
+- Produces: `detectStacks(inventory): Promise<StackFact[]>`
 - Produces: `discoverSourceCandidates(inventory): Promise<SourceCandidate[]>`
 - Produces: `readSourceDocuments(root, candidates): Promise<ContextSourceDocument[]>`
-- Produces: `proposeProjectIdentity(root, inventory): ProjectIdentityProposal`
+- Produces: `proposeProjectIdentity(root, inventory): Promise<ProjectIdentityProposal>`
 
 - [ ] **Step 1: Write failing detector tests**
 
@@ -344,11 +346,21 @@ export interface SourceCandidate {
   source_id: string;
   relative_path: string;
   source_type: string;
+  adapter_id: string;
+  adapter_version: string;
   content_digest: string;
   lifecycle: SourceLifecycle;
   evidence_class: EvidenceClass;
   declared_date: string | null;
   declared_owner: string | null;
+  scope: {
+    products: string[];
+    services: string[];
+    markets: string[];
+    locales: string[];
+    surfaces: string[];
+    versions: string[];
+  };
   discovery_reason: string;
   limitations: string[];
   authority_effect: "none";
@@ -767,7 +779,7 @@ Add `evidence_claim`, `authority_assessment`, `conflict`, `persona`, `voice_dime
 export async function compileProjectModel(request: CompileProjectModelRequest): Promise<ProjectModelResult> {
   const projectRoot = await realpath(request.project_root);
   const discovery = await new FilesystemContentAdapter().discover({ project_root: projectRoot });
-  const identity = proposeProjectIdentity(projectRoot, discovery.inventory);
+  const identity = await proposeProjectIdentity(projectRoot, discovery.inventory);
   const sources = await readSourceDocuments(projectRoot, discovery.source_candidates);
   const assessments = resolveAuthority(discovery.evidence_claims);
   const graph = compileContentContext({
