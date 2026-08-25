@@ -43,6 +43,20 @@ describe("mixed-stack parser federation", () => {
         value: ["Explore", "Analyze", "Review", "Deliver", "Track"],
       }),
     ]));
+    expect(result.evidence_claims).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        claim_kind: "product_identity",
+        lifecycle: "canonical",
+        evidence_class: "documented",
+        authority_effect: "none",
+      }),
+      expect.objectContaining({
+        claim_kind: "workflow_stage",
+        value: ["Explore", "Analyze", "Review", "Deliver", "Track"],
+        effective_date: "2026-08-25",
+      }),
+    ]));
+    expect(result.evidence_claims.every((claim) => /^[a-f0-9]{64}$/u.test(claim.claim_digest))).toBe(true);
     expect(result.coverage.failed).toBe(0);
     expect(result.inventory.inventory_digest).toMatch(/^[a-f0-9]{64}$/u);
   });

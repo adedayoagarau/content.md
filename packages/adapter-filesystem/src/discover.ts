@@ -1,4 +1,4 @@
-import { sha256Canonical } from "@contentmd/core";
+import { finalizeEvidenceClaim, sha256Canonical, type EvidenceClaim } from "@contentmd/core";
 import type {
   DiscoverRequest,
   DiscoverResult,
@@ -128,6 +128,13 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
 
   occurrences.sort(compareOccurrence);
   parserClaims.sort(compareClaim);
+  const sourceCandidateByPath = new Map(
+    sourceCandidates.map((candidate) => [candidate.relative_path, candidate]),
+  );
+  const evidenceClaims: EvidenceClaim[] = parserClaims.flatMap((draft) => {
+    const candidate = sourceCandidateByPath.get(draft.source_ref);
+    return candidate === undefined ? [] : [finalizeEvidenceClaim(draft, candidate)];
+  }).sort((left, right) => left.claim_id.localeCompare(right.claim_id, "en"));
   scannedArtifacts.sort((left, right) => left.path.localeCompare(right.path, "en"));
   warnings.sort((left, right) => left.localeCompare(right, "en"));
   const coverage: DiscoveryCoverage = {
@@ -142,6 +149,7 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
     scanned_artifacts: scannedArtifacts,
     occurrence_refs: occurrences.map((occurrence) => occurrence.occurrence_id),
     parser_claims: parserClaims,
+    evidence_claims: evidenceClaims,
     coverage,
     warnings,
   };
@@ -154,6 +162,7 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
     inventory,
     source_candidates: sourceCandidates,
     parser_claims: parserClaims,
+    evidence_claims: evidenceClaims,
     coverage,
     scanned_artifacts: scannedArtifacts.map((artifact) => artifact.path),
     occurrences,

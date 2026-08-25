@@ -1,3 +1,12 @@
+import type {
+  ClaimKind,
+  EvidenceClaim,
+  EvidenceClass,
+  SourceLifecycle,
+} from "@contentmd/core";
+
+export type { ClaimKind, EvidenceClaim, EvidenceClass, SourceLifecycle } from "@contentmd/core";
+
 export type AdapterCapability =
   | "discover"
   | "preview"
@@ -68,23 +77,6 @@ export interface RepositoryInventory {
   inventory_digest: string;
 }
 
-export type SourceLifecycle =
-  | "canonical"
-  | "active"
-  | "draft"
-  | "historical"
-  | "superseded"
-  | "rejected"
-  | "unknown";
-
-export type EvidenceClass =
-  | "documented"
-  | "implemented"
-  | "tested"
-  | "observed"
-  | "approved"
-  | "historical";
-
 export interface SourceCandidate {
   source_id: string;
   relative_path: string;
@@ -120,16 +112,7 @@ export interface ProjectIdentityProposal {
 }
 
 export interface RepositoryClaimDraft {
-  claim_kind:
-    | "product_identity"
-    | "audience_job"
-    | "workflow_stage"
-    | "product_scope"
-    | "architecture_decision"
-    | "implemented_behavior"
-    | "content_expression"
-    | "voice_guidance"
-    | "terminology_guidance";
+  claim_kind: ClaimKind;
   subject: string;
   value: string | string[];
   source_ref: string;
@@ -182,6 +165,7 @@ export interface DiscoverResult {
   inventory: RepositoryInventory;
   source_candidates: SourceCandidate[];
   parser_claims: RepositoryClaimDraft[];
+  evidence_claims: EvidenceClaim[];
   coverage: DiscoveryCoverage;
   scanned_artifacts: string[];
   occurrences: DiscoveredContentOccurrence[];
