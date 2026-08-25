@@ -5,6 +5,8 @@ export * from "./adapter.js";
 export * from "./apply.js";
 export * from "./discover.js";
 export * from "./inventory.js";
+export * from "./parsers/documents.js";
+export * from "./parsers/python.js";
 export * from "./parsers/types.js";
 export * from "./parsers/typescript.js";
 export * from "./preview.js";

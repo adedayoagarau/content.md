@@ -9,6 +9,7 @@ import type {
 } from "@contentmd/adapter-sdk";
 import { inventoryRepository } from "./inventory.js";
 import { documentArtifactParser } from "./parsers/documents.js";
+import { pythonArtifactParser } from "./parsers/python.js";
 import { typescriptArtifactParser } from "./parsers/typescript.js";
 import type { ArtifactParser, OccurrenceDraft } from "./parsers/types.js";
 import { readInventoryArtifactText, discoverSourceCandidates } from "./source-candidates.js";
@@ -16,7 +17,7 @@ import { detectStacks } from "./stack-detection.js";
 
 const ADAPTER_ID = "adapter.filesystem";
 const ADAPTER_VERSION = "0.1.0";
-const PARSERS: ArtifactParser[] = [typescriptArtifactParser, documentArtifactParser];
+const PARSERS: ArtifactParser[] = [typescriptArtifactParser, documentArtifactParser, pythonArtifactParser];
 
 function inventoryWithStacks(inventory: RepositoryInventory, stacks: RepositoryInventory["stacks"]): RepositoryInventory {
   const preimage = {

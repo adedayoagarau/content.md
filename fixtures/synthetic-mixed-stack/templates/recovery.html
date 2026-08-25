@@ -2,5 +2,8 @@
 <html lang="en">
   <body>
     <p>Try another product or stage.</p>
+    {% if product_name %}
+    <p>Review {{ product_name }} before submitting.</p>
+    {% endif %}
   </body>
 </html>

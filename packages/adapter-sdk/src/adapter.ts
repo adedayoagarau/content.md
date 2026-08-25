@@ -147,7 +147,11 @@ export type ContentSyntaxKind =
   | "locale_message"
   | "html_title"
   | "html_attribute"
-  | "html_metadata";
+  | "html_metadata"
+  | "route_declaration"
+  | "route_metadata"
+  | "user_facing_literal"
+  | "html_text";
 
 export type ContentChannel = "web" | "email" | "sms" | "api" | "unknown";
 export type ContentModality = "visible" | "assistive" | "metadata" | "machine";
