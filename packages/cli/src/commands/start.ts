@@ -16,7 +16,7 @@ export function registerStart(program: Command): void {
         record_refs: [adoption.plan_digest],
         next_actions: needsAdoption
           ? [
-              `Review the adoption plan, then run contentmd init --yes --root ${adoption.project_root} --json to approve those exact local files.`,
+              `Review the adoption plan, then run contentmd init --yes --plan-digest ${adoption.plan_digest} --root ${adoption.project_root} --json to approve that exact transaction.`,
             ]
           : ["The project contract is present. Run contentmd doctor before material content work if governance status is unclear."],
         data: { doctor, adoption },

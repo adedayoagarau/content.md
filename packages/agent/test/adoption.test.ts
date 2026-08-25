@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -57,6 +57,43 @@ describe("repository adoption", () => {
       });
   });
 
+  it("applies owned records and every detected host bridge in one digest-bound transaction", async () => {
+    const root = await projectDirectory("contentmd-combined-adoption");
+    await cp(mixedStackFixture, root, { recursive: true });
+    const originalClaude = await readFile(join(root, "CLAUDE.md"), "utf8");
+    const plan = await planAdoption(root);
+    const approvedPaths = [
+      ...plan.creates.map((file) => file.relative_path),
+      ...plan.bridge_previews.filter((bridge) => bridge.status === "change_proposed").map((bridge) => bridge.relative_path),
+    ];
+
+    const receipt = await executeAdoption(plan, {
+      approval_id: "approval.fixture.combined.001",
+      plan_digest: plan.plan_digest,
+      approved_paths: approvedPaths,
+      status: "current",
+    });
+
+    expect(receipt.bridged_paths).toEqual(["CLAUDE.md"]);
+    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain(originalClaude);
+    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain("<!-- contentmd:bridge:start -->");
+    expect(await readFile(join(root, ".contentmd/records/repository-model.json"), "utf8"))
+      .toContain('"authority_effect":"none"');
+    const contract = await readFile(join(root, "CONTENT.md"), "utf8");
+    for (const heading of [
+      "## Product and scope", "## Users and jobs", "## Journeys and content principles",
+      "## Voice and terminology", "## Sources, evidence, and conflicts", "## Operating boundaries",
+      "## Review and approval routes", "## Structured records",
+    ]) expect(contract).toContain(heading);
+    const uninstall = await previewUninstall(root);
+    expect(uninstall.host_files_affected).toEqual([
+      expect.objectContaining({
+        relative_path: "CLAUDE.md",
+        operation: "remove_exact_marker_block",
+      }),
+    ]);
+  });
+
   it("bootstraps a proposed content contract without publication authority", async () => {
     const root = await projectDirectory("contentmd-empty-project");
     const plan = await planAdoption(root);
@@ -66,6 +103,7 @@ describe("repository adoption", () => {
       ".contentmd/governance/starter-policy.yaml",
       ".contentmd/manifest.json",
       ".contentmd/product/open-questions.json",
+      ".contentmd/records/repository-model.json",
       "CONTENT.md",
     ]);
     expect(plan.governance_bootstrap.external_publication).toBe("denied");
@@ -132,12 +170,21 @@ describe("repository adoption", () => {
     await executeAdoption(plan, {
       approval_id: "approval.fixture.adoption.002",
       plan_digest: plan.plan_digest,
-      approved_paths: plan.creates.map((file) => file.relative_path),
+      approved_paths: [
+        ...plan.creates.map((file) => file.relative_path),
+        ...plan.bridge_previews.map((bridge) => bridge.relative_path),
+      ],
       status: "current",
     });
 
     for (const [path, content] of Object.entries(existingFiles)) {
-      expect(await readFile(join(root, path), "utf8")).toBe(content);
+      const installed = await readFile(join(root, path), "utf8");
+      expect(installed).toContain(content);
+      if (["AGENTS.md", "CLAUDE.md", "CODEX.md"].includes(path)) {
+        expect(installed).toContain("<!-- contentmd:bridge:start -->");
+      } else {
+        expect(installed).toBe(content);
+      }
     }
   });
 
@@ -194,6 +241,25 @@ describe("repository adoption", () => {
     });
   });
 
+  it("rechecks every host digest before writing any part of the transaction", async () => {
+    const root = await projectDirectory("contentmd-stale-host");
+    await writeFile(join(root, "CLAUDE.md"), "# Initial host guidance\n", "utf8");
+    const plan = await planAdoption(root);
+    await writeFile(join(root, "CLAUDE.md"), "# User changed this after preview\n", "utf8");
+
+    await expect(executeAdoption(plan, {
+      approval_id: "approval.fixture.stale-host.001",
+      plan_digest: plan.plan_digest,
+      approved_paths: [
+        ...plan.creates.map((file) => file.relative_path),
+        ...plan.bridge_previews.map((bridge) => bridge.relative_path),
+      ],
+      status: "current",
+    })).rejects.toThrow("adoption_source_changed:CLAUDE.md");
+    await expect(readFile(join(root, "CONTENT.md"), "utf8")).rejects.toMatchObject({ code: "ENOENT" });
+    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toBe("# User changed this after preview\n");
+  });
+
   it("previews only installer-owned files and does not delete them", async () => {
     const root = await projectDirectory("contentmd-uninstall-preview");
     await writeFile(join(root, "PRODUCT.md"), "# Keep this host file\n", "utf8");
@@ -211,6 +277,7 @@ describe("repository adoption", () => {
       ".contentmd/governance/starter-policy.yaml",
       ".contentmd/manifest.json",
       ".contentmd/product/open-questions.json",
+      ".contentmd/records/repository-model.json",
       "CONTENT.md",
     ]);
     expect(preview.owned_files).not.toContain("PRODUCT.md");

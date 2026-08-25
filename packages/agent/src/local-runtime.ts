@@ -166,12 +166,18 @@ function runtimePath(root: string, name: string): string {
   return join(root, RUNTIME_DIRECTORY, name);
 }
 
-export async function initializeLocalProject(root: string): Promise<AdoptionReceipt> {
+export async function initializeLocalProject(root: string, approvedPlanDigest: string): Promise<AdoptionReceipt> {
   const plan = await planAdoption(root);
+  if (plan.plan_digest !== approvedPlanDigest) throw new Error("adoption_approval_mismatch");
   const receipt = await executeAdoption(plan, {
     approval_id: `approval.local-adoption.${plan.plan_digest.slice(0, 16)}`,
     plan_digest: plan.plan_digest,
-    approved_paths: plan.creates.map((item) => item.relative_path),
+    approved_paths: [
+      ...plan.creates.map((item) => item.relative_path),
+      ...plan.bridge_previews
+        .filter((bridge) => bridge.status === "change_proposed")
+        .map((bridge) => bridge.relative_path),
+    ],
     status: "current",
   });
   await mkdir(join(root, RUNTIME_DIRECTORY), { recursive: true });

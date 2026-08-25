@@ -57,13 +57,15 @@ describe("contentmd start", () => {
             { relative_path: ".contentmd/governance/starter-policy.yaml" },
             { relative_path: ".contentmd/manifest.json" },
             { relative_path: ".contentmd/product/open-questions.json" },
+            { relative_path: ".contentmd/records/repository-model.json" },
             { relative_path: "CONTENT.md" },
           ],
         },
       },
     });
+    const digest = (envelope.data as any).adoption.plan_digest as string;
     expect(envelope.next_actions).toEqual([
-      `Review the adoption plan, then run contentmd init --yes --root ${await realpath(root)} --json to approve those exact local files.`,
+      `Review the adoption plan, then run contentmd init --yes --plan-digest ${digest} --root ${await realpath(root)} --json to approve that exact transaction.`,
     ]);
     expect(await readFile(join(root, "product.md"), "utf8")).toBe(product);
     await expect(readFile(join(root, "CONTENT.md"), "utf8")).rejects.toThrow();

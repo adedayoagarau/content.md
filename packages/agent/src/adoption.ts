@@ -1,21 +1,17 @@
 import {
   access,
+  link,
   mkdir,
+  open,
   readFile,
   realpath,
+  rename,
   unlink,
-  writeFile,
 } from "node:fs/promises";
+import { createHash, randomUUID } from "node:crypto";
 import { dirname, isAbsolute, join, normalize } from "node:path";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
-import {
-  detectStacks,
-  discoverSourceCandidates,
-  inventoryRepository,
-  proposeProjectIdentity,
-  type ProjectIdentityProposal,
-  type StackFact,
-} from "@contentmd/adapter-filesystem";
+import type { ProjectIdentityProposal, StackFact } from "@contentmd/adapter-filesystem";
 import {
   CONTENTMD_DIRECTORIES,
   defaultOpenQuestions,
@@ -30,6 +26,7 @@ import {
   type HostBridgePreview,
   type HostKind,
 } from "./host-bridge.js";
+import { compileProjectModel } from "./model-workflow.js";
 
 export interface ProposedFile {
   relative_path: string;
@@ -69,6 +66,7 @@ export interface AdoptionReceipt {
   approval_id: string;
   plan_digest: string;
   created_paths: string[];
+  bridged_paths: string[];
   receipt_digest: string;
 }
 
@@ -107,10 +105,10 @@ function adoptionPlanDigest(plan: Omit<AdoptionPlan, "plan_digest">): string {
 
 export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
   const root = await realpath(projectRoot);
-  const inventory = await inventoryRepository({ project_root: root });
-  const stacks = await detectStacks(inventory);
-  const sourceCandidates = await discoverSourceCandidates(inventory);
-  const identity = await proposeProjectIdentity(root, inventory);
+  const model = await compileProjectModel({ project_root: root });
+  const stacks = model.discovery.inventory.stacks;
+  const sourceCandidates = model.discovery.source_candidates;
+  const identity = model.identity;
   const existingSources: ExistingSource[] = sourceCandidates.map((source) => ({
     relative_path: source.relative_path,
     source_type: source.source_type,
@@ -158,6 +156,7 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
               ".contentmd/governance/starter-policy.yaml",
               ".contentmd/manifest.json",
               ".contentmd/product/open-questions.json",
+              ".contentmd/records/repository-model.json",
               "CONTENT.md",
             ],
             local_only: [
@@ -165,6 +164,14 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
               ".contentmd/local/",
               ".contentmd/runtime/",
             ],
+            managed_host_bridges: bridgePreviews
+              .filter((bridge) => bridge.status === "change_proposed")
+              .map((bridge) => ({
+                relative_path: bridge.relative_path,
+                start_marker: "<!-- contentmd:bridge:start -->",
+                end_marker: "<!-- contentmd:bridge:end -->",
+                before_digest: bridge.before_digest,
+              })),
             excluded: ["credentials", "raw_private_context", "model_secrets"],
           }),
         ),
@@ -172,7 +179,21 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
           ".contentmd/product/open-questions.json",
           renderOpenQuestions(),
         ),
-        proposedFile("CONTENT.md", renderContentContract(root, existingSources)),
+        proposedFile(
+          ".contentmd/records/repository-model.json",
+          canonicalJson({
+            contract_version: "contentmd.repository-model-record/0.1.0",
+            identity: model.identity,
+            source_candidates: model.discovery.source_candidates,
+            evidence_claims: model.discovery.evidence_claims,
+            authority_assessments: model.assessments,
+            graph: model.graph,
+            proposed_interpretation: model.proposed_interpretation,
+            decision_status: "proposed",
+            authority_effect: "none",
+          }),
+        ),
+        proposedFile("CONTENT.md", renderContentContract(model, existingSources)),
       ].sort((left, right) => left.relative_path.localeCompare(right.relative_path));
 
   const preimage: Omit<AdoptionPlan, "plan_digest"> = {
@@ -194,6 +215,39 @@ function equalPathSets(left: readonly string[], right: readonly string[]): boole
   return canonicalJson(normalize(left)) === canonicalJson(normalize(right));
 }
 
+function sha256Text(value: string): string {
+  return createHash("sha256").update(value, "utf8").digest("hex");
+}
+
+async function readTextIfPresent(path: string): Promise<string | null> {
+  try {
+    return await readFile(path, "utf8");
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
+    throw error;
+  }
+}
+
+async function writeAtomic(target: string, content: string, replace: boolean): Promise<void> {
+  await mkdir(dirname(target), { recursive: true });
+  const temporary = join(dirname(target), `.${randomUUID()}.tmp`);
+  const handle = await open(temporary, "wx", 0o600);
+  try {
+    await handle.writeFile(content, "utf8");
+    await handle.sync();
+    await handle.close();
+    if (replace) await rename(temporary, target);
+    else {
+      await link(temporary, target);
+      await unlink(temporary);
+    }
+  } catch (error) {
+    await handle.close().catch(() => undefined);
+    await unlink(temporary).catch(() => undefined);
+    throw error;
+  }
+}
+
 export async function executeAdoption(
   plan: AdoptionPlan,
   approval: LocalWriteApproval,
@@ -209,7 +263,11 @@ export async function executeAdoption(
     unresolved_questions: plan.unresolved_questions,
     governance_bootstrap: plan.governance_bootstrap,
   });
-  const plannedPaths = plan.creates.map((file) => file.relative_path);
+  const changedBridges = plan.bridge_previews.filter((bridge) => bridge.status === "change_proposed");
+  const plannedPaths = [
+    ...plan.creates.map((file) => file.relative_path),
+    ...changedBridges.map((bridge) => bridge.relative_path),
+  ];
   if (
     approval.status !== "current" ||
     approval.plan_digest !== plan.plan_digest ||
@@ -224,21 +282,46 @@ export async function executeAdoption(
       throw new Error(`adoption_target_exists:${file.relative_path}`);
     }
   }
+  const bridgeOriginals = new Map<string, string | null>();
+  for (const bridge of changedBridges) {
+    const target = join(plan.project_root, bridge.relative_path);
+    const current = await readTextIfPresent(target);
+    const digest = current === null ? null : sha256Text(current);
+    if (digest !== bridge.before_digest || sha256Text(bridge.after_content) !== bridge.after_digest) {
+      throw new Error(`adoption_source_changed:${bridge.relative_path}`);
+    }
+    bridgeOriginals.set(bridge.relative_path, current);
+  }
 
   for (const relativeDirectory of CONTENTMD_DIRECTORIES) {
     await mkdir(join(plan.project_root, relativeDirectory), { recursive: true });
   }
 
   const createdPaths: string[] = [];
+  const bridgedPaths: string[] = [];
   try {
     for (const file of plan.creates) {
       const target = join(plan.project_root, file.relative_path);
-      await mkdir(dirname(target), { recursive: true });
-      await writeFile(target, file.content, { encoding: "utf8", flag: "wx" });
+      if (await exists(target)) throw new Error(`adoption_target_exists:${file.relative_path}`);
+      await writeAtomic(target, file.content, false);
       createdPaths.push(file.relative_path);
     }
+    for (const bridge of changedBridges) {
+      const target = join(plan.project_root, bridge.relative_path);
+      const current = await readTextIfPresent(target);
+      const digest = current === null ? null : sha256Text(current);
+      if (digest !== bridge.before_digest) throw new Error(`adoption_source_changed:${bridge.relative_path}`);
+      await writeAtomic(target, bridge.after_content, true);
+      bridgedPaths.push(bridge.relative_path);
+    }
   } catch (error) {
-    await Promise.all(createdPaths.map((path) => unlink(join(plan.project_root, path))));
+    await Promise.all(createdPaths.map((path) => unlink(join(plan.project_root, path)).catch(() => undefined)));
+    await Promise.all(bridgedPaths.map(async (path) => {
+      const original = bridgeOriginals.get(path) ?? null;
+      const target = join(plan.project_root, path);
+      if (original === null) await unlink(target).catch(() => undefined);
+      else await writeAtomic(target, original, true);
+    }));
     throw error;
   }
 
@@ -246,6 +329,7 @@ export async function executeAdoption(
     approval_id: approval.approval_id,
     plan_digest: plan.plan_digest,
     created_paths: createdPaths,
+    bridged_paths: bridgedPaths,
   };
   return {
     ...receiptPreimage,
@@ -264,7 +348,12 @@ export interface UninstallPreview {
   installer_id: "contentmd@0.1.0";
   owned_files: string[];
   removed: false;
-  host_files_affected: [];
+  host_files_affected: Array<{
+    relative_path: string;
+    operation: "remove_exact_marker_block";
+    start_marker: "<!-- contentmd:bridge:start -->";
+    end_marker: "<!-- contentmd:bridge:end -->";
+  }>;
 }
 
 function assertOwnedRelativePath(path: string): void {
@@ -279,6 +368,7 @@ export async function previewUninstall(projectRoot: string): Promise<UninstallPr
   const manifest = JSON.parse(await readFile(join(root, ".contentmd/manifest.json"), "utf8")) as {
     installer?: unknown;
     managed_files?: unknown;
+    managed_host_bridges?: unknown;
   };
   if (manifest.installer !== "contentmd@0.1.0" || !Array.isArray(manifest.managed_files)) {
     throw new Error("invalid_installed_manifest");
@@ -289,11 +379,31 @@ export async function previewUninstall(projectRoot: string): Promise<UninstallPr
     return value;
   });
   if (new Set(ownedFiles).size !== ownedFiles.length) throw new Error("duplicate_installer_owned_path");
+  const hostFilesAffected = Array.isArray(manifest.managed_host_bridges)
+    ? manifest.managed_host_bridges.map((value) => {
+        if (value === null || typeof value !== "object" || Array.isArray(value)) {
+          throw new Error("invalid_installed_manifest");
+        }
+        const bridge = value as Record<string, unknown>;
+        if (
+          typeof bridge.relative_path !== "string" ||
+          bridge.start_marker !== "<!-- contentmd:bridge:start -->" ||
+          bridge.end_marker !== "<!-- contentmd:bridge:end -->"
+        ) throw new Error("invalid_installed_manifest");
+        assertOwnedRelativePath(bridge.relative_path);
+        return {
+          relative_path: bridge.relative_path,
+          operation: "remove_exact_marker_block" as const,
+          start_marker: "<!-- contentmd:bridge:start -->" as const,
+          end_marker: "<!-- contentmd:bridge:end -->" as const,
+        };
+      })
+    : [];
   return {
     schema_version: "contentmd.uninstall-preview/0.1.0",
     installer_id: "contentmd@0.1.0",
     owned_files: ownedFiles,
     removed: false,
-    host_files_affected: [],
+    host_files_affected: hostFilesAffected,
   };
 }

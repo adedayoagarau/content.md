@@ -57,7 +57,10 @@ afterAll(async () => {
 
 describe("local CLI vertical slice", () => {
   it("runs adoption through verified exact mutation without auto-creating mutation approval", async () => {
-    const init = await run(["init", "--yes", "--root", root, "--json"]);
+    const initPreview = await run(["init", "--root", root, "--json"], [20]);
+    const init = await run([
+      "init", "--yes", "--plan-digest", initPreview.record_refs[0]!, "--root", root, "--json",
+    ]);
     expect(init.status).toBe("completed");
     expect(await readFile(join(root, "CONTENT.md"), "utf8")).toContain("# CONTENT.md");
 
