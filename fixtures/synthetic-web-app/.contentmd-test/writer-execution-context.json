@@ -64,11 +64,11 @@
             "schema_version": "0.1.0"
           }
         ],
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "task_id": "task.fixture.checkout-content",
-        "qualification_digest": "622ca1978a22304ef02e8914664db723fdc8ac9ce603cae1a188e9da331a5080",
-        "verification_digest": "62bf2ed4661996f519ef8f8f5c956b012981fb0b1b6c9155efd638201a13dbff",
-        "context_digest": "839646748e649c76b45d4f24bc9cfdae5b5fa3c5b2d4798a15bcacdf1446326b"
+        "qualification_digest": "0ced22dd85e57622d2631b3f66caea6fa1abe133f479054b33e136d6323becff",
+        "verification_digest": "ee6917e716858787a1822c0f56e50aefba33229eb48ba24b9c3f2669e7e2a6e1",
+        "context_digest": "f636a8b83e5a62bb92dcdf57f982646765a220cf3e1106cb8388ce112d3c436a"
       },
       "verification": {
         "contract_version": "contentmd.project-fact-prompt-context-verification/0.1.0",
@@ -190,6 +190,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -216,8 +217,13 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
         "eligible_fact": {
@@ -244,7 +250,7 @@
           ],
           "observation_strength": "authoritative",
           "project_id": "project.synthetic-web-app",
-          "qualification_digest": "622ca1978a22304ef02e8914664db723fdc8ac9ce603cae1a188e9da331a5080",
+          "qualification_digest": "0ced22dd85e57622d2631b3f66caea6fa1abe133f479054b33e136d6323becff",
           "raw_source_locators_included": false,
           "source_refs": [
             {
@@ -254,10 +260,10 @@
               "schema_version": "0.1.0"
             }
           ],
-          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
           "task_id": "task.fixture.checkout-content"
         },
-        "verification_digest": "62bf2ed4661996f519ef8f8f5c956b012981fb0b1b6c9155efd638201a13dbff"
+        "verification_digest": "ee6917e716858787a1822c0f56e50aefba33229eb48ba24b9c3f2669e7e2a6e1"
       }
     },
     {
@@ -301,11 +307,11 @@
             "schema_version": "0.1.0"
           }
         ],
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "task_id": "task.fixture.checkout-content",
-        "qualification_digest": "651ea328918f57980338e3605f69c53bd725532ed66cd40549ab5f5191056fe8",
-        "verification_digest": "60ae7a53b2109eeb1a4987b921830d3f9e52be1fd195650be912778088892a72",
-        "context_digest": "a5ee0a3b4d1448280279df5c279461f858db81476123eabd77c4d4506c2ac9ab"
+        "qualification_digest": "cfde8ebf8c73fdb83d13d166c402c674c857b94c46fe8a2e4cf1ca9513db1eb7",
+        "verification_digest": "83f412639ebc1903bab43ce52181d5299fe82f786a841c76ecfa4fcebd882938",
+        "context_digest": "ea97abd106b488cc62a37607dede82c0246f985a9f7caf6d13c293f381e946d2"
       },
       "verification": {
         "contract_version": "contentmd.project-fact-prompt-context-verification/0.1.0",
@@ -427,6 +433,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -453,8 +460,13 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
         "eligible_fact": {
@@ -481,7 +493,7 @@
           ],
           "observation_strength": "authoritative",
           "project_id": "project.synthetic-web-app",
-          "qualification_digest": "651ea328918f57980338e3605f69c53bd725532ed66cd40549ab5f5191056fe8",
+          "qualification_digest": "cfde8ebf8c73fdb83d13d166c402c674c857b94c46fe8a2e4cf1ca9513db1eb7",
           "raw_source_locators_included": false,
           "source_refs": [
             {
@@ -491,10 +503,10 @@
               "schema_version": "0.1.0"
             }
           ],
-          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
           "task_id": "task.fixture.checkout-content"
         },
-        "verification_digest": "60ae7a53b2109eeb1a4987b921830d3f9e52be1fd195650be912778088892a72"
+        "verification_digest": "83f412639ebc1903bab43ce52181d5299fe82f786a841c76ecfa4fcebd882938"
       }
     },
     {
@@ -571,12 +583,12 @@
         "source_class": "project_owned",
         "state_ref": "state.payment-outcome-unknown",
         "surface": "checkout",
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "task_id": "task.fixture.checkout-content",
         "variables": [],
-        "qualification_digest": "e0a1474321a1d336f5b32354ac4761611a33b8ffd40bdd28615d9e98a19b7180",
-        "verification_digest": "ccac20b7a1b3b1c000c686fd716508e1e9d57ed4dff3540a1b12c76808e77ac9",
-        "context_digest": "5753981f96f70cbe6b0b58ce72ef9a11ab852669fe2f479b870f80661ae72af7"
+        "qualification_digest": "f1a68c7144ebea9a562639b572b4c39da51466ad98a679afe541fe835e2bd66b",
+        "verification_digest": "508236dc14da204a9865467e21536cfc6efaac2bd385bf31e75578425463ef7d",
+        "context_digest": "a9b9bce7442b8a850108f292e2831b98838d4ad4ed7e0a5f076454c8056cdb4b"
       },
       "verification": {
         "contract_version": "contentmd.product-example-prompt-context-verification/0.1.0",
@@ -778,6 +790,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -804,8 +817,13 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
         "eligible_example": {
@@ -857,7 +875,7 @@
             "smartest"
           ],
           "project_id": "project.synthetic-web-app",
-          "qualification_digest": "e0a1474321a1d336f5b32354ac4761611a33b8ffd40bdd28615d9e98a19b7180",
+          "qualification_digest": "f1a68c7144ebea9a562639b572b4c39da51466ad98a679afe541fe835e2bd66b",
           "raw_source_locators_included": false,
           "required_fact_refs": [
             "fact.payment-outcome-can-be-unknown",
@@ -875,11 +893,11 @@
           "source_class": "project_owned",
           "state_ref": "state.payment-outcome-unknown",
           "surface": "checkout",
-          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
           "task_id": "task.fixture.checkout-content",
           "variables": []
         },
-        "verification_digest": "ccac20b7a1b3b1c000c686fd716508e1e9d57ed4dff3540a1b12c76808e77ac9"
+        "verification_digest": "508236dc14da204a9865467e21536cfc6efaac2bd385bf31e75578425463ef7d"
       }
     },
     {
@@ -961,12 +979,12 @@
         "source_class": "project_owned",
         "state_ref": "state.payment-outcome-unknown",
         "surface": "checkout",
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "task_id": "task.fixture.checkout-content",
         "variables": [],
-        "qualification_digest": "aa1546417ee5bdd6ff1c3f4c47e02cd40818317476bbc6936bdf18558e54ebaa",
-        "verification_digest": "ca35f8eb2e4ab17aaf92cddfa1db36843d89f5fc49d60963f3b85ccadb139755",
-        "context_digest": "2ad4d5cecf781700c55742197691451743067b3cfa5d64b0b49cdae0f0358b91"
+        "qualification_digest": "46f1d27dc267f30e4923caa13751f12aa499b0f694bd4f2c914832e9ba95b589",
+        "verification_digest": "6d2cbf10ad8e80c1cf5168da382596556be7cdf52ea5fd1e2df50e7bdbe6491f",
+        "context_digest": "a7486a7c86b1fa5ba451da2daa58fd5836adc07cd0bd88659a9cd8ee6caa7120"
       },
       "verification": {
         "contract_version": "contentmd.product-example-prompt-context-verification/0.1.0",
@@ -1118,7 +1136,7 @@
             "content": {
               "authority_effect": "none",
               "automatic_rewrite_allowed": false,
-              "context_digest": "34152077fd0458adaf9c0b440f644c83b33d6ccda03f03aa21d36e6a5e3e9fcb",
+              "context_digest": "e3a5f3090e77864002968059faf912c09114aba1191c50935f83d1cdaefd6726",
               "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
               "dimension": "state_accuracy",
               "evidence_refs": [
@@ -1136,7 +1154,7 @@
               ],
               "outcome_class": "hard",
               "project_id": "project.synthetic-web-app",
-              "qualification_digest": "8124e21ce8b7ce0862e70098cd3349c3eb5ffa10d3a89e3a91c9d3078fe75e4f",
+              "qualification_digest": "daa36cf1722bc6f129724094ae1f79d377aa38af3f978bf1ddd1a3f7822ebe57",
               "rationale": "The content declares failure even though the documented post-submission outcome can remain unknown.",
               "raw_expression_included": false,
               "report_ref": {
@@ -1150,10 +1168,10 @@
               "rule_version": "0.1.0",
               "severity": "critical",
               "suggested_next_action": "Represent the outcome as unknown and preserve the distinction between submission and confirmed result.",
-              "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+              "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
               "task_id": "task.fixture.checkout-content",
               "uncertainty": "none",
-              "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+              "verification_digest": "1544e55f07ec220d753ae693bfca9ea0c7a628cbd87c333dc7e40a28315b24b1"
             },
             "data_class": "review_finding",
             "source_ref": {
@@ -1360,6 +1378,7 @@
                   "authority_effect": "none",
                   "channel": "web",
                   "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+                  "decision_status": "proposed",
                   "evidence_refs": [
                     "review.fixture",
                     "source.design",
@@ -1386,11 +1405,16 @@
                   "risk": "high",
                   "schema_version": "contentmd.task-packet/0.1.0",
                   "semantic_message_ref": "message.safe-payment-recovery",
-                  "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-                  "task_id": "task.fixture.checkout-content"
+                  "target_occurrence_refs": [
+                    "occurrence.fixture.target"
+                  ],
+                  "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+                  "task_id": "task.fixture.checkout-content",
+                  "terminology_refs": [],
+                  "voice_profile_refs": []
                 }
               },
-              "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+              "verification_digest": "1544e55f07ec220d753ae693bfca9ea0c7a628cbd87c333dc7e40a28315b24b1"
             }
           },
           "semantic_message": {
@@ -1447,6 +1471,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -1473,8 +1498,13 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
         "eligible_example": {
@@ -1531,7 +1561,7 @@
             "smartest"
           ],
           "project_id": "project.synthetic-web-app",
-          "qualification_digest": "aa1546417ee5bdd6ff1c3f4c47e02cd40818317476bbc6936bdf18558e54ebaa",
+          "qualification_digest": "46f1d27dc267f30e4923caa13751f12aa499b0f694bd4f2c914832e9ba95b589",
           "raw_source_locators_included": false,
           "required_fact_refs": [
             "fact.payment-outcome-can-be-unknown",
@@ -1549,11 +1579,11 @@
           "source_class": "project_owned",
           "state_ref": "state.payment-outcome-unknown",
           "surface": "checkout",
-          "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+          "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
           "task_id": "task.fixture.checkout-content",
           "variables": []
         },
-        "verification_digest": "ca35f8eb2e4ab17aaf92cddfa1db36843d89f5fc49d60963f3b85ccadb139755"
+        "verification_digest": "6d2cbf10ad8e80c1cf5168da382596556be7cdf52ea5fd1e2df50e7bdbe6491f"
       }
     },
     {
@@ -1568,7 +1598,7 @@
         "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
         "project_id": "project.synthetic-web-app",
         "task_id": "task.fixture.checkout-content",
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
         "report_ref": {
           "record_id": "review.5a09ef81016799f3157225b644241f9a",
@@ -1600,9 +1630,9 @@
         "automatic_rewrite_allowed": false,
         "raw_expression_included": false,
         "authority_effect": "none",
-        "qualification_digest": "8124e21ce8b7ce0862e70098cd3349c3eb5ffa10d3a89e3a91c9d3078fe75e4f",
-        "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489",
-        "context_digest": "34152077fd0458adaf9c0b440f644c83b33d6ccda03f03aa21d36e6a5e3e9fcb"
+        "qualification_digest": "daa36cf1722bc6f129724094ae1f79d377aa38af3f978bf1ddd1a3f7822ebe57",
+        "verification_digest": "1544e55f07ec220d753ae693bfca9ea0c7a628cbd87c333dc7e40a28315b24b1",
+        "context_digest": "e3a5f3090e77864002968059faf912c09114aba1191c50935f83d1cdaefd6726"
       },
       "verification": {
         "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
@@ -1802,6 +1832,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -1828,11 +1859,16 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
-        "verification_digest": "f8bfc7dc2d48ba837508006bc9bee849296ef204a590cc35f3f9a368ef1e9489"
+        "verification_digest": "1544e55f07ec220d753ae693bfca9ea0c7a628cbd87c333dc7e40a28315b24b1"
       }
     },
     {
@@ -1847,7 +1883,7 @@
         "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
         "project_id": "project.synthetic-web-app",
         "task_id": "task.fixture.checkout-content",
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
         "report_ref": {
           "record_id": "review.5a09ef81016799f3157225b644241f9a",
@@ -1879,9 +1915,9 @@
         "automatic_rewrite_allowed": false,
         "raw_expression_included": false,
         "authority_effect": "none",
-        "qualification_digest": "dcc9979fbe3338af38f25a53a91bc0dfc4986c103d4debbdea5d4748a01c6a29",
-        "verification_digest": "031401077a5cc4050592175ffa2836d499a38d5f76ebd8f5143e9fe98d8deb99",
-        "context_digest": "3bc259132e2ba8d52260c36312375c6293b9ff55a6052b191cc6d601baf4d67b"
+        "qualification_digest": "342e17e03e94b479e24f603fb9378bdc35b41a3a8907e3a3d35b82f3b75dcea9",
+        "verification_digest": "06297d0256524340f28fee21e1783cde67ad43469a9576a281bb31c040babd47",
+        "context_digest": "96c3cc666414cf1ea2183ce3f7be3071383de7796d1933b327b666bf9f3a06fe"
       },
       "verification": {
         "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
@@ -2081,6 +2117,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -2107,11 +2144,16 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
-        "verification_digest": "031401077a5cc4050592175ffa2836d499a38d5f76ebd8f5143e9fe98d8deb99"
+        "verification_digest": "06297d0256524340f28fee21e1783cde67ad43469a9576a281bb31c040babd47"
       }
     },
     {
@@ -2126,7 +2168,7 @@
         "contract_version": "contentmd.review-finding-prompt-context/0.1.0",
         "project_id": "project.synthetic-web-app",
         "task_id": "task.fixture.checkout-content",
-        "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
+        "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
         "review_input_digest": "533bfb34804661f2bbdb930d298e74fdf49c4e7be5cb10d5f0b9dc6dc1e941b7",
         "report_ref": {
           "record_id": "review.5a09ef81016799f3157225b644241f9a",
@@ -2158,9 +2200,9 @@
         "automatic_rewrite_allowed": false,
         "raw_expression_included": false,
         "authority_effect": "none",
-        "qualification_digest": "476d84649ba803e0072b47512a74df7870d2d867b5a8cf91324b279617f7bfc9",
-        "verification_digest": "f5fc34d44e456a392d82a7d7dc15ddee11f85a04c3ed9150649d0ef3a79add17",
-        "context_digest": "5a7a72cf7937c4f4b75dc38cf02e45b3c3d5cb0aa58fa94fc35d3b034ecc8355"
+        "qualification_digest": "a23d235ad35bafd3d8a3522978dfe70111be44fe73ebc97a7a963bac35bd3435",
+        "verification_digest": "4949765d052f41b707eab854f451ad2c986a6fac139a07ceb0df3dc040544b20",
+        "context_digest": "ed5ea73fda7acd0ff5f8dda53f2f280a8ebd5d893363b6419045edd05b25f9bd"
       },
       "verification": {
         "contract_version": "contentmd.review-finding-prompt-context-verification/0.1.0",
@@ -2360,6 +2402,7 @@
             "authority_effect": "none",
             "channel": "web",
             "consequence": "A second payment attempt may duplicate a still-processing attempt.",
+            "decision_status": "proposed",
             "evidence_refs": [
               "review.fixture",
               "source.design",
@@ -2386,11 +2429,16 @@
             "risk": "high",
             "schema_version": "contentmd.task-packet/0.1.0",
             "semantic_message_ref": "message.safe-payment-recovery",
-            "task_digest": "c1bf458862015de6204a26d6f6f9d36cae8fe7d84d4f94e435f8e9eb1461415c",
-            "task_id": "task.fixture.checkout-content"
+            "target_occurrence_refs": [
+              "occurrence.fixture.target"
+            ],
+            "task_digest": "776f50088e4b8b57b851088311ee896c9df603488d30b311d978c6af05e34f89",
+            "task_id": "task.fixture.checkout-content",
+            "terminology_refs": [],
+            "voice_profile_refs": []
           }
         },
-        "verification_digest": "f5fc34d44e456a392d82a7d7dc15ddee11f85a04c3ed9150649d0ef3a79add17"
+        "verification_digest": "4949765d052f41b707eab854f451ad2c986a6fac139a07ceb0df3dc040544b20"
       }
     }
   ],

@@ -16,3 +16,4 @@ export * from "./provider-audit.js";
 export * from "./provider-configuration.js";
 export * from "./repository-interpretation.js";
 export * from "./runtime-workflow.js";
+export * from "./task-workflow.js";

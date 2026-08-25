@@ -20,6 +20,7 @@ import { registerRuntime } from "./commands/runtime.js";
 import { registerRewrite } from "./commands/rewrite.js";
 import { registerStart } from "./commands/start.js";
 import { registerStrategy } from "./commands/strategy.js";
+import { registerTask } from "./commands/task.js";
 import { registerVerify } from "./commands/verify.js";
 import { registerUninstall } from "./commands/uninstall.js";
 import { createCommandResult, emitCommandResult } from "./output.js";
@@ -41,6 +42,7 @@ export function buildProgram(): Command {
   registerResearch(program);
   registerReview(program);
   registerRuntime(program);
+  registerTask(program);
   registerStrategy(program);
   registerDraft(program);
   registerRewrite(program);

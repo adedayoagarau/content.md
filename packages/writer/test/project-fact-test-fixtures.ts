@@ -4,6 +4,10 @@ import { createContentTaskPacket } from "@contentmd/writer";
 export function projectFactTask(requiredFactRefs = ["fact.payment-outcome-unknown"]) {
   return createContentTaskPacket({
     task_id: "task.project-fact.fixture",
+    target_occurrence_refs: ["occurrence.fixture.target"],
+    voice_profile_refs: [],
+    terminology_refs: [],
+    decision_status: "proposed",
     product_context_refs: ["product.checkout"],
     audience_job_refs: ["audience.buyer", "job.recover-payment"],
     journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],

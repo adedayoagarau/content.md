@@ -4,6 +4,10 @@ import { createContentTaskPacket, type ContentTaskPacket } from "@contentmd/writ
 function defaultTask() {
   return createContentTaskPacket({
     task_id: "task.review-finding.fixture",
+    target_occurrence_refs: ["occurrence.payment-error"],
+    voice_profile_refs: [],
+    terminology_refs: [],
+    decision_status: "proposed",
     product_context_refs: ["product.checkout"],
     audience_job_refs: ["audience.buyer", "job.recover-payment"],
     journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],

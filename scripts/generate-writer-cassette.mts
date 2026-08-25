@@ -24,6 +24,7 @@ import {
 
 const task = createContentTaskPacket({
   task_id: "task.fixture.checkout-content",
+  target_occurrence_refs: ["occurrence.fixture.target"],
   product_context_refs: ["product.beacon"],
   audience_job_refs: ["audience.merchant-content-designer", "job.inspect-payment-states"],
   journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],
@@ -36,6 +37,9 @@ const task = createContentTaskPacket({
   locale: "en-US",
   risk: "high",
   evidence_refs: ["source.product", "source.design", "review.fixture"],
+  voice_profile_refs: [],
+  terminology_refs: [],
+  decision_status: "proposed",
   acceptance_criteria: [
     "Do not declare failure when the outcome is unknown.",
     "Do not invite another payment before status verification.",

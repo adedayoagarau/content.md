@@ -21,6 +21,10 @@ const ref = (recordId: string, digestSeed: string) => ({
 
 const task = createContentTaskPacket({
   task_id: "task.prompt.fixture",
+  target_occurrence_refs: ["occurrence.fixture.target"],
+  voice_profile_refs: [],
+  terminology_refs: [],
+  decision_status: "proposed",
   product_context_refs: ["product.checkout"],
   audience_job_refs: ["audience.buyer", "job.recover-payment"],
   journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],
