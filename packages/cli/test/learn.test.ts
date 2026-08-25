@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
-import { decodeCanonicalDag, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
+import { canonicalJson, decodeCanonicalDag, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
 import {
   adaptContentDecisionEvent,
   buildLearningDataset,
@@ -15,6 +15,7 @@ import {
   determineLearningEligibility,
   exportEvaluationSimulatorSnapshot,
   qualifyFeedback,
+  trainPairwiseLogistic,
 } from "../../learning/src/index.js";
 import {
   eligibilityFixture,
@@ -44,6 +45,7 @@ const EXPECTED_PHASES = [
   "examples",
   "dataset",
   "train",
+  "verify-model",
   "evaluate",
   "shadow",
   "promote",
@@ -150,6 +152,52 @@ describe("governed recursive learning CLI", () => {
 
     expect(input?.required).toBe(true);
   });
+
+  it("reverifies the persisted training model without selecting or activating it", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-learn-verify-model-"));
+    temporaryDirectories.push(root);
+    const fixture = task6PassingSealedReplayFixture();
+    const request = fixture.replay.model_dependencies.training_request;
+    const training = trainPairwiseLogistic(request);
+    if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
+    const artifact = encodeCanonicalDag({
+      contract_version: "contentmd.local-learning-training-artifact/0.1.0" as const,
+      training_replay: {
+        contract_version: "contentmd.local-pairwise-training-replay/0.1.0" as const,
+        record_mode: request.record_mode,
+        purpose: request.purpose,
+        dataset_replay: request.dataset.replay,
+        feature_matrix_replay: request.feature_matrix.replay,
+        code_manifest: request.code_manifest.manifest,
+        runtime_profile: request.runtime_profile.profile,
+      },
+      training,
+    });
+    const artifactPath = join(root, ".contentmd/runtime/learning-training-result.dag.json");
+    await mkdir(dirname(artifactPath), { recursive: true });
+    await writeFile(artifactPath, canonicalJson(artifact));
+
+    const { envelope, stdout } = await executeLearn(root, "verify-model");
+
+    expect(envelope, stdout).toMatchObject({
+      command_id: "learn.verify-model",
+      status: "completed",
+      record_refs: [training.model_record.record_id],
+      data: {
+        phase: "verify_model",
+        authority_effect: "none",
+        training_artifact_digest: artifact.root_digest,
+        model_ref: {
+          record_id: training.model_record.record_id,
+          schema_id: training.model_record.schema_id,
+          schema_version: training.model_record.schema_version,
+          content_digest: training.model_record.content_digest,
+        },
+      },
+    });
+    expect(stdout).not.toContain("coefficient");
+    expect(stdout).not.toContain("selected_expression");
+  }, 300_000);
 
   it.each(["drift", "rollback"] as const)(
     "requires a complete replay input for the %s phase",
@@ -336,10 +384,27 @@ describe("governed recursive learning CLI", () => {
         authority_effect: "none",
         denominators: [{ name: "training_pairs", value: 80 }],
         exclusions: [],
+        training_artifact_digest: expect.stringMatching(/^[a-f0-9]{64}$/u),
+        training_artifact_path: ".contentmd/runtime/learning-training-result.dag.json",
       },
     });
     expect(trained.stdout).not.toContain("selected_expression");
     expect(trained.stdout).not.toContain("expression\":");
+    const trainingArtifactPath = join(
+      root,
+      ".contentmd/runtime/learning-training-result.dag.json",
+    );
+    const trainingArtifact = JSON.parse(await readFile(trainingArtifactPath, "utf8"));
+    expect(decodeCanonicalDag(trainingArtifact)).toMatchObject({
+      contract_version: "contentmd.local-learning-training-artifact/0.1.0",
+      training: {
+        state: "trained",
+        model_record: { record_id: trained.envelope.record_refs?.[1] },
+      },
+    });
+    expect(trainingArtifact.root_digest).toBe(
+      (trained.envelope.data as { training_artifact_digest: string }).training_artifact_digest,
+    );
 
     const trainingAudit = trained.envelope.audit_ref;
     expect(trainingAudit).toEqual(expect.stringMatching(/^[a-f0-9]{64}$/u));

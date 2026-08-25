@@ -1,0 +1,6 @@
+{
+  "commerce and marketplaces": ["search", "delivery assurance", "shopping categories"],
+  "delivery and logistics": ["delivery", "pickup", "fulfillment timing"],
+  "telecom": ["carrier switch", "device retention", "plan comparison"],
+  "utilities and energy": ["plan availability", "ZIP-code eligibility", "provider switching"]
+}

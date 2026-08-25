@@ -1,0 +1,5 @@
+{"term":"pay as you go","system":"Stripe Billing","meaning":"usage-based pricing model","notes":"billing terminology"}
+{"term":"subscription plan","system":"Stripe Billing","meaning":"recurring billing tier","notes":"pricing terminology"}
+{"term":"meeting webinar licenses","system":"Zoom Workplace pricing","meaning":"license families for communication products","notes":"license terminology"}
+{"term":"public access price lists","system":"Shopify pricing","meaning":"shareable price list visibility","notes":"configuration terminology"}
+{"term":"variable platform fee","system":"Shopify pricing","meaning":"enterprise fee tied to revenue and business model","notes":"enterprise terminology"}

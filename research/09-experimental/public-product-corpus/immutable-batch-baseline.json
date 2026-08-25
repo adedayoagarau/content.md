@@ -1,0 +1,3627 @@
+{
+  "contract_version": "contentmd.public-product-immutable-batch-baseline/0.1.0",
+  "entries": [
+    {
+      "path": "2026-08-23-batch-01/acquisition-manifest.md",
+      "byte_length": 1203,
+      "sha256": "23b0253aae0401314f7772761533d99ccd2b0ca78fe6b59466c616fe575c7854"
+    },
+    {
+      "path": "2026-08-23-batch-01/batch-status.md",
+      "byte_length": 665,
+      "sha256": "b11b47545f41e99e21a1a9a0eb38972a4f7ebb121cb5e13a9bbda2019ee19637"
+    },
+    {
+      "path": "2026-08-23-batch-01/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-01/corpus-readiness-audit.md",
+      "byte_length": 3516,
+      "sha256": "4c19251acb37f5b40af0a2405322b63e8bfb5b4dc7448dd2e80c64811f35b11d"
+    },
+    {
+      "path": "2026-08-23-batch-01/cross-industry-synthesis.md",
+      "byte_length": 1006,
+      "sha256": "dc004a7116455d8bbc2a358b0d1cec6d1bae2f4085206f29526ef1dedc5a3e54"
+    },
+    {
+      "path": "2026-08-23-batch-01/journey-state-taxonomy.json",
+      "byte_length": 406,
+      "sha256": "dca6067a9fbbd140b975ac9b0ed6ce980f7a3e9f9bd8397169da1106b01f5ec7"
+    },
+    {
+      "path": "2026-08-23-batch-01/observations.jsonl",
+      "byte_length": 21831,
+      "sha256": "80fce8b5f83fcb096d3b75ed1556ecf781570d64349f09b129f7e18efb870cb0"
+    },
+    {
+      "path": "2026-08-23-batch-01/pattern-candidates.jsonl",
+      "byte_length": 1395,
+      "sha256": "5e6530615b35e8d08670c774937bb6d66e94422945ed2637feb74e5a482321dc"
+    },
+    {
+      "path": "2026-08-23-batch-01/product-taxonomy.json",
+      "byte_length": 473,
+      "sha256": "4c14d96c2c18b91c8dccfdbcaaaf871e1cb7096e982e1bec032a7e14e910a0d8"
+    },
+    {
+      "path": "2026-08-23-batch-01/sources.jsonl",
+      "byte_length": 9802,
+      "sha256": "e53a351ff5a26fb1f7cb7fa8dca9f952a250f9dd672489713bf60393a9d985f0"
+    },
+    {
+      "path": "2026-08-23-batch-01/systems-sampling-frame.json",
+      "byte_length": 1793,
+      "sha256": "6e2ac00907572a4e067a7cbb18ed35352e1a5465123ee0ea9c2a0c7a3588fa51"
+    },
+    {
+      "path": "2026-08-23-batch-01/terminology-register.jsonl",
+      "byte_length": 601,
+      "sha256": "a2eae3049abbf2b67acf9b598e8dc722d3dbc6c8fce2e1d4b96fbbb8f800aef2"
+    },
+    {
+      "path": "2026-08-23-batch-02/acquisition-manifest.md",
+      "byte_length": 831,
+      "sha256": "6eb4d4fe61edde288d4d48ed2c80750b43c07754963f4b1f34a1177e3aa3b0bc"
+    },
+    {
+      "path": "2026-08-23-batch-02/batch-status.md",
+      "byte_length": 636,
+      "sha256": "f69d715d8a4bfd98825f97284927122fc5eb87b0c5759c0f43a4edcfcec28e4b"
+    },
+    {
+      "path": "2026-08-23-batch-02/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-02/cross-industry-synthesis.md",
+      "byte_length": 951,
+      "sha256": "380f78221eb620c60f3c8672a07fe94df1843c9f0fceebadc3c469d54ec37b97"
+    },
+    {
+      "path": "2026-08-23-batch-02/journey-state-taxonomy.json",
+      "byte_length": 410,
+      "sha256": "c0b3d975ae6ab1206a61fb9a539ccdd4ff0ae081878e6a0806875fc2e4e99973"
+    },
+    {
+      "path": "2026-08-23-batch-02/observations.jsonl",
+      "byte_length": 37702,
+      "sha256": "0d91eaecbc4fe806de4d146ec5edce08f2064a5e1ed7e6021cc2b60ea0af0a51"
+    },
+    {
+      "path": "2026-08-23-batch-02/pattern-candidates.jsonl",
+      "byte_length": 1561,
+      "sha256": "a2237bd4c81bc63da3fab032bb6f22f1bafc2126b5612329bb055e60d6afb6c4"
+    },
+    {
+      "path": "2026-08-23-batch-02/product-taxonomy.json",
+      "byte_length": 442,
+      "sha256": "34d35e979c75453de78cbaf97e1b0d81ee7ef2688eecb8a6fd91d21183c2ebdc"
+    },
+    {
+      "path": "2026-08-23-batch-02/sources.jsonl",
+      "byte_length": 11471,
+      "sha256": "928d41c417f4a2e1d0a7297a5ae23fff481ce8025385609746d2d05c9e0fc71e"
+    },
+    {
+      "path": "2026-08-23-batch-02/systems-sampling-frame.json",
+      "byte_length": 2075,
+      "sha256": "95be566ba5e50b5c33344f5f742126dd1419005944d2b46a6197a04ca68ca203"
+    },
+    {
+      "path": "2026-08-23-batch-02/terminology-register.jsonl",
+      "byte_length": 512,
+      "sha256": "914d34a76af68b5901c2fd41f0abe5041c7c2b288416e44c6b8f8a42570d1098"
+    },
+    {
+      "path": "2026-08-23-batch-03/acquisition-manifest.md",
+      "byte_length": 825,
+      "sha256": "23e0efac6fcd92d91148e9d22d872dbbf9d87cf0f4248522f1af86775b324b18"
+    },
+    {
+      "path": "2026-08-23-batch-03/batch-status.md",
+      "byte_length": 573,
+      "sha256": "ec1c732c4df71ed81da923a7be0cdea8adeebbc06ea56f5b65efb00da69a91cf"
+    },
+    {
+      "path": "2026-08-23-batch-03/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-03/cross-industry-synthesis.md",
+      "byte_length": 1020,
+      "sha256": "b52b429a4b7c3ab2f56ad45d13f08da006c26eeea714b2bc0a0a7af792bf475c"
+    },
+    {
+      "path": "2026-08-23-batch-03/journey-state-taxonomy.json",
+      "byte_length": 381,
+      "sha256": "f037caef81f8578f91f1ca34f327b69899f0e83b14beb8fe2f5822ac87236cfa"
+    },
+    {
+      "path": "2026-08-23-batch-03/observations.jsonl",
+      "byte_length": 28816,
+      "sha256": "36a41831cb13cd1ec4f4193bfff6428a323d050933d8dc27c42eefcc598bd714"
+    },
+    {
+      "path": "2026-08-23-batch-03/pattern-candidates.jsonl",
+      "byte_length": 1535,
+      "sha256": "c2271fc72186d34d4f7573ad09e370f9d771075f2d01c79801003bfe1c4e0d80"
+    },
+    {
+      "path": "2026-08-23-batch-03/product-taxonomy.json",
+      "byte_length": 513,
+      "sha256": "993cde2a603535753bbcf90dd4674fd9d4c8f98fa510bc3595443f62d714688d"
+    },
+    {
+      "path": "2026-08-23-batch-03/sources.jsonl",
+      "byte_length": 11134,
+      "sha256": "827f892f65c60108d004dfba40419dd9da32d997c12032b5b844f01bdebdae2b"
+    },
+    {
+      "path": "2026-08-23-batch-03/systems-sampling-frame.json",
+      "byte_length": 2091,
+      "sha256": "13296b018a1bd99114621da51367be4fb20b2e5a545f21f352545c8433bb762c"
+    },
+    {
+      "path": "2026-08-23-batch-03/terminology-register.jsonl",
+      "byte_length": 551,
+      "sha256": "f9018f6f9b6bdab563374b0a5ba32541bc8b791cbc966db88da8891a52085655"
+    },
+    {
+      "path": "2026-08-23-batch-04/acquisition-manifest.md",
+      "byte_length": 822,
+      "sha256": "2e16c1d85f76db58679a9d555a344f3c476a145ffb5897fa57d0845a17e59f7b"
+    },
+    {
+      "path": "2026-08-23-batch-04/batch-status.md",
+      "byte_length": 589,
+      "sha256": "f9257f85736956f44563487227373201d99a07eaafe7237a0ba68709e766734b"
+    },
+    {
+      "path": "2026-08-23-batch-04/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-04/cross-industry-synthesis.md",
+      "byte_length": 1042,
+      "sha256": "3ea97fb61adeffc302fbe09a55e9a37c295b6e2c4e132b862185653b62d7238f"
+    },
+    {
+      "path": "2026-08-23-batch-04/journey-state-taxonomy.json",
+      "byte_length": 385,
+      "sha256": "76f71272153ebca0ff98a962e7e1d536f1dab8b2f0ac7b6d008c97dacac61d2c"
+    },
+    {
+      "path": "2026-08-23-batch-04/observations.jsonl",
+      "byte_length": 31025,
+      "sha256": "354e6f0c97cfe814f3b49618d3799f465ab9bcbda0e60ce2d0d1c39d8ebf1b6d"
+    },
+    {
+      "path": "2026-08-23-batch-04/pattern-candidates.jsonl",
+      "byte_length": 1506,
+      "sha256": "528b4f1ca9432886109084e7f6d51f1b209c18099b895bfc00e7b6debb09b546"
+    },
+    {
+      "path": "2026-08-23-batch-04/product-taxonomy.json",
+      "byte_length": 409,
+      "sha256": "846036298b9a8c409d9f81431267689c8aee0bad7f1c11a68257f0fcbcdbbdd1"
+    },
+    {
+      "path": "2026-08-23-batch-04/sources.jsonl",
+      "byte_length": 14242,
+      "sha256": "1b7dd415854cf7aa5cfb97f8646d50b0ce2832c853d0e0a54661b297c71683d8"
+    },
+    {
+      "path": "2026-08-23-batch-04/systems-sampling-frame.json",
+      "byte_length": 2364,
+      "sha256": "b48e6ca21642f9ddc9c7bfdfb56c214d6555aacd50a378527508aeb84ee5d44c"
+    },
+    {
+      "path": "2026-08-23-batch-04/terminology-register.jsonl",
+      "byte_length": 562,
+      "sha256": "deea22c359f346fef4d4999c406e3088a936166d95d926c2768ced3f0a5e10d1"
+    },
+    {
+      "path": "2026-08-23-batch-05/acquisition-manifest.md",
+      "byte_length": 845,
+      "sha256": "5eefcdeffdce503694a259759f5c44f8d11efec39839a503d7ecd2a9007e39c9"
+    },
+    {
+      "path": "2026-08-23-batch-05/batch-status.md",
+      "byte_length": 555,
+      "sha256": "55bab4eb1bbeb8d8db18b005a02c4c37a51b45e5af83515113519e6111ae2a5d"
+    },
+    {
+      "path": "2026-08-23-batch-05/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-05/cross-industry-synthesis.md",
+      "byte_length": 1004,
+      "sha256": "043e501508acfc9a5bbf201b4c0d3f047d9c946316fe70118d6d0107a863a77c"
+    },
+    {
+      "path": "2026-08-23-batch-05/journey-state-taxonomy.json",
+      "byte_length": 454,
+      "sha256": "50905f998ef0e298a1fdd4f4bc6d70ea125db0f9e60f4e959078834719d93f57"
+    },
+    {
+      "path": "2026-08-23-batch-05/observations.jsonl",
+      "byte_length": 34198,
+      "sha256": "691e63276473da78d9cea7876970a86e1f3c59ac61ca8506c51e96df6295dd4f"
+    },
+    {
+      "path": "2026-08-23-batch-05/pattern-candidates.jsonl",
+      "byte_length": 1663,
+      "sha256": "85b611cbcf5918693559c782d2f4778326d9fed55767c4d536a16aceee3c06b7"
+    },
+    {
+      "path": "2026-08-23-batch-05/product-taxonomy.json",
+      "byte_length": 515,
+      "sha256": "0d08d4c97a9bc437d4034ff1d5dfeb8b05d9084efe428c4c9e46209795ee7ed0"
+    },
+    {
+      "path": "2026-08-23-batch-05/sources.jsonl",
+      "byte_length": 16220,
+      "sha256": "087d63a7e0f78a14c0f60864a05f49c0a7d3bbbfa3dc7e91282247599622e1d3"
+    },
+    {
+      "path": "2026-08-23-batch-05/systems-sampling-frame.json",
+      "byte_length": 3156,
+      "sha256": "8e8f62cf3902079bc7d5986652e1f44b9549a6c09d9d726eabf1b586148e7740"
+    },
+    {
+      "path": "2026-08-23-batch-05/terminology-register.jsonl",
+      "byte_length": 565,
+      "sha256": "6c842233d97c1ccefbb092019a8553af7f992065909b8985a1c53d217b404654"
+    },
+    {
+      "path": "2026-08-23-batch-06/acquisition-manifest.md",
+      "byte_length": 823,
+      "sha256": "07218de066ad7d47b1152379038c310b0661e9427874b0e7552af61070c93f26"
+    },
+    {
+      "path": "2026-08-23-batch-06/batch-status.md",
+      "byte_length": 591,
+      "sha256": "5eda437a1b19c605e28ca6ed9f39268fe0f14e434fdea28968389afd777c4749"
+    },
+    {
+      "path": "2026-08-23-batch-06/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-06/cross-industry-synthesis.md",
+      "byte_length": 1023,
+      "sha256": "37ef113058b8b21a7b3f7234665a7c2576a2ccd47974e2dba11e358ca26b96ab"
+    },
+    {
+      "path": "2026-08-23-batch-06/journey-state-taxonomy.json",
+      "byte_length": 414,
+      "sha256": "3088a9c90dfd0e0c5c03586d78fea52516f27914c5f413b1bb1ee3afba578583"
+    },
+    {
+      "path": "2026-08-23-batch-06/observations.jsonl",
+      "byte_length": 22565,
+      "sha256": "630cdf0d2e053429b4a2470300eb88fecf24f89fd57c2d5dd1c180cb70c7ac42"
+    },
+    {
+      "path": "2026-08-23-batch-06/pattern-candidates.jsonl",
+      "byte_length": 1555,
+      "sha256": "7007591d66c791ba17d1bfe0581b82601ac542395312704948c96517a4ae244c"
+    },
+    {
+      "path": "2026-08-23-batch-06/product-taxonomy.json",
+      "byte_length": 523,
+      "sha256": "06b2b832602c1ee8fe940ff7a669ec6a2e65ddf045976b93bb43b0adc244c631"
+    },
+    {
+      "path": "2026-08-23-batch-06/sources.jsonl",
+      "byte_length": 15514,
+      "sha256": "3d2f1485e2e3d948aa8bd58450ad56dca0e116b5a5c35446d6403e9897e25949"
+    },
+    {
+      "path": "2026-08-23-batch-06/systems-sampling-frame.json",
+      "byte_length": 3048,
+      "sha256": "c911b90adc8a964c4de48dd84d86d31187106333428cff4185a4893f947397f3"
+    },
+    {
+      "path": "2026-08-23-batch-06/terminology-register.jsonl",
+      "byte_length": 598,
+      "sha256": "464d10842d5bba1f2c81cda6b7d8b88b2b37eff2c1646388ae92125b654b5209"
+    },
+    {
+      "path": "2026-08-23-batch-07/acquisition-manifest.md",
+      "byte_length": 788,
+      "sha256": "fc5dd40ca0ce3e2002537bfe1e26344519150c8b1234de0b402563b77f130ba0"
+    },
+    {
+      "path": "2026-08-23-batch-07/batch-status.md",
+      "byte_length": 562,
+      "sha256": "eb6ae678e82f26778bd2a47096eb583d7ba825dfa3374b74709a70849f7e322e"
+    },
+    {
+      "path": "2026-08-23-batch-07/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-07/cross-industry-synthesis.md",
+      "byte_length": 957,
+      "sha256": "11a1f9e823fdc112dc915dba4ca0787f4954896f4dd03e83ea13b0016ca22fed"
+    },
+    {
+      "path": "2026-08-23-batch-07/journey-state-taxonomy.json",
+      "byte_length": 383,
+      "sha256": "0aea07c3ffef437d80c1bf415f9d0390244c564bf2766ed3b55e20026df2bd78"
+    },
+    {
+      "path": "2026-08-23-batch-07/observations.jsonl",
+      "byte_length": 20794,
+      "sha256": "f1eea06926fdc7302bd84f5fb5c9d2bfe39366f5be3ef32a6459ebebe0185357"
+    },
+    {
+      "path": "2026-08-23-batch-07/pattern-candidates.jsonl",
+      "byte_length": 1504,
+      "sha256": "299125ab78abc3caa47e9180bbef0c286db12b575798ca5399f86887a1405de7"
+    },
+    {
+      "path": "2026-08-23-batch-07/product-taxonomy.json",
+      "byte_length": 337,
+      "sha256": "c28bad7078098b4489c93225c4e8aab3397d03784bcd035f3ed47208b0d57910"
+    },
+    {
+      "path": "2026-08-23-batch-07/sources.jsonl",
+      "byte_length": 10471,
+      "sha256": "08d7b78b1c33b2f9a58c470a8644cc4d9e9e6160c2afb789aead9eb2a4af41b9"
+    },
+    {
+      "path": "2026-08-23-batch-07/systems-sampling-frame.json",
+      "byte_length": 1737,
+      "sha256": "f2a01572cf596707cb4cc19f8cb3c05c8b99880a7bf3d86107a854fed33b8b7c"
+    },
+    {
+      "path": "2026-08-23-batch-07/terminology-register.jsonl",
+      "byte_length": 509,
+      "sha256": "97b67f8945d6fdb3530da972b010adc00342982a0d0dead7ed62cdd2270a1367"
+    },
+    {
+      "path": "2026-08-23-batch-08/acquisition-manifest.md",
+      "byte_length": 786,
+      "sha256": "2152cb62031ba2d97279da80e210e02e7f96bdc987216ae69d1d76c2c3efeb80"
+    },
+    {
+      "path": "2026-08-23-batch-08/batch-status.md",
+      "byte_length": 554,
+      "sha256": "61d07f8132d0fb51032ca4b0aa3fc151a58ba4a69612f0730f8f0e3549bcb6e1"
+    },
+    {
+      "path": "2026-08-23-batch-08/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-08/cross-industry-synthesis.md",
+      "byte_length": 1010,
+      "sha256": "778446e990c361388eeee1d3625981132f061882de8fde385231f0475de86306"
+    },
+    {
+      "path": "2026-08-23-batch-08/journey-state-taxonomy.json",
+      "byte_length": 409,
+      "sha256": "351aaccf04ed8f51a7f4e27fe9075bbf33cbcdc0194af7e6246b637768e6e2a9"
+    },
+    {
+      "path": "2026-08-23-batch-08/observations.jsonl",
+      "byte_length": 19873,
+      "sha256": "a4a0ff790948ae4b4989764c6dd38b38476e8a6b1de940254c2663e5c2992376"
+    },
+    {
+      "path": "2026-08-23-batch-08/pattern-candidates.jsonl",
+      "byte_length": 1520,
+      "sha256": "a41667e81439420ecc06d70a23d2049446d9be13b2d67e54ce81282f185a2089"
+    },
+    {
+      "path": "2026-08-23-batch-08/product-taxonomy.json",
+      "byte_length": 429,
+      "sha256": "c1b17e841777b8d595d32e0ccb27643746b227d72cd1463a8cb23a8c52fbc268"
+    },
+    {
+      "path": "2026-08-23-batch-08/sources.jsonl",
+      "byte_length": 10500,
+      "sha256": "24b88e3de600d4e4471f5d8b308a6be25327245bdc864a34dfb20411da627536"
+    },
+    {
+      "path": "2026-08-23-batch-08/systems-sampling-frame.json",
+      "byte_length": 1870,
+      "sha256": "1d603e8756566d9e888ef189b628e137186339d99303c430aa09b2ae95a357aa"
+    },
+    {
+      "path": "2026-08-23-batch-08/terminology-register.jsonl",
+      "byte_length": 551,
+      "sha256": "f50ead8e4c88396ef3a17f4f5c5ed4cd2467ea994757518274492841013bcda2"
+    },
+    {
+      "path": "2026-08-23-batch-09/acquisition-manifest.md",
+      "byte_length": 789,
+      "sha256": "680710a42d17aef5683615c6b0eac1675e860ed34a1922df748ac520f8dbf058"
+    },
+    {
+      "path": "2026-08-23-batch-09/batch-status.md",
+      "byte_length": 541,
+      "sha256": "aa519397e0465b3001cbb3578f87adf87358200b92c81a9834aa0e5db8c17047"
+    },
+    {
+      "path": "2026-08-23-batch-09/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-09/cross-industry-synthesis.md",
+      "byte_length": 1032,
+      "sha256": "aa19664db44fe2cfa7629da04c7f96f577fc73d016783169bc2dd8e80473a335"
+    },
+    {
+      "path": "2026-08-23-batch-09/journey-state-taxonomy.json",
+      "byte_length": 367,
+      "sha256": "a5a4842143c80387eb66e46dfe1611ccd613d01e9ded32c6b38fc4527f979a44"
+    },
+    {
+      "path": "2026-08-23-batch-09/observations.jsonl",
+      "byte_length": 24638,
+      "sha256": "a197d041bfab3b694014e0e371b2ce02ce8343739abdc236fe009ea1da2cfd07"
+    },
+    {
+      "path": "2026-08-23-batch-09/pattern-candidates.jsonl",
+      "byte_length": 1646,
+      "sha256": "f47533615a5ec19c546726488181b6fea749ca11d000b0a10ab6bce0e68cc081"
+    },
+    {
+      "path": "2026-08-23-batch-09/product-taxonomy.json",
+      "byte_length": 257,
+      "sha256": "d0c61ce202c3b1cfb8d9df39fd922c5ee63d28a261def290a178f96d1dae9a44"
+    },
+    {
+      "path": "2026-08-23-batch-09/sources.jsonl",
+      "byte_length": 11462,
+      "sha256": "e3c2400143b1ffdf61db0593baa59cda9bd92f99e88ad40643fc643a97970b9a"
+    },
+    {
+      "path": "2026-08-23-batch-09/systems-sampling-frame.json",
+      "byte_length": 1749,
+      "sha256": "ad887e417bfbeeea14392a89b062160c943e1ceaac3546fd720c9e82a24e7d4d"
+    },
+    {
+      "path": "2026-08-23-batch-09/terminology-register.jsonl",
+      "byte_length": 574,
+      "sha256": "23f2604caf989cb76759e6247373b51e1da300a31b3a5c3459f979831eedf83f"
+    },
+    {
+      "path": "2026-08-23-batch-10/acquisition-manifest.md",
+      "byte_length": 777,
+      "sha256": "95ec3331e8b7629d705dd0d40effec47c7b7c9aed057f0fc7b76e3560011b036"
+    },
+    {
+      "path": "2026-08-23-batch-10/batch-status.md",
+      "byte_length": 597,
+      "sha256": "402304a3017d0a50bed3d0d932e1250e4ddd7a2c9bcbabdd5a93b5c5e2dddad7"
+    },
+    {
+      "path": "2026-08-23-batch-10/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-10/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-10/journey-state-taxonomy.json",
+      "byte_length": 377,
+      "sha256": "bfefa20f75ad219f7ca57a97c253e5981074765fdc3e469fcfe085213bd10f0a"
+    },
+    {
+      "path": "2026-08-23-batch-10/observations.jsonl",
+      "byte_length": 21817,
+      "sha256": "18db6fa35c9cdda70ca385128e008b8f2c88510634b8e793d69e47dd1893dde9"
+    },
+    {
+      "path": "2026-08-23-batch-10/pattern-candidates.jsonl",
+      "byte_length": 1736,
+      "sha256": "c604dea04e26e382e97b10dfb2fe45914e1597f48d8962bfeae1535881d6d617"
+    },
+    {
+      "path": "2026-08-23-batch-10/product-taxonomy.json",
+      "byte_length": 302,
+      "sha256": "23046ccd81aa08f26db776dc0fbd4a2c7190bd1e47066374782db7e7f9be909f"
+    },
+    {
+      "path": "2026-08-23-batch-10/sources.jsonl",
+      "byte_length": 11678,
+      "sha256": "8da0303519ee74bb91674c03a71eb227cb2c2a5c5555eac0354f06f36bde8b16"
+    },
+    {
+      "path": "2026-08-23-batch-10/systems-sampling-frame.json",
+      "byte_length": 1687,
+      "sha256": "16287ce2d29a32e1dd2afbfe9b1c461a34a27a1e47e63d0f2ee4d0b8e83b986c"
+    },
+    {
+      "path": "2026-08-23-batch-10/terminology-register.jsonl",
+      "byte_length": 567,
+      "sha256": "db1530a859287b844d40031f1299b1fd843c1d92fa4182d6261f6478627a87da"
+    },
+    {
+      "path": "2026-08-23-batch-11/acquisition-manifest.md",
+      "byte_length": 776,
+      "sha256": "46dcd9c3bba09a91ad21036529fe616bf35c1118e247e02001e7fe36df31b8e0"
+    },
+    {
+      "path": "2026-08-23-batch-11/batch-status.md",
+      "byte_length": 596,
+      "sha256": "861dd14651f67deb594461b8c69141f65f6241cb6ec126939ed0b8c5fae62b41"
+    },
+    {
+      "path": "2026-08-23-batch-11/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-11/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-11/journey-state-taxonomy.json",
+      "byte_length": 380,
+      "sha256": "3a3aac34d9aa8d559065fbaf0bda516df2dfc70ba3c448114fcbe3c50b44a061"
+    },
+    {
+      "path": "2026-08-23-batch-11/observations.jsonl",
+      "byte_length": 21703,
+      "sha256": "ac00e27675092e437fa54523ec2c92ffada965f53ab751150cbecc337f60b4cc"
+    },
+    {
+      "path": "2026-08-23-batch-11/pattern-candidates.jsonl",
+      "byte_length": 1589,
+      "sha256": "195192c2df166ac2943aa281890213a19de05d975a0fa44751aa173be7b3b411"
+    },
+    {
+      "path": "2026-08-23-batch-11/product-taxonomy.json",
+      "byte_length": 175,
+      "sha256": "0789c3e67f156557150c96e0bdbff26f880a1f23cea2e56a4c76fa3f56c19ddb"
+    },
+    {
+      "path": "2026-08-23-batch-11/sources.jsonl",
+      "byte_length": 10737,
+      "sha256": "21ff4b562bcfe567958d06319cd6dcc98eefdd57155d8291a5f1af3e183c5092"
+    },
+    {
+      "path": "2026-08-23-batch-11/systems-sampling-frame.json",
+      "byte_length": 550,
+      "sha256": "a64590e1d8313cc67402d6d9a9c76f5ec287832e037c5d6f4fa9775a5999fa4b"
+    },
+    {
+      "path": "2026-08-23-batch-11/terminology-register.jsonl",
+      "byte_length": 606,
+      "sha256": "2c9b34aaa340ede36b36c5c45ed027c56b5c9e0cdccd461ad3fa64dbff6ff3a2"
+    },
+    {
+      "path": "2026-08-23-batch-12/acquisition-manifest.md",
+      "byte_length": 750,
+      "sha256": "c27655355b7b43bf98979112045dac2938e34057e64bbfc26fae968bcfb9e378"
+    },
+    {
+      "path": "2026-08-23-batch-12/batch-status.md",
+      "byte_length": 593,
+      "sha256": "2a011b4efa4e225d9fd4426136dadbefbbfa711bc80aa2749ce1422e85a2f13e"
+    },
+    {
+      "path": "2026-08-23-batch-12/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-12/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-12/journey-state-taxonomy.json",
+      "byte_length": 399,
+      "sha256": "7e3b5a2f4bc99cf189a84e5a254e77a0664feb68c70b166d005b784cebd448f9"
+    },
+    {
+      "path": "2026-08-23-batch-12/observations.jsonl",
+      "byte_length": 12664,
+      "sha256": "40b33b09d6e11ac1778501ac6c9278faa729a090d696e0d2639101854ab8ad7c"
+    },
+    {
+      "path": "2026-08-23-batch-12/pattern-candidates.jsonl",
+      "byte_length": 1489,
+      "sha256": "8d9da0abf9aa5c85b5f2696f5cd66eedfb659421408c522aba0fe2f8a90a3ba2"
+    },
+    {
+      "path": "2026-08-23-batch-12/product-taxonomy.json",
+      "byte_length": 217,
+      "sha256": "4cb76d086e700da5f6483a18c1732a5c987e43ced3decb95b0e934e1af773277"
+    },
+    {
+      "path": "2026-08-23-batch-12/sources.jsonl",
+      "byte_length": 5977,
+      "sha256": "6019faad8131d72166487788e73d403cfe837373902ba3781572827b4719ab38"
+    },
+    {
+      "path": "2026-08-23-batch-12/systems-sampling-frame.json",
+      "byte_length": 325,
+      "sha256": "ae4e4df623baf6f72d15c6d6944fa3323eecaa29bf1f1b54c909dc0187f99b66"
+    },
+    {
+      "path": "2026-08-23-batch-12/terminology-register.jsonl",
+      "byte_length": 572,
+      "sha256": "314e5d1e108f72683247bec7e4d3f841d95968b64e815866902206b71076995e"
+    },
+    {
+      "path": "2026-08-23-batch-13/acquisition-manifest.md",
+      "byte_length": 746,
+      "sha256": "dc732f6d2e6c177844ea220d00f94bd040024b82c5437ca492d14fecb4bd211f"
+    },
+    {
+      "path": "2026-08-23-batch-13/batch-status.md",
+      "byte_length": 585,
+      "sha256": "af4f9f9d58529ae320623696145ec66c437045570ec088890405569dbd39535f"
+    },
+    {
+      "path": "2026-08-23-batch-13/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-13/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-13/journey-state-taxonomy.json",
+      "byte_length": 397,
+      "sha256": "efa00000a0d9abeb38794f5b70481e1935b2a4a34d7e5c01c04985e47162ea41"
+    },
+    {
+      "path": "2026-08-23-batch-13/observations.jsonl",
+      "byte_length": 12493,
+      "sha256": "dbe7cdc0f65726b526edd8c793633236c702bd1d4152e917fa3b063385c23c2c"
+    },
+    {
+      "path": "2026-08-23-batch-13/pattern-candidates.jsonl",
+      "byte_length": 1732,
+      "sha256": "19af3dd12d12f878a1aba11b55d0c2e9711a6cfeb2603849f84a42978dc8f1b7"
+    },
+    {
+      "path": "2026-08-23-batch-13/product-taxonomy.json",
+      "byte_length": 203,
+      "sha256": "d189d0e79922bcd0080469969b8505f29769ec78bf83c5c71d4260e18078cc80"
+    },
+    {
+      "path": "2026-08-23-batch-13/sources.jsonl",
+      "byte_length": 6310,
+      "sha256": "ac9a7c2adca8d1ac0b7142603a702a426828b7bae91ebbef1ff7039f3baf8b8b"
+    },
+    {
+      "path": "2026-08-23-batch-13/systems-sampling-frame.json",
+      "byte_length": 311,
+      "sha256": "76f46946cf65123a58076ecebda45ea8f7cd521ec5a2878568c0058a89fc7b19"
+    },
+    {
+      "path": "2026-08-23-batch-13/terminology-register.jsonl",
+      "byte_length": 625,
+      "sha256": "dbcb10c9e074efacf713d972a63e0cecd406d3d0fb7b31c293fca19de665ba69"
+    },
+    {
+      "path": "2026-08-23-batch-14/acquisition-manifest.md",
+      "byte_length": 748,
+      "sha256": "8831a8ffb67b291356a57989a75c7cc2045a5772c78a51d86610be3dec243b40"
+    },
+    {
+      "path": "2026-08-23-batch-14/batch-status.md",
+      "byte_length": 594,
+      "sha256": "2414f1c103026d9e29eed2f158ba940286d62c91ec199c68851c2af9db1d441b"
+    },
+    {
+      "path": "2026-08-23-batch-14/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-14/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-14/journey-state-taxonomy.json",
+      "byte_length": 420,
+      "sha256": "3bbf394fd763960ba8319534ab99343b7e848f84a7ee56ad46a01bea6a23cfeb"
+    },
+    {
+      "path": "2026-08-23-batch-14/observations.jsonl",
+      "byte_length": 12878,
+      "sha256": "a84f88ebc623eb446d9954365f85c36ca31e2eeee379df5efa02ec2a3504d89e"
+    },
+    {
+      "path": "2026-08-23-batch-14/pattern-candidates.jsonl",
+      "byte_length": 1702,
+      "sha256": "1dc8c00d2e3f0930d7aae584997b47a4f91d6b34197edf58f5e147605a8ab1ee"
+    },
+    {
+      "path": "2026-08-23-batch-14/product-taxonomy.json",
+      "byte_length": 361,
+      "sha256": "46ebad9c1722f071ef20d0a0c7d11358772747b46294988608f16bc811380c16"
+    },
+    {
+      "path": "2026-08-23-batch-14/sources.jsonl",
+      "byte_length": 6628,
+      "sha256": "49523ffdf0cdfed6560aee31a6bba5c2eb3067a16a3ff6093d8e8c29b3f3d035"
+    },
+    {
+      "path": "2026-08-23-batch-14/systems-sampling-frame.json",
+      "byte_length": 334,
+      "sha256": "3fde00e009a52441c51e0a89ae3b874543ab6e7f0de98906a7a7a68f10ab72aa"
+    },
+    {
+      "path": "2026-08-23-batch-14/terminology-register.jsonl",
+      "byte_length": 684,
+      "sha256": "1c205e5947fcfd0d07b4b339e23b05e526b7e642c9887e29d96db484cddd9d43"
+    },
+    {
+      "path": "2026-08-23-batch-15/acquisition-manifest.md",
+      "byte_length": 785,
+      "sha256": "6b649e23731efc3adc5856823f6c8041233f9fc25f12f87c7d225e4fa042463e"
+    },
+    {
+      "path": "2026-08-23-batch-15/batch-status.md",
+      "byte_length": 588,
+      "sha256": "39f75c4c845f2a089755d98158f9f6ceba19512c3294fb9491d0ce7cae48cf14"
+    },
+    {
+      "path": "2026-08-23-batch-15/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-15/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-15/journey-state-taxonomy.json",
+      "byte_length": 396,
+      "sha256": "e2a0bec3859b8c6281abef86724315a4f1a152d83008e994fbec36ea6d2ab345"
+    },
+    {
+      "path": "2026-08-23-batch-15/observations.jsonl",
+      "byte_length": 12473,
+      "sha256": "71fcc25ff3331e1cbd6486c14c5ab04f281abe78dc6334ae7ee03483bb3be26c"
+    },
+    {
+      "path": "2026-08-23-batch-15/pattern-candidates.jsonl",
+      "byte_length": 1751,
+      "sha256": "c3bf7da0ac10af951c2052871882ead8b4d82052e1657feb0e99888958819dda"
+    },
+    {
+      "path": "2026-08-23-batch-15/product-taxonomy.json",
+      "byte_length": 227,
+      "sha256": "b6190868e580dcf05e7583ee1cf6f6855193e6f676035c7f4930613c1334b0aa"
+    },
+    {
+      "path": "2026-08-23-batch-15/sources.jsonl",
+      "byte_length": 6554,
+      "sha256": "65abd9ff5ba928d987e05dfcb7c816b8cc637afa2d287beaff813245a89a0ca9"
+    },
+    {
+      "path": "2026-08-23-batch-15/systems-sampling-frame.json",
+      "byte_length": 327,
+      "sha256": "25f7a4c57e77a4b6e4136fe8b70d744a75bfe22ea46832f6269e14453341ab6b"
+    },
+    {
+      "path": "2026-08-23-batch-15/terminology-register.jsonl",
+      "byte_length": 636,
+      "sha256": "ca881b5bb1390110812f4b9ecaa05fcf13b3e33515b7be4672a7cbf51b949a0c"
+    },
+    {
+      "path": "2026-08-23-batch-16/acquisition-manifest.md",
+      "byte_length": 747,
+      "sha256": "2d5efdc97896784aa05a8c92ee4298de1b5075f9aec54a4c87a16c5f810d8e74"
+    },
+    {
+      "path": "2026-08-23-batch-16/batch-status.md",
+      "byte_length": 589,
+      "sha256": "d61b496e6690a50de06d2cb892525fffd074487e9d2a453248bd38fd0e91a87d"
+    },
+    {
+      "path": "2026-08-23-batch-16/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-16/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-16/journey-state-taxonomy.json",
+      "byte_length": 404,
+      "sha256": "94b7c921958926b86e09054de1ac52018db193fd979e2110b091a24cb07029c2"
+    },
+    {
+      "path": "2026-08-23-batch-16/observations.jsonl",
+      "byte_length": 12577,
+      "sha256": "949441d21557bf2cbed28069d98a35a1c560315c34bdd9174a65ed8a47d15e9d"
+    },
+    {
+      "path": "2026-08-23-batch-16/pattern-candidates.jsonl",
+      "byte_length": 1900,
+      "sha256": "be0e7acf1f47534ff2603c17d8c2331305a77ce74fc03209a4fa5a28e46617af"
+    },
+    {
+      "path": "2026-08-23-batch-16/product-taxonomy.json",
+      "byte_length": 269,
+      "sha256": "6f2ebcc410a35706ea4e2a743fd113105be395e0f24e8b02cfceab532dfe9a98"
+    },
+    {
+      "path": "2026-08-23-batch-16/sources.jsonl",
+      "byte_length": 6591,
+      "sha256": "947cff673e7436b1ecfcb68c2e9cbfa4cd789ac6d73f434775c2e94003da8c46"
+    },
+    {
+      "path": "2026-08-23-batch-16/systems-sampling-frame.json",
+      "byte_length": 327,
+      "sha256": "25f7a4c57e77a4b6e4136fe8b70d744a75bfe22ea46832f6269e14453341ab6b"
+    },
+    {
+      "path": "2026-08-23-batch-16/terminology-register.jsonl",
+      "byte_length": 629,
+      "sha256": "7e298cd893e44d8ba13600809fb908216d9ec6e00a0797575cc948abdf99b473"
+    },
+    {
+      "path": "2026-08-23-batch-17/acquisition-manifest.md",
+      "byte_length": 756,
+      "sha256": "1fd03751b648e6133ba874837c4c82e63d9edbce54df2d9ef087bfca491e82d6"
+    },
+    {
+      "path": "2026-08-23-batch-17/batch-status.md",
+      "byte_length": 590,
+      "sha256": "2fa97fd13acdaa0089a97ef02848507808965330ca74833480bd829f641db236"
+    },
+    {
+      "path": "2026-08-23-batch-17/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-17/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-17/journey-state-taxonomy.json",
+      "byte_length": 419,
+      "sha256": "221e8ab6ab256c037ae14621969fd4c6c94b69449a8fed67e8e313bc26f2a546"
+    },
+    {
+      "path": "2026-08-23-batch-17/observations.jsonl",
+      "byte_length": 12754,
+      "sha256": "af2258e1daf3c6b703bbef0a895f77bbe5cac3437521af982f9ab29f565d6fd2"
+    },
+    {
+      "path": "2026-08-23-batch-17/pattern-candidates.jsonl",
+      "byte_length": 1937,
+      "sha256": "dbae955cdb337bb3da0c85b14dfb8ead45f6366919239c3785930c08e21423fb"
+    },
+    {
+      "path": "2026-08-23-batch-17/product-taxonomy.json",
+      "byte_length": 251,
+      "sha256": "5ea53bb1995025e930247935788d535a62bcb696bf984e688aedce262dafabf4"
+    },
+    {
+      "path": "2026-08-23-batch-17/sources.jsonl",
+      "byte_length": 6573,
+      "sha256": "21df1bd7a550e9a4003d5441ba642150f504906a2028c39f06609d9a8c075c57"
+    },
+    {
+      "path": "2026-08-23-batch-17/systems-sampling-frame.json",
+      "byte_length": 327,
+      "sha256": "c6867f1a8f3fd65419854b22c38b795ac730d0a54bb7d9e31bff20cdb2e54382"
+    },
+    {
+      "path": "2026-08-23-batch-17/terminology-register.jsonl",
+      "byte_length": 669,
+      "sha256": "48a407e51da36210eaf397f61db98d08e2baf54a305e109588f33f4121be7229"
+    },
+    {
+      "path": "2026-08-23-batch-18/acquisition-manifest.md",
+      "byte_length": 752,
+      "sha256": "f98e8568fcd37fa852a0a51b82ce3bcf967f0179690675d38348067ce9796e53"
+    },
+    {
+      "path": "2026-08-23-batch-18/batch-status.md",
+      "byte_length": 592,
+      "sha256": "6c3af0fbf361130bee3e04f5031626ce20dc43011651cca4cabcf9c9538f13ce"
+    },
+    {
+      "path": "2026-08-23-batch-18/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-18/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-18/journey-state-taxonomy.json",
+      "byte_length": 428,
+      "sha256": "16780968798dd9fb609c6ca311d9a83b6654f2345804a0e1d9ff9a1ed68e7270"
+    },
+    {
+      "path": "2026-08-23-batch-18/observations.jsonl",
+      "byte_length": 12675,
+      "sha256": "5b9a49b6e8fe687ccfe613cef4859a86a15b38b819b4f879f13c64de3ba7fb48"
+    },
+    {
+      "path": "2026-08-23-batch-18/pattern-candidates.jsonl",
+      "byte_length": 1886,
+      "sha256": "4e9d192d97b140cb3753e323cbc99da978b9a77bd50dfbe13e148f9dd924e09e"
+    },
+    {
+      "path": "2026-08-23-batch-18/product-taxonomy.json",
+      "byte_length": 212,
+      "sha256": "929eaf640388bc86815d4ce74d460fa50140bd60f6a81a716af2d9e3916e4fe9"
+    },
+    {
+      "path": "2026-08-23-batch-18/sources.jsonl",
+      "byte_length": 4714,
+      "sha256": "54b92390b3d4811476963d6c0e39ce0fd0c6da5f5cb3c2351a54a4185fa2c8a1"
+    },
+    {
+      "path": "2026-08-23-batch-18/systems-sampling-frame.json",
+      "byte_length": 323,
+      "sha256": "0d1fa9e5f1a125b657c53ef2dd35f8031a5cd4d8ee333f36c5ebb0a403ee3aee"
+    },
+    {
+      "path": "2026-08-23-batch-18/terminology-register.jsonl",
+      "byte_length": 694,
+      "sha256": "fb74089742932b19384b8f25254df366c4d31978a83dde356ce70368639b4900"
+    },
+    {
+      "path": "2026-08-23-batch-19/acquisition-manifest.md",
+      "byte_length": 757,
+      "sha256": "72fb2c78af7583a35c58f3d899143fad14952c87a3d3f9d8f6175cbd6f78e905"
+    },
+    {
+      "path": "2026-08-23-batch-19/batch-status.md",
+      "byte_length": 601,
+      "sha256": "b971312dfe2c58f5a9462780b40d624c7332a8440ae3b8fbed5ac279943e1635"
+    },
+    {
+      "path": "2026-08-23-batch-19/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-19/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-19/journey-state-taxonomy.json",
+      "byte_length": 410,
+      "sha256": "eb426db2ae982a7ac4d772c5060448a3dbd71c1e3779fe61c8ba0dd6cbcfae25"
+    },
+    {
+      "path": "2026-08-23-batch-19/observations.jsonl",
+      "byte_length": 12777,
+      "sha256": "44c8b35d4aa5f5ca3c48dec12ddce381c756bfc121ab1de09439217dec6a17f2"
+    },
+    {
+      "path": "2026-08-23-batch-19/pattern-candidates.jsonl",
+      "byte_length": 1888,
+      "sha256": "9996ab87c22b024a1901d19c57bb3fb0fab43582b2c2f5beca6824c6e922c63f"
+    },
+    {
+      "path": "2026-08-23-batch-19/product-taxonomy.json",
+      "byte_length": 248,
+      "sha256": "3d410a8f0d3f091016b288a3770316bd992779159b746955804611caeb2cbd85"
+    },
+    {
+      "path": "2026-08-23-batch-19/sources.jsonl",
+      "byte_length": 6670,
+      "sha256": "542a65d10bebfa5d5cdb7f35da67b1e6c01187817a213aac745b4088c89bc4bd"
+    },
+    {
+      "path": "2026-08-23-batch-19/systems-sampling-frame.json",
+      "byte_length": 329,
+      "sha256": "f183a9be48c3cbbe8944da04dada8c300c8b18e6f168dc98830496ba43de5ae6"
+    },
+    {
+      "path": "2026-08-23-batch-19/terminology-register.jsonl",
+      "byte_length": 674,
+      "sha256": "defd4ec8696a7d48bce7d87c3c529948166e153b10a4921c7bac00528d13f087"
+    },
+    {
+      "path": "2026-08-23-batch-20/acquisition-manifest.md",
+      "byte_length": 759,
+      "sha256": "a10a7516bb9ad2ce1dd8798a51dea39107eb4cd33d78c48bce09d67520ac8e44"
+    },
+    {
+      "path": "2026-08-23-batch-20/batch-status.md",
+      "byte_length": 602,
+      "sha256": "e1f8a15e2d5ecc98c6d7a3ed518960b21e531285223fbe3324a6e92d241120a7"
+    },
+    {
+      "path": "2026-08-23-batch-20/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-20/cross-industry-synthesis.md",
+      "byte_length": 992,
+      "sha256": "a4e2af71d0dd887c636ce3ad64d9256bf49508e67c86c55a5981f8f234b55bd0"
+    },
+    {
+      "path": "2026-08-23-batch-20/journey-state-taxonomy.json",
+      "byte_length": 401,
+      "sha256": "faf38d6166b0577d29a3c1186f3a54729ac34ded34a2543bc0833b380d1ef005"
+    },
+    {
+      "path": "2026-08-23-batch-20/observations.jsonl",
+      "byte_length": 12545,
+      "sha256": "2b63039018e94b7dc47f4078b96c08c87fb78049b59b877598da9942f8dd7b95"
+    },
+    {
+      "path": "2026-08-23-batch-20/pattern-candidates.jsonl",
+      "byte_length": 2231,
+      "sha256": "3b3eb3b5607ad0f9202c9c81fcb8525e00db0a210794accae9309419c116ced9"
+    },
+    {
+      "path": "2026-08-23-batch-20/product-taxonomy.json",
+      "byte_length": 281,
+      "sha256": "7ec603c207efed0dba2d26ed91c0c90cad1544b5ef8ab211d9113efb97595878"
+    },
+    {
+      "path": "2026-08-23-batch-20/sources.jsonl",
+      "byte_length": 5779,
+      "sha256": "446add5b3cd9caf5b41ef70b0ee106f419f9fbe02059a9546bee795412df5a4a"
+    },
+    {
+      "path": "2026-08-23-batch-20/systems-sampling-frame.json",
+      "byte_length": 311,
+      "sha256": "4b480b849ee4c9187573c4b072dc9adab5c0be9890e8af8235e4a0cfa6234ee5"
+    },
+    {
+      "path": "2026-08-23-batch-20/terminology-register.jsonl",
+      "byte_length": 636,
+      "sha256": "cd427fe9392fc7baca24698431c6bbcb99c3d9a60bd62698f5ae197c086813de"
+    },
+    {
+      "path": "2026-08-23-batch-21/acquisition-manifest.md",
+      "byte_length": 774,
+      "sha256": "39e388b7cbbb35e6e54b1252a133f2c596d4ddbeabd7f1d4bfea55e3bd7ab0f7"
+    },
+    {
+      "path": "2026-08-23-batch-21/batch-status.md",
+      "byte_length": 626,
+      "sha256": "9cd2b810ffb15ab6a24de4e1e847a9531ebec9050284c3fdfd0b17891e85302a"
+    },
+    {
+      "path": "2026-08-23-batch-21/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-21/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-21/journey-state-taxonomy.json",
+      "byte_length": 418,
+      "sha256": "bf94ffdd8cbc0dc8ade880b471a8865daa122a6470f57c89ee8246feeaffc237"
+    },
+    {
+      "path": "2026-08-23-batch-21/observations.jsonl",
+      "byte_length": 12546,
+      "sha256": "22cb7ff8205de5621ab5d1c60e8c9dc7d5d3953fe702246517f02e6d837f684b"
+    },
+    {
+      "path": "2026-08-23-batch-21/pattern-candidates.jsonl",
+      "byte_length": 2403,
+      "sha256": "a3b6759153fcba7a97367bff424fb9e915044dce4af2c2240a0ea2af34714d7f"
+    },
+    {
+      "path": "2026-08-23-batch-21/product-taxonomy.json",
+      "byte_length": 261,
+      "sha256": "bc0907d323fac5de545ce0cb910b43c95d742dcfadf0d5bb192d52883e162289"
+    },
+    {
+      "path": "2026-08-23-batch-21/sources.jsonl",
+      "byte_length": 6141,
+      "sha256": "6cda491b5996b4405a5eedeefc3245ba5448a1ae6e1fbb037f318df10a58a341"
+    },
+    {
+      "path": "2026-08-23-batch-21/systems-sampling-frame.json",
+      "byte_length": 304,
+      "sha256": "370da47811643a111f1567956792726aada43bbf6f8a342c05519a33c8e96973"
+    },
+    {
+      "path": "2026-08-23-batch-21/terminology-register.jsonl",
+      "byte_length": 625,
+      "sha256": "36a340a404f866ae0dc0897acc8dd58b75b0ae9db68ba441995670c433fd5607"
+    },
+    {
+      "path": "2026-08-23-batch-22/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "0694f0e842e99a5766257c8d1e6af3c497d3042eeccc53d661dea24c2fa587af"
+    },
+    {
+      "path": "2026-08-23-batch-22/batch-status.md",
+      "byte_length": 629,
+      "sha256": "dfbc2a1eb8963de248a7de2efaac9ef46d963129d20feeb848817a397d125c68"
+    },
+    {
+      "path": "2026-08-23-batch-22/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-22/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-22/journey-state-taxonomy.json",
+      "byte_length": 430,
+      "sha256": "d38896f99d1dc3badbb3a8fc413f110121ddc66caad3a59bab3ae2c92701c22c"
+    },
+    {
+      "path": "2026-08-23-batch-22/observations.jsonl",
+      "byte_length": 12635,
+      "sha256": "3493d093d75dda362709f0c11b96e96bd51c4d9632e35771cfced9f0d17b882b"
+    },
+    {
+      "path": "2026-08-23-batch-22/pattern-candidates.jsonl",
+      "byte_length": 2421,
+      "sha256": "eeea7dbb359956ec296cbd31137cda9efd78b581475a909974a33d832afaa612"
+    },
+    {
+      "path": "2026-08-23-batch-22/product-taxonomy.json",
+      "byte_length": 278,
+      "sha256": "37d1020546d55b0b21a636cb1344d6b922ac603f663a03715ee96ef3b8b7cb19"
+    },
+    {
+      "path": "2026-08-23-batch-22/sources.jsonl",
+      "byte_length": 6311,
+      "sha256": "ddeb20c1166c7f12abfe622bf65d822b628d322f8f6dc02fee06acfdcf01ec87"
+    },
+    {
+      "path": "2026-08-23-batch-22/systems-sampling-frame.json",
+      "byte_length": 283,
+      "sha256": "773c804420cb3583cec5f3ea105172cb0d3ae02b232593e1a394ace5ea05d96c"
+    },
+    {
+      "path": "2026-08-23-batch-22/terminology-register.jsonl",
+      "byte_length": 544,
+      "sha256": "18bb1812a4bdd4873f85e0218124deaf4495dc114802db288dfb172bd14846db"
+    },
+    {
+      "path": "2026-08-23-batch-23/acquisition-manifest.md",
+      "byte_length": 741,
+      "sha256": "beef98582bc98f9b48cb58b0f6e50838fdad7fffd3406baf7ceaff410a4a8d7f"
+    },
+    {
+      "path": "2026-08-23-batch-23/batch-status.md",
+      "byte_length": 645,
+      "sha256": "56c63384b69d5d275f5e2802fd5169936f0f425a8672b8ee707746a038c26fd1"
+    },
+    {
+      "path": "2026-08-23-batch-23/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-23/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-23/journey-state-taxonomy.json",
+      "byte_length": 447,
+      "sha256": "91ee6818d3776add4b705fb86d3f2c0ad81ee83fe88e5f646732ab0a2440db3f"
+    },
+    {
+      "path": "2026-08-23-batch-23/observations.jsonl",
+      "byte_length": 12214,
+      "sha256": "795962189caab066bdd5da7164325c22d9463d3130f112b3d970e788c4860d0e"
+    },
+    {
+      "path": "2026-08-23-batch-23/pattern-candidates.jsonl",
+      "byte_length": 2351,
+      "sha256": "0d8a5f23c7deed3e3c32858a32f21b489801ae5172d5bd7845fdafbbc32060b2"
+    },
+    {
+      "path": "2026-08-23-batch-23/product-taxonomy.json",
+      "byte_length": 282,
+      "sha256": "3f125138ffdeed6c7b3a1fae6ab43e8e73bbaf557f13f1c17d6449a01321d38a"
+    },
+    {
+      "path": "2026-08-23-batch-23/sources.jsonl",
+      "byte_length": 5701,
+      "sha256": "e2ada9aee1ca63b1914773b8f8225134beda910cdaecb0f8e3f6630af00dcd26"
+    },
+    {
+      "path": "2026-08-23-batch-23/systems-sampling-frame.json",
+      "byte_length": 275,
+      "sha256": "269b3d1ccf01371388332b02efc19bb4afd18473be140efc41df025b8e74ba19"
+    },
+    {
+      "path": "2026-08-23-batch-23/terminology-register.jsonl",
+      "byte_length": 522,
+      "sha256": "3bfc6732de77ccc59deb0fa1ed54f3e0303cfd04b47ee1222786798aea2ba603"
+    },
+    {
+      "path": "2026-08-23-batch-24/acquisition-manifest.md",
+      "byte_length": 741,
+      "sha256": "72bad0e284aff083c29a2ea8bad0f4d20de7bb0d68622d6d8e7af7b43f4967e7"
+    },
+    {
+      "path": "2026-08-23-batch-24/batch-status.md",
+      "byte_length": 642,
+      "sha256": "c58c8fc23a7df7afb7daef55e3047655ca6973acb2800b7fd5c59502a78b65c5"
+    },
+    {
+      "path": "2026-08-23-batch-24/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-24/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-24/journey-state-taxonomy.json",
+      "byte_length": 450,
+      "sha256": "56efa74895c38313857ca1d9df3737968aac0d3212a9676584fbceafd824c428"
+    },
+    {
+      "path": "2026-08-23-batch-24/observations.jsonl",
+      "byte_length": 12214,
+      "sha256": "8cdb2e3435df2d67a6278f5013267f11a04c217e9f448d54984bbee1791f9809"
+    },
+    {
+      "path": "2026-08-23-batch-24/pattern-candidates.jsonl",
+      "byte_length": 2364,
+      "sha256": "f50fcc0c8217bcb150b6a0ff37c37d86fc65d1a1ea0892c6e3ac1b48d8ade3c7"
+    },
+    {
+      "path": "2026-08-23-batch-24/product-taxonomy.json",
+      "byte_length": 285,
+      "sha256": "14cffb89474c5f1667db582a2a52d5aea20c53b70008b53e98ad4c1388ed3ec1"
+    },
+    {
+      "path": "2026-08-23-batch-24/sources.jsonl",
+      "byte_length": 5701,
+      "sha256": "a2183585d0eeaab3338e44063f322365b0b4da87f8ef15d78c4592c7d0f02067"
+    },
+    {
+      "path": "2026-08-23-batch-24/systems-sampling-frame.json",
+      "byte_length": 282,
+      "sha256": "1ffb73dedde06ce32b96609eb46acca72b35aec4a558ff447b939a672647e129"
+    },
+    {
+      "path": "2026-08-23-batch-24/terminology-register.jsonl",
+      "byte_length": 581,
+      "sha256": "020787f4da35dcd8890f9a4df2f6c11a5f2ded648a00f1d0dc877f5b47a4f5ec"
+    },
+    {
+      "path": "2026-08-23-batch-25/acquisition-manifest.md",
+      "byte_length": 743,
+      "sha256": "77550cdf4717506cda1144f75f42d9a2da12fe2519beb1351df96300da11a1ce"
+    },
+    {
+      "path": "2026-08-23-batch-25/batch-status.md",
+      "byte_length": 654,
+      "sha256": "312d779c112733df8ad89bf11ac41438ab20eb9fd60740010289ae51e29f648a"
+    },
+    {
+      "path": "2026-08-23-batch-25/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-25/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-25/journey-state-taxonomy.json",
+      "byte_length": 447,
+      "sha256": "df173e7549c5a790aa699de32ac0821a492bc5dfd2ed4d7c431f7f460e8fd69a"
+    },
+    {
+      "path": "2026-08-23-batch-25/observations.jsonl",
+      "byte_length": 12435,
+      "sha256": "85f1c6b801267d7a58b4a11e8a39ee6dfe83afd4e12dd04db8206e0fbfda0e84"
+    },
+    {
+      "path": "2026-08-23-batch-25/pattern-candidates.jsonl",
+      "byte_length": 2362,
+      "sha256": "41f16735aaec479cc2ef2c2a3c4bdbfd3ff1f91de43eff359519f9716bd32706"
+    },
+    {
+      "path": "2026-08-23-batch-25/product-taxonomy.json",
+      "byte_length": 259,
+      "sha256": "71f64e64cd6c4e0bc95c85c941c35dcc2e6ae167805e3b1e6e589da1f9cfa0e8"
+    },
+    {
+      "path": "2026-08-23-batch-25/sources.jsonl",
+      "byte_length": 5971,
+      "sha256": "e09848403d0d6c8c43fc063eae04d7d3ab5d1a6534b048dde308922bda255521"
+    },
+    {
+      "path": "2026-08-23-batch-25/systems-sampling-frame.json",
+      "byte_length": 279,
+      "sha256": "3672d3419c123f378d5d926f3aa78ed1bfaa4b748d4a66ea2c62c3b7272e4bc6"
+    },
+    {
+      "path": "2026-08-23-batch-25/terminology-register.jsonl",
+      "byte_length": 561,
+      "sha256": "bb5006a75d3d8ed55233cac8b2ed2bae15cc9e981e2c653c8d6c0b5770abef5a"
+    },
+    {
+      "path": "2026-08-23-batch-26/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "690d5f49871427be5042f5e6c81c1ef3ef17d3f569210fef4cc2dee590ca4868"
+    },
+    {
+      "path": "2026-08-23-batch-26/batch-status.md",
+      "byte_length": 666,
+      "sha256": "c9e7177d92fd01569cf6e8ca48104b0446c53f10f691ce1c0b14fd6fb747a92d"
+    },
+    {
+      "path": "2026-08-23-batch-26/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-26/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-26/journey-state-taxonomy.json",
+      "byte_length": 449,
+      "sha256": "b819ccefd2ab688468de060b654e13b24cf4bb928ab59b33a03e9fcf97f32fba"
+    },
+    {
+      "path": "2026-08-23-batch-26/observations.jsonl",
+      "byte_length": 12610,
+      "sha256": "0a5859ed6da9beb3deacb34cc3aa4dacd15ec4d311ec6604d0760faadfae8006"
+    },
+    {
+      "path": "2026-08-23-batch-26/pattern-candidates.jsonl",
+      "byte_length": 2406,
+      "sha256": "40ee0ce8fe8dda1846dc4d563b2bbb4028902bae8933c16169eca36a83a9a457"
+    },
+    {
+      "path": "2026-08-23-batch-26/product-taxonomy.json",
+      "byte_length": 267,
+      "sha256": "fc354b1236f5982a226246534205441d30c6c9feee9610ba478404c180fc845e"
+    },
+    {
+      "path": "2026-08-23-batch-26/sources.jsonl",
+      "byte_length": 6243,
+      "sha256": "df7441ac7532d101765398ed172dcd399002fd31356c33185265ce7208e43cb3"
+    },
+    {
+      "path": "2026-08-23-batch-26/systems-sampling-frame.json",
+      "byte_length": 284,
+      "sha256": "2dee39235d5d3330e0db590b79ab971ae8732fa9a291e61de455cb59c66375d6"
+    },
+    {
+      "path": "2026-08-23-batch-26/terminology-register.jsonl",
+      "byte_length": 584,
+      "sha256": "74e12a6f02f3ca8edfdd7a9953b108509dab432b9b0785dceee7fc191c863e5b"
+    },
+    {
+      "path": "2026-08-23-batch-27/acquisition-manifest.md",
+      "byte_length": 752,
+      "sha256": "4dcf0aaac6603e09a4473dd31c2395563a9f32c125bbc51e796c9fe75e685018"
+    },
+    {
+      "path": "2026-08-23-batch-27/batch-status.md",
+      "byte_length": 646,
+      "sha256": "bc75ca4b9e8d1340847e03db6bb02e98c3c6eb9253a7f5f12ddad122de229546"
+    },
+    {
+      "path": "2026-08-23-batch-27/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-27/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-27/journey-state-taxonomy.json",
+      "byte_length": 447,
+      "sha256": "22aad64c67b5431703ffba12d80f6f9924e5409116f0d9a3af69456270e6e435"
+    },
+    {
+      "path": "2026-08-23-batch-27/observations.jsonl",
+      "byte_length": 12391,
+      "sha256": "2142ecb01f256b3869f9729c8d4d5fb364c04a11c946007ae7ebb62f7adf3e44"
+    },
+    {
+      "path": "2026-08-23-batch-27/pattern-candidates.jsonl",
+      "byte_length": 2325,
+      "sha256": "4ac0cd90503e9d25a69887ec6019a735e9cfe9124b3f4506d551ddecde1142e1"
+    },
+    {
+      "path": "2026-08-23-batch-27/product-taxonomy.json",
+      "byte_length": 250,
+      "sha256": "40271aa92beb4f290cf06db53673a5b2985361345af32e9c690107246fd92864"
+    },
+    {
+      "path": "2026-08-23-batch-27/sources.jsonl",
+      "byte_length": 5850,
+      "sha256": "a8cd1834199e0e4daee734f67657f76925b58758cf163a58ceee2f136365083f"
+    },
+    {
+      "path": "2026-08-23-batch-27/systems-sampling-frame.json",
+      "byte_length": 292,
+      "sha256": "76826f57b1af23bedf9e21c7945ff12acde405c228a63fdfa89fc206b93718fc"
+    },
+    {
+      "path": "2026-08-23-batch-27/terminology-register.jsonl",
+      "byte_length": 584,
+      "sha256": "3922577616746eee2b6680741d01d65e9f9c21f27d29ddb27d388a9479a9e290"
+    },
+    {
+      "path": "2026-08-23-batch-28/acquisition-manifest.md",
+      "byte_length": 753,
+      "sha256": "6197bc4041d13735372812568c9d0565884a8836c786e560ab8a3cbf30d116fe"
+    },
+    {
+      "path": "2026-08-23-batch-28/batch-status.md",
+      "byte_length": 649,
+      "sha256": "4a76c8511744e6f8a86fffa6d5063a7db4835fdadd8cea6dd8bf490143267f94"
+    },
+    {
+      "path": "2026-08-23-batch-28/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-28/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-28/journey-state-taxonomy.json",
+      "byte_length": 447,
+      "sha256": "de010b124acd9e2dab6ab73427a233cd76093343cf0df87816ee8876491e995e"
+    },
+    {
+      "path": "2026-08-23-batch-28/observations.jsonl",
+      "byte_length": 12333,
+      "sha256": "0ad4f00ca1bac6da699701b64dedb26940b7af8402e2afd40b7e05aca0327bff"
+    },
+    {
+      "path": "2026-08-23-batch-28/pattern-candidates.jsonl",
+      "byte_length": 2323,
+      "sha256": "5fc2413c49b1a2c2cb1715adbb55c173a25565f0270560b0bcb6d1e6fe4441e8"
+    },
+    {
+      "path": "2026-08-23-batch-28/product-taxonomy.json",
+      "byte_length": 269,
+      "sha256": "b30d5bbfc146fb8e7677765b098da7d13b745909261e0c1268be7f90d6bb5cc2"
+    },
+    {
+      "path": "2026-08-23-batch-28/sources.jsonl",
+      "byte_length": 5967,
+      "sha256": "8130454331199ee24bfbc09086284583f524bb9d6c49c51ccc741ba72018d6a3"
+    },
+    {
+      "path": "2026-08-23-batch-28/systems-sampling-frame.json",
+      "byte_length": 290,
+      "sha256": "e61877659d7e70ec06cf50aabe79bff118af0e238308b53277037e29cd32e54c"
+    },
+    {
+      "path": "2026-08-23-batch-28/terminology-register.jsonl",
+      "byte_length": 547,
+      "sha256": "cbadef13008bc52aad736d7945e576724d5703771eda1558a441a66ab573e247"
+    },
+    {
+      "path": "2026-08-23-batch-29/acquisition-manifest.md",
+      "byte_length": 743,
+      "sha256": "342428727bc285b74d2c82eb1cf7d877d2059e8aa37c435e9970095341637225"
+    },
+    {
+      "path": "2026-08-23-batch-29/batch-status.md",
+      "byte_length": 617,
+      "sha256": "c0ca0c7e6235fc367516e3c0458f72df9bd33dca789410259488328dc6cf0e4a"
+    },
+    {
+      "path": "2026-08-23-batch-29/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-29/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-29/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "fe2ed5136435e57ce1e8766a62d82f811cc3862d0768252dc0165556091eb4a5"
+    },
+    {
+      "path": "2026-08-23-batch-29/observations.jsonl",
+      "byte_length": 12511,
+      "sha256": "e10a9c4665bb0e995b62f41b061e999c0e3b5b9f556acb0dca974d4f5efeec68"
+    },
+    {
+      "path": "2026-08-23-batch-29/pattern-candidates.jsonl",
+      "byte_length": 2379,
+      "sha256": "15f97f16146cae1648418dccadf4b9cb0b56087892b264fb7291f4e622c1a106"
+    },
+    {
+      "path": "2026-08-23-batch-29/product-taxonomy.json",
+      "byte_length": 270,
+      "sha256": "775774b7453a2b592f52f96885c513eceecaa92cdd60e66056b7133290ec1d73"
+    },
+    {
+      "path": "2026-08-23-batch-29/sources.jsonl",
+      "byte_length": 5843,
+      "sha256": "7f8a3abc168a308841383a2b330d2a03091506468f97af97dbb824869ee03641"
+    },
+    {
+      "path": "2026-08-23-batch-29/systems-sampling-frame.json",
+      "byte_length": 284,
+      "sha256": "2b064d818ab96d7349b19c4abaf03e49f738acb44811b1bc74f239eee19ae6ca"
+    },
+    {
+      "path": "2026-08-23-batch-29/terminology-register.jsonl",
+      "byte_length": 558,
+      "sha256": "7913935b84200053e32c3d5b5a79a2d03699fefbab37179753eaf9e318afba63"
+    },
+    {
+      "path": "2026-08-23-batch-30/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "2145fd5e212f21c4d6c310b9cd2053d771fc83caa5cbd73a2cfb7f40e49384e3"
+    },
+    {
+      "path": "2026-08-23-batch-30/batch-status.md",
+      "byte_length": 621,
+      "sha256": "66dfe3555f87a5f42355a79ebd0fa4f29a6b93de197c6052fe4b013ee0417a1b"
+    },
+    {
+      "path": "2026-08-23-batch-30/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-30/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-30/journey-state-taxonomy.json",
+      "byte_length": 449,
+      "sha256": "b819ccefd2ab688468de060b654e13b24cf4bb928ab59b33a03e9fcf97f32fba"
+    },
+    {
+      "path": "2026-08-23-batch-30/observations.jsonl",
+      "byte_length": 12614,
+      "sha256": "e768502becb99f21a8b4f93bcc4958ffe1ca4b6ac13047629f1729fedb547362"
+    },
+    {
+      "path": "2026-08-23-batch-30/pattern-candidates.jsonl",
+      "byte_length": 2340,
+      "sha256": "09260c6740736edc38eeb2907516538d27335237dac46594aab3a794009dad46"
+    },
+    {
+      "path": "2026-08-23-batch-30/product-taxonomy.json",
+      "byte_length": 267,
+      "sha256": "513c2df93345e2e70d3607bb7be7944f97ce3156d53bc603fbef749a9970f4be"
+    },
+    {
+      "path": "2026-08-23-batch-30/sources.jsonl",
+      "byte_length": 6243,
+      "sha256": "01322e5b4694958238baffd32a2f357bf885916873cdf09ae3f65e93d2b63987"
+    },
+    {
+      "path": "2026-08-23-batch-30/systems-sampling-frame.json",
+      "byte_length": 287,
+      "sha256": "02c4ed5a03a5a927fc84dedd5b2d441e5e1e1372f85f6f8d2108f674913c165c"
+    },
+    {
+      "path": "2026-08-23-batch-30/terminology-register.jsonl",
+      "byte_length": 544,
+      "sha256": "a71295d327dcb2d83228ec5758db441d51ad727bb258948e20d04157c05b8ff0"
+    },
+    {
+      "path": "2026-08-23-batch-31/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "950c600d0cb8a1a2a8ce83081220b6aeb2255ce81a0ad1d2712539c16d7c52b8"
+    },
+    {
+      "path": "2026-08-23-batch-31/batch-status.md",
+      "byte_length": 649,
+      "sha256": "ad1f61bc3069453ca2338e3706186e355b56ce3a8db8ba100cbcbe7d5cf4ce47"
+    },
+    {
+      "path": "2026-08-23-batch-31/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-31/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-31/journey-state-taxonomy.json",
+      "byte_length": 449,
+      "sha256": "45a6b590449cd310dab5635f51661beedcf04ca5d6d30bae6cfee968d9d42a99"
+    },
+    {
+      "path": "2026-08-23-batch-31/observations.jsonl",
+      "byte_length": 12498,
+      "sha256": "1ea1f66acf89c5b1e269f164df6776024713ad638bfd8ea1546c3392f23f520d"
+    },
+    {
+      "path": "2026-08-23-batch-31/pattern-candidates.jsonl",
+      "byte_length": 2309,
+      "sha256": "999bea67ed7c4854603af8d3ecf5d9feccc797159f468c5ac1e8e93a61908818"
+    },
+    {
+      "path": "2026-08-23-batch-31/product-taxonomy.json",
+      "byte_length": 262,
+      "sha256": "bec220af762f2b223df1de056c9fda6eedd633a00b29e8c8f9bf3613b9b77910"
+    },
+    {
+      "path": "2026-08-23-batch-31/sources.jsonl",
+      "byte_length": 5906,
+      "sha256": "85b034663cde322d0e7fabd8632aec44b7a1244501b008662e1cf978f5dc000e"
+    },
+    {
+      "path": "2026-08-23-batch-31/systems-sampling-frame.json",
+      "byte_length": 288,
+      "sha256": "e43618bb703fff7b61d3e8b1f326afe3c0a0c57ec249f89d761b770a11fe3547"
+    },
+    {
+      "path": "2026-08-23-batch-31/terminology-register.jsonl",
+      "byte_length": 547,
+      "sha256": "701d52123fe8d6d05d28cdcaa3874a2a993dd9c311a3a29ad82d235016588f3e"
+    },
+    {
+      "path": "2026-08-23-batch-32/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "d2f173f8ab42b98b12baf9a4c8e14a903c934d598bde994d5fcefeca60628b85"
+    },
+    {
+      "path": "2026-08-23-batch-32/batch-status.md",
+      "byte_length": 652,
+      "sha256": "dafc9e626690d06a199d7200579153dca878f718e803a518fde4815e8f1e6079"
+    },
+    {
+      "path": "2026-08-23-batch-32/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-32/cross-industry-synthesis.md",
+      "byte_length": 1051,
+      "sha256": "7fdd326a12d1989bc9955cb7ea23ff7c30aa09eb4f17374507ce73c572d1a603"
+    },
+    {
+      "path": "2026-08-23-batch-32/journey-state-taxonomy.json",
+      "byte_length": 460,
+      "sha256": "b83622ca51f3e5673bd4a91050198554e319e2d447991b43a77552af5182bdd9"
+    },
+    {
+      "path": "2026-08-23-batch-32/observations.jsonl",
+      "byte_length": 12498,
+      "sha256": "87d1d0e9d4e2534b9360631e63cd86c058448206fc056eca44dd252ed03203a0"
+    },
+    {
+      "path": "2026-08-23-batch-32/pattern-candidates.jsonl",
+      "byte_length": 2309,
+      "sha256": "e1c7dd1e7c5a3f8c752652a9a7ddcd2859cf9a029fa14da7fe6bea2f9ce96a26"
+    },
+    {
+      "path": "2026-08-23-batch-32/product-taxonomy.json",
+      "byte_length": 258,
+      "sha256": "114262d5e5239b83e2b5f13e8308330afeb95ff2ac1c86cb01ae87091b4bc8df"
+    },
+    {
+      "path": "2026-08-23-batch-32/sources.jsonl",
+      "byte_length": 5906,
+      "sha256": "8bc0419d13157f2c414e2763433df51e5eb33a06e635fc387269a5a1113c1203"
+    },
+    {
+      "path": "2026-08-23-batch-32/systems-sampling-frame.json",
+      "byte_length": 285,
+      "sha256": "f72ddf70f89d051765f37b5154bd3b504e629658a81e0192fc655c2bd5488e99"
+    },
+    {
+      "path": "2026-08-23-batch-32/terminology-register.jsonl",
+      "byte_length": 568,
+      "sha256": "552b73eb1998f6c622f471536416145f800a437e8219d21b2c73e90d04358cdb"
+    },
+    {
+      "path": "2026-08-23-batch-33/acquisition-manifest.md",
+      "byte_length": 747,
+      "sha256": "cd849adfef0a4f80886cd14ebd317b703594b078cb390afea7164f2325eefc3c"
+    },
+    {
+      "path": "2026-08-23-batch-33/batch-status.md",
+      "byte_length": 661,
+      "sha256": "b96239d8ec5632d81cd61e1df341ce660e500af6419a9358cd7214b74b695f03"
+    },
+    {
+      "path": "2026-08-23-batch-33/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-33/cross-industry-synthesis.md",
+      "byte_length": 976,
+      "sha256": "c000b6dab53a2ba838b7c362e9aa59a28a8afe47ff60240203a773af5f14b21e"
+    },
+    {
+      "path": "2026-08-23-batch-33/journey-state-taxonomy.json",
+      "byte_length": 460,
+      "sha256": "b83622ca51f3e5673bd4a91050198554e319e2d447991b43a77552af5182bdd9"
+    },
+    {
+      "path": "2026-08-23-batch-33/observations.jsonl",
+      "byte_length": 12326,
+      "sha256": "e3f766855d2bb73d9bb60703b37cb97feaec6eaa735cd433ff75a1940f072079"
+    },
+    {
+      "path": "2026-08-23-batch-33/pattern-candidates.jsonl",
+      "byte_length": 2023,
+      "sha256": "95125d766ddd33fbf37264b170d457e29fe849259ba75ccdd270b0d93fa100b0"
+    },
+    {
+      "path": "2026-08-23-batch-33/product-taxonomy.json",
+      "byte_length": 258,
+      "sha256": "114262d5e5239b83e2b5f13e8308330afeb95ff2ac1c86cb01ae87091b4bc8df"
+    },
+    {
+      "path": "2026-08-23-batch-33/sources.jsonl",
+      "byte_length": 5987,
+      "sha256": "c8989ed6ea606dd2493d2d92a51c7b1755e4e212c0557ad27d10e5878b772886"
+    },
+    {
+      "path": "2026-08-23-batch-33/systems-sampling-frame.json",
+      "byte_length": 287,
+      "sha256": "fc278432e69cabd1f1dd4705fd112520559368d689b0ec6227294cf81b32a807"
+    },
+    {
+      "path": "2026-08-23-batch-33/terminology-register.jsonl",
+      "byte_length": 673,
+      "sha256": "83365b5d583bab52412f146546095cfe3123f066d86e3ce10cd4e23f474c799c"
+    },
+    {
+      "path": "2026-08-23-batch-34/acquisition-manifest.md",
+      "byte_length": 747,
+      "sha256": "0c767e0b154178e0c14fc6b15169d4673cc085bda86d8b3e57f33650c13330e9"
+    },
+    {
+      "path": "2026-08-23-batch-34/batch-status.md",
+      "byte_length": 661,
+      "sha256": "86230c8d5d4365472bd556d8f4e0320445e66b61c901dae0520a262b3354baba"
+    },
+    {
+      "path": "2026-08-23-batch-34/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-34/cross-industry-synthesis.md",
+      "byte_length": 917,
+      "sha256": "ddeb724b9ac7687a07c4ceec38f2394b6476d3b2c0d9a80689667e52759a0bfb"
+    },
+    {
+      "path": "2026-08-23-batch-34/journey-state-taxonomy.json",
+      "byte_length": 460,
+      "sha256": "b83622ca51f3e5673bd4a91050198554e319e2d447991b43a77552af5182bdd9"
+    },
+    {
+      "path": "2026-08-23-batch-34/observations.jsonl",
+      "byte_length": 12132,
+      "sha256": "ab17d8521e0e4ea562062333d06e43d450d92fcf6e44b4bae2fae7c67ecc9409"
+    },
+    {
+      "path": "2026-08-23-batch-34/pattern-candidates.jsonl",
+      "byte_length": 2081,
+      "sha256": "cc59899ebf810d10924d6c806059134320a0ba772cd693cc766311ebeffd7e16"
+    },
+    {
+      "path": "2026-08-23-batch-34/product-taxonomy.json",
+      "byte_length": 222,
+      "sha256": "2858290a65dba475ef4f74755527bc243e74047129e408e3e7bf4e2541f1912d"
+    },
+    {
+      "path": "2026-08-23-batch-34/sources.jsonl",
+      "byte_length": 5814,
+      "sha256": "136e3356827dc5c2e62e02ccde91761e3b3aabbbe214f43fcb54f3a4cffa8901"
+    },
+    {
+      "path": "2026-08-23-batch-34/systems-sampling-frame.json",
+      "byte_length": 287,
+      "sha256": "fc278432e69cabd1f1dd4705fd112520559368d689b0ec6227294cf81b32a807"
+    },
+    {
+      "path": "2026-08-23-batch-34/terminology-register.jsonl",
+      "byte_length": 673,
+      "sha256": "83365b5d583bab52412f146546095cfe3123f066d86e3ce10cd4e23f474c799c"
+    },
+    {
+      "path": "2026-08-23-batch-35/acquisition-manifest.md",
+      "byte_length": 747,
+      "sha256": "5eeeaf91ad754c94360d0381aae7b741aa4938f3bd49b79a745aa1a76417c7ad"
+    },
+    {
+      "path": "2026-08-23-batch-35/batch-status.md",
+      "byte_length": 667,
+      "sha256": "5889e512e152b78e0b20a81638054976f562594539b390610331d314da232407"
+    },
+    {
+      "path": "2026-08-23-batch-35/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-35/cross-industry-synthesis.md",
+      "byte_length": 900,
+      "sha256": "15792eb6352ef4ebb1e337daa5c2927d009f6a634bfcd939744e6a2dfd519efc"
+    },
+    {
+      "path": "2026-08-23-batch-35/journey-state-taxonomy.json",
+      "byte_length": 452,
+      "sha256": "b39276d678434103224e240feaf031db219fa9fa16b9defadd83ba678170b83e"
+    },
+    {
+      "path": "2026-08-23-batch-35/observations.jsonl",
+      "byte_length": 12208,
+      "sha256": "395d469c4d08f2bc0d4909e24ae79b4e6e7801bbf8f85b46b7c9ed64f02a0b4a"
+    },
+    {
+      "path": "2026-08-23-batch-35/pattern-candidates.jsonl",
+      "byte_length": 2132,
+      "sha256": "bf6189e1af7250dc1369b4010cb72c6a8b4d1e373afdc4675535a691686d4224"
+    },
+    {
+      "path": "2026-08-23-batch-35/product-taxonomy.json",
+      "byte_length": 233,
+      "sha256": "f7a39cfda51884b8ceeed99bf0a03ef09a1601861d731afef9b5cd03a660e69a"
+    },
+    {
+      "path": "2026-08-23-batch-35/sources.jsonl",
+      "byte_length": 5872,
+      "sha256": "eb0050c9ca3086dc75581682102caaec9783608273497d1f9b0e98fe1e24d114"
+    },
+    {
+      "path": "2026-08-23-batch-35/systems-sampling-frame.json",
+      "byte_length": 287,
+      "sha256": "35cb7b912d74ccdf3be2d62bb0e227037c2efada9058a74b4b6745a0331a7920"
+    },
+    {
+      "path": "2026-08-23-batch-35/terminology-register.jsonl",
+      "byte_length": 645,
+      "sha256": "d9e979df8f98899c96c123a5cb3dcea099ec66cb2c0035e5b88399445de0bb44"
+    },
+    {
+      "path": "2026-08-23-batch-36/acquisition-manifest.md",
+      "byte_length": 746,
+      "sha256": "a536a60b73d6fe97e5f111cad053f72d8fab269679c45649a004c7b6c36601d3"
+    },
+    {
+      "path": "2026-08-23-batch-36/batch-status.md",
+      "byte_length": 653,
+      "sha256": "58c088fa89f4f166a59e454b767ceadec31b05912e5f83493d9613105b87a245"
+    },
+    {
+      "path": "2026-08-23-batch-36/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-36/cross-industry-synthesis.md",
+      "byte_length": 913,
+      "sha256": "e6f342214c157bf5d09dfeb47b01bcb6b1306021b84cb198599446e0a7157537"
+    },
+    {
+      "path": "2026-08-23-batch-36/journey-state-taxonomy.json",
+      "byte_length": 452,
+      "sha256": "aa664db21323c46de43063911aea73d9adf52dbbf96a40b29417d6892ee87123"
+    },
+    {
+      "path": "2026-08-23-batch-36/observations.jsonl",
+      "byte_length": 12026,
+      "sha256": "47eefc8478d3a7a00c485ae587a8f84e94e0ab57e53f3c2a5edfb5ee379f4182"
+    },
+    {
+      "path": "2026-08-23-batch-36/pattern-candidates.jsonl",
+      "byte_length": 2084,
+      "sha256": "521b691d24a41c2e6c2abe9ea2cb4611c39ea078f9984f09b8b406e98791fae3"
+    },
+    {
+      "path": "2026-08-23-batch-36/product-taxonomy.json",
+      "byte_length": 224,
+      "sha256": "871076dc072cb23008f9ea974fc6c3d7ab46689080c548c9b800c81342a8c56f"
+    },
+    {
+      "path": "2026-08-23-batch-36/sources.jsonl",
+      "byte_length": 5732,
+      "sha256": "35e073ca50f808b4a2667fde2d5572aefa1804cbcbe590eb12950bcc0250638d"
+    },
+    {
+      "path": "2026-08-23-batch-36/systems-sampling-frame.json",
+      "byte_length": 285,
+      "sha256": "f996a5f570ab2dd028ab226e3975b0e6b15035cc56c9b757e8578cae0613e8dc"
+    },
+    {
+      "path": "2026-08-23-batch-36/terminology-register.jsonl",
+      "byte_length": 620,
+      "sha256": "0f00920c3152fa7b5c625623cbeb2f402868de0d32d34d7c51df7da60f18eb82"
+    },
+    {
+      "path": "2026-08-23-batch-37/acquisition-manifest.md",
+      "byte_length": 743,
+      "sha256": "a20d5b37b6bc27fb690eb7ea07876ff05aed0e338abe1afebcbadd5f713a02d0"
+    },
+    {
+      "path": "2026-08-23-batch-37/batch-status.md",
+      "byte_length": 656,
+      "sha256": "25dbba721f1d8eb49ed9c5b098657621bb999a8771466d337573564cf26178c3"
+    },
+    {
+      "path": "2026-08-23-batch-37/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-37/cross-industry-synthesis.md",
+      "byte_length": 915,
+      "sha256": "b8033ab4e79333c3bf3c37b59797e5dc5f8aeaf7360a7418a36533f698a77a95"
+    },
+    {
+      "path": "2026-08-23-batch-37/journey-state-taxonomy.json",
+      "byte_length": 460,
+      "sha256": "0cb271e551fa37b4937ebac5d3e06abbda7815b894ca8e5908dd444c07e9592a"
+    },
+    {
+      "path": "2026-08-23-batch-37/observations.jsonl",
+      "byte_length": 11839,
+      "sha256": "104d6847a4ad30d48e86f3aef3d434e0faffaed6fe8b418d28154cc407a54f7c"
+    },
+    {
+      "path": "2026-08-23-batch-37/pattern-candidates.jsonl",
+      "byte_length": 2210,
+      "sha256": "bd7043a4038f25d4808bbdd0f9c4344fe207a34b3decd1ec6e552545b7afd340"
+    },
+    {
+      "path": "2026-08-23-batch-37/product-taxonomy.json",
+      "byte_length": 241,
+      "sha256": "2aa012712ab14c2a01050a9026fbe328e0871989fd7af2afc3d7220d2c5268aa"
+    },
+    {
+      "path": "2026-08-23-batch-37/sources.jsonl",
+      "byte_length": 5530,
+      "sha256": "aa3f5edccad4511f86101a33e200d3df9191ed68432f7c493fb11dfca1e6aac1"
+    },
+    {
+      "path": "2026-08-23-batch-37/systems-sampling-frame.json",
+      "byte_length": 279,
+      "sha256": "0bcb48c2659f0d237ea05e9b8c6dd5c922c5135a63193fc0d90573b6b92702bf"
+    },
+    {
+      "path": "2026-08-23-batch-37/terminology-register.jsonl",
+      "byte_length": 608,
+      "sha256": "8dc658dd0276e9466e5d62aa679b507d89d56d4a19be9fef3e16d1d6d31a2af4"
+    },
+    {
+      "path": "2026-08-23-batch-38/acquisition-manifest.md",
+      "byte_length": 741,
+      "sha256": "a8b3b900d59d3a7c712de9a2c523b51473a3f9703ab12af2c1602899b99c8103"
+    },
+    {
+      "path": "2026-08-23-batch-38/batch-status.md",
+      "byte_length": 656,
+      "sha256": "20cf393911c491c64fe8b528ebc6aed8fca37ea76fd16c4f5e753f8a9eeccaf4"
+    },
+    {
+      "path": "2026-08-23-batch-38/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-38/cross-industry-synthesis.md",
+      "byte_length": 873,
+      "sha256": "3e82522a39058995d6878b84e051a198855e93b4357cea2ac613c9658b796597"
+    },
+    {
+      "path": "2026-08-23-batch-38/journey-state-taxonomy.json",
+      "byte_length": 447,
+      "sha256": "ef40f03c223daeda5b8e23d345b90c5aa17e355637cef9687d0c5551acc4190b"
+    },
+    {
+      "path": "2026-08-23-batch-38/observations.jsonl",
+      "byte_length": 11834,
+      "sha256": "df3e010b27770c4d1c0b8c3f1850a172ba3c872cd3b001ca9293062160088fcf"
+    },
+    {
+      "path": "2026-08-23-batch-38/pattern-candidates.jsonl",
+      "byte_length": 2197,
+      "sha256": "0c67cff337967a3bcafc33eb414c692f4427ea3d6c5313d67bede89a0486f763"
+    },
+    {
+      "path": "2026-08-23-batch-38/product-taxonomy.json",
+      "byte_length": 229,
+      "sha256": "17cc8a36cb66a6c6727d473b9f3df1dc80ef692ceeb198065496a8cb52e6a9f6"
+    },
+    {
+      "path": "2026-08-23-batch-38/sources.jsonl",
+      "byte_length": 5852,
+      "sha256": "6cc2beb9c3bf6754895932442ce4998406fb4a2c9d65a3cff2503487fd069b7b"
+    },
+    {
+      "path": "2026-08-23-batch-38/systems-sampling-frame.json",
+      "byte_length": 275,
+      "sha256": "ac22fadd1431f9078ccc5f58892eed50435da5b4a39334a8bf54be1bddad754c"
+    },
+    {
+      "path": "2026-08-23-batch-38/terminology-register.jsonl",
+      "byte_length": 629,
+      "sha256": "f09031e8351b48890a5f659a0106ab1259d0e4d19506ea3722944aa12049f764"
+    },
+    {
+      "path": "2026-08-23-batch-39/acquisition-manifest.md",
+      "byte_length": 750,
+      "sha256": "0580924d31137de4137d6e98f87cd9b4a3e017bf4a740ca9974060d0db1eac80"
+    },
+    {
+      "path": "2026-08-23-batch-39/batch-status.md",
+      "byte_length": 666,
+      "sha256": "7ef492136311ab00b8cf065bbc53fe6435d78fcc6d0febf328fbf2e311a98c5d"
+    },
+    {
+      "path": "2026-08-23-batch-39/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-39/cross-industry-synthesis.md",
+      "byte_length": 847,
+      "sha256": "f8921ec784a4c6591c1399da5485f71831b161294a235d809087459d6dae6533"
+    },
+    {
+      "path": "2026-08-23-batch-39/journey-state-taxonomy.json",
+      "byte_length": 443,
+      "sha256": "c43093c54802a3fbdb77d21690fa3580cb44377d3c580b6e332a22e8ac83b5cd"
+    },
+    {
+      "path": "2026-08-23-batch-39/observations.jsonl",
+      "byte_length": 12041,
+      "sha256": "c64dd272be6745875a538ea9b01c2fe304fe888aa368fae54a2ed4f401da289b"
+    },
+    {
+      "path": "2026-08-23-batch-39/pattern-candidates.jsonl",
+      "byte_length": 2191,
+      "sha256": "93991fd106989b5226aa46c1b2e5f85e2f4c5097573f3bd10abf68ae072aab29"
+    },
+    {
+      "path": "2026-08-23-batch-39/product-taxonomy.json",
+      "byte_length": 234,
+      "sha256": "d0c7d34e17e7ea13fb9d1326708828a251134068f339a0b1522a5773c4a3df1d"
+    },
+    {
+      "path": "2026-08-23-batch-39/sources.jsonl",
+      "byte_length": 6062,
+      "sha256": "98df6a911d4e3fc31c958940208bdd3bad8c22ccc3f1fd07c188e8a810609254"
+    },
+    {
+      "path": "2026-08-23-batch-39/systems-sampling-frame.json",
+      "byte_length": 293,
+      "sha256": "0ef110cba08863f3ab66ea7944c581bdf32fd9de346c8fe80db7967d3a898871"
+    },
+    {
+      "path": "2026-08-23-batch-39/terminology-register.jsonl",
+      "byte_length": 646,
+      "sha256": "769fa45918e7c244c8d6d861ca177dbcf5d1192d7330f9350f23433703e8cf30"
+    },
+    {
+      "path": "2026-08-23-batch-40/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "e5a94d811935a844dd78a1e28ae6c2fb274ef85dfe29f5c4f90ad3377d2965e0"
+    },
+    {
+      "path": "2026-08-23-batch-40/batch-status.md",
+      "byte_length": 659,
+      "sha256": "7b5ed811c01fce85fc3c849436994d50acc640eb75c1a319ec820b7adbcd46e6"
+    },
+    {
+      "path": "2026-08-23-batch-40/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-40/cross-industry-synthesis.md",
+      "byte_length": 874,
+      "sha256": "724757dcf0d945e6d696a730ba30dd5100d9c9b31e8048d17bfc8229115e7fee"
+    },
+    {
+      "path": "2026-08-23-batch-40/journey-state-taxonomy.json",
+      "byte_length": 443,
+      "sha256": "fac1a3b8e5dca35120cc25356df913a20d32e195c0e0fa68de3e90c8613329da"
+    },
+    {
+      "path": "2026-08-23-batch-40/observations.jsonl",
+      "byte_length": 11974,
+      "sha256": "c5c5c4cc7f117d74d69d971becc4487e7debf3e0f1e8c6e041d01ff4477a1c13"
+    },
+    {
+      "path": "2026-08-23-batch-40/pattern-candidates.jsonl",
+      "byte_length": 2098,
+      "sha256": "24382e2f2489363a80c402e13448ae06778036d7511db66ca49b17dfe8dc848b"
+    },
+    {
+      "path": "2026-08-23-batch-40/product-taxonomy.json",
+      "byte_length": 219,
+      "sha256": "60d3fbd3e50bab0794a35399158f1f9452b03444d0b0e81b683b5d6e156c72c2"
+    },
+    {
+      "path": "2026-08-23-batch-40/sources.jsonl",
+      "byte_length": 5724,
+      "sha256": "a85d3f9fc19ca6ce9d023d66710172998576e55254e610bf0dfdb1bbc4522e53"
+    },
+    {
+      "path": "2026-08-23-batch-40/systems-sampling-frame.json",
+      "byte_length": 281,
+      "sha256": "34e59adaa0ab0d00e0c0c683a6e1be42f15b34bd2655debd72339264581b4630"
+    },
+    {
+      "path": "2026-08-23-batch-40/terminology-register.jsonl",
+      "byte_length": 650,
+      "sha256": "29f1f0d1617102283109d355e7087aa7b4ab3e6f03e2b3e09c48e8588e3e778c"
+    },
+    {
+      "path": "2026-08-23-batch-41/acquisition-manifest.md",
+      "byte_length": 746,
+      "sha256": "6c743a5d1ee818445b30876e3cc2806f64b9c2e9a380a37f4ed9e0640ed36469"
+    },
+    {
+      "path": "2026-08-23-batch-41/batch-status.md",
+      "byte_length": 663,
+      "sha256": "5fc5a2d4faab59e7801bda1f359657e873ca753775a502b383117ccb15dc7dbd"
+    },
+    {
+      "path": "2026-08-23-batch-41/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-41/cross-industry-synthesis.md",
+      "byte_length": 909,
+      "sha256": "37bc1ac9ab1287c6fcf6af8ff6709f23261750721bfaa48a7918590eaffcb0e3"
+    },
+    {
+      "path": "2026-08-23-batch-41/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-41/observations.jsonl",
+      "byte_length": 12042,
+      "sha256": "78962589932bc68ce662a7153058e032360babec6c22ce7bf1015ae59ddf93d3"
+    },
+    {
+      "path": "2026-08-23-batch-41/pattern-candidates.jsonl",
+      "byte_length": 2076,
+      "sha256": "d766125cfc196d2525d7e924d95beb3ef50d9a2b1d6216b33a17285b57c0abff"
+    },
+    {
+      "path": "2026-08-23-batch-41/product-taxonomy.json",
+      "byte_length": 225,
+      "sha256": "f11cbf7be97d9f0e518535d8cd23a41486981539b96b52cb2e6925987241db33"
+    },
+    {
+      "path": "2026-08-23-batch-41/sources.jsonl",
+      "byte_length": 5803,
+      "sha256": "21c9b63f5c1bfe79e8af25371d9ace84ab025d956cb00836989ed0be71a0fcac"
+    },
+    {
+      "path": "2026-08-23-batch-41/systems-sampling-frame.json",
+      "byte_length": 285,
+      "sha256": "a08089c5c288857b2bf5cdde3d7af3f5e26d10ce67b5ab97f34ba842407098db"
+    },
+    {
+      "path": "2026-08-23-batch-41/terminology-register.jsonl",
+      "byte_length": 646,
+      "sha256": "ca2dad79f783f1c2f641841f770da2aaa7a262fa350374c77323f02785dc2bff"
+    },
+    {
+      "path": "2026-08-23-batch-42/acquisition-manifest.md",
+      "byte_length": 746,
+      "sha256": "5d76be97761437e5929e74805dedff0092165e0b29c458f6f0a0c75266c1eecd"
+    },
+    {
+      "path": "2026-08-23-batch-42/batch-status.md",
+      "byte_length": 663,
+      "sha256": "29d03767c54a8309625ce85d186ab248a45ebdc51f7160c04ea0217ee10ec0d5"
+    },
+    {
+      "path": "2026-08-23-batch-42/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-42/cross-industry-synthesis.md",
+      "byte_length": 891,
+      "sha256": "51eadcf0c7c982d23ce6b0cd36bedbf73a3ddda60215ac1db8f360e0b352d063"
+    },
+    {
+      "path": "2026-08-23-batch-42/journey-state-taxonomy.json",
+      "byte_length": 459,
+      "sha256": "ae3556adedcedc66a71dbb5141ae53e9285608f0e3d669219f3680b28c1ca579"
+    },
+    {
+      "path": "2026-08-23-batch-42/observations.jsonl",
+      "byte_length": 12010,
+      "sha256": "334b3ecab4f91f1bfd7849fe4912bbfe825154826d84abc22ad317fe85578e24"
+    },
+    {
+      "path": "2026-08-23-batch-42/pattern-candidates.jsonl",
+      "byte_length": 2073,
+      "sha256": "92c2b6d9bc7b70ed28f51a683d319a411a624cdd816994ca476d626292d40bba"
+    },
+    {
+      "path": "2026-08-23-batch-42/product-taxonomy.json",
+      "byte_length": 231,
+      "sha256": "9242b5790688f78d84fc184d95209458455bc13d5e406b5a6ba14f4a3a92769e"
+    },
+    {
+      "path": "2026-08-23-batch-42/sources.jsonl",
+      "byte_length": 5800,
+      "sha256": "e6f595e3db968de22f5a2bc4f6c90b1d0d752579c98142605ba7e6a822070fa7"
+    },
+    {
+      "path": "2026-08-23-batch-42/systems-sampling-frame.json",
+      "byte_length": 285,
+      "sha256": "a08089c5c288857b2bf5cdde3d7af3f5e26d10ce67b5ab97f34ba842407098db"
+    },
+    {
+      "path": "2026-08-23-batch-42/terminology-register.jsonl",
+      "byte_length": 640,
+      "sha256": "0a168ebf619b180237766acaf7b9c3928eb04b5005cba4df3b8a48f674f69294"
+    },
+    {
+      "path": "2026-08-23-batch-43/acquisition-manifest.md",
+      "byte_length": 746,
+      "sha256": "22fc206ed2269bb913f00b38f4c68173db798ceb5389c8b1217796ec9fc467e2"
+    },
+    {
+      "path": "2026-08-23-batch-43/batch-status.md",
+      "byte_length": 666,
+      "sha256": "1123d5baccd347b5a81e1f6fc6d9541bf21b8064b27d92c5a488b18dbf30aaa9"
+    },
+    {
+      "path": "2026-08-23-batch-43/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-43/cross-industry-synthesis.md",
+      "byte_length": 889,
+      "sha256": "16874d78b73cd36cf6b2f7cd7058353dfb327e1b9aff587088ea50b0ef7cc80b"
+    },
+    {
+      "path": "2026-08-23-batch-43/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-43/observations.jsonl",
+      "byte_length": 12042,
+      "sha256": "a3cfc402d8447e8999898a8bdaef3c8d21c390b65580a358250cdcb4e92ac6f1"
+    },
+    {
+      "path": "2026-08-23-batch-43/pattern-candidates.jsonl",
+      "byte_length": 2085,
+      "sha256": "4d8591b538cf3fce6a2b36c4349816744308a4bfda5189a54b02ca9d6705eba9"
+    },
+    {
+      "path": "2026-08-23-batch-43/product-taxonomy.json",
+      "byte_length": 224,
+      "sha256": "ba511e6e57aa1d729677167bc5610598e928f370cf1c7421d1025cae1e2765d9"
+    },
+    {
+      "path": "2026-08-23-batch-43/sources.jsonl",
+      "byte_length": 5803,
+      "sha256": "c7eeded4ca23b94763d5a3e69e8c9ca01d5de6923518fbb1c02dc52f68ba4722"
+    },
+    {
+      "path": "2026-08-23-batch-43/systems-sampling-frame.json",
+      "byte_length": 285,
+      "sha256": "a08089c5c288857b2bf5cdde3d7af3f5e26d10ce67b5ab97f34ba842407098db"
+    },
+    {
+      "path": "2026-08-23-batch-43/terminology-register.jsonl",
+      "byte_length": 646,
+      "sha256": "ca2dad79f783f1c2f641841f770da2aaa7a262fa350374c77323f02785dc2bff"
+    },
+    {
+      "path": "2026-08-23-batch-44/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "c151c5603b1bee9ed3210684965e8165dc8ed68489cff5b5c0ba7a6d4352ea32"
+    },
+    {
+      "path": "2026-08-23-batch-44/batch-status.md",
+      "byte_length": 703,
+      "sha256": "82fcdf4e8d4a4c57d073959847537d0a862a3c6b6a4b28d35dc9721ab47cc1a7"
+    },
+    {
+      "path": "2026-08-23-batch-44/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-44/cross-industry-synthesis.md",
+      "byte_length": 907,
+      "sha256": "e4503e0e75f26239ffbb89b01fb6e2efd4c83a6ff4917d0bb5e189a145d702cf"
+    },
+    {
+      "path": "2026-08-23-batch-44/journey-state-taxonomy.json",
+      "byte_length": 434,
+      "sha256": "7dd7dace1505b3cce9b1a6f3101b43ad99f94d01b11bad27ea529fe058718887"
+    },
+    {
+      "path": "2026-08-23-batch-44/observations.jsonl",
+      "byte_length": 12396,
+      "sha256": "609e2a2ac788069cc6962b3a8e144cfd113c665590be3bd958b0e214d7069431"
+    },
+    {
+      "path": "2026-08-23-batch-44/pattern-candidates.jsonl",
+      "byte_length": 2145,
+      "sha256": "0d3c3f3c81245b0a60d52fa9eb15aa2f22d03626cca79e6957aee07a6e84b204"
+    },
+    {
+      "path": "2026-08-23-batch-44/product-taxonomy.json",
+      "byte_length": 250,
+      "sha256": "8d10aef2ecca44dc0c024bcc722101dfa22b9cd8d68c6aa278eb5c5701eb1841"
+    },
+    {
+      "path": "2026-08-23-batch-44/sources.jsonl",
+      "byte_length": 5875,
+      "sha256": "e57dcba30f8577d938dc87f3f18f2fcc81d7c1ca0ec60c1da51979edf7f85478"
+    },
+    {
+      "path": "2026-08-23-batch-44/systems-sampling-frame.json",
+      "byte_length": 279,
+      "sha256": "177d6b310db90be2a5421dff59db92625b902e9ad958797bf0d6dfe47feb7223"
+    },
+    {
+      "path": "2026-08-23-batch-44/terminology-register.jsonl",
+      "byte_length": 810,
+      "sha256": "439cd36c9775fc1380206f3ba326dab94b44bd1418d729d3c0590a039f13e514"
+    },
+    {
+      "path": "2026-08-23-batch-45/acquisition-manifest.md",
+      "byte_length": 752,
+      "sha256": "6203beab654ea8892ee871a5182bc77ba9336221de1d1eded8b47c21574be604"
+    },
+    {
+      "path": "2026-08-23-batch-45/batch-status.md",
+      "byte_length": 706,
+      "sha256": "da8762062fc7c8c2e9cb59ba61e526c3bdc1682f7c2f837b51d11cb10113194f"
+    },
+    {
+      "path": "2026-08-23-batch-45/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-45/cross-industry-synthesis.md",
+      "byte_length": 815,
+      "sha256": "4d07b8f3db37b0c412ff4571fe6777fb97a981e3a2077c189a50f33291c043ba"
+    },
+    {
+      "path": "2026-08-23-batch-45/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-45/observations.jsonl",
+      "byte_length": 12172,
+      "sha256": "008efada41b56d29bce0564cd7292e1091c03a41824e50a0030194d0751dc1b3"
+    },
+    {
+      "path": "2026-08-23-batch-45/pattern-candidates.jsonl",
+      "byte_length": 2206,
+      "sha256": "5a3348400c9f180bc06128a28e0a5298184b89e5fb01887166f6da9f15c9a1f6"
+    },
+    {
+      "path": "2026-08-23-batch-45/product-taxonomy.json",
+      "byte_length": 255,
+      "sha256": "7bc562a983c3e439b85cbdaab39bd6501f7736c7cfb423eaccc5ab6195d7664e"
+    },
+    {
+      "path": "2026-08-23-batch-45/sources.jsonl",
+      "byte_length": 5990,
+      "sha256": "bd0d44b37d4684c4216decaf39d4829476b8855a6bb7dfab98557fd0ea29e863"
+    },
+    {
+      "path": "2026-08-23-batch-45/systems-sampling-frame.json",
+      "byte_length": 297,
+      "sha256": "3dc360d65f60dfd4b7330419e460ca6a7b538dc8138472175c8e84461b7926bd"
+    },
+    {
+      "path": "2026-08-23-batch-45/terminology-register.jsonl",
+      "byte_length": 826,
+      "sha256": "aea72941cd3e0dcff3d751907852eeae1fa10f81d81a4e5c75233f6b977cce3d"
+    },
+    {
+      "path": "2026-08-23-batch-46/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "26fbad52e2e7e922a2071f34cd5e5b1c3562b0458394f001ed84d79f8947b3b2"
+    },
+    {
+      "path": "2026-08-23-batch-46/batch-status.md",
+      "byte_length": 696,
+      "sha256": "998b265ff92fd33fe5138da55c2ca91bbe6bac487c1ecae6310f0e4df34b82fc"
+    },
+    {
+      "path": "2026-08-23-batch-46/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-46/cross-industry-synthesis.md",
+      "byte_length": 857,
+      "sha256": "c9b8b04453006dcc59be83c088f2831212a8ba04fe3560065ec2244a153bf392"
+    },
+    {
+      "path": "2026-08-23-batch-46/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-46/observations.jsonl",
+      "byte_length": 12176,
+      "sha256": "1c7b5db83c6f61ebc9797a09eab9681a627baea4abe2f5549e3af4fa3c867ad7"
+    },
+    {
+      "path": "2026-08-23-batch-46/pattern-candidates.jsonl",
+      "byte_length": 2125,
+      "sha256": "972fbc0fe9ce3be2d87ff39ba75adf92e5a2c37caff12a7cb6af8e1b537b1970"
+    },
+    {
+      "path": "2026-08-23-batch-46/product-taxonomy.json",
+      "byte_length": 249,
+      "sha256": "ba9aa4a6fd55eee8ccaf9647aba89c200d9fcbae45be24f3a8a9bd9c8156deb3"
+    },
+    {
+      "path": "2026-08-23-batch-46/sources.jsonl",
+      "byte_length": 5739,
+      "sha256": "733e6e2929b010ba903362ab206c9dd1bf6ab435b93eeaa6f7cb7ca6f83e38a6"
+    },
+    {
+      "path": "2026-08-23-batch-46/systems-sampling-frame.json",
+      "byte_length": 289,
+      "sha256": "8cc1687f9aac2f04f5e795928f43717416eb1acd8d6277b409b28dcf7bd47a6e"
+    },
+    {
+      "path": "2026-08-23-batch-46/terminology-register.jsonl",
+      "byte_length": 833,
+      "sha256": "ed34965ec2b70bf2124ee80718bfb96b1259c672d902955ffc8e2bdd495725d9"
+    },
+    {
+      "path": "2026-08-23-batch-47/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "833230dcca5a54410911f8423b1b280397b3644346865f69dbcfb058cf040786"
+    },
+    {
+      "path": "2026-08-23-batch-47/batch-status.md",
+      "byte_length": 686,
+      "sha256": "4a41f06947c94d181e02611b840eafba32df2fab3f5b0599c3f180f67f148d0e"
+    },
+    {
+      "path": "2026-08-23-batch-47/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-47/cross-industry-synthesis.md",
+      "byte_length": 846,
+      "sha256": "e8787b3cd9b87128bd6e827c8373b359381500d730a1b2bf0c4abdac092f60a4"
+    },
+    {
+      "path": "2026-08-23-batch-47/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-47/observations.jsonl",
+      "byte_length": 12326,
+      "sha256": "72cccfe1234ed3a2fef53f5d9a299d5146cb114ed6c8a44700f0d7c57b01e61d"
+    },
+    {
+      "path": "2026-08-23-batch-47/pattern-candidates.jsonl",
+      "byte_length": 2205,
+      "sha256": "25c65bc8b2336bbb1668d8879a25174c933d4e9ff7c72a572368e986d304250c"
+    },
+    {
+      "path": "2026-08-23-batch-47/product-taxonomy.json",
+      "byte_length": 263,
+      "sha256": "cadf34e88eb17664a53cfeb0a46d84a1b3621cc6ec98e8e25b090bf42e85375d"
+    },
+    {
+      "path": "2026-08-23-batch-47/sources.jsonl",
+      "byte_length": 6132,
+      "sha256": "4dad85606942d45bf4bacee3914e5d57c10eacf973ecb7cae29844b7516051c5"
+    },
+    {
+      "path": "2026-08-23-batch-47/systems-sampling-frame.json",
+      "byte_length": 279,
+      "sha256": "177d6b310db90be2a5421dff59db92625b902e9ad958797bf0d6dfe47feb7223"
+    },
+    {
+      "path": "2026-08-23-batch-47/terminology-register.jsonl",
+      "byte_length": 833,
+      "sha256": "b3ba7766917cc63cbbd941338bc945c4c81de4baf906e879481c0262ffa52d26"
+    },
+    {
+      "path": "2026-08-23-batch-48/acquisition-manifest.md",
+      "byte_length": 751,
+      "sha256": "1f9156df17e21139b32d08914aee1475acc9faf8bd13e2f09cc9e61fa3144142"
+    },
+    {
+      "path": "2026-08-23-batch-48/batch-status.md",
+      "byte_length": 712,
+      "sha256": "70492df3591ba47e1db00ed1ef6442e05f76008c9b9c1fbc07ca2f1aee1e9007"
+    },
+    {
+      "path": "2026-08-23-batch-48/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-48/cross-industry-synthesis.md",
+      "byte_length": 780,
+      "sha256": "bfd6836cb4c38fb98447ad402cafd8f9c5e7cce838505dab6247a21dfde6562e"
+    },
+    {
+      "path": "2026-08-23-batch-48/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-48/observations.jsonl",
+      "byte_length": 12219,
+      "sha256": "2a6303bdb58f4f920ce3272f791b99582376181cb3fb393153979bfe9abedad3"
+    },
+    {
+      "path": "2026-08-23-batch-48/pattern-candidates.jsonl",
+      "byte_length": 2112,
+      "sha256": "40d3c59d8f58e350aa0dbf8dfaa7b8668246a0321b00db39f159fb0c765f487f"
+    },
+    {
+      "path": "2026-08-23-batch-48/product-taxonomy.json",
+      "byte_length": 249,
+      "sha256": "b0510d2fdf6af4bd5a4384392917d01b3137117ab08a80d2c5651d0e531827b2"
+    },
+    {
+      "path": "2026-08-23-batch-48/sources.jsonl",
+      "byte_length": 5810,
+      "sha256": "53f839d96758cd0566ba1895e7b43b4b6ccaed0af420bd03c2818871a21eb48e"
+    },
+    {
+      "path": "2026-08-23-batch-48/systems-sampling-frame.json",
+      "byte_length": 303,
+      "sha256": "4a136f8ad37dde0e68a7ad075da530178546d2bf3a97a66b871405cd9211f83d"
+    },
+    {
+      "path": "2026-08-23-batch-48/terminology-register.jsonl",
+      "byte_length": 832,
+      "sha256": "10d71d16e0997884fdfad5c0b5996e16f27044fecc3c661c1fa18c36ca4f180f"
+    },
+    {
+      "path": "2026-08-23-batch-49/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "1f2ddd8862d101580ae9585d81a1cd42597df939c20a4b1782e3c0365976f181"
+    },
+    {
+      "path": "2026-08-23-batch-49/batch-status.md",
+      "byte_length": 700,
+      "sha256": "595e88717d9fca8a8915fba0ddf35a6f3db9415629d24534281c42f3d20da63f"
+    },
+    {
+      "path": "2026-08-23-batch-49/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-49/cross-industry-synthesis.md",
+      "byte_length": 813,
+      "sha256": "b7df66f25c34475e17d5c897c6866e5c5d668a571f626ade4af583e970163fd3"
+    },
+    {
+      "path": "2026-08-23-batch-49/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-49/observations.jsonl",
+      "byte_length": 12203,
+      "sha256": "3237a2e7a504429ee443eebd5ed4a8aaaf4a50ead9d4e23212960a8c4f08060a"
+    },
+    {
+      "path": "2026-08-23-batch-49/pattern-candidates.jsonl",
+      "byte_length": 2158,
+      "sha256": "e9f303f6ef87fad544c4fc5c3cf045e8d16bdc5107a728b197873a2977ac1b8f"
+    },
+    {
+      "path": "2026-08-23-batch-49/product-taxonomy.json",
+      "byte_length": 231,
+      "sha256": "e52aea8bf93891e570f7bf04696382bb15013ec4ad33b5896f8d00fe9baeb176"
+    },
+    {
+      "path": "2026-08-23-batch-49/sources.jsonl",
+      "byte_length": 5938,
+      "sha256": "24187f96e92d70c1718129eb689dfed3cc15a884ffaaf07fb17b06be02f56c2d"
+    },
+    {
+      "path": "2026-08-23-batch-49/systems-sampling-frame.json",
+      "byte_length": 279,
+      "sha256": "593d8015de2a3edba00c98409b1a87f5201a5c6144b2f5fd3e69afc53131d722"
+    },
+    {
+      "path": "2026-08-23-batch-49/terminology-register.jsonl",
+      "byte_length": 795,
+      "sha256": "7d4aeae0207d9d4e91c4c62bd69ea06915bd8fab445bda64d9d522a79b52e304"
+    },
+    {
+      "path": "2026-08-23-batch-50/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "23841c216b9b570d743a387aa39b4079e372c51c34af0d1df547ac0fa6fc8a2b"
+    },
+    {
+      "path": "2026-08-23-batch-50/batch-status.md",
+      "byte_length": 707,
+      "sha256": "71a1c2a4e762d2e7044acf4c03d87670ebfac2949aef0d12bab57bd8ab4e5ab2"
+    },
+    {
+      "path": "2026-08-23-batch-50/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-50/cross-industry-synthesis.md",
+      "byte_length": 775,
+      "sha256": "6b9c9e982c4c8a9fe1f2917948b3e2149dcc18a27a6d58ecdd585e46182048df"
+    },
+    {
+      "path": "2026-08-23-batch-50/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-50/observations.jsonl",
+      "byte_length": 11971,
+      "sha256": "4cb6a7fbcf802d09e240e792f4f518474e5a8b6604224868c8829a15da6be055"
+    },
+    {
+      "path": "2026-08-23-batch-50/pattern-candidates.jsonl",
+      "byte_length": 2127,
+      "sha256": "e3b4c598e9f528e4efe74fdb91c7e4f8a186272c9db138ee92cf44f3beacc71c"
+    },
+    {
+      "path": "2026-08-23-batch-50/product-taxonomy.json",
+      "byte_length": 237,
+      "sha256": "a2f8e948022fd2bada39126def8dffa3f055844d9673b8ee49017a89b80ad74c"
+    },
+    {
+      "path": "2026-08-23-batch-50/sources.jsonl",
+      "byte_length": 6266,
+      "sha256": "f160598cd22cd2078321626a5f01444c685552541e80584ad2ec41569a265a4b"
+    },
+    {
+      "path": "2026-08-23-batch-50/systems-sampling-frame.json",
+      "byte_length": 289,
+      "sha256": "8cc1687f9aac2f04f5e795928f43717416eb1acd8d6277b409b28dcf7bd47a6e"
+    },
+    {
+      "path": "2026-08-23-batch-50/terminology-register.jsonl",
+      "byte_length": 744,
+      "sha256": "0c2bcf927135f15858fb1b29069f77c566124e23a03955d504ab6c85c9d281a0"
+    },
+    {
+      "path": "2026-08-23-batch-51/acquisition-manifest.md",
+      "byte_length": 741,
+      "sha256": "e15e1e9ed41ce45417b7536d056207f05ab4281a085f3a1bbbe3cd26f2c0eb39"
+    },
+    {
+      "path": "2026-08-23-batch-51/batch-status.md",
+      "byte_length": 687,
+      "sha256": "af0ae3e39b6894d98d611289f64bfb7912f806c3d52028b15aaaea52d106843e"
+    },
+    {
+      "path": "2026-08-23-batch-51/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-51/cross-industry-synthesis.md",
+      "byte_length": 795,
+      "sha256": "0ef80cffcb0992d99dc5cc2fe7763e892d8f004b30be0f5fec47e027d35a72f3"
+    },
+    {
+      "path": "2026-08-23-batch-51/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-51/observations.jsonl",
+      "byte_length": 11938,
+      "sha256": "39ebcda18804f328151db50c9f13581049a59f01ba275862abaa5a6596b2a37d"
+    },
+    {
+      "path": "2026-08-23-batch-51/pattern-candidates.jsonl",
+      "byte_length": 2093,
+      "sha256": "a0ee31e85e3c0e9c6bc889035f86a2b578f65d4e628f6df8e8573bf29fa62ba5"
+    },
+    {
+      "path": "2026-08-23-batch-51/product-taxonomy.json",
+      "byte_length": 249,
+      "sha256": "94b893821844df4786b63d41377a696e83028cabc8e9ec18841ee80d27903951"
+    },
+    {
+      "path": "2026-08-23-batch-51/sources.jsonl",
+      "byte_length": 6540,
+      "sha256": "e56da702861050c16242e04b9d2d969ae0aff57b2009c6089235a29223edba17"
+    },
+    {
+      "path": "2026-08-23-batch-51/systems-sampling-frame.json",
+      "byte_length": 275,
+      "sha256": "35e4a860839889c699afb4aa6f7ce2aad573d1b00a38c3643369ac7de2686d8e"
+    },
+    {
+      "path": "2026-08-23-batch-51/terminology-register.jsonl",
+      "byte_length": 800,
+      "sha256": "3685a9002b40defe22793e5d600af1fc10095cdc204157810369313ec3568f1a"
+    },
+    {
+      "path": "2026-08-23-batch-52/acquisition-manifest.md",
+      "byte_length": 742,
+      "sha256": "2ca1b633362b1635fe977fcc1b7371171c11ed4da899dffe195a2bbb33ec880c"
+    },
+    {
+      "path": "2026-08-23-batch-52/batch-status.md",
+      "byte_length": 699,
+      "sha256": "6560a72b9e4bcb15be14d8300951e79dd6cc8ac232f4c9f15f685580fff30e91"
+    },
+    {
+      "path": "2026-08-23-batch-52/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-52/cross-industry-synthesis.md",
+      "byte_length": 841,
+      "sha256": "cd69c5fb5981c5b7eef38438df4c4a25129bb3783cd08e5a54e735ad8d289153"
+    },
+    {
+      "path": "2026-08-23-batch-52/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-52/observations.jsonl",
+      "byte_length": 12191,
+      "sha256": "7a6404a85aab04b270a6520d13beece6118531f9ab6465e392d6af2a69ab7687"
+    },
+    {
+      "path": "2026-08-23-batch-52/pattern-candidates.jsonl",
+      "byte_length": 2205,
+      "sha256": "d360e54e5f75a88299bd6196428308146809698830aea0019b2e161dffaba6af"
+    },
+    {
+      "path": "2026-08-23-batch-52/product-taxonomy.json",
+      "byte_length": 239,
+      "sha256": "bf91533027bf1e757ac19c078cbbb3a281e9b53f2db0a12287522c56ddd99a8e"
+    },
+    {
+      "path": "2026-08-23-batch-52/sources.jsonl",
+      "byte_length": 6019,
+      "sha256": "aa7c864161d83cb9d75a118eb0d7fcd8f4fe4d367345b6a04e85b0d0298bb511"
+    },
+    {
+      "path": "2026-08-23-batch-52/systems-sampling-frame.json",
+      "byte_length": 283,
+      "sha256": "747cbcbf78425c894861e0acfe7726cab3c2fbf97a8fad1d29db75ccac78ebb5"
+    },
+    {
+      "path": "2026-08-23-batch-52/terminology-register.jsonl",
+      "byte_length": 740,
+      "sha256": "72122f84120bcf273b9577d04e013859f69453b1cbd1e48678db7ec05e22a7a2"
+    },
+    {
+      "path": "2026-08-23-batch-53/acquisition-manifest.md",
+      "byte_length": 742,
+      "sha256": "4e3646a5e62a18102362c2f5386d54c69c2491269872b0855c0b6d46a0eb5f72"
+    },
+    {
+      "path": "2026-08-23-batch-53/batch-status.md",
+      "byte_length": 699,
+      "sha256": "04ccf0d3d9b30bc128782eabcaf5b61e5f3173bbbb96e64907780c6bc659f17c"
+    },
+    {
+      "path": "2026-08-23-batch-53/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-53/cross-industry-synthesis.md",
+      "byte_length": 851,
+      "sha256": "c0b0a97f2e33d72c74c28d76cf8e97ca39c173788067cb9c1295afdebf846545"
+    },
+    {
+      "path": "2026-08-23-batch-53/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-53/observations.jsonl",
+      "byte_length": 12086,
+      "sha256": "d0cbf892f74bdb74ef65cbc97c999a5af5d2750bf85eb27b69d0de17ad2abaf4"
+    },
+    {
+      "path": "2026-08-23-batch-53/pattern-candidates.jsonl",
+      "byte_length": 2185,
+      "sha256": "377f05fd0dac1041b1b30a0b45b6bcef911b8b3cd320bb96042579bb7149ea06"
+    },
+    {
+      "path": "2026-08-23-batch-53/product-taxonomy.json",
+      "byte_length": 234,
+      "sha256": "d979ced1a6da1444abcd17f8db9525721cc6084b1e709e467c4dafde2be910bd"
+    },
+    {
+      "path": "2026-08-23-batch-53/sources.jsonl",
+      "byte_length": 6023,
+      "sha256": "19fdfb6c263c1cfb02fc7f0542e5b3c35eb4343783770b2d3fc894bd608b2071"
+    },
+    {
+      "path": "2026-08-23-batch-53/systems-sampling-frame.json",
+      "byte_length": 283,
+      "sha256": "747cbcbf78425c894861e0acfe7726cab3c2fbf97a8fad1d29db75ccac78ebb5"
+    },
+    {
+      "path": "2026-08-23-batch-53/terminology-register.jsonl",
+      "byte_length": 740,
+      "sha256": "72122f84120bcf273b9577d04e013859f69453b1cbd1e48678db7ec05e22a7a2"
+    },
+    {
+      "path": "2026-08-23-batch-54/acquisition-manifest.md",
+      "byte_length": 745,
+      "sha256": "88c92896fd42aa4bf32871fb5f42b9ff57f4560739f269b0a68f27643630ae2c"
+    },
+    {
+      "path": "2026-08-23-batch-54/batch-status.md",
+      "byte_length": 704,
+      "sha256": "f6b303fe29f5a336c9e5179bf7212605d1faec30b85d8f5d95d18d416e09803d"
+    },
+    {
+      "path": "2026-08-23-batch-54/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-54/cross-industry-synthesis.md",
+      "byte_length": 814,
+      "sha256": "6139aa0e81d23d8278e465c13b15dcb076380831203cf8e8ddc9b64ba5d9ccfa"
+    },
+    {
+      "path": "2026-08-23-batch-54/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-54/observations.jsonl",
+      "byte_length": 12251,
+      "sha256": "4872a7cef3e75d3980014e0293c74fe8a4743da884d590440b9b62a34a0eaf13"
+    },
+    {
+      "path": "2026-08-23-batch-54/pattern-candidates.jsonl",
+      "byte_length": 2096,
+      "sha256": "5314a794b3cb8437c828b7486b14e718bcc6395ff2c71bb31f210107b6109411"
+    },
+    {
+      "path": "2026-08-23-batch-54/product-taxonomy.json",
+      "byte_length": 266,
+      "sha256": "b51480e4a84e3993bca7628a70f14f00308b43808a0e10e428d468cb970a7b46"
+    },
+    {
+      "path": "2026-08-23-batch-54/sources.jsonl",
+      "byte_length": 6111,
+      "sha256": "1de99fbff99851b6e5eb79fbcbd92b116d11724eab5ceb7fbcaa126185497c23"
+    },
+    {
+      "path": "2026-08-23-batch-54/systems-sampling-frame.json",
+      "byte_length": 283,
+      "sha256": "dfa68ef5deebb98ec780c00813b24633c173b9b901e89c8c20a0c2b95fefbe92"
+    },
+    {
+      "path": "2026-08-23-batch-54/terminology-register.jsonl",
+      "byte_length": 752,
+      "sha256": "8ee05fe3db1b9cb2e91637c6f1cf08f380bfcaef5c637948c26be57e72b192f7"
+    },
+    {
+      "path": "2026-08-23-batch-55/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "b648654a082854f84c17087361ad969b7635fdb66a54a9cba5df0374d7dfacdf"
+    },
+    {
+      "path": "2026-08-23-batch-55/batch-status.md",
+      "byte_length": 706,
+      "sha256": "b573e2414f4d314fc190fb8e392b748aba24b51fd463c7a4aa92043ea2a6e597"
+    },
+    {
+      "path": "2026-08-23-batch-55/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-55/cross-industry-synthesis.md",
+      "byte_length": 834,
+      "sha256": "142abff097b23c46c0b16df56182f2a3547474323f6a9b359e1a9c1374112a52"
+    },
+    {
+      "path": "2026-08-23-batch-55/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-55/observations.jsonl",
+      "byte_length": 12200,
+      "sha256": "0b5d71d9e2bfc551cfa960d8d7dfccb5d3b3b1d20450e24bcb82e67c31ccee84"
+    },
+    {
+      "path": "2026-08-23-batch-55/pattern-candidates.jsonl",
+      "byte_length": 2141,
+      "sha256": "c30e4506db41aed50ae37b537d7e2400250d24aebdb7de8bcff4d71c7c37dc02"
+    },
+    {
+      "path": "2026-08-23-batch-55/product-taxonomy.json",
+      "byte_length": 258,
+      "sha256": "86320bd987c69115c5f2e17e06f2b88b88d658516b81eace240f8bb9702c92db"
+    },
+    {
+      "path": "2026-08-23-batch-55/sources.jsonl",
+      "byte_length": 6434,
+      "sha256": "7d31a7e0b89f9709cd982ee50afac166f6de68cf85e5fb1c60388128c9bed749"
+    },
+    {
+      "path": "2026-08-23-batch-55/systems-sampling-frame.json",
+      "byte_length": 281,
+      "sha256": "a00d65916ed39476db13cef866c0df025e1134202e14bdbb5b530cef959856d6"
+    },
+    {
+      "path": "2026-08-23-batch-55/terminology-register.jsonl",
+      "byte_length": 792,
+      "sha256": "b5d557450d58e173255f853bc7db2625ae3e45acc79e7739fe95e1bcca3610bf"
+    },
+    {
+      "path": "2026-08-23-batch-56/acquisition-manifest.md",
+      "byte_length": 744,
+      "sha256": "f0045abcfe408eb30a100c02911bab0645b0fb9fbd694b4570715272a576017a"
+    },
+    {
+      "path": "2026-08-23-batch-56/batch-status.md",
+      "byte_length": 706,
+      "sha256": "ebf78cbdf527c61ece1dc53c4ec524a45588bd034b46cdae21ef9a6c0a0e9283"
+    },
+    {
+      "path": "2026-08-23-batch-56/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-56/cross-industry-synthesis.md",
+      "byte_length": 864,
+      "sha256": "96b8d150f677d9447872d61dcf1c33acb3b7791a46cb1ffb78394208d051fee9"
+    },
+    {
+      "path": "2026-08-23-batch-56/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-56/observations.jsonl",
+      "byte_length": 12200,
+      "sha256": "21e63fede68e2c78a15c3e543d00c8eb99d473dfb4c84c8ab300b667b471150c"
+    },
+    {
+      "path": "2026-08-23-batch-56/pattern-candidates.jsonl",
+      "byte_length": 2141,
+      "sha256": "46a255770bb80ff78de998fe9b2bc072d9a0fbd340f2b32bf53fa2c8a6cd8640"
+    },
+    {
+      "path": "2026-08-23-batch-56/product-taxonomy.json",
+      "byte_length": 258,
+      "sha256": "86320bd987c69115c5f2e17e06f2b88b88d658516b81eace240f8bb9702c92db"
+    },
+    {
+      "path": "2026-08-23-batch-56/sources.jsonl",
+      "byte_length": 6434,
+      "sha256": "611b5998df0242642af48cb7acf118e3c39d9a9f1a7ba477e372a5cae6b21900"
+    },
+    {
+      "path": "2026-08-23-batch-56/systems-sampling-frame.json",
+      "byte_length": 281,
+      "sha256": "a00d65916ed39476db13cef866c0df025e1134202e14bdbb5b530cef959856d6"
+    },
+    {
+      "path": "2026-08-23-batch-56/terminology-register.jsonl",
+      "byte_length": 792,
+      "sha256": "20481f4fbf7fc7b9630b948f92e49d6c2f09d47f180667c7fd35b02d72889ed8"
+    },
+    {
+      "path": "2026-08-23-batch-57/acquisition-manifest.md",
+      "byte_length": 747,
+      "sha256": "a857634b2bf6ed57df190783eb29cfaf5b460a1fed65caf0af4574d218b946c3"
+    },
+    {
+      "path": "2026-08-23-batch-57/batch-status.md",
+      "byte_length": 699,
+      "sha256": "d2f85b0b932944217678579868c9e0394de4269ba990ff4526bba74435902270"
+    },
+    {
+      "path": "2026-08-23-batch-57/content-slot-schema.json",
+      "byte_length": 381,
+      "sha256": "178cb96fafcd61a8d7ba30151dd7035ee8bf11d48ae3193ca5fc73986157c000"
+    },
+    {
+      "path": "2026-08-23-batch-57/cross-industry-synthesis.md",
+      "byte_length": 930,
+      "sha256": "ba66da96001744951e946c717fb529fb78658cebbff4573b275abc193a372481"
+    },
+    {
+      "path": "2026-08-23-batch-57/journey-state-taxonomy.json",
+      "byte_length": 448,
+      "sha256": "cf72642ffdbd08a0d327b02c65ecb6972fbffebdd9280b1cad4bfb2e1cfb38c6"
+    },
+    {
+      "path": "2026-08-23-batch-57/observations.jsonl",
+      "byte_length": 12204,
+      "sha256": "e53a3c15ce98d06f1f548d7de108bf3c247497c6be4f0e18e2d7510d650969e6"
+    },
+    {
+      "path": "2026-08-23-batch-57/pattern-candidates.jsonl",
+      "byte_length": 2095,
+      "sha256": "6722354356535660fd63e791a879a0dfa3b178e64727592acc82afb73b18b1d6"
+    },
+    {
+      "path": "2026-08-23-batch-57/product-taxonomy.json",
+      "byte_length": 258,
+      "sha256": "86320bd987c69115c5f2e17e06f2b88b88d658516b81eace240f8bb9702c92db"
+    },
+    {
+      "path": "2026-08-23-batch-57/sources.jsonl",
+      "byte_length": 5882,
+      "sha256": "e6d001c2d4ffd9751ee530170ad4463bf71c7316183d928fa44c6894249652c2"
+    },
+    {
+      "path": "2026-08-23-batch-57/systems-sampling-frame.json",
+      "byte_length": 287,
+      "sha256": "e87c279e9d6000954c41adb4a575901aa1a69d3c7c8f8f6a25e127ca4c8c745d"
+    },
+    {
+      "path": "2026-08-23-batch-57/terminology-register.jsonl",
+      "byte_length": 810,
+      "sha256": "44d164fca2bb920b4797c5de26716c5b62744207cd5d85c7dbfb13713696f5d0"
+    },
+    {
+      "path": "2026-08-23-batch-58/access-log.jsonl",
+      "byte_length": 715,
+      "sha256": "a71fa9899ac25df47f0893d7e60f1fd0dabb2a9c36871774a381e4d90fba19c9"
+    },
+    {
+      "path": "2026-08-23-batch-58/acquisition-manifest.md",
+      "byte_length": 879,
+      "sha256": "07ef30196aa32c38a0093a2f7072d2f4d402b40d9f89dae394d63ad709813ca9"
+    },
+    {
+      "path": "2026-08-23-batch-58/batch-status.md",
+      "byte_length": 608,
+      "sha256": "2c90b9ee09cf7c0da115cb082487a9aad0f5be1966a23c1e250d785df5f00a3b"
+    },
+    {
+      "path": "2026-08-23-batch-58/content-slot-schema.json",
+      "byte_length": 297,
+      "sha256": "d8f6f769d7efb0e4235fae076f7a3f0e50a9b4a53b8c7bd049623a55d9577fad"
+    },
+    {
+      "path": "2026-08-23-batch-58/cross-industry-synthesis.md",
+      "byte_length": 772,
+      "sha256": "2bd2bcb0f053111437f4860bb9a1f2f9ea6c71a1d61b8d005892dd37a99424f8"
+    },
+    {
+      "path": "2026-08-23-batch-58/journey-state-taxonomy.json",
+      "byte_length": 488,
+      "sha256": "1da526a051b688f611566eb24645c0f8ff35e3ab4994e661d105f2425e54f980"
+    },
+    {
+      "path": "2026-08-23-batch-58/observations.jsonl",
+      "byte_length": 13563,
+      "sha256": "101b16a210a526b16dcb52dc7a57461dda18a3e1563bda992c2d07618f59202c"
+    },
+    {
+      "path": "2026-08-23-batch-58/pattern-candidates.jsonl",
+      "byte_length": 2030,
+      "sha256": "239932a9fb1a6890a3721441bd02c9a56f2e8ee110893f0885360137b22d8dd1"
+    },
+    {
+      "path": "2026-08-23-batch-58/product-taxonomy.json",
+      "byte_length": 332,
+      "sha256": "005a8844e6dbe1790235575e7e3e2511d38dbe001e33bedec8c5823bc63975b4"
+    },
+    {
+      "path": "2026-08-23-batch-58/sources.jsonl",
+      "byte_length": 3518,
+      "sha256": "c8bee462a23743425354f6387cd128d8e0acea910774df8e9298d74adfdc9010"
+    },
+    {
+      "path": "2026-08-23-batch-58/systems-sampling-frame.json",
+      "byte_length": 1048,
+      "sha256": "f7807bf7ac4c3c566bc8f37aeb06138d9fb24661af07ea935bad7bf1850085a6"
+    },
+    {
+      "path": "2026-08-23-batch-58/terminology-register.jsonl",
+      "byte_length": 935,
+      "sha256": "93742f16b4860785cce8d03e8b2c38d7da00bf60d91f58c41fd1c2f95fd9d158"
+    },
+    {
+      "path": "2026-08-23-batch-59/access-log.jsonl",
+      "byte_length": 673,
+      "sha256": "e0fee7f31fa8c0a47d2db7cca4c1cfcc21a321ed687044b8ab084fdf77e61bd0"
+    },
+    {
+      "path": "2026-08-23-batch-59/acquisition-manifest.md",
+      "byte_length": 702,
+      "sha256": "d6bd0387c74610c841be073ef5d0ad1f13580f163fbc3e2286e3101c5bd0e2f7"
+    },
+    {
+      "path": "2026-08-23-batch-59/batch-status.md",
+      "byte_length": 615,
+      "sha256": "6b2c833598eddefd38e0af3ce75c5bea0c92a30e28b2cbc1d98cdf4d8f9fd4c1"
+    },
+    {
+      "path": "2026-08-23-batch-59/cross-industry-synthesis.md",
+      "byte_length": 481,
+      "sha256": "4a46b06c45ea0aefcbe3de04564b7a738526ed2540182f62a8aaf7520ede631c"
+    },
+    {
+      "path": "2026-08-23-batch-59/observations.jsonl",
+      "byte_length": 13248,
+      "sha256": "c459ccbea5aa0869156e8bd8e82e02d81cab72e9ba6562be113e346223db4333"
+    },
+    {
+      "path": "2026-08-23-batch-59/pattern-candidates.jsonl",
+      "byte_length": 2106,
+      "sha256": "fb3f8879046fdb05d35cd1fa448406a73089d7866a59abc6c9a2e7314a144b27"
+    },
+    {
+      "path": "2026-08-23-batch-59/sources.jsonl",
+      "byte_length": 2905,
+      "sha256": "0b634afd21ab6159b3101dc5273c5e4979cea15407642a764a5ace1050e41359"
+    },
+    {
+      "path": "2026-08-23-batch-59/systems-sampling-frame.json",
+      "byte_length": 1072,
+      "sha256": "2d83399f1cde4a310c33473b3372b77fbc7e2678dbf546e43200fe47918c828d"
+    },
+    {
+      "path": "2026-08-23-batch-59/terminology-register.jsonl",
+      "byte_length": 788,
+      "sha256": "78b223dbab041756ed5ac1ec1b068222dd63d68f67011e0674eb50e489252a71"
+    },
+    {
+      "path": "2026-08-23-batch-60/access-log.jsonl",
+      "byte_length": 862,
+      "sha256": "198381306b6b50f53e982c82f6f44aeb07f8e060a3e3a1c421d7d35360642e75"
+    },
+    {
+      "path": "2026-08-23-batch-60/acquisition-manifest.md",
+      "byte_length": 694,
+      "sha256": "d9d64cb50ff640bfbee1cbbf04ae173780c415e6200b683bca14c1b492815bce"
+    },
+    {
+      "path": "2026-08-23-batch-60/batch-status.md",
+      "byte_length": 703,
+      "sha256": "a5f6e57c77e20f2e8f704deedb7276caedbae2377d8e5e77058987863ead01f5"
+    },
+    {
+      "path": "2026-08-23-batch-60/cross-industry-synthesis.md",
+      "byte_length": 493,
+      "sha256": "ebc1b4e26c4e63d8ac0dcbf6860e25b9a54889b4d485fa8d2b6775b4fba39885"
+    },
+    {
+      "path": "2026-08-23-batch-60/observations.jsonl",
+      "byte_length": 13133,
+      "sha256": "8f858b49b89935685b477605cf77351cddc16bf7b89bfe57dc2660d14734dded"
+    },
+    {
+      "path": "2026-08-23-batch-60/pattern-candidates.jsonl",
+      "byte_length": 2134,
+      "sha256": "c41d0c080dbf0c300bbb70db8c436a629fc9133b52959663b7f93de667f13c45"
+    },
+    {
+      "path": "2026-08-23-batch-60/sources.jsonl",
+      "byte_length": 2084,
+      "sha256": "61275b6a649544dc7e77fce944223584f8340ebb9ae548e37cd5c7c507fcba70"
+    },
+    {
+      "path": "2026-08-23-batch-60/systems-sampling-frame.json",
+      "byte_length": 1364,
+      "sha256": "010ce1adc527be6f70b6914b929954f323167eb64f1a091e02a57248065e3e5a"
+    },
+    {
+      "path": "2026-08-23-batch-60/terminology-register.jsonl",
+      "byte_length": 798,
+      "sha256": "8712868347133092add4ce33114ba2f6cf61b3e71800240bb5f002d919bc5b51"
+    },
+    {
+      "path": "2026-08-23-batch-61/access-log.jsonl",
+      "byte_length": 674,
+      "sha256": "2fa2c306ab759afc5f62ac5802002b4d6041dd8a5dcda316dfd63f06fa1784ba"
+    },
+    {
+      "path": "2026-08-23-batch-61/acquisition-manifest.md",
+      "byte_length": 534,
+      "sha256": "d336fd350aa1d509e8859ce3df06aa4c3c9cbc3d2f216081da9b4595826613f2"
+    },
+    {
+      "path": "2026-08-23-batch-61/batch-status.md",
+      "byte_length": 567,
+      "sha256": "bfecdd4c5fef15f3d49b21c2610b54e345030c04de3511b4fc1f562f9eab3071"
+    },
+    {
+      "path": "2026-08-23-batch-61/cross-industry-synthesis.md",
+      "byte_length": 472,
+      "sha256": "1be4763d49a21b49fdf0435310e7555cfebe1ae76eabc8938c5dda974d3eeb3e"
+    },
+    {
+      "path": "2026-08-23-batch-61/observations.jsonl",
+      "byte_length": 12803,
+      "sha256": "cc9f676ba9d22294ab3209075e7663c7e536b84bd36e53ad37784028e56af06c"
+    },
+    {
+      "path": "2026-08-23-batch-61/pattern-candidates.jsonl",
+      "byte_length": 2057,
+      "sha256": "9ccd8966c0fcf4b36d450121cce2f28928a170b101326c1ff932873168d7efca"
+    },
+    {
+      "path": "2026-08-23-batch-61/sources.jsonl",
+      "byte_length": 1998,
+      "sha256": "b2d048c99681d6978b3db3ca4caff29af97191110d7c76e7dbc0e0f057030bf7"
+    },
+    {
+      "path": "2026-08-23-batch-61/systems-sampling-frame.json",
+      "byte_length": 1037,
+      "sha256": "fb7fa14ab8b2e5c7427dccdd9fce8bb92e926effd1c90efa536b39ee4201e50c"
+    },
+    {
+      "path": "2026-08-23-batch-61/terminology-register.jsonl",
+      "byte_length": 748,
+      "sha256": "9440d0445394297faebd8145abc1aabf119fb7ed5222975d9f27f9820dfdaa97"
+    },
+    {
+      "path": "2026-08-24-batch-62/access-log.jsonl",
+      "byte_length": 418,
+      "sha256": "d12647f36d4ded4683b4a73f06b65adf6c2bbe9c108c35e611af9ada97d90ce8"
+    },
+    {
+      "path": "2026-08-24-batch-62/acquisition-manifest.md",
+      "byte_length": 658,
+      "sha256": "032ce833cdc018fc7bbbe645a0dd053cc9891809c4c537bdd8a7879725716de4"
+    },
+    {
+      "path": "2026-08-24-batch-62/batch-status.md",
+      "byte_length": 755,
+      "sha256": "07ec0953565a847246f3cd6e4997ea1e4e0d091a6728179138d99efdddebdf53"
+    },
+    {
+      "path": "2026-08-24-batch-62/cross-industry-synthesis.md",
+      "byte_length": 518,
+      "sha256": "29e408b2c17660ae8c096a1ecf3929c030e4677d501ef16a6d433eaafc07930f"
+    },
+    {
+      "path": "2026-08-24-batch-62/observations.jsonl",
+      "byte_length": 2362,
+      "sha256": "e33934a3d6bc0d1d02d4688165627f877cae48458b8bf0791e3c96462068efd0"
+    },
+    {
+      "path": "2026-08-24-batch-62/pattern-candidates.jsonl",
+      "byte_length": 654,
+      "sha256": "1b5503abb1a8cbdbc2ab721ef6c4f336296ddb0f82bcb101b595c6dd2f6752ca"
+    },
+    {
+      "path": "2026-08-24-batch-62/sources.jsonl",
+      "byte_length": 1045,
+      "sha256": "05fe78e3052616ec0aa5b95fd6ba391ef1a8476b1dbf52762223a21602470abb"
+    },
+    {
+      "path": "2026-08-24-batch-62/systems-sampling-frame.json",
+      "byte_length": 355,
+      "sha256": "ac232ddc96a913f61b912af337ef597ada76c06e2e453c737787f32ca5582cd8"
+    },
+    {
+      "path": "2026-08-24-batch-62/terminology-register.jsonl",
+      "byte_length": 361,
+      "sha256": "c5d8b3d6d64f396ff0663d804f10480113b32541eccb34523b25b1bf6ebfebdf"
+    },
+    {
+      "path": "2026-08-24-batch-63/access-log.jsonl",
+      "byte_length": 432,
+      "sha256": "30d1ae83b04081039d00577479c14ba1a658e9f1e5aa61878fa027ed3981eb71"
+    },
+    {
+      "path": "2026-08-24-batch-63/acquisition-manifest.md",
+      "byte_length": 733,
+      "sha256": "b9d4f6396c2f5946c1ec4a5e323d32979f309987d3bfd441c001e7d3a994af62"
+    },
+    {
+      "path": "2026-08-24-batch-63/batch-status.md",
+      "byte_length": 732,
+      "sha256": "3a97f51a45d0f532902ec2cfa6b56e8d77cb7eb552491162cdc4ac76dcf2a8e5"
+    },
+    {
+      "path": "2026-08-24-batch-63/cross-industry-synthesis.md",
+      "byte_length": 527,
+      "sha256": "59077faf763ff79034a5c4caae88b971c5bebc1e76275525442c2356826645cc"
+    },
+    {
+      "path": "2026-08-24-batch-63/observations.jsonl",
+      "byte_length": 2465,
+      "sha256": "4931d4e90cca8588961f3cef9d99ef639f3ed2fd76a32541b35ffbe08deeedfe"
+    },
+    {
+      "path": "2026-08-24-batch-63/pattern-candidates.jsonl",
+      "byte_length": 659,
+      "sha256": "f857d57a51d87723149f3cba488361b7734c9236f19d4479c7d5cf52b04d6216"
+    },
+    {
+      "path": "2026-08-24-batch-63/sources.jsonl",
+      "byte_length": 1172,
+      "sha256": "11637b3d3924a3f1c93776e9e49981524fecf9b792fc1b6ded28b658201b6765"
+    },
+    {
+      "path": "2026-08-24-batch-63/systems-sampling-frame.json",
+      "byte_length": 327,
+      "sha256": "2f7699da74a4270b29e0b004774a15bcad17875851c34cdb706e7812f7f0b6fc"
+    },
+    {
+      "path": "2026-08-24-batch-63/terminology-register.jsonl",
+      "byte_length": 411,
+      "sha256": "610b130e9892890618e540cb576343c0876f5881dc52e16c6d46d795eaa17059"
+    },
+    {
+      "path": "2026-08-24-batch-64/access-log.jsonl",
+      "byte_length": 1044,
+      "sha256": "6e74b2df161901c83b4ccd7efe22ca37a6f3a406767fd2fbd825498108dcc22c"
+    },
+    {
+      "path": "2026-08-24-batch-64/acquisition-manifest.md",
+      "byte_length": 808,
+      "sha256": "7d6c0fcc19d6e015ebf2cdee5df37df35fd5fde791c2caeda488c8fdb0060f6e"
+    },
+    {
+      "path": "2026-08-24-batch-64/batch-status.md",
+      "byte_length": 804,
+      "sha256": "4b8031be0e03cbe785242eb3b58c1ebc97b7392abd69993bda79e6431a823214"
+    },
+    {
+      "path": "2026-08-24-batch-64/cross-industry-synthesis.md",
+      "byte_length": 593,
+      "sha256": "2a97287d3095e7b2ad6d2695ffe85636efa1f619491798917b9c9152eea150cd"
+    },
+    {
+      "path": "2026-08-24-batch-64/observations.jsonl",
+      "byte_length": 5928,
+      "sha256": "1889e632fa54df72198af38481a558300df4333ae4cfb6183d371ad0d33a9868"
+    },
+    {
+      "path": "2026-08-24-batch-64/pattern-candidates.jsonl",
+      "byte_length": 769,
+      "sha256": "f4c4dd5aa406ff151a901fce2c373c680a7603fc1407b17848dd5cb96cbaa1be"
+    },
+    {
+      "path": "2026-08-24-batch-64/sources.jsonl",
+      "byte_length": 2545,
+      "sha256": "2619f2f4ee69ca50da7d856a06786046e0956e22cf82483038715737ec0b7225"
+    },
+    {
+      "path": "2026-08-24-batch-64/systems-sampling-frame.json",
+      "byte_length": 1233,
+      "sha256": "c2fae25a1f642c30f50c90ff9fcf951136e8e797ae218dd57a9bf2fd312be3a9"
+    },
+    {
+      "path": "2026-08-24-batch-64/terminology-register.jsonl",
+      "byte_length": 968,
+      "sha256": "a39f9d346a580d9a83fcaca975baa482a87fe6b533f6041d3d164e51364e8d25"
+    },
+    {
+      "path": "2026-08-24-batch-69/access-log.jsonl",
+      "byte_length": 7918,
+      "sha256": "c49d5781af241e41c089996ba1b5ec2840f00745f9850af07a6c1ba584ab18e5"
+    },
+    {
+      "path": "2026-08-24-batch-69/acquisition-manifest.md",
+      "byte_length": 1733,
+      "sha256": "e7615f3fc16b7fe35bef43b470b3e898b73db15bbfd1ad2d6b3514a0dc622d5f"
+    },
+    {
+      "path": "2026-08-24-batch-69/batch-status.md",
+      "byte_length": 2187,
+      "sha256": "97485f88a7b43c18808b9a6c322c013727bf2169bdef52047c49c03ed0d62360"
+    },
+    {
+      "path": "2026-08-24-batch-69/blocked-attempts.jsonl",
+      "byte_length": 868,
+      "sha256": "de4d0c147ba2d3365e50a18946b3b7b8dbf516ca17aef335aac9b926c64ff5a6"
+    },
+    {
+      "path": "2026-08-24-batch-69/observations.jsonl",
+      "byte_length": 54340,
+      "sha256": "cd6cc4d42f31a070d9b30bd3db98f6e7ad5de4827b21c8f33cfc9b7dd42b79b4"
+    },
+    {
+      "path": "2026-08-24-batch-69/sources.jsonl",
+      "byte_length": 21068,
+      "sha256": "d8bc2182ec9cf91bb84ffecbf840a1a7aa9a7aee15a01a04edcd29d5ea287695"
+    },
+    {
+      "path": "2026-08-24-batch-69/systems-sampling-frame.json",
+      "byte_length": 3420,
+      "sha256": "be7fdb55901c00cf651ad9649f8c662387ba57cfb8910400a96bc7583ba6e025"
+    },
+    {
+      "path": "2026-08-24-batch-69/terminology-register.jsonl",
+      "byte_length": 7414,
+      "sha256": "3c2785a21ba970a73bef1dea01f4a2f9100284229a665c70ecbed7ce4474ba2e"
+    },
+    {
+      "path": "2026-08-24-batch-70/access-log.jsonl",
+      "byte_length": 10471,
+      "sha256": "cb77281539361f35adde67dd62865459b1c3dfdbb7d3e6ffa0d6cc2c2b2cb8c9"
+    },
+    {
+      "path": "2026-08-24-batch-70/acquisition-manifest.md",
+      "byte_length": 1707,
+      "sha256": "e056a23fdde028307e02a64883d1fe2b3cb54d870cd94f8c6863b9ed49c782bc"
+    },
+    {
+      "path": "2026-08-24-batch-70/batch-status.md",
+      "byte_length": 2402,
+      "sha256": "4ed571099e248379ba9c7febecd2f933d906a760016aaf661129e405e9978223"
+    },
+    {
+      "path": "2026-08-24-batch-70/observations.jsonl",
+      "byte_length": 80638,
+      "sha256": "24e6136139e0cb28d88bba22f9cda46f4621727826b9c617ae0bdfd54f25bd8e"
+    },
+    {
+      "path": "2026-08-24-batch-70/sources.jsonl",
+      "byte_length": 26483,
+      "sha256": "3e9fe2c0d1f7519972618ac58a9d5a774a7290645b18227d896dc95dd982e2ee"
+    },
+    {
+      "path": "2026-08-24-batch-70/systems-sampling-frame.json",
+      "byte_length": 4013,
+      "sha256": "d716e78edc7e72f4e6381fa220259e35edda172b214503576df97e1982e59178"
+    },
+    {
+      "path": "2026-08-24-batch-70/terminology-register.jsonl",
+      "byte_length": 8276,
+      "sha256": "f4f32cf63da615b51f44ffba3b8869d6dcf6cc618d5e53c58ea1bfae077194f7"
+    },
+    {
+      "path": "2026-08-24-batch-71/access-log.jsonl",
+      "byte_length": 11745,
+      "sha256": "bde5bf8d0db88db0b84e94af4b3bf54846e8d007b21211578180769734cc941d"
+    },
+    {
+      "path": "2026-08-24-batch-71/acquisition-manifest.md",
+      "byte_length": 2137,
+      "sha256": "2be54f2c2d09d063f1d7b392603368c1b5b810d4016ac8c9d23a1044ccb0bec1"
+    },
+    {
+      "path": "2026-08-24-batch-71/batch-status.md",
+      "byte_length": 2872,
+      "sha256": "63d0f1f6866facf1adfae506c19cbd62a361bdad7eaabe5f6bf7a384c405a9c0"
+    },
+    {
+      "path": "2026-08-24-batch-71/observations.jsonl",
+      "byte_length": 95770,
+      "sha256": "dcb463a6e6ff579d0e3825cc1a980af98251dc24a180aa7bbb1c6b9ba83a3f03"
+    },
+    {
+      "path": "2026-08-24-batch-71/sources.jsonl",
+      "byte_length": 28053,
+      "sha256": "d437a0b1e406d0c669ad1bee812b42447b84dbbafe8702b414c00405480efe10"
+    },
+    {
+      "path": "2026-08-24-batch-71/systems-sampling-frame.json",
+      "byte_length": 4498,
+      "sha256": "0d8fdd496145c8aba3a7a52b790ca4bb6e52e4f367a2ed52785650b31979f0c0"
+    },
+    {
+      "path": "2026-08-24-batch-71/terminology-register.jsonl",
+      "byte_length": 8572,
+      "sha256": "295385ab0896dd8599786601175ca1d2cba9af172bd85490d44f7a532e760a6e"
+    },
+    {
+      "path": "2026-08-24-batch-72/access-log.jsonl",
+      "byte_length": 9441,
+      "sha256": "ee77d00b079e14e50b11e674ba84a7ee022e32236ad7e8d01c7622c96c791125"
+    },
+    {
+      "path": "2026-08-24-batch-72/acquisition-manifest.md",
+      "byte_length": 2406,
+      "sha256": "6fa66623fd34fe206f1054dfcd3baff743c03ac371dbe1cff9ff92c2ca37ec7c"
+    },
+    {
+      "path": "2026-08-24-batch-72/batch-status.md",
+      "byte_length": 3907,
+      "sha256": "2ae938cc82d1b549290caab4288d09ab3345021226e4764d6ba35fd6645007d0"
+    },
+    {
+      "path": "2026-08-24-batch-72/blocked-attempts.jsonl",
+      "byte_length": 905,
+      "sha256": "e6b8309041a1e41461aa0c49f178cdff35304c677d494af50ac04a18f0566a5a"
+    },
+    {
+      "path": "2026-08-24-batch-72/observations.jsonl",
+      "byte_length": 83258,
+      "sha256": "8515d364b8735a52dc5b4e31931eff141d05685dd070ebe98f9b5465a4a5f465"
+    },
+    {
+      "path": "2026-08-24-batch-72/sources.jsonl",
+      "byte_length": 21214,
+      "sha256": "ab0c053a97f29f3c64f071fcc136dcb97a41e3618c9740733514d54ad222893d"
+    },
+    {
+      "path": "2026-08-24-batch-72/systems-sampling-frame.json",
+      "byte_length": 4750,
+      "sha256": "2df9cfca499144ebccde3d46416d277e64331d47c04ebd0bd0ca2efc6f65fdde"
+    },
+    {
+      "path": "2026-08-24-batch-72/terminology-register.jsonl",
+      "byte_length": 6521,
+      "sha256": "c50a10a48de85e4187451f087ca6d18818be8a063950fe895e743910701a84c2"
+    }
+  ],
+  "authority_effect": "none",
+  "baseline_digest": "7da969dba2bdd99ac177fa6335fcdc1ff5b6844a111ac26f241ffe758f9395a7"
+}

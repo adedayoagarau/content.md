@@ -1,0 +1,8 @@
+{
+  "commerce and marketplaces": ["commerce platform", "pricing"],
+  "enterprise and developer tools": ["cloud dev env", "developer docs"],
+  "creative/design software": ["pricing", "professional plan", "homepage"],
+  "productivity and collaboration": ["workspace", "login", "home", "templates"],
+  "security and identity": ["identity", "pricing", "docs"],
+  "finance and payments": ["homepage", "pricing"]
+}

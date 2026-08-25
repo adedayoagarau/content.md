@@ -159,6 +159,28 @@ async function verifyPackageInventory(verificationRoot) {
   const rootManifest = JSON.parse(await readFile(join(workspaceRoot, "package.json"), "utf8"));
   invariant(rootManifest.packageManager === "pnpm@11.9.0", "inventory.package-manager", "pnpm is exactly pinned");
   invariant(rootManifest.engines?.node === ">=24.14.0 <25", "inventory.node-range", "Node runtime range is exact");
+  invariant(
+    rootManifest.scripts?.["generate:learning-fixtures"] === "node --import tsx scripts/generate-learning-fixtures.mts",
+    "inventory.learning-fixture-generator",
+    "deterministic learning-fixture generator is exposed",
+  );
+  invariant(
+    rootManifest.scripts?.["verify:learning"] === "node scripts/verify-learning.mjs",
+    "inventory.learning-verifier",
+    "independent learning verifier is exposed",
+  );
+  for (const relativePath of [
+    "scripts/generate-learning-fixtures.mts",
+    "scripts/verify-learning.mjs",
+    "fixtures/learning-ranking/preferences.jsonl",
+    "fixtures/learning-ranking/leakage-groups.jsonl",
+    "fixtures/learning-ranking/dataset-manifest.json",
+    "fixtures/learning-ranking/feature-profile.json",
+    "fixtures/learning-ranking/shadow-plan.json",
+  ]) {
+    const artifact = await stat(join(workspaceRoot, relativePath));
+    invariant(artifact.isFile() && artifact.size > 0, `inventory.learning-release.${relativePath}`, "release artifact is present and nonempty");
+  }
   const packageDirectories = (await readdir(join(workspaceRoot, "packages"), { withFileTypes: true }))
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)

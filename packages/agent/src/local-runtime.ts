@@ -36,16 +36,21 @@ import {
   type PairwiseTrainingResult,
   type SealedTestReplay,
   type ShadowOutcomeReplay,
+  type SimulatedBindingProjection,
   type SimulatedPromotionDecision,
   type SimulatedBindingTransitionResult,
   type SimulatedCurrentnessWitness,
   type SimulatorFaultRule,
   type RollbackTargetReplay,
   type Task6ObjectRef,
+  type VerifyPairwiseCandidateInput,
+  type VerifiedRankingModel,
+  trainPairwiseLogistic,
   verifyLearningDatasetForTraining,
   verifyPairwiseCodeManifest,
   verifyPairwiseFeatureMatrix,
   verifyPairwiseCandidate,
+  verifyRankingModel,
   verifySealedTestReplay,
 } from "@contentmd/learning";
 import { RecordedModelProvider } from "@contentmd/model-provider-sdk";
@@ -83,6 +88,10 @@ import {
 import { runDoctor, type DoctorReport } from "./doctor.js";
 import { compileProjectModel, type ProjectModelResult } from "./model-workflow.js";
 import {
+  selectGovernedDraftAlternative,
+  type GovernedDraftSelection,
+} from "./draft-selection.js";
+import {
   runLearningDatasetPhase,
   runLearningDriftPhase,
   runLearningEvaluationPhase,
@@ -113,12 +122,14 @@ import {
 } from "./learning-workflow.js";
 
 const RUNTIME_DIRECTORY = ".contentmd/runtime";
+const LEARNING_TRAINING_ARTIFACT_PATH = "learning-training-result.dag.json";
 const LEARNING_EVALUATION_ARTIFACT_PATH = "learning-evaluation-result.dag.json";
 const LEARNING_SHADOW_ARTIFACT_PATH = "learning-shadow-result.dag.json";
 const LEARNING_PROMOTION_ARTIFACT_PATH = "learning-promotion-result.dag.json";
 const LEARNING_DRIFT_ARTIFACT_PATH = "learning-drift-result.dag.json";
 const LEARNING_ROLLBACK_ARTIFACT_PATH = "learning-rollback-result.dag.json";
 const LEARNING_VAULT_SNAPSHOT_PATH = "learning-vault-snapshot.json";
+const DRAFT_SELECTION_ARTIFACT_PATH = "draft-selection.json";
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -291,6 +302,86 @@ export async function createLocalDraft(root: string, providerId: string): Promis
   });
   await writeJsonAtomic(runtimePath(root, "draft.json"), draft);
   return draft;
+}
+
+interface LocalGovernedDraftSelectionReplay {
+  readonly contract_version: "contentmd.local-governed-draft-selection-replay/0.1.0";
+  readonly record_mode: "development_fixture";
+  readonly proposal_id: string;
+  readonly draft_digest: string;
+  readonly fallback_baseline_ref: Task6ObjectRef;
+  readonly binding_projection: SimulatedBindingProjection | null;
+  readonly candidate_replays: readonly [VerifyPairwiseCandidateInput, ...VerifyPairwiseCandidateInput[]] | null;
+}
+
+function draftSelectionFailure(code: string): never {
+  throw new Error(`governed_draft_selection_invalid:${code}`);
+}
+
+function exactKeys(value: unknown, keys: readonly string[]): value is Record<string, unknown> {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
+  const actual = Object.keys(value).sort();
+  const expected = [...keys].sort();
+  return actual.length === expected.length && actual.every((key, index) => key === expected[index]);
+}
+
+function selectionReplay(value: unknown): LocalGovernedDraftSelectionReplay {
+  const keys = [
+    "binding_projection",
+    "candidate_replays",
+    "contract_version",
+    "draft_digest",
+    "fallback_baseline_ref",
+    "proposal_id",
+    "record_mode",
+  ] as const;
+  if (!exactKeys(value, keys)
+    || value.contract_version !== "contentmd.local-governed-draft-selection-replay/0.1.0"
+    || value.record_mode !== "development_fixture"
+    || typeof value.proposal_id !== "string" || value.proposal_id.length === 0
+    || typeof value.draft_digest !== "string" || !/^[a-f0-9]{64}$/u.test(value.draft_digest)
+    || (value.binding_projection !== null
+      && (typeof value.binding_projection !== "object" || Array.isArray(value.binding_projection)))
+    || (value.candidate_replays !== null
+      && (!Array.isArray(value.candidate_replays) || value.candidate_replays.length === 0))) {
+    draftSelectionFailure("input");
+  }
+  return value as unknown as LocalGovernedDraftSelectionReplay;
+}
+
+export async function selectLocalDraftAlternative(
+  root: string,
+  selectionInputPath: string,
+): Promise<GovernedDraftSelection> {
+  const input = selectionReplay(await readJson<unknown>(selectionInputPath));
+  const draft = await readJson<ContentDraftProposal>(runtimePath(root, "draft.json"));
+  if (draft.proposal_id !== input.proposal_id || sha256Canonical(draft) !== input.draft_digest) {
+    draftSelectionFailure("draft_binding");
+  }
+  const activeCandidateBinding = input.binding_projection?.projection_stage === "verified"
+    && input.binding_projection.state === "candidate";
+  if (!activeCandidateBinding && input.candidate_replays !== null) {
+    draftSelectionFailure("candidate_replays");
+  }
+  const verifiedModel = activeCandidateBinding
+    ? (await loadLocalVerifiedTrainingModel(root)).model
+    : null;
+  const verifiedCandidates = activeCandidateBinding
+    ? input.candidate_replays!.map((replay) => verifyPairwiseCandidate(replay)) as [
+      ReturnType<typeof verifyPairwiseCandidate>,
+      ...ReturnType<typeof verifyPairwiseCandidate>[],
+    ]
+    : null;
+  const selection = selectGovernedDraftAlternative({
+    record_mode: "development_fixture",
+    draft,
+    fallback_baseline_ref: input.fallback_baseline_ref,
+    binding_projection: input.binding_projection,
+    verified_model: verifiedModel,
+    verified_candidates: verifiedCandidates,
+  });
+  await writeJsonAtomic(runtimePath(root, DRAFT_SELECTION_ARTIFACT_PATH), selection);
+  return selection;
 }
 
 export async function createLocalRewrite(root: string, providerId: string): Promise<ContentRewriteProposal> {
@@ -713,33 +804,59 @@ export async function runLocalLearningDataset(
   });
 }
 
-export async function runLocalLearningTraining(
-  root: string,
-  file: string,
-  options: LocalDecisionRuntimeOptions = {},
-): Promise<LearningWorkflowPhaseResult<PairwiseTrainingResult>> {
-  const replay = await readJson<{
-    readonly contract_version: "contentmd.local-pairwise-training-replay/0.1.0";
-    readonly record_mode: "development_fixture";
-    readonly purpose: "golden_conformance" | "diagnostic" | "candidate";
-    readonly dataset_replay: LearningDatasetTrainingReplay;
-    readonly feature_matrix_replay: PairwiseFeatureMatrixReplay;
-    readonly code_manifest: PairwiseCodeManifest;
-    readonly runtime_profile: PairwiseRuntimeProfile;
-  }>(file);
-  if (replay.contract_version !== "contentmd.local-pairwise-training-replay/0.1.0"
-    || replay.record_mode !== "development_fixture") {
-    throw new Error("learning_workflow_input_invalid:training_replay");
-  }
+interface LocalPairwiseTrainingReplay {
+  readonly contract_version: "contentmd.local-pairwise-training-replay/0.1.0";
+  readonly record_mode: "development_fixture";
+  readonly purpose: "golden_conformance" | "diagnostic" | "candidate";
+  readonly dataset_replay: LearningDatasetTrainingReplay;
+  readonly feature_matrix_replay: PairwiseFeatureMatrixReplay;
+  readonly code_manifest: PairwiseCodeManifest;
+  readonly runtime_profile: PairwiseRuntimeProfile;
+}
+
+interface LocalLearningTrainingArtifact {
+  readonly contract_version: "contentmd.local-learning-training-artifact/0.1.0";
+  readonly training_replay: LocalPairwiseTrainingReplay;
+  readonly training: PairwiseTrainingResult;
+}
+
+export interface LocalLearningTrainingResult extends LearningWorkflowPhaseResult<
+  PairwiseTrainingResult
+> {
+  readonly training_artifact_digest: string;
+  readonly training_artifact_path: ".contentmd/runtime/learning-training-result.dag.json";
+}
+
+export interface LocalVerifiedTrainingModel {
+  readonly training_artifact_digest: string;
+  readonly model: VerifiedRankingModel;
+}
+
+function trainingArtifactFailure(code: string): never {
+  throw new Error(`learning_training_artifact_invalid:${code}`);
+}
+
+function trainingProjectId(replay: LocalPairwiseTrainingReplay): string {
   const projectId = replay?.dataset_replay?.expected_dataset_record?.scope?.project_id;
   if (typeof projectId !== "string" || projectId.trim().length === 0) {
     throw new Error("learning_workflow_input_invalid:project_id");
+  }
+  return projectId;
+}
+
+function verifiedTrainingRequest(
+  replay: LocalPairwiseTrainingReplay,
+): RunLearningTrainingPhaseInput["request"] {
+  if (replay === null || typeof replay !== "object"
+    || replay.contract_version !== "contentmd.local-pairwise-training-replay/0.1.0"
+    || replay.record_mode !== "development_fixture") {
+    throw new Error("learning_workflow_input_invalid:training_replay");
   }
   const dataset = verifyLearningDatasetForTraining({
     record_mode: replay.record_mode,
     replay: replay.dataset_replay,
   });
-  const request: RunLearningTrainingPhaseInput["request"] = {
+  return {
     contract_version: "contentmd.pairwise-training-request/0.1.0",
     record_mode: replay.record_mode,
     purpose: replay.purpose,
@@ -752,6 +869,65 @@ export async function runLocalLearningTraining(
     code_manifest: verifyPairwiseCodeManifest(replay.code_manifest),
     runtime_profile: admitPairwiseRuntime(replay.runtime_profile),
   };
+}
+
+async function readLocalLearningTrainingArtifact(root: string): Promise<{
+  readonly artifact: LocalLearningTrainingArtifact;
+  readonly dag: CanonicalDag;
+}> {
+  let bytes: string;
+  try {
+    bytes = await readFile(runtimePath(root, LEARNING_TRAINING_ARTIFACT_PATH), "utf8");
+  } catch {
+    trainingArtifactFailure("missing");
+  }
+  let dag: CanonicalDag;
+  try {
+    dag = JSON.parse(bytes) as CanonicalDag;
+    if (canonicalJson(dag) !== bytes) trainingArtifactFailure("noncanonical");
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("learning_training_artifact_invalid:")) {
+      throw error;
+    }
+    trainingArtifactFailure("parse");
+  }
+  let decoded: unknown;
+  try {
+    decoded = decodeCanonicalDag(dag);
+    if (canonicalJson(encodeCanonicalDag(decoded)) !== bytes) {
+      trainingArtifactFailure("dag_closure");
+    }
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("learning_training_artifact_invalid:")) {
+      throw error;
+    }
+    trainingArtifactFailure("dag");
+  }
+  if (decoded === null || typeof decoded !== "object" || Array.isArray(decoded)) {
+    trainingArtifactFailure("shape");
+  }
+  const artifact = decoded as Partial<LocalLearningTrainingArtifact>;
+  const keys = Object.keys(artifact).sort();
+  const expectedKeys = ["contract_version", "training", "training_replay"];
+  if (keys.length !== expectedKeys.length
+    || keys.some((key, index) => key !== expectedKeys[index])
+    || artifact.contract_version !== "contentmd.local-learning-training-artifact/0.1.0"
+    || artifact.training === null || typeof artifact.training !== "object" || Array.isArray(artifact.training)
+    || artifact.training_replay === null || typeof artifact.training_replay !== "object"
+    || Array.isArray(artifact.training_replay)) {
+    trainingArtifactFailure("shape");
+  }
+  return { artifact: artifact as LocalLearningTrainingArtifact, dag };
+}
+
+export async function runLocalLearningTraining(
+  root: string,
+  file: string,
+  options: LocalDecisionRuntimeOptions = {},
+): Promise<LocalLearningTrainingResult> {
+  const replay = await readJson<LocalPairwiseTrainingReplay>(file);
+  const projectId = trainingProjectId(replay);
+  const request = verifiedTrainingRequest(replay);
   return withLocalLearningRuntime({
     root,
     options,
@@ -762,8 +938,40 @@ export async function runLocalLearningTraining(
       audit_append: "runtime.event.append",
       store_close: "runtime.event-store.close",
     },
-    run: ({ authority }) => runLearningTrainingPhase({ authority, request }),
+    run: async ({ authority }) => {
+      const result = await runLearningTrainingPhase({ authority, request });
+      const trainingArtifact = encodeCanonicalDag({
+        contract_version: "contentmd.local-learning-training-artifact/0.1.0",
+        training_replay: replay,
+        training: result.data,
+      } satisfies LocalLearningTrainingArtifact);
+      await writeJsonAtomic(runtimePath(root, LEARNING_TRAINING_ARTIFACT_PATH), trainingArtifact);
+      return {
+        ...result,
+        training_artifact_digest: trainingArtifact.root_digest,
+        training_artifact_path: ".contentmd/runtime/learning-training-result.dag.json",
+      };
+    },
   });
+}
+
+export async function loadLocalVerifiedTrainingModel(
+  root: string,
+): Promise<LocalVerifiedTrainingModel> {
+  const { artifact, dag } = await readLocalLearningTrainingArtifact(root);
+  const request = verifiedTrainingRequest(artifact.training_replay);
+  const replayed = trainPairwiseLogistic(request);
+  if (replayed.state !== "trained" || artifact.training.state !== "trained"
+    || canonicalJson(replayed) !== canonicalJson(artifact.training)) {
+    trainingArtifactFailure("training_replay");
+  }
+  let model: VerifiedRankingModel;
+  try {
+    model = verifyRankingModel(artifact.training.model_record, { training_request: request });
+  } catch {
+    trainingArtifactFailure("model_verification");
+  }
+  return Object.freeze({ training_artifact_digest: dag.root_digest, model });
 }
 
 interface LocalLearningEvaluationReplay {

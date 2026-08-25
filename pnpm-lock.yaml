@@ -211,6 +211,9 @@ importers:
       '@contentmd/core':
         specifier: workspace:*
         version: link:../core
+      '@contentmd/governance':
+        specifier: workspace:*
+        version: link:../governance
       '@contentmd/schemas':
         specifier: workspace:*
         version: link:../schemas

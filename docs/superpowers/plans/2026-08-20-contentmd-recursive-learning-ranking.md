@@ -772,6 +772,7 @@ Expected: exit 0 only when the engine reproduces the pass-shaped and independent
 - Create: `fixtures/learning-ranking/dataset-manifest.json`
 - Create: `fixtures/learning-ranking/feature-profile.json`
 - Create: `fixtures/learning-ranking/shadow-plan.json`
+- Create: `scripts/generate-learning-fixtures.mts`
 - Create: `scripts/verify-learning.mjs`
 - Create: `docs/verification/recursive-learning-ranking-0.1.md`
 - Modify: `package.json`
@@ -780,7 +781,7 @@ Expected: exit 0 only when the engine reproduces the pass-shaped and independent
 
 **Step 1: Build wholly synthetic coverage**
 
-Create at least 100 project-owned pairs and 30 transitive leakage groups with non-empty threshold-compliant train/validation/test splits. Include A/B reversals, ties/abstentions as non-pair records, changed-context exclusions, hard failures, near duplicates, locales/channels, missing features, and browser/competitor ineligibility fixtures.
+Create at least 100 project-owned pairs and 30 transitive leakage groups with non-empty threshold-compliant train/validation/test splits. Include A/B reversals, ties/abstentions as non-pair records, changed-context exclusions, hard failures, near duplicates, locales/channels, missing features, and browser/competitor ineligibility fixtures. Materialize every release fixture through `scripts/generate-learning-fixtures.mts`; `--check` must regenerate the exact canonical bytes from the verified Task 5/6 builders and reject any drift.
 
 **Step 2: Add independent checks**
 

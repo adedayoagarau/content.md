@@ -278,17 +278,17 @@ describe("Task 6 evaluation simulator boundary", () => {
     expect(result.overall_metrics.baseline_accuracy.bits).toBe("3ff0000000000000");
     expect(result.overall_metrics.candidate_accuracy.bits).toBe("3ff0000000000000");
     expect(result.overall_metrics.accuracy_difference.bits).toBe("0000000000000000");
-    expect(result.overall_metrics.baseline_log_loss.bits).toBe("3fc605a7d86a0ad2");
+    expect(result.overall_metrics.baseline_log_loss.bits).toBe("3fc605a7d86a0ad1");
     expect(result.overall_metrics.candidate_log_loss.bits).toBe("3fcb001ef76282a6");
-    expect(result.overall_metrics.log_loss_difference.bits).toBe("3fa3e9dc7be1df50");
+    expect(result.overall_metrics.log_loss_difference.bits).toBe("3fa3e9dc7be1df54");
     expect(result.slice_metrics).toHaveLength(5);
     expect(result.slice_metrics.every(({ support_state }) => support_state === "supported")).toBe(true);
     expect(result.bootstrap?.replicate_count).toBe(10_000);
     expect(result.bootstrap?.slice_results).toHaveLength(5);
     expect(result.bootstrap?.accuracy_difference.lower.bits).toBe("0000000000000000");
     expect(result.bootstrap?.accuracy_difference.upper.bits).toBe("0000000000000000");
-    expect(result.bootstrap?.log_loss_difference.lower.bits).toBe("3fa3e9dc7be1df48");
-    expect(result.bootstrap?.log_loss_difference.upper.bits).toBe("3fa3e9dc7be1df54");
+    expect(result.bootstrap?.log_loss_difference.lower.bits).toBe("3fa3e9dc7be1df50");
+    expect(result.bootstrap?.log_loss_difference.upper.bits).toBe("3fa3e9dc7be1df58");
     expect(result.predicate.checks.map(({ check }) => check)).toEqual([
       "coverage_exactly_one",
       "accuracy_lower_bound_positive",

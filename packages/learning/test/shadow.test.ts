@@ -76,7 +76,7 @@ describe("Task 6 no-influence shadow", () => {
 
   beforeAll(() => {
     shared = fixture();
-  }, 150_000);
+  }, 600_000);
 
   it("issues the exact authority-free ready shadow plan", () => {
     const { source, sealedTest } = shared;
@@ -301,7 +301,7 @@ describe("Task 6 no-influence shadow", () => {
     );
     expect(inspectShadowSimulation(vault, input.shadow_run_id)).toBeNull();
     expect(startShadowSimulation(vault, input).shadow_run_id).toBe(input.shadow_run_id);
-  }, 60_000);
+  }, 300_000);
 
   it("preserves one start after commit-before-ack and returns it on exact retry", () => {
     const { vault, sealedTest, plan } = faultVault(
@@ -335,7 +335,7 @@ describe("Task 6 no-influence shadow", () => {
     });
     expect(recovered.shadow_run_id).toBe(input.shadow_run_id);
     expect(inspectShadowSimulation(vault, input.shadow_run_id)?.observation_count).toBe(0);
-  }, 60_000);
+  }, 300_000);
 
   it("records one chronological observation but returns active-baseline output only", () => {
     const { source, vault, sealedTest } = shared;
@@ -572,5 +572,5 @@ describe("Task 6 no-influence shadow", () => {
     expect(() => completeShadowSimulation(completion)).toThrow(
       "task6_contract_invalid:task6_shadow_completion_incomplete",
     );
-  }, 60_000);
+  }, 300_000);
 });

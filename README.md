@@ -15,9 +15,9 @@ The system owns the content-design process and its structured memory. Products a
 
 ## Implementation status
 
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce a 17-package TypeScript workspace and a functional local CLI. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
+The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce a 17-package TypeScript workspace and a functional local CLI. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
 
-The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; discover web-app content; compile a content graph; ingest rights-bounded research; compile voice/tone maps and evidence graphs; run deterministic review; use recorded or governed OpenAI model execution; validate model output before it reaches writer APIs; learn a deterministic pairwise ranker from sealed project-owned comparisons; create leakage-safe blinded human-calibration assignments and analysis-locked effectiveness reports; evaluate, shadow, monitor drift, and simulate rollback; record a human decision; preview and execute separately authorized changes; retain append-only audit state; and preview uninstall.
+The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; discover web-app content; compile a content graph; ingest rights-bounded research; compile voice/tone maps and evidence graphs; run deterministic review; use recorded or governed OpenAI model execution; validate model output before it reaches writer APIs; learn and independently reproduce a deterministic pairwise ranker from sealed project-owned comparisons; use a verified learned model to rank writer alternatives with a deterministic fallback; create leakage-safe blinded human-calibration assignments and analysis-locked effectiveness reports; evaluate, shadow, monitor drift, suspend on revocation, and roll back; record a human decision; preview and execute separately authorized changes; retain append-only audit state; and preview uninstall.
 
 Recorded browser evidence is supported through a bounded adapter, but live browser acquisition is not implied by a record. The current public UX-writing corpus is project-owned and synthetic; it contains no competitor wording as model input.
 
@@ -36,6 +36,20 @@ pnpm contentmd discover --root /absolute/path/to/project --json
 ```
 
 The CLI supports recorded-provider replay and a governed OpenAI adapter. Provider configuration, execution planning, authorization, output-schema validation, and audit records are separate steps; model access never grants edit, approval, or publication authority. Apply and rollback require separate exact authorization records, and preview never creates them.
+
+## Verify and use a local learning candidate
+
+After a sealed project-owned training replay has completed, independently reverify the persisted model artifact before using it to rank alternatives:
+
+```bash
+pnpm contentmd learn verify-model --root /absolute/path/to/project --json
+pnpm contentmd draft-select \
+  --root /absolute/path/to/project \
+  --input /absolute/path/to/complete-draft-selection-replay.json \
+  --json
+```
+
+`learn verify-model` only replays and verifies the immutable local training artifact; it does not activate or promote a model. `draft-select` requires complete verified candidate replays and an admitted binding projection. If those conditions are not present, it returns the deterministic safe fallback instead of treating a learned ranking as authority.
 
 ## Start here
 
@@ -60,7 +74,7 @@ The CLI supports recorded-provider replay and a governed OpenAI adapter. Provide
 
 ## What remains unproven or unavailable
 
-This repository does not yet contain a published installer, production skill, hosted runtime, workbench, broad external-product adapters, production domain packs, or evidence of universal agent compatibility. Official learning, promotion, deployment, and publication still require authenticated product-owned resolvers and authority that development fixtures do not provide. Live public-product research has not been completed in the current environment because saved Chrome/browser permissions block page access and Computer Use is not approved for Chrome. Practitioner studies, qualified review, representative-user testing, multilingual calibration, and controlled product-outcome benchmarks remain open.
+This repository does not yet contain a published installer, production skill, hosted runtime, workbench, broad external-product adapters, production domain packs, or evidence of universal agent compatibility. Official learning, promotion, deployment, and publication still require authenticated product-owned resolvers and authority that development fixtures do not provide. Live public-product research has not been completed in the current environment. Chrome control is available, but saved per-domain Browser Use preferences can block individual sites (GOV.UK was blocked in the current session), and the active profile has not established the dedicated signed-out isolation required for a controlled corpus. Permitted observations therefore remain evidence-only. Practitioner studies, qualified review, representative-user testing, multilingual calibration, and controlled product-outcome benchmarks remain open.
 
 ## Research question
 

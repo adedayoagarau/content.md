@@ -9,6 +9,7 @@ import {
   runLocalLearningRollback,
   runLocalLearningShadow,
   runLocalLearningTraining,
+  loadLocalVerifiedTrainingModel,
   statusLocalLearning,
   verifyLocalWritingBenchmarkOfficialState,
 } from "@contentmd/agent";
@@ -43,6 +44,7 @@ export function registerLearn(program: Command): void {
     ["examples", "qualify feedback and create governed preference examples"],
     ["dataset", "build and seal an eligible learning dataset"],
     ["train", "train a deterministic offline ranking candidate"],
+    ["verify-model", "reverify a persisted ranking-model training artifact"],
     ["evaluate", "evaluate a trained candidate against sealed evidence"],
     ["shadow", "run an authority-free shadow comparison"],
     ["promote", "propose a separately decided model promotion"],
@@ -133,6 +135,35 @@ export function registerLearn(program: Command): void {
               denominators: [...result.audit.denominators],
               exclusions: [...result.audit.exclusions],
               authority_effect: "none" as const,
+              training_artifact_digest: result.training_artifact_digest,
+              training_artifact_path: result.training_artifact_path,
+            },
+          };
+        });
+      });
+    }
+    if (phase === "verify-model") {
+      command.action(async () => {
+        const options = learn.opts() as LegacyLearnOptions;
+        await runCommand(options, async () => {
+          if (options.root === undefined) {
+            throw new Error("learning_workflow_input_invalid:root");
+          }
+          const verified = await loadLocalVerifiedTrainingModel(options.root);
+          const model = verified.model.record;
+          return {
+            command_id: "learn.verify-model",
+            record_refs: [model.record_id],
+            data: {
+              phase: "verify_model" as const,
+              authority_effect: "none" as const,
+              training_artifact_digest: verified.training_artifact_digest,
+              model_ref: {
+                record_id: model.record_id,
+                schema_id: model.schema_id,
+                schema_version: model.schema_version,
+                content_digest: model.content_digest,
+              },
             },
           };
         });

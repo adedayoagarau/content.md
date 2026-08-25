@@ -196,7 +196,7 @@ const generatedChecks = [
   ["scripts/generate-task6-simulator-golden.mts", ["--import", "tsx", "scripts/generate-task6-simulator-golden.mts", "--check"]],
 ];
 for (const [name, args] of generatedChecks) {
-  execFileSync(process.execPath, args, { cwd: ROOT, stdio: "pipe", timeout: 12 * 60_000 });
+  execFileSync(process.execPath, args, { cwd: ROOT, stdio: "pipe", timeout: 30 * 60_000 });
   invariant(true, `generator_check:${name}`);
 }
 

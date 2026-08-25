@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "first public contact or landing",
+  "core task/commitment": "task choice, pricing review, or eligibility step",
+  "pending/progress": "waiting, routing, or in-flight status",
+  "success": "next-step confirmation or completion signal",
+  "error/recovery": "validation, block, or retry state",
+  "destructive/permission/support": "support, permission, or destructive action state"
+}

@@ -52,7 +52,7 @@ describe("host bridges", () => {
     };
 
     expect(tracker.remind(request)).toBe(
-      "Run /contentmd before changing user-facing content so the project context, content decisions, and review rules are applied.",
+      "Run /contentmd (or `contentmd doctor` in a terminal) before changing user-facing content so the project context, content decisions, and review rules are applied.",
     );
     expect(tracker.remind(request)).toBeNull();
 

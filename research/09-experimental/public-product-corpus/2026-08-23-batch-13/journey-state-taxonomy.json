@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "pricing, fees, or plan landing",
+  "core task/commitment": "checkout setup, fee review, or enterprise pricing explanation",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready states and continuation prompts",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "support and account-setup moments"
+}

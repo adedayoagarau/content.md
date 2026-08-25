@@ -1,0 +1,5 @@
+{"term":"delivery","company":"Instacart","product_system":"Instacart grocery delivery","evidence_source":"src-instacart-home-58","role":"fulfillment channel","rights_boundary":"evidence only"}
+{"term":"pickup","company":"Instacart","product_system":"Instacart grocery delivery","evidence_source":"src-instacart-home-58","role":"fulfillment channel","rights_boundary":"evidence only"}
+{"term":"Top Rated Plus","company":"eBay","product_system":"eBay marketplace","evidence_source":"src-ebay-home-58","role":"buyer-assurance badge","rights_boundary":"evidence only"}
+{"term":"plans","company":"T-Mobile","product_system":"T-Mobile wireless","evidence_source":"src-tmobile-home-58","role":"service-comparison object","rights_boundary":"evidence only"}
+{"term":"ZIP code","company":"Octopus Energy","product_system":"Octopus Energy US","evidence_source":"src-octopus-home-58","role":"availability input","rights_boundary":"evidence only"}

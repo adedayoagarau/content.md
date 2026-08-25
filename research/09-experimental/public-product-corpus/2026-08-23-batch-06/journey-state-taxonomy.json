@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "landing, guide, or login entry",
+  "core task/commitment": "progress, export, cancel, or setup instruction",
+  "pending/progress": "work in flight, pending payment, or export running",
+  "success": "ready to proceed or ready to self-serve",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "cancel, disconnect, support, or account recovery"
+}

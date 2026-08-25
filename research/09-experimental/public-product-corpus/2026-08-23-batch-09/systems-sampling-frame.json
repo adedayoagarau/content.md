@@ -1,0 +1,10 @@
+[
+  {"company":"Revolut","product_system":"Revolut plans","industry":"banking and investing","pages":["https://www.revolut.com/our-pricing-plans/","https://www.revolut.com/legal/fees/","https://www.revolut.com/business/business-account-plans/"]},
+  {"company":"Monzo","product_system":"Monzo support","industry":"banking and investing","pages":["https://monzo.com/help/app-help/contacting-support","https://monzo.com/help/us-account-closure-support/us-account-closure-support","https://monzo.com/"]},
+  {"company":"Wise","product_system":"Wise pricing","industry":"banking and investing","pages":["https://wise.com/us/pricing/","https://wise.com/us/pricing/business","https://wise.com/us/pricing/send-money"]},
+  {"company":"Okta","product_system":"Okta pricing","industry":"security and identity","pages":["https://www.okta.com/pricing/","https://www.okta.com/","https://login.okta.com/"]},
+  {"company":"Notion","product_system":"Notion pricing","industry":"productivity and collaboration","pages":["https://www.notion.so/pricing","https://www.notion.so/","https://www.notion.so/startups"]},
+  {"company":"Asana","product_system":"Asana pricing","industry":"productivity and collaboration","pages":["https://asana.com/pricing","https://help.asana.com/s/article/pricing-and-purchases?language=en_US","https://asana.com/"]},
+  {"company":"LinkedIn Learning","product_system":"LinkedIn Learning","industry":"education","pages":["https://www.linkedin.com/learning/","https://business.linkedin.com/learn/compare-plans"]},
+  {"company":"Coursera","product_system":"Coursera professional certificates","industry":"education","pages":["https://www.coursera.org/professional-certificates","https://www.coursera.org/","https://www.coursera.org/courses"]}
+]

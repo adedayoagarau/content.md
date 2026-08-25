@@ -1,0 +1,10 @@
+[
+  {"company":"Discord","product_system":"Discord communities","industry":"communications and social products","pages":["https://discord.com/","https://discord.com/servers","https://discord.com/community","https://discord.com/community/become-official"]},
+  {"company":"Lyft","product_system":"Lyft ride-hailing","industry":"travel and mobility","pages":["https://www.lyft.com/","https://www.lyft.com/rider","https://www.lyft.com/driver"]},
+  {"company":"Reddit","product_system":"Reddit communities","industry":"communications and social products","pages":["https://www.reddit.com/"]},
+  {"company":"Airbnb","product_system":"Airbnb travel","industry":"travel and mobility","pages":["https://www.airbnb.com/","https://www.airbnb.com/login","https://www.airbnb.com/news/airbnb-2026-summer-release/"]},
+  {"company":"Perplexity","product_system":"Perplexity AI","industry":"AI assistants and AI-enabled products","pages":["https://www.perplexity.ai/","https://www.perplexity.ai/pro","https://www.perplexity.ai/help-center/en/articles/10352986-enterprise-pricing-and-billing-frequently-asked-questions.html"]},
+  {"company":"Claude","product_system":"Claude platform","industry":"AI assistants and AI-enabled products","pages":["https://console.claude.ai/"]},
+  {"company":"ChatGPT","product_system":"ChatGPT pricing","industry":"AI assistants and AI-enabled products","pages":["https://chatgpt.com/pricing/","https://chatgpt.com/codex/pricing/","https://learn.chatgpt.com/docs/pricing"]},
+  {"company":"Mailchimp","product_system":"Mailchimp pricing","industry":"communications and social products","pages":["https://mailchimp.com/","https://mailchimp.com/pricing/marketing/","https://mailchimp.com/pricing/marketing/compare-plans/"]}
+]

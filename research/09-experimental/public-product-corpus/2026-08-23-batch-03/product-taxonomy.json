@@ -1,0 +1,10 @@
+{
+  "travel and mobility": ["rides", "sign in", "request rides", "hosting"],
+  "telecom, utilities, delivery, and logistics": ["delivery signup", "service homepage", "coverage map", "support"],
+  "commerce and marketplaces": ["marketplace", "category"],
+  "media and entertainment": ["music", "streaming", "video viewing"],
+  "insurance": ["home", "pet", "car"],
+  "communications and social products": ["communities"],
+  "enterprise and developer tools": ["DevOps"],
+  "creative/design software": ["homepage"]
+}

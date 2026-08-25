@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "pricing landing and plan comparison",
+  "core task/commitment": "feature, billing, support, or eligibility explanation",
+  "pending/progress": "not strongly observed in this batch",
+  "success": "ready states and continuation prompts",
+  "error/recovery": "not strongly observed in this batch",
+  "destructive/permission/support": "support and account-management moments"
+}

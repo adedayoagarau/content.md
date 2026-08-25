@@ -1,0 +1,10 @@
+{
+  "enterprise and developer tools": ["codespaces", "docs", "pricing"],
+  "productivity and collaboration": ["help center", "support", "troubleshooting", "billing", "chat"],
+  "telecom, utilities, delivery, and logistics": ["support", "billing", "signup"],
+  "commerce and marketplaces": ["help center", "support"],
+  "creative/design software": ["help center", "support"],
+  "travel and mobility": ["help center", "support"],
+  "security and identity": ["docs", "pricing"],
+  "insurance": ["homepage", "quote"]
+}

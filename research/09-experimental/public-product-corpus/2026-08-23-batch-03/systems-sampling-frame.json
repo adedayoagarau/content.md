@@ -1,0 +1,14 @@
+[
+  {"company":"Uber","product_system":"Uber rides","industry":"travel and mobility","pages":["https://www.uber.com/","https://www.uber.com/global/en/sign-in/","https://www.uber.com/us/en/ride/"]},
+  {"company":"DoorDash","product_system":"DoorDash delivery","industry":"telecom, utilities, delivery, and logistics","pages":["https://dasher.doordash.com/en-us","https://careers.doordash.com/"]},
+  {"company":"Etsy","product_system":"Etsy marketplace","industry":"commerce and marketplaces","pages":["https://www.etsy.com/","https://www.etsy.com/c/home-and-living"]},
+  {"company":"Booking.com","product_system":"Booking.com travel marketplace","industry":"travel and mobility","pages":["https://www.booking.com/","https://join.booking.com/index.html"]},
+  {"company":"Spotify","product_system":"Spotify music","industry":"media and entertainment","pages":["https://open.spotify.com/","https://www.spotify.com/us/premium/"]},
+  {"company":"Netflix","product_system":"Netflix streaming","industry":"media and entertainment","pages":["https://www.netflix.com/","https://www.netflix.com/house"]},
+  {"company":"Lemonade","product_system":"Lemonade insurance","industry":"insurance","pages":["https://www.lemonade.com/","https://www.lemonade.com/pet","https://www.lemonade.com/car"]},
+  {"company":"Verizon","product_system":"Verizon service","industry":"telecom, utilities, delivery, and logistics","pages":["https://www.verizon.com/","https://www.verizon.com/coverage-map/","https://www.verizon.com/support/verizon-home-app-faqs/"]},
+  {"company":"YouTube","product_system":"YouTube viewing","industry":"media and entertainment","pages":["https://www.youtube.com/"]},
+  {"company":"Reddit","product_system":"Reddit communities","industry":"communications and social products","pages":["https://www.reddit.com/"]},
+  {"company":"GitLab","product_system":"GitLab DevSecOps","industry":"enterprise and developer tools","pages":["https://about.gitlab.com/"]},
+  {"company":"Adobe","product_system":"Adobe creative cloud","industry":"creative/design software","pages":["https://www.adobe.com/"]}
+]

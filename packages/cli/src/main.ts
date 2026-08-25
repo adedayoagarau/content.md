@@ -18,6 +18,7 @@ import { registerRollback } from "./commands/rollback.js";
 import { registerReview } from "./commands/review.js";
 import { registerRuntime } from "./commands/runtime.js";
 import { registerRewrite } from "./commands/rewrite.js";
+import { registerStart } from "./commands/start.js";
 import { registerStrategy } from "./commands/strategy.js";
 import { registerVerify } from "./commands/verify.js";
 import { registerUninstall } from "./commands/uninstall.js";
@@ -30,6 +31,7 @@ export function buildProgram(): Command {
     .version("0.1.0")
     .showHelpAfterError()
     .exitOverride();
+  registerStart(program);
   registerInit(program);
   registerBridge(program);
   registerConnect(program);

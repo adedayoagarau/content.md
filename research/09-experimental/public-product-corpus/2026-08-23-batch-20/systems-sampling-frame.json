@@ -1,0 +1,6 @@
+[
+  {"company":"Canva","product_system":"Canva pricing","surface":"pricing"},
+  {"company":"Slack","product_system":"Slack pricing","surface":"pricing"},
+  {"company":"GitHub","product_system":"GitHub Copilot","surface":"pricing"},
+  {"company":"Stripe","product_system":"Stripe Billing","surface":"billing"}
+]

@@ -880,4 +880,3 @@ export function task4Fixture(options: {
   };
   return { profileInput, vectorInput };
 }
-

@@ -109,6 +109,42 @@ describe("repository adoption", () => {
     }
   });
 
+  it("discovers lower-case product and host contracts and previews bridges at their real paths", async () => {
+    const root = await projectDirectory("contentmd-lower-case-host-contracts");
+    const existingFiles = {
+      "product.md": "# Product context\nFacts retain product ownership.\n",
+      "claude.md": "# Claude guidance\nKeep this exact text.\n",
+      "codex.md": "# Codex guidance\nKeep this exact text.\n",
+    };
+    await Promise.all(
+      Object.entries(existingFiles).map(([path, content]) =>
+        writeFile(join(root, path), content, "utf8"),
+      ),
+    );
+
+    const plan = await planAdoption(root);
+
+    expect(plan.existing_sources.map((source) => source.relative_path)).toEqual([
+      "claude.md",
+      "codex.md",
+      "product.md",
+    ]);
+    expect(plan.bridge_previews.map((preview) => ({
+      host: preview.host,
+      relative_path: preview.relative_path,
+    }))).toEqual([
+      { host: "claude", relative_path: "claude.md" },
+      { host: "codex", relative_path: "codex.md" },
+    ]);
+    for (const preview of plan.bridge_previews) {
+      expect(preview.after_content).toContain(
+        existingFiles[preview.relative_path as keyof typeof existingFiles],
+      );
+      expect(preview.after_content).toContain("Run /contentmd (or `contentmd doctor` in a terminal)");
+    }
+    expect(plan.governance_bootstrap.external_publication).toBe("denied");
+  });
+
   it("rejects stale or widened local write approvals", async () => {
     const root = await projectDirectory("contentmd-stale-approval");
     const plan = await planAdoption(root);

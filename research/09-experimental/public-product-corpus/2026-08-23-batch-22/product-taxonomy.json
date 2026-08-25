@@ -1,0 +1,6 @@
+{
+  "whiteboarding and collaboration": ["pricing", "boards", "education"],
+  "site building and hosting": ["pricing", "site plan", "publish"],
+  "work management": ["pricing", "starter plan", "enterprise"],
+  "database and workflow apps": ["pricing", "team plan", "business"]
+}

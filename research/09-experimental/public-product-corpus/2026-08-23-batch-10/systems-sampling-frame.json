@@ -1,0 +1,9 @@
+[
+  {"company":"Adobe","product_system":"Adobe Creative Cloud","industry":"creative/design software","pages":["https://www.adobe.com/creativecloud/plans.html","https://helpx.adobe.com/support.html","https://www.adobe.com/creativecloud.html","https://helpx.adobe.com/account/individual.html","https://helpx.adobe.com/contact.html"]},
+  {"company":"Canva","product_system":"Canva plans","industry":"creative/design software","pages":["https://www.canva.com/ff_sn/pricing/","https://www.canva.com/pro/","https://www.canva.com/help/"]},
+  {"company":"Figma","product_system":"Figma plans","industry":"creative/design software","pages":["https://www.figma.com/pricing/","https://www.figma.com/","https://weave.figma.com/pricing"]},
+  {"company":"Shopify","product_system":"Shopify pricing","industry":"commerce and marketplaces","pages":["https://www.shopify.com/pricing","https://www.shopify.com/plus/pricing","https://www.shopify.com/"]},
+  {"company":"GitHub","product_system":"GitHub Copilot","industry":"enterprise and developer tools","pages":["https://github.com/pricing","https://github.com/features/copilot/plans","https://docs.github.com/copilot/reference/copilot-billing/models-and-pricing"]},
+  {"company":"Cloudflare","product_system":"Cloudflare pricing","industry":"security and identity","pages":["https://www.cloudflare.com/plans/","https://developers.cloudflare.com/workers/platform/pricing/","https://www.cloudflare.com/"]},
+  {"company":"Mailchimp","product_system":"Mailchimp pricing","industry":"communications and social products","pages":["https://mailchimp.com/pricing/marketing/","https://mailchimp.com/pricing/marketing/compare-plans/","https://mailchimp.com/"]}
+]

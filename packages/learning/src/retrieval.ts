@@ -181,15 +181,15 @@ const TASK4_PRODUCER_CACHE = new Map<string, VerifiedTask4Producer>();
 const TASK4_UNICODE_RUNTIME_CACHE = new Map<string, VerifiedTask4UnicodeRuntime>();
 let TASK4_NUMERIC_DEFERRAL_DEPTH = 0;
 const CONTRACT_PATH = "docs/superpowers/specs/2026-08-20-contentmd-retrieval-features-baseline-contracts-design.md";
-const CONTRACT_DIGEST = "f1fe48ee3ac9f12506b7d34de178fc275cff97d2f1885dd9245ea8fb1bd5c08f";
+const CONTRACT_DIGEST = "ef267d8533fd3d4dcd88c77f40b5555117df8d15034798ecf22f59d8b146d019";
 const RUNTIME_PROFILE_DIGEST = "eef23dc9f2e6c1dcd46201291758d07f400d834e24076e2bc4beb451ae526696";
 const RESOLUTION_ARTIFACT_DIGESTS: Readonly<Record<string, string>> = {
-  "package.json": "dfe01060abb99e7f83caee6a92f5e2c97b25f0d53f5c645a6d617f6ca6323d3d",
+  "package.json": "d607ba72a2bdf8a7fdf029379f5f43cbed4feea166eeed46c7bf1f4cee380215",
   "packages/core/package.json": "ac30cbc0dde687457af18dac4ea25dae8fcb24ba9ded2e14469d27fff493a420",
   "packages/core/tsconfig.json": "e65448deef4c80a91d7141388282bd0e70c1565da8b4750101673247d06be85c",
   "packages/learning/package.json": "c589857a9d193bfa85e075c1e0a5eb18f162329f1c393ab527d6c1b37628b34a",
   "packages/learning/tsconfig.json": "41ecc76204c5edec36bfbe6534a89fbfe23f0523b2cac3b4aec7fa1596ea42ac",
-  "pnpm-lock.yaml": "5bc2526ebc4a74391fbe0b8db82c74c6bb21d7c35e5ccca7365a9bf0a9c467c2",
+  "pnpm-lock.yaml": "94afb99cb8faa4d152baeaa1083e99e26d1767197049b40be605e2a2185383ba",
   "tsconfig.base.json": "2447d4312f6115cf97f808aa3b611c4a72a133736df134dab7377e6a639a30c2",
   "tsconfig.json": "8ecc29fe385358a9ac20c9ae4bb36f1fc74875312c8b72d7464d78b1dc3145fe",
 };

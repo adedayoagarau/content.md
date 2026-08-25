@@ -1,0 +1,81 @@
+{
+  "schema_id": "contentmd.public-product-ia-inventory",
+  "schema_version": "0.1.0",
+  "record_families": {
+    "ia_page": {
+      "required": [
+        "ia_page_id",
+        "company",
+        "product_system",
+        "source_url",
+        "canonical_url",
+        "page_title",
+        "page_role",
+        "observed_at",
+        "observation_method",
+        "access_rights_boundary",
+        "observed_vs_inferred",
+        "authority_effect",
+        "prompt_eligibility",
+        "training_eligibility",
+        "benchmark_eligibility"
+      ]
+    },
+    "ia_node": {
+      "required": [
+        "ia_node_id",
+        "ia_page_id",
+        "node_kind",
+        "label",
+        "hierarchy_path",
+        "target_url",
+        "target_observation_status",
+        "observed_at",
+        "access_rights_boundary",
+        "observed_vs_inferred",
+        "authority_effect",
+        "prompt_eligibility",
+        "training_eligibility",
+        "benchmark_eligibility"
+      ]
+    },
+    "ia_edge": {
+      "required": [
+        "ia_edge_id",
+        "from_ia_page_id",
+        "from_ia_node_id",
+        "relationship",
+        "to_url",
+        "observed_at",
+        "access_rights_boundary",
+        "observed_vs_inferred",
+        "authority_effect",
+        "prompt_eligibility",
+        "training_eligibility",
+        "benchmark_eligibility"
+      ]
+    },
+    "coverage": {
+      "required": [
+        "coverage_id",
+        "company",
+        "product_system",
+        "coverage_status",
+        "public_entry_points_observed",
+        "navigation_layers_observed",
+        "routes_observed",
+        "unresolved_route_count",
+        "updated_at",
+        "coverage_boundary"
+      ]
+    }
+  },
+  "invariants": {
+    "observed_vs_inferred": "observed_ui",
+    "authority_effect": "none",
+    "prompt_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "max_label_words": 25
+  }
+}

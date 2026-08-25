@@ -1,5 +1,4 @@
 node_modules/
-.pnpm-store/
 dist/
 coverage/
 *.tsbuildinfo
@@ -9,4 +8,5 @@ coverage/
 .contentmd/local/
 .contentmd/cache/
 .contentmd/runtime/
+.pnpm-store/
 .worktrees/

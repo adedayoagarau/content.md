@@ -1,7 +1,7 @@
 # LIL-WRITE-001 engine verification 0.1
 
-Date: 2026-08-23  
-Runtime: Node.js 24.14.0  
+Date: 2026-08-23
+Runtime: Node.js 24.14.0
 Benchmark: `LIL-WRITE-001`
 
 ## Bounded result

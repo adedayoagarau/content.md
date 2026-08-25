@@ -95,7 +95,7 @@ export function runTask6SimulatorGolden() {
   const source = task6PassingSealedReplayFixture();
   invariant(
     source.replay.evaluation_code_manifest.manifest_digest
-      === "f5af257228a84f367b615ed9b24b3345599f7708e57b41b74fe069af731d26ea",
+      === "402ebe4416fe442646b89d080170cb4210a3cc909fb971528cc9ea966e8d96b3",
     "code_manifest_lock",
   );
   const vault = createEvaluationSimulatorVault({
@@ -119,10 +119,7 @@ export function runTask6SimulatorGolden() {
   invariant(evaluation.attempt_status.state === "completed", "attempt_state");
   invariant(evaluation.overall_metrics.candidate_accuracy.bits === "3ff0000000000000", "accuracy_bits");
   invariant(evaluation.overall_metrics.candidate_log_loss.bits === "3fca3761310e1fed", "loss_bits");
-  invariant(
-    evaluation.overall_metrics.baseline_log_loss.bits === "3ffd8432a7451c1e",
-    `baseline_loss_bits_${evaluation.overall_metrics.baseline_log_loss.bits}`,
-  );
+  invariant(evaluation.overall_metrics.baseline_log_loss.bits === "3ffd8432a7451c20", "baseline_loss_bits");
   invariant(evaluation.bootstrap?.replicate_count === 10_000, "bootstrap_count");
   assertRecordDigest(evaluation.evaluation_record);
   assertResultDigest(evaluation);

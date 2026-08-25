@@ -1,5 +1,8 @@
 import { readFileSync } from "node:fs";
-import { sha256Canonical } from "@contentmd/core";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { canonicalJson, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
 import {
   admitPairwiseRuntime,
   rankEligibleExpressions,
@@ -11,11 +14,14 @@ import {
   verifyRankingModel,
   type SimulatedVerifiedBindingProjection,
   type Task6ObjectRef,
+  type VerifiedRankingModel,
 } from "@contentmd/learning";
 import type { ContentDraftProposal } from "@contentmd/writer";
 import { describe, expect, it } from "vitest";
 import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
+import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import { selectGovernedDraftAlternative } from "../src/draft-selection.js";
+import * as localRuntime from "../src/local-runtime.js";
 
 function codeManifest() {
   const preimage = JSON.parse(readFileSync(new URL(
@@ -66,23 +72,27 @@ function rankingFixture() {
   if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
   const model = verifyRankingModel(training.model_record, { training_request: request });
   const row = fixture.replay.rows[0]!;
-  const candidates = [
-    verifyPairwiseCandidate({
-      record_mode: "development_fixture",
+  const candidateReplays = [
+    {
+      record_mode: "development_fixture" as const,
       profile: fixture.replay.profile,
       replay: row.candidate_a,
-    }),
-    verifyPairwiseCandidate({
-      record_mode: "development_fixture",
+    },
+    {
+      record_mode: "development_fixture" as const,
       profile: fixture.replay.profile,
       replay: row.candidate_b,
-    }),
+    },
+  ] as const;
+  const candidates = [
+    verifyPairwiseCandidate(candidateReplays[0]),
+    verifyPairwiseCandidate(candidateReplays[1]),
   ] as const;
   const expressions = [
     row.candidate_a.vectorization_input.candidate.payload.expression,
     row.candidate_b.vectorization_input.candidate.payload.expression,
   ] as const;
-  return { model, candidates, expressions };
+  return { model, candidates, candidateReplays, expressions, request, training };
 }
 
 function objectRef(label: string): Task6ObjectRef {
@@ -153,6 +163,28 @@ function candidateProjection(
     projection_id: `simulated_binding_projection.${projectionDigest.slice(0, 32)}`,
     projection_digest: projectionDigest,
   };
+}
+
+function localTrainingArtifactFixture() {
+  const source = task6PassingSealedReplayFixture();
+  const request = source.replay.model_dependencies.training_request;
+  const training = trainPairwiseLogistic(request);
+  if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
+  const trainingReplay = {
+    contract_version: "contentmd.local-pairwise-training-replay/0.1.0" as const,
+    record_mode: request.record_mode,
+    purpose: request.purpose,
+    dataset_replay: request.dataset.replay,
+    feature_matrix_replay: request.feature_matrix.replay,
+    code_manifest: request.code_manifest.manifest,
+    runtime_profile: request.runtime_profile.profile,
+  };
+  const artifact = encodeCanonicalDag({
+    contract_version: "contentmd.local-learning-training-artifact/0.1.0" as const,
+    training_replay: trainingReplay,
+    training,
+  });
+  return { artifact, training };
 }
 
 describe("governed writer alternative selection", () => {
@@ -255,5 +287,98 @@ describe("governed writer alternative selection", () => {
       verified_model: fixture.model,
       verified_candidates: fixture.candidates,
     })).toThrow("draft_selection_invalid:candidate_expression_binding");
+  }, 300_000);
+});
+
+describe("persisted local training artifacts", () => {
+  it("rehydrates a byte-exact training artifact only through fresh model verification", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-training-artifact-"));
+    try {
+      const fixture = localTrainingArtifactFixture();
+      const artifactPath = join(root, ".contentmd/runtime/learning-training-result.dag.json");
+      await mkdir(dirname(artifactPath), { recursive: true });
+      await writeFile(artifactPath, canonicalJson(fixture.artifact));
+
+      const runtime = localRuntime as unknown as {
+        loadLocalVerifiedTrainingModel?: (projectRoot: string) => Promise<{
+          readonly training_artifact_digest: string;
+          readonly model: VerifiedRankingModel;
+        }>;
+      };
+      expect(runtime.loadLocalVerifiedTrainingModel).toBeTypeOf("function");
+      const restored = await runtime.loadLocalVerifiedTrainingModel!(root);
+
+      expect(restored.training_artifact_digest).toBe(fixture.artifact.root_digest);
+      expect(restored.model.record).toEqual(fixture.training.model_record);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  }, 300_000);
+
+  it("selects a persisted local draft only through a matching active model and candidate replays", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-governed-draft-selection-"));
+    try {
+      const fixture = rankingFixture();
+      const proposal = draft(fixture.expressions);
+      const fallbackBaselineRef = objectRef("selection-baseline");
+      const modelRef = {
+        record_id: fixture.model.record.record_id,
+        schema_id: fixture.model.record.schema_id,
+        schema_version: fixture.model.record.schema_version,
+        content_digest: fixture.model.record.content_digest,
+      };
+      const trainingArtifact = encodeCanonicalDag({
+        contract_version: "contentmd.local-learning-training-artifact/0.1.0" as const,
+        training_replay: {
+          contract_version: "contentmd.local-pairwise-training-replay/0.1.0" as const,
+          record_mode: fixture.request.record_mode,
+          purpose: fixture.request.purpose,
+          dataset_replay: fixture.request.dataset.replay,
+          feature_matrix_replay: fixture.request.feature_matrix.replay,
+          code_manifest: fixture.request.code_manifest.manifest,
+          runtime_profile: fixture.request.runtime_profile.profile,
+        },
+        training: fixture.training,
+      });
+      const runtimeDir = join(root, ".contentmd/runtime");
+      const inputPath = join(root, ".contentmd/learning/draft-selection-input.json");
+      await mkdir(dirname(inputPath), { recursive: true });
+      await mkdir(runtimeDir, { recursive: true });
+      await writeFile(join(runtimeDir, "draft.json"), canonicalJson(proposal));
+      await writeFile(
+        join(runtimeDir, "learning-training-result.dag.json"),
+        canonicalJson(trainingArtifact),
+      );
+      await writeFile(inputPath, canonicalJson({
+        contract_version: "contentmd.local-governed-draft-selection-replay/0.1.0",
+        record_mode: "development_fixture",
+        proposal_id: proposal.proposal_id,
+        draft_digest: sha256Canonical(proposal),
+        fallback_baseline_ref: fallbackBaselineRef,
+        binding_projection: candidateProjection(modelRef, fallbackBaselineRef),
+        candidate_replays: fixture.candidateReplays,
+      }));
+
+      const runtime = localRuntime as unknown as {
+        selectLocalDraftAlternative?: (projectRoot: string, selectionInputPath: string) => Promise<unknown>;
+      };
+      expect(runtime.selectLocalDraftAlternative).toBeTypeOf("function");
+      const selection = await runtime.selectLocalDraftAlternative!(root, inputPath) as {
+        readonly selection_path: string;
+        readonly selected_expression_digest: string;
+        readonly model_ref: typeof modelRef | null;
+      };
+
+      expect(selection).toMatchObject({
+        selection_path: "verified_learned_rank",
+        model_ref: modelRef,
+      });
+      expect(selection.selected_expression_digest).toBe(
+        rankEligibleExpressions(fixture.model, fixture.candidates).ordered_candidates[0]!.expression_digest,
+      );
+      expect(JSON.parse(await readFile(join(runtimeDir, "draft-selection.json"), "utf8"))).toEqual(selection);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   }, 300_000);
 });

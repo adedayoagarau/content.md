@@ -1,0 +1,14 @@
+[
+  {"company":"Shopify","product_system":"Shopify commerce","industry":"commerce and marketplaces","pages":["https://www.shopify.com/","https://www.shopify.com/pricing","https://www.shopify.com/plus/pricing"]},
+  {"company":"GitHub","product_system":"GitHub developer platform","industry":"enterprise and developer tools","pages":["https://github.com/features/codespaces","https://docs.github.com/codespaces/overview"]},
+  {"company":"Figma","product_system":"Figma design","industry":"creative/design software","pages":["https://www.figma.com/pricing/","https://www.figma.com/professional/"]},
+  {"company":"Slack","product_system":"Slack workspace","industry":"productivity and collaboration","pages":["https://slack.com/pricing","https://slack.com/pricing/paid-vs-free","https://slack.com/help/articles/115003205446-Slack-plans-and-features"]},
+  {"company":"Asana","product_system":"Asana work management","industry":"productivity and collaboration","pages":["https://asana.com/","https://app.asana.com/-/login","https://asana.com/features/project-management/home"]},
+  {"company":"Notion","product_system":"Notion workspace","industry":"productivity and collaboration","pages":["https://www.notion.so/","https://www.notion.so/templates","https://www.notion.so/templates/category/personal-home"]},
+  {"company":"Auth0","product_system":"Auth0 identity","industry":"security and identity","pages":["https://auth0.com/","https://auth0.com/pricing","https://auth0.com/docs"]},
+  {"company":"Google Workspace","product_system":"Google Workspace","industry":"productivity and collaboration","pages":["https://workspace.google.com/","https://workspace.google.com/pricing","https://knowledge.workspace.google.com/admin/getting-started/editions/business-editions"]},
+  {"company":"PayPal","product_system":"PayPal","industry":"finance and payments","pages":["https://www.paypal.com/"]},
+  {"company":"Stripe","product_system":"Stripe payments","industry":"finance and payments","pages":["https://stripe.com/","https://stripe.com/pricing"]},
+  {"company":"Adobe","product_system":"Adobe Creative Cloud","industry":"creative/design software","pages":["https://www.adobe.com/"]},
+  {"company":"Canva","product_system":"Canva","industry":"creative/design software","pages":["https://www.canva.com/","https://www.canva.com/pro/","https://www.canva.com/ff_sn/pricing/"]}
+]

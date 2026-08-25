@@ -1,0 +1,5 @@
+{"term":"Argentina","company":"Mercado Libre","product_system":"Mercado Libre marketplace","evidence_source":"src-mercado-libre-country-entry-64","role":"country-market route","rights_boundary":"evidence only"}
+{"term":"IKEA USA","company":"IKEA","product_system":"IKEA online shopping","evidence_source":"src-ikea-us-entry-64","role":"localized storefront identity","rights_boundary":"evidence only"}
+{"term":"Grab","company":"Grab","product_system":"Grab super app","evidence_source":"src-grab-sg-entry-64","role":"multi-service product identity","rights_boundary":"evidence only"}
+{"term":"Nubank","company":"Nubank","product_system":"Nubank digital banking","evidence_source":"src-nubank-br-entry-64","role":"digital-banking product identity","rights_boundary":"evidence only"}
+{"term":"Gojek","company":"Gojek","product_system":"Gojek super app","evidence_source":"src-gojek-id-entry-64","role":"multi-service product identity","rights_boundary":"evidence only"}

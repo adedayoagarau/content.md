@@ -1,0 +1,8 @@
+{
+  "entry/onboarding": "signed-out landing propositions",
+  "core task/commitment": "search, product selection, plan comparison, or plan exploration actions",
+  "pending/progress": "not observed on this bounded landing-page slice",
+  "success": "shipping, fulfillment, incentive, or switching outcome claims",
+  "error/recovery": "not observed without submitting a form or using an account",
+  "destructive/permission/support": "not observed without entering account or support flows"
+}
