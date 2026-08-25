@@ -4,10 +4,16 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { previewFilesystemChange } from "@contentmd/adapter-filesystem";
-import { executeGovernedChange } from "@contentmd/agent";
+import {
+  executeGovernedChange,
+  prepareContentTask,
+  previewGovernedTaskChange,
+  reviewIdeCandidate,
+} from "@contentmd/agent";
 import type { AuthorizationInput, GovernancePolicy } from "@contentmd/governance";
 
 const fixtureRoot = fileURLToPath(new URL("../../../fixtures/synthetic-web-app/", import.meta.url));
+const mixedFixtureRoot = fileURLToPath(new URL("../../../fixtures/synthetic-mixed-stack/", import.meta.url));
 const temporaryDirectories: string[] = [];
 
 afterEach(async () => {
@@ -108,6 +114,70 @@ function auth(transactionDigest: string, approvalClass: "mutation" | "semantic_d
 }
 
 describe("governed change workflow", () => {
+  it("binds a repository task, reviewed candidate, decision, occurrence, and exact bytes", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-agent-task-change-"));
+    temporaryDirectories.push(root);
+    await cp(mixedFixtureRoot, root, { recursive: true });
+    const prepared = await prepareContentTask(root, {
+      request: "Improve the Analyze empty state",
+      target: "studio/app/analyze/page.tsx:8",
+    });
+    const review = await reviewIdeCandidate(root, {
+      contract_version: "contentmd.ide-writing-candidate/0.1.0",
+      task_digest: prepared.task.task_digest,
+      alternatives: [{
+        candidate_id: "candidate.empty-state.001",
+        text: "Choose a product and stage to begin analysis.",
+        rationale: "Names the inputs needed to continue.",
+        evidence_refs: prepared.task.evidence_refs,
+      }],
+      recommended_candidate_id: "candidate.empty-state.001",
+      claimed_authority_effect: "none",
+    });
+    const decision = {
+      schema_version: "contentmd.content-decision/0.1.0" as const,
+      decision_id: "decision.mixed-stack.empty-state.001",
+      status: "accepted" as const,
+      actor_ref: "actor.fixture-reviewer",
+      actor_role: "content_owner",
+      rationale: "Approved for this exact occurrence.",
+      proposal_ref: review.candidate_digest,
+      selected_expression: review.preview_diff!.after,
+      edited_expression: null,
+      evidence_reviewed: [prepared.task.task_digest, prepared.target_occurrence.occurrence_id],
+      scope: "project" as const,
+      project_id: prepared.project_id,
+      occurred_at: "2026-08-25T18:00:00.000Z",
+      mutation_approval_effect: "none" as const,
+      sequence: 1,
+      event_digest: "e".repeat(64),
+    };
+
+    const transaction = await previewGovernedTaskChange({
+      project_root: root,
+      transaction_id: "txn_mixed_stack_empty_state_v1",
+      prepared,
+      review,
+      decision,
+    });
+
+    expect(transaction).toMatchObject({
+      operation_id: `operation.task.${prepared.task.task_digest.slice(0, 24)}`,
+      proposal_id: `candidate.${review.candidate_digest}`,
+      decision_id: decision.decision_id,
+      target_path: "studio/app/analyze/page.tsx",
+      before: "Nothing to analyze yet",
+      after: "Choose a product and stage to begin analysis.",
+    });
+    await expect(previewGovernedTaskChange({
+      project_root: root,
+      transaction_id: "txn_invalid",
+      prepared,
+      review,
+      decision: { ...decision, proposal_ref: "candidate.stale" },
+    })).rejects.toThrow("task_change_binding_invalid:decision_candidate");
+  });
+
   it("rejects a semantic proposal decision as mutation authority", async () => {
     const { root, transaction } = await setup();
 

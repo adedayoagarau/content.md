@@ -173,6 +173,38 @@ function validatePrepared(value: unknown): PreparedContentTask {
   return prepared;
 }
 
+export async function readPreparedContentTask(root: string): Promise<PreparedContentTask> {
+  try {
+    const preparedPath = await safeArtifactPath(root, PREPARED_TASK_PATH, false);
+    return validatePrepared(JSON.parse(await readFile(preparedPath, "utf8")));
+  } catch (error) {
+    if (error instanceof Error && error.message === "ide_candidate_task_stale") throw error;
+    throw new Error("ide_candidate_task_stale");
+  }
+}
+
+export async function readReviewedIdeCandidate(root: string): Promise<ReviewedIdeCandidate> {
+  let review: ReviewedIdeCandidate;
+  try {
+    const reviewPath = await safeArtifactPath(root, TASK_REVIEW_PATH, false);
+    review = JSON.parse(await readFile(reviewPath, "utf8")) as ReviewedIdeCandidate;
+  } catch {
+    throw new Error("ide_candidate_review_stale");
+  }
+  if (review === null || typeof review !== "object" || Array.isArray(review)) {
+    throw new Error("ide_candidate_review_stale");
+  }
+  const { review_digest: reviewDigest, ...preimage } = review;
+  if (
+    !nonempty(reviewDigest) || sha256Canonical(preimage) !== reviewDigest ||
+    review.contract_version !== "contentmd.ide-candidate-review/0.1.0" ||
+    review.decision_status !== "proposed" || review.authority_effect !== "none"
+  ) throw new Error("ide_candidate_review_stale");
+  const prepared = await readPreparedContentTask(root);
+  if (review.task_digest !== prepared.task.task_digest) throw new Error("ide_candidate_review_stale");
+  return review;
+}
+
 function parseTarget(value: string): { path: string; line: number } {
   const match = /^(.*):(\d+)$/u.exec(value);
   if (match === null || !nonempty(match[1])) throw new Error("content_task_target_invalid");
@@ -335,14 +367,7 @@ function strictCandidate(value: unknown): IdeWritingCandidate {
 
 export async function reviewIdeCandidate(root: string, rawCandidate: unknown): Promise<ReviewedIdeCandidate> {
   const candidate = strictCandidate(rawCandidate);
-  let prepared: PreparedContentTask;
-  try {
-    const preparedPath = await safeArtifactPath(root, PREPARED_TASK_PATH, false);
-    prepared = validatePrepared(JSON.parse(await readFile(preparedPath, "utf8")));
-  } catch (error) {
-    if (error instanceof Error && error.message === "ide_candidate_task_stale") throw error;
-    throw new Error("ide_candidate_task_stale");
-  }
+  const prepared = await readPreparedContentTask(root);
   if (candidate.task_digest !== prepared.task.task_digest) throw new Error("ide_candidate_task_stale");
   const allowedEvidence = new Set(prepared.task.evidence_refs);
   if (candidate.alternatives.some((alternative) => alternative.evidence_refs.some((ref) => !allowedEvidence.has(ref)))) {
