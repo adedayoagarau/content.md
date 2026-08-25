@@ -18,6 +18,7 @@ import { registerRollback } from "./commands/rollback.js";
 import { registerReview } from "./commands/review.js";
 import { registerRuntime } from "./commands/runtime.js";
 import { registerRewrite } from "./commands/rewrite.js";
+import { registerServe } from "./commands/serve.js";
 import { registerStart } from "./commands/start.js";
 import { registerStrategy } from "./commands/strategy.js";
 import { registerTask } from "./commands/task.js";
@@ -43,6 +44,7 @@ export function buildProgram(): Command {
   registerReview(program);
   registerRuntime(program);
   registerTask(program);
+  registerServe(program);
   registerStrategy(program);
   registerDraft(program);
   registerRewrite(program);
