@@ -137,10 +137,14 @@ function discoverTypeScript(source: string, sourceArtifact: string): OccurrenceD
   const nextRoute = nextRouteFromPath(sourceArtifact);
   const visit = (node: ts.Node): void => {
     if (ts.isJsxText(node)) {
-      const value = normalizeVisibleText(node.getText(sourceFile));
+      const rawValue = node.getFullText(sourceFile);
+      const value = normalizeVisibleText(rawValue);
       if (value.length > 0) {
-        const start = source.indexOf(value, node.getFullStart());
-        drafts.push(createDraft(sourceFile, sourceArtifact, start, start + value.length, "jsx_text", value, {
+        const leadingWhitespace = rawValue.length - rawValue.trimStart().length;
+        const trailingWhitespace = rawValue.length - rawValue.trimEnd().length;
+        const start = node.getFullStart() + leadingWhitespace;
+        const end = node.getFullStart() + rawValue.length - trailingWhitespace;
+        drafts.push(createDraft(sourceFile, sourceArtifact, start, end, "jsx_text", value, {
           locale: "und",
           channel: "web",
           modality: "visible",

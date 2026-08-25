@@ -105,6 +105,49 @@ describe("FilesystemContentAdapter discovery", () => {
     expect(allText).not.toContain("IGNORED BUILD TEXT");
   });
 
+  it("does not emit empty static strings as content occurrences", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-empty-content-fixture-"));
+    temporaryDirectories.push(root);
+    await writeFile(join(root, "package.json"), '{"name":"empty-content-fixture"}\n');
+    await writeFile(
+      join(root, "messages.ts"),
+      'export const messages = { title: "", body: "   ", label: "Continue" };\n',
+    );
+
+    const result = await new FilesystemContentAdapter().discover({ project_root: root });
+
+    expect(result.occurrences.map((item) => item.expression_payload)).toEqual(["Continue"]);
+  });
+
+  it("preserves source coordinates when multiline JSX whitespace is normalized", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-multiline-jsx-fixture-"));
+    temporaryDirectories.push(root);
+    await writeFile(join(root, "package.json"), '{"name":"multiline-jsx-fixture"}\n');
+    await writeFile(
+      join(root, "Page.tsx"),
+      [
+        "export function Page() {",
+        "  return <p>",
+        "    Review the order",
+        "    before continuing.",
+        "  </p>;",
+        "}",
+      ].join("\n"),
+    );
+
+    const result = await new FilesystemContentAdapter().discover({ project_root: root });
+
+    expect(result.coverage.failed).toBe(0);
+    expect(result.occurrences).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        expression_payload: "Review the order before continuing.",
+        line: 3,
+        column: 5,
+        end_line: 4,
+      }),
+    ]));
+  });
+
   it("advertises only the implemented governed capabilities", () => {
     const adapter = new FilesystemContentAdapter();
 

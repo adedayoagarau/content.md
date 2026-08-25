@@ -33,6 +33,7 @@ export type InventoryExclusionReason =
   | "dependency_or_cache"
   | "binary_or_oversize"
   | "outside_project_root"
+  | "unavailable_symlink"
   | "user_excluded";
 
 export interface InventoryArtifact {

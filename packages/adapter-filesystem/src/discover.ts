@@ -113,7 +113,12 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
     for (const parser of parsers) {
       try {
         const result = parser.parse({ ...inputBase, source });
-        occurrences.push(...result.occurrences.map(finalizeDraft));
+        const contentOccurrences = result.occurrences.filter((draft) => {
+          if (draft.expression_payload.trim().length > 0) return true;
+          warnings.push(`empty_content_ignored:${artifact.relative_path}:${draft.line}`);
+          return false;
+        });
+        occurrences.push(...contentOccurrences.map(finalizeDraft));
         parserClaims.push(...result.claims);
         warnings.push(...result.warnings);
         unsupported += result.unsupported.length;

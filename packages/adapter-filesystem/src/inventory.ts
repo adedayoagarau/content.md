@@ -17,8 +17,10 @@ const EXCLUDED_DIRECTORY_PATTERNS = [
   "**/.contentmd-test",
   "**/.next",
   "**/.venv",
+  "**/.worktrees",
   "**/build",
   "**/coverage",
+  "**/content-repos",
   "**/data",
   "**/dist",
   "**/node_modules",
@@ -42,7 +44,7 @@ function withinRoot(projectRoot: string, candidate: string): boolean {
 
 function directoryReason(relativePath: string): InventoryExclusionReason {
   const name = relativePath.split("/").at(-1)?.toLowerCase() ?? "";
-  if (name === "data") return "private_or_bulk_data";
+  if (name === "data" || name === "content-repos") return "private_or_bulk_data";
   if (name === "outputs" || name === "build" || name === "coverage" || name === "dist" || name === ".next") {
     return "generated_output";
   }
@@ -114,7 +116,13 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
     const absolutePath = resolve(projectRoot, relativePath);
     const metadata = await lstat(absolutePath);
     if (!metadata.isSymbolicLink()) continue;
-    const resolvedPath = await realpath(absolutePath);
+    let resolvedPath: string;
+    try {
+      resolvedPath = await realpath(absolutePath);
+    } catch {
+      addExclusion(exclusions, relativePath, "unavailable_symlink");
+      continue;
+    }
     if (!withinRoot(projectRoot, resolvedPath)) {
       addExclusion(exclusions, relativePath, "outside_project_root");
     }
@@ -143,7 +151,13 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
 
     const absolutePath = resolve(projectRoot, relativePath);
     const metadata = await lstat(absolutePath);
-    const resolvedPath = await realpath(absolutePath);
+    let resolvedPath: string;
+    try {
+      resolvedPath = await realpath(absolutePath);
+    } catch {
+      addExclusion(exclusions, relativePath, "unavailable_symlink");
+      continue;
+    }
     if (!withinRoot(projectRoot, resolvedPath)) {
       addExclusion(exclusions, relativePath, "outside_project_root");
       continue;

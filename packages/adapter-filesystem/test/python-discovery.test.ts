@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { FilesystemContentAdapter } from "@contentmd/adapter-filesystem";
+import { FilesystemContentAdapter, pythonArtifactParser } from "@contentmd/adapter-filesystem";
 
 const mixedRoot = fileURLToPath(
   new URL("../../../fixtures/synthetic-mixed-stack/", import.meta.url),
@@ -63,5 +63,26 @@ describe("conservative Python and template discovery", () => {
     expect(result.occurrences.map((item) => item.expression_payload)).not.toEqual(
       expect.arrayContaining([expect.stringContaining("{%")]),
     );
+  });
+
+  it("does not promote an empty router-relative path into content identity", () => {
+    const source = [
+      '@router.get("")',
+      "def read_root():",
+      '    raise HTTPException(status_code=404, detail="Item not found")',
+    ].join("\n");
+
+    const result = pythonArtifactParser.parse({
+      project_root: "/synthetic",
+      artifact: {
+        relative_path: "api/root.py",
+        extension: ".py",
+      } as never,
+      stack_facts: [],
+      source,
+    });
+
+    expect(result.occurrences.map((item) => item.expression_payload)).toEqual(["Item not found"]);
+    expect(result.occurrences[0]?.route).toBeNull();
   });
 });

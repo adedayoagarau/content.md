@@ -128,6 +128,7 @@ function occurrence(
   semanticContext: string,
   modality: OccurrenceDraft["modality"] = "visible",
 ): OccurrenceDraft {
+  const normalizedRoute = route !== null && route.trim().length > 0 ? route : null;
   return {
     source_artifact: sourceArtifact,
     ...offsetCoordinates(source, parsed.value_start, parsed.value_end),
@@ -137,7 +138,7 @@ function occurrence(
     channel: syntaxKind === "html_text" ? "web" : "api",
     modality,
     component: null,
-    route,
+    route: normalizedRoute,
     semantic_context: semanticContext,
   };
 }
@@ -272,7 +273,12 @@ function parsePython(source: string, sourceArtifact: string): ParserResult {
     }
   }
 
-  return { occurrences, claims: [], warnings: [...new Set(warnings)], unsupported: [] };
+  return {
+    occurrences: occurrences.filter((item) => item.expression_payload.trim().length > 0),
+    claims: [],
+    warnings: [...new Set(warnings)],
+    unsupported: [],
+  };
 }
 
 function parseTemplate(source: string, sourceArtifact: string): ParserResult {

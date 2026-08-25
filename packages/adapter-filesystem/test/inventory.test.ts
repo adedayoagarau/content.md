@@ -57,6 +57,22 @@ describe("repository inventory", () => {
     expect(JSON.stringify(result)).not.toContain("SYMLINK_SECRET_CANARY");
   });
 
+  it("records a dangling symlink without aborting repository discovery", async () => {
+    const repository = await mkdtemp(join(tmpdir(), "contentmd-inventory-dangling-"));
+    temporaryDirectories.push(repository);
+    await writeFile(join(repository, "README.md"), "# Safe repository\n", "utf8");
+    await symlink(join(repository, "missing-directory"), join(repository, "unavailable-content"));
+
+    const result = await adapterFilesystem.inventoryRepository({ project_root: repository });
+
+    expect(result.exclusions).toContainEqual({
+      relative_path: "unavailable-content",
+      reason: "unavailable_symlink",
+    });
+    expect(result.coverage.failed).toBe(0);
+    expect(result.artifacts.map((artifact) => artifact.relative_path)).toEqual(["README.md"]);
+  });
+
   it("excludes temporary files before their bytes enter the inventory", async () => {
     const repository = await mkdtemp(join(tmpdir(), "contentmd-inventory-temporary-"));
     temporaryDirectories.push(repository);
@@ -121,5 +137,24 @@ describe("repository inventory", () => {
       reason: "dependency_or_cache",
     });
     expect(JSON.stringify(result)).not.toContain("CASSETTE_PRIVATE_CANARY");
+  });
+
+  it("excludes nested worktrees and repository-corpus mirrors before traversal", async () => {
+    const repository = await mkdtemp(join(tmpdir(), "contentmd-inventory-mirrors-"));
+    temporaryDirectories.push(repository);
+    await mkdir(join(repository, ".worktrees", "feature"), { recursive: true });
+    await mkdir(join(repository, "content-repos", "mirrored-product"), { recursive: true });
+    await writeFile(join(repository, ".worktrees", "feature", "private.md"), "WORKTREE_MIRROR_CANARY\n", "utf8");
+    await writeFile(join(repository, "content-repos", "mirrored-product", "private.md"), "CORPUS_MIRROR_CANARY\n", "utf8");
+    await writeFile(join(repository, "README.md"), "# Safe repository\n", "utf8");
+
+    const result = await adapterFilesystem.inventoryRepository({ project_root: repository });
+
+    expect(result.exclusions).toEqual(expect.arrayContaining([
+      { relative_path: ".worktrees", reason: "dependency_or_cache" },
+      { relative_path: "content-repos", reason: "private_or_bulk_data" },
+    ]));
+    expect(JSON.stringify(result)).not.toContain("WORKTREE_MIRROR_CANARY");
+    expect(JSON.stringify(result)).not.toContain("CORPUS_MIRROR_CANARY");
   });
 });
