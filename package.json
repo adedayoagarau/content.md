@@ -18,6 +18,7 @@
     "generate:learning-fixtures": "node --import tsx scripts/generate-learning-fixtures.mts",
     "verify:learning": "node scripts/verify-learning.mjs",
     "verify:runtime": "node scripts/verify-portable-runtime.mjs",
+    "verify:repository-intelligence": "node scripts/verify-repository-intelligence.mjs",
     "verify:voice-research": "node scripts/verify-voice-tone-research.mjs"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@
 title: content.md
 status: active-build
 started: 2026-08-17
-updated: 2026-08-23
+updated: 2026-08-25
 foundation_draft: 0.2
 implementation_status: governed-development-system-active
 ---
@@ -15,9 +15,39 @@ The system owns the content-design process and its structured memory. Products a
 
 ## Implementation status
 
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce a 17-package TypeScript workspace and a functional local CLI. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
+The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce an 18-package TypeScript workspace and a functional local CLI. The [host-agnostic repository-intelligence verification](docs/verification/host-agnostic-repository-intelligence-0.2.md) proves the mixed-stack discovery, evidence-linked model, bounded IDE handoff, governed task loop, exact apply/readback path, and local workbench without network access. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
 
-The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; discover web-app content; compile a content graph; ingest rights-bounded research; compile voice/tone maps and evidence graphs; run deterministic review; use recorded or governed OpenAI model execution; validate model output before it reaches writer APIs; learn and independently reproduce a deterministic pairwise ranker from sealed project-owned comparisons; use a verified learned model to rank writer alternatives with a deterministic fallback; create leakage-safe blinded human-calibration assignments and analysis-locked effectiveness reports; evaluate, shadow, monitor drift, suspend on revocation, and roll back; record a human decision; preview and execute separately authorized changes; retain append-only audit state; and preview uninstall.
+The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; detect React, Next.js, TypeScript, Python, FastAPI, templates, and structured product documentation; discover content and IA with exact source coordinates; compile an evidence-linked product model; issue bounded packets to the user's IDE model; review proposed writing deterministically; require a separate human decision and mutation approval; apply one exact target with digest-bound readback and rollback; and present the model in a read-only local workbench. It can also ingest rights-bounded research; compile voice/tone maps and evidence graphs; use governed model execution; learn from sealed project-owned comparisons; retain append-only audit state; and preview uninstall.
+
+## Use it today
+
+`content.md` is a local repository agent and CLI first; hosting is optional. From this source checkout, build once and preview adoption of any local repository:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
+pnpm contentmd init --root /absolute/path/to/project --json
+```
+
+The intended published-package entry point is `npx contentmd init`; that package acquisition may use the package manager's network access. The installed content.md repository-intelligence runtime itself performs no network request, and the offline verifier denies network APIs for the complete mixed-stack flow. Until a package is published, use the source-checkout commands above.
+
+The preview returns an exact `plan_digest` and writes nothing. After reviewing it, approve only that plan:
+
+```bash
+pnpm contentmd init --yes --plan-digest <reviewed-digest> --root /absolute/path/to/project --json
+pnpm contentmd model --root /absolute/path/to/project --json
+pnpm contentmd model packet --root /absolute/path/to/project --json
+```
+
+Give the bounded model packet to the intelligent model already available in the IDE, then ingest its cited structured response with `model ingest`. For a specific content issue, prepare a source-bound task, let the IDE model return structured alternatives, and review them before any decision or edit:
+
+```bash
+pnpm contentmd task prepare --request "Improve this empty state" --target path/to/file.tsx:42 --root /absolute/path/to/project --json
+pnpm contentmd task review --input /absolute/path/to/ide-candidate.json --root /absolute/path/to/project --json
+pnpm contentmd serve --root /absolute/path/to/project
+```
+
+`serve` opens a loopback-only, read-only workbench. Drafting and explanation are the default; apply remains unavailable until the user records the semantic decision and supplies a separate, current mutation approval.
 
 Recorded browser evidence is supported through a bounded adapter, but live browser acquisition is not implied by a record. The current public UX-writing corpus is project-owned and synthetic; it contains no competitor wording as model input.
 
@@ -30,7 +60,7 @@ Requirements: Node.js `24.14.x` and `pnpm@11.9.0`.
 ```bash
 pnpm install --frozen-lockfile
 pnpm build
-pnpm contentmd init --yes --root /absolute/path/to/project --json
+pnpm contentmd init --root /absolute/path/to/project --json
 pnpm contentmd doctor --root /absolute/path/to/project --json
 pnpm contentmd discover --root /absolute/path/to/project --json
 ```
@@ -74,7 +104,7 @@ pnpm contentmd draft-select \
 
 ## What remains unproven or unavailable
 
-This repository does not yet contain a published installer, production skill, hosted runtime, workbench, broad external-product adapters, production domain packs, or evidence of universal agent compatibility. Official learning, promotion, deployment, and publication still require authenticated product-owned resolvers and authority that development fixtures do not provide. Live public-product research has not been completed in the current environment. Chrome control is available, but saved per-domain Browser Use preferences can block individual sites (GOV.UK was blocked in the current session), and the active profile has not established the dedicated signed-out isolation required for a controlled corpus. Permitted observations therefore remain evidence-only. Practitioner studies, qualified review, representative-user testing, multilingual calibration, and controlled product-outcome benchmarks remain open.
+This repository does not yet contain a published package installer, production skill distribution, hosted runtime, broad external-product adapters, production domain packs, or evidence of universal agent compatibility. The local workbench is implemented and verified, but it is not a hosted service. Official learning, promotion, deployment, and publication still require authenticated product-owned resolvers and authority that development fixtures do not provide. Public-product acquisition remains an evidence program rather than product authority, and inaccessible sites are recorded as unavailable without treating web research generally as blocked. Practitioner studies, qualified review, representative-user testing, multilingual calibration, and controlled product-outcome benchmarks remain open.
 
 ## Research question
 
