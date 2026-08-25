@@ -43,6 +43,18 @@ export interface ContextCompilerInput {
   sources: ContextSourceDocument[];
   claims: EvidenceClaim[];
   authority_assessments: AuthorityAssessment[];
+  proposed_guidance?: {
+    record_digest: string;
+    proposed_claims: Array<{
+      proposal_id: string;
+      claim_kind: ClaimKind;
+      value: JsonValue;
+      citations: Array<{ source_ref: string }>;
+      confidence: "high" | "medium" | "low";
+      decision_status: "proposed";
+      authority_effect: "none";
+    }>;
+  };
   discovery: {
     scan_digest: string;
     occurrences: ContextOccurrenceInput[];
@@ -301,6 +313,26 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
     }
   }
 
+  for (const proposal of input.proposed_guidance?.proposed_claims ?? []) {
+    const proposalNode = putNode({
+      ...node(
+        "evidence_claim",
+        proposal.proposal_id,
+        typeof proposal.value === "string" ? proposal.value : JSON.stringify(proposal.value),
+        proposal.citations.map((citation) => citation.source_ref),
+        {
+          claim_kind: proposal.claim_kind,
+          value: proposal.value,
+          confidence: proposal.confidence,
+          decision_status: "proposed",
+          interpretation_record_digest: input.proposed_guidance?.record_digest ?? "",
+        },
+      ),
+      node_id: proposal.proposal_id,
+    });
+    putEdge(product, "has_proposed_guidance", proposalNode);
+  }
+
   for (const occurrence of [...input.discovery.occurrences].sort((left, right) => left.occurrence_id.localeCompare(right.occurrence_id))) {
     const context = contextForOccurrence(occurrence);
     const evidence = [occurrence.occurrence_id];
@@ -445,6 +477,7 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
     })),
     claim_digests: orderedClaims.map((claim) => claim.claim_digest),
     assessment_digests: orderedAssessments.map((assessment) => assessment.assessment_digest),
+    proposed_guidance_digest: input.proposed_guidance?.record_digest ?? null,
     scan_digest: input.discovery.scan_digest,
   });
   return createContentGraph({

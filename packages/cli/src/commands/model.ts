@@ -1,4 +1,8 @@
+import { readFile } from "node:fs/promises";
 import {
+  compileProjectModel,
+  createRepositoryInterpretationPacket,
+  ingestRepositoryInterpretation,
   localArtifactRef,
   modelLocalProject,
   proposeProviderAuthorization,
@@ -18,6 +22,36 @@ export function registerModel(program: Command): void {
         data: result,
       };
     }));
+
+  model.command("packet").description("emit a bounded IDE interpretation packet")
+    .action(async (_options, command) => {
+      const options = command.optsWithGlobals() as RootOptions;
+      return runCommand(options, async () => {
+      const project = await compileProjectModel({ project_root: options.root });
+      const packet = createRepositoryInterpretationPacket(project);
+      return {
+        command_id: "model.packet",
+        record_refs: [packet.packet_digest],
+        data: packet,
+      };
+      });
+    });
+
+  model.command("ingest").description("ingest a cited proposed IDE interpretation")
+    .requiredOption("--input <file>", "interpretation response JSON")
+    .action(async (_options, command) => {
+      const options = command.optsWithGlobals() as RootOptions & { input: string };
+      return runCommand(options, async () => {
+      const response = JSON.parse(await readFile(options.input, "utf8")) as unknown;
+      const receipt = await ingestRepositoryInterpretation(options.root, response);
+      return {
+        command_id: "model.ingest",
+        record_refs: [receipt.record_digest, receipt.receipt_digest],
+        audit_ref: localArtifactRef(options.root, "repository-interpretation-receipt.json"),
+        data: receipt,
+      };
+      });
+    });
 
   model.command("authorize").description("propose provider authorization")
     .requiredOption("--provider <id>", "model provider")

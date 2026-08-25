@@ -26,6 +26,7 @@ const EXCLUDED_DIRECTORY_PATTERNS = [
   "**/venv",
   "**/.contentmd/cache",
   "**/.contentmd/local",
+  "**/.contentmd/records",
   "**/.contentmd/runtime",
 ];
 const IGNORED_DIRECTORY_PATTERNS = EXCLUDED_DIRECTORY_PATTERNS.map((pattern) => `${pattern}/**`);
