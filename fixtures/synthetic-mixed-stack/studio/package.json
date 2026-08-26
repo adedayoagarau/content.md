@@ -1,0 +1,12 @@
+{
+  "name": "synthetic-content-studio-web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "next": "15.5.0",
+    "react": "19.1.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

@@ -1,4 +1,5 @@
 import { access, readFile } from "node:fs/promises";
+import { constants } from "node:fs";
 import { join } from "node:path";
 
 export interface DoctorCheck {
@@ -23,6 +24,32 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+async function jsonIfPresent(path: string): Promise<Record<string, unknown> | null> {
+  try {
+    const value = JSON.parse(await readFile(path, "utf8")) as unknown;
+    return value !== null && typeof value === "object" && !Array.isArray(value)
+      ? value as Record<string, unknown>
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+async function writable(path: string): Promise<boolean> {
+  try {
+    await access(path, constants.W_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function record(value: unknown): Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
 export async function runDoctor(projectRoot: string): Promise<DoctorReport> {
   const contractPresent = await exists(join(projectRoot, "CONTENT.md"));
   const manifestPresent = await exists(join(projectRoot, ".contentmd/manifest.json"));
@@ -30,6 +57,32 @@ export async function runDoctor(projectRoot: string): Promise<DoctorReport> {
   const policyPresent = await exists(policyPath);
   const policy = policyPresent ? await readFile(policyPath, "utf8") : "";
   const publicationDenied = policy.includes("external_publication: deny");
+  const discovery = await jsonIfPresent(join(projectRoot, ".contentmd/runtime/discovery.json"));
+  const model = await jsonIfPresent(join(projectRoot, ".contentmd/runtime/model.json"));
+  const coverage = record(discovery?.coverage);
+  const failed = typeof coverage.failed === "number" ? coverage.failed : null;
+  const inventoried = typeof coverage.inventoried === "number" ? coverage.inventoried : null;
+  const scanned = typeof coverage.scanned === "number" ? coverage.scanned : null;
+  const modelGraph = record(model?.graph);
+  const modelNodes = Array.isArray(modelGraph.nodes) ? modelGraph.nodes.length : 0;
+  const assessments = Array.isArray(model?.assessments) ? model.assessments : [];
+  const conflictCount = assessments.filter((assessment) => (
+    Array.isArray(record(assessment).conflicting_claim_refs) &&
+    (record(assessment).conflicting_claim_refs as unknown[]).length > 0
+  )).length;
+  const manifest = await jsonIfPresent(join(projectRoot, ".contentmd/manifest.json"));
+  const bridgeEntries = Array.isArray(manifest?.managed_host_bridges) ? manifest.managed_host_bridges : [];
+  const bridgeStates = await Promise.all(bridgeEntries.map(async (entry) => {
+    const path = record(entry).relative_path;
+    if (typeof path !== "string") return false;
+    try {
+      const content = await readFile(join(projectRoot, path), "utf8");
+      return content.includes("<!-- contentmd:bridge:start -->") && content.includes("<!-- contentmd:bridge:end -->");
+    } catch {
+      return false;
+    }
+  }));
+  const repositoryWritable = await writable(projectRoot);
 
   const checks: DoctorCheck[] = [
     {
@@ -56,6 +109,45 @@ export async function runDoctor(projectRoot: string): Promise<DoctorReport> {
       check_id: "governance.owner",
       status: "warning",
       detail: "Project content owner is not established.",
+    },
+    {
+      check_id: "repository.inventory",
+      status: discovery === null ? "warning" : failed === 0 ? "pass" : "fail",
+      detail: discovery === null
+        ? "Repository inventory has not been persisted; run contentmd discover."
+        : `Repository coverage: inventoried=${inventoried ?? "unknown"}, scanned=${scanned ?? "unknown"}, failed=${failed ?? "unknown"}.`,
+    },
+    {
+      check_id: "repository.model",
+      status: model !== null && modelNodes > 0 ? "pass" : "warning",
+      detail: model !== null && modelNodes > 0
+        ? `Compiled model contains ${modelNodes} proposed nodes.`
+        : "Compiled repository model is unavailable; run contentmd model.",
+    },
+    {
+      check_id: "repository.source-conflicts",
+      status: model === null ? "warning" : conflictCount > 0 ? "warning" : "pass",
+      detail: model === null
+        ? "Source conflicts cannot be assessed until the repository model is compiled."
+        : conflictCount > 0
+          ? `${conflictCount} source conflict(s) remain explicit and unresolved by authority.`
+          : "No source conflicts are present in the compiled model.",
+    },
+    {
+      check_id: "host.bridges",
+      status: bridgeEntries.length === 0 ? "warning" : bridgeStates.every(Boolean) ? "pass" : "fail",
+      detail: bridgeEntries.length === 0
+        ? "No managed host bridge is recorded."
+        : bridgeStates.every(Boolean)
+          ? `${bridgeEntries.length} managed host bridge(s) contain the exact contentmd marker block.`
+          : "A managed host bridge is missing or changed.",
+    },
+    {
+      check_id: "permissions.repository-write",
+      status: repositoryWritable ? "pass" : "warning",
+      detail: repositoryWritable
+        ? "Repository write permission is available; mutation still requires exact approval."
+        : "Repository write permission is unavailable.",
     },
   ];
 

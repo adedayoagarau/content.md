@@ -9,6 +9,7 @@
   "references": [
     { "path": "../agent" },
     { "path": "../core" },
-    { "path": "../model-provider-openai" }
+    { "path": "../model-provider-openai" },
+    { "path": "../workbench" }
   ]
 }

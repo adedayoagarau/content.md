@@ -2,8 +2,6 @@ import { access, mkdir, open, readFile, rename, unlink, writeFile } from "node:f
 import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
 import {
-  previewFilesystemChange,
-  verifyFilesystemChange,
   type FilesystemApplyReceipt,
   type PreparedChangeTransaction,
 } from "@contentmd/adapter-filesystem";
@@ -23,6 +21,7 @@ import {
   recordContentDecision,
   restoreEvaluationSimulatorVault,
   type ContentDecisionInput,
+  type ContentDecisionRecord,
   type EvaluationRunResult,
   type EvaluationSimulatorSnapshot,
   type DriftDatasetReplay,
@@ -69,24 +68,34 @@ import {
   type RuntimeBinding,
 } from "@contentmd/runtime-sdk";
 import {
-  createContentTaskPacket,
   proposeContentDraft,
   proposeContentRewrite,
   proposeContentStrategy,
   type ContentDraftProposal,
   type ContentRewriteProposal,
   type ContentStrategyProposal,
+  type ContentTaskPacket,
   type WriterModelExecutionContext,
 } from "@contentmd/writer";
 import { executeAdoption, planAdoption, previewUninstall, type AdoptionReceipt } from "./adoption.js";
 import {
+  assertGovernedTaskChangeBinding,
   executeGovernedChange,
   executeGovernedRollback,
+  previewGovernedTaskChange,
+  verifyGovernedTaskReadback,
   type GovernedChangeResult,
   type GovernedRollbackResult,
 } from "./change-workflow.js";
 import { runDoctor, type DoctorReport } from "./doctor.js";
+import { FilesystemRuntimeArtifactStore } from "./local-artifacts.js";
 import { compileProjectModel, type ProjectModelResult } from "./model-workflow.js";
+import {
+  readPreparedContentTask,
+  readReviewedIdeCandidate,
+  type PreparedContentTask,
+  type ReviewedIdeCandidate,
+} from "./task-workflow.js";
 import {
   selectGovernedDraftAlternative,
   type GovernedDraftSelection,
@@ -166,12 +175,18 @@ function runtimePath(root: string, name: string): string {
   return join(root, RUNTIME_DIRECTORY, name);
 }
 
-export async function initializeLocalProject(root: string): Promise<AdoptionReceipt> {
+export async function initializeLocalProject(root: string, approvedPlanDigest: string): Promise<AdoptionReceipt> {
   const plan = await planAdoption(root);
+  if (plan.plan_digest !== approvedPlanDigest) throw new Error("adoption_approval_mismatch");
   const receipt = await executeAdoption(plan, {
     approval_id: `approval.local-adoption.${plan.plan_digest.slice(0, 16)}`,
     plan_digest: plan.plan_digest,
-    approved_paths: plan.creates.map((item) => item.relative_path),
+    approved_paths: [
+      ...plan.creates.map((item) => item.relative_path),
+      ...plan.bridge_previews
+        .filter((bridge) => bridge.status === "change_proposed")
+        .map((bridge) => bridge.relative_path),
+    ],
     status: "current",
   });
   await mkdir(join(root, RUNTIME_DIRECTORY), { recursive: true });
@@ -232,27 +247,8 @@ export async function reviewLocalProject(root: string): Promise<ReviewReport> {
   return report;
 }
 
-function fixtureTask() {
-  return createContentTaskPacket({
-    task_id: "task.fixture.checkout-content",
-    product_context_refs: ["product.beacon"],
-    audience_job_refs: ["audience.merchant-content-designer", "job.inspect-payment-states"],
-    journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],
-    semantic_message_ref: "message.safe-payment-recovery",
-    required_fact_refs: ["fact.payment-outcome-can-be-unknown", "fact.workspace-delete-local-only"],
-    prohibited_claims: ["smartest", "guaranteed outcome", "external publication authority"],
-    consequence: "A second payment attempt may duplicate a still-processing attempt.",
-    recovery: "Check the submitted payment status before another attempt.",
-    channel: "web",
-    locale: "en-US",
-    risk: "high",
-    evidence_refs: ["source.product", "source.design", "review.fixture"],
-    acceptance_criteria: [
-      "Do not declare failure when the outcome is unknown.",
-      "Do not invite another payment before status verification.",
-      "Name destructive actions and their affected object.",
-    ],
-  });
+async function repositoryTask(root: string): Promise<ContentTaskPacket> {
+  return (await readPreparedContentTask(root)).task;
 }
 
 async function recordedProvider(root: string): Promise<RecordedModelProvider> {
@@ -280,7 +276,7 @@ export async function createLocalStrategy(root: string, providerId: string): Pro
   if (providerId !== "recorded") throw new Error(`unsupported_provider:${providerId}`);
   const execution = await writerExecutionContext(root);
   const strategy = await proposeContentStrategy(await recordedProvider(root), {
-    task: fixtureTask(),
+    task: await repositoryTask(root),
     review_finding_refs: execution.context_items
       .filter((item) => item.data_class === "review_finding")
       .map((item) => item.source_ref.record_id)
@@ -296,7 +292,7 @@ export async function createLocalDraft(root: string, providerId: string): Promis
   if (providerId !== "recorded") throw new Error(`unsupported_provider:${providerId}`);
   const strategy = await readJson<ContentStrategyProposal>(runtimePath(root, "strategy.json"));
   const draft = await proposeContentDraft(await recordedProvider(root), {
-    task: fixtureTask(),
+    task: await repositoryTask(root),
     strategy,
     execution: await writerExecutionContext(root, false),
   });
@@ -389,7 +385,7 @@ export async function createLocalRewrite(root: string, providerId: string): Prom
   const strategy = await readJson<ContentStrategyProposal>(runtimePath(root, "strategy.json"));
   const draft = await readJson<ContentDraftProposal>(runtimePath(root, "draft.json"));
   const rewrite = await proposeContentRewrite(await recordedProvider(root), {
-    task: fixtureTask(),
+    task: await repositoryTask(root),
     strategy,
     draft,
     execution: await writerExecutionContext(root, false),
@@ -1942,35 +1938,62 @@ export async function statusLocalLearning(
 
 export async function localDiff(root: string, proposalId: string): Promise<{
   proposal_id: string;
-  diffs: ContentRewriteProposal["diffs"];
+  diffs: Array<{
+    source_artifact: string;
+    line: number;
+    column: number;
+    before: string;
+    after: string;
+    rationale: string;
+    mutation_status: "not_applied";
+  }>;
   source_proposal_ref: string;
 }> {
-  const rewrite = await readJson<ContentRewriteProposal>(runtimePath(root, "rewrite.json"));
-  if (proposalId !== "prop_fixture_delete_workspace_v1") throw new Error(`proposal_not_found:${proposalId}`);
-  return { proposal_id: proposalId, diffs: rewrite.diffs, source_proposal_ref: rewrite.proposal_id };
+  const review = await readReviewedIdeCandidate(root);
+  if (proposalId !== review.candidate_digest && proposalId !== `candidate.${review.candidate_digest}`) {
+    throw new Error(`proposal_not_found:${proposalId}`);
+  }
+  const diff = review.preview_diff;
+  return {
+    proposal_id: proposalId,
+    diffs: diff === null ? [] : [{
+      ...diff,
+      rationale: review.explanation,
+      mutation_status: "not_applied",
+    }],
+    source_proposal_ref: review.review_digest,
+  };
+}
+
+async function taskChangeArtifacts(root: string): Promise<{
+  prepared: PreparedContentTask;
+  review: ReviewedIdeCandidate;
+  decision: ContentDecisionRecord;
+}> {
+  const artifacts = new FilesystemRuntimeArtifactStore(root);
+  const [prepared, review, decision] = await Promise.all([
+    readPreparedContentTask(root),
+    readReviewedIdeCandidate(root),
+    artifacts.readCanonical<ContentDecisionRecord>("latest-decision.json"),
+  ]);
+  assertGovernedTaskChangeBinding(prepared, review, decision);
+  return { prepared, review, decision };
+}
+
+function governedLocalId(value: string): string {
+  if (!/^[A-Za-z0-9._-]+$/u.test(value)) throw new Error("change_identifier_invalid");
+  return value;
 }
 
 export async function previewLocalTransaction(root: string, transactionId: string): Promise<PreparedChangeTransaction> {
-  if (transactionId !== "txn_fixture_delete_workspace_v1") throw new Error(`transaction_not_supported:${transactionId}`);
-  const rewrite = await readJson<ContentRewriteProposal>(runtimePath(root, "rewrite.json"));
-  const diff = rewrite.diffs[0];
-  if (diff === undefined) throw new Error("rewrite_has_no_diff");
-  const transaction = await previewFilesystemChange({
+  governedLocalId(transactionId);
+  const context = await taskChangeArtifacts(root);
+  const transaction = await previewGovernedTaskChange({
     project_root: root,
-    operation_id: "operation.fixture.apply",
     transaction_id: transactionId,
-    proposal_id: "prop_fixture_delete_workspace_v1",
-    decision_id: "dec_fixture_delete_workspace_v1",
-    approval_id: "apr_fixture_delete_workspace_v1",
-    verification_id: "verify_fixture_delete_workspace_v1",
-    target_path: diff.source_artifact,
-    additional_target_paths: [],
-    line: diff.line,
-    column: diff.column,
-    before: diff.before,
-    after: diff.after,
+    ...context,
   });
-  await writeJsonAtomic(runtimePath(root, `transactions/${transactionId}.json`), transaction);
+  await new FilesystemRuntimeArtifactStore(root).writeCanonical(`transactions/${transactionId}.json`, transaction);
   return transaction;
 }
 
@@ -1979,19 +2002,33 @@ export async function applyLocalTransaction(
   transactionId: string,
   approvalId: string,
 ): Promise<GovernedChangeResult> {
-  const transaction = await readJson<PreparedChangeTransaction>(runtimePath(root, `transactions/${transactionId}.json`));
+  governedLocalId(transactionId);
+  governedLocalId(approvalId);
+  const artifacts = new FilesystemRuntimeArtifactStore(root);
+  const transaction = await artifacts.readCanonical<PreparedChangeTransaction>(`transactions/${transactionId}.json`);
+  const context = await taskChangeArtifacts(root);
+  assertGovernedTaskChangeBinding(context.prepared, context.review, context.decision, transaction);
   const authorization = await readJson<AuthorizationInput>(join(root, `.contentmd/governance/approvals/${approvalId}.json`));
   const result = await executeGovernedChange({ project_root: root, transaction, authorization_input: authorization });
-  await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.apply.json`), result.apply_receipt);
-  await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.verify.json`), result.verification_receipt);
+  await artifacts.writeCanonical(`receipts/${transactionId}.apply.json`, result.apply_receipt);
+  await artifacts.writeCanonical(`receipts/${transactionId}.verify.json`, result.verification_receipt);
   return result;
 }
 
 export async function verifyLocalTransaction(root: string, transactionId: string) {
-  const transaction = await readJson<PreparedChangeTransaction>(runtimePath(root, `transactions/${transactionId}.json`));
-  const receipt = await readJson<FilesystemApplyReceipt>(runtimePath(root, `receipts/${transactionId}.apply.json`));
-  const verification = await verifyFilesystemChange({ project_root: root, transaction, apply_receipt: receipt });
-  await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.verify.json`), verification);
+  governedLocalId(transactionId);
+  const artifacts = new FilesystemRuntimeArtifactStore(root);
+  const transaction = await artifacts.readCanonical<PreparedChangeTransaction>(`transactions/${transactionId}.json`);
+  const receipt = await artifacts.readCanonical<FilesystemApplyReceipt>(`receipts/${transactionId}.apply.json`);
+  const context = await taskChangeArtifacts(root);
+  const verification = await verifyGovernedTaskReadback({
+    project_root: root,
+    transaction_id: transactionId,
+    transaction,
+    apply_receipt: receipt,
+    ...context,
+  });
+  await artifacts.writeCanonical(`receipts/${transactionId}.verify.json`, verification);
   return verification;
 }
 
@@ -2000,8 +2037,13 @@ export async function rollbackLocalTransaction(
   transactionId: string,
   approvalId: string,
 ): Promise<GovernedRollbackResult> {
-  const transaction = await readJson<PreparedChangeTransaction>(runtimePath(root, `transactions/${transactionId}.json`));
-  const applyReceipt = await readJson<FilesystemApplyReceipt>(runtimePath(root, `receipts/${transactionId}.apply.json`));
+  governedLocalId(transactionId);
+  governedLocalId(approvalId);
+  const artifacts = new FilesystemRuntimeArtifactStore(root);
+  const transaction = await artifacts.readCanonical<PreparedChangeTransaction>(`transactions/${transactionId}.json`);
+  const context = await taskChangeArtifacts(root);
+  assertGovernedTaskChangeBinding(context.prepared, context.review, context.decision, transaction);
+  const applyReceipt = await artifacts.readCanonical<FilesystemApplyReceipt>(`receipts/${transactionId}.apply.json`);
   const authorization = await readJson<AuthorizationInput>(join(root, `.contentmd/governance/approvals/${approvalId}.json`));
   const result = await executeGovernedRollback({
     project_root: root,
@@ -2009,7 +2051,7 @@ export async function rollbackLocalTransaction(
     apply_receipt: applyReceipt,
     authorization_input: authorization,
   });
-  await writeJsonAtomic(runtimePath(root, `receipts/${transactionId}.rollback.json`), result.rollback_receipt);
+  await artifacts.writeCanonical(`receipts/${transactionId}.rollback.json`, result.rollback_receipt);
   return result;
 }
 

@@ -10,6 +10,10 @@ const evaluatedAt = "2026-08-22T12:00:00Z";
 
 const task = createContentTaskPacket({
   task_id: "task.product-example.fixture",
+  target_occurrence_refs: ["occurrence.fixture.target"],
+  voice_profile_refs: [],
+  terminology_refs: [],
+  decision_status: "proposed",
   product_context_refs: ["product.checkout"],
   audience_job_refs: ["audience.buyer", "job.recover-payment"],
   journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],

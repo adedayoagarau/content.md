@@ -17,6 +17,7 @@
     { "path": "packages/writer" },
     { "path": "packages/learning" },
     { "path": "packages/agent" },
+    { "path": "packages/workbench" },
     { "path": "packages/cli" }
   ]
 }

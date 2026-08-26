@@ -5,6 +5,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { canonicalJson } from "@contentmd/core";
 import {
   FilesystemLocalArtifactStore,
+  FilesystemRuntimeArtifactStore,
   LocalArtifactError,
 } from "../src/local-artifacts.js";
 
@@ -56,6 +57,24 @@ describe("filesystem local artifacts", () => {
     await symlink(outside, path);
 
     await expect(artifacts.readCanonical("provider-configuration.json"))
+      .rejects.toMatchObject({ code: "local_artifact_path_invalid" });
+  });
+
+  it("keeps governed runtime artifacts inside the fixed runtime directory", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-runtime-artifacts-"));
+    temporaryDirectories.push(root);
+    const artifacts = new FilesystemRuntimeArtifactStore(root);
+
+    await artifacts.writeCanonical("transactions/txn.safe.json", { safe: true });
+    expect(await artifacts.readCanonical("transactions/txn.safe.json")).toEqual({ safe: true });
+    await expect(artifacts.writeCanonical("../governance/escape.json", { safe: false }))
+      .rejects.toMatchObject({ code: "local_artifact_path_invalid" });
+
+    const linkedRoot = await mkdtemp(join(tmpdir(), "contentmd-runtime-linked-"));
+    const outside = await mkdtemp(join(tmpdir(), "contentmd-runtime-outside-"));
+    temporaryDirectories.push(linkedRoot, outside);
+    await symlink(outside, join(linkedRoot, ".contentmd"));
+    await expect(new FilesystemRuntimeArtifactStore(linkedRoot).writeCanonical("task.json", { safe: false }))
       .rejects.toMatchObject({ code: "local_artifact_path_invalid" });
   });
 });

@@ -285,6 +285,10 @@ function hasApprovalPayloadShape(value: unknown): value is ProjectFactApprovalPa
 function replayTask(task: ContentTaskPacket): ContentTaskPacket {
   return createContentTaskPacket({
     task_id: task.task_id,
+    target_occurrence_refs: task.target_occurrence_refs,
+    voice_profile_refs: task.voice_profile_refs,
+    terminology_refs: task.terminology_refs,
+    decision_status: task.decision_status,
     product_context_refs: task.product_context_refs,
     audience_job_refs: task.audience_job_refs,
     journey_state_refs: task.journey_state_refs,

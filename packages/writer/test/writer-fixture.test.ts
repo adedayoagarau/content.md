@@ -17,6 +17,10 @@ const execution = executionContextFixture as WriterModelExecutionContext;
 
 const task = createContentTaskPacket({
   task_id: "task.fixture.checkout-content",
+  target_occurrence_refs: ["occurrence.fixture.target"],
+  voice_profile_refs: [],
+  terminology_refs: [],
+  decision_status: "proposed",
   product_context_refs: ["product.beacon"],
   audience_job_refs: ["audience.merchant-content-designer", "job.inspect-payment-states"],
   journey_state_refs: ["journey.checkout", "state.payment-outcome-unknown"],

@@ -169,6 +169,11 @@ async function verifyPackageInventory(verificationRoot) {
     "inventory.learning-verifier",
     "independent learning verifier is exposed",
   );
+  invariant(
+    rootManifest.scripts?.["verify:repository-intelligence"] === "node scripts/verify-repository-intelligence.mjs",
+    "inventory.repository-intelligence-verifier",
+    "independent repository-intelligence verifier is exposed",
+  );
   for (const relativePath of [
     "scripts/generate-learning-fixtures.mts",
     "scripts/verify-learning.mjs",
@@ -199,6 +204,7 @@ async function verifyPackageInventory(verificationRoot) {
     "model-provider-sdk",
     "research",
     "schemas",
+    "workbench",
     "writer",
   ];
   invariant(

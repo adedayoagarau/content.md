@@ -2,6 +2,10 @@ import { sha256Canonical } from "@contentmd/core";
 
 export interface ContentTaskPacketInput {
   task_id: string;
+  target_occurrence_refs: string[];
+  voice_profile_refs: string[];
+  terminology_refs: string[];
+  decision_status: "proposed" | "reviewed" | "approved";
   product_context_refs: string[];
   audience_job_refs: string[];
   journey_state_refs: string[];
@@ -27,8 +31,8 @@ function assertString(value: string, field: string): void {
   if (value.trim().length === 0) throw new TypeError(`invalid_task_packet:${field}`);
 }
 
-function uniqueStrings(values: string[], field: string): string[] {
-  if (values.length === 0) throw new TypeError(`invalid_task_packet:${field}`);
+function uniqueStrings(values: string[], field: string, allowEmpty = false): string[] {
+  if (!allowEmpty && values.length === 0) throw new TypeError(`invalid_task_packet:${field}`);
   for (const value of values) assertString(value, field);
   return [...new Set(values)].sort();
 }
@@ -48,6 +52,10 @@ export function createContentTaskPacket(input: ContentTaskPacketInput): ContentT
   const preimage = {
     schema_version: "contentmd.task-packet/0.1.0" as const,
     task_id: input.task_id,
+    target_occurrence_refs: uniqueStrings(input.target_occurrence_refs, "target_occurrence_refs"),
+    voice_profile_refs: uniqueStrings(input.voice_profile_refs, "voice_profile_refs", true),
+    terminology_refs: uniqueStrings(input.terminology_refs, "terminology_refs", true),
+    decision_status: input.decision_status,
     product_context_refs: uniqueStrings(input.product_context_refs, "product_context_refs"),
     audience_job_refs: uniqueStrings(input.audience_job_refs, "audience_job_refs"),
     journey_state_refs: uniqueStrings(input.journey_state_refs, "journey_state_refs"),
@@ -63,5 +71,8 @@ export function createContentTaskPacket(input: ContentTaskPacketInput): ContentT
     acceptance_criteria: uniqueStrings(input.acceptance_criteria, "acceptance_criteria"),
     authority_effect: "none" as const,
   };
+  if (!["proposed", "reviewed", "approved"].includes(input.decision_status)) {
+    throw new TypeError("invalid_task_packet:decision_status");
+  }
   return { ...preimage, task_digest: sha256Canonical(preimage) };
 }

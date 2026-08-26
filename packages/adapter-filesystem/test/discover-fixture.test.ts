@@ -63,6 +63,25 @@ describe("FilesystemContentAdapter discovery", () => {
       ]),
     );
     expect(result.occurrences.every((item) => item.line >= 1 && item.column >= 1)).toBe(true);
+    expect(result.occurrences.filter((item) => [
+      "public/index.html",
+      "src/App.tsx",
+      "src/components/CheckoutSummary.tsx",
+      "src/messages/fr-CA.json",
+      "src/routes.ts",
+    ].includes(item.source_artifact) && [
+      "The smartest way to buy anything",
+      "Unlock a seamless experience that empowers your journey.",
+      "Action",
+      "Payment failed. Try again.",
+      "Hub",
+    ].includes(item.expression_payload)).map((item) => item.occurrence_id)).toEqual([
+      "occurrence.135fb5c15917add5cff7cdaa",
+      "occurrence.730b395d263e52ac61683e8e",
+      "occurrence.afb5aeb56b2e70391a8099ca",
+      "occurrence.bc8aa288c70c16e396415fd2",
+      "occurrence.3165c4299af9aae4ef7bba24",
+    ]);
     expect(result.scan_digest).toMatch(/^[a-f0-9]{64}$/);
   });
 
@@ -84,6 +103,49 @@ describe("FilesystemContentAdapter discovery", () => {
     expect(allText).not.toContain("PRIVATE OUTSIDE TEXT");
     expect(allText).not.toContain("IGNORED CASSETTE TEXT");
     expect(allText).not.toContain("IGNORED BUILD TEXT");
+  });
+
+  it("does not emit empty static strings as content occurrences", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-empty-content-fixture-"));
+    temporaryDirectories.push(root);
+    await writeFile(join(root, "package.json"), '{"name":"empty-content-fixture"}\n');
+    await writeFile(
+      join(root, "messages.ts"),
+      'export const messages = { title: "", body: "   ", label: "Continue" };\n',
+    );
+
+    const result = await new FilesystemContentAdapter().discover({ project_root: root });
+
+    expect(result.occurrences.map((item) => item.expression_payload)).toEqual(["Continue"]);
+  });
+
+  it("preserves source coordinates when multiline JSX whitespace is normalized", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-multiline-jsx-fixture-"));
+    temporaryDirectories.push(root);
+    await writeFile(join(root, "package.json"), '{"name":"multiline-jsx-fixture"}\n');
+    await writeFile(
+      join(root, "Page.tsx"),
+      [
+        "export function Page() {",
+        "  return <p>",
+        "    Review the order",
+        "    before continuing.",
+        "  </p>;",
+        "}",
+      ].join("\n"),
+    );
+
+    const result = await new FilesystemContentAdapter().discover({ project_root: root });
+
+    expect(result.coverage.failed).toBe(0);
+    expect(result.occurrences).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        expression_payload: "Review the order before continuing.",
+        line: 3,
+        column: 5,
+        end_line: 4,
+      }),
+    ]));
   });
 
   it("advertises only the implemented governed capabilities", () => {

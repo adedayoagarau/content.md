@@ -1,3 +1,12 @@
+import type {
+  ClaimKind,
+  EvidenceClaim,
+  EvidenceClass,
+  SourceLifecycle,
+} from "@contentmd/core";
+
+export type { ClaimKind, EvidenceClaim, EvidenceClass, SourceLifecycle } from "@contentmd/core";
+
 export type AdapterCapability =
   | "discover"
   | "preview"
@@ -17,6 +26,104 @@ export interface DiscoverRequest {
   project_root: string;
 }
 
+export type InventoryExclusionReason =
+  | "credential_or_environment"
+  | "private_or_bulk_data"
+  | "generated_output"
+  | "dependency_or_cache"
+  | "binary_or_oversize"
+  | "outside_project_root"
+  | "unavailable_symlink"
+  | "user_excluded";
+
+export interface InventoryArtifact {
+  relative_path: string;
+  content_digest: string;
+  byte_length: number;
+  extension: string;
+}
+
+export interface InventoryExclusion {
+  relative_path: string;
+  reason: InventoryExclusionReason;
+}
+
+export interface StackFact {
+  stack_id: string;
+  kind: "python" | "javascript" | "typescript" | "static_web" | "documentation";
+  workspace_root: string;
+  manifest_ref: string;
+  framework_hints: string[];
+  confidence: "high" | "medium" | "low";
+}
+
+export interface DiscoveryCoverage {
+  inventoried: number;
+  scanned: number;
+  skipped: number;
+  unsupported: number;
+  failed: number;
+}
+
+export interface RepositoryInventory {
+  contract_version: "contentmd.repository-inventory/0.2.0";
+  project_root: string;
+  artifacts: InventoryArtifact[];
+  exclusions: InventoryExclusion[];
+  stacks: StackFact[];
+  coverage: DiscoveryCoverage;
+  bytes_read: number;
+  resource_ceiling: { max_file_bytes: number };
+  authority_effect: "none";
+  inventory_digest: string;
+}
+
+export interface SourceCandidate {
+  source_id: string;
+  relative_path: string;
+  source_type: string;
+  adapter_id: string;
+  adapter_version: string;
+  content_digest: string;
+  lifecycle: SourceLifecycle;
+  evidence_class: EvidenceClass;
+  declared_date: string | null;
+  declared_owner: string | null;
+  scope: {
+    products: string[];
+    services: string[];
+    markets: string[];
+    locales: string[];
+    surfaces: string[];
+    versions: string[];
+  };
+  discovery_reason: string;
+  limitations: string[];
+  authority_effect: "none";
+}
+
+export interface ProjectIdentityProposal {
+  contract_version: "contentmd.project-identity-proposal/0.2.0";
+  proposed_project_id: string;
+  proposed_name: string;
+  evidence_refs: string[];
+  confidence: "high" | "medium" | "low";
+  authority_effect: "none";
+  proposal_digest: string;
+}
+
+export interface RepositoryClaimDraft {
+  claim_kind: ClaimKind;
+  subject: string;
+  value: string | string[];
+  source_ref: string;
+  source_span: { start_line: number; end_line: number };
+  source_links: Array<{ label: string; target: string; line: number }>;
+  confidence: "high" | "medium" | "low";
+  limitations: string[];
+  authority_effect: "none";
+}
+
 export type ContentSyntaxKind =
   | "jsx_text"
   | "jsx_attribute"
@@ -24,7 +131,11 @@ export type ContentSyntaxKind =
   | "locale_message"
   | "html_title"
   | "html_attribute"
-  | "html_metadata";
+  | "html_metadata"
+  | "route_declaration"
+  | "route_metadata"
+  | "user_facing_literal"
+  | "html_text";
 
 export type ContentChannel = "web" | "email" | "sms" | "api" | "unknown";
 export type ContentModality = "visible" | "assistive" | "metadata" | "machine";
@@ -52,6 +163,11 @@ export interface DiscoverResult {
   adapter_version: string;
   project_root: string;
   scan_digest: string;
+  inventory: RepositoryInventory;
+  source_candidates: SourceCandidate[];
+  parser_claims: RepositoryClaimDraft[];
+  evidence_claims: EvidenceClaim[];
+  coverage: DiscoveryCoverage;
   scanned_artifacts: string[];
   occurrences: DiscoveredContentOccurrence[];
   warnings: string[];

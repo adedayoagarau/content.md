@@ -13,6 +13,7 @@ import {
   type ExpressionSlotIdentity,
   type SemanticMessageIdentity,
 } from "./message-identity.js";
+import type { AuthorityAssessment, ClaimKind, EvidenceClaim } from "./evidence-claims.js";
 
 export interface ContextSourceDocument {
   source_id: string;
@@ -40,6 +41,20 @@ export interface ContextOccurrenceInput {
 export interface ContextCompilerInput {
   project_id: string;
   sources: ContextSourceDocument[];
+  claims: EvidenceClaim[];
+  authority_assessments: AuthorityAssessment[];
+  proposed_guidance?: {
+    record_digest: string;
+    proposed_claims: Array<{
+      proposal_id: string;
+      claim_kind: ClaimKind;
+      value: JsonValue;
+      citations: Array<{ source_ref: string }>;
+      confidence: "high" | "medium" | "low";
+      decision_status: "proposed";
+      authority_effect: "none";
+    }>;
+  };
   discovery: {
     scan_digest: string;
     occurrences: ContextOccurrenceInput[];
@@ -60,21 +75,6 @@ interface MessageContext {
 
 function graphNodeId(nodeType: ContentGraphNodeType, key: string): string {
   return `${nodeType}.${sha256Canonical({ node_type: nodeType, key }).slice(0, 32)}`;
-}
-
-function firstHeading(content: string): string | null {
-  const match = /^#\s+(.+?)\s*$/mu.exec(content);
-  return match?.[1]?.trim() ?? null;
-}
-
-function primaryAudience(content: string): string | null {
-  const match = /\bprimary user is\s+([^\.\n]+)/iu.exec(content);
-  return match?.[1]?.trim().replace(/^(?:a|an|the)\s+/iu, "") ?? null;
-}
-
-function primaryJob(content: string): string | null {
-  const match = /\bmerchant teams\s+([^\.\n]+)/iu.exec(content);
-  return match?.[1]?.trim() ?? null;
 }
 
 function contextForOccurrence(occurrence: ContextOccurrenceInput): MessageContext {
@@ -154,6 +154,34 @@ function node(
   };
 }
 
+function claimLabel(claim: EvidenceClaim): string {
+  if (typeof claim.value === "string") return claim.value;
+  if (Array.isArray(claim.value) && claim.value.every((item) => typeof item === "string")) {
+    return claim.value.join(" → ");
+  }
+  return JSON.stringify(claim.value);
+}
+
+function selectedClaims(
+  claims: EvidenceClaim[],
+  assessments: AuthorityAssessment[],
+): EvidenceClaim[] {
+  const byId = new Map(claims.map((claim) => [claim.claim_id, claim]));
+  return assessments.flatMap((assessment) => {
+    if (assessment.selected_claim_ref === null) return [];
+    const claim = byId.get(assessment.selected_claim_ref);
+    return claim === undefined ? [] : [claim];
+  });
+}
+
+function selectedClaim(
+  claims: EvidenceClaim[],
+  kind: ClaimKind,
+  subject?: RegExp,
+): EvidenceClaim | null {
+  return claims.find((claim) => claim.claim_kind === kind && (subject === undefined || subject.test(claim.subject))) ?? null;
+}
+
 export function compileContentContext(input: ContextCompilerInput): ContentGraph {
   if (input.project_id.trim().length === 0) throw new TypeError("project_id must be nonempty");
   const nodes = new Map<string, ContentGraphNode>();
@@ -178,25 +206,132 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
   };
 
   const sortedSources = [...input.sources].sort((left, right) => left.locator.localeCompare(right.locator));
-  const productSource = sortedSources.find((source) => source.source_type === "product_document") ?? sortedSources[0];
-  const productLabel = productSource === undefined ? input.project_id : firstHeading(productSource.content) ?? input.project_id;
-  const product = putNode(node("product", input.project_id, productLabel, productSource === undefined ? [] : [productSource.source_id], {
-    project_id: input.project_id,
-    source_status: productSource === undefined ? "not_established" : "source_present_not_approved",
-  }));
+  const orderedClaims = [...input.claims].sort((left, right) => left.claim_id.localeCompare(right.claim_id, "en"));
+  const orderedAssessments = [...input.authority_assessments]
+    .sort((left, right) => left.assessment_id.localeCompare(right.assessment_id, "en"));
+  const selected = selectedClaims(orderedClaims, orderedAssessments);
+  const productClaim = selectedClaim(selected, "product_identity", /^product name$/iu) ??
+    selectedClaim(selected, "product_identity");
+  const audienceClaim = selectedClaim(selected, "audience_job", /audience|primary user/iu);
+  const jobClaim = selectedClaim(selected, "audience_job", /job|users and jobs/iu);
+  const workflowClaim = selectedClaim(selected, "workflow_stage");
+  const product = putNode(node(
+    "product",
+    input.project_id,
+    productClaim === null ? input.project_id : claimLabel(productClaim),
+    productClaim === null ? [] : [productClaim.claim_id, productClaim.source_ref],
+    {
+      project_id: input.project_id,
+      source_status: productClaim === null ? "not_established" : "selected_provisional_claim",
+    },
+  ));
 
-  const sourceText = sortedSources.map((source) => source.content).join("\n");
-  const audienceLabel = primaryAudience(sourceText) ?? "primary audience not established";
-  const audience = putNode(node("audience", audienceLabel, audienceLabel, sortedSources.map((source) => source.source_id), {
-    establishment: primaryAudience(sourceText) === null ? "open_question" : "documented_proposal",
-  }));
-  putEdge(product, "has_audience", audience);
+  const audience = audienceClaim === null ? null : putNode(node(
+    "audience", audienceClaim.claim_id, claimLabel(audienceClaim),
+    [audienceClaim.claim_id, audienceClaim.source_ref],
+    { establishment: "selected_provisional_claim" },
+  ));
+  if (audience !== null) putEdge(product, "has_audience", audience);
 
-  const jobLabel = primaryJob(sourceText) ?? "primary user job not established";
-  const job = putNode(node("job", jobLabel, jobLabel, sortedSources.map((source) => source.source_id), {
-    establishment: primaryJob(sourceText) === null ? "open_question" : "documented_proposal",
-  }));
-  putEdge(audience, "performs", job);
+  const job = jobClaim === null ? null : putNode(node(
+    "job", jobClaim.claim_id, claimLabel(jobClaim),
+    [jobClaim.claim_id, jobClaim.source_ref],
+    { establishment: "selected_provisional_claim" },
+  ));
+  if (job !== null) putEdge(audience ?? product, audience === null ? "has_job" : "performs", job);
+
+  if (workflowClaim !== null) {
+    const stages = Array.isArray(workflowClaim.value)
+      ? workflowClaim.value.filter((item): item is string => typeof item === "string")
+      : [];
+    const journey = putNode(node(
+      "journey", workflowClaim.claim_id, claimLabel(workflowClaim),
+      [workflowClaim.claim_id, workflowClaim.source_ref],
+      { establishment: "selected_provisional_claim" },
+    ));
+    putEdge(product, "has_journey", journey);
+    stages.forEach((stageLabel, index) => {
+      const stage = putNode(node(
+        "stage", `${workflowClaim.claim_id}:${index}`, stageLabel,
+        [workflowClaim.claim_id, workflowClaim.source_ref],
+        { journey: journey.label, order: index + 1 },
+      ));
+      putEdge(journey, "has_stage", stage);
+    });
+  }
+
+  for (const claim of orderedClaims) {
+    const claimNode = putNode({
+      ...node("evidence_claim", claim.claim_id, claimLabel(claim), [claim.claim_id, claim.source_ref], {
+        claim_kind: claim.claim_kind,
+        subject: claim.subject,
+        evidence_class: claim.evidence_class,
+        lifecycle: claim.lifecycle,
+        value: claim.value,
+        scope: claim.scope,
+      }),
+      node_id: claim.claim_id,
+    });
+    putEdge(product, "has_evidence_claim", claimNode);
+    if (claim.claim_kind === "voice_guidance") {
+      const voice = putNode(node(
+        "voice_dimension", claim.claim_id, claimLabel(claim), [claim.claim_id, claim.source_ref],
+        { subject: claim.subject, selection_status: selected.includes(claim) ? "selected" : "candidate" },
+      ));
+      putEdge(product, "has_voice_dimension", voice);
+    }
+  }
+
+  for (const assessment of orderedAssessments) {
+    const references = [
+      ...(assessment.selected_claim_ref === null ? [] : [assessment.selected_claim_ref]),
+      ...assessment.supporting_claim_refs,
+      ...assessment.conflicting_claim_refs,
+    ];
+    const assessmentNode = putNode({
+      ...node("authority_assessment", assessment.assessment_id, `${assessment.claim_kind}: ${assessment.subject}`, references, {
+        selected_claim_ref: assessment.selected_claim_ref,
+        supporting_claim_refs: assessment.supporting_claim_refs,
+        conflicting_claim_refs: assessment.conflicting_claim_refs,
+        superseded_claim_refs: assessment.superseded_claim_refs,
+        resolution: assessment.resolution,
+      }),
+      node_id: assessment.assessment_id,
+    });
+    putEdge(product, "has_authority_assessment", assessmentNode);
+    if (assessment.conflicting_claim_refs.length > 0) {
+      const conflict = putNode(node(
+        "conflict", assessment.assessment_id, `${assessment.claim_kind}: ${assessment.subject}`,
+        references,
+        {
+          status: assessment.selected_claim_ref === null ? "unresolved" : "resolved_provisionally",
+          selected_claim_ref: assessment.selected_claim_ref,
+          conflicting_claim_refs: assessment.conflicting_claim_refs,
+        },
+      ));
+      putEdge(assessmentNode, "records_conflict", conflict);
+    }
+  }
+
+  for (const proposal of input.proposed_guidance?.proposed_claims ?? []) {
+    const proposalNode = putNode({
+      ...node(
+        "evidence_claim",
+        proposal.proposal_id,
+        typeof proposal.value === "string" ? proposal.value : JSON.stringify(proposal.value),
+        proposal.citations.map((citation) => citation.source_ref),
+        {
+          claim_kind: proposal.claim_kind,
+          value: proposal.value,
+          confidence: proposal.confidence,
+          decision_status: "proposed",
+          interpretation_record_digest: input.proposed_guidance?.record_digest ?? "",
+        },
+      ),
+      node_id: proposal.proposal_id,
+    });
+    putEdge(product, "has_proposed_guidance", proposalNode);
+  }
 
   for (const occurrence of [...input.discovery.occurrences].sort((left, right) => left.occurrence_id.localeCompare(right.occurrence_id))) {
     const context = contextForOccurrence(occurrence);
@@ -290,6 +425,20 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
     putEdge(version, "implemented_at", implementation);
   }
 
+  const missingClaims = [
+    { key: "product_identity", missing: productClaim === null, label: "What is the product's established identity?" },
+    { key: "primary_audience", missing: audienceClaim === null, label: "Who is the primary audience?" },
+    { key: "primary_job", missing: jobClaim === null, label: "What is the primary user job?" },
+    { key: "workflow", missing: workflowClaim === null, label: "What is the primary end-to-end workflow?" },
+  ];
+  for (const gap of missingClaims.filter((item) => item.missing)) {
+    const gapNode = putNode(node("coverage_gap", gap.key, gap.label, [], {
+      missing_claim: gap.key,
+      status: "not_established",
+    }));
+    putEdge(product, "has_coverage_gap", gapNode);
+  }
+
   const openQuestions = [
     {
       key: "content_change_approver",
@@ -306,6 +455,11 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
       label: "Who can authorize external publication?",
       reason: "No publication grant was supplied.",
     },
+    ...missingClaims.filter((item) => item.missing).map((item) => ({
+      key: `missing_${item.key}`,
+      label: item.label,
+      reason: `No selected ${item.key} evidence claim was available.`,
+    })),
   ];
   for (const question of openQuestions) {
     const questionNode = putNode(node("open_question", question.key, question.label, [], {
@@ -321,6 +475,9 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
       locator: source.locator,
       content_digest: source.content_digest,
     })),
+    claim_digests: orderedClaims.map((claim) => claim.claim_digest),
+    assessment_digests: orderedAssessments.map((assessment) => assessment.assessment_digest),
+    proposed_guidance_digest: input.proposed_guidance?.record_digest ?? null,
     scan_digest: input.discovery.scan_digest,
   });
   return createContentGraph({

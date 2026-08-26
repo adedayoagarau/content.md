@@ -10,6 +10,7 @@
     "@contentmd/agent": "workspace:*",
     "@contentmd/core": "workspace:*",
     "@contentmd/model-provider-openai": "workspace:*",
+    "@contentmd/workbench": "workspace:*",
     "commander": "15.0.0"
   }
 }

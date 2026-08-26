@@ -14,6 +14,12 @@ export type ContentGraphNodeType =
   | "expression_slot"
   | "expression_version"
   | "implementation_occurrence"
+  | "evidence_claim"
+  | "authority_assessment"
+  | "conflict"
+  | "persona"
+  | "voice_dimension"
+  | "coverage_gap"
   | "open_question";
 
 export interface ContentGraphNode {

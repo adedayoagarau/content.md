@@ -44,28 +44,54 @@ function within(root: string, candidate: string): boolean {
 }
 
 export class FilesystemLocalArtifactStore implements LocalArtifactStore {
-  readonly #basePath: string;
+  readonly #projectRoot: string;
+  readonly #scopedParts: string[];
 
-  constructor(projectRoot: string) {
+  constructor(projectRoot: string, scopedDirectory = ".contentmd/runtime/provider") {
     if (typeof projectRoot !== "string" || projectRoot.length === 0) {
       throw new LocalArtifactError("local_artifact_path_invalid");
     }
-    this.#basePath = resolve(projectRoot, ".contentmd/runtime/provider");
+    if (!allowedRelativePath(scopedDirectory)) {
+      throw new LocalArtifactError("local_artifact_path_invalid");
+    }
+    this.#projectRoot = resolve(projectRoot);
+    this.#scopedParts = scopedDirectory.split("/");
+  }
+
+  async #base(create: boolean): Promise<string> {
+    let root: string;
+    try {
+      root = await realpath(this.#projectRoot);
+    } catch {
+      throw new LocalArtifactError(create ? "local_artifact_write_failed" : "local_artifact_read_failed");
+    }
+    let current = root;
+    for (const part of this.#scopedParts) {
+      current = join(current, part);
+      try {
+        const stat = await lstat(current);
+        if (stat.isSymbolicLink() || !stat.isDirectory()) {
+          throw new LocalArtifactError("local_artifact_path_invalid");
+        }
+      } catch (error) {
+        if (error instanceof LocalArtifactError) throw error;
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT" || !create) {
+          throw new LocalArtifactError(create ? "local_artifact_write_failed" : "local_artifact_read_failed");
+        }
+        await mkdir(current, { mode: 0o700 });
+      }
+      const actual = await realpath(current);
+      if (!within(root, actual)) throw new LocalArtifactError("local_artifact_path_invalid");
+      current = actual;
+    }
+    return current;
   }
 
   async #target(relativePath: string, createParent: boolean): Promise<string> {
     if (!allowedRelativePath(relativePath)) {
       throw new LocalArtifactError("local_artifact_path_invalid");
     }
-    if (createParent) await mkdir(this.#basePath, { recursive: true, mode: 0o700 });
-    let base: string;
-    try {
-      base = await realpath(this.#basePath);
-    } catch {
-      throw new LocalArtifactError(createParent
-        ? "local_artifact_write_failed"
-        : "local_artifact_read_failed");
-    }
+    const base = await this.#base(createParent);
     const target = join(base, ...relativePath.split(/[\\/]/u));
     if (!within(base, target)) throw new LocalArtifactError("local_artifact_path_invalid");
     const parent = resolve(target, "..");
@@ -81,7 +107,18 @@ export class FilesystemLocalArtifactStore implements LocalArtifactStore {
     if (actualParent !== base && !within(base, actualParent)) {
       throw new LocalArtifactError("local_artifact_path_invalid");
     }
-    return join(actualParent, target.slice(parent.length + 1));
+    const resolvedTarget = join(actualParent, target.slice(parent.length + 1));
+    try {
+      if ((await lstat(resolvedTarget)).isSymbolicLink()) {
+        throw new LocalArtifactError("local_artifact_path_invalid");
+      }
+    } catch (error) {
+      if (error instanceof LocalArtifactError) throw error;
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+        throw new LocalArtifactError(createParent ? "local_artifact_write_failed" : "local_artifact_read_failed");
+      }
+    }
+    return resolvedTarget;
   }
 
   async writeCanonical(relativePath: string, value: unknown): Promise<void> {
@@ -138,5 +175,11 @@ export class FilesystemLocalArtifactStore implements LocalArtifactStore {
       throw new LocalArtifactError("local_artifact_noncanonical");
     }
     return value as T;
+  }
+}
+
+export class FilesystemRuntimeArtifactStore extends FilesystemLocalArtifactStore {
+  constructor(projectRoot: string) {
+    super(projectRoot, ".contentmd/runtime");
   }
 }
