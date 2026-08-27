@@ -41,13 +41,28 @@ describe("local workbench server", () => {
       const response = await fetch(server.url);
       expect(response.status).toBe(200);
       expect(response.headers.get("content-security-policy")).toContain("default-src 'self'");
+      expect(response.headers.get("content-security-policy")).toContain("script-src 'self'");
       expect(response.headers.get("x-content-type-options")).toBe("nosniff");
       expect(response.headers.get("cache-control")).toBe("no-store");
+      expect(response.headers.get("origin-agent-cluster")).toBe("?1");
+      expect(response.headers.get("permissions-policy")).toBe("tools=(self)");
+      expect(await response.text()).toContain('<script src="/webmcp.js" defer></script>');
 
       const modelResponse = await fetch(`${server.url}model.json`);
       const modelText = await modelResponse.text();
       expect(modelText).not.toContain('"content":');
       expect(modelText).not.toContain("PRIVATE_DATA_CANARY");
+      const webmcpResponse = await fetch(`${server.url}webmcp.js`);
+      const webmcpModule = await webmcpResponse.text();
+      expect(webmcpResponse.headers.get("content-type")).toBe("text/javascript; charset=utf-8");
+      expect(webmcpModule).toContain("document.modelContext");
+      expect(webmcpModule).toContain("contentmd.get_project_overview");
+      expect(webmcpModule).toContain("contentmd.get_content_context");
+      expect(webmcpModule).toContain("contentmd.inspect_reviewed_task");
+      expect(webmcpModule).toContain("contentmd.list_governance_constraints");
+      expect(webmcpModule).toContain("readOnlyHint: true");
+      expect(webmcpModule).toContain("untrustedContentHint: true");
+      expect(webmcpModule).not.toContain("PRIVATE_DATA_CANARY");
       expect((await fetch(`${server.url}docs/context/PRODUCT-IDENTITY.md`)).status).toBe(404);
     } finally {
       await server.close();
