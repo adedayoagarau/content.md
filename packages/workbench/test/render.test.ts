@@ -52,6 +52,7 @@ describe("local task-first workbench rendering", () => {
     expect(html).toContain("<meter");
     expect(html).toContain("<ol");
     expect(html).toContain("<svg");
+    expect(html).toContain('<script src="/webmcp.js" defer></script>');
     expect(html).not.toContain("<script>unsafe()</script>");
     expect(html).not.toContain("PRIVATE_DATA_CANARY");
   });

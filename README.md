@@ -49,6 +49,23 @@ pnpm contentmd serve --root /absolute/path/to/project
 
 `serve` opens a loopback-only, read-only workbench. Drafting and explanation are the default; apply remains unavailable until the user records the semantic decision and supplies a separate, current mutation approval.
 
+### Use the workbench with WebMCP
+
+The local workbench registers a small read-only WebMCP surface when the browser supports `document.modelContext`. Start the workbench normally, open the printed loopback URL, and inspect the page with a WebMCP-capable browser agent or the Chrome Model Context Tool Inspector:
+
+```bash
+pnpm contentmd serve --root /absolute/path/to/project
+```
+
+For local Chrome testing, enable `chrome://flags/#enable-webmcp-testing` and relaunch Chrome. The page registers these tools:
+
+- `contentmd.get_project_overview`
+- `contentmd.get_content_context`
+- `contentmd.inspect_reviewed_task`
+- `contentmd.list_governance_constraints`
+
+All four tools read the same bounded projections shown by the workbench. They are marked read-only, treat repository-derived output as untrusted, and always report `authority_effect: "none"`. They cannot prepare or accept decisions, mutate files, grant approval, apply or roll back changes, access connectors, release, or publish content. Browsers without WebMCP support continue to receive the ordinary workbench without an error.
+
 Recorded browser evidence is supported through a bounded adapter, but live browser acquisition is not implied by a record. The current public UX-writing corpus is project-owned and synthetic; it contains no competitor wording as model input.
 
 The verified portable local runtime exposes 12 focused interfaces for authorized event storage, blobs, jobs, approvals, progress, export, scheduling, ingress, secrets, synchronization, health, and cleanup. Every operation is bound to a current opaque authorization, append-only audit, replay control, and independently verified binding readback. A Cloudflare-shaped host can be detected, but the candidate is deliberately non-bindable: this repository has no Cloudflare adapter, Agents SDK production dependency, deployment, or production-host verification.

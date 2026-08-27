@@ -207,5 +207,5 @@ export function renderWorkbench(model: ProjectModelResult, taskReview: Workbench
   <section class="section"><h2>Voice and personas</h2><h3>Voice dimensions</h3>${voice(view)}<h3>Personas</h3>${personas}</section>
   <section class="section"><h2>Evidence and conflicts</h2>${nodeList(view,["evidence_claim","conflict","open_question"])}</section>
   <section class="section wide"><h2>Decisions and governance</h2><p>Everything shown remains <strong>proposed</strong>. The workbench cannot edit source files, approve guidance, publish content, or grant authority.</p><h3>Open uncertainty</h3>${uncertainty.length === 0 ? '<p class="muted">No explicit uncertainty recorded.</p>' : `<ul>${uncertainty.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`}</section></div>
-  </main></body></html>`;
+  </main><script src="/webmcp.js" defer></script></body></html>`;
 }

@@ -4,10 +4,11 @@ import { isAbsolute, join, relative, sep } from "node:path";
 import { canonicalJson } from "@contentmd/core";
 import type { ProjectModelResult, ReviewedIdeCandidate } from "@contentmd/agent";
 import { projectWorkbenchModel, renderWorkbench } from "./render.js";
+import { WEBMCP_MODULE } from "./webmcp.js";
 
 const MODEL_PATH = ".contentmd/runtime/model.json";
 const REVIEW_PATH = ".contentmd/runtime/task-review.json";
-const CSP = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'none'; frame-ancestors 'none'";
+const CSP = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'";
 
 export interface StartWorkbenchOptions {
   root: string;
@@ -27,6 +28,8 @@ function controlledHeaders(contentType: string): Record<string, string> {
     "X-Content-Type-Options": "nosniff",
     "Cache-Control": "no-store",
     "Referrer-Policy": "no-referrer",
+    "Origin-Agent-Cluster": "?1",
+    "Permissions-Policy": "tools=(self)",
   };
 }
 
@@ -100,6 +103,7 @@ export async function startWorkbench(options: StartWorkbenchOptions): Promise<Wo
     if (path === "/") send(response, 200, "text/html; charset=utf-8", html, head);
     else if (path === "/model.json") send(response, 200, "application/json; charset=utf-8", modelJson, head);
     else if (path === "/task.json") send(response, review === null ? 404 : 200, "application/json; charset=utf-8", review === null ? canonicalJson({ error: "task_not_found" }) : taskJson, head);
+    else if (path === "/webmcp.js") send(response, 200, "text/javascript; charset=utf-8", WEBMCP_MODULE, head);
     else send(response, 404, "text/plain; charset=utf-8", "Not found", head);
   });
   await new Promise<void>((resolve, reject) => {
