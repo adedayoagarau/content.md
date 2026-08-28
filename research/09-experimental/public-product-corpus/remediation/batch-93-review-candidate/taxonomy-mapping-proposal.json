@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_taxonomy_mapping_proposal",
+  "status": "independent_review_required",
+  "raw_signature": {
+    "journey": "success",
+    "event_state": "password generated",
+    "content_slot_type": "status",
+    "surface_channel": "web"
+  },
+  "proposed_normalized_signature": {
+    "coverage_slot_id": "success",
+    "journey_family_id": "journey.completion",
+    "state_class_id": "state.completed",
+    "content_slot_class_id": "content.feedback.status",
+    "surface_channel_id": "channel.web"
+  },
+  "rationale": "The user's local generation action has completed and the interface explicitly identifies the resulting generated password. The proposal covers the completion confirmation, not the generated secret, readiness copy, or a promotional call to action.",
+  "candidate_evidence_ref": "batch-93-review-candidate:observation:obs-1password-password-generated-93-candidate",
+  "counterexample_boundary": "Do not apply to password-strength guidance, an empty generator, a disabled control, a password merely ready to generate, or any secret whose generation is not explicitly confirmed.",
+  "required_reviewers": [
+    "qualified_content_designer",
+    "taxonomy_steward"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

@@ -1,0 +1,26 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-88-govuk-passport-review.ola",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "candidate_ref": "remediation/batch-88-review-candidate/manifest.json",
+  "review_scope": "taxonomy and five-slot coverage fit of GOV.UK Passport evidence",
+  "prefilled_findings": {
+    "new_taxonomy_mapping_required": false,
+    "added_coverage_slots": ["entry_onboarding", "destructive_permission_support", "error_recovery"],
+    "existing_coverage_slots": ["core_task_commitment", "pending_progress"],
+    "passport_service_reaches_five_distinct_slots": true,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm service landing maps to entry_onboarding",
+    "confirm help route index maps to destructive_permission_support",
+    "confirm validation failure maps to error_recovery",
+    "confirm all three raw signatures exactly match reviewed mappings",
+    "confirm no duplicate canonical slot is counted twice"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

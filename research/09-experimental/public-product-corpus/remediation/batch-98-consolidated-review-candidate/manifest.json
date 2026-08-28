@@ -1,0 +1,39 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-98",
+  "status": "consolidated_evidence_verified_taxonomy_and_independent_review_required",
+  "replacement_scope": "complete current active projection plus all evidence candidates through batch 97; atomic supersession required after taxonomy review",
+  "source_count": 513,
+  "observation_count": 446,
+  "consolidates_review_candidates": [
+    "remediation/batch-91-consolidated-review-candidate/manifest.json",
+    "remediation/batch-92-review-candidate/manifest.json",
+    "remediation/batch-93-review-candidate/manifest.json",
+    "remediation/batch-94-review-candidate/manifest.json",
+    "remediation/batch-95-review-candidate/manifest.json",
+    "remediation/batch-96-review-candidate/manifest.json",
+    "remediation/batch-97-review-candidate/manifest.json"
+  ],
+  "isolated_projection_verification": {
+    "status": "fail",
+    "error_count": 181,
+    "unexpected_candidate_error_count": 0,
+    "expected_taxonomy_unmapped_count": 6,
+    "direct_observed_slots_under_active_taxonomy": 226,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target_under_active_taxonomy": 4,
+    "insufficient_direct_states_count_under_active_taxonomy": 172,
+    "report_digest": "5f9e4b8e103611a044edccf9bfbfedd34e080bafbe25cac921fb853faf754e27"
+  },
+  "proposed_taxonomy_coverage_preview_ref": "remediation/2026-08-27-post-taxonomy-proposal-coverage-preview.json",
+  "activation_boundary": {
+    "mode": "successor taxonomy plus single atomic governed supersession",
+    "individual_evidence_candidates_become_audit_history": true,
+    "activated_batches_must_not_be_edited": true,
+    "mutation_performed": false
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

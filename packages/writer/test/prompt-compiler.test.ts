@@ -303,4 +303,39 @@ describe("versioned writer prompt compiler", () => {
     expect(compiledRewrite.input).toContain('"operation":"rewrite"');
     expect(compiledRewrite.instructions).toContain("not apply");
   });
+
+  it("includes a deterministic repair brief only when explicitly supplied", () => {
+    const common = {
+      project_id: "project.fixture",
+      task,
+      strategy,
+      draft,
+      context_packet_ref: contextPacketRef,
+      retrieval_snapshot_ref: retrievalSnapshotRef,
+      context_items: contextItems(),
+    };
+    const withoutBrief = compileRewritePrompt(common);
+    const repairBrief = {
+      contract_version: "contentmd.ux-writing-repair-brief/0.1.0" as const,
+      brief_id: "uxwrepair.fixture",
+      request_ref: "uxw.request.fixture",
+      review_report_ref: "uxwreview.fixture",
+      preserve: ["Outcome is unknown"],
+      must_change: ["Remove unsafe retry"],
+      must_not_claim: ["Payment failed"],
+      required_facts: ["Outcome may be unknown"],
+      consequence: "Duplicate payment",
+      recovery: "Check status",
+      channel: "web",
+      locale: "en-US",
+      acceptance_criteria: ["No unsafe retry"],
+      unresolved_questions: [],
+      authority_effect: "none" as const,
+      brief_digest: "0".repeat(64),
+    };
+    const withBrief = compileRewritePrompt({ ...common, repair_brief: repairBrief });
+    expect(withoutBrief.input).not.toContain("repair_brief");
+    expect(withBrief.input).toContain('"repair_brief"');
+    expect(withBrief.prompt_digest).not.toBe(withoutBrief.prompt_digest);
+  });
 });

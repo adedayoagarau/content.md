@@ -1,0 +1,2731 @@
+{
+  "contract_version": "contentmd.public-product-taxonomy-mapping-remediation-assignment/0.1.0",
+  "assignment_id": "taxonomy-mapping-remediation-assignment.ce505fc2a66895369edfe74385888791694f45d814285a33e1a8a988d7494c86",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "source_packet_digest": "db6134d90cba0e9572caf7c801182ad805b242ade1e79d849c9dc2ef5dc1a525",
+  "taxonomy_definition_digests": {
+    "coverage_slots": [
+      "c46a5734b06d022b400bc4e9182948640558737c65aa49309c5980e50c71cb0d",
+      "785825aed7b5a5341e457f28976e442e6fa51df49e4aa100685f9f051d89e65f",
+      "335d4b1d16fd0b7ebfd604d4c9c043fed69639d4b6893abbb9969e0a90bf6753",
+      "664aae7b7c7c3ca25055b9e5d5fb93239c3d9980b92fdc91b3abbd2b38092e87",
+      "f8ac8c3151f064bb3b82e4cdb5fed6fab389ea835974f81cb731d20566ea0f47",
+      "89382a6c717359297bf9b6027a0085994f18b177d9316d253cb39ee44212f9d7"
+    ],
+    "journey_families": [
+      "4e2d0722e96bedf8caa49281d6fd085195c0dec7fd3868a2daa283810a9fea95",
+      "fec662d15f632e2b78daecbe2b42de2b112983b9fcc6772fc734cc1e4ee3aa69",
+      "cf022f90a0976cf00ee43981b8483aea163f5945cb54deb53417a55635514d65",
+      "c721fd7451188fddef3232703684566140fc643b89a617a11e3c6205706b6aaa",
+      "5b62b055eb96e31bb20018fb1425d77521f15e5a0cb71ee98278e20d86e0e1bc",
+      "cff9621aaadd647cb2a89dc9faf16df470f55bd39aa310b754bfa2dbeb6e6deb",
+      "61f9f2e927237bba5726f7c9b63baa92c6d57970a6e71ea3d1abd0c4f295dc2b",
+      "d6c538fd34999863c180319ffad1299ce5e4ea1b8ed63c4785033188c4e6fc2a",
+      "9bfae53aeb8e280a9cf80ff9ac4c0c44756c48608c2b0edeef48d7be12e4ae59",
+      "e016f108ddcde58358304a07db6904ad6f1e6e33900c6f11981f61482aa31f0e",
+      "9d9fe088fb5d43b2328db424f3dc1a7be80fbf305d7f8183a5f71da19a90b80d"
+    ],
+    "state_classes": [
+      "548547cdbc7d463de84ed26d30a27c52c56d7a60e17fb40d4f1a449e3574a641",
+      "dc7c320a4e124d120d734b55b155b13874405bd1ca398eee20a30da49264ae1e",
+      "684f382aaabba8c08f7dcb922901e49aad0f7a61e8a574ee0b0ff8f4bdc41f2e",
+      "012f9c98d68850c01e9f781cc65bb8ebff61c67f149d608a7c0438ea4f5fa9da",
+      "8ed21757d0b0762e41c4d4629322d08cc296d3b03c2f713925a77a93e5ca57d7",
+      "c1f57073887f78f6bad1d1c46b70e9e86d2e21056b48cb8db9db30950e4bca62",
+      "d284f09153289755461b5ff4a1279aca041297028c4f277258c01c55de621ecb",
+      "3249582e8e6751772f9177e15d59d5ded340f9f3b8e90afe45e4bed24bae45dd",
+      "2b7bf26998140133a2b9aa95ce2e8186cd5bd5f39d457e75def5a2a34d6bd452",
+      "30db08342f2e4f2017f2f4288a31bbdf8b967c0e5360be2c2e48ba189e4889b0",
+      "5b18e778359356a965f8c25043cc0e27aa8ce11db43a7b479d7705e098263d03",
+      "653a798e31d48887e1719e18d1f54fbf31d77cd17cfb89d90a59d9d28a33394a",
+      "69ca8be3d50a803215d975df17841ae8d652fb3232e8b860681c62e9f214abf4",
+      "4b63ccac5a5330295f9b3877228136b312a4abb2335a74bc43d7d1cce7b6aa9e"
+    ],
+    "content_slot_classes": [
+      "cc90a6787059ae9dd23a9696d7fe5144ed3bb7a87959fccb5e71539044d89d72",
+      "04ff6731762699c92922601ffc2f75d95ce61db8b7434afa4f142924de2ab9aa",
+      "ad8c2f9a73e5c79a427a586fdbe08e8bec3d9ec67e590b846d24325109a00bb0",
+      "c49f981211384e37d2a1a3ffcb4e9e281fc5452dc06c2db06bbf267553a728f5",
+      "c0a73dd2b6692c5764ea78be8864e3ac3a9e3b23a7f8a04f23a1b64810b9ccb5",
+      "1cbd75c5a5304c8b3dc41b47c72249906fc316dd7190eb5cddaa4d917e34f67c",
+      "f79908f00e5451e88142909f1a54ec4f8b3ae7e6f4c0ee729c875bdc1f68fe03",
+      "6266a5b54df527c712be0edaaee414e3c42714ec159ee6f94873c0f5d5066d2c",
+      "af0e766eb80c4437b254442751652dd51aeeebca002f50b6275d9e54c6fddf1a",
+      "2625d7ee4018d40cb5daf2348d4a37c975ee05b5933895613c8e61d6cd28f7de",
+      "334e1fc187075ca50be6735e552976ccfdcb2c9d2a93d6286bdb69ff697e7bd9",
+      "38ea0d7851b03d74798ea9d703c8d372fc8cf06086aea67d8af8f6c499225b1b",
+      "aab490a8812ad9966360b2ad33c1b936fa25a6037d956df12190679fa11816b3"
+    ],
+    "surface_channels": [
+      "4cc27cb177aa6227387802b9283e047523756932eff6ec414dd3802284da07fe"
+    ]
+  },
+  "reconciliation_digest": "405e7782acd9f3c940bb9a8f04939d1d2fca93eda32781422a575a548a16e41b",
+  "supersedes_reconciliation_digest": "05cfe1a596b8922225be88d070d481386417165d8d595cf461fed820080794f7",
+  "review_scope": "thirty_revised_mappings_only",
+  "review_state": "unreviewed",
+  "work_units": [
+    {
+      "work_unit_id": "taxonomy-migration-candidate.02a7f5f57333fc04673a05c8a7c494a4347275ce94dc1a8a1213e921b74db56a",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "solution exploration",
+        "content_slot_type": "navigation",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-60",
+          "record_kind": "observation",
+          "record_id": "obs-duo-core-60",
+          "record_digest": "50fbfcad6b01393a1746793e6c5547dd799700f49e9c4c5586144a3daa409a4e"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.navigation",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.02f70ed097f72dca0128ed1de6ed7a9a981ebe5321408451c9d00fe3a0aef028",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "close account",
+        "content_slot_type": "headline",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-verizon-cancel-entry",
+          "record_digest": "5992a27147176267ebe6e13d8b79c32cec0f584201a1e6d50ab3cc8f3b4b6f4c"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.0c8f4b925b4a2c5a0f8aa1eceb7aaff8c7f4aa9c2bd7584a47653b1073cee5bb",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "terminate services",
+        "content_slot_type": "confirmation",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-verizon-cancel-success",
+          "record_digest": "ed75dd575d9ce3afa2ea876f4522746e1af40af319017f072fd3ca49d2705177"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.0e0c9ea1c9aeae5b6b41e3cf7787742ffdd21783dcd9a5c41cd6e93811f0d824",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "usage review",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-10",
+          "record_kind": "observation",
+          "record_id": "obs-cloudflare-workers-core-10",
+          "record_digest": "3dec598e2cc03dc4b3d5cb5f67ff201cbbb100c3554ec26022d05bef58a59f73"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.146bbfa32fc26edce84d6bd6ffe415616a6fba3296c5f1b4ea61e6e15fd55e4c",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "close service",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-verizon-cancel-core",
+          "record_digest": "d62e8f8de714f4ff51985ae15d42efed720eaa66d193e0616cbcd248f7b80662"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.177cb8d868afb689089965a8af236de120c3d3709e21415e1a10f4698b626df3",
+      "raw_signature": {
+        "journey": "pending/progress",
+        "event_state": "partner workspace",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-core",
+          "record_digest": "f6d7ac0b12dc4a2a0b395e1971d769e279cdabf43bfa25b8a3ac1f8701c7fa2a"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": true,
+        "source_disposition": "retain_immutable_evidence_and_use_corrected_normalized_mapping",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.1cda87ae1780efc42d7939eb88ab18c0218fbfc7a4a33da962329d29dc118910",
+      "raw_signature": {
+        "journey": "trust/safety qualification and incident recovery",
+        "event_state": "public safety-control map before activation or incident",
+        "content_slot_type": "emergency feature label",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-72",
+          "record_kind": "observation",
+          "record_id": "obs-bolt-rider-safety-72",
+          "record_digest": "479cf01b4901088c08233e6027a3252a4a32e1fc61c0050a0a33cfdff04f618e"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.label.descriptive",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.2b89d982a5d9f5829ede51631bd35cef886fb8d5a056859a30a9cfb41bbda0e7",
+      "raw_signature": {
+        "journey": "safety evaluation/recovery",
+        "event_state": "before, during and after-trip safety model",
+        "content_slot_type": "hero heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-didi-safety-71",
+          "record_digest": "f6deb9d156324328330ad0373999f64780ceeb2b191c76ca4c1b4d17aa0f5063"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.304cf199847b190d73749836d1317264723454077943396bef58a4796e3c62ef",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "stop future charges",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-canva-cancel-core",
+          "record_digest": "c309e816dab78ceb2267e6e7fd682ba431f31a62fea74a42df92de0523aa6307"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.499bc672ee0167aa2c5bd517c6175625c9af7948e180a15bcf6267cffc504726",
+      "raw_signature": {
+        "journey": "incident diagnosis/recovery",
+        "event_state": "network-status entry and support routing",
+        "content_slot_type": "page heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-72",
+          "record_kind": "observation",
+          "record_id": "obs-vodafone-network-status-72",
+          "record_digest": "5278a583eae780e2ebccccbb301eba728cf9dadb667c21bb51659c4867b395d0"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.support",
+        "state_class_id": "state.support_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.5a43a6c5f7d3deecce439f25299dd91b4cb64c8ee63bdf745c4326a83183fa0e",
+      "raw_signature": {
+        "journey": "business evaluation/qualification",
+        "event_state": "enterprise proposition and partnership routes",
+        "content_slot_type": "hero heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-didi-enterprise-71",
+          "record_digest": "856a3de5a2caeb7daa4c93f129be81f1fd6c3cffca2467f33f564014c8735cbc"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.5c2eef33f4bd42878d1a13f64a3efdb998d61a9324fc3e510cbcfa1a58bee077",
+      "raw_signature": {
+        "journey": "success",
+        "event_state": "ready to update",
+        "content_slot_type": "confirmation",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-08",
+          "record_kind": "observation",
+          "record_id": "obs-doordash-track-success",
+          "record_digest": "e01599647dca258746ad9e64366ae7ab574d039c2892e5491c053f3655d21774"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.confirmation",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": true,
+        "source_disposition": "retain_immutable_evidence_and_use_corrected_normalized_mapping",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-02",
+            "record_kind": "observation",
+            "record_id": "obs-coursera-home-success",
+            "record_digest": "d799754b88883648d613cc774be653c76e917dd47cd269d394346164dbc428b4"
+          },
+          {
+            "batch_id": "2026-08-23-batch-58",
+            "record_kind": "observation",
+            "record_id": "obs-octopus-success-58",
+            "record_digest": "c19f7c01b8862023fe43c9d81e04a916cf56bbdb9ba5b67446bb95500fe9f2b9"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.68d62152ef068eacb504efa065fb13d069ea0202ab0ce78395bdca0f3de562d7",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "status check",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-08",
+          "record_kind": "observation",
+          "record_id": "obs-doordash-track-core",
+          "record_digest": "ebb486847b636955a24523a153c39fcec71b9e1859c0d28c1ed973122d25fcae"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "pending_progress",
+        "journey_family_id": "journey.progress",
+        "state_class_id": "state.processing",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": true,
+        "source_disposition": "retain_immutable_evidence_and_use_corrected_normalized_mapping",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.8857ff3c4b39dd605bc74ba03fca067f4362721d3c1e5f9429ccbdc6072b20dd",
+      "raw_signature": {
+        "journey": "supply setup/guidance",
+        "event_state": "ride publication entry",
+        "content_slot_type": "hero heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-69",
+          "record_kind": "observation",
+          "record_id": "obs-blablacar-driver-offer-69",
+          "record_digest": "564fa9b2833ed6560b163a8da0fdf90e25b2c152e7d739784d71ba5842cc0a85"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.onboarding",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.98d801446c2650d1ed1e2d02705994b1316c862cffd12b793218d1d9b7f26bcc",
+      "raw_signature": {
+        "journey": "billing evaluation/recovery",
+        "event_state": "region-required billing landing",
+        "content_slot_type": "heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-national-grid-billing-71",
+          "record_digest": "3925bbbee10b976250d662cade23bb4d4292c464ba2e80e7d989c8dca2eae40d"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.choice_required",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.9a2b6ab3c177568fbef91267bbd198923edbe915be0ae77814d37ef262f0b31a",
+      "raw_signature": {
+        "journey": "rental, pricing and safety qualification",
+        "event_state": "public scooter proposition before city, account or unlock",
+        "content_slot_type": "safety mode label",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-72",
+          "record_kind": "observation",
+          "record_id": "obs-bolt-scooters-72",
+          "record_digest": "e4a13f820fb115f2d146836d8d28e2f52f916a77e788f6e87a51578e66d2cafb"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.label.descriptive",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.9c303fff3ee2a1afab367ae21974fd7c78cb97751aeb7501464954157c38763d",
+      "raw_signature": {
+        "journey": "pending/progress",
+        "event_state": "deprecated page upgrade",
+        "content_slot_type": "status",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-shopify-status-upgrade",
+          "record_digest": "f61283eb1696a19dcd8074e17c5a8ee2d0366db42069c779b5fa72e13772ac4a"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.status",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": true,
+        "source_disposition": "retain_immutable_evidence_and_use_corrected_normalized_mapping",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.aecb4d6f76c3f2873ac004b093dd095be051718c47547e6cd8f7aa7f5e31694b",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "account closed",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-09",
+          "record_kind": "observation",
+          "record_id": "obs-monzo-support-core-9",
+          "record_digest": "c7bc8f33826e494f02f3336889c78ddfcd3ff4d88d48a3820b1ee763019f95d0"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "success",
+        "journey_family_id": "journey.completion",
+        "state_class_id": "state.completed",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b4f1680d600604985534413df05fb94763e4f79613f12ef0b920745cd4c48f4e",
+      "raw_signature": {
+        "journey": "safety evaluation/recovery",
+        "event_state": "Safety Pact and incident handling",
+        "content_slot_type": "section heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-70",
+          "record_kind": "observation",
+          "record_id": "obs-indrive-safety-70",
+          "record_digest": "908851e78481f9c4d6ee3f4c53602958c4f112cb0ea5bcac524cd37589f6d275"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b6bf3712f23d31e3c109f7989831e2c8b2f6dcf5f41223dc5706695cb8a8ac23",
+      "raw_signature": {
+        "journey": "plan comparison/qualification",
+        "event_state": "mobile offer catalog",
+        "content_slot_type": "page heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-orange-mobile-offers-71",
+          "record_digest": "1c5d24c01686bfa324b35c271348552ee929995ce33285fa49118a8caa893c6c"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.choice_required",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-24-batch-72",
+            "record_kind": "observation",
+            "record_id": "obs-n26-plan-comparison-72",
+            "record_digest": "f2534cdbc23c839fbb63292080ed0841e6a0a50e87d4d2d6da2e768bfc1bb136"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b921e9475136f459dcbd7de21a8876962911c80d7ca9a2ba6078f9dbcf776357",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "cancel subscription",
+        "content_slot_type": "headline",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-canva-cancel-entry",
+          "record_digest": "afdcdbcb57873cd97d8e10fb7a12c4b747f52bd258e06d4f18afd84eadc6eb9e"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.bb4901fdba4082a30be0fa713fb3c47570f0d8b824cb40b0e64d3848f73e834a",
+      "raw_signature": {
+        "journey": "pending/progress",
+        "event_state": "weekly update",
+        "content_slot_type": "confirmation",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-asana-status-report",
+          "record_digest": "9b77e34b73da2669a89dbfa55102cfb743d45b6fb3764ca5aa0452595c74acd5"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "pending_progress",
+        "journey_family_id": "journey.progress",
+        "state_class_id": "state.processing",
+        "content_slot_class_id": "content.feedback.status",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.c30671383ede184f02563762c5c8db2e6a0a0d33027ca88616acb16f26b4d5b1",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "support lookup",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-08",
+          "record_kind": "observation",
+          "record_id": "obs-coinbase-help-core",
+          "record_digest": "7ef63cb038b1fc4f6b783ef7f3735c0419abb9b7f8812ee0d5635aeb79d2c40f"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.support",
+        "state_class_id": "state.support_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.c886b4075dc559ee4aa5e20d8f7b924e6a7b1f5dfb59816f29b13cba81d54939",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "deal discovery",
+        "content_slot_type": "section_heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-62",
+          "record_kind": "observation",
+          "record_id": "obs-ebay-deal-discovery-62",
+          "record_digest": "5abaf2f3ed7d845338c5ad3a4fa363bb81767358eaa9d94945ff7ecff1fba0b8"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.discovery",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.cc006cd6cfbb6cd75672236f082e99275ef48811908d94836929d3898bc6ae0b",
+      "raw_signature": {
+        "journey": "trust/safety qualification",
+        "event_state": "public assurance and self-service control explanation",
+        "content_slot_type": "security heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-72",
+          "record_kind": "observation",
+          "record_id": "obs-n26-security-72",
+          "record_digest": "bcc941c49e858212ccb3f4035237a8a5d53f434bb04c91b9640a80702344f2d2"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.cf3e5e57c7ab871e30f3bfc72349869f534b359ce6ede2d0458cd7fc9a8e2640",
+      "raw_signature": {
+        "journey": "core task/commitment",
+        "event_state": "enterprise review",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-10",
+          "record_kind": "observation",
+          "record_id": "obs-shopify-plus-core-10",
+          "record_digest": "9d36cf6c0c10bbf07f358d26a63b269390a0396685a12ebaf9a3ce0b2bd12430"
+        },
+        {
+          "batch_id": "2026-08-23-batch-13",
+          "record_kind": "observation",
+          "record_id": "obs-shopify-core-13",
+          "record_digest": "dc75fd414066285dc7820a3aefb7b6927732480bfec8b41c848cc0e5ff58f0f3"
+        },
+        {
+          "batch_id": "2026-08-23-batch-18",
+          "record_kind": "observation",
+          "record_id": "obs-shopify-core-18",
+          "record_digest": "cf6bb7e925348f0d44df1bb875f334cc9a0f23e8e5296fd413da72457965fc73"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.commitment",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-01",
+            "record_kind": "observation",
+            "record_id": "obs-stripe-pricing-core",
+            "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.e1355eb4b3dd913adc3ae5d2d8d569a1a01c26f3171fde484a5e2ea43e05f8b0",
+      "raw_signature": {
+        "journey": "fraud recognition/recovery",
+        "event_state": "M-PESA fraud taxonomy and response questions",
+        "content_slot_type": "section heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-mpesa-fraud-awareness-71",
+          "record_digest": "90f8e198b7a0e9b03cc0afc4872ccf930fa70bece1cc9e4c0510f836235e00bc"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.ecea2a86d8761f05ef0c3850631de880c705ea58932722afebaa16141b89e674",
+      "raw_signature": {
+        "journey": "destructive/permission/support",
+        "event_state": "recover access",
+        "content_slot_type": "body",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-1password-support-core",
+          "record_digest": "070065274e051cd1a23b044f9b43d87ef4f8d0c3270b7c2d7d02f41eebf2af04"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "error_recovery",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.blocked",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-06",
+            "record_kind": "observation",
+            "record_id": "obs-booking-login-entry",
+            "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.ef90d8864d9e9167b5b310e14b9f432209c9036f857ae0f442810c8111d356be",
+      "raw_signature": {
+        "journey": "trust evaluation/recovery",
+        "event_state": "security controls, shared responsibility and fraud reporting",
+        "content_slot_type": "page heading",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-24-batch-71",
+          "record_kind": "observation",
+          "record_id": "obs-careem-security-71",
+          "record_digest": "604e03108af965b523ad2789451899b261613d35510d4d917ad30fafd1e82adf"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": false,
+        "source_disposition": "retain_immutable_evidence",
+        "counterexample_refs": [],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.f7191ae497450f5a6e7fc7199723e34d5547b4a1030243691c05f3d3e8543379",
+      "raw_signature": {
+        "journey": "success",
+        "event_state": "ready to resolve billing",
+        "content_slot_type": "confirmation",
+        "surface_channel": "web"
+      },
+      "evidence_refs": [
+        {
+          "batch_id": "2026-08-23-batch-05",
+          "record_kind": "observation",
+          "record_id": "obs-canva-help-success",
+          "record_digest": "8824800ff0a117dc5c47a91a2b760dcd9c6b0fd51740b35b57f8e086b03483cc"
+        }
+      ],
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.confirmation",
+        "surface_channel_id": "channel.web"
+      },
+      "reconciliation_context": {
+        "resolution_basis": "post_reconciliation_boundary_remediation",
+        "source_correction_required": true,
+        "source_disposition": "retain_immutable_evidence_and_use_corrected_normalized_mapping",
+        "counterexample_refs": [
+          {
+            "batch_id": "2026-08-23-batch-02",
+            "record_kind": "observation",
+            "record_id": "obs-coursera-home-success",
+            "record_digest": "d799754b88883648d613cc774be653c76e917dd47cd269d394346164dbc428b4"
+          },
+          {
+            "batch_id": "2026-08-23-batch-58",
+            "record_kind": "observation",
+            "record_id": "obs-octopus-success-58",
+            "record_digest": "c19f7c01b8862023fe43c9d81e04a916cf56bbdb9ba5b67446bb95500fe9f2b9"
+          }
+        ],
+        "remaining_evidence_gap": null
+      },
+      "reviewer_actions_required": [
+        "inspect_evidence_refs",
+        "verify_revised_normalized_signature",
+        "complete_checklist",
+        "record_rationale_and_counterexamples",
+        "record_decision"
+      ],
+      "checklist_version": "contentmd.public-product-review-checklist.taxonomy-mapping/0.1.0",
+      "checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": null
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": null
+        },
+        {
+          "item": "journey_family_fit",
+          "status": null
+        },
+        {
+          "item": "state_class_fit",
+          "status": null
+        },
+        {
+          "item": "content_slot_fit",
+          "status": null
+        },
+        {
+          "item": "channel_fit",
+          "status": null
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": null
+        },
+        {
+          "item": "industry_neutrality",
+          "status": null
+        },
+        {
+          "item": "localization_transferability",
+          "status": null
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": null
+        }
+      ],
+      "decision": null,
+      "rationale": null,
+      "counterexample_refs": []
+    }
+  ],
+  "authority_effect": "none",
+  "training_eligibility": "never",
+  "prompt_eligibility": "never",
+  "benchmark_eligibility": false,
+  "assignment_digest": "a3d518e98bc9ebb4c31c187a0d7964c76ff5444dceba2abdf1db0aa65bc17dea"
+}

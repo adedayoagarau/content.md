@@ -1,0 +1,32 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-89",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "collection_scope": "public signed-out Headspace account identifier validation",
+  "reviewed_taxonomy_mapping_id": "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11",
+  "expected_projection_effect": {
+    "headspace_wellbeing_direct_observed_slots_before": 3,
+    "headspace_wellbeing_direct_observed_slots_after": 4,
+    "headspace_remaining_missing_slots": ["pending_progress", "success"]
+  },
+  "isolated_overlay_verification": {
+    "base_candidates": [
+      "remediation/batch-85-unified-review-candidate/manifest.json",
+      "remediation/batch-86-review-candidate/manifest.json",
+      "remediation/batch-87-review-candidate/manifest.json",
+      "remediation/batch-88-review-candidate/manifest.json"
+    ],
+    "status": "fail_breadth_only",
+    "error_count": 175,
+    "insufficient_direct_states_count": 172,
+    "products_meeting_direct_state_target": 4,
+    "candidate_specific_error_count": 0,
+    "report_digest": "8063a7fd6383ba4bad30b5463b8a951497eb85269610944b37682c88f69da60b"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

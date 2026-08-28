@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_taxonomy_mapping_proposal",
+  "status": "independent_review_required",
+  "raw_signature": {
+    "journey": "error/recovery",
+    "event_state": "page not found",
+    "content_slot_type": "error",
+    "surface_channel": "web"
+  },
+  "proposed_normalized_signature": {
+    "coverage_slot_id": "error_recovery",
+    "journey_family_id": "journey.recovery",
+    "state_class_id": "state.failed",
+    "content_slot_class_id": "content.feedback.error",
+    "surface_channel_id": "channel.web"
+  },
+  "rationale": "The requested page is unavailable, the interface explicitly labels the failure, and it provides home, contact, and search recovery routes. This is a failed navigation state with actionable recovery rather than routine support discovery.",
+  "candidate_evidence_ref": "batch-79-review-candidate:observation:obs-canada-404-error-79-candidate",
+  "required_reviewers": [
+    "qualified_content_designer",
+    "taxonomy_steward"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

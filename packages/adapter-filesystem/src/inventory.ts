@@ -33,6 +33,10 @@ const EXCLUDED_DIRECTORY_PATTERNS = [
 ];
 const IGNORED_DIRECTORY_PATTERNS = EXCLUDED_DIRECTORY_PATTERNS.map((pattern) => `${pattern}/**`);
 
+function assertNotCancelled(request: DiscoverRequest): void {
+  if (request.signal?.aborted === true) throw new Error("discovery_cancelled");
+}
+
 function comparePath(left: { relative_path: string }, right: { relative_path: string }): number {
   return left.relative_path.localeCompare(right.relative_path, "en");
 }
@@ -90,6 +94,8 @@ function addExclusion(
 }
 
 export async function inventoryRepository(request: DiscoverRequest): Promise<RepositoryInventory> {
+  request.on_progress?.({ stage: "inventory_started", completed: 0, total: null, current_artifact: null });
+  assertNotCancelled(request);
   const projectRoot = await realpath(resolve(request.project_root));
   const exclusions = new Map<string, InventoryExclusionReason>();
 
@@ -100,6 +106,7 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
     unique: true,
     followSymbolicLinks: false,
   });
+  assertNotCancelled(request);
   for (const relativePath of excludedDirectories) {
     addExclusion(exclusions, relativePath, directoryReason(relativePath));
   }
@@ -113,6 +120,7 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
     ignore: IGNORED_DIRECTORY_PATTERNS,
   });
   for (const relativePath of repositoryEntries) {
+    assertNotCancelled(request);
     const absolutePath = resolve(projectRoot, relativePath);
     const metadata = await lstat(absolutePath);
     if (!metadata.isSymbolicLink()) continue;
@@ -136,13 +144,15 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
     followSymbolicLinks: false,
     ignore: IGNORED_DIRECTORY_PATTERNS,
   });
+  assertNotCancelled(request);
   relativePaths.sort((left, right) => left.localeCompare(right, "en"));
 
   const artifacts: InventoryArtifact[] = [];
   let bytesRead = 0;
   let unsupported = 0;
 
-  for (const relativePath of relativePaths) {
+  for (const [index, relativePath] of relativePaths.entries()) {
+    assertNotCancelled(request);
     const excludedFileReason = credentialReason(relativePath) ?? temporaryReason(relativePath);
     if (excludedFileReason !== null) {
       addExclusion(exclusions, relativePath, excludedFileReason);
@@ -180,6 +190,12 @@ export async function inventoryRepository(request: DiscoverRequest): Promise<Rep
       content_digest: sha256Bytes(bytes),
       byte_length: bytes.byteLength,
       extension: extname(relativePath).toLowerCase(),
+    });
+    request.on_progress?.({
+      stage: "inventory_progress",
+      completed: index + 1,
+      total: relativePaths.length,
+      current_artifact: relativePath,
     });
   }
 

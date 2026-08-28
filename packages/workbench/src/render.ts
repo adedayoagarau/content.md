@@ -1,4 +1,5 @@
 import type { ProjectModelResult, ReviewedIdeCandidate } from "@contentmd/agent";
+import { createContentImprovementBrief, rankContentReviewFindings } from "@contentmd/core";
 
 type WorkbenchReview = Pick<ReviewedIdeCandidate,
   | "task_digest"
@@ -37,6 +38,16 @@ export interface WorkbenchModelProjection {
   };
   sources: Array<{ source_id: string; locator: string; content_digest: string }>;
   coverage: unknown;
+  content_inventory: ProjectModelResult["content_inventory"]["summary"];
+  top_findings: Array<{
+    finding_id: string;
+    severity: string;
+    title: string;
+    rationale: string;
+    expression: string;
+    source_artifact: string;
+    required_facts: string[];
+  }>;
   conflicts: Array<{ assessment_id: string; conflicting_claim_refs: string[] }>;
   interpretation: {
     personas: Array<{ name: string; description: string }>;
@@ -71,6 +82,7 @@ function array(value: unknown): unknown[] {
 
 export function projectWorkbenchModel(model: ProjectModelResult): WorkbenchModelProjection {
   const interpretation = object(model.proposed_interpretation);
+  const topFindings = rankContentReviewFindings(model.content_inventory.units, 10);
   return {
     contract_version: "contentmd.workbench-model/0.1.0",
     project_id: model.project_id,
@@ -100,6 +112,21 @@ export function projectWorkbenchModel(model: ProjectModelResult): WorkbenchModel
       content_digest: source.content_digest,
     })),
     coverage: model.discovery.coverage,
+    content_inventory: model.content_inventory.summary,
+    top_findings: topFindings.map((finding) => {
+      const unit = model.content_inventory.units.find((item) => item.qualification_id === finding.qualification_ref);
+      if (unit === undefined) throw new Error("workbench_finding_qualification_missing");
+      const brief = createContentImprovementBrief(finding, unit);
+      return {
+        finding_id: finding.finding_id,
+        severity: finding.severity,
+        title: finding.title,
+        rationale: finding.rationale,
+        expression: finding.expression,
+        source_artifact: finding.source_artifact,
+        required_facts: brief.required_facts,
+      };
+    }),
     conflicts: model.assessments
       .filter((assessment) => assessment.conflicting_claim_refs.length > 0)
       .map((assessment) => ({
@@ -186,6 +213,27 @@ function proposal(review: WorkbenchReview | null): string {
     <p>${escapeHtml(review.explanation)}</p>`;
 }
 
+function topFindingList(model: WorkbenchModelProjection): string {
+  if (model.top_findings.length === 0) return '<p class="muted">No prioritized deterministic findings in this scan.</p>';
+  return `<ol class="proof-list">${model.top_findings.map((finding, index) => `<li class="proof">
+    <details>
+      <summary><span class="proof-number">${String(index + 1).padStart(2, "0")}</span><span><strong><span class="severity">${escapeHtml(finding.severity)}</span> ${escapeHtml(finding.title)}</strong><small>${escapeHtml(finding.source_artifact)}</small></span></summary>
+      <blockquote>${escapeHtml(finding.expression)}</blockquote>
+      <p>${escapeHtml(finding.rationale)}</p>
+      <form class="improvement-form" data-finding-id="${escapeHtml(finding.finding_id)}">
+        <fieldset><legend>Establish the missing facts</legend>
+          ${finding.required_facts.map((fact) => `<label>${escapeHtml(fact)}<input required data-fact="${escapeHtml(fact)}" autocomplete="off"></label>`).join("")}
+        </fieldset>
+        <label>Candidate expression<textarea required name="candidate" rows="3" placeholder="Write a candidate grounded in the facts above"></textarea></label>
+        <label class="check"><input type="checkbox" name="preview_patch"> Verify an exact patch preview</label>
+        <label class="check"><input type="checkbox" name="confirm_apply"> I reviewed this exact patch and authorize one local source change</label>
+        <div class="form-actions"><button type="submit">Compare candidate</button><button type="button" class="apply-improvement" disabled>Apply reviewed patch</button><button type="button" class="undo-improvement" disabled>Undo change</button></div>
+        <output class="improvement-result" role="status" aria-live="polite"></output>
+      </form>
+    </details>
+  </li>`).join("")}</ol>`;
+}
+
 export function renderWorkbench(model: ProjectModelResult, taskReview: WorkbenchReview | null): string {
   const view = projectWorkbenchModel(model);
   const personas = view.interpretation.personas.length === 0
@@ -195,17 +243,19 @@ export function renderWorkbench(model: ProjectModelResult, taskReview: Workbench
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${escapeHtml(view.identity.proposed_name)} · content.md workbench</title>
   <style>
-    :root{color-scheme:light;--ink:#19231f;--muted:#66716c;--paper:#f4f1e9;--card:#fffdf8;--line:#d9d5ca;--green:#185c45;--amber:#9b5d13}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 ui-sans-serif,system-ui,sans-serif}header,main{max-width:1240px;margin:auto}header{padding:36px 24px 20px}h1{font:600 clamp(28px,5vw,52px)/1.05 Georgia,serif;margin:6px 0}h2{font-size:18px;margin:0 0 14px}h3{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}p{margin:8px 0}.status,.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}main{padding:0 24px 48px}.panes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.pane,.section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}.sections{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}.wide{grid-column:1/-1}.muted,small{color:var(--muted)}ul,ol{padding-left:20px}li{margin:8px 0}li span{display:block;color:var(--muted);font-size:13px}.diff{display:grid;gap:8px;margin:14px 0}.diff del,.diff ins{padding:10px;border-radius:8px;text-decoration:none}.diff del{background:#f7e5e0}.diff ins{background:#dff0e8}.meter-row{display:grid;grid-template-columns:1fr auto minmax(120px,2fr) auto;gap:8px;align-items:center;margin:12px 0}.meter-row small{grid-column:1/-1}meter{width:100%}svg{width:100%;height:auto;margin-top:8px}svg line{stroke:var(--line);stroke-width:2}svg circle{fill:var(--green)}svg text{font-size:10px;fill:var(--muted)}code{overflow-wrap:anywhere}@media(max-width:850px){.panes,.sections{grid-template-columns:1fr}.wide{grid-column:auto}}
-  </style></head><body><header><p class="status">Guidance status: provisional</p><h1>${escapeHtml(view.identity.proposed_name)}</h1><p>Evidence-linked repository intelligence for accountable content decisions.</p></header><main>
+    :root{color-scheme:light;--ink:#19231f;--muted:#66716c;--paper:#ede8dc;--card:#fffdf7;--line:#cec7b7;--green:#185c45;--amber:#9b5d13;--red:#8d382d}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 12% 4%,#faf7ef 0,transparent 34%),linear-gradient(120deg,rgba(24,92,69,.035) 1px,transparent 1px),var(--paper);background-size:auto,18px 18px,auto;color:var(--ink);font:15px/1.55 "Avenir Next",Avenir,"Segoe UI",sans-serif}header,main{max-width:1240px;margin:auto}header{padding:42px 24px 24px;border-bottom:1px solid var(--line)}h1{font:600 clamp(32px,6vw,64px)/.98 "Iowan Old Style","Palatino Linotype",Palatino,serif;letter-spacing:-.035em;margin:8px 0}h2{font:600 20px/1.2 "Iowan Old Style","Palatino Linotype",Palatino,serif;margin:0 0 14px}h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}p{margin:8px 0}.skip-link{position:fixed;left:12px;top:12px;z-index:10;background:var(--ink);color:var(--card);padding:10px 14px;transform:translateY(-180%)}.skip-link:focus{transform:none}.status,.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--green)}.severity{text-transform:uppercase;letter-spacing:.1em;color:var(--amber);font-size:10px;display:inline}main{padding:22px 24px 64px}.panes{display:grid;grid-template-columns:1.15fr 1.5fr 1fr;gap:12px}.pane,.section{background:color-mix(in srgb,var(--card) 94%,transparent);border:1px solid var(--line);border-radius:3px;padding:22px;box-shadow:0 8px 28px rgba(25,35,31,.035)}.sections{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}.wide{grid-column:1/-1}.muted,small{color:var(--muted)}ul,ol{padding-left:20px}li{margin:8px 0}li span{display:block;color:var(--muted);font-size:13px}.proof-list{list-style:none;padding:0;margin:0}.proof{margin:0;border-top:1px solid var(--line)}.proof:first-child{border-top:0}.proof summary{display:grid;grid-template-columns:42px 1fr;gap:10px;padding:14px 0;cursor:pointer}.proof summary::marker{color:var(--green)}.proof-number{font:500 12px/1.4 ui-monospace,monospace;color:var(--green)}blockquote{margin:8px 0 12px;padding:12px 14px;border-left:3px solid var(--green);background:#f5f1e7;font:500 17px/1.4 "Iowan Old Style",serif}.improvement-form{display:grid;gap:14px;padding:16px 0 6px}.improvement-form fieldset{border:1px solid var(--line);padding:12px;display:grid;gap:10px}.improvement-form legend{font-weight:600;padding:0 6px}.improvement-form label{display:grid;gap:5px;font-size:12px;font-weight:600;color:var(--muted)}.improvement-form input,.improvement-form textarea{width:100%;border:1px solid var(--line);background:#fffefb;color:var(--ink);padding:10px;font:14px/1.45 inherit;border-radius:2px}.improvement-form input:focus,.improvement-form textarea:focus{outline:3px solid rgba(24,92,69,.2);border-color:var(--green)}.improvement-form .check{display:flex;align-items:center;gap:8px}.improvement-form .check input{width:auto}.form-actions{display:flex;flex-wrap:wrap;gap:8px}.improvement-form button{justify-self:start;border:0;background:var(--ink);color:var(--card);padding:10px 15px;font:600 12px/1 inherit;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}.improvement-form button:hover{background:var(--green)}.improvement-form button:disabled{opacity:.55;cursor:not-allowed}.improvement-form button:focus-visible,.proof summary:focus-visible,.skip-link:focus-visible{outline:3px solid var(--amber);outline-offset:3px}.improvement-result{white-space:pre-wrap;font:12px/1.5 ui-monospace,monospace;background:#f4efe3;padding:12px;border-left:3px solid var(--amber);min-height:0}.improvement-result:empty{display:none}.diff{display:grid;gap:8px;margin:14px 0}.diff del,.diff ins{padding:10px;border-radius:2px;text-decoration:none}.diff del{background:#f7e5e0}.diff ins{background:#dff0e8}.meter-row{display:grid;grid-template-columns:1fr auto minmax(120px,2fr) auto;gap:8px;align-items:center;margin:12px 0}.meter-row small{grid-column:1/-1}meter{width:100%}svg{width:100%;height:auto;margin-top:8px}svg line{stroke:var(--line);stroke-width:2}svg circle{fill:var(--green)}svg text{font-size:10px;fill:var(--muted)}code{overflow-wrap:anywhere}@media(max-width:850px){.panes,.sections{grid-template-columns:1fr}.wide{grid-column:auto}header{padding-top:28px}}
+  </style></head><body><a class="skip-link" href="#main-content">Skip to content</a><header><p class="status">Guidance status: provisional</p><h1>${escapeHtml(view.identity.proposed_name)}</h1><p>Evidence-linked repository intelligence for accountable content decisions.</p></header><main id="main-content" tabindex="-1">
   <div class="panes"><section class="pane"><h2>Task and context</h2><p><strong>Project</strong><br>${escapeHtml(view.project_id)}</p><p><strong>Task</strong><br>${escapeHtml(taskReview?.task_digest ?? "No reviewed task yet")}</p></section>
   <section class="pane"><h2>Proposal and diff</h2>${proposal(taskReview)}</section>
   <section class="pane"><h2>Evidence and control</h2><p><strong>${view.sources.length}</strong> ranked sources · <strong>${view.conflicts.length}</strong> conflicts</p><p>Decision: ${escapeHtml(taskReview?.decision_status ?? "proposed")} · Authority effect: none</p></section></div>
-  <div class="sections"><section class="section"><h2>Product and audience</h2>${nodeList(view,["product","audience","job"])}</section>
+  <div class="sections"><section class="section"><h2>Content inventory</h2><p><strong>${view.content_inventory.qualified_count}</strong> qualified · <strong>${view.content_inventory.microcopy_count}</strong> microcopy</p><p>${view.content_inventory.uncertain_count} need context · ${view.content_inventory.rejected_count} excluded</p></section>
+  <section class="section"><h2>Top review findings</h2>${topFindingList(view)}</section>
+  <section class="section"><h2>Product and audience</h2>${nodeList(view,["product","audience","job"])}</section>
   <section class="section"><h2>Journeys</h2>${journeyVisual(view)}</section>
   <section class="section"><h2>Information architecture</h2>${nodeList(view,["ia_node","navigation_relation","route"])}</section>
   <section class="section"><h2>Messages</h2>${nodeList(view,["semantic_message","expression_slot","expression_version"])}</section>
   <section class="section"><h2>Voice and personas</h2><h3>Voice dimensions</h3>${voice(view)}<h3>Personas</h3>${personas}</section>
   <section class="section"><h2>Evidence and conflicts</h2>${nodeList(view,["evidence_claim","conflict","open_question"])}</section>
-  <section class="section wide"><h2>Decisions and governance</h2><p>Everything shown remains <strong>proposed</strong>. The workbench cannot edit source files, approve guidance, publish content, or grant authority.</p><h3>Open uncertainty</h3>${uncertainty.length === 0 ? '<p class="muted">No explicit uncertainty recorded.</p>' : `<ul>${uncertainty.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`}</section></div>
-  </main><script src="/webmcp.js" defer></script></body></html>`;
+  <section class="section wide"><h2>Decisions and control</h2><p>Comparison and patch preview do not write. A solo user may explicitly confirm one exact local source patch and undo it. The workbench cannot approve guidance, publish, release, or grant organizational authority.</p><h3>Open uncertainty</h3>${uncertainty.length === 0 ? '<p class="muted">No explicit uncertainty recorded.</p>' : `<ul>${uncertainty.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`}</section></div>
+  </main><script src="/workbench.js" defer></script><script src="/webmcp.js" defer></script></body></html>`;
 }

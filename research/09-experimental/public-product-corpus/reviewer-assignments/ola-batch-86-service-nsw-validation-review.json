@@ -1,0 +1,25 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-86-service-nsw-validation-review.ola",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "candidate_ref": "remediation/batch-86-review-candidate/manifest.json",
+  "review_scope": "taxonomy and coverage fit of the Service NSW validation-failure observation",
+  "prefilled_findings": {
+    "coverage_slot_id": "error_recovery",
+    "normalized_journey_stage": "journey.recovery",
+    "new_taxonomy_mapping_required": false,
+    "service_nsw_reaches_five_distinct_slots": true,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm validation failure maps exactly to error_recovery and journey.recovery",
+    "confirm the raw signature matches the already-reviewed mapping",
+    "confirm this state is distinct from Service NSW entry, task, support, and progress slots",
+    "confirm product-system projection remains Service NSW"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

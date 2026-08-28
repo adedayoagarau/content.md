@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_shared_taxonomy_mapping_review_packet",
+  "status": "independent_review_required",
+  "supersedes_review_packet_ref": "remediation/batch-99-review-candidate/shared-page-not-found-review-packet.json",
+  "canonical_mapping_proposal_ref": "remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+  "canonical_mapping_proposal_file_digest": "a32cf90f53b28202b9b0bacc1117684be4038465d292946399c386a40a634530",
+  "raw_signature": {"journey":"error/recovery","event_state":"page not found","content_slot_type":"error","surface_channel":"web"},
+  "proposed_normalized_signature": {"coverage_slot_id":"error_recovery","journey_family_id":"journey.recovery","state_class_id":"state.failed","content_slot_class_id":"content.feedback.error","surface_channel_id":"channel.web"},
+  "evidence": [
+    {"observation_ref":"batch-79-review-candidate:observation:obs-canada-404-error-79-candidate","observation_file_digest":"c6400b42b7b877756a67108646a32a3ade4d343402ec28e9e5e77366949a41d5","exact_wording_span":"Error 404","recovery_routes":["home","contact","site search"]},
+    {"observation_ref":"batch-99-review-candidate:observation:obs-1password-page-not-found-99-candidate","observation_file_digest":"b38f0194daa84213b45f8decd4bc5e6139bc7700aa74f5032e6a25552174cbe2","exact_wording_span":"404: Page Not Found","recovery_routes":["1Password.com","1Password Support","Contact us"]},
+    {"observation_ref":"batch-100-review-candidate:observation:obs-aflac-page-not-found-100-candidate","observation_file_digest":"467e6340b30956e8ece572e720c4f510c3455bc02d3c64720e438fb4625305e8","exact_wording_span":"Page Not Found","recovery_routes":["Site Map","common pages"]},
+    {"observation_ref":"batch-100-review-candidate:observation:obs-duo-page-not-found-100-candidate","observation_file_digest":"467e6340b30956e8ece572e720c4f510c3455bc02d3c64720e438fb4625305e8","exact_wording_span":"Aw, rats! We couldn’t find the page you’re looking for.","recovery_routes":["blog home","site search","contact"]},
+    {"observation_ref":"batch-100-review-candidate:observation:obs-yubico-page-not-found-100-candidate","observation_file_digest":"467e6340b30956e8ece572e720c4f510c3455bc02d3c64720e438fb4625305e8","exact_wording_span":"We are sorry, the page you requested cannot be found.","recovery_routes":["homepage","support"]}
+  ],
+  "review_question": "Do all five directly observed interfaces instantiate the same failed-navigation state with actionable recovery strongly enough for one exact raw-signature mapping?",
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

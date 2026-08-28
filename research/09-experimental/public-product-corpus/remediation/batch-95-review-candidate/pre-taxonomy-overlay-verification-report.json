@@ -1,0 +1,941 @@
+{
+  "contract_version": "contentmd.public-product-corpus-report/0.2.0",
+  "status": "fail",
+  "accepted_projection_ref": null,
+  "taxonomy_ref": {
+    "object_id": "public-product-experience-taxonomy.7390513d1f80bdc8842d96802400d1949aae6fcf222629a4a7e8a10dfc0a573f",
+    "object_digest": "cff7a3065020898e5f724858b0793d512b599fe42043d28f57921a95195b9acc"
+  },
+  "disposition_ledger_ref": {
+    "object_id": "public_product_evidence_ledger.60a4c9f26d6ba79952aef290a7e0d8922bbb987edf732339b8d690ac187ea0d2",
+    "object_digest": "6067e90f0e28b9cf0b4a3847538a8d0f503c648b43dd12a4aaea72c528e31bb4"
+  },
+  "review_governance_ref": {
+    "object_id": "public-product-review-governance.d887a34da2cc32d00687c94df25b90d0d41600c98aa879212436baca225a9098",
+    "object_digest": "d887a34da2cc32d00687c94df25b90d0d41600c98aa879212436baca225a9098"
+  },
+  "raw_counts": {
+    "batches": 5,
+    "sources": 511,
+    "observations": 443
+  },
+  "active_counts": {
+    "active_sources": 511,
+    "active_observations": 443,
+    "held_subjects": 0,
+    "rejected_subjects": 0,
+    "superseded_subjects": 0,
+    "qualified_sources": 511,
+    "qualified_observations": 443,
+    "companies": 113,
+    "products": 176,
+    "industries": 26
+  },
+  "coverage_counts": {
+    "mapped_observations": 440,
+    "unmapped_observations": 3,
+    "raw_distinct_signatures": 194,
+    "normalized_distinct_signatures": 48,
+    "direct_observed_slots": 226,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target": 4
+  },
+  "active_qualified_evidence": [],
+  "errors": [
+    {
+      "code": "company_target",
+      "location": "corpus",
+      "detail": "113 is below target 5000"
+    },
+    {
+      "code": "industry_target",
+      "location": "corpus",
+      "detail": "26 is below target 250"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "1Password / 1Password account recovery",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "1Password / 1Password security",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Ada Health / Ada health assessment",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Adobe / Adobe Creative Cloud",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Adobe / Adobe creative cloud",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Adobe / Adobe nonprofits",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Adobe Express / Adobe Express",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Aflac / Aflac supplemental insurance",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Airbnb / Airbnb hosting",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Airbnb / Airbnb travel",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Airbnb / Airbnb travel entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Airtable / Airtable",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Allegro / Allegro marketplace",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Asana / Asana",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Asana / Asana pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Asana / Asana project progress",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Asana / Asana support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Asana / Asana work management",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Atlassian / Atlassian Design System",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Atlassian / Jira",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Atlassian / Jira pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Atlassian / Statuspage",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Auth0 / Auth0 identity",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Basecamp / Basecamp pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "BlaBlaCar / BlaBlaCar ridesharing",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Bolt / Bolt mobility app",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Booking.com / Booking.com extranet",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Booking.com / Booking.com partner support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Booking.com / Booking.com travel marketplace",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Box / Box",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "CDC / CDC public health",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Canva / Canva",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Canva / Canva cancel and refund",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Canva / Canva design suite",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Canva / Canva pricing",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Canva / Canva support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Careem / Careem super app",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "ChatGPT / ChatGPT assistant",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "ChatGPT / ChatGPT pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Chime / Chime financial app",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Cisco Duo / Cisco Duo identity security",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Claude / Claude platform",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Cleveland Clinic / Cleveland Clinic care access",
+      "detail": "4 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "ClickUp / ClickUp",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Cloudflare / Cloudflare platform",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Cloudflare / Cloudflare pricing",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Coinbase / Coinbase crypto",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Coupang / Coupang shopping",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Coursera / Coursera learning",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Coursera / Coursera professional certificates",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "DiDi Global / DiDi mobility platform",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Discord / Discord communities",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "DoorDash / DoorDash delivery",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "DoorDash / DoorDash driving",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "DoorDash / DoorDash tracking",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Dropbox / Dropbox",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Dropbox / Dropbox Basic",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Dropbox Sign / Dropbox Sign",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Duolingo / Duolingo learning",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Etsy / Etsy marketplace",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Figma / Figma",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Figma / Figma community entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Figma / Figma design",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Figma / Figma plans",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Figma / Figma pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Flipkart / Flipkart marketplace",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "FutureLearn / FutureLearn online learning",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitHub / GitHub",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitHub / GitHub Codespaces",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitHub / GitHub Copilot",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitHub / GitHub account access",
+      "detail": "4 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitHub / GitHub developer platform",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "GitLab / GitLab DevSecOps",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Gojek / Gojek super app",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Google Workspace / Google Workspace",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Google Workspace / Google Workspace export",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Google Workspace / Google Workspace support",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Grab / Grab super app",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Headspace / Headspace wellbeing",
+      "detail": "4 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "HubSpot / HubSpot",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "IKEA / IKEA online shopping",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Instacart / Instacart grocery delivery",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Intercom / Intercom",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Khan Academy / Khan Academy learning",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Klarna / Klarna payments",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Kuda / Kuda digital banking",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Lemonade / Lemonade insurance",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Linear / Linear pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "LinkedIn / LinkedIn professional network",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "LinkedIn Learning / LinkedIn Learning",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Loom / Loom",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Lyft / Lyft ride-hailing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Mailchimp / Mailchimp marketing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Mailchimp / Mailchimp pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Mayo Clinic / Mayo Clinic health",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Mercado Libre / Mercado Libre marketplace",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Microsoft / Microsoft 365 SharePoint",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Microsoft / Microsoft Copilot",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Miro / Miro",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Miro / Miro pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Monzo / Monzo account management",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Monzo / Monzo bank account",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Monzo / Monzo support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "N26 / N26 digital banking",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "NHS / NHS 111",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "NHS / NHS website",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "National Grid / National Grid energy services",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Netflix / Netflix streaming",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Notion / Notion",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Notion / Notion pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Notion / Notion workspace",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Nubank / Nubank digital banking",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Octopus Energy / Octopus Energy US",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Okta / Okta identity",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Okta / Okta pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "OpenAI / OpenAI API pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Orange / Orange telecommunications",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Origin Energy / Origin Energy services",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "PayPal / PayPal consumer entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "PayPal / PayPal fees",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Perplexity / Perplexity AI",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Pinterest / Pinterest discovery",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Rakuten / Rakuten marketplace",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Reddit / Reddit communities",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Revolut / Revolut banking",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Revolut / Revolut plans",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Shopify / Shopify commerce",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Shopify / Shopify commerce entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Shopify / Shopify orders",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Shopify / Shopify pricing",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Shopify / Shopify support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Slack / Slack",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Slack / Slack entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Slack / Slack huddles",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Slack / Slack pricing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Slack / Slack workspace",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Spotify / Spotify Premium",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Spotify / Spotify music",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Square / Square pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Squarespace / Squarespace website building",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Starling Bank / Starling digital banking",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Stripe / Stripe Billing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Stripe / Stripe pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "T-Mobile / T-Mobile wireless",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Telstra / Telstra telecommunications",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "The Open University / OpenLearn",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Trello / Trello",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Trello / Trello pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Uber / Uber entry",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Uber / Uber rides",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Udemy / Udemy online learning",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Verizon / Verizon disconnect",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Verizon / Verizon service",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Verizon / Verizon support",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Visa / Visa consumer payments",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Vodafone / Vodafone telecommunications",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Webflow / Webflow",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Wise / Wise money transfer",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Wise / Wise pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Wix / Wix website building",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "YouTube / YouTube viewing",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Yubico / YubiKey authentication",
+      "detail": "3 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Zalando / Zalando fashion marketplace",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Zoom / Zoom",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Zoom / Zoom Workplace",
+      "detail": "1 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "Zoom / Zoom Workplace pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "eBay / eBay marketplace",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "edX / edX learning",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "inDrive / inDrive mobility app",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "monday.com / monday.com",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "monday.com / monday.com pricing",
+      "detail": "2 is below target 5"
+    },
+    {
+      "code": "insufficient_direct_states",
+      "location": "noon / noon marketplace",
+      "detail": "0 is below target 5"
+    },
+    {
+      "code": "product_target",
+      "location": "corpus",
+      "detail": "176 is below target 20000"
+    },
+    {
+      "code": "taxonomy_unmapped",
+      "location": "candidate-overlay-003/observations.jsonl:1",
+      "detail": "903f790ad8c982b24b7986267b56a3f067c10a2a097dbbc97fd9d31cd1abd76b"
+    },
+    {
+      "code": "taxonomy_unmapped",
+      "location": "candidate-overlay-004/observations.jsonl:1",
+      "detail": "31c5be9ca693296f331d799f0d245f802e6e7ac324aeed4fb7072327849a8517"
+    },
+    {
+      "code": "taxonomy_unmapped",
+      "location": "candidate-overlay-005/observations.jsonl:1",
+      "detail": "0e917531e2984830ce231ea5d39b295ffb6cfd451249728a9552a1282bc216ad"
+    }
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "report_digest": "d5cbf37e69fa8bd192e45870039f66752252b191fa5245f75120110acec614bc"
+}

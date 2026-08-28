@@ -1,0 +1,35 @@
+{
+  "name": "contentmd",
+  "version": "0.1.0",
+  "description": "Portable governed content-design agent and local workbench",
+  "keywords": [
+    "content-design",
+    "content-operations",
+    "microcopy",
+    "ux-writing"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adedayoagarau/content.md.git"
+  },
+  "homepage": "https://github.com/adedayoagarau/content.md#readme",
+  "bugs": {
+    "url": "https://github.com/adedayoagarau/content.md/issues"
+  },
+  "type": "commonjs",
+  "bin": {
+    "contentmd": "dist/contentmd.cjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=24.14.0 <25"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

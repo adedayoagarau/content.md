@@ -7,6 +7,7 @@ import {
 } from "../prompt-compiler.js";
 import type { ContentStrategyProposal } from "../strategy.js";
 import type { ContentTaskPacket } from "../task-packet.js";
+import type { UxWritingRepairBrief } from "@contentmd/evaluation";
 import { promptTemplate } from "./common.js";
 
 export interface CompileRewritePromptInput {
@@ -17,6 +18,7 @@ export interface CompileRewritePromptInput {
   context_packet_ref: ModelObjectRef;
   retrieval_snapshot_ref: ModelObjectRef | null;
   context_items: PromptContextItem[];
+  repair_brief?: UxWritingRepairBrief;
 }
 
 export const REWRITE_PROMPT_TEMPLATE = promptTemplate(
@@ -24,10 +26,17 @@ export const REWRITE_PROMPT_TEMPLATE = promptTemplate(
   "Propose exact reversible diffs with verification and rollback plans. Do not apply changes or request approval.",
 );
 
+export const UX_REPAIR_REWRITE_PROMPT_TEMPLATE = promptTemplate(
+  "contentmd.prompt.rewrite-ux-repair",
+  "Propose exact reversible diffs from the supplied repair brief. Map every diff to every preserve invariant using semantic_invariant_refs. Do not apply changes, self-certify semantic preservation, or request approval.",
+);
+
 export function compileRewritePrompt(input: CompileRewritePromptInput): CompiledPrompt {
   return compileVersionedPrompt({
-    template: REWRITE_PROMPT_TEMPLATE,
-    output_schema_id: "contentmd.rewrite-model-output/0.1.0",
+    template: input.repair_brief === undefined ? REWRITE_PROMPT_TEMPLATE : UX_REPAIR_REWRITE_PROMPT_TEMPLATE,
+    output_schema_id: input.repair_brief === undefined
+      ? "contentmd.rewrite-model-output/0.1.0"
+      : "contentmd.ux-repair-rewrite-model-output/0.1.0",
     project_id: input.project_id,
     task: input.task,
     context_packet_ref: input.context_packet_ref,
@@ -38,6 +47,7 @@ export function compileRewritePrompt(input: CompileRewritePromptInput): Compiled
       task: input.task,
       strategy: input.strategy,
       draft: input.draft,
+      ...(input.repair_brief === undefined ? {} : { repair_brief: input.repair_brief }),
     },
   });
 }

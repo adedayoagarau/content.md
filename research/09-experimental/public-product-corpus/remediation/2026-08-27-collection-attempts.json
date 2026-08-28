@@ -1,0 +1,447 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_direct_state_collection_attempt_log",
+  "as_of": "2026-08-27",
+  "authority_effect": "none",
+  "attempts": [
+    {
+      "company": "Service NSW",
+      "product_system": "Service NSW",
+      "target_slot": "error_recovery",
+      "public_url": "https://worker-check.service.nsw.gov.au/ndiswc/before-you-start-eligibility-questions",
+      "method": "public signed-out browser observation; empty form submission without credentials",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-86-review-candidate/manifest.json",
+      "bounded_note": "NDIS Worker Check route redirected to MyServiceNSW login; empty submission displayed required-field recovery messages."
+    },
+    {
+      "company": "GitHub",
+      "product_system": "GitHub account access",
+      "target_slot": "destructive_permission_support",
+      "public_url": "https://github.com/password_reset",
+      "method": "public signed-out browser observation; no email submitted",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-87-review-candidate/manifest.json",
+      "bounded_note": "Password-recovery heading and action were directly visible without initiating an external message."
+    },
+    {
+      "company": "Aflac",
+      "product_system": "Aflac supplemental insurance",
+      "target_slot": "error_recovery",
+      "public_url": "https://mylogin.aflac.com/",
+      "method": "public signed-out browser inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "Continue remained disabled with an empty username. No fabricated username, credential attempt, or external authentication action was submitted."
+    },
+    {
+      "company": "GOV.UK",
+      "product_system": "Passport service",
+      "target_slot": "entry_onboarding, destructive_permission_support, error_recovery",
+      "public_url": "https://www.passport.service.gov.uk/help?lang=en",
+      "method": "public signed-out browser observation; empty radio-group submission without personal data",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-88-review-candidate/manifest.json",
+      "bounded_note": "Observed a service entry, dedicated help index, and accessible validation summary plus linked inline error."
+    },
+    {
+      "company": "GitHub",
+      "product_system": "GitHub account access",
+      "target_slot": "pending_progress or success",
+      "public_url": "https://github.com/password_reset",
+      "method": "public signed-out browser inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The repeat recovery visit was challenge-gated. No email value was entered and no password-reset request or external message was triggered."
+    },
+    {
+      "company": "Yubico",
+      "product_system": "YubiKey authentication",
+      "target_slot": "error_recovery",
+      "public_url": "https://demo.yubico.com/otp/verify",
+      "method": "public signed-out browser inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "OTP Validate remained disabled with an empty value, and empty Sign In on the Playground produced no visible validation. No fabricated OTP, credential submission, or YubiCloud validation request was made."
+    },
+    {
+      "company": "Khan Academy",
+      "product_system": "Khan Academy learning",
+      "target_slot": "error_recovery",
+      "public_url": "https://www.khanacademy.org/login",
+      "method": "public signed-out client-side inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "Short placeholder values exposed no visible local validation. No login submission or fabricated credential attempt was made."
+    },
+    {
+      "company": "Headspace",
+      "product_system": "Headspace wellbeing",
+      "target_slot": "error_recovery",
+      "public_url": "https://www.headspace.com/login/forgotten-password",
+      "method": "public signed-out browser observation; empty-field submission without identifier or consent",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-89-review-candidate/manifest.json",
+      "bounded_note": "The route redirected to Headspace account access and displayed the live alert Identifier is required after empty Continue."
+    },
+    {
+      "company": "Cleveland Clinic",
+      "product_system": "Cleveland Clinic care access",
+      "target_slot": "error_recovery",
+      "public_url": "https://my.clevelandclinic.org/canada/appointments/web-appointments",
+      "method": "public signed-out appointment form; empty submission before CAPTCHA without personal or health data",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-90-review-candidate/manifest.json",
+      "bounded_note": "Observed inline required-field errors. One representative error is retained; repeated field errors are not counted as separate states."
+    },
+    {
+      "company": "Cisco Duo",
+      "product_system": "Cisco Duo identity security",
+      "target_slot": "pending_progress or error_recovery",
+      "public_url": "https://duo.com/demos/duo-universal-prompt",
+      "method": "public signed-out official demo inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The interactive prompt is an embedded Figma prototype with no machine-readable prompt state. No visual text or state was inferred from the inaccessible canvas."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "destructive_permission_support",
+      "public_url": "https://support.1password.com/",
+      "method": "public signed-out browser observation only",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-92-review-candidate/manifest.json",
+      "bounded_note": "Observed the level-one support heading, article search, common topics, and categorized public help routes without opening or submitting them."
+    },
+    {
+      "company": "Airbnb",
+      "product_system": "Airbnb hosting",
+      "target_slot": "destructive_permission_support",
+      "public_url": "https://www.airbnb.com/help/all-topics",
+      "method": "public signed-out browser observation only",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-92-review-candidate/manifest.json",
+      "bounded_note": "Observed the All topics heading and explicit Home host, Experience host, and Service host role tabs without changing the selected role or opening a topic."
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "target_slot": "destructive_permission_support",
+      "public_url": "https://support.atlassian.com/statuspage/resources/",
+      "method": "public signed-out browser observation only",
+      "outcome": "evidence_candidate_created",
+      "candidate_ref": "remediation/batch-92-review-candidate/manifest.json",
+      "bounded_note": "Observed the Statuspage-specific resource heading, search, guide, and categorized documentation routes without opening them."
+    },
+    {
+      "company": "Adobe",
+      "product_system": "Adobe Creative Cloud",
+      "target_slot": "destructive_permission_support",
+      "public_url": "https://helpx.adobe.com/creative-cloud/help.html",
+      "method": "public signed-out browser observation only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The candidate URL rendered Adobe's 404 page. It was excluded from positive product-support evidence."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "success",
+      "public_url": "https://1password.com/password-generator",
+      "method": "public signed-out generator; local refresh only; generated value not retained",
+      "outcome": "evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-93-review-candidate/manifest.json",
+      "bounded_note": "Observed the explicit Generated password result after a local refresh. The new raw signature remains unmapped and non-counting until independent content-design and taxonomy review."
+    },
+    {
+      "company": "GitHub",
+      "product_system": "GitHub account access",
+      "target_slot": "pending_progress or success",
+      "public_url": "https://www.githubstatus.com/",
+      "method": "public signed-out browser observation only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The status surface covers GitHub.com broadly rather than the scoped account-access product, and operational service health is not a completed user task."
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "target_slot": "pending_progress or success",
+      "public_url": "https://status.atlassian.com/ and https://metastatuspage.com/",
+      "method": "public signed-out browser observation only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The product-specific status surface was directly observed, but All Systems Operational is ongoing service health rather than a completed user goal or action in progress under the reviewed taxonomy."
+    },
+    {
+      "company": "Airbnb",
+      "product_system": "Airbnb hosting",
+      "target_slot": "pending_progress or success",
+      "public_url": "https://status.airbnb.com/",
+      "method": "public signed-out browser navigation attempt",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The hostname did not resolve; no UI evidence was available."
+    },
+    {
+      "company": "Airbnb",
+      "product_system": "Airbnb hosting",
+      "target_slot": "success",
+      "public_url": "https://www.airbnb.com/host/homes",
+      "method": "public signed-out browser observation only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The earnings calculator exposed a nights slider, but its monetary amount remained an unresolved placeholder while the map loaded. Promotional possibility was not treated as a completed estimate."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "error_recovery",
+      "public_url": "https://start.1password.com/signin",
+      "method": "public signed-out browser inspection only",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The sign-in route exposed no machine-readable UI snapshot and the target closed before a safe empty-state inspection. No credential or form submission was attempted."
+    },
+    {
+      "company": "Headspace",
+      "product_system": "Headspace wellbeing",
+      "target_slot": "pending_progress",
+      "public_url": "https://www.headspace.com/meditation/guided-meditation",
+      "method": "public signed-out audio player; local play and pause only; audio content not retained",
+      "outcome": "evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-94-review-candidate/manifest.json",
+      "bounded_note": "The accessible player advanced from 0:00 to 0:16 of 1:00 after play. The new playback signature remains unmapped and non-counting until independent review."
+    },
+    {
+      "company": "Cleveland Clinic",
+      "product_system": "Cleveland Clinic care access",
+      "target_slot": "success",
+      "public_url": "https://providers.clevelandclinic.org/search?unified=cardiology",
+      "method": "public signed-out provider search; generic specialty query only",
+      "outcome": "evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-95-review-candidate/manifest.json",
+      "bounded_note": "The interface reported Loading Complete and 336 providers found for cardiology. No provider record, phone, booking, account, or clinical-advice action was retained or followed."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "error_recovery",
+      "public_url": "https://support.1password.com/search/?q=qzxv-no-such-support-topic-20260827",
+      "method": "public signed-out support search; synthetic non-secret query",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The search returned fuzzy fallback articles and a general support route rather than an explicit no-results failure. It was not classified as error/recovery."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "error_recovery",
+      "public_url": "https://1password.com/password-generator",
+      "method": "public generator; local numeric-control boundary inspection",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "An out-of-range character count was silently clamped to the minimum with no corrective message. Clamping was not treated as an error/recovery state."
+    },
+    {
+      "company": "Khan Academy",
+      "product_system": "Khan Academy learning",
+      "target_slot": "error_recovery and success",
+      "public_url": "https://www.khanacademy.org/math/early-math/cc-early-math-add-sub-basics/cc-early-math-add-sub-intro/e/addition_1",
+      "method": "public signed-out arithmetic exercise; generic incorrect then corrected answer; strictly necessary cookies only",
+      "outcome": "evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-96-review-candidate/manifest.json",
+      "bounded_note": "Observed Not quite! with retry help, then Nice work! with Next question after correction. No account or durable learner-progress claim was made."
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "target_slot": "pending_progress",
+      "public_url": "https://metastatuspage.com/",
+      "method": "public signed-out subscription dialog; empty email submission; dialog closed",
+      "outcome": "high_risk_evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-97-review-candidate/manifest.json",
+      "bounded_note": "The primary action changed to Subscribing... and remained unresolved with no email provided. Reviewers must reject it if a stuck invalid-input transition is not valid canonical progress."
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "target_slot": "error_recovery",
+      "public_url": "https://metastatuspage.com/",
+      "method": "public signed-out email and webhook subscription validation checks using invalid non-personal values",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "Both email and webhook forms entered the same unresolved Subscribing... state and exposed no explicit corrective feedback. The state was not duplicated as error evidence, and no valid endpoint or contact destination was supplied."
+    },
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "target_slot": "error_recovery",
+      "public_url": "https://1password.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only observation",
+      "outcome": "evidence_candidate_created_for_shared_mapping",
+      "candidate_ref": "remediation/batch-99-review-candidate/manifest.json",
+      "bounded_note": "Observed 404: Page Not Found with home, support, and contact recovery routes. The observation reuses the batch-79 page-not-found proposal rather than creating a company-specific mapping."
+    },
+    {
+      "company": "Aflac",
+      "product_system": "Aflac supplemental insurance",
+      "target_slot": "error_recovery",
+      "public_url": "https://www.aflac.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only observation",
+      "outcome": "evidence_candidate_created_for_shared_mapping",
+      "candidate_ref": "remediation/batch-100-review-candidate/manifest.json",
+      "bounded_note": "Observed Page Not Found with site-map and common-page recovery routes. The observation reuses the batch-79 proposal."
+    },
+    {
+      "company": "Cisco Duo",
+      "product_system": "Cisco Duo identity security",
+      "target_slot": "error_recovery",
+      "public_url": "https://duo.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only observation",
+      "outcome": "evidence_candidate_created_for_shared_mapping",
+      "candidate_ref": "remediation/batch-100-review-candidate/manifest.json",
+      "bounded_note": "Observed explicit missing-page wording with blog, site-search, and contact recovery routes. The observation reuses the batch-79 proposal."
+    },
+    {
+      "company": "Yubico",
+      "product_system": "YubiKey authentication",
+      "target_slot": "error_recovery",
+      "public_url": "https://www.yubico.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only observation",
+      "outcome": "evidence_candidate_created_for_shared_mapping",
+      "candidate_ref": "remediation/batch-100-review-candidate/manifest.json",
+      "bounded_note": "Observed explicit missing-page wording with homepage and support recovery routes. The observation reuses the batch-79 proposal."
+    },
+    {
+      "company": "Airbnb",
+      "product_system": "Airbnb hosting",
+      "target_slot": "error_recovery",
+      "public_url": "https://www.airbnb.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only navigation attempt",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "Navigation timed out without verifiable rendered page evidence; no state was inferred or attributed to Airbnb hosting."
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "target_slot": "error_recovery",
+      "public_url": "https://metastatuspage.com/definitely-not-a-real-page-20260827",
+      "method": "public signed-out deliberate nonexistent path; read-only navigation attempt",
+      "outcome": "no_evidence_collected",
+      "candidate_ref": null,
+      "bounded_note": "The browser blocked the target before any page UI rendered; a network/browser error was not treated as product evidence."
+    },
+    {
+      "company": "Yubico",
+      "product_system": "YubiKey authentication",
+      "target_slot": "success",
+      "public_url": "https://www.yubico.com/quiz/",
+      "method": "public signed-out product chooser; four generic selections; optional cookies denied; no cart, purchase, or outbound action",
+      "outcome": "evidence_and_taxonomy_candidate_created",
+      "candidate_ref": "remediation/batch-101-review-candidate/manifest.json",
+      "bounded_note": "Observed Recommendations for you and a named tailored key after completing the public chooser. The claim is bounded to chooser completion and remains unmapped pending independent review."
+    },
+    {
+      "company":"Auth0","product_system":"Auth0 identity","target_slot":"error_recovery","public_url":"https://auth0.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-102-review-candidate/manifest.json","bounded_note":"Observed a visible 404 with explicit failure wording and homepage and documentation recovery routes."
+    },
+    {
+      "company":"Cloudflare","product_system":"Cloudflare platform","target_slot":"error_recovery","public_url":"https://www.cloudflare.com/definitely-not-a-real-page-20260827/","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-102-review-candidate/manifest.json","bounded_note":"Observed 404 — Page not found with home and product-index recovery routes."
+    },
+    {
+      "company":"Canva","product_system":"Canva design suite","target_slot":"error_recovery","public_url":"https://www.canva.com/definitely-not-a-real-page-20260827/","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-102-review-candidate/manifest.json","bounded_note":"Observed a roadblock message, explicit 404 code, and a home recovery route."
+    },
+    {
+      "company":"Dropbox","product_system":"Dropbox","target_slot":"error_recovery","public_url":"https://www.dropbox.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-102-review-candidate/manifest.json","bounded_note":"Observed Error (404) with home and help-center recovery routes."
+    },
+    {
+      "company":"Box","product_system":"Box","target_slot":"error_recovery","public_url":"https://www.box.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only navigation attempt","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The path redirected to the Box homepage without rendering a failure state; the homepage was not treated as recovery evidence."
+    },
+    {
+      "company":"Etsy","product_system":"Etsy marketplace","target_slot":"error_recovery","public_url":"https://www.etsy.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-103-review-candidate/manifest.json","bounded_note":"Observed explicit missing-page wording with search and Etsy-home recovery."
+    },
+    {
+      "company":"Spotify","product_system":"Spotify music","target_slot":"error_recovery","public_url":"https://www.spotify.com/definitely-not-a-real-page-20260827/","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-103-review-candidate/manifest.json","bounded_note":"Observed an out-of-tune missing-page state with Web Player and Support recovery."
+    },
+    {
+      "company":"eBay","product_system":"eBay marketplace","target_slot":"error_recovery","public_url":"https://www.ebay.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-103-review-candidate/manifest.json","bounded_note":"Observed explicit missing-page wording with help and homepage recovery."
+    },
+    {
+      "company":"Webflow","product_system":"Webflow","target_slot":"error_recovery","public_url":"https://webflow.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"evidence_candidate_created_for_shared_mapping","candidate_ref":"remediation/batch-103-review-candidate/manifest.json","bounded_note":"Observed a 404 with explicit failure wording and a home recovery route."
+    },
+    {
+      "company":"Duolingo","product_system":"Duolingo learning","target_slot":"error_recovery","public_url":"https://www.duolingo.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"A generic server 404 exposed no actionable recovery and was excluded."
+    },
+    {
+      "company":"Figma","product_system":"Figma design","target_slot":"error_recovery","public_url":"https://www.figma.com/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The target rendered no usable visible UI; no state was inferred."
+    },
+    {
+      "company":"Notion","product_system":"Notion","target_slot":"error_recovery","public_url":"https://www.notion.so/definitely-not-a-real-page-20260827","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The target redirected to an empty app surface without verifiable failure UI."
+    },
+    {
+      "company":"Pinterest","product_system":"Pinterest discovery","target_slot":"error_recovery","public_url":"https://www.pinterest.com/definitely-not-a-real-page-20260827/","method":"public signed-out deliberate nonexistent path; read-only observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The target rendered no usable visible UI; no state was inferred."
+    },
+    {
+      "company":"Etsy","product_system":"Etsy marketplace","target_slot":"destructive_permission_support","public_url":"https://help.etsy.com/hc/en-us","method":"public signed-out support index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-104-review-candidate/manifest.json","bounded_note":"Observed Help Center routing for shopping, selling, orders, accounts, safety, and contact without opening a route."
+    },
+    {
+      "company":"Spotify","product_system":"Spotify music","target_slot":"destructive_permission_support","public_url":"https://support.spotify.com/us/","method":"public signed-out support index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-104-review-candidate/manifest.json","bounded_note":"Observed Spotify Support with assisted search and categorized billing, account, plan, and app help without using a route."
+    },
+    {
+      "company":"eBay","product_system":"eBay marketplace","target_slot":"destructive_permission_support","public_url":"https://www.ebay.com/help/home","method":"public signed-out customer-service index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-104-review-candidate/manifest.json","bounded_note":"Observed Customer Service routing for guest, account, order, return, shipping, and billing help without opening a route."
+    },
+    {
+      "company":"Webflow","product_system":"Webflow","target_slot":"destructive_permission_support","public_url":"https://help.webflow.com/hc/en-us","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-104-review-candidate/manifest.json","bounded_note":"Observed Webflow Help Center search, quick routes, categorized sections, and escalation resources without opening a route."
+    },
+    {
+      "company":"Cloudflare","product_system":"Cloudflare platform","target_slot":"destructive_permission_support","public_url":"https://developers.cloudflare.com/support/","method":"public signed-out support index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-105-review-candidate/manifest.json","bounded_note":"Observed Cloudflare Support contact, integration, troubleshooting, and error-reference routes without opening one."
+    },
+    {
+      "company":"Canva","product_system":"Canva","target_slot":"destructive_permission_support","public_url":"https://www.canva.com/help/","method":"public signed-out help index; read-only observation","outcome":"atomic_normalization_candidate_created","candidate_ref":"remediation/batch-106-canva-help-normalization-candidate/manifest.json","bounded_note":"The UI qualifies as a support index, but its canonical URL already exists under a different source classification. Batch 106 atomically supersedes the old source and observation rather than duplicating them."
+    },
+    {
+      "company":"Dropbox","product_system":"Dropbox","target_slot":"destructive_permission_support","public_url":"https://help.dropbox.com/","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-105-review-candidate/manifest.json","bounded_note":"Observed Dropbox popular topics, account, usage, product, FAQ, and escalation routes without using one."
+    },
+    {
+      "company":"Auth0","product_system":"Auth0 identity","target_slot":"destructive_permission_support","public_url":"https://auth0.com/docs","method":"public signed-out documentation index; read-only observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The page is primarily a documentation hub with a support link, not an exact help-route-index interface."
+    },
+    {
+      "company":"Figma","product_system":"Figma","target_slot":"destructive_permission_support","public_url":"https://help.figma.com/hc/en-us","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-107-review-candidate/manifest.json","bounded_note":"Observed Figma product, troubleshooting, learning, topic, question, and documentation routes without using one."
+    },
+    {
+      "company":"Netflix","product_system":"Netflix streaming","target_slot":"destructive_permission_support","public_url":"https://help.netflix.com/en","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-107-review-candidate/manifest.json","bounded_note":"Observed Netflix search, topic, quick account and payment, contact, and localization routes without using one."
+    },
+    {
+      "company":"Duolingo","product_system":"Duolingo learning","target_slot":"destructive_permission_support","public_url":"https://support.duolingo.com/hc/en-us","method":"public signed-out help navigation attempt","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The target redirected to Duolingo Help but rendered no usable visible UI; no support state was inferred."
+    },
+    {
+      "company":"Uber","product_system":"Uber rides","target_slot":"destructive_permission_support","public_url":"https://help.uber.com/","method":"public signed-out support-router observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The page routes across riders, driving, Eats, merchants, bikes, business, freight, and fleet; it was not attributed to the narrower Uber rides product."
+    },
+    {
+      "company":"Lyft","product_system":"Lyft ride-hailing","target_slot":"destructive_permission_support","public_url":"https://help.lyft.com/hc/en-us/all","method":"public signed-out help navigation attempt","outcome":"no_support_evidence_collected","candidate_ref":null,"bounded_note":"The requested path rendered a branded page-not-found state rather than a help index. It was not treated as support evidence."
+    },
+    {
+      "company":"Mailchimp","product_system":"Mailchimp marketing","target_slot":"destructive_permission_support","public_url":"https://mailchimp.com/help/","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-108-review-candidate/manifest.json","bounded_note":"Observed Mailchimp search, guides, tutorials, categorized topics, and authenticated escalation without using a route."
+    },
+    {
+      "company":"Wise","product_system":"Wise money transfer","target_slot":"destructive_permission_support","public_url":"https://wise.com/help/","method":"public signed-out help index; read-only observation","outcome":"evidence_candidate_created_using_reviewed_mapping","candidate_ref":"remediation/batch-108-review-candidate/manifest.json","bounded_note":"Observed Wise personalized-support entry, login recovery, money-service topics, and contact escalation without using a route."
+    },
+    {
+      "company":"Pinterest","product_system":"Pinterest discovery","target_slot":"destructive_permission_support","public_url":"https://help.pinterest.com/en","method":"help-index inspection only","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The observed page exposed signed-in personalization. No personal identifier was retained and the page was excluded from public signed-out evidence."
+    },
+    {
+      "company":"LinkedIn","product_system":"LinkedIn professional network","target_slot":"destructive_permission_support","public_url":"https://www.linkedin.com/help/linkedin","method":"help-index inspection only","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The observed page exposed signed-in personalization. No personalized wording was retained and the page was excluded from public signed-out evidence."
+    },
+    {
+      "company":"Square","product_system":"Square pricing","target_slot":"destructive_permission_support","public_url":"https://squareup.com/help/us/en","method":"public signed-out support-center observation","outcome":"no_evidence_collected","candidate_ref":null,"bounded_note":"The support center spans the full Square product portfolio and was not attributed to the narrower Square pricing corpus product."
+    }
+  ],
+  "prohibited_shortcuts": [
+    "do not submit fabricated credentials to manufacture an error state",
+    "do not classify a disabled button as an error/recovery state",
+    "do not infer pending or success states from explanatory copy",
+    "do not treat collection attempts as approval"
+  ]
+}

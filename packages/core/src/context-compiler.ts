@@ -14,6 +14,7 @@ import {
   type SemanticMessageIdentity,
 } from "./message-identity.js";
 import type { AuthorityAssessment, ClaimKind, EvidenceClaim } from "./evidence-claims.js";
+import { qualifyContentOccurrence } from "./content-qualification.js";
 
 export interface ContextSourceDocument {
   source_id: string;
@@ -79,7 +80,7 @@ function graphNodeId(nodeType: ContentGraphNodeType, key: string): string {
 
 function contextForOccurrence(occurrence: ContextOccurrenceInput): MessageContext {
   const searchable = `${occurrence.expression_payload} ${occurrence.semantic_context}`.toLowerCase();
-  if (occurrence.route !== null) {
+  if (isNavigationOccurrence(occurrence)) {
     return {
       journey: occurrence.route.includes("checkout") ? "checkout" : "workspace_management",
       stage: "navigation",
@@ -134,6 +135,15 @@ function contextForOccurrence(occurrence: ContextOccurrenceInput): MessageContex
     surface: isCatalogMessage ? "message_catalog" : occurrence.component ?? occurrence.source_artifact,
     slot: occurrence.semantic_context,
   };
+}
+
+function isNavigationOccurrence(
+  occurrence: ContextOccurrenceInput,
+): occurrence is ContextOccurrenceInput & { route: string } {
+  return occurrence.route !== null && (
+    occurrence.syntax_kind === "route_declaration"
+    || /property:(label|navigation|nav_label)|element:(a|nav)\b/u.test(occurrence.semantic_context.toLowerCase())
+  );
 }
 
 function node(
@@ -334,6 +344,8 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
   }
 
   for (const occurrence of [...input.discovery.occurrences].sort((left, right) => left.occurrence_id.localeCompare(right.occurrence_id))) {
+    const qualification = qualifyContentOccurrence(occurrence);
+    if (qualification.qualification !== "qualified") continue;
     const context = contextForOccurrence(occurrence);
     const evidence = [occurrence.occurrence_id];
     const journey = putNode(node("journey", context.journey, context.journey, evidence));
@@ -346,7 +358,7 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
     putEdge(journey, "has_stage", stage);
     putEdge(stage, "has_state", state);
 
-    if (occurrence.route !== null) {
+    if (isNavigationOccurrence(occurrence)) {
       const route = putNode(node("route", occurrence.route, occurrence.route, evidence, { path: occurrence.route }));
       const iaNode = putNode(node("ia_node", occurrence.route, occurrence.route, evidence, { destination: occurrence.route }));
       const relation = putNode(node(
@@ -417,6 +429,12 @@ export function compileContentContext(input: ContextCompilerInput): ContentGraph
         line: occurrence.line,
         column: occurrence.column,
         syntax_kind: occurrence.syntax_kind,
+        qualification_id: qualification.qualification_id,
+        practice_domains: qualification.practice_domains,
+        functions: qualification.functions,
+        formats: qualification.formats,
+        source_layer: qualification.source_layer,
+        microcopy: qualification.microcopy,
       }),
       node_id: occurrence.occurrence_id,
     });

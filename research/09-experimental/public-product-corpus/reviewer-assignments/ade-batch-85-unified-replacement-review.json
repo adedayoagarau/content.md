@@ -1,0 +1,29 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-review-assignment/0.1.0",
+  "assignment_id": "batch-85-unified-replacement-review.ade",
+  "reviewer_id": "Ade",
+  "reviewer_role": "qualified_content_designer",
+  "candidate_ref": "remediation/batch-85-unified-review-candidate/manifest.json",
+  "review_scope": "complete active projection, 208 observed-marker normalizations, and Alaska validation evidence",
+  "prefilled_findings": {
+    "source_count": 498,
+    "observation_count": 430,
+    "markers_normalized": 208,
+    "ambiguous_markers_left_unchanged": 3,
+    "alaska_validation_is_actionable": true,
+    "candidate_specific_projection_errors": 0,
+    "authority_effect": "none"
+  },
+  "reviewer_checks_required": [
+    "confirm normalized rows describe wording visibly observed on their bound actual UI sources",
+    "confirm normalization changes only observed_vs_inferred and does not strengthen or rewrite evidence",
+    "confirm mixed inferred markers and observed status-like text remain excluded",
+    "confirm the Alaska empty-route alert is an actionable validation failure",
+    "confirm the candidate preserves every other active source and observation field",
+    "confirm activation requires one atomic governed supersession"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

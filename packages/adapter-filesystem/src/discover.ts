@@ -19,6 +19,10 @@ const ADAPTER_ID = "adapter.filesystem";
 const ADAPTER_VERSION = "0.1.0";
 const PARSERS: ArtifactParser[] = [typescriptArtifactParser, documentArtifactParser, pythonArtifactParser];
 
+function assertNotCancelled(request: DiscoverRequest): void {
+  if (request.signal?.aborted === true) throw new Error("discovery_cancelled");
+}
+
 function inventoryWithStacks(inventory: RepositoryInventory, stacks: RepositoryInventory["stacks"]): RepositoryInventory {
   const preimage = {
     contract_version: inventory.contract_version,
@@ -77,7 +81,10 @@ function compareClaim(left: RepositoryClaimDraft, right: RepositoryClaimDraft): 
 }
 
 export async function discoverFilesystemContent(request: DiscoverRequest): Promise<DiscoverResult> {
+  request.on_progress?.({ stage: "scan_started", completed: 0, total: null, current_artifact: null });
+  assertNotCancelled(request);
   const baseInventory = await inventoryRepository(request);
+  assertNotCancelled(request);
   const stacks = await detectStacks(baseInventory);
   const inventory = inventoryWithStacks(baseInventory, stacks);
   const sourceCandidates = await discoverSourceCandidates(inventory);
@@ -88,7 +95,14 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
   let unsupported = inventory.coverage.unsupported;
   let failed = inventory.coverage.failed;
 
-  for (const artifact of inventory.artifacts) {
+  request.on_progress?.({
+    stage: "parsing_started",
+    completed: 0,
+    total: inventory.artifacts.length,
+    current_artifact: null,
+  });
+  for (const [artifactIndex, artifact] of inventory.artifacts.entries()) {
+    assertNotCancelled(request);
     const inputBase = {
       project_root: inventory.project_root,
       artifact,
@@ -129,6 +143,12 @@ export async function discoverFilesystemContent(request: DiscoverRequest): Promi
       }
     }
     if (!artifactFailed) scannedArtifacts.push({ path: artifact.relative_path, digest: artifact.content_digest });
+    request.on_progress?.({
+      stage: "parsing_progress",
+      completed: artifactIndex + 1,
+      total: inventory.artifacts.length,
+      current_artifact: artifact.relative_path,
+    });
   }
 
   occurrences.sort(compareOccurrence);

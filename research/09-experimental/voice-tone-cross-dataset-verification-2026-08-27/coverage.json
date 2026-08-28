@@ -1,0 +1,40 @@
+{
+  "contract_version": "contentmd.voice-tone-verification-coverage/0.1.0",
+  "as_of": "2026-08-27T14:45:08-07:00",
+  "authority_effect": "none",
+  "source_count": 8,
+  "observation_count": 9,
+  "organizations": ["Atlassian", "GOV.UK", "Mailchimp", "Microsoft", "Shopify"],
+  "available_guidance_systems": 4,
+  "related_public_surfaces_reobserved": 3,
+  "stale_source_locations": 1,
+  "webmcp": {
+    "documents_checked": 5,
+    "documents_with_callable_tools": 0,
+    "status": "unavailable_on_checked_documents"
+  },
+  "dataset_bindings": {
+    "public_product_corpus": true,
+    "voice_tone_research": true,
+    "project_owned_comparisons": true
+  },
+  "covered": [
+    "current first-party guidance availability",
+    "qualitative nine-feature vocabulary compatibility",
+    "guidance versus public-surface context comparison",
+    "source freshness failure"
+  ],
+  "not_covered": [
+    "authenticated product UI",
+    "transactional error and recovery states outside GOV.UK",
+    "numeric feature calibration",
+    "human inter-rater reliability",
+    "non-English guidance and local-language product states",
+    "organization-owner approval",
+    "accessibility conformance testing",
+    "WebMCP-derived evidence"
+  ],
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

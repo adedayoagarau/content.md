@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_taxonomy_mapping_proposal",
+  "status": "independent_review_required",
+  "raw_signature": {"journey":"success","event_state":"product recommendation complete","content_slot_type":"confirmation","surface_channel":"web"},
+  "proposed_normalized_signature": {"coverage_slot_id":"success","journey_family_id":"journey.completion","state_class_id":"state.completed","content_slot_class_id":"content.feedback.confirmation","surface_channel_id":"channel.web"},
+  "rationale": "The bounded product-selection task completed: after the visitor supplied four generic preferences, the interface explicitly announced Recommendations for you and named a tailored key. This is chooser completion, not purchase, setup, compatibility, or authentication success.",
+  "candidate_evidence_ref": "batch-101-review-candidate:observation:obs-yubico-recommendation-complete-101-candidate",
+  "counterexample_boundary": "Do not apply to an idle chooser, an intermediate question, a disabled Continue action, generic product listings, compatibility claims, cart state, purchase, setup, or authentication completion.",
+  "adjacent_reviewed_mapping": {"mapping_id":"experience-mapping.5b5b8ea96f25fa89b3b6daf609cf28893765dc9a3ef13157db4e7e70a2b7fc93","raw_event_state":"results populated","coverage_slot_id":"core_task_commitment","required_distinction":"reviewers must decide whether an explicitly tailored recommendation completes the bounded chooser goal or remains action-available output like generic results"},
+  "required_reviewers": ["qualified_content_designer","taxonomy_steward"],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/company-knowledge-records/0.1.0",
+  "oneOf": [{ "$ref": "#/$defs/companyKnowledgeRecord" }],
+  "$defs": {
+    "strings": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "ref": {
+      "type": "object", "additionalProperties": false,
+      "required": ["record_id", "schema_id", "schema_version", "content_digest"],
+      "properties": {
+        "record_id": { "type": "string", "minLength": 1 },
+        "schema_id": { "type": "string", "minLength": 1 },
+        "schema_version": { "const": "0.1.0" },
+        "content_digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "refArray": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/ref" } },
+    "iaNode": {
+      "type": "object", "additionalProperties": false,
+      "required": ["node_id", "label", "kind"],
+      "properties": { "node_id": { "type": "string", "minLength": 1 }, "label": { "type": "string", "minLength": 1 }, "kind": { "enum": ["page", "route", "feature", "navigation"] } }
+    },
+    "iaEdge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["from_node_id", "relationship", "to_node_id"],
+      "properties": { "from_node_id": { "type": "string", "minLength": 1 }, "relationship": { "enum": ["contains", "links_to", "offers", "requires"] }, "to_node_id": { "type": "string", "minLength": 1 } }
+    },
+    "term": {
+      "type": "object", "additionalProperties": false,
+      "required": ["label", "status", "concept", "evidence_refs"],
+      "properties": { "label": { "type": "string", "minLength": 1 }, "status": { "enum": ["preferred", "controlled", "avoid", "unknown"] }, "concept": { "type": "string", "minLength": 1 }, "evidence_refs": { "$ref": "#/$defs/refArray" } }
+    },
+    "example": {
+      "type": "object", "additionalProperties": false,
+      "required": ["string_id", "text", "state", "slot", "source_refs", "rights_basis", "training_eligible"],
+      "properties": {
+        "string_id": { "type": "string", "minLength": 1 }, "text": { "type": "string", "minLength": 1 }, "state": { "type": "string", "minLength": 1 }, "slot": { "type": "string", "minLength": 1 }, "source_refs": { "$ref": "#/$defs/refArray" }, "rights_basis": { "enum": ["evidence_only", "licensed", "project_owned", "consented"] }, "training_eligible": { "type": "boolean" }
+      }
+    },
+    "product": {
+      "type": "object", "additionalProperties": false,
+      "required": ["product_id", "product_name", "industry_ids", "surface_refs", "ia_nodes", "ia_edges", "content_pattern_refs", "terminology", "representative_strings"],
+      "properties": {
+        "product_id": { "type": "string", "minLength": 1 }, "product_name": { "type": "string", "minLength": 1 }, "industry_ids": { "$ref": "#/$defs/strings" }, "surface_refs": { "$ref": "#/$defs/strings" }, "ia_nodes": { "type": "array", "items": { "$ref": "#/$defs/iaNode" } }, "ia_edges": { "type": "array", "items": { "$ref": "#/$defs/iaEdge" } }, "content_pattern_refs": { "$ref": "#/$defs/strings" }, "terminology": { "type": "array", "items": { "$ref": "#/$defs/term" } }, "representative_strings": { "type": "array", "items": { "$ref": "#/$defs/example" } }
+      }
+    },
+    "feature": {
+      "type": "object", "additionalProperties": false, "required": ["feature_name", "qualitative_value", "confidence", "evidence_refs"],
+      "properties": { "feature_name": { "type": "string", "minLength": 1 }, "qualitative_value": { "type": "string", "minLength": 1 }, "confidence": { "enum": ["low", "medium", "high"] }, "evidence_refs": { "$ref": "#/$defs/refArray" } }
+    },
+    "principle": {
+      "type": "object", "additionalProperties": false, "required": ["principle_id", "statement", "evidence_refs"],
+      "properties": { "principle_id": { "type": "string", "minLength": 1 }, "statement": { "type": "string", "minLength": 1 }, "evidence_refs": { "$ref": "#/$defs/refArray" } }
+    },
+    "tone": {
+      "type": "object", "additionalProperties": false, "required": ["policy_id", "context", "policy", "exclusions", "evidence_refs"],
+      "properties": { "policy_id": { "type": "string", "minLength": 1 }, "context": { "type": "string", "minLength": 1 }, "policy": { "type": "string", "minLength": 1 }, "exclusions": { "$ref": "#/$defs/strings" }, "evidence_refs": { "$ref": "#/$defs/refArray" } }
+    },
+    "pattern": {
+      "type": "object", "additionalProperties": false, "required": ["pattern_id", "name", "use_when", "evidence_refs"],
+      "properties": { "pattern_id": { "type": "string", "minLength": 1 }, "name": { "type": "string", "minLength": 1 }, "use_when": { "type": "string", "minLength": 1 }, "evidence_refs": { "$ref": "#/$defs/refArray" } }
+    },
+    "payload": {
+      "type": "object", "additionalProperties": false,
+      "required": ["contract_version", "company_id", "company_name", "knowledge_version", "status", "source_refs", "voice_tone", "content_style", "products", "training", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.company-knowledge-packet/0.1.0" }, "company_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$" }, "company_name": { "type": "string", "minLength": 1 }, "knowledge_version": { "type": "integer", "minimum": 1 }, "status": { "enum": ["proposed", "reviewed", "approved"] }, "source_refs": { "$ref": "#/$defs/refArray" },
+        "voice_tone": { "type": "object", "additionalProperties": false, "required": ["feature_hypotheses", "stable_voice_principles", "situational_tone_policies"], "properties": { "feature_hypotheses": { "type": "array", "items": { "$ref": "#/$defs/feature" } }, "stable_voice_principles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/principle" } }, "situational_tone_policies": { "type": "array", "items": { "$ref": "#/$defs/tone" } } } },
+        "content_style": { "type": "object", "additionalProperties": false, "required": ["mechanics", "terminology_notes", "content_patterns"], "properties": { "mechanics": { "$ref": "#/$defs/strings" }, "terminology_notes": { "$ref": "#/$defs/strings" }, "content_patterns": { "type": "array", "items": { "$ref": "#/$defs/pattern" } } } },
+        "products": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/product" } },
+        "training": { "type": "object", "additionalProperties": false, "required": ["eligibility", "rights_basis", "approved_example_refs", "excluded_example_refs", "review_refs", "limitations"], "properties": { "eligibility": { "enum": ["never", "pending_review", "approved"] }, "rights_basis": { "enum": ["none", "evidence_only", "licensed", "project_owned", "consented"] }, "approved_example_refs": { "$ref": "#/$defs/strings" }, "excluded_example_refs": { "$ref": "#/$defs/strings" }, "review_refs": { "type": "array", "items": { "$ref": "#/$defs/ref" } }, "limitations": { "$ref": "#/$defs/strings" } } },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "companyKnowledgeRecord": {
+      "allOf": [{ "$ref": "https://content.md/schemas/base-record/0.1.0" }, { "type": "object", "properties": { "schema_id": { "const": "contentmd.company-knowledge-packet" }, "payload": { "$ref": "#/$defs/payload" } } }]
+    }
+  }
+}

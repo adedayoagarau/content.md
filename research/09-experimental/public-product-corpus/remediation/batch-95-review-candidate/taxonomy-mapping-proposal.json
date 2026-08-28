@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_taxonomy_mapping_proposal",
+  "status": "independent_review_required",
+  "raw_signature": {
+    "journey": "success",
+    "event_state": "provider search complete",
+    "content_slot_type": "confirmation",
+    "surface_channel": "web"
+  },
+  "proposed_normalized_signature": {
+    "coverage_slot_id": "success",
+    "journey_family_id": "journey.completion",
+    "state_class_id": "state.completed",
+    "content_slot_class_id": "content.feedback.confirmation",
+    "surface_channel_id": "channel.web"
+  },
+  "rationale": "The bounded provider-discovery task completed: the interface explicitly reports loading complete, names the Search results outcome, and returns a quantified result set for the submitted generic specialty query. This is search completion, not appointment completion or clinical advice.",
+  "candidate_evidence_ref": "batch-95-review-candidate:observation:obs-cleveland-provider-search-complete-95-candidate",
+  "counterexample_boundary": "Do not apply to an idle search form, autocomplete suggestions, loading state, empty results, promotional provider copy, a selected provider, appointment readiness, or an appointment confirmation.",
+  "adjacent_reviewed_mapping": {
+    "mapping_id": "experience-mapping.5b5b8ea96f25fa89b3b6daf609cf28893765dc9a3ef13157db4e7e70a2b7fc93",
+    "raw_event_state": "results populated",
+    "coverage_slot_id": "core_task_commitment",
+    "required_distinction": "reviewers must decide whether Loading Complete plus a quantified provider result set confirms the bounded search goal, or whether it remains action-available core-task output like generic marketplace results"
+  },
+  "required_reviewers": [
+    "qualified_content_designer",
+    "taxonomy_steward"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

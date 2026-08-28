@@ -1,0 +1,17 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.scenario.profile-saved",
+  "target": { "source_artifact": "settings/ProfileForm.tsx", "line": 48, "column": 5, "text": "Profile saved" },
+  "facts": { "evidence.present": true, "actor.authority_known": true, "agency.choice_required": false, "state.outcome_evidence": "confirmed", "recovery.required": false, "control.present": false, "navigation.destination_present": false, "system.generated_or_hybrid": false, "expression.invariants_preserved": true, "expression.invariants_mapped": true, "locale.specialist_review_required": false, "governance.authority_effect": "none" },
+  "evidence_refs": ["profile-api.save-confirmed"],
+  "preserve": ["The profile changes were saved successfully"],
+  "must_not_claim": [],
+  "required_facts": ["The save operation completed successfully"],
+  "consequence": null,
+  "recovery": null,
+  "channel": "web",
+  "locale": "en-US",
+  "acceptance_criteria": ["Confirm the completed state", "Do not add unsupported claims"],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

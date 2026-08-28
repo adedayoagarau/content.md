@@ -1,0 +1,27 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-90",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "collection_scope": "public Cleveland Clinic Canada appointment request required-field validation",
+  "reviewed_taxonomy_mapping_id": "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11",
+  "expected_projection_effect": {
+    "cleveland_clinic_care_access_direct_observed_slots_before": 3,
+    "cleveland_clinic_care_access_direct_observed_slots_after": 4,
+    "cleveland_clinic_remaining_missing_slots": ["pending_progress", "success"]
+  },
+  "isolated_overlay_verification": {
+    "base_candidate_range": "batch-85 through batch-89 review candidates",
+    "status": "fail_breadth_only",
+    "error_count": 175,
+    "insufficient_direct_states_count": 172,
+    "products_meeting_direct_state_target": 4,
+    "candidate_specific_error_count": 0,
+    "report_digest": "9fa4186eed70eb0c679cc7c56d95525db698db0fd7100dee6f30ad5b8d23a2a6"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

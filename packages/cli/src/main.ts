@@ -15,6 +15,7 @@ import { registerLearn } from "./commands/learn.js";
 import { registerModel } from "./commands/model.js";
 import { registerResearch } from "./commands/research.js";
 import { registerRollback } from "./commands/rollback.js";
+import { registerScan } from "./commands/scan.js";
 import { registerReview } from "./commands/review.js";
 import { registerRuntime } from "./commands/runtime.js";
 import { registerRewrite } from "./commands/rewrite.js";
@@ -24,6 +25,7 @@ import { registerStrategy } from "./commands/strategy.js";
 import { registerTask } from "./commands/task.js";
 import { registerVerify } from "./commands/verify.js";
 import { registerUninstall } from "./commands/uninstall.js";
+import { registerUndo } from "./commands/undo.js";
 import { createCommandResult, emitCommandResult } from "./output.js";
 
 export function buildProgram(): Command {
@@ -39,6 +41,7 @@ export function buildProgram(): Command {
   registerConnect(program);
   registerDoctor(program);
   registerDiscover(program);
+  registerScan(program);
   registerModel(program);
   registerResearch(program);
   registerReview(program);
@@ -54,17 +57,19 @@ export function buildProgram(): Command {
   registerApply(program);
   registerVerify(program);
   registerRollback(program);
+  registerUndo(program);
   registerUninstall(program);
   return program;
 }
 
 export async function main(argv: string[]): Promise<void> {
+  const effectiveArgv = argv.length <= 2 ? [...argv, "scan", "--summary"] : argv;
   try {
-    await buildProgram().parseAsync(argv);
+    await buildProgram().parseAsync(effectiveArgv);
   } catch (error) {
     if (!(error instanceof CommanderError)) throw error;
     if (error.code === "commander.helpDisplayed" || error.code === "commander.version") return;
-    const wantsJson = argv.includes("--json");
+    const wantsJson = effectiveArgv.includes("--json");
     emitCommandResult(createCommandResult({
       command_id: "command.parse",
       status: "invalid_input",
@@ -75,6 +80,11 @@ export async function main(argv: string[]): Promise<void> {
 }
 
 const invokedPath = process.argv[1];
-if (invokedPath !== undefined && fileURLToPath(import.meta.url) === resolve(invokedPath)) {
-  await main(process.argv);
+if (invokedPath !== undefined
+  && import.meta.url !== undefined
+  && fileURLToPath(import.meta.url) === resolve(invokedPath)) {
+  void main(process.argv).catch((error: unknown) => {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  });
 }

@@ -1,0 +1,44 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-81",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 1,
+  "observation_count": 2,
+  "source_rights_boundary": "public page; evidence only",
+  "collection_scope": "read-only signed-out status inspection and empty-field validation",
+  "reviewed_taxonomy_mapping_ids": [
+    "experience-mapping.41debcd036d8e2064ec95fb6bd98e9de32d01abcca566dc1d4db018439ca1393",
+    "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11"
+  ],
+  "replacement_plan": {
+    "activation_mode": "atomic_supersession",
+    "superseded_records": [
+      "2026-08-27-batch-80:source:src-alaska-flight-status-80",
+      "2026-08-27-batch-80:observation:obs-alaska-flight-status-80"
+    ],
+    "replacement_records": [
+      "2026-08-27-batch-81:source:src-alaska-flight-status-81-candidate",
+      "2026-08-27-batch-81:observation:obs-alaska-flight-status-81-candidate",
+      "2026-08-27-batch-81:observation:obs-alaska-flight-status-validation-81-candidate"
+    ]
+  },
+  "expected_projection_effect": {
+    "alaska_direct_observed_slots_before": 4,
+    "alaska_direct_observed_slots_after": 5,
+    "products_meeting_direct_state_target_delta": 1,
+    "insufficient_direct_states_error_delta": -1
+  },
+  "isolated_projection_verification": {
+    "status": "fail_breadth_only",
+    "baseline_report_digest": "df15d1898ec9d458356cbf7a8bf319d5c1240b386c61c8654de49e25b7f04414",
+    "error_count": 177,
+    "insufficient_direct_states_count": 174,
+    "products_meeting_direct_state_target": 2,
+    "candidate_specific_error_count": 0,
+    "report_digest": "e91f43518a3fd7796ea965c3a45741dc329e60799c7028ef92a4180b5c8a5e65"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

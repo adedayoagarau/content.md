@@ -24,7 +24,9 @@ export async function runCommand(
     emitCommandResult(createCommandResult(await operation()), options.json === true);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    const status = message.startsWith("runtime_binding_not_authorized")
+    const status = message === "discovery_cancelled"
+      ? "cancelled"
+      : message.startsWith("runtime_binding_not_authorized")
       || message.startsWith("runtime_operation_nonce_replayed")
       ? "denied_by_governance"
       : message.startsWith("runtime_capability_unsupported")
@@ -33,22 +35,29 @@ export async function runCommand(
           || message.startsWith("runtime_canonical_commit_unavailable")
           || message.startsWith("runtime_replica_acknowledgement_missing")
           || message.startsWith("runtime_replica_fork_detected")
+          || message.startsWith("qualification_review_incomplete")
           ? "blocked_by_evidence"
           : message.startsWith("runtime_binding_input_invalid")
             ? "invalid_input"
             : message.startsWith("change_not_authorized") || message.startsWith("mutation_")
+              || message === "regular_user_change_confirmation_required"
+              || message === "regular_user_undo_confirmation_required"
       || message.startsWith("provider_grant_required")
       ? "denied_by_governance"
       : message.startsWith("unsupported_provider") || message.startsWith("unsupported_capability")
         ? "unsupported_capability"
-        : message.includes("ENOENT") || message.includes("not_found") || message.includes("not_supported") || message.includes("invalid")
+        : message.startsWith("workspace_") || message.startsWith("qualification_review_")
+          || message.startsWith("regular_user_change_") || message.startsWith("regular_user_undo_")
+          || message.includes("ENOENT") || message.includes("not_found") || message.includes("not_supported") || message.includes("invalid")
           ? "invalid_input"
           : "internal_failure";
     emitCommandResult(createCommandResult({
       command_id: "command.error",
       status,
       findings: [{ code: message.split(":", 1)[0], message }],
-      next_actions: status === "denied_by_governance"
+      next_actions: message.startsWith("workspace_selection_required:")
+        ? [`Rerun with --workspace <path>. Available application workspaces: ${message.slice("workspace_selection_required:".length)}.`]
+        : status === "denied_by_governance"
         ? ["Provide a separate current authorization record bound to the exact transaction."]
         : [],
       data: null,

@@ -1,0 +1,25 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-90-cleveland-validation-review.ola",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "candidate_ref": "remediation/batch-90-review-candidate/manifest.json",
+  "review_scope": "taxonomy and coverage fit of Cleveland Clinic appointment validation",
+  "prefilled_findings": {
+    "coverage_slot_id": "error_recovery",
+    "normalized_journey_stage": "journey.recovery",
+    "new_taxonomy_mapping_required": false,
+    "cleveland_clinic_direct_slots_after": 4,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm validation failure plus error matches the reviewed mapping",
+    "confirm multiple required-field messages count as one canonical error/recovery slot",
+    "confirm the state is distinct from entry, task, and support evidence",
+    "confirm product projection remains Cleveland Clinic care access"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

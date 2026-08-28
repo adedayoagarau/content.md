@@ -1,0 +1,45 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-91",
+  "status": "projection_verified_independent_review_required",
+  "replacement_scope": "complete current active projection plus reviewed-candidate evidence; atomic supersession required",
+  "source_count": 505,
+  "observation_count": 437,
+  "consolidates_review_candidates": [
+    "remediation/batch-85-unified-review-candidate/manifest.json",
+    "remediation/batch-86-review-candidate/manifest.json",
+    "remediation/batch-87-review-candidate/manifest.json",
+    "remediation/batch-88-review-candidate/manifest.json",
+    "remediation/batch-89-review-candidate/manifest.json",
+    "remediation/batch-90-review-candidate/manifest.json"
+  ],
+  "isolated_projection_verification": {
+    "status": "fail",
+    "error_count": 175,
+    "candidate_specific_error_count": 0,
+    "direct_observed_slots": 223,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target": 4,
+    "insufficient_direct_states_count": 172,
+    "report_digest": "f1ec4d11f05b16d398919ee974529959260547570f2ef8ba342b7cb83e9e1a36"
+  },
+  "activation_boundary": {
+    "mode": "single atomic governed supersession",
+    "review_candidates_85_through_90_become_audit_history": true,
+    "activated_batches_must_not_be_edited": true
+  },
+  "activation_preview": {
+    "artifact_ref": "remediation/batch-91-consolidated-review-candidate/activation-preview.json",
+    "current_active_subject_count": 927,
+    "proposed_supersession_count": 927,
+    "additional_candidate_subject_count": 15,
+    "same_record_id_matches": 925,
+    "same_canonical_url_matches": 1,
+    "same_structural_signature_and_wording_matches": 1,
+    "mutation_performed": false
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

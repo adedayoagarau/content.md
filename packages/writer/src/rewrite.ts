@@ -11,12 +11,14 @@ import {
 import { compileRewritePrompt } from "./prompts/rewrite.js";
 import type { ContentStrategyProposal, ModelTrace } from "./strategy.js";
 import type { ContentTaskPacket } from "./task-packet.js";
+import { assertUxWritingRepairBrief, type UxWritingRepairBrief } from "@contentmd/evaluation";
 
 export interface RewriteRequest {
   task: ContentTaskPacket;
   strategy: ContentStrategyProposal;
   draft: ContentDraftProposal;
   execution: WriterModelExecutionContext;
+  repair_brief?: UxWritingRepairBrief;
 }
 
 export interface ProposedContentDiff {
@@ -29,6 +31,7 @@ export interface ProposedContentDiff {
   evidence_refs: string[];
   pattern_refs: string[];
   acceptance_criteria: string[];
+  semantic_invariant_refs?: string[];
   mutation_status: "not_applied";
 }
 
@@ -86,6 +89,9 @@ function parseRewriteOutput(value: unknown): Omit<ContentRewriteProposal, "schem
     ) {
       throw new Error(`invalid_rewrite_output:diff:${index}`);
     }
+    const semanticInvariantRefs = item.semantic_invariant_refs === undefined
+      ? undefined
+      : stringArray(item.semantic_invariant_refs, `diff_semantic_invariant_refs:${index}`);
     return {
       source_artifact: item.source_artifact,
       line: item.line,
@@ -96,6 +102,7 @@ function parseRewriteOutput(value: unknown): Omit<ContentRewriteProposal, "schem
       evidence_refs: stringArray(item.evidence_refs, `diff_evidence_refs:${index}`),
       pattern_refs: stringArray(item.pattern_refs, `diff_pattern_refs:${index}`),
       acceptance_criteria: stringArray(item.acceptance_criteria, `diff_acceptance_criteria:${index}`),
+      ...(semanticInvariantRefs === undefined ? {} : { semantic_invariant_refs: semanticInvariantRefs }),
       mutation_status: "not_applied",
     };
   });
@@ -114,6 +121,7 @@ export async function proposeContentRewrite(
   provider: ModelExecutionPort,
   input: RewriteRequest,
 ): Promise<ContentRewriteProposal> {
+  if (input.repair_brief !== undefined) assertUxWritingRepairBrief(input.repair_brief);
   const prompt = compileRewritePrompt({
     project_id: input.execution.project_id,
     task: input.task,
@@ -122,15 +130,26 @@ export async function proposeContentRewrite(
     context_packet_ref: input.execution.context_packet_ref,
     retrieval_snapshot_ref: input.execution.retrieval_snapshot_ref,
     context_items: input.execution.context_items,
+    ...(input.repair_brief === undefined ? {} : { repair_brief: input.repair_brief }),
   });
   const executed = await executeCompiledWriterPrompt(provider, {
     operation: "rewrite",
-    output_schema_id: "contentmd.rewrite-model-output/0.1.0",
+    output_schema_id: input.repair_brief === undefined
+      ? "contentmd.rewrite-model-output/0.1.0"
+      : "contentmd.ux-repair-rewrite-model-output/0.1.0",
     task: input.task,
     prompt,
     execution: input.execution,
   });
   const output = parseRewriteOutput(executed.output);
+  if (input.repair_brief !== undefined) {
+    for (const [index, diff] of output.diffs.entries()) {
+      const refs = new Set(diff.semantic_invariant_refs ?? []);
+      if (!input.repair_brief.preserve.every((invariant) => refs.has(invariant))) {
+        throw new Error(`invalid_rewrite_output:semantic_invariant_refs:${index}`);
+      }
+    }
+  }
   return {
     schema_version: "contentmd.rewrite-proposal/0.1.0",
     proposal_id: `proposal.rewrite.${sha256Canonical({ request: executed.request, output }).slice(0, 24)}`,

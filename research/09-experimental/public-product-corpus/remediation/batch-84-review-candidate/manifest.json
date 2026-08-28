@@ -1,0 +1,85 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-84",
+  "status": "projection_verified_independent_review_required",
+  "replacement_scope": "complete active projection; atomic supersession required",
+  "source_count": 498,
+  "observation_count": 429,
+  "normalized_observation_count": 208,
+  "normalized_prior_markers": [
+    "observed CTA",
+    "observed CTA text",
+    "observed CTA/plan label",
+    "observed FAQ text",
+    "observed body text",
+    "observed brand label",
+    "observed confirmation",
+    "observed confirmation text",
+    "observed continuation",
+    "observed error text",
+    "observed headline",
+    "observed instruction",
+    "observed label",
+    "observed navigation label",
+    "observed question heading",
+    "observed reassurance",
+    "observed tagline",
+    "observed title"
+  ],
+  "excluded_ambiguous_observations": [
+    {
+      "observation_id": "obs-canva-pro-success",
+      "marker": "observed status-like text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-pro-success",
+        "record_digest": "351af4d2c123dc3c18ada328f093450fcc106d398177f838c0fe758c82fa6d47"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-passport-entry",
+      "marker": "observed headline; inferred journey",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-passport-entry",
+        "record_digest": "5b0cd26df2bea592f308ba991a9c5caef6de58f32688b82c5e1b12a4aa1b5b03"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-passport-error",
+      "marker": "observed control; inferred recovery",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-passport-error",
+        "record_digest": "fced53d23cffdc18abaaf4f531f884949494b3863ca6580c124ab039bf7096b2"
+      }
+    }
+  ],
+  "active_ledger_ref": {
+    "object_id": "public_product_evidence_ledger.dfe078e744e98f094cbfd44d619088c7fdcc536c20b255f176056dbec8e32593",
+    "object_digest": "2857e379a2b129571c6bec8307934c94f64823582c9f216fed9df73828fb1ea1"
+  },
+  "isolated_projection_verification": {
+    "status": "fail",
+    "error_count": 178,
+    "candidate_specific_error_count": 0,
+    "direct_observed_slots": 215,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target": 1,
+    "insufficient_direct_states_count": 175,
+    "report_digest": "9e9344d37032a0eae6dc542def4a6a549199a04c4670577a8c15752a7bc9b7d0"
+  },
+  "prohibited_activation_shortcuts": [
+    "do not edit an activated batch",
+    "do not append this batch before independent review",
+    "do not activate without atomic governed supersession of every replaced active subject",
+    "do not treat marker normalization as new evidence or approval authority"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

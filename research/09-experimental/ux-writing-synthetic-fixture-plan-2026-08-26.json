@@ -1,0 +1,128 @@
+{
+  "schema_version": "contentmd.ux-writing-fixture-plan/0.1.0",
+  "status": "research-only",
+  "ownership": "original synthetic scenarios; no book examples reproduced",
+  "purpose": "Test whether UX-writing candidates preserve meaning, agency, consequence, recovery, accessibility, localization, and evidence under ordinary and adverse conditions.",
+  "fixtures": [
+    {
+      "fixture_id": "UXWF-001",
+      "scenario": "First-run profile setup",
+      "risk": "low",
+      "variants": ["ordinary: optional display name", "adverse: name is publicly visible and cannot be changed for 30 days"],
+      "required_invariants": ["state whether the field is optional", "identify visibility", "state the change restriction before submission"],
+      "prohibited_shortcuts": ["generic Continue label when submission has consequences", "hiding the restriction in help text"],
+      "expected_review": ["deterministic", "preference"],
+      "expected_disposition": "revise-until-hard-pass"
+    },
+    {
+      "fixture_id": "UXWF-002",
+      "scenario": "Payment confirmation with unknown outcome",
+      "risk": "high",
+      "variants": ["ordinary: payment succeeded", "adverse: network ended before outcome was confirmed"],
+      "required_invariants": ["do not assert success without evidence", "prevent unsafe duplicate payment", "give a verification or support path"],
+      "prohibited_shortcuts": ["Try again as the primary action while outcome is unknown", "blaming the user or network"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "abstain-or-escalate-when-status-is-unknown"
+    },
+    {
+      "fixture_id": "UXWF-003",
+      "scenario": "Permanent deletion in a shared workspace",
+      "risk": "high",
+      "variants": ["ordinary: owner deletes an empty draft", "adverse: delegate deletes an item used by other members"],
+      "required_invariants": ["name the object", "state permanence and downstream effects", "identify acting authority", "offer recovery if it exists"],
+      "prohibited_shortcuts": ["ambiguous Yes/No actions", "implying reversibility when none exists"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "human-review-for-shared-impact"
+    },
+    {
+      "fixture_id": "UXWF-004",
+      "scenario": "Eligibility denial",
+      "risk": "high",
+      "variants": ["ordinary: complete evidence supports denial", "adverse: decision basis or appeal deadline is missing"],
+      "required_invariants": ["state the decision without euphemism", "give the known basis", "identify appeal route and deadline", "avoid invented reasons"],
+      "prohibited_shortcuts": ["softening that obscures denial", "claiming finality when appeal exists"],
+      "expected_review": ["specialist", "research", "human_judgment"],
+      "expected_disposition": "escalate-on-missing-policy-evidence"
+    },
+    {
+      "fixture_id": "UXWF-005",
+      "scenario": "Medication-name entry",
+      "risk": "high",
+      "variants": ["ordinary: exact match found", "adverse: similar names and uncertain spelling"],
+      "required_invariants": ["do not silently select a medicine", "make uncertainty visible", "provide safe verification"],
+      "prohibited_shortcuts": ["guessing from a partial name", "using tone to mask clinical uncertainty"],
+      "expected_review": ["specialist", "deterministic"],
+      "expected_disposition": "abstain-and-request-verification"
+    },
+    {
+      "fixture_id": "UXWF-006",
+      "scenario": "Notification permission",
+      "risk": "medium",
+      "variants": ["ordinary: user opts into service alerts", "adverse: marketing is bundled with operational alerts and quiet hours are unavailable"],
+      "required_invariants": ["separate purposes", "make refusal possible", "explain how to change the choice"],
+      "prohibited_shortcuts": ["coercive loss framing", "single consent for materially different purposes"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "reject-bundled-consent-copy"
+    },
+    {
+      "fixture_id": "UXWF-007",
+      "scenario": "Shared household voice assistant",
+      "risk": "high",
+      "variants": ["ordinary: recognized adult asks for weather", "adverse: unrecognized speaker asks for private account information"],
+      "required_invariants": ["represent identity uncertainty", "withhold private data", "offer secure handoff"],
+      "prohibited_shortcuts": ["assuming the nearest speaker is the account owner", "reading secrets aloud"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "safe-refusal-with-recovery"
+    },
+    {
+      "fixture_id": "UXWF-008",
+      "scenario": "Localized transfer confirmation",
+      "risk": "high",
+      "variants": ["ordinary: source locale and left-to-right layout", "adverse: right-to-left locale, expanded text, and ambiguous currency formatting"],
+      "required_invariants": ["preserve amount, currency, recipient, fee, and action consequence", "support bidirectional text safely", "retain action hierarchy"],
+      "prohibited_shortcuts": ["literal translation without semantic review", "truncating transaction facts"],
+      "expected_review": ["specialist", "deterministic"],
+      "expected_disposition": "specialist-review-before-bounded-approval"
+    },
+    {
+      "fixture_id": "UXWF-009",
+      "scenario": "Asynchronous upload status",
+      "risk": "medium",
+      "variants": ["ordinary: visual progress completes", "adverse: screen-reader user experiences a stalled upload and focus moves"],
+      "required_invariants": ["announce meaningful state changes", "avoid noisy repeated announcements", "preserve focus and give recovery"],
+      "prohibited_shortcuts": ["color-only status", "infinite progress without an exit"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "revise-until-accessibility-pass"
+    },
+    {
+      "fixture_id": "UXWF-010",
+      "scenario": "Generated answer in a support flow",
+      "risk": "medium",
+      "variants": ["ordinary: answer is grounded in current product documentation", "adverse: sources conflict or do not cover the account-specific case"],
+      "required_invariants": ["distinguish known from inferred", "cite available evidence", "offer a human or account-aware route"],
+      "prohibited_shortcuts": ["fabricated certainty", "invented account state"],
+      "expected_review": ["deterministic", "research", "human_judgment"],
+      "expected_disposition": "abstain-or-handoff-on-evidence-gap"
+    },
+    {
+      "fixture_id": "UXWF-011",
+      "scenario": "Subscription cancellation",
+      "risk": "medium",
+      "variants": ["ordinary: cancel at period end", "adverse: retained credits expire and an annual renewal is imminent"],
+      "required_invariants": ["make cancellation attainable", "state timing and material loss before confirmation", "provide a receipt"],
+      "prohibited_shortcuts": ["guilt or obstruction", "misleading action labels", "concealed retention offer"],
+      "expected_review": ["deterministic", "specialist"],
+      "expected_disposition": "reject-coercive-expression"
+    },
+    {
+      "fixture_id": "UXWF-012",
+      "scenario": "Prototype conversation operated by a human",
+      "risk": "medium",
+      "variants": ["ordinary: participants were told a facilitator may respond", "adverse: participants believe an autonomous system is making sensitive judgments"],
+      "required_invariants": ["disclose material human involvement", "obtain appropriate consent", "avoid unsupported capability claims"],
+      "prohibited_shortcuts": ["deceptive Wizard-of-Oz framing", "collecting sensitive data beyond the study need"],
+      "expected_review": ["research", "specialist", "human_judgment"],
+      "expected_disposition": "stop-study-until-consent-is-valid"
+    }
+  ]
+}

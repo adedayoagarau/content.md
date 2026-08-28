@@ -1,0 +1,54 @@
+{
+  "contract_version": "contentmd.public-product-taxonomy-version-review/0.1.0",
+  "reconciliation_digest": "c23de5bb02655d9353586ad34e53267ffd8106f1b1953ae3963b8961a25ec6f1",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "review_id": "taxonomy-version-review.5c85648733e6c0036e08936eb3a1ba0d22ed9bac3cacc806babf632d4dc555bf",
+  "checklist_version": "contentmd.public-product-review-checklist.taxonomy-version/0.1.0",
+  "checklist_results": [
+    {
+      "item": "definition_completeness",
+      "status": "pass"
+    },
+    {
+      "item": "semantic_id_stability",
+      "status": "pass"
+    },
+    {
+      "item": "mapping_set_completeness",
+      "status": "pass"
+    },
+    {
+      "item": "previous_version_compatibility",
+      "status": "pass"
+    },
+    {
+      "item": "effective_time_validity",
+      "status": "pass"
+    },
+    {
+      "item": "review_closure",
+      "status": "pass"
+    },
+    {
+      "item": "no_authority_or_learning_widening",
+      "status": "pass"
+    }
+  ],
+  "decision": "pass",
+  "rationale": "All closed taxonomy definitions, semantic identifiers, 343 reconciled mappings, compatibility boundary, effective-time boundary, review closure, and authority restrictions are approved as relayed by the workspace user.",
+  "review_state": "completed",
+  "attestation_provenance": {
+    "assertion": "Approve all",
+    "relayed_by": "workspace_user",
+    "recorded_on": "2026-08-26",
+    "identity_verification": "not_performed",
+    "qualification_verification": "not_performed",
+    "independence_verification": "not_performed"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "review_digest": "3169ad1040649e2a9eb2d9e88834a4e7b2cf85e2b5fe98839a724e1206a1a184"
+}

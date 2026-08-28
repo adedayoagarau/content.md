@@ -1,0 +1,2124 @@
+{
+  "contract_version": "contentmd.public-product-taxonomy-remediation-automation-assessment/0.1.0",
+  "source_packet_digest": "db6134d90cba0e9572caf7c801182ad805b242ade1e79d849c9dc2ef5dc1a525",
+  "reconciliation_digest": "405e7782acd9f3c940bb9a8f04939d1d2fca93eda32781422a575a548a16e41b",
+  "assessment_scope": "thirty_revised_mappings_only",
+  "assessment_method": "deterministic_integrity_and_closed_taxonomy_validation",
+  "work_units": [
+    {
+      "work_unit_id": "taxonomy-migration-candidate.02a7f5f57333fc04673a05c8a7c494a4347275ce94dc1a8a1213e921b74db56a",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.navigation",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user is exploring a security solution before commitment. Evaluation preserves the review goal without implying that a consequential action has begun. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.02f70ed097f72dca0128ed1de6ed7a9a981ebe5321408451c9d00fe3a0aef028",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user is preparing to disconnect a line. This is a reversal journey with a destructive action awaiting completion, not general support discovery. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.0c8f4b925b4a2c5a0f8aa1eceb7aaff8c7f4aa9c2bd7584a47653b1073cee5bb",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The evidence gives termination guidance before the action is completed. Recovery and destructive-action-pending preserve that consequence; the prose explains the path rather than confirming an outcome. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.0e0c9ea1c9aeae5b6b41e3cf7787742ffdd21783dcd9a5c41cd6e93811f0d824",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user is reviewing usage and charges for an existing service. Management and information-available preserve the review goal without inventing a new commitment or required action. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.146bbfa32fc26edce84d6bd6ffe415616a6fba3296c5f1b4ea61e6e15fd55e4c",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "Closing an existing service is a consequential reversal. The mapping now identifies recovery and a pending destructive action instead of generic support availability. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.177cb8d868afb689089965a8af236de120c3d3709e21415e1a10f4698b626df3",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The workspace is open for ongoing listing administration; no task is processing. The immutable raw label remains evidence, while the normalized mapping records management with an available action. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": true
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.1cda87ae1780efc42d7939eb88ab18c0218fbfc7a4a33da962329d29dc118910",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.label.descriptive",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The surface explains preventive safety controls before any incident is active. Information-available avoids asserting a detected risk while preserving the safety journey. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.2b89d982a5d9f5829ede51631bd35cef886fb8d5a056859a30a9cfb41bbda0e7",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The before/during/after model is preventive guidance, not evidence of an active incident. The safety journey remains, with an informational state. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.304cf199847b190d73749836d1317264723454077943396bef58a4796e3c62ef",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "Stopping future charges requires cancelling an existing subscription. Recovery and destructive-action-pending capture the reversal and its consequence. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.499bc672ee0167aa2c5bd517c6175625c9af7948e180a15bcf6267cffc504726",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.support",
+        "state_class_id": "state.support_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The page is an entry surface for choosing a support route before a local outage or account failure is established. It exposes assistance paths without asserting safety risk or active recovery. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.5a43a6c5f7d3deecce439f25299dd91b4cb64c8ee63bdf745c4326a83183fa0e",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The enterprise proposition explains partnership options without requiring data in the observed state. The evaluation journey remains informational. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.5c2eef33f4bd42878d1a13f64a3efdb998d61a9324fc3e510cbcfa1a58bee077",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.confirmation",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user can configure sharing for an existing tracking experience. This is an available management action, not recovery or a completed outcome. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-02",
+          "record_kind": "observation",
+          "record_id": "obs-coursera-home-success",
+          "record_digest": "d799754b88883648d613cc774be653c76e917dd47cd269d394346164dbc428b4"
+        },
+        {
+          "batch_id": "2026-08-23-batch-58",
+          "record_kind": "observation",
+          "record_id": "obs-octopus-success-58",
+          "record_digest": "c19f7c01b8862023fe43c9d81e04a916cf56bbdb9ba5b67446bb95500fe9f2b9"
+        }
+      ],
+      "source_correction_required": true
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.68d62152ef068eacb504efa065fb13d069ea0202ab0ce78395bdca0f3de562d7",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "pending_progress",
+        "journey_family_id": "journey.progress",
+        "state_class_id": "state.processing",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The evidence explicitly reports an action in progress and lets the user inspect its live status. The immutable raw label remains preserved while the normalized mapping records progress and processing. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": true
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.8857ff3c4b39dd605bc74ba03fca067f4362721d3c1e5f9429ccbdc6072b20dd",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.onboarding",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The surface explains how initial ride publication works before route details are entered. It is onboarding guidance with information available, not a failed task. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.98d801446c2650d1ed1e2d02705994b1316c862cffd12b793218d1d9b7f26bcc",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.choice_required",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "Billing guidance is gated by regional selection. Choice-required records the decision needed before the user can continue. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.9a2b6ab3c177568fbef91267bbd198923edbe915be0ae77814d37ef262f0b31a",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.label.descriptive",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user is assessing a scooter service, pricing, and preventive riding guidance before renting. Evaluation with information available avoids asserting an active safety incident. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.9c303fff3ee2a1afab367ae21974fd7c78cb97751aeb7501464954157c38763d",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.management",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.status",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "An existing page requires an upgrade that has not started. The immutable raw label remains preserved; the normalized mapping records an available management action rather than processing. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": true
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.aecb4d6f76c3f2873ac004b093dd095be051718c47547e6cd8f7aa7f5e31694b",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "success",
+        "journey_family_id": "journey.completion",
+        "state_class_id": "state.completed",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The account closure is explicitly complete. Success, completion, and completed preserve the achieved outcome while the supporting body explains its status. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b4f1680d600604985534413df05fb94763e4f79613f12ef0b920745cd4c48f4e",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The section provides preventive rules and incident-handling guidance without establishing a current incident. The safety journey remains informational. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b6bf3712f23d31e3c109f7989831e2c8b2f6dcf5f41223dc5706695cb8a8ac23",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.choice_required",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The catalog supports comparison among mobile plans. A plan attribute that uses the word blocked does not mean the user task is blocked; the state is choice-required. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-24-batch-72",
+          "record_kind": "observation",
+          "record_id": "obs-n26-plan-comparison-72",
+          "record_digest": "f2534cdbc23c839fbb63292080ed0841e6a0a50e87d4d2d6da2e768bfc1bb136"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.b921e9475136f459dcbd7de21a8876962911c80d7ca9a2ba6078f9dbcf776357",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.destructive_action_pending",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "Cancelling a subscription reverses an existing commitment. The mapping now records recovery and a destructive action awaiting completion. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.bb4901fdba4082a30be0fa713fb3c47570f0d8b824cb40b0e64d3848f73e834a",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "pending_progress",
+        "journey_family_id": "journey.progress",
+        "state_class_id": "state.processing",
+        "content_slot_class_id": "content.feedback.status",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The weekly update describes work that remains in progress. Status feedback captures that function without implying confirmation or completion. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.c30671383ede184f02563762c5c8db2e6a0a0d33027ca88616acb16f26b4d5b1",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.support",
+        "state_class_id": "state.support_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The immediate goal is to find help for an account issue. Support routing is primary; no commitment action is underway. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.c886b4075dc559ee4aa5e20d8f7b924e6a7b1f5dfb59816f29b13cba81d54939",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "entry_onboarding",
+        "journey_family_id": "journey.discovery",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user is browsing available marketplace offers before selecting one. Entry discovery and information-available preserve that non-committal state. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.cc006cd6cfbb6cd75672236f082e99275ef48811908d94836929d3898bc6ae0b",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The surface explains preventive security controls before any active threat is detected. The safety journey remains, with an informational state. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.cf3e5e57c7ab871e30f3bfc72349869f534b359ce6ede2d0458cd7fc9a8e2640",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.commitment",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "Enterprise cost information is visible without required user data. Information-available preserves the review state without inventing an input gate. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-01",
+          "record_kind": "observation",
+          "record_id": "obs-stripe-pricing-core",
+          "record_digest": "a7b44230f95b728ab0ae5355ab82e52c0cfeff876da48104b5f52677082cdf96"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.e1355eb4b3dd913adc3ae5d2d8d569a1a01c26f3171fde484a5e2ea43e05f8b0",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.safety",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.section",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The surface teaches users how to recognize fraud and find response guidance; it does not establish an active suspected-fraud event. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.ecea2a86d8761f05ef0c3850631de880c705ea58932722afebaa16141b89e674",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "error_recovery",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.blocked",
+        "content_slot_class_id": "content.body.supporting",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The user cannot access the account and needs restoration. Error-recovery, recovery, and blocked preserve the failed prerequisite rather than treating it as general help discovery. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-06",
+          "record_kind": "observation",
+          "record_id": "obs-booking-login-entry",
+          "record_digest": "36ee1a7572904243ee8b6ab5822ac0549b74280e78a51d149c8c797fa54dc442"
+        }
+      ],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.ef90d8864d9e9167b5b310e14b9f432209c9036f857ae0f442810c8111d356be",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "core_task_commitment",
+        "journey_family_id": "journey.evaluation",
+        "state_class_id": "state.information_available",
+        "content_slot_class_id": "content.heading.primary",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The page explains security controls and reporting routes without requiring a comparison or selection. The evaluation journey remains informational. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [],
+      "source_correction_required": false
+    },
+    {
+      "work_unit_id": "taxonomy-migration-candidate.f7191ae497450f5a6e7fc7199723e34d5547b4a1030243691c05f3d3e8543379",
+      "proposed_normalized_signature": {
+        "coverage_slot_id": "destructive_permission_support",
+        "journey_family_id": "journey.recovery",
+        "state_class_id": "state.action_available",
+        "content_slot_class_id": "content.feedback.confirmation",
+        "surface_channel_id": "channel.web"
+      },
+      "automated_checks": {
+        "evidence_refs_exist": true,
+        "evidence_digests_valid": true,
+        "raw_signature_matches_primary_evidence": true,
+        "normalized_ids_closed": true,
+        "counterexample_refs_valid": true,
+        "remediation_is_targeted": true,
+        "no_remaining_evidence_gap": true,
+        "authority_boundary_preserved": true
+      },
+      "recommended_checklist_results": [
+        {
+          "item": "raw_state_accuracy",
+          "status": "pass"
+        },
+        {
+          "item": "coverage_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "journey_family_fit",
+          "status": "pass"
+        },
+        {
+          "item": "state_class_fit",
+          "status": "pass"
+        },
+        {
+          "item": "content_slot_fit",
+          "status": "pass"
+        },
+        {
+          "item": "channel_fit",
+          "status": "pass"
+        },
+        {
+          "item": "counterexample_sufficiency",
+          "status": "pass"
+        },
+        {
+          "item": "industry_neutrality",
+          "status": "pass"
+        },
+        {
+          "item": "localization_transferability",
+          "status": "pass"
+        },
+        {
+          "item": "rights_safe_abstraction",
+          "status": "pass"
+        }
+      ],
+      "recommended_decision": "pass",
+      "recommended_rationale": "The billing issue has a recoverable next step, but no cancellation, refund, return, transfer, or deletion awaits confirmation. Action-available preserves that distinction. Automated verification confirmed immutable evidence bindings, closed taxonomy IDs, targeted remediation lineage, counterexample integrity, and unchanged authority boundaries. Human semantic judgment and reviewer attestation remain outstanding.",
+      "counterexample_refs": [
+        {
+          "batch_id": "2026-08-23-batch-02",
+          "record_kind": "observation",
+          "record_id": "obs-coursera-home-success",
+          "record_digest": "d799754b88883648d613cc774be653c76e917dd47cd269d394346164dbc428b4"
+        },
+        {
+          "batch_id": "2026-08-23-batch-58",
+          "record_kind": "observation",
+          "record_id": "obs-octopus-success-58",
+          "record_digest": "c19f7c01b8862023fe43c9d81e04a916cf56bbdb9ba5b67446bb95500fe9f2b9"
+        }
+      ],
+      "source_correction_required": true
+    }
+  ],
+  "summary": {
+    "work_unit_count": 30,
+    "recommended_pass_count": 30,
+    "recommended_insufficient_count": 0
+  },
+  "human_attestation_required": true,
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "assessment_digest": "deae498bebb5cfb0249c7cbe70622be193ec27205774242059184f4c4554267d"
+}

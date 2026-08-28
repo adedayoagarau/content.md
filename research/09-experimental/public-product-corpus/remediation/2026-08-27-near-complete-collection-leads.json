@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_collection_leads",
+  "as_of": "2026-08-27",
+  "status": "browser_confirmation_required",
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "leads": [
+    {
+      "company": "Government of Canada",
+      "product_system": "Canada.ca",
+      "candidate_coverage_slot_id": "error_recovery",
+      "candidate_url": "https://www.canada.ca/en/contact/feedback.inc.html",
+      "discovery_basis": "official-site result exposes a live 404 page with recovery links and search",
+      "candidate_visible_text": [
+        "Not Found",
+        "Error 404",
+        "Return to the home page",
+        "Contact us and we'll help you out"
+      ],
+      "collection_status": "observed_in_browser_review_candidate_created",
+      "candidate_ref": "remediation/batch-79-review-candidate/manifest.json",
+      "required_next_action": "complete independent content-design and taxonomy-steward review before creating an immutable active batch",
+      "evidence_effect": "none"
+    }
+  ],
+  "excluded_discovery_results": [
+    {
+      "company": "Aflac",
+      "reason": "claim-status result was a PDF form, not directly observed product UI"
+    },
+    {
+      "company": "Service NSW",
+      "reason": "status result was an annual report describing a feature, not directly observed product UI"
+    },
+    {
+      "company": "Government of Canada",
+      "reason": "404 design guidance is documentation and cannot substitute for the live interface"
+    }
+  ],
+  "runtime_note": "The command-line agent-browser executable was absent, but the Codex in-app browser was available and used for signed-out visible-state confirmation."
+}

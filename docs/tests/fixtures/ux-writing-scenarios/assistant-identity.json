@@ -1,0 +1,17 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.scenario.assistant-identity",
+  "target": { "source_artifact": "support/AssistantIntro.tsx", "line": 12, "column": 3, "text": "I'm your account specialist. I can resolve any billing issue." },
+  "facts": { "evidence.present": true, "actor.authority_known": true, "agency.choice_required": false, "state.outcome_evidence": "confirmed", "recovery.required": false, "control.present": false, "navigation.destination_present": false, "system.generated_or_hybrid": true, "system.identity_and_limits_clear": false, "expression.invariants_preserved": true, "expression.invariants_mapped": true, "locale.specialist_review_required": false, "governance.authority_effect": "none" },
+  "evidence_refs": ["support.assistant-is-automated-and-cannot-change-billing"],
+  "preserve": ["The assistant can explain billing information", "A human support handoff is available"],
+  "must_not_claim": ["account specialist", "resolve any billing issue"],
+  "required_facts": ["The interaction is automated", "The assistant cannot change billing", "Human support is available"],
+  "consequence": "A person may rely on authority the assistant does not have",
+  "recovery": "Offer a human support handoff",
+  "channel": "web_chat",
+  "locale": "en-US",
+  "acceptance_criteria": ["Identify automation", "State material limits", "Provide a handoff route"],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

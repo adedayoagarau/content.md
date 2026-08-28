@@ -1,0 +1,21 @@
+{
+  "schema_version":"1.0.0",
+  "artifact_type":"public_product_shared_taxonomy_mapping_review_packet",
+  "status":"independent_review_required",
+  "supersedes_review_packet_ref":"remediation/batch-100-review-candidate/shared-page-not-found-review-packet-v2.json",
+  "superseded_review_packet_file_digest":"58f1d31e2c900bfcf0ba1ebc31d753ff7a8d62e9f07c21140e65ab7500b15c34",
+  "canonical_mapping_proposal_ref":"remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+  "canonical_mapping_proposal_file_digest":"a32cf90f53b28202b9b0bacc1117684be4038465d292946399c386a40a634530",
+  "raw_signature":{"journey":"error/recovery","event_state":"page not found","content_slot_type":"error","surface_channel":"web"},
+  "proposed_normalized_signature":{"coverage_slot_id":"error_recovery","journey_family_id":"journey.recovery","state_class_id":"state.failed","content_slot_class_id":"content.feedback.error","surface_channel_id":"channel.web"},
+  "evidence_sets":[
+    {"packet_ref":"remediation/batch-100-review-candidate/shared-page-not-found-review-packet-v2.json","packet_file_digest":"58f1d31e2c900bfcf0ba1ebc31d753ff7a8d62e9f07c21140e65ab7500b15c34","evidence_count":5,"companies":["Canada.ca","1Password","Aflac","Cisco Duo","Yubico"]},
+    {"observation_file_ref":"remediation/batch-102-review-candidate/observations.jsonl","observation_file_digest":"cc8c8f7bd3bf9c443a9735e66219569b973df0c33e44f53d4f5a47f7e7d649c8","evidence_count":4,"observations":[{"observation_id":"obs-auth0-page-not-found-102-candidate","exact_wording_span":"Sorry, this page seems to be having an identity crisis.","recovery_routes":["homepage","docs"]},{"observation_id":"obs-cloudflare-page-not-found-102-candidate","exact_wording_span":"404 — Page not found","recovery_routes":["home","all products"]},{"observation_id":"obs-canva-page-not-found-102-candidate","exact_wording_span":"Looks like we hit a roadblock","recovery_routes":["home"]},{"observation_id":"obs-dropbox-page-not-found-102-candidate","exact_wording_span":"Error (404)","recovery_routes":["home","help center"]}]}
+  ],
+  "total_evidence_count":9,
+  "review_question":"Do all nine directly observed interfaces instantiate the same failed-navigation state with actionable recovery strongly enough for one exact raw-signature mapping?",
+  "authority_effect":"none",
+  "prompt_eligibility":"never",
+  "training_eligibility":"never",
+  "benchmark_eligibility":false
+}

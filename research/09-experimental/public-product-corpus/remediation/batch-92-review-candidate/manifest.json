@@ -1,0 +1,28 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-92",
+  "status": "projection_verified_independent_review_required",
+  "projection_base": "remediation/batch-91-consolidated-review-candidate/manifest.json",
+  "source_count": 3,
+  "observation_count": 3,
+  "isolated_projection_verification": {
+    "status": "fail",
+    "error_count": 175,
+    "candidate_specific_error_count": 0,
+    "direct_observed_slots": 226,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target": 4,
+    "insufficient_direct_states_count": 172,
+    "report_digest": "18891727139cc80ff06f7e34b879143329670e247e893de7e6df4b321fb7abb7"
+  },
+  "bounded_result": "three directly observed support/recovery slots added; breadth target remains unmet",
+  "excluded_candidate": {
+    "company": "Adobe",
+    "url": "https://helpx.adobe.com/creative-cloud/help.html",
+    "reason": "observed 404 page; not retained as positive product-support evidence"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

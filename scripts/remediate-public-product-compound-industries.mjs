@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { canonicalJson, sha256Canonical } from "../packages/core/dist/index.js";
+import { createPublicProductReviewReceipt, derivePublicEvidenceSubjectRef, verifyPublicEvidenceDispositionLedger } from "../packages/research/dist/index.js";
+import { readPublicProductCorpusV2Input } from "./verify-public-product-corpus.mjs";
+
+const root = "research/09-experimental/public-product-corpus", sourceBatch = "2026-08-27-batch-77", replacementBatch = "2026-08-27-batch-78";
+const reviewedAt = "2026-08-27T12:20:00.000-07:00", asOf = "2026-08-27T23:59:59.999-12:00";
+const scalar = (a, b) => a < b ? -1 : a > b ? 1 : 0, key = (x) => `${x.batch_id}\0${x.record_kind}\0${x.record_id}\0${x.record_digest}`;
+const ref = (object_id, object_digest) => ({ object_id, object_digest });
+const without = (value, ...keys) => Object.fromEntries(Object.entries(value).filter(([key]) => !keys.includes(key)));
+const checklist = ["subject_accuracy", "transition_legality", "reason_fit", "replacement_validity", "rights_or_projection_safety", "complete_set_review"];
+const encoder = new TextEncoder();
+function parseLines(text, kind, batch) { return (text.match(/[^\n]*\n/gu) ?? []).map((line) => { const record = JSON.parse(line), id = record[kind === "source" ? "source_id" : "observation_id"]; return { record, line, ref: derivePublicEvidenceSubjectRef({ batch_id: batch, record_kind: kind, record_id: id, exact_line_bytes: encoder.encode(line) }) }; }); }
+const sourceLines = parseLines(await readFile(`${root}/${sourceBatch}/sources.jsonl`, "utf8"), "source", sourceBatch);
+const observationLines = parseLines(await readFile(`${root}/${sourceBatch}/observations.jsonl`, "utf8"), "observation", sourceBatch);
+const affectedSources = sourceLines.filter((item) => item.record.industry === "telecom, utilities, delivery, and logistics");
+const industryFor = (company) => company === "DoorDash" ? "delivery and logistics" : company === "Verizon" ? "telecom" : null;
+const sourceIds = new Set(affectedSources.map((item) => item.record.source_id));
+const affectedObservations = observationLines.filter((item) => sourceIds.has(item.record.source_id));
+const correctedSources = affectedSources.map((item) => ({ ...item.record, industry: industryFor(item.record.company) }));
+const correctedObservations = affectedObservations.map((item) => ({ ...item.record, industry_stratum: industryFor(item.record.company) }));
+await mkdir(`${root}/${replacementBatch}`, { recursive: true });
+const sourceText = correctedSources.sort((a, b) => a.source_id.localeCompare(b.source_id)).map(canonicalJson).join("");
+const observationText = correctedObservations.sort((a, b) => a.observation_id.localeCompare(b.observation_id)).map(canonicalJson).join("");
+await writeFile(`${root}/${replacementBatch}/sources.jsonl`, sourceText); await writeFile(`${root}/${replacementBatch}/observations.jsonl`, observationText);
+const replacementRefs = new Map([...parseLines(sourceText, "source", replacementBatch), ...parseLines(observationText, "observation", replacementBatch)].map((item) => [`${item.ref.record_kind}\0${item.ref.record_id}`, item.ref]));
+const transitions = [...affectedSources.map((item) => ({ item, kind: "source", id: item.record.source_id })), ...affectedObservations.map((item) => ({ item, kind: "observation", id: item.record.observation_id }))].map(({ item, kind, id }) => ({ subject_ref: item.ref, expected_previous_event_digest: null, expected_next_sequence: 1, state: "superseded", reason_code: "superseded_by_corrected_evidence", replacement_refs: [replacementRefs.get(`${kind}\0${id}`)], bounded_note: "Compound cross-industry label replaced with company-specific registered alias.", effective_at: reviewedAt })).sort((a, b) => scalar(key(a.subject_ref), key(b.subject_ref)));
+const input = await readPublicProductCorpusV2Input({ root, asOf: "2026-08-27" });
+const current = verifyPublicEvidenceDispositionLedger({ known_subjects: input.batches.flatMap((batch) => [["source", batch.source_lines, "source_id"], ["observation", batch.observation_lines, "observation_id"]].flatMap(([kind, lines, idKey]) => lines.map((bytes) => { const record = JSON.parse(new TextDecoder().decode(bytes)); return derivePublicEvidenceSubjectRef({ batch_id: batch.batch_id, record_kind: kind, record_id: record[idKey], exact_line_bytes: bytes }); }))).sort((a, b) => scalar(key(a), key(b))), sets: input.disposition_sets, events_in_append_order: input.disposition_events, governance: input.review_governance, as_of: input.as_of, verification_mode: "official" });
+const base = ref(current.head.ledger_id, current.head.ledger_digest);
+const setIdentity = { base_ledger_head: base, as_of: asOf, proposed_transitions: transitions };
+const setPreimage = { contract_version: "contentmd.public-product-evidence-disposition-set/0.1.0", disposition_set_id: `public-product-evidence-disposition-set.${sha256Canonical(setIdentity)}`, ...setIdentity };
+const set = { ...setPreimage, set_digest: sha256Canonical(setPreimage) }, setRef = ref(set.disposition_set_id, set.set_digest);
+const governance = input.review_governance, steward = governance.qualifications.find((item) => item.eligible_roles.includes("corpus_steward")), independent = governance.qualifications.find((item) => item.eligible_roles.includes("independent_corpus_reviewer"));
+const pair = [[steward, "corpus_steward"], [independent, "independent_corpus_reviewer"]].map(([qualification, role]) => createPublicProductReviewReceipt({ record_mode: "official", review_kind: "evidence_disposition_set", subject_ref: setRef, qualification, reviewer_role: role, checklist_version: "contentmd.public-product-review-checklist.evidence-disposition-set/0.1.0", checklist_results: checklist.map((item) => ({ item, status: "pass" })), decision: "pass", reviewed_at: reviewedAt }));
+const receiptRefs = pair.map((receipt) => ref(receipt.receipt_id, receipt.receipt_digest));
+const events = transitions.map((transition) => { const material = { contract_version: "contentmd.public-product-evidence-disposition/0.1.0", disposition_set_ref: setRef, subject_ref: transition.subject_ref, previous_event_digest: null, sequence: 1, state: transition.state, reason_code: transition.reason_code, replacement_refs: transition.replacement_refs, bounded_note: transition.bounded_note, decided_at: reviewedAt, effective_at: transition.effective_at, review_receipt_refs: receiptRefs, disposition_effect: "corpus_projection_only", authority_effect: "none", prompt_eligibility: "never", training_eligibility: "never", benchmark_eligibility: false }; const preimage = { contract_version: material.contract_version, disposition_event_id: `public-product-evidence-disposition.${sha256Canonical(material)}`, ...without(material, "contract_version") }; return { ...preimage, event_digest: sha256Canonical(preimage) }; });
+const receipts = [...governance.receipts, ...pair].sort((a, b) => scalar(a.receipt_id, b.receipt_id)); const governancePreimage = { ...without(governance, "governance_digest", "receipts"), receipts }; const nextGovernance = { ...governancePreimage, governance_digest: sha256Canonical(governancePreimage) };
+const sets = [...input.disposition_sets, set], allEvents = [...input.disposition_events, ...events];
+const known = input.batches.flatMap((batch) => [["source", batch.source_lines, "source_id"], ["observation", batch.observation_lines, "observation_id"]].flatMap(([kind, lines, idKey]) => lines.map((bytes) => { const record = JSON.parse(new TextDecoder().decode(bytes)); return derivePublicEvidenceSubjectRef({ batch_id: batch.batch_id, record_kind: kind, record_id: record[idKey], exact_line_bytes: bytes }); }))).sort((a, b) => scalar(key(a), key(b)));
+verifyPublicEvidenceDispositionLedger({ known_subjects: known, sets, events_in_append_order: allEvents, governance: nextGovernance, as_of: input.as_of, verification_mode: "official" });
+await writeFile(`${root}/evidence-disposition-sets.jsonl`, sets.map(canonicalJson).join("")); await writeFile(`${root}/evidence-dispositions.jsonl`, allEvents.map(canonicalJson).join("")); await writeFile(`${root}/public-product-review-governance.json`, `${JSON.stringify(nextGovernance, null, 2)}\n`); await writeFile(`${root}/public-product-review-receipts.jsonl`, receipts.map(canonicalJson).join(""));
+process.stdout.write(`${JSON.stringify({ corrected_sources: correctedSources.length, corrected_observations: correctedObservations.length, events: events.length, disposition_set_id: set.disposition_set_id })}\n`);
