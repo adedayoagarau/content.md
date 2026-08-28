@@ -130,13 +130,80 @@ function initializerValue(initializer: ts.StringLiteral | ts.JsxExpression): {
   return null;
 }
 
+function expressionPlaceholder(expression: ts.Expression, sourceFile: ts.SourceFile): string {
+  if (ts.isStringLiteralLike(expression) || ts.isNumericLiteral(expression)) return expression.text;
+  const text = expression.getText(sourceFile);
+  return /^[\p{L}_$][\p{L}\p{N}_$]*(?:\.[\p{L}_$][\p{L}\p{N}_$]*)*$/u.test(text)
+    ? `{${text}}`
+    : "{value}";
+}
+
+function jsxComposition(
+  node: ts.JsxElement,
+  sourceFile: ts.SourceFile,
+): { payload: string; start: number; end: number; textNodes: ts.JsxText[] } | null {
+  if (node.children.some((child) => ts.isJsxElement(child) || ts.isJsxSelfClosingElement(child))) return null;
+  const segments: string[] = [];
+  const contributingNodes: ts.Node[] = [];
+  const textNodes: ts.JsxText[] = [];
+  let hasExpression = false;
+  for (const child of node.children) {
+    if (ts.isJsxText(child)) {
+      const text = normalizeVisibleText(child.getFullText(sourceFile));
+      if (text.length === 0) continue;
+      segments.push(text);
+      contributingNodes.push(child);
+      textNodes.push(child);
+      continue;
+    }
+    if (ts.isJsxExpression(child) && child.expression !== undefined) {
+      segments.push(expressionPlaceholder(child.expression, sourceFile));
+      contributingNodes.push(child);
+      hasExpression = true;
+    }
+  }
+  if (!hasExpression || contributingNodes.length < 2 || textNodes.length === 0) return null;
+  const payload = normalizeVisibleText(segments.join(" "))
+    .replace(/\s+([.,!?;:%)\]])/gu, "$1")
+    .replace(/([(\[])\s+/gu, "$1");
+  if (payload.length === 0) return null;
+  return {
+    payload,
+    start: contributingNodes[0]!.getStart(sourceFile),
+    end: contributingNodes.at(-1)!.getEnd(),
+    textNodes,
+  };
+}
+
 function discoverTypeScript(source: string, sourceArtifact: string): OccurrenceDraft[] {
   const scriptKind = extname(sourceArtifact) === ".tsx" ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const sourceFile = ts.createSourceFile(sourceArtifact, source, ts.ScriptTarget.Latest, true, scriptKind);
   const drafts: OccurrenceDraft[] = [];
+  const composedTextNodes = new WeakSet<ts.JsxText>();
   const nextRoute = nextRouteFromPath(sourceArtifact);
   const visit = (node: ts.Node): void => {
-    if (ts.isJsxText(node)) {
+    if (ts.isJsxElement(node)) {
+      const composition = jsxComposition(node, sourceFile);
+      if (composition !== null) {
+        for (const textNode of composition.textNodes) composedTextNodes.add(textNode);
+        drafts.push(createDraft(
+          sourceFile,
+          sourceArtifact,
+          composition.start,
+          composition.end,
+          "jsx_composition",
+          composition.payload,
+          {
+            locale: "und",
+            channel: "web",
+            modality: "visible",
+            component: enclosingComponent(node),
+            route: nextRoute,
+            semantic_context: `component:${enclosingComponent(node) ?? "unknown"};element:${node.openingElement.tagName.getText(sourceFile)};composition:jsx_children`,
+          },
+        ));
+      }
+    } else if (ts.isJsxText(node) && !composedTextNodes.has(node)) {
       const rawValue = node.getFullText(sourceFile);
       const value = normalizeVisibleText(rawValue);
       if (value.length > 0) {

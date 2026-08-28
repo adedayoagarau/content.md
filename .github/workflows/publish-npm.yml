@@ -1,0 +1,52 @@
+name: Publish contentmd to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify-and-publish:
+    if: ${{ startsWith(github.event.release.tag_name, 'v') }}
+    runs-on: ubuntu-latest
+    environment: npm-production
+    steps:
+      - name: Check out the released commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+
+      - name: Use Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.19.0"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Install the pinned package manager
+        run: npm install --global pnpm@11.9.0
+
+      - name: Install exact dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify repository test suite
+        run: pnpm test
+
+      - name: Verify types and package boundaries
+        run: pnpm lint
+
+      - name: Verify clean installation and regular-user journeys
+        run: pnpm test:distribution
+
+      - name: Verify release identity and tarball contents
+        env:
+          CONTENTMD_RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: pnpm verify:release
+
+      - name: Publish through npm trusted publishing
+        working-directory: distribution/contentmd
+        run: npm publish --access public

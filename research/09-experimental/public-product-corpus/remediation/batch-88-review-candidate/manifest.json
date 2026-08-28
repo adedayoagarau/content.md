@@ -1,0 +1,36 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-88",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 3,
+  "observation_count": 3,
+  "collection_scope": "public signed-out GOV.UK passport entry, help, and enquiry validation states",
+  "reviewed_taxonomy_mapping_ids": [
+    "experience-mapping.f65219fb6bfc90edd94607bf83a293f8bc5f4eb92d570479ecf0c669910c6345",
+    "experience-mapping.3e6c85bb85a6c053c15de88fb1cff0bc81232b429de0354d76c064bc690fa039",
+    "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11"
+  ],
+  "expected_projection_effect": {
+    "passport_service_direct_observed_slots_before": 2,
+    "passport_service_direct_observed_slots_after": 5,
+    "products_meeting_direct_state_target_delta": 1,
+    "insufficient_direct_states_error_delta": -1
+  },
+  "isolated_overlay_verification": {
+    "base_candidates": [
+      "remediation/batch-85-unified-review-candidate/manifest.json",
+      "remediation/batch-86-review-candidate/manifest.json",
+      "remediation/batch-87-review-candidate/manifest.json"
+    ],
+    "status": "fail_breadth_only",
+    "error_count": 175,
+    "insufficient_direct_states_count": 172,
+    "products_meeting_direct_state_target": 4,
+    "candidate_specific_error_count": 0,
+    "report_digest": "c2256227f7d35ad8fb0ef711f189fafd6b0a7b5c32cd6b5304a288b274d86b84"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

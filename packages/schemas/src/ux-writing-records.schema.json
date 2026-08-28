@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/schemas/ux-writing-records/0.1.0",
+  "title": "content.md UX-writing records",
+  "oneOf": [
+    { "$ref": "#/$defs/uxWritingRequestRecord" },
+    { "$ref": "#/$defs/uxWritingCandidateRecord" }
+  ],
+  "$defs": {
+    "strings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "role", "authority", "affected"],
+      "properties": {
+        "actor_id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "authority": { "enum": ["confirmed", "limited", "unknown", "none"] },
+        "affected": { "type": "boolean" }
+      }
+    },
+    "interactionState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["current", "previous", "next_possible", "success", "failure", "unknown_possible"],
+      "properties": {
+        "current": { "type": "string", "minLength": 1 },
+        "previous": { "type": ["string", "null"] },
+        "next_possible": { "$ref": "#/$defs/nonEmptyStrings" },
+        "success": { "type": ["string", "null"] },
+        "failure": { "type": ["string", "null"] },
+        "unknown_possible": { "type": "boolean" }
+      }
+    },
+    "actionContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "actor_id", "object", "consequence", "reversibility", "recovery", "outcome_evidence"],
+      "properties": {
+        "action_id": { "type": "string", "minLength": 1 },
+        "actor_id": { "type": "string", "minLength": 1 },
+        "object": { "type": "string", "minLength": 1 },
+        "consequence": { "type": "string", "minLength": 1 },
+        "reversibility": { "enum": ["reversible", "partly_reversible", "irreversible", "unknown"] },
+        "recovery": { "type": ["string", "null"] },
+        "outcome_evidence": { "enum": ["confirmed", "unknown_possible", "not_established"] }
+      }
+    },
+    "uxWritingRequestRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.ux-writing-request-record" },
+            "payload": { "$ref": "#/$defs/uxWritingRequestPayload" }
+          }
+        }
+      ]
+    },
+    "uxWritingRequestPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "request_type", "surface", "channel", "actors", "goals", "interaction_state", "message_intent", "required_facts", "forbidden_claims", "action_contracts", "risk_level", "locale", "accessibility_requirements", "voice_profile_refs", "tone_policy_refs", "evidence_refs", "open_questions", "acceptance_criteria", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.ux-writing-request/0.1.0" },
+        "request_type": { "enum": ["draft", "rewrite", "review"] },
+        "surface": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1 },
+        "actors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/actor" } },
+        "goals": { "$ref": "#/$defs/nonEmptyStrings" },
+        "interaction_state": { "$ref": "#/$defs/interactionState" },
+        "message_intent": { "type": "string", "minLength": 1 },
+        "required_facts": { "$ref": "#/$defs/nonEmptyStrings" },
+        "forbidden_claims": { "$ref": "#/$defs/strings" },
+        "action_contracts": { "type": "array", "items": { "$ref": "#/$defs/actionContract" } },
+        "risk_level": { "enum": ["low", "medium", "high", "critical"] },
+        "locale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "targets", "direction", "specialist_review_required"],
+          "properties": {
+            "source": { "type": "string", "minLength": 1 },
+            "targets": { "$ref": "#/$defs/strings" },
+            "direction": { "enum": ["ltr", "rtl", "mixed", "unknown"] },
+            "specialist_review_required": { "type": "boolean" }
+          }
+        },
+        "accessibility_requirements": { "$ref": "#/$defs/strings" },
+        "voice_profile_refs": { "$ref": "#/$defs/strings" },
+        "tone_policy_refs": { "$ref": "#/$defs/strings" },
+        "evidence_refs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "open_questions": { "$ref": "#/$defs/strings" },
+        "acceptance_criteria": { "$ref": "#/$defs/nonEmptyStrings" },
+        "authority_effect": { "const": "none" }
+      }
+    },
+    "semanticInvariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariant_id", "statement", "source_refs", "status"],
+      "properties": {
+        "invariant_id": { "type": "string", "minLength": 1 },
+        "statement": { "type": "string", "minLength": 1 },
+        "source_refs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "status": { "enum": ["preserved", "violated", "unknown"] }
+      }
+    },
+    "expression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression_id", "channel", "locale", "text", "invariant_refs"],
+      "properties": {
+        "expression_id": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string", "minLength": 1 },
+        "locale": { "type": "string", "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "invariant_refs": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "evaluationOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reason_code", "dimension", "outcome_class", "status", "evidence_refs", "review_type"],
+      "properties": {
+        "reason_code": { "type": "string", "minLength": 1 },
+        "dimension": { "type": "string", "minLength": 1 },
+        "outcome_class": { "enum": ["hard", "advisory"] },
+        "status": { "enum": ["pass", "fail", "unknown", "not_evaluated"] },
+        "evidence_refs": { "$ref": "#/$defs/strings" },
+        "review_type": { "enum": ["deterministic", "specialist", "research", "human_judgment", "preference"] }
+      }
+    },
+    "uxWritingCandidateRecord": {
+      "allOf": [
+        { "$ref": "https://content.md/schemas/base-record/0.1.0" },
+        {
+          "properties": {
+            "schema_id": { "const": "contentmd.ux-writing-candidate-record" },
+            "payload": { "$ref": "#/$defs/uxWritingCandidatePayload" }
+          }
+        }
+      ]
+    },
+    "uxWritingCandidatePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract_version", "request_ref", "status", "semantic_invariants", "expressions", "rationale", "assumptions", "alternatives_considered", "unresolved_questions", "evaluation_outcomes", "hard_plane_status", "recommended_disposition", "approval_refs", "authority_effect"],
+      "properties": {
+        "contract_version": { "const": "contentmd.ux-writing-candidate/0.1.0" },
+        "request_ref": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["proposed", "needs_evidence", "needs_specialist_review", "rejected", "approved_for_bounded_use", "retired"] },
+        "semantic_invariants": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/semanticInvariant" } },
+        "expressions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expression" } },
+        "rationale": { "type": "string", "minLength": 1 },
+        "assumptions": { "$ref": "#/$defs/strings" },
+        "alternatives_considered": { "$ref": "#/$defs/strings" },
+        "unresolved_questions": { "$ref": "#/$defs/strings" },
+        "evaluation_outcomes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evaluationOutcome" } },
+        "hard_plane_status": { "enum": ["pass", "fail", "unknown"] },
+        "recommended_disposition": { "enum": ["abstain", "escalate", "revise", "human_review", "bounded_approval", "reject"] },
+        "approval_refs": { "$ref": "#/$defs/strings" },
+        "authority_effect": { "const": "none" }
+      }
+    }
+  }
+}

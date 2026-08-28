@@ -1,0 +1,30 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-87",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "collection_scope": "public signed-out GitHub password-recovery surface",
+  "reviewed_taxonomy_mapping_id": "experience-mapping.a286f59ea7116df8c935dab6a76c27d03c35e407a7b2b125fde3da54c0a267ea",
+  "expected_projection_effect": {
+    "github_account_access_direct_observed_slots_before": 3,
+    "github_account_access_direct_observed_slots_after": 4,
+    "github_remaining_missing_slots": ["pending_progress", "success"]
+  },
+  "isolated_overlay_verification": {
+    "base_candidates": [
+      "remediation/batch-85-unified-review-candidate/manifest.json",
+      "remediation/batch-86-review-candidate/manifest.json"
+    ],
+    "status": "fail_breadth_only",
+    "error_count": 176,
+    "insufficient_direct_states_count": 173,
+    "products_meeting_direct_state_target": 3,
+    "candidate_specific_error_count": 0,
+    "report_digest": "ff7f0ac7b8bec5be6d08ae2baa7e313bacc5baf36dfd7bf086823d663a1b7c9c"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

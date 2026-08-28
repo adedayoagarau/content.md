@@ -1,0 +1,26 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-90-cleveland-validation-review.ade",
+  "reviewer_id": "Ade",
+  "reviewer_role": "qualified_content_designer",
+  "candidate_ref": "remediation/batch-90-review-candidate/manifest.json",
+  "review_scope": "Cleveland Clinic appointment request required-field validation",
+  "prefilled_findings": {
+    "source_is_public_signed_out_ui": true,
+    "wording_matches_visible_interface": true,
+    "recovery_is_actionable": true,
+    "no_personal_or_health_data_was_entered": true,
+    "repeated_field_errors_are_not_double_counted": true,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm the first-name error appears after an empty appointment form submission",
+    "confirm inline placement and recovery are represented accurately",
+    "confirm one representative error is appropriate instead of duplicating every required field",
+    "confirm Cleveland Clinic Canada remains within the broader care-access product projection"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

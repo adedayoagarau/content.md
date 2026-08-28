@@ -10,11 +10,13 @@ import draftSchema from "./model-output/draft.schema.json" with { type: "json" }
 import evaluationSchema from "./model-output/evaluation.schema.json" with { type: "json" };
 import rewriteSchema from "./model-output/rewrite.schema.json" with { type: "json" };
 import strategySchema from "./model-output/strategy.schema.json" with { type: "json" };
+import uxRepairRewriteSchema from "./model-output/ux-repair-rewrite.schema.json" with { type: "json" };
 
 export const MODEL_OUTPUT_SCHEMA_IDS = [
   "contentmd.strategy-model-output/0.1.0",
   "contentmd.draft-model-output/0.1.0",
   "contentmd.rewrite-model-output/0.1.0",
+  "contentmd.ux-repair-rewrite-model-output/0.1.0",
   "contentmd.classification-model-output/0.1.0",
   "contentmd.evaluation-model-output/0.1.0",
   "contentmd.candidate-ranking-model-output/0.1.0",
@@ -86,6 +88,7 @@ const SCHEMA_DOCUMENTS: Readonly<Record<ModelOutputSchemaId, SchemaDocument>> = 
   "contentmd.strategy-model-output/0.1.0": strategySchema as SchemaDocument,
   "contentmd.draft-model-output/0.1.0": draftSchema as SchemaDocument,
   "contentmd.rewrite-model-output/0.1.0": rewriteSchema as SchemaDocument,
+  "contentmd.ux-repair-rewrite-model-output/0.1.0": uxRepairRewriteSchema as SchemaDocument,
   "contentmd.classification-model-output/0.1.0": classificationSchema as SchemaDocument,
   "contentmd.evaluation-model-output/0.1.0": evaluationSchema as SchemaDocument,
   "contentmd.candidate-ranking-model-output/0.1.0": candidateRankingSchema as SchemaDocument,
@@ -95,6 +98,7 @@ const MAXIMUM_OUTPUT_BYTES: Readonly<Record<ModelOutputSchemaId, number>> = Obje
   "contentmd.strategy-model-output/0.1.0": 65_536,
   "contentmd.draft-model-output/0.1.0": 131_072,
   "contentmd.rewrite-model-output/0.1.0": 131_072,
+  "contentmd.ux-repair-rewrite-model-output/0.1.0": 131_072,
   "contentmd.classification-model-output/0.1.0": 32_768,
   "contentmd.evaluation-model-output/0.1.0": 131_072,
   "contentmd.candidate-ranking-model-output/0.1.0": 131_072,

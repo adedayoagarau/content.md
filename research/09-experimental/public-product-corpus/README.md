@@ -57,6 +57,97 @@ handoff for the current 343-signature mapping queue. It describes the exact
 two-role qualified review and version-review gates without issuing a taxonomy,
 receipt, or mapping.
 
+The deterministic [taxonomy review packet](taxonomy-review-packet.json) binds
+that queue to migration-plan digest
+`31e88894f5ed605fe89210c440903a34f2a094b2a8cbeea0594a57233f32eb8b`
+and packet digest
+`db6134d90cba0e9572caf7c801182ad805b242ade1e79d849c9dc2ef5dc1a525`.
+It contains 343 unreviewed work units and grants no classification, prompt,
+training, benchmark, or product authority.
+
+Independent blank review assignments are bound to that source packet for
+[Ade as qualified content designer](reviewer-assignments/ade-qualified-content-designer.json)
+and [Ola as taxonomy steward](reviewer-assignments/ola-taxonomy-steward.json).
+Each contains the same 343 work units but has a distinct reviewer-bound digest.
+Neither assignment records a checklist result, decision, receipt, qualification,
+or acceptance effect.
+
+Ade's [returned independent review](reviewer-assignments/ade-qualified-content-designer.reviewed.json)
+is structurally complete and digest-valid, with 262 `pass` and 81 `fail`
+decisions. Ola's [returned independent review](reviewer-assignments/ola-taxonomy-steward.reviewed.json)
+is also structurally complete and digest-valid, with 7 `pass`, 86 `fail`, and
+250 `insufficient` decisions. The [mapping reconciliation](taxonomy-mapping-reconciliation.json)
+preserves both independent verdict sets and resolves all 343 work units, including
+91 source-correction requirements and 12 explicit cross-reviewer boundary
+resolutions. These remain reviewer recommendations rather than official receipts:
+the reconciliation records `taxonomy_version_review_state: not_started`, and
+governed qualification evidence and taxonomy-version review have not been issued.
+
+Post-reconciliation mapping approval assignments are ready for independent
+completion by [Ade](reviewer-assignments/ade-post-reconciliation-mapping-approval.json)
+and [Ola](reviewer-assignments/ola-post-reconciliation-mapping-approval.json).
+Both are bound to the verified reconciliation, contain its same 343 final
+five-coordinate mappings, and start with no decisions. Reviewers must follow the
+[post-reconciliation approval guide](reviewer-assignments/post-reconciliation-mapping-approval-guide.md)
+and must not compare returned decisions until both assignments are complete.
+
+The completed post-reconciliation reviews are preserved for
+[Ade](reviewer-assignments/ade-post-reconciliation-mapping-approval.reviewed.json)
+and [Ola](reviewer-assignments/ola-post-reconciliation-mapping-approval.reviewed.json).
+Ade passed all 343 mappings; Ola passed 313 and failed 30. The digest-valid
+[v0.2 reconciliation](taxonomy-mapping-reconciliation-v2.json) supersedes the
+first reconciliation, retains the 313 dual-pass mappings, revises exactly the
+30 failed mappings, and remains `pending_targeted_reapproval`.
+
+Independent blank remediation assignments for those exact 30 mappings are
+ready for [Ade](reviewer-assignments/ade-remediation-mapping-review.json) and
+[Ola](reviewer-assignments/ola-remediation-mapping-review.json). Neither packet
+contains a prior reviewer decision. Both must be completed and returned before
+mapping closure or taxonomy-version review can begin.
+
+The [automation assessment](taxonomy-remediation-automation-assessment.json)
+prechecks all 30 revised mappings and provides evidence-bound recommendations
+to reduce reviewer effort. It is explicitly non-human, grants no authority, and
+cannot substitute for Ade's or Ola's independent attestation. Use the compact
+[remediation attestation handoff](reviewer-assignments/remediation-attestation.md)
+to finish the irreducible reviewer step.
+Reviewer-specific recommendation overlays are available for
+[Ade](reviewer-assignments/ade-remediation-mapping-review.prefill.json) and
+[Ola](reviewer-assignments/ola-remediation-mapping-review.prefill.json); their
+human decision and attestation fields remain deliberately unset.
+
+The workspace user subsequently relayed the assertions `Ade attests` and
+`Ola attests`. These were applied to digest-valid completed remediation packets
+with all 30 automated recommendations accepted. The packet provenance explicitly
+records that identity, qualification, and independence verification were not
+performed; these assertions close the review-content handoff but are not yet
+portable governed receipts.
+
+The workspace user then relayed `Approve all` for both seven-item taxonomy-version
+reviews. The [final reconciliation](taxonomy-mapping-reconciliation-final.json)
+records complete mapping closure across all 343 units. Digest-valid completed
+version reviews are preserved for
+[Ade](reviewer-assignments/ade-taxonomy-version-review.reviewed.json) and
+[Ola](reviewer-assignments/ola-taxonomy-version-review.reviewed.json). Their
+provenance remains explicitly identity-, qualification-, and independence-
+unverified, so they are approved review artifacts but not official governance
+receipts and cannot activate `experience-taxonomy.json` by themselves.
+
+On 2026-08-27 the workspace owner explicitly authorized the governed reviewer
+qualifications and official review issuance. The generated
+[review governance](public-product-review-governance.json) contains two current
+qualifications, 686 mapping receipts, and two taxonomy-version receipts; the
+portable [receipt ledger](public-product-review-receipts.jsonl) mirrors those
+receipts. The resulting [experience taxonomy](experience-taxonomy.json) passes
+the repository's official taxonomy verifier with 343 mappings.
+
+This does not make the corpus release-ready. The 2026-08-27 aggregate v0.2 run
+still reports `status: fail` and `accepted_projection_ref: null` because of
+evidence-corpus failures including breadth targets, duplicate identities and
+canonical URLs, missing sources, nonconforming source rows, quotation and rights
+boundaries, and unmapped industries. Taxonomy activation and corpus projection
+acceptance remain separate gates.
+
 ## Coverage is not promotion
 
 Meeting five observed states establishes comparative coverage only. It does not make a batch controlled-corpus eligible or a product pattern reusable. Controlled pattern synthesis separately requires a conforming typed acquisition manifest, established signed-out ephemeral profile isolation, current runtime and external-research grants, source/observation normalization, rights review, similarity review, complete clean lineage, and two qualified reviewers.
@@ -72,6 +163,348 @@ Per-batch `pattern-candidates.jsonl` files are informal research notes. They do 
 `scripts/review-public-product-pattern-hypotheses.mjs` creates the corresponding quality-review tasks and adjudicates closed reviewer records. Two distinct reviewers claiming the `qualified_content_designer` qualification must independently assess state accuracy, user-goal alignment, clarity, actionable recovery, accessibility, localization transferability, evidence quality, counterexample coverage, and rights-safe abstraction. Any failed dimension rejects the hypothesis; any insufficient dimension holds it for more evidence. Unanimous passes make it only `ready_for_canonical_authoring`. Reviewer qualification, the pattern mechanism, contexts, counterexamples, rights, similarity, lineage, and project approval must still be independently verified by the canonical research contracts. The review queue cannot create a pattern or authorize writing by itself.
 
 ## Aggregate gate
+
+The deterministic [2026-08-27 remediation plan](remediation/2026-08-27-verifier-failure-inventory.json)
+binds the current v0.2 failures to explicit repair lanes. Because raw batches
+are immutable, canonical and shape repairs require corrected replacement records
+in a new batch followed by reviewed supersession dispositions. Rejecting invalid
+records alone is not sufficient because it would deepen the breadth deficit.
+
+The preserved [corrected batch-77 candidate](remediation/corrected-replacement-batch-77/manifest.json)
+contains 495 exact-schema, canonical, unique-URL sources and 425 canonically
+rebound observations. Its reviewed records were activated as immutable
+[batch 77](2026-08-27-batch-77/); 920 defective historical records
+were superseded and 1,090 conflicting or rights-sensitive records were held.
+The compound DoorDash and Verizon industry values were then split by product
+context in immutable [batch 78](2026-08-27-batch-78/), with 31
+additional reviewed supersession dispositions.
+
+The v0.2 verifier checkpoint after batch 83 has 178 remaining errors: 175
+products below the five-direct-state target and one gap each for company,
+product, and industry breadth. Duplicate identities and URLs, malformed or
+non-canonical rows, missing source projections, rights and quotation boundary
+failures, and unmapped industries are absent from the governed projection.
+The raw historical rows remain immutable and untrusted; only the reviewed
+projection receives this result. The WebMCP workbench remains a read-only
+inspection surface with `authority_effect: "none"` and cannot mutate,
+approve, release, publish, or change these dispositions.
+
+The deterministic [direct-state coverage backlog](remediation/2026-08-27-direct-state-coverage-backlog.json)
+orders the remaining 175 products by collection effort. Alaska Airlines is one
+state short, seven other products are two states short, 13 have partial
+evidence but need more than two states, and 154 have no qualifying direct UI
+evidence. After the signed-out Canada.ca processing-time and validation
+observations in immutable batch 82, closing the existing-product coverage gap
+and the Service NSW NDIS status observation in batch 83, closing the
+existing-product coverage gap requires 829 additional independently sourced
+direct states. Canada.ca is the first product meeting the five-state target.
+Alaska Airlines and Service NSW each have four covered slots and need one
+error/recovery or success state. This
+queue is a collection plan with no approval effect; it explicitly forbids
+inference, duplication, invented copy, and WebMCP-derived authority.
+
+The review-only [batch 84 normalization candidate](remediation/batch-84-review-candidate/manifest.json)
+reproduces the complete ledger-active projection—498 sources and 429
+observations—without changing an activated batch. It changes only
+`observed_vs_inferred` for 208 observations whose legacy marker unambiguously
+states that the content was observed and whose bound source is `actual UI`.
+Three mixed or vague markers remain unchanged and are listed in the
+[normalization audit](remediation/batch-84-review-candidate/normalization-audit.json).
+The isolated replacement projection has no candidate-specific errors and
+recognizes 215 direct slots across 130 products, compared with 51 slots in the
+current active projection. It does not reduce the 175 under-covered-product
+errors because no additional product yet reaches five distinct slots. Ade's
+[content review](reviewer-assignments/ade-batch-84-observed-ui-normalization-review.json)
+and Ola's [taxonomy review](reviewer-assignments/ola-batch-84-observed-ui-normalization-review.json)
+remain blank; the candidate cannot be activated until both are completed and
+every replaced active subject is superseded atomically through the governed
+ledger.
+
+To avoid order-dependent activation of the separate Alaska and normalization
+replacements, the [batch 85 unified candidate](remediation/batch-85-unified-review-candidate/manifest.json)
+combines both into one complete replacement projection. Its isolated verifier
+run has zero candidate-specific errors, recognizes 216 direct slots across 130
+products, makes Alaska the second product to meet the five-state threshold, and
+reduces the projected gate to 177 errors with 174 under-covered products. The
+resulting [post-replacement backlog](remediation/2026-08-27-post-unified-replacement-direct-state-coverage-backlog.json)
+requires 664 additional distinct states rather than the active projection's
+829. The earlier batch 81 and batch 84 review packets are therefore retained as
+audit history but should not be completed or activated separately. The current
+independent handoffs are [Ade's unified review](reviewer-assignments/ade-batch-85-unified-replacement-review.json)
+and [Ola's unified review](reviewer-assignments/ola-batch-85-unified-replacement-review.json).
+
+The next additive collection tranche is also review-only. The
+[Service NSW validation candidate](remediation/batch-86-review-candidate/manifest.json)
+captures required-field recovery on the public MyServiceNSW login reached from
+the NDIS Worker Check route. Overlaid on batch 85, it makes Service NSW the
+third five-state product and projects 176 total errors with 173 under-covered
+products. The [GitHub recovery candidate](remediation/batch-87-review-candidate/manifest.json)
+adds a fourth direct slot for GitHub account access without submitting an email
+or triggering an external message. Both have zero candidate-specific verifier
+errors and blank Ade/Ola review assignments. The
+[collection-attempt log](remediation/2026-08-27-collection-attempts.json) also
+records the rejected Aflac attempt: its empty login state exposed no validation,
+and no fabricated credential was submitted to manufacture one.
+
+The [GOV.UK Passport candidate](remediation/batch-88-review-candidate/manifest.json)
+adds three directly observed public states: the passport service landing, the
+HM Passport Office help index, and an enquiry-form validation error with both a
+linked error summary and inline message. Combined with the existing task and
+tracking slots, this makes Passport service the fourth projected five-state
+product. The four-candidate overlay now has 175 breadth-only errors, 172
+under-covered products, 221 direct slots, and no candidate-specific errors.
+The refreshed [post-tranche backlog](remediation/2026-08-27-post-tranche-direct-state-coverage-backlog.json)
+requires 659 additional distinct states. Its projection includes candidates
+85 through 88; none of those candidates is active until its blank Ade and Ola
+reviews are independently completed and the governed activation succeeds.
+The [current remediation review handoff](reviewer-assignments/current-corpus-remediation-handoff.md)
+now contains only the live Ade and Ola reviews for consolidated batch 91. It
+retires the separate batch 81, 84, and 85 through 90 handoffs from the active
+review path while preserving them as audit history.
+
+Two further additive validation candidates extend the safe signed-out tranche.
+The [Headspace candidate](remediation/batch-89-review-candidate/manifest.json)
+records the live `Identifier is required` alert after empty Continue, without
+providing an identifier or accepting terms. The
+[Cleveland Clinic candidate](remediation/batch-90-review-candidate/manifest.json)
+records one representative required-field message from an empty public
+appointment request, before CAPTCHA and without personal or health data; the
+other field messages are deliberately not duplicated as separate states. Each
+product moves from three to four projected slots. The latest overlay recognizes
+223 direct slots with no candidate-specific errors, while the
+[batch-91 backlog](remediation/2026-08-27-post-batch-91-direct-state-coverage-backlog.json)
+requires 657 additional states across 172 under-covered products. Those six
+candidates are consolidated into the
+[batch 91 replacement](remediation/batch-91-consolidated-review-candidate/manifest.json):
+505 unique sources and canonical URLs, 437 unique source-bound observations,
+223 direct slots, four complete products, and zero candidate-specific errors.
+Its [activation preview](remediation/batch-91-consolidated-review-candidate/activation-preview.json)
+maps all 927 currently active subjects to exact replacements: 925 by stable
+record ID, the Alaska source by canonical URL, and the Alaska tracking
+observation by structural signature plus exact wording. Fifteen genuinely new
+subjects remain additive. The preview performs no mutation and issues no
+receipt; a passing governed review pair is still required before one atomic
+supersession can be created.
+
+The deterministic [taxonomy capacity analysis](remediation/2026-08-27-taxonomy-capacity-gap.json)
+shows why the next breadth tranche cannot be solved by relabeling. All 172
+under-covered products lack a success slot, but the reviewed taxonomy has only
+one success mapping. Progress is missing for 171 products and has nine reviewed
+mappings; error/recovery is missing for 169 and has eight. GitHub account
+access, Headspace wellbeing, and Cleveland Clinic care access are each at four
+slots and require a genuinely observed progress or success state. A new state
+whose raw signature does not match an existing mapping must enter a separate
+evidence-bound taxonomy amendment review; it cannot borrow a superficially
+similar mapping.
+
+`scripts/activate-public-product-batch91.mjs` is the only prepared activation
+path for this candidate. It validates both reviewer-bound returns, reuses the
+current governed Ola `corpus_steward` and Ade
+`independent_corpus_reviewer` qualifications, reconstructs all 927 transitions,
+issues the two set-bound receipts in memory, verifies the append-only ledger and
+full projected corpus, and defaults to `verified_no_mutation`. The `--apply`
+form reaches filesystem writes only after the same preflight succeeds. Its
+fail-closed regression test confirms that the current blank reviews cannot
+create batch 91 or mutate governance.
+
+The subsequent [batch 92 additive candidate](remediation/batch-92-review-candidate/manifest.json)
+records three more directly observed support indexes: 1Password Support,
+Airbnb's role-tabbed All topics library, and Statuspage resources. The Adobe
+Creative Cloud URL inspected in the same tranche rendered a 404 and was
+excluded from positive support evidence. Against batch 91, the verified overlay
+has 226 direct slots, zero candidate-specific errors, and still 172
+under-covered products; the refreshed
+[post-batch-92 backlog](remediation/2026-08-27-post-batch-92-direct-state-coverage-backlog.json)
+requires 654 additional states. Batch 92 is evidence only and is neither active
+nor approved.
+
+The [batch 93 taxonomy candidate](remediation/batch-93-review-candidate/manifest.json)
+records a local-only completion on 1Password's public password generator. The
+retained wording is only `Generated password`; the generated value itself was
+not retained, copied, saved, submitted, or transmitted. Its raw signature is
+intentionally unmapped in the current taxonomy, so the pre-review overlay has
+one `taxonomy_unmapped` error and no coverage increase. The proposed success
+mapping requires separate Ade content-design and Ola taxonomy-steward decisions
+before a successor taxonomy or consolidated evidence replacement can be built.
+Operational service-status pages, Airbnb's unresolved earnings placeholder,
+and a non-inspectable 1Password sign-in route were explicitly rejected as
+shortcuts in the collection-attempt log.
+
+The current [remediation completion audit](remediation/2026-08-27-remediation-completion-audit.json)
+keeps immutable-history diagnostics separate from active-projection defects.
+The official v0.2 active projection has no duplicate, missing-source,
+malformed-row, rights-boundary, or unmapped-industry errors. It is not complete:
+175 active products remain below the state target, all three corpus breadth
+targets fail, and the cleaner candidate projection still requires 654 distinct
+states plus independent review and governed activation.
+
+The [product-system fragmentation candidate](remediation/2026-08-27-product-system-fragmentation-review-candidate.json)
+tests another breadth-quality failure: pricing pages, support journeys, entry
+labels, and casing variants were counted as separate products even though the
+corpus rules prohibit minor variants from substituting for product breadth. Its
+31 conservative aliases would reduce the honest projected product count from
+176 to 145 and under-covered products from 172 to 141, while leaving the four
+complete products unchanged. Ambiguous feature and subsystem labels—including
+Slack huddles, Shopify orders, and Google Workspace export—are deliberately
+excluded. This is a review candidate only; it performs no mutation and does not
+claim that a smaller denominator completes breadth.
+
+The [batch 94 taxonomy candidate](remediation/batch-94-review-candidate/manifest.json)
+captures a directly observed Headspace meditation in progress. A local play
+action advanced the accessible player from 0:00 to 0:16 of 1:00; playback was
+then paused, and no audio content, account data, subscription action, or
+external mutation was retained. The proposed `meditation playing` signature is
+intentionally unmapped pending Ade and Ola review. If governed into a successor
+taxonomy, it would add Headspace's missing progress slot and move that product
+from four to five canonical states. Until then, the overlay reports two
+expected unmapped signatures—batches 93 and 94—and no coverage increase from
+either.
+
+The [batch 95 taxonomy candidate](remediation/batch-95-review-candidate/manifest.json)
+captures a completed, generic Cleveland Clinic provider search. The public
+interface reported `Loading Complete` and `336 providers found for
+"cardiology"`. No provider record was retained or selected, and no phone,
+appointment, account, or clinical-advice action followed. Its proposed success
+mapping covers provider discovery only—not appointment completion. If
+independently reviewed and governed into a successor taxonomy, Cleveland Clinic
+care access would move from four to five states. The current pre-review overlay
+therefore contains three expected unmapped signatures across batches 93–95.
+
+The [batch 96 taxonomy candidate](remediation/batch-96-review-candidate/manifest.json)
+captures a paired Khan Academy state transition on one public arithmetic item:
+`Not quite!` with retry and step recovery after an incorrect generic response,
+then `Nice work!` and Next question after correction. Only strictly necessary
+cookies were retained; no account or durable learner progress was used or
+claimed. The error and success mappings are independently reviewable. If both
+enter a governed successor taxonomy, Khan Academy learning would move from
+three to five states. The full pre-review overlay now has five expected
+unmapped signatures across batches 93–96 and no coverage credit for them yet.
+
+The deterministic [post-proposal coverage preview](remediation/2026-08-27-post-taxonomy-proposal-coverage-preview.json)
+applies the seven proposed mappings by exact raw signature in memory only. If
+every proposal passed independent review, direct slots would rise from 226 to
+233, complete products from four to eight, under-covered products would fall
+from 172 to 168, and remaining state needs from 654 to 647. The affected
+products are exactly 1Password, Statuspage, Headspace, Cleveland Clinic, and
+Khan Academy; all except Statuspage reach five states. This preview creates no taxonomy
+version, digest, receipt, disposition, or activation authority.
+
+The [batch 97 candidate](remediation/batch-97-review-candidate/manifest.json) is
+marked high risk. An empty public Statuspage email submission changed the
+primary action to `Subscribing...` and remained unresolved; no email,
+subscription, or notification existed, and the dialog was closed. Reviewers
+must reject it if a stuck invalid-input transition should be treated only as a
+validation defect rather than canonical progress. If accepted, Statuspage would
+move from three to four states. The combined preview now overlays eight proposals:
+258 direct slots, nine complete products, 167 under-covered products, and 622
+remaining states if all pass.
+
+All evidence through batch 97 is now assembled in the
+[batch 98 consolidated review candidate](remediation/batch-98-consolidated-review-candidate/manifest.json):
+513 unique sources and canonical URLs and 446 unique, source-bound
+observations. Under the active taxonomy it has 226 direct slots and exactly six
+unmapped observations—the six separately reviewed proposals—with no unexpected
+candidate errors. Batch 98 is a review projection, not an activation target.
+After decisions, rejected-mapping observations must be omitted or held in a new
+immutable final candidate, passing mappings must enter a governed successor
+taxonomy, and a fresh supersession preview and activator must be prepared. The
+historical batch-91 activator cannot be reused for batch 98.
+
+The post-consolidation [batch 99 candidate](remediation/batch-99-review-candidate/manifest.json)
+adds 1Password's directly observed `404: Page Not Found` state. It reuses the
+batch-79 page-not-found proposal, now supported by both Canada.ca and 1Password
+evidence, rather than inventing a company-specific mapping. If that shared
+mapping and batch 93's password-generation mapping both pass, 1Password
+security moves from three to five states. Batch 99 remains additive review
+evidence and must be explicitly included in the post-decision final candidate.
+
+The additive [batch 100 candidate](remediation/batch-100-review-candidate/manifest.json)
+adds directly observed, branded page-not-found recovery states for Aflac, Cisco
+Duo, and Yubico. It creates no new mapping: all three observations reuse the
+same exact batch-79 raw signature and are bound with Canada.ca and 1Password in
+the successor five-evidence review packet. Airbnb was excluded because the page
+did not render verifiably; Statuspage was excluded because the browser blocked
+the target before any product UI rendered. Under the active taxonomy the three
+new observations remain non-counting. If the shared mapping passes, each product
+moves from three to four direct states.
+
+The additive [batch 101 candidate](remediation/batch-101-review-candidate/manifest.json)
+captures a directly observed completed YubiKey product recommendation after four
+generic, non-personal chooser selections. It proposes one new success signature,
+bounded to chooser completion; it does not claim purchase, setup, compatibility,
+or authentication success. If both the shared page-not-found mapping and this
+success mapping pass, YubiKey authentication moves from three to five states.
+
+The additive [batch 102 candidate](remediation/batch-102-review-candidate/manifest.json)
+adds directly observed, branded page-not-found recovery states for Auth0,
+Cloudflare, Canva, and Dropbox. It extends the shared packet to nine interfaces
+without adding another mapping. Box is recorded as a failed attempt because its
+nonexistent path redirected to the homepage without rendering a product failure.
+
+The additive [batch 103 candidate](remediation/batch-103-review-candidate/manifest.json)
+adds recoverable page-not-found states for Etsy, Spotify, eBay, and Webflow,
+extending the shared packet to thirteen interfaces without adding a mapping.
+Duolingo, Figma, Notion, and Pinterest are logged as failed attempts because
+their surfaces lacked actionable, verifiable failure UI.
+
+The additive [batch 104 candidate](remediation/batch-104-review-candidate/manifest.json)
+adds directly observed public support indexes for Etsy, Spotify, eBay, and
+Webflow. These observations match the existing reviewed help-route-index
+signature exactly, so no taxonomy amendment is proposed. They still require
+independent evidence review and governed consolidation before activation.
+
+The additive [batch 105 candidate](remediation/batch-105-review-candidate/manifest.json)
+adds public support indexes for Cloudflare and Dropbox under the same reviewed
+signature. Auth0 documentation was excluded because it is a documentation hub,
+not a support-route index. Canva was excluded after verification exposed an
+existing canonical Help Center source with a different classification; it now
+requires governed normalization or supersession instead of a duplicate row.
+
+The [batch 106 Canva Help Center normalization candidate](remediation/batch-106-canva-help-normalization-candidate/manifest.json)
+implements that correction as an exact-digest atomic replacement. It supersedes
+the existing guidance-classified `Canva support` source and generic entry
+observation while introducing a directly observed `actual UI` help-route index
+under canonical `Canva`. Its full candidate-stack projection has zero unexpected
+errors and 240 active-taxonomy direct slots. It is intentionally excluded from
+the additive combined preview because the old and replacement canonical rows
+must never coexist.
+
+The additive [batch 107 candidate](remediation/batch-107-review-candidate/manifest.json)
+adds directly observed help indexes for canonical Figma and Netflix streaming
+using the reviewed help-route-index signature. Duolingo, Uber, and Lyft were
+excluded because the inspected surfaces respectively lacked usable UI, crossed
+the `Uber rides` product boundary, or rendered a not-found state instead of a
+support index.
+
+The additive [batch 108 candidate](remediation/batch-108-review-candidate/manifest.json)
+adds directly observed help indexes for Mailchimp marketing and Wise money
+transfer using the reviewed support signature. Pinterest and LinkedIn were
+excluded because their observed help pages exposed signed-in personalization;
+Square was excluded because the portfolio-wide support center does not match
+the narrower `Square pricing` corpus product.
+
+The independently passed [batch 109 candidate](remediation/batch-109-review-candidate/manifest.json)
+adds directly observed support indexes for Khan Academy learning, edX learning,
+monday.com, and Box using the existing reviewed help-route-index signature.
+Airbnb was excluded because equivalent governed support-index evidence already
+exists. The batch grants no activation authority and must enter a new immutable
+successor candidate before it can affect the active corpus.
+
+The review-only [batch 81 replacement candidate](remediation/batch-81-review-candidate/manifest.json)
+adds the observed empty-route validation error from the same Alaska flight
+status surface. Against the batch-82 baseline, its isolated projection is clean
+and would reduce the official gate from 178 to 177 errors, reduce under-covered
+products from 175 to 174, and make Alaska Airlines the second product to meet
+the five-state target. It is not
+active: batch 80 and its canonical URL must be superseded atomically after
+independent review.
+Each assignment now carries its covered and missing canonical coverage slots,
+the number of reviewed taxonomy mappings available for each missing slot, and
+the existing actual-UI entry URLs. For the remaining near-complete products, entry,
+core-task, and support are already covered; pending/progress, error/recovery,
+and success remain missing. The queue prioritizes pending/progress and
+error/recovery because the current reviewed taxonomy has nine and eight
+classifiable mappings respectively, compared with only one success mapping.
 
 Run from the repository root:
 

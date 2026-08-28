@@ -1,0 +1,310 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_corpus_remediation_completion_audit",
+  "as_of": "2026-08-27",
+  "status": "incomplete_breadth_and_review_work_remaining",
+  "authoritative_projection": {
+    "contract_version": "0.2.0",
+    "verification_mode": "official",
+    "report_digest": "595539dbbca797210aab5ca64afcf7577c4793ca678c4b4c336027812b289eb1",
+    "error_counts": {
+      "company_target": 1,
+      "product_target": 1,
+      "industry_target": 1,
+      "insufficient_direct_states": 175
+    },
+    "structural_error_count": 0
+  },
+  "requirements": [
+    {
+      "requirement": "duplicates",
+      "active_projection_status": "achieved",
+      "evidence": "official v0.2 verifier reports no duplicate identity or canonical-URL error",
+      "historical_raw_batches": "retained immutable history may still contain duplicates; governed dispositions remove their active credit"
+    },
+    {
+      "requirement": "missing sources",
+      "active_projection_status": "achieved",
+      "evidence": "official v0.2 verifier reports no missing_source error"
+    },
+    {
+      "requirement": "malformed rows",
+      "active_projection_status": "achieved",
+      "evidence": "official v0.2 verifier reports no malformed, schema, or canonical-row error"
+    },
+    {
+      "requirement": "rights and quotation boundaries",
+      "active_projection_status": "achieved",
+      "evidence": "official v0.2 verifier reports no rights_boundary or authority-boundary error"
+    },
+    {
+      "requirement": "unmapped industries",
+      "active_projection_status": "achieved",
+      "evidence": "official v0.2 verifier reports no unmapped-industry error"
+    },
+    {
+      "requirement": "breadth gaps",
+      "active_projection_status": "incomplete",
+      "evidence": "official v0.2 verifier reports 175 insufficient_direct_states errors plus company, product, and industry target errors"
+    }
+  ],
+  "candidate_projection": {
+    "through_batch_92": {
+      "report_digest": "18891727139cc80ff06f7e34b879143329670e247e893de7e6df4b321fb7abb7",
+      "candidate_specific_error_count": 0,
+      "direct_observed_slots": 226,
+      "undercovered_products": 172,
+      "additional_direct_states_required": 654,
+      "activation_status": "independent_review_required"
+    },
+    "batch_93": {
+      "report_digest_before_taxonomy_review": "696076e69a94aa7bc8f139aa67c40cc7c27e7c9389662c4658cf05940a635f5c",
+      "expected_error": "one taxonomy_unmapped signature",
+      "coverage_effect_before_review": 0,
+      "review_status": "independent_content_design_and_taxonomy_review_required"
+    },
+    "product_system_fragmentation": {
+      "candidate_digest": "74939172111b40ce906c3ec13eb1e02ab51eb708f01bdb59e8deeb2f6a10ebdc",
+      "proposed_alias_count": 31,
+      "product_count_before": 176,
+      "product_count_after": 145,
+      "undercovered_products_before": 172,
+      "undercovered_products_after": 141,
+      "complete_products_before": 4,
+      "complete_products_after": 4,
+      "interpretation": "removes artificial breadth units but does not satisfy the breadth target",
+      "review_status": "independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_94": {
+      "report_digest_before_taxonomy_review": "0ad79b2493131755685ed14059c169a4bca7c695345f5f47f70df1d259e5446f",
+      "expected_total_taxonomy_unmapped_errors_through_batch_94": 2,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "Headspace wellbeing",
+        "coverage_slot_id": "pending_progress",
+        "direct_states_before": 4,
+        "direct_states_after": 5,
+        "product_meets_target_after": true
+      },
+      "review_status": "independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_95": {
+      "report_digest_before_taxonomy_review": "d5cbf37e69fa8bd192e45870039f66752252b191fa5245f75120110acec614bc",
+      "expected_total_taxonomy_unmapped_errors_through_batch_95": 3,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "Cleveland Clinic care access",
+        "coverage_slot_id": "success",
+        "direct_states_before": 4,
+        "direct_states_after": 5,
+        "product_meets_target_after": true
+      },
+      "review_status": "independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_96": {
+      "report_digest_before_taxonomy_review": "9508ec78ae088d1a659698bf80f992cf6e45d8d17dd805c6fca030a408cb54ba",
+      "expected_total_taxonomy_unmapped_errors_through_batch_96": 5,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "Khan Academy learning",
+        "coverage_slot_ids": ["error_recovery", "success"],
+        "direct_states_before": 3,
+        "direct_states_after": 5,
+        "product_meets_target_after": true
+      },
+      "review_status": "two_independent_mapping_decisions_from_content_design_and_taxonomy_required"
+    },
+    "batch_97": {
+      "report_digest_before_taxonomy_review": "c2a3eae2ff95f1d339266c62eb394834f08fabb63d5f275bd3772d3ec7fc8d5c",
+      "expected_total_taxonomy_unmapped_errors_through_batch_97": 6,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "Statuspage",
+        "coverage_slot_id": "pending_progress",
+        "direct_states_before": 3,
+        "direct_states_after": 4,
+        "product_meets_target_after": false
+      },
+      "review_risk": "empty-input processing state may be a validation defect and should be rejected unless reviewers find it eligible as canonical progress",
+      "review_status": "high_risk_independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_99": {
+      "report_digest_before_taxonomy_review": "36b335228545da4b5ee5843d0195640e09920c7ec9ff1dd7e0b4d5fb37e81e9f",
+      "expected_total_taxonomy_unmapped_observations_in_batch98_plus_79_plus_99": 8,
+      "shared_mapping_proposal_ref": "remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+      "shared_mapping_evidence_count": 2,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "1Password security",
+        "coverage_slot_id": "error_recovery",
+        "direct_states_before_all_proposals": 3,
+        "direct_states_after_page_not_found_and_batch_93_success": 5,
+        "product_meets_target_after": true
+      },
+      "review_status": "shared_independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_100": {
+      "report_digest_before_taxonomy_review": "f8fba150a5e30f9cb7bb6297e4a8c241640ed5c00a091decbfce28aee3a6c939",
+      "expected_total_taxonomy_unmapped_observations_in_batch98_plus_79_plus_99_plus_100": 11,
+      "unexpected_candidate_error_count": 0,
+      "shared_mapping_proposal_ref": "remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+      "successor_shared_mapping_evidence_count": 5,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "coverage_slot_id": "error_recovery",
+        "products_moving_from_three_to_four_states": ["Aflac supplemental insurance", "Cisco Duo identity security", "YubiKey authentication"]
+      },
+      "excluded_attempts": ["Airbnb page did not render verifiably", "Statuspage target was blocked before product UI rendered"],
+      "review_status": "successor_shared_independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_101": {
+      "report_digest_before_taxonomy_review": "e7b1eac445671ee3864c97a05d02add509c0419e49e74c027b39fa193d4f55ae",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay": 12,
+      "unexpected_candidate_error_count": 0,
+      "coverage_effect_before_review": 0,
+      "proposed_coverage_effect_after_review": {
+        "product_system": "YubiKey authentication",
+        "coverage_slot_id": "success",
+        "direct_states_before_all_proposals": 3,
+        "direct_states_after_shared_error_and_batch_101_success": 5,
+        "product_meets_target_after": true
+      },
+      "review_status": "independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_102": {
+      "report_digest_before_taxonomy_review":"5db0924d60472f27fc04fe85df0174b399225a4c301f2b70cb393432ae004ca2",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":16,
+      "unexpected_candidate_error_count":0,
+      "shared_mapping_proposal_ref":"remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+      "successor_shared_mapping_evidence_count":9,
+      "coverage_effect_before_review":0,
+      "proposed_coverage_effect_after_review":{"coverage_slot_id":"error_recovery","products_gaining_one_state":["Auth0 identity","Cloudflare platform","Canva","Dropbox"]},
+      "excluded_attempts":["Box redirected to its homepage without a failure state"],
+      "review_status":"successor_shared_independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_103": {
+      "report_digest_before_taxonomy_review":"b6c9ebef50d53ab70fbc0d48e66756932c8fcdb6723c41125189006d18534ecf",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "shared_mapping_proposal_ref":"remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+      "successor_shared_mapping_evidence_count":13,
+      "coverage_effect_before_review":0,
+      "proposed_coverage_effect_after_review":{"coverage_slot_id":"error_recovery","products_gaining_one_state":["Etsy marketplace","Spotify music","eBay marketplace","Webflow"]},
+      "excluded_attempts":["Duolingo generic server 404 lacked recovery","Figma rendered no usable UI","Notion redirected to an empty app surface","Pinterest rendered no usable UI"],
+      "review_status":"successor_shared_independent_content_design_and_taxonomy_review_required"
+    },
+    "batch_104": {
+      "report_digest_before_evidence_review":"35902f3b2213b49f0db90ac70c88c6db26f6ba975babcdb8add4c9ad1f8daa6b",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "reviewed_mapping_reuse_count":4,
+      "new_mapping_count":0,
+      "direct_observed_slots_in_current_candidate_overlay":230,
+      "products_gaining_reviewed_support_slot":["Etsy marketplace","Spotify music","eBay marketplace","Webflow"],
+      "review_status":"independent_evidence_and_exact_mapping_reuse_review_required"
+    },
+    "batch_105": {
+      "report_digest_before_evidence_review":"334471e5e3a800a6af254e7a31035e576082afad89fd085ffee25fa21bbf725a",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "reviewed_mapping_reuse_count":2,
+      "new_mapping_count":0,
+      "direct_observed_slots_in_current_candidate_overlay":232,
+      "products_gaining_reviewed_support_slot":["Cloudflare platform","Dropbox"],
+      "excluded_attempts":["Auth0 documentation is not a support-route index","Canva Help Center canonical already exists under a different source classification and requires governed normalization or supersession"],
+      "review_status":"independent_evidence_and_exact_mapping_reuse_review_required"
+    },
+    "batch_106_canva_help_normalization": {
+      "report_digest":"45a26cfd909188c8bcfbc2b83b6eaf5673b73bcf9f77bcbb3537391d61474403",
+      "unexpected_candidate_error_count":0,
+      "mapped_observations_in_atomic_projection":454,
+      "expected_taxonomy_unmapped_observations":20,
+      "direct_observed_slots_in_atomic_projection":240,
+      "superseded_record_count":2,
+      "replacement_record_count":2,
+      "corrections":["official content guidance to actual UI","Canva support to Canva","generic entry observation to exact help route index"],
+      "projected_additional_slot_if_reviewed_and_atomically_applied":"Canva destructive_permission_support",
+      "review_status":"independent_atomic_normalization_review_required"
+    },
+    "batch_107": {
+      "report_digest_before_evidence_review":"fc7004970a6847b41d4d22a1e4c4f21ea975dfe6cf5e679b1184c817cf1d63fd",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "reviewed_mapping_reuse_count":2,
+      "new_mapping_count":0,
+      "direct_observed_slots_in_current_candidate_overlay":234,
+      "products_gaining_reviewed_support_slot":["Figma","Netflix streaming"],
+      "excluded_attempts":["Duolingo rendered no usable help UI","Uber support was broader than Uber rides","Lyft path rendered page not found rather than a support index"],
+      "review_status":"independent_evidence_and_exact_mapping_reuse_review_required"
+    },
+    "batch_108": {
+      "report_digest_before_evidence_review":"1244699a698ac23c2b6d8f33babfc6247e0fa057db15b637bd044aca8044e9b6",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "reviewed_mapping_reuse_count":2,
+      "new_mapping_count":0,
+      "direct_observed_slots_in_current_candidate_overlay":236,
+      "products_gaining_reviewed_support_slot":["Mailchimp marketing","Wise money transfer"],
+      "excluded_attempts":["Pinterest exposed signed-in personalization","LinkedIn exposed signed-in personalization","Square support exceeded the Square pricing product boundary"],
+      "review_status":"independent_evidence_and_exact_mapping_reuse_review_required"
+    },
+    "batch_109": {
+      "report_digest_after_independent_review":"1c2a91b5081d1723229a22f29704912ca3af5feeee5641c2d0b3063fdda32319",
+      "expected_total_taxonomy_unmapped_observations_in_current_overlay":20,
+      "unexpected_candidate_error_count":0,
+      "reviewed_mapping_reuse_count":4,
+      "new_mapping_count":0,
+      "direct_observed_slots_in_current_candidate_overlay":239,
+      "products_gaining_reviewed_support_slot":["Khan Academy learning","edX learning","monday.com","Box"],
+      "excluded_attempts":["Airbnb support index was redundant with governed Airbnb hosting support evidence"],
+      "review_status":"independently_passed_pending_governed_consolidation"
+    }
+  },
+  "completion_decision": "not_complete",
+  "combined_post_proposal_preview": {
+    "artifact_ref": "remediation/2026-08-27-post-taxonomy-proposal-coverage-preview.json",
+    "artifact_digest": "24a5254516d2a176aa7678587c858e73d8989ded7532e3b0917c0acafcc0cc83",
+    "proposed_mapping_count": 8,
+    "direct_observed_slots_if_all_pass": 258,
+    "complete_products_if_all_pass": 9,
+    "undercovered_products_if_all_pass": 167,
+    "additional_direct_states_required_if_all_pass": 622,
+    "authority_effect": "none"
+  },
+  "current_consolidated_review_projection": {
+    "candidate_ref": "remediation/batch-98-consolidated-review-candidate/manifest.json",
+    "source_count": 513,
+    "observation_count": 446,
+    "unexpected_candidate_error_count": 0,
+    "expected_taxonomy_unmapped_count": 6,
+    "direct_observed_slots_under_active_taxonomy": 226,
+    "report_digest": "5f9e4b8e103611a044edccf9bfbfedd34e080bafbe25cac921fb853faf754e27",
+    "status": "consolidated_review_only_not_activation_ready",
+    "authority_effect": "none"
+  },
+  "next_required_actions": [
+    "complete the batch 98 consolidated corpus review pair",
+    "complete independent evidence and taxonomy reviews for batch 93",
+    "complete independent per-alias product-system fragmentation review",
+    "complete independent evidence and taxonomy reviews for batch 94",
+    "complete independent evidence and taxonomy reviews for batch 95",
+    "complete independent evidence and per-mapping taxonomy reviews for batch 96",
+    "complete high-risk independent evidence and taxonomy reviews for batch 97",
+    "complete the successor shared page-not-found evidence and taxonomy reviews for batches 79, 99, and 100",
+    "complete independent evidence and taxonomy reviews for batch 101",
+    "complete the v4 shared page-not-found reviews including batch 103",
+    "complete independent evidence and exact mapping-reuse reviews for batch 104",
+    "complete independent evidence and exact mapping-reuse reviews for batch 105",
+    "complete independent atomic normalization reviews for batch 106 and preserve exact supersession digests",
+    "complete independent evidence and exact mapping-reuse reviews for batch 107",
+    "complete independent evidence and exact mapping-reuse reviews for batch 108",
+    "include independently passed batch 109 in the governed immutable successor candidate",
+    "prepare a successor taxonomy only for passing evidence-bound mapping amendments",
+    "consolidate passing post-batch-91 candidates into a new immutable replacement and activation preview",
+    "continue direct UI collection until product-state and corpus breadth targets are met"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

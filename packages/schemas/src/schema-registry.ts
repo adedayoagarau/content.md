@@ -12,6 +12,9 @@ import researchRecordsSchema from "./research-records.schema.json" with { type: 
 import runtimeRecordsSchema from "./runtime-records.schema.json" with { type: "json" };
 import voiceToneRecordsSchema from "./voice-tone-records.schema.json" with { type: "json" };
 import workflowRecordsSchema from "./workflow-records.schema.json" with { type: "json" };
+import uxWritingRecordsSchema from "./ux-writing-records.schema.json" with { type: "json" };
+import uxWritingIntelligenceRecordsSchema from "./ux-writing-intelligence-records.schema.json" with { type: "json" };
+import companyKnowledgeRecordsSchema from "./company-knowledge-records.schema.json" with { type: "json" };
 
 export const SCHEMA_IDS = {
   source: "contentmd.source-record",
@@ -80,6 +83,12 @@ export const SCHEMA_IDS = {
   runtimeConformanceReceipt: "contentmd.runtime-conformance-receipt",
   replicaArtifactManifest: "contentmd.replica-artifact-manifest",
   replicaAck: "contentmd.replica-ack-record",
+  uxWritingRequest: "contentmd.ux-writing-request-record",
+  uxWritingCandidate: "contentmd.ux-writing-candidate-record",
+  uxWritingRulePack: "contentmd.ux-writing-rule-pack",
+  uxWritingReviewReport: "contentmd.ux-writing-review-report",
+  uxWritingRepairBrief: "contentmd.ux-writing-repair-brief",
+  companyKnowledgePacket: "contentmd.company-knowledge-packet",
 } as const;
 
 export type SchemaId = (typeof SCHEMA_IDS)[keyof typeof SCHEMA_IDS];
@@ -219,6 +228,9 @@ const modelTrainingStatisticsValidator = ajv.compile(modelTrainingStatisticsSche
 const researchValidator = ajv.compile(researchRecordsSchema);
 const runtimeValidator = ajv.compile(runtimeRecordsSchema);
 const voiceToneValidator = ajv.compile(voiceToneRecordsSchema);
+const uxWritingValidator = ajv.compile(uxWritingRecordsSchema);
+const uxWritingIntelligenceValidator = ajv.compile(uxWritingIntelligenceRecordsSchema);
+const companyKnowledgeValidator = ajv.compile(companyKnowledgeRecordsSchema);
 
 const learningSchemaDefs = {
   [SCHEMA_IDS.generationRun]: "generationRunRecord",
@@ -320,6 +332,19 @@ const runtimeSchemaIds = new Set<SchemaId>([
   SCHEMA_IDS.replicaAck,
 ]);
 
+const uxWritingSchemaIds = new Set<SchemaId>([
+  SCHEMA_IDS.uxWritingRequest,
+  SCHEMA_IDS.uxWritingCandidate,
+]);
+
+const uxWritingIntelligenceSchemaIds = new Set<SchemaId>([
+  SCHEMA_IDS.uxWritingRulePack,
+  SCHEMA_IDS.uxWritingReviewReport,
+  SCHEMA_IDS.uxWritingRepairBrief,
+]);
+
+const companyKnowledgeSchemaIds = new Set<SchemaId>([SCHEMA_IDS.companyKnowledgePacket]);
+
 function validatorFor(schemaId: SchemaId): ValidateFunction {
   if (contentSchemaIds.has(schemaId)) return contentValidator;
   if (workflowSchemaIds.has(schemaId)) return workflowValidator;
@@ -329,6 +354,9 @@ function validatorFor(schemaId: SchemaId): ValidateFunction {
   if (researchSchemaIds.has(schemaId)) return researchValidator;
   if (runtimeSchemaIds.has(schemaId)) return runtimeValidator;
   if (voiceToneSchemaIds.has(schemaId)) return voiceToneValidator;
+  if (uxWritingSchemaIds.has(schemaId)) return uxWritingValidator;
+  if (uxWritingIntelligenceSchemaIds.has(schemaId)) return uxWritingIntelligenceValidator;
+  if (companyKnowledgeSchemaIds.has(schemaId)) return companyKnowledgeValidator;
   throw new TypeError(`Unknown schema_id: ${schemaId}`);
 }
 
@@ -411,4 +439,7 @@ export const schemaDocuments = Object.freeze({
   research: researchRecordsSchema,
   runtime: runtimeRecordsSchema,
   voiceTone: voiceToneRecordsSchema,
+  uxWriting: uxWritingRecordsSchema,
+  uxWritingIntelligence: uxWritingIntelligenceRecordsSchema,
+  companyKnowledge: companyKnowledgeRecordsSchema,
 });

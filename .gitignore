@@ -10,3 +10,4 @@ coverage/
 .contentmd/runtime/
 .pnpm-store/
 .worktrees/
+distribution/contentmd/*.tgz

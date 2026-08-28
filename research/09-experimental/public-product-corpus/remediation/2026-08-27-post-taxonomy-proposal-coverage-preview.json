@@ -1,0 +1,369 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_proposed_taxonomy_coverage_preview",
+  "as_of": "2026-08-27",
+  "status": "non_authoritative_review_preview",
+  "candidate_projection": [
+    "remediation/batch-79-review-candidate",
+    "remediation/batch-91-consolidated-review-candidate",
+    "remediation/batch-92-review-candidate",
+    "remediation/batch-93-review-candidate",
+    "remediation/batch-94-review-candidate",
+    "remediation/batch-95-review-candidate",
+    "remediation/batch-96-review-candidate",
+    "remediation/batch-97-review-candidate",
+    "remediation/batch-99-review-candidate",
+    "remediation/batch-100-review-candidate",
+    "remediation/batch-101-review-candidate",
+    "remediation/batch-102-review-candidate",
+    "remediation/batch-103-review-candidate",
+    "remediation/batch-104-review-candidate",
+    "remediation/batch-105-review-candidate",
+    "remediation/batch-107-review-candidate",
+    "remediation/batch-108-review-candidate",
+    "remediation/batch-109-review-candidate"
+  ],
+  "proposal_refs": [
+    "remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+    "remediation/batch-93-review-candidate/taxonomy-mapping-proposal.json",
+    "remediation/batch-94-review-candidate/taxonomy-mapping-proposal.json",
+    "remediation/batch-95-review-candidate/taxonomy-mapping-proposal.json",
+    "remediation/batch-96-review-candidate/taxonomy-mapping-proposal-error.json",
+    "remediation/batch-96-review-candidate/taxonomy-mapping-proposal-success.json",
+    "remediation/batch-97-review-candidate/taxonomy-mapping-proposal.json",
+    "remediation/batch-101-review-candidate/taxonomy-mapping-proposal.json"
+  ],
+  "proposed_mapping_count": 8,
+  "metrics_with_active_taxonomy": {
+    "product_count": 176,
+    "direct_observed_slots": 239,
+    "products_with_direct_observations": 132,
+    "products_meeting_five_state_target": 4,
+    "products_below_five_state_target": 172,
+    "total_direct_states_needed": 641
+  },
+  "metrics_if_all_proposals_pass": {
+    "product_count": 176,
+    "direct_observed_slots": 258,
+    "products_with_direct_observations": 132,
+    "products_meeting_five_state_target": 9,
+    "products_below_five_state_target": 167,
+    "total_direct_states_needed": 622
+  },
+  "affected_products": [
+    {
+      "company": "1Password",
+      "product_system": "1Password security",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery",
+        "success"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 5,
+      "meets_target_before": false,
+      "meets_target_after": true
+    },
+    {
+      "company": "Aflac",
+      "product_system": "Aflac supplemental insurance",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Atlassian",
+      "product_system": "Statuspage",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "pending_progress"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Auth0",
+      "product_system": "Auth0 identity",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 2,
+      "direct_state_count_after": 3,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Canva",
+      "product_system": "Canva",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 2,
+      "direct_state_count_after": 3,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Cisco Duo",
+      "product_system": "Cisco Duo identity security",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Cleveland Clinic",
+      "product_system": "Cleveland Clinic care access",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery",
+        "success"
+      ],
+      "direct_state_count_before": 4,
+      "direct_state_count_after": 5,
+      "meets_target_before": false,
+      "meets_target_after": true
+    },
+    {
+      "company": "Cloudflare",
+      "product_system": "Cloudflare platform",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Dropbox",
+      "product_system": "Dropbox",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Etsy",
+      "product_system": "Etsy marketplace",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Headspace",
+      "product_system": "Headspace wellbeing",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery",
+        "pending_progress"
+      ],
+      "direct_state_count_before": 4,
+      "direct_state_count_after": 5,
+      "meets_target_before": false,
+      "meets_target_after": true
+    },
+    {
+      "company": "Khan Academy",
+      "product_system": "Khan Academy learning",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery",
+        "success"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 5,
+      "meets_target_before": false,
+      "meets_target_after": true
+    },
+    {
+      "company": "Spotify",
+      "product_system": "Spotify music",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Webflow",
+      "product_system": "Webflow",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    },
+    {
+      "company": "Yubico",
+      "product_system": "YubiKey authentication",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery",
+        "success"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 5,
+      "meets_target_before": false,
+      "meets_target_after": true
+    },
+    {
+      "company": "eBay",
+      "product_system": "eBay marketplace",
+      "direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding",
+        "error_recovery"
+      ],
+      "direct_state_count_before": 3,
+      "direct_state_count_after": 4,
+      "meets_target_before": false,
+      "meets_target_after": false
+    }
+  ],
+  "governance_boundary": "This preview performs signature lookup only. It does not create mapping digests, reviews, receipts, a taxonomy version, evidence dispositions, activation, or coverage authority.",
+  "mutation_performed": false,
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "artifact_digest": "24a5254516d2a176aa7678587c858e73d8989ded7532e3b0917c0acafcc0cc83"
+}

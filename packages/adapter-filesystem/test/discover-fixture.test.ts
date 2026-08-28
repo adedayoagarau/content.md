@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { FilesystemContentAdapter } from "@contentmd/adapter-filesystem";
+import type { DiscoveryProgressEvent } from "@contentmd/adapter-sdk";
 
 const fixtureRoot = fileURLToPath(
   new URL("../../../fixtures/synthetic-web-app/", import.meta.url),
@@ -148,6 +149,40 @@ describe("FilesystemContentAdapter discovery", () => {
     ]));
   });
 
+  it("reassembles direct JSX text and interpolations as one contextual composition", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-jsx-composition-fixture-"));
+    temporaryDirectories.push(root);
+    await writeFile(join(root, "package.json"), '{"name":"jsx-composition-fixture"}\n');
+    await writeFile(
+      join(root, "Page.tsx"),
+      [
+        "export function Page({ current, total, account }: { current: number; total: number; account: string }) {",
+        "  return <main>",
+        "    <p>Page {current} of {total}.</p>",
+        "    <p>Hello {account.toUpperCase()}!</p>",
+        "  </main>;",
+        "}",
+      ].join("\n"),
+    );
+
+    const result = await new FilesystemContentAdapter().discover({ project_root: root });
+
+    expect(result.occurrences).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        syntax_kind: "jsx_composition",
+        expression_payload: "Page {current} of {total}.",
+        semantic_context: "component:Page;element:p;composition:jsx_children",
+      }),
+      expect.objectContaining({
+        syntax_kind: "jsx_composition",
+        expression_payload: "Hello {value}!",
+      }),
+    ]));
+    expect(result.occurrences.map((item) => item.expression_payload)).not.toEqual(
+      expect.arrayContaining(["Page", "of", ".", "Hello", "!"]),
+    );
+  });
+
   it("advertises only the implemented governed capabilities", () => {
     const adapter = new FilesystemContentAdapter();
 
@@ -158,5 +193,30 @@ describe("FilesystemContentAdapter discovery", () => {
       "verify",
       "rollback",
     ]);
+  });
+
+  it("reports a shared scan lifecycle and can be cancelled between bounded work units", async () => {
+    const events: DiscoveryProgressEvent[] = [];
+    await new FilesystemContentAdapter().discover({
+      project_root: fixtureRoot,
+      on_progress: (event) => events.push(event),
+    });
+
+    expect(events[0]).toMatchObject({ stage: "scan_started", completed: 0 });
+    expect(events.map((event) => event.stage)).toEqual(expect.arrayContaining([
+      "inventory_started",
+      "inventory_progress",
+      "parsing_started",
+      "parsing_progress",
+    ]));
+
+    const controller = new AbortController();
+    await expect(new FilesystemContentAdapter().discover({
+      project_root: fixtureRoot,
+      signal: controller.signal,
+      on_progress: (event) => {
+        if (event.stage === "parsing_started") controller.abort();
+      },
+    })).rejects.toThrow("discovery_cancelled");
   });
 });

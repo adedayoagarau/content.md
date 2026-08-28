@@ -1,0 +1,26 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-89-headspace-validation-review.ade",
+  "reviewer_id": "Ade",
+  "reviewer_role": "qualified_content_designer",
+  "candidate_ref": "remediation/batch-89-review-candidate/manifest.json",
+  "review_scope": "Headspace empty-identifier validation observation",
+  "prefilled_findings": {
+    "source_is_public_signed_out_ui": true,
+    "wording_matches_visible_interface": true,
+    "live_alert_is_present": true,
+    "recovery_is_actionable": true,
+    "no_identifier_or_consent_was_submitted": true,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm Identifier is required is visibly produced by empty Continue",
+    "confirm the recovery instruction matches the labeled email field",
+    "confirm the redirected account surface remains attributable to Headspace wellbeing",
+    "confirm no identifier, consent, or social login action was supplied"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

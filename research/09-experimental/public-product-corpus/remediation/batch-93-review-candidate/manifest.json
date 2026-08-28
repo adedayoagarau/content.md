@@ -1,0 +1,28 @@
+{
+  "contract_version": "contentmd.public-product-corpus-acquisition-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-93",
+  "status": "taxonomy_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "unreviewed_mapping_count": 1,
+  "collection_method": "Codex in-app browser; public generator; local-only refresh",
+  "collection_scope": "read-only visible-state inspection plus non-persistent local generation",
+  "source_rights_boundary": "public page; evidence only; generated secret not retained",
+  "activation_preconditions": [
+    "independent qualified-content-designer review",
+    "independent taxonomy-steward review",
+    "reviewed mapping added to a successor taxonomy",
+    "candidate evidence included in a new consolidated immutable replacement",
+    "official verifier passes all non-breadth gates"
+  ],
+  "expected_coverage_effect_after_review": {
+    "product_system": "1Password security",
+    "coverage_slot_id": "success",
+    "projected_direct_states": 4,
+    "still_below_target": true
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

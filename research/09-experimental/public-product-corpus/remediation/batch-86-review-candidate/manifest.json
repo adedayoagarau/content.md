@@ -1,0 +1,28 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-86",
+  "status": "projection_verified_independent_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "collection_scope": "public signed-out MyServiceNSW login required-field validation reached from the NDIS Worker Check application route",
+  "reviewed_taxonomy_mapping_id": "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11",
+  "expected_projection_effect": {
+    "service_nsw_direct_observed_slots_before": 4,
+    "service_nsw_direct_observed_slots_after": 5,
+    "products_meeting_direct_state_target_delta": 1,
+    "insufficient_direct_states_error_delta": -1
+  },
+  "isolated_overlay_verification": {
+    "base_candidate": "remediation/batch-85-unified-review-candidate/manifest.json",
+    "status": "fail_breadth_only",
+    "error_count": 176,
+    "insufficient_direct_states_count": 173,
+    "products_meeting_direct_state_target": 3,
+    "candidate_specific_error_count": 0,
+    "report_digest": "cc68b7a7f664ef5482779102289b97955736fa46e1581761a2069a28020fe71f"
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

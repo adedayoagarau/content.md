@@ -1,0 +1,600 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_system_fragmentation_review_candidate",
+  "as_of": "2026-08-27",
+  "status": "independent_review_required",
+  "corpus_rule": "rows, pages, raw industry labels, translations, and minor product variants do not substitute for product breadth",
+  "scope": "non-mutating canonical product-identity proposal over the batch-91 plus batch-92 projection",
+  "proposed_alias_count": 31,
+  "metrics_before": {
+    "product_count": 176,
+    "products_below_five_direct_states": 172,
+    "products_meeting_five_direct_states": 4,
+    "total_direct_slots": 226
+  },
+  "metrics_after": {
+    "product_count": 145,
+    "products_below_five_direct_states": 141,
+    "products_meeting_five_direct_states": 4,
+    "total_direct_slots": 209
+  },
+  "proposed_aliases": [
+    {
+      "company": "1Password",
+      "from_product_system": "1Password account recovery",
+      "canonical_product_system": "1Password security",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "destructive_permission_support",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Adobe",
+      "from_product_system": "Adobe creative cloud",
+      "canonical_product_system": "Adobe Creative Cloud",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Airbnb",
+      "from_product_system": "Airbnb travel entry",
+      "canonical_product_system": "Airbnb travel",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Asana",
+      "from_product_system": "Asana pricing",
+      "canonical_product_system": "Asana",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 4,
+      "observation_row_count": 4,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Asana",
+      "from_product_system": "Asana support",
+      "canonical_product_system": "Asana",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 2,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Atlassian",
+      "from_product_system": "Jira pricing",
+      "canonical_product_system": "Jira",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Canva",
+      "from_product_system": "Canva cancel and refund",
+      "canonical_product_system": "Canva",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Canva",
+      "from_product_system": "Canva pricing",
+      "canonical_product_system": "Canva",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Canva",
+      "from_product_system": "Canva support",
+      "canonical_product_system": "Canva",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Cloudflare",
+      "from_product_system": "Cloudflare pricing",
+      "canonical_product_system": "Cloudflare platform",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Figma",
+      "from_product_system": "Figma community entry",
+      "canonical_product_system": "Figma",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Figma",
+      "from_product_system": "Figma design",
+      "canonical_product_system": "Figma",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 2,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Figma",
+      "from_product_system": "Figma plans",
+      "canonical_product_system": "Figma",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Figma",
+      "from_product_system": "Figma pricing",
+      "canonical_product_system": "Figma",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 2,
+      "observation_row_count": 2,
+      "from_direct_slot_ids": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Google Workspace",
+      "from_product_system": "Google Workspace support",
+      "canonical_product_system": "Google Workspace",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Mailchimp",
+      "from_product_system": "Mailchimp pricing",
+      "canonical_product_system": "Mailchimp marketing",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Miro",
+      "from_product_system": "Miro pricing",
+      "canonical_product_system": "Miro",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "monday.com",
+      "from_product_system": "monday.com pricing",
+      "canonical_product_system": "monday.com",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Notion",
+      "from_product_system": "Notion pricing",
+      "canonical_product_system": "Notion",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 5,
+      "observation_row_count": 5,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Okta",
+      "from_product_system": "Okta pricing",
+      "canonical_product_system": "Okta identity",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Revolut",
+      "from_product_system": "Revolut plans",
+      "canonical_product_system": "Revolut banking",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Shopify",
+      "from_product_system": "Shopify commerce entry",
+      "canonical_product_system": "Shopify commerce",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 1
+    },
+    {
+      "company": "Shopify",
+      "from_product_system": "Shopify pricing",
+      "canonical_product_system": "Shopify commerce",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 1
+    },
+    {
+      "company": "Shopify",
+      "from_product_system": "Shopify support",
+      "canonical_product_system": "Shopify commerce",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 2,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 1
+    },
+    {
+      "company": "Slack",
+      "from_product_system": "Slack entry",
+      "canonical_product_system": "Slack",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 1,
+      "observation_row_count": 1,
+      "from_direct_slot_ids": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Slack",
+      "from_product_system": "Slack pricing",
+      "canonical_product_system": "Slack",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Trello",
+      "from_product_system": "Trello pricing",
+      "canonical_product_system": "Trello",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 2
+    },
+    {
+      "company": "Verizon",
+      "from_product_system": "Verizon disconnect",
+      "canonical_product_system": "Verizon service",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Verizon",
+      "from_product_system": "Verizon support",
+      "canonical_product_system": "Verizon service",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 0
+    },
+    {
+      "company": "Wise",
+      "from_product_system": "Wise pricing",
+      "canonical_product_system": "Wise money transfer",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 3,
+      "observation_row_count": 3,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 1
+    },
+    {
+      "company": "Zoom",
+      "from_product_system": "Zoom Workplace pricing",
+      "canonical_product_system": "Zoom Workplace",
+      "rationale": "source label names a pricing, support, entry, recovery, feature, or casing variant rather than an independently identifiable named product",
+      "source_row_count": 5,
+      "observation_row_count": 5,
+      "from_direct_slot_ids": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "canonical_direct_slot_ids_before": [
+        "core_task_commitment"
+      ],
+      "canonical_direct_slot_ids_after": [
+        "core_task_commitment",
+        "entry_onboarding"
+      ],
+      "direct_slot_gain_at_canonical_product": 1
+    }
+  ],
+  "reviewer_boundary": "review every alias independently; reject any source label that represents an independently identifiable named product or system",
+  "mutation_performed": false,
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false,
+  "artifact_digest": "74939172111b40ce906c3ec13eb1e02ab51eb708f01bdb59e8deeb2f6a10ebdc"
+}

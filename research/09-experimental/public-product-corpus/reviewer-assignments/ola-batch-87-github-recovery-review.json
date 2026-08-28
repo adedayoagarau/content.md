@@ -1,0 +1,26 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-87-github-recovery-review.ola",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "candidate_ref": "remediation/batch-87-review-candidate/manifest.json",
+  "review_scope": "taxonomy and coverage fit of GitHub password recovery",
+  "prefilled_findings": {
+    "coverage_slot_id": "destructive_permission_support",
+    "normalized_journey_stage": "journey.support",
+    "normalized_state_class": "state.support_available",
+    "new_taxonomy_mapping_required": false,
+    "github_account_access_direct_slots_after": 4,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm need help plus headline maps to the referenced reviewed support mapping",
+    "confirm this slot is distinct from GitHub entry, core-task, and error/recovery evidence",
+    "confirm the product-system projection is GitHub account access",
+    "confirm the candidate does not claim a pending or successful reset"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

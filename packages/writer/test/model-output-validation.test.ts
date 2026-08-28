@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { sha256Canonical } from "@contentmd/core";
+import { reviewUxWriting, type UxWritingReviewRequest } from "@contentmd/evaluation";
 import {
   resolveRequestOutputSchema,
   type GovernedModelRequest,
@@ -138,6 +139,42 @@ function rewriteOutput() {
     verification_plan: ["Verify the exact source coordinate before any authorized apply."],
     rollback_plan: "Restore the captured source bytes under separate authorization.",
   };
+}
+
+function repairBrief() {
+  const request: UxWritingReviewRequest = {
+    contract_version: "contentmd.ux-writing-review-request/0.1.0",
+    request_id: "uxw.request.writer-fixture",
+    target: { source_artifact: "src/Checkout.tsx", line: 10, column: 4, text: "Payment failed. Try again." },
+    facts: {
+      "evidence.present": true,
+      "actor.authority_known": true,
+      "agency.choice_required": false,
+      "state.outcome_evidence": "unknown_possible",
+      "recovery.retry_safe": false,
+      "recovery.required": true,
+      "recovery.available": true,
+      "control.present": false,
+      "navigation.destination_present": false,
+      "system.generated_or_hybrid": false,
+      "expression.invariants_preserved": true,
+      "expression.invariants_mapped": true,
+      "locale.specialist_review_required": false,
+      "governance.authority_effect": "none",
+    },
+    evidence_refs: ["evidence.product"],
+    preserve: ["A payment submission occurred", "The outcome is not confirmed"],
+    must_not_claim: ["Payment failed", "Payment succeeded"],
+    required_facts: ["The payment outcome may be unknown"],
+    consequence: "A second attempt can duplicate a payment that is still processing.",
+    recovery: "Check payment status before another attempt.",
+    channel: "web",
+    locale: "en-US",
+    acceptance_criteria: ["Preserve uncertainty."],
+    unresolved_questions: [],
+    authority_effect: "none",
+  };
+  return reviewUxWriting({ request }).repair_brief!;
 }
 
 class StaticExecutionPort implements ModelExecutionPort {
@@ -323,5 +360,34 @@ describe("governed writer output boundary", () => {
     expect(rewrite.lifecycle_state).toBe("proposed");
     expect(rewrite.approval_status).toBe("not_requested");
     expect(rewrite.diffs[0]?.mutation_status).toBe("not_applied");
+  });
+
+  it("uses the repair-specific schema and requires invariant mappings", async () => {
+    const brief = repairBrief();
+    const output = rewriteOutput();
+    output.diffs[0] = {
+      ...output.diffs[0]!,
+      semantic_invariant_refs: brief.preserve,
+    };
+    const execution = executionContext();
+    const strategy = await proposeContentStrategy(new StaticExecutionPort(strategyOutput()), {
+      task,
+      review_finding_refs: [],
+      pattern_refs: ["pattern.safe-recovery"],
+      execution,
+    });
+    const draft = await proposeContentDraft(new StaticExecutionPort(draftOutput()), { task, strategy, execution });
+    const rewritePort = new StaticExecutionPort(output);
+
+    const rewrite = await proposeContentRewrite(rewritePort, {
+      task,
+      strategy,
+      draft,
+      execution,
+      repair_brief: brief,
+    });
+
+    expect(rewritePort.requests[0]?.output_schema_id).toBe("contentmd.ux-repair-rewrite-model-output/0.1.0");
+    expect(rewrite.diffs[0]?.semantic_invariant_refs).toEqual(brief.preserve);
   });
 });

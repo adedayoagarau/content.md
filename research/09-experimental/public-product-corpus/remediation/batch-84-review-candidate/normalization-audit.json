@@ -1,0 +1,2116 @@
+{
+  "normalized": [
+    {
+      "observation_id": "obs-1password-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-1password-home-entry",
+        "record_digest": "fa6c2a20bd9aa1cc8756b401c999fe49a500d5aa2797320e723728f40e124673"
+      }
+    },
+    {
+      "observation_id": "obs-1password-personal-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-1password-personal-core",
+        "record_digest": "133558d0b878f3fb4dfa02986dd1ee4d545db6b106f069d2a1f11e6ffc078be3"
+      }
+    },
+    {
+      "observation_id": "obs-1password-personal-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-1password-personal-success",
+        "record_digest": "754c64cd1e2cc8aaaa2c4da2e6a695504c6274ad1cf88a387d95b270b2f8d749"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-core-14",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-core-14",
+        "record_digest": "a46758f1ffb7f74c73325b5576817fdc98feae104f051c7f4904114e64d08cd3"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-creativecloud-success",
+      "marker": "observed confirmation text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-creativecloud-success",
+        "record_digest": "74f29fa7e511ad8cdd0a5cad5de1cc6a2263c66f29c2e51eeec7ac530605905a"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-entry-14",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-entry-14",
+        "record_digest": "64e5f8a2836e101dd862f0aa3e8372ea500360ed8bb06e1de337e8b717f99aca"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-entry-45",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-entry-45",
+        "record_digest": "96f2b40f0a9642c1487b43aace3d95a678bd8e994563bcf9b2a2e2b36de492f8"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-home-entry",
+        "record_digest": "989fd30f94fe351b125494894b5514b5e934584b13c5a25fc08266caf70a2e33"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-plans-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-plans-entry",
+        "record_digest": "0f56892e3904b5c04f95ad250cd5f654f3f9774dcfd80614a500dfeae7adaf01"
+      }
+    },
+    {
+      "observation_id": "obs-adobe-success-14",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-adobe-success-14",
+        "record_digest": "203a46da633d72eac3cc79e9c3214956cfc7a10dae13e5e42f5333414d7a6ca0"
+      }
+    },
+    {
+      "observation_id": "obs-airbnb-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airbnb-home-entry",
+        "record_digest": "c76f5e14e9448d82cd93e4768c44d6bca03536174f40e9cddf2f3c7c9c469f3c"
+      }
+    },
+    {
+      "observation_id": "obs-airbnb-host-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airbnb-host-core",
+        "record_digest": "bb0a36cefbfcd08fd81ac5b0fcab7aa0fb28a6cb97e2f55d2a8522b67a08b354"
+      }
+    },
+    {
+      "observation_id": "obs-airbnb-host-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airbnb-host-entry",
+        "record_digest": "4340baa4f1a49528ce817eb2a5a9db90b5d7ffcb6003b6be282d6ff94b2a6325"
+      }
+    },
+    {
+      "observation_id": "obs-airbnb-login-core",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airbnb-login-core",
+        "record_digest": "192ad2e4b378ca9ab84de8f39b87de2022b7ce4957e10614eeae543a69712475"
+      }
+    },
+    {
+      "observation_id": "obs-airtable-entry-22",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airtable-entry-22",
+        "record_digest": "8dcba9b74318ea53bdc763815e135034732607e31c711929f64c9d2f70b16933"
+      }
+    },
+    {
+      "observation_id": "obs-airtable-entry-33",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-airtable-entry-33",
+        "record_digest": "b32f2aefc6ac87e73a19980568c382fd5c3ab5bdd3a072c11aec0210a6030c23"
+      }
+    },
+    {
+      "observation_id": "obs-asana-entry-44",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-asana-entry-44",
+        "record_digest": "09a57150d2a8eb2233d639118cdf8395bc9fee78f6dfc27cb139f5e557ef63ac"
+      }
+    },
+    {
+      "observation_id": "obs-asana-home-entry",
+      "marker": "observed brand label",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-asana-home-entry",
+        "record_digest": "e60be5f2c1f3085af1b7392107b7f1b0c04d3ea1f94df8303fcbcd7f0d470c75"
+      }
+    },
+    {
+      "observation_id": "obs-asana-login-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-asana-login-core",
+        "record_digest": "dc0022761b8fa7fa9ac901bcdc454d95c5a94d6907c942d5767ea48b867113aa"
+      }
+    },
+    {
+      "observation_id": "obs-asana-pricing-entry-9",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-asana-pricing-entry-9",
+        "record_digest": "4bd41f87b04f4ce96664f6dd09a2437ec2b3c76b3a6fe402a15c8019728efa0b"
+      }
+    },
+    {
+      "observation_id": "obs-atlassian-components-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-atlassian-components-core",
+        "record_digest": "06772aa060850609e67ac8a91adff4ad7a97ef3955770bb9b35bf9478e5c8038"
+      }
+    },
+    {
+      "observation_id": "obs-auth0-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-auth0-home-entry",
+        "record_digest": "0625f0bcf516379a7637d095c874ebb57cbc4506895d59e1473be3bedae54452"
+      }
+    },
+    {
+      "observation_id": "obs-auth0-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-auth0-pricing-core",
+        "record_digest": "de1d6df49bb603e7019b4d614997ddd5e18f50401ed8a7d34b50ae87124e4e46"
+      }
+    },
+    {
+      "observation_id": "obs-basecamp-entry-12",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-basecamp-entry-12",
+        "record_digest": "77a0d891b0431cfe02d81348dcad82aee4314d433739ead8f6253108299618a5"
+      }
+    },
+    {
+      "observation_id": "obs-basecamp-success-12",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-basecamp-success-12",
+        "record_digest": "800b674d8b91d666efbea078d94d26024fdaf67b6960b2005e3e19dafb939cd4"
+      }
+    },
+    {
+      "observation_id": "obs-booking-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-booking-home-entry",
+        "record_digest": "ffdedc4b464ae9b5d9e5215a5fa16cb45ba4446ad62c6da85f4a23c4e2e4930d"
+      }
+    },
+    {
+      "observation_id": "obs-booking-host-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-booking-host-core",
+        "record_digest": "3e456d63141fe86217ac7bd3ff326ea88e0fe540099b70208c1b946da6d847b7"
+      }
+    },
+    {
+      "observation_id": "obs-booking-host-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-booking-host-success",
+        "record_digest": "b60dafe4dec6f752fc95e65684f6a0388575ba859230c4692d66c6971fd7130f"
+      }
+    },
+    {
+      "observation_id": "obs-booking-login-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-booking-login-core",
+        "record_digest": "5f341b173a1ef46f242eecd88b45adca71af49943112e08afbf60c66fb305c70"
+      }
+    },
+    {
+      "observation_id": "obs-box-core-23",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-box-core-23",
+        "record_digest": "f5721bc053e3a74d089b71a4063a5b517972dca1135c8804b2c32e69215fbf3a"
+      }
+    },
+    {
+      "observation_id": "obs-box-entry-23",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-box-entry-23",
+        "record_digest": "de92ec47f030956f656824d33f12084af4e40d1e87e2dcd88ec9fe45d33f358d"
+      }
+    },
+    {
+      "observation_id": "obs-box-entry-37",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-box-entry-37",
+        "record_digest": "e2a934c498e8533b13a5588719461bef8a721c322e40ecf19ace910a2ceaba0b"
+      }
+    },
+    {
+      "observation_id": "obs-box-success-23",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-box-success-23",
+        "record_digest": "dce8837264919ba57d9c015ebdf9c5f2a061c51d55aa5d8703362eee35d300a4"
+      }
+    },
+    {
+      "observation_id": "obs-canva-entry-27",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-entry-27",
+        "record_digest": "71be80a6ee48140392f4ec431aa0a1dfa432990b2b400cbca95854b37ba75968"
+      }
+    },
+    {
+      "observation_id": "obs-canva-home-entry",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-home-entry",
+        "record_digest": "01fb7312b3db276d29392247611f7557c1f2ef82cfd8fc038a1d82113c28bde3"
+      }
+    },
+    {
+      "observation_id": "obs-canva-price-core-4",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-price-core-4",
+        "record_digest": "60d80f69f6bc43c20181c82d18126c3eac5878954df07cd13a0084f983d05244"
+      }
+    },
+    {
+      "observation_id": "obs-canva-pro-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-pro-core",
+        "record_digest": "6eba82cd861c9e8105e833fcf2d88b7ca7adf1ee7a6dcc1a5b24750268421a84"
+      }
+    },
+    {
+      "observation_id": "obs-cdc-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-cdc-home-entry",
+        "record_digest": "22c06ddbfce6849407d4aedc32aaa8406576e717a87e6b2b5bd5ee605ecfca88"
+      }
+    },
+    {
+      "observation_id": "obs-cdc-vaccines-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-cdc-vaccines-core",
+        "record_digest": "d22b6a0bba943274771196fdc6e528beca54c5ec305ed3813d4c7615a6509814"
+      }
+    },
+    {
+      "observation_id": "obs-chatgpt-codex-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-chatgpt-codex-pricing-core",
+        "record_digest": "7a353aef2ecf22e9eeef541e6afb48880a8cc6b61733694cdd2db841ed41ecf6"
+      }
+    },
+    {
+      "observation_id": "obs-chatgpt-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-chatgpt-home-entry",
+        "record_digest": "516bf037b66fd8f60db766740dc6c1ff3fd9ea04608bb7b0626f86e3338bec44"
+      }
+    },
+    {
+      "observation_id": "obs-chatgpt-home-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-chatgpt-home-success",
+        "record_digest": "585a3e3c7c1c2e245cbf10d9e81da386a0abd17fabaf8c78cc7d49c11895a006"
+      }
+    },
+    {
+      "observation_id": "obs-chatgpt-overview-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-chatgpt-overview-core",
+        "record_digest": "49200267edd65da968d067e79e92a660586379e2d2e6985089d900f503defa7a"
+      }
+    },
+    {
+      "observation_id": "obs-chatgpt-pricing-entry",
+      "marker": "observed label",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-chatgpt-pricing-entry",
+        "record_digest": "192e28eb606903a1628c4c6e46bdd481e59a2161c525204f1e2ad122add54239"
+      }
+    },
+    {
+      "observation_id": "obs-claude-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-claude-entry",
+        "record_digest": "b3feecdd3a60ecbf555541a33d06998a8a6562c2f16f695c93e7500fe5feaca8"
+      }
+    },
+    {
+      "observation_id": "obs-clickup-entry-33",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-clickup-entry-33",
+        "record_digest": "008b1c46934d6c1b66a1a9e1b2cc05dc67bcc7a184a7c7fd307edebceecbd53d"
+      }
+    },
+    {
+      "observation_id": "obs-cloudflare-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-cloudflare-home-entry",
+        "record_digest": "8343998d55f8c17e42b365456e4864565330a16fae461ccd6da572d5dd70676a"
+      }
+    },
+    {
+      "observation_id": "obs-cloudflare-plans-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-cloudflare-plans-core",
+        "record_digest": "94aeff427294a60c8fee20dcb70ae3e8dc57c4e18cce85d13b7e146a55bf2be8"
+      }
+    },
+    {
+      "observation_id": "obs-cloudflare-plans-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-cloudflare-plans-success",
+        "record_digest": "2800c888857b39602d80ac22fdcac6de27cb06dad2ae1d4ea55593b1d04b4012"
+      }
+    },
+    {
+      "observation_id": "obs-coinbase-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coinbase-home-entry",
+        "record_digest": "35b09c055833f3c7d7a7d5520897beac63c9ae08f06e20acecb44e7f0a3d62b2"
+      }
+    },
+    {
+      "observation_id": "obs-copilot-core-27",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-copilot-core-27",
+        "record_digest": "14a9f498f55ef602f5e6d2161a0f23e5256203f3d3d336e47aa7bfe2a881a835"
+      }
+    },
+    {
+      "observation_id": "obs-coursera-certs-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coursera-certs-entry",
+        "record_digest": "07e643a808125e9a8f2322121eff336dd3510249b9914eb342ab2447ce953b0e"
+      }
+    },
+    {
+      "observation_id": "obs-coursera-certs-success",
+      "marker": "observed confirmation text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coursera-certs-success",
+        "record_digest": "41256ea71a777201c83016e242f314453b73a5a5af5d070dba3b7f4535835f03"
+      }
+    },
+    {
+      "observation_id": "obs-coursera-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coursera-home-entry",
+        "record_digest": "da675d0caade9ae0160b7e925b0416c9a778204debec25637db4260063861c19"
+      }
+    },
+    {
+      "observation_id": "obs-coursera-home-success",
+      "marker": "observed CTA/plan label",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coursera-home-success",
+        "record_digest": "7e0a80915b5f0022ec7d5f542716b1bf67e24f754cf2df256326c66b25048e99"
+      }
+    },
+    {
+      "observation_id": "obs-coursera-login-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-coursera-login-core",
+        "record_digest": "59b495f1b7c221333ad36a7d144bc1c6e94fa96becc5de711ce77fbf24727317"
+      }
+    },
+    {
+      "observation_id": "obs-discord-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-discord-home-entry",
+        "record_digest": "9e31c14b135d076933add0fbe377fa21b0d5dd278845459421e11b937596aa64"
+      }
+    },
+    {
+      "observation_id": "obs-dropbox-core-11",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropbox-core-11",
+        "record_digest": "2e1e7948ec11dd10d3ddd9a81c5a577d13ff832a016a8c584f20fa045e3eba58"
+      }
+    },
+    {
+      "observation_id": "obs-dropbox-entry-11",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropbox-entry-11",
+        "record_digest": "d3544475be40307b042796d9681facfb543b57bd01c97dd223f8cf7805e2550c"
+      }
+    },
+    {
+      "observation_id": "obs-dropbox-entry-39",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropbox-entry-39",
+        "record_digest": "0fe94de5e432cf7e74ce5a15de9c8213795083e22ec38a0914ff1d1175b19604"
+      }
+    },
+    {
+      "observation_id": "obs-dropbox-success-11",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropbox-success-11",
+        "record_digest": "d29cbb6107265ebb07f2b5ceca41fc4e23229f4aa12953635353dace28b214e8"
+      }
+    },
+    {
+      "observation_id": "obs-dropbox-success-31",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropbox-success-31",
+        "record_digest": "f3f0ec3f7fdc565529ed1ab8902d4c700d3fdb645511f8eb263cf8d49f547a01"
+      }
+    },
+    {
+      "observation_id": "obs-dropboxsign-entry-35",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-dropboxsign-entry-35",
+        "record_digest": "a50113fbaacf782f7e088e6e895bae479df1876b4f39b6d2b8c9567efab422f5"
+      }
+    },
+    {
+      "observation_id": "obs-duolingo-courses-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-duolingo-courses-core",
+        "record_digest": "bd8aa6de6287085bf91120bf74c7d95ae3c05f684797bb566a96f8537881315a"
+      }
+    },
+    {
+      "observation_id": "obs-duolingo-courses-success",
+      "marker": "observed CTA text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-duolingo-courses-success",
+        "record_digest": "5a9ba9b282f346ca42e4a5d15d1a1fb3755af4dfc68adba6c41b0f71595d6adb"
+      }
+    },
+    {
+      "observation_id": "obs-duolingo-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-duolingo-home-entry",
+        "record_digest": "f744b3a60820432dab7b5c7ea11d50bd1136d116a19b30c879491d6a68d3fbe5"
+      }
+    },
+    {
+      "observation_id": "obs-etsy-home-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-etsy-home-core",
+        "record_digest": "957b6ada97ce47911f035e636e19287a2d76aea7f80f8a0f6cb11f96140a188a"
+      }
+    },
+    {
+      "observation_id": "obs-etsy-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-etsy-home-entry",
+        "record_digest": "6bb7a87246a8bdde2ad74a71f0e8dd01d4ea0d5f823147f33374fb8791c3b3c5"
+      }
+    },
+    {
+      "observation_id": "obs-etsy-home-success",
+      "marker": "observed navigation label",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-etsy-home-success",
+        "record_digest": "e6be29ed57c27764c45d4a4bdf93a0ee2024879e405f4fcc64223a6595b46c5d"
+      }
+    },
+    {
+      "observation_id": "obs-figma-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-home-entry",
+        "record_digest": "6f3dd0ff0b26fd9aa1246873821aa6350b6a3f1513a025614b9f94d24d8b5a2d"
+      }
+    },
+    {
+      "observation_id": "obs-figma-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-pricing-core",
+        "record_digest": "72390d5d8d42ff05c278e06cd279ef1485a9e86918774200dfd1c179c86abf6d"
+      }
+    },
+    {
+      "observation_id": "obs-figma-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-pricing-entry",
+        "record_digest": "270e5dfa63dd6d54a440139b8b59da0e86b5b890e05a678dd3e025a23d428e51"
+      }
+    },
+    {
+      "observation_id": "obs-figma-pricing-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-pricing-success",
+        "record_digest": "685c2d1a002802cad2fcb33d17b3dd69ac60565daa7f30d2962202f76d675002"
+      }
+    },
+    {
+      "observation_id": "obs-figma-success-17",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-success-17",
+        "record_digest": "df69b43fb24ff631e7c7632feccdabaa6031324a53f033677da227abcace9bcc"
+      }
+    },
+    {
+      "observation_id": "obs-figma-weave-success",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-figma-weave-success",
+        "record_digest": "ea1c6075fe7b0a7c67b46935e2eea1ec0b9b2a90ba2d509625ec1618c846cc9f"
+      }
+    },
+    {
+      "observation_id": "obs-gh-stop-start-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-gh-stop-start-success",
+        "record_digest": "1f3031800f775c2e02d6da3ebd27f7fd593f004b9cb9ec1fe18a064525cb3b78"
+      }
+    },
+    {
+      "observation_id": "obs-github-codespaces-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-codespaces-entry",
+        "record_digest": "d2052d7799eceecaf4b3d33acb9ad0dad4718d548826f2501d7029569fe73182"
+      }
+    },
+    {
+      "observation_id": "obs-github-copilot-core-10",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-copilot-core-10",
+        "record_digest": "363d5b9c4b9716a824b0ac4b1d0ec3e5c35270c75f4c41fb1d4cbbd7f396b696"
+      }
+    },
+    {
+      "observation_id": "obs-github-entry-37",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-entry-37",
+        "record_digest": "c06805247576a21525060ea587d3431b66488eee3660a689c554c11a17eb0b3c"
+      }
+    },
+    {
+      "observation_id": "obs-github-login-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-login-entry",
+        "record_digest": "e95949e7fbc6f609c3b833209368ce90abd8a0faa91a9c42194a114f1826c88b"
+      }
+    },
+    {
+      "observation_id": "obs-github-pricing-entry-10",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-pricing-entry-10",
+        "record_digest": "89fcbcfb0b3bf44a7fccaddbde8d14320e4e44a0c4eaaae199901d35e46bd798"
+      }
+    },
+    {
+      "observation_id": "obs-github-signup-core",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-signup-core",
+        "record_digest": "f51919403c96d093908cd02dbb0bafe3b899fd66e7864a6c4114168b07b603f3"
+      }
+    },
+    {
+      "observation_id": "obs-github-signup-error",
+      "marker": "observed error text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-github-signup-error",
+        "record_digest": "32659a6996b667d47bcfcc821566bd7108749bbdfcf5a213cbec42161fd14a56"
+      }
+    },
+    {
+      "observation_id": "obs-gitlab-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-gitlab-home-entry",
+        "record_digest": "c2621643ce0fa04f6284b900cc8dbe715f7963fc002999770a51dd75778b06fb"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-passport-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-passport-core",
+        "record_digest": "43db31f2768f7a4815048b1b8c0c4801fed892de351f4e2c862fba9bfba1a2d1"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-track-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-track-core",
+        "record_digest": "6e251ca228e6dee8ae53f4fa0d085b7a49b12343cf854067af39d6f762303fc9"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-track-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-track-entry",
+        "record_digest": "6d9191bc69dd3bbc7b0bf858e01e79b1c57daa16d2a02b1b8bd5b84d48767f1b"
+      }
+    },
+    {
+      "observation_id": "obs-gworkspace-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-gworkspace-home-entry",
+        "record_digest": "ec68a8149abd28fa031eb4f2dfaaa773cb075d99cd9312d0da305a3f597aa3af"
+      }
+    },
+    {
+      "observation_id": "obs-gworkspace-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-gworkspace-pricing-core",
+        "record_digest": "b17dfe87fc0076abd03e2dd3c0e3b7e96240486eb2fe2eb5e20bcc5339cf1529"
+      }
+    },
+    {
+      "observation_id": "obs-gworkspace-support-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-gworkspace-support-core",
+        "record_digest": "3da839d7767bf66e3b92b219f0fa5b3b780368a99efea005947db455b0313fa4"
+      }
+    },
+    {
+      "observation_id": "obs-hubspot-entry-33",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-hubspot-entry-33",
+        "record_digest": "d1fcc3602ed73844795095d61148422edff7d405d534788191d3fa9a040623f4"
+      }
+    },
+    {
+      "observation_id": "obs-intercom-entry-38",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-intercom-entry-38",
+        "record_digest": "2d7b05931c4173019eff3660e76d20e179b100fa5bf8b40a3430cc79ad8cb85b"
+      }
+    },
+    {
+      "observation_id": "obs-jira-entry-11",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-jira-entry-11",
+        "record_digest": "f6e49470bcea677457ab27a7526ef4dcbb03e755d1a170e7bc8675d3fd399207"
+      }
+    },
+    {
+      "observation_id": "obs-jira-entry-38",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-jira-entry-38",
+        "record_digest": "27adeb313269d438e8ca2687d43d7cf8f2b09748b7596b96e7c3c6c418204ad4"
+      }
+    },
+    {
+      "observation_id": "obs-klarna-app-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-klarna-app-core",
+        "record_digest": "5c9b7a3ea906a5d3bb9259d561559a0f4a60f07864b220501c2b510057ce0590"
+      }
+    },
+    {
+      "observation_id": "obs-klarna-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-klarna-home-entry",
+        "record_digest": "8ef97221f22c66ee08100a755bc4e55ee14fa1273601573347f1504398395797"
+      }
+    },
+    {
+      "observation_id": "obs-klarna-payments-success",
+      "marker": "observed confirmation text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-klarna-payments-success",
+        "record_digest": "75d96e94955ba76ae777989e4e4e1bbdd6d9b113dcaeb35bc933bab694f9e3e7"
+      }
+    },
+    {
+      "observation_id": "obs-lemonade-car-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lemonade-car-success",
+        "record_digest": "2ea7021169e814fd3b0c9efb1ccbaa983a73f2f7a404f510cb250a4cf0a4d71f"
+      }
+    },
+    {
+      "observation_id": "obs-lemonade-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lemonade-home-entry",
+        "record_digest": "2ec2c4f8bdf87cd0d13b805e439572b6045adcde0613e1f82e2e7cb8ac2b50f6"
+      }
+    },
+    {
+      "observation_id": "obs-lemonade-pet-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lemonade-pet-core",
+        "record_digest": "ee14fa91609dfbfa5c86a64a4ce27d4d0bab1cf823ac00cddf74407ea98fbbef"
+      }
+    },
+    {
+      "observation_id": "obs-linear-entry-11",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linear-entry-11",
+        "record_digest": "de62dd6b9c089bfc11ddb4c41997d1cf0e13fdd118a64cacb95f0b2443ce4f44"
+      }
+    },
+    {
+      "observation_id": "obs-linear-success-11",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linear-success-11",
+        "record_digest": "bb1cf76a91d1b5051c841ff2368041f1a80ef28f2059e6e45e9aebe16dfd33b0"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-home-entry",
+        "record_digest": "642f035e05655454e22fdf85d3bb063b36f7e1c2fdabb61a4a3190b0dfeb5f57"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-home-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-home-success",
+        "record_digest": "68f903b556b58a0cc552e97b5693164738ca9212f41e51035e44b312decccc54"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-learning-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-learning-core",
+        "record_digest": "d2d5cbfad43a85590ece027eb9f5cada08936ce489249ea08d2f6344d9c39dc6"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-learning-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-learning-entry",
+        "record_digest": "818a67e845047ddadca92efc4d8fa9f5e8a2a83854cf3ca86ff8704878090e34"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-learning-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-learning-success",
+        "record_digest": "2f99e6da81e7291a863c8b66f868618fcf197c9dd12040d861354b7a0e95e7dd"
+      }
+    },
+    {
+      "observation_id": "obs-linkedin-login-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-linkedin-login-core",
+        "record_digest": "f41a99a4260dc0225e5144a3a16f99b8bd88c8bad71f7be9722c4e071459b957"
+      }
+    },
+    {
+      "observation_id": "obs-loom-entry-33",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-loom-entry-33",
+        "record_digest": "7b2bcbdf031c7c54fc86f8b271a684ccd99b4887e316053c7699af5e4e0360ae"
+      }
+    },
+    {
+      "observation_id": "obs-lyft-driver-success",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lyft-driver-success",
+        "record_digest": "a8ef493a908ee916a9930c4f6b30de4931e4a95331b059da73ed7c607cffdccd"
+      }
+    },
+    {
+      "observation_id": "obs-lyft-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lyft-home-entry",
+        "record_digest": "7ede6ebdc799e952b194f69ff756d81231897e43c6cea80ad831bc26e5ba675d"
+      }
+    },
+    {
+      "observation_id": "obs-lyft-rider-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-lyft-rider-core",
+        "record_digest": "06ef2a1b0fcdb345bff7d45d2986ae5d61fea7fd4a40fb215b5371f3b7cf0769"
+      }
+    },
+    {
+      "observation_id": "obs-mailchimp-compare-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-mailchimp-compare-success",
+        "record_digest": "081b510cc0bf7a9ea0a5d3d1348c90b8735a2bbc99452794b43c39ef0f19724d"
+      }
+    },
+    {
+      "observation_id": "obs-mailchimp-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-mailchimp-home-entry",
+        "record_digest": "86e3962a76da8220914677715ff99f8cd98ed200b777532a7d22c0d8252c0c96"
+      }
+    },
+    {
+      "observation_id": "obs-mailchimp-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-mailchimp-pricing-core",
+        "record_digest": "9d01440c1a979d55fee0e7f27890e854c1069d0e5bf41481d259cd489ad78994"
+      }
+    },
+    {
+      "observation_id": "obs-mailchimp-pricing-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-mailchimp-pricing-success",
+        "record_digest": "d76062bbef1a2e01ef2ffbe7c2aadcf2fb7098c6dac6fe920830f29b8e577d22"
+      }
+    },
+    {
+      "observation_id": "obs-mayo-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-mayo-home-entry",
+        "record_digest": "2356907624c482f462b9ea4e7f7d73baaa081aec19773344415e7e44db71c6d2"
+      }
+    },
+    {
+      "observation_id": "obs-microsoft-entry-48",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-microsoft-entry-48",
+        "record_digest": "2aef27c237b403c271555e80fcbaf22676ac1a57ddbc881423ac46d6428b0ad3"
+      }
+    },
+    {
+      "observation_id": "obs-miro-entry-11",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-miro-entry-11",
+        "record_digest": "155fa77a3def83765f7e2a6ac6a0c249ccff9b8ade59c05597707aeae32f0f6c"
+      }
+    },
+    {
+      "observation_id": "obs-miro-entry-36",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-miro-entry-36",
+        "record_digest": "e499bea194204590bd9aa3cf7042a52de996cd0e75833e04ff3d6a030e7431b5"
+      }
+    },
+    {
+      "observation_id": "obs-monday-entry-12",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-monday-entry-12",
+        "record_digest": "59f6dde40ffd0a9123fcb4fadcbaedc3bf68b01b7538cd42570d01ec84a13bd0"
+      }
+    },
+    {
+      "observation_id": "obs-monday-success-12",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-monday-success-12",
+        "record_digest": "6a2648d8ed7b1e0ad10c6fa8a2a489d96a947ec6d9c27b43cabec5ccfa546f07"
+      }
+    },
+    {
+      "observation_id": "obs-monzo-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-monzo-home-entry",
+        "record_digest": "4abcfd715cea90ecf144ae5dba0ba6d3dff2cbc44de0e5334a9a713a4d0c2490"
+      }
+    },
+    {
+      "observation_id": "obs-monzo-personal-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-monzo-personal-core",
+        "record_digest": "56608b198ec1d751d6de1712920ebe0a5fb34a98d4cb5b85d6b6322dc7465712"
+      }
+    },
+    {
+      "observation_id": "obs-monzo-personal-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-monzo-personal-success",
+        "record_digest": "490659aee51d9dae51b51b938c755bfc664e7f72be71fdfb8f41c93608b866c2"
+      }
+    },
+    {
+      "observation_id": "obs-ms-core-14",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-ms-core-14",
+        "record_digest": "4c2770adbcc31a5ed414cc49854b2da6bc7f56721b6357bd325f57d84fe266b8"
+      }
+    },
+    {
+      "observation_id": "obs-ms-core-17",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-ms-core-17",
+        "record_digest": "5957aae12f2b490b9216369114a805385be32c21be5f2e582c7d891f49ab9569"
+      }
+    },
+    {
+      "observation_id": "obs-ms-entry-14",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-ms-entry-14",
+        "record_digest": "4df280a7b9e4055f60e6e96fecfdd21d35dd35573ac3de9e39ad1bb9ac6a4356"
+      }
+    },
+    {
+      "observation_id": "obs-netflix-home-core",
+      "marker": "observed FAQ text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-netflix-home-core",
+        "record_digest": "e45125af56084ce6c6c662f441b9a5bb939d5b640cd0c258f146904d1b75e3eb"
+      }
+    },
+    {
+      "observation_id": "obs-netflix-home-entry",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-netflix-home-entry",
+        "record_digest": "690e2e7dd80ff17dc5fdcd74ca6f6ce46feb36b663bb9cc3a091fe4af5d483f5"
+      }
+    },
+    {
+      "observation_id": "obs-netflix-house-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-netflix-house-success",
+        "record_digest": "5460e2965e732510d1cefd78d92a23e809e77497e61dd4fbd37b3cb8f092c702"
+      }
+    },
+    {
+      "observation_id": "obs-nhs-111-core",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-nhs-111-core",
+        "record_digest": "c927a9c023b4b71a010d40b0ec5f4b355f9df698c5d0b7948a304a8049b08446"
+      }
+    },
+    {
+      "observation_id": "obs-nhs-111-success",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-nhs-111-success",
+        "record_digest": "4b0e3e26486e24dcdd552661ea90bc490e5896c7791dbe61619b05285b2dfb1d"
+      }
+    },
+    {
+      "observation_id": "obs-nhs-home-entry",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-nhs-home-entry",
+        "record_digest": "5be8591f794387346250c8ee08159776f22541c2df79fcaf46a11e4aaa3ea680"
+      }
+    },
+    {
+      "observation_id": "obs-notion-core-25",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-core-25",
+        "record_digest": "efab9cc3e2658c22bb0993f7f942dd13cc40e87b5093fc07c587313dc070fa85"
+      }
+    },
+    {
+      "observation_id": "obs-notion-entry-57",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-entry-57",
+        "record_digest": "5f0b1952fe1b8df8b18b35b62904b747886327059c74301da7734b12e430800e"
+      }
+    },
+    {
+      "observation_id": "obs-notion-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-home-entry",
+        "record_digest": "6a49288dd948a01250029b02d17fcb7d0720331e9c34af6b45689a93ee612665"
+      }
+    },
+    {
+      "observation_id": "obs-notion-home-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-home-success",
+        "record_digest": "9c74277344322393a18ec04ea62c9b84c4ab78e6bc48f61d59894661bc11caed"
+      }
+    },
+    {
+      "observation_id": "obs-notion-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-pricing-entry",
+        "record_digest": "07e320290ff1e583d151eacedc7d0c18fc5763c0f6a2d81c348595abcfe61c37"
+      }
+    },
+    {
+      "observation_id": "obs-notion-startups-success",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-startups-success",
+        "record_digest": "e5426b52ce0ced32d47f57cdd6ebf7540430e6f9916ab219bd85b4b0bc4fd769"
+      }
+    },
+    {
+      "observation_id": "obs-notion-templates-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-notion-templates-core",
+        "record_digest": "f94e24006d20d3843371f923afa0ab365996cb923595cc9aaa0d24d36bd8e62d"
+      }
+    },
+    {
+      "observation_id": "obs-okta-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-okta-home-entry",
+        "record_digest": "7c9a02b056c9e87bdae6e5c9b043ee3b3148551ddd2f01b71bfd504202d3c204"
+      }
+    },
+    {
+      "observation_id": "obs-okta-home-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-okta-home-success",
+        "record_digest": "168e1aff7dcd7a6f33d82e2216275207e1670dbc51ec5fdf6da11470c542bba8"
+      }
+    },
+    {
+      "observation_id": "obs-okta-login-core",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-okta-login-core",
+        "record_digest": "6b49eba6d95c0ffeaab2be1c104a4d303e2d7086dc36c866891619c50bb7995a"
+      }
+    },
+    {
+      "observation_id": "obs-okta-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-okta-pricing-entry",
+        "record_digest": "ef7473dfc29e61aacc6df29576a324217eb42fb86eb98b743c8069c1362f8c48"
+      }
+    },
+    {
+      "observation_id": "obs-openai-core-15",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-openai-core-15",
+        "record_digest": "ff793b8cd18b74ad2e0d98ff1690112216e58ec9ec1c28e807e603299257a8bd"
+      }
+    },
+    {
+      "observation_id": "obs-openai-entry-15",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-openai-entry-15",
+        "record_digest": "80d3e5be68ffa23c36772915e25fdba2bb9b34330357383f27dc62465a847649"
+      }
+    },
+    {
+      "observation_id": "obs-paypal-entry-13",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-paypal-entry-13",
+        "record_digest": "172699c2f91f356e6559496d799945c5b785da92c9e9411da4ba7e0084d6b1b2"
+      }
+    },
+    {
+      "observation_id": "obs-paypal-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-paypal-home-entry",
+        "record_digest": "0debe791a5c3668dcd7619db80d553225af75e69fb7a12431576b673e0e2f082"
+      }
+    },
+    {
+      "observation_id": "obs-paypal-success-13",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-paypal-success-13",
+        "record_digest": "d71f9ed9f3c6de1628a64eb014671e836cf824f1bd0555346f9bf3f3a5dcd5ee"
+      }
+    },
+    {
+      "observation_id": "obs-perplexity-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-perplexity-home-entry",
+        "record_digest": "eba71e99ac112a1a57e0fb2f6adf88e3d1c7549c9c47d652ebb40caa6c1d4c77"
+      }
+    },
+    {
+      "observation_id": "obs-perplexity-pro-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-perplexity-pro-core",
+        "record_digest": "d062f0b8c24f3ba7cd27674546203b93555c9932d88894cfde3e3ebd2f316dc6"
+      }
+    },
+    {
+      "observation_id": "obs-reddit-home-entry",
+      "marker": "observed tagline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-reddit-home-entry",
+        "record_digest": "3e75356ea605acf58e832c4157ae45d74f6c16c177b60eb7e1c5d720832ab6e2"
+      }
+    },
+    {
+      "observation_id": "obs-revolut-business-success",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-revolut-business-success",
+        "record_digest": "010d768059da52c5952e285136c377449fc527489af377c83110bdb8db481df5"
+      }
+    },
+    {
+      "observation_id": "obs-revolut-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-revolut-home-entry",
+        "record_digest": "3c23c652396d9d6b2aeb1c611fad5b970f950b0ad94dd62d6467101a1568917d"
+      }
+    },
+    {
+      "observation_id": "obs-revolut-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-revolut-pricing-entry",
+        "record_digest": "d26ee3477fb51234c24cc216e5e1971ba85130d6c3f4eced579136f97dd1131c"
+      }
+    },
+    {
+      "observation_id": "obs-revolut-us-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-revolut-us-core",
+        "record_digest": "5266872cd82332057a9864c64dc01fb5b8d0008c2a3f3f376cb3803716034d61"
+      }
+    },
+    {
+      "observation_id": "obs-revolut-us-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-revolut-us-success",
+        "record_digest": "6ad81928e3c4d832912cdda8bbb235f445afd1ed05690193301afb1c88278b59"
+      }
+    },
+    {
+      "observation_id": "obs-shopify-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-shopify-home-entry",
+        "record_digest": "c2f35a3a2075a94525b2099fa3782b5ae6ace99a83250738f3de633aebd9d7f2"
+      }
+    },
+    {
+      "observation_id": "obs-shopify-plus-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-shopify-plus-success",
+        "record_digest": "6c3b0d581034bb116d101e1dffa532b0aabebe472ababa78e68a6cd08c1f95f1"
+      }
+    },
+    {
+      "observation_id": "obs-shopify-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-shopify-pricing-core",
+        "record_digest": "491e7d22d11133ad98c47d037793d370b42365f2b07a6a42653ef00bac1cd00a"
+      }
+    },
+    {
+      "observation_id": "obs-slack-core-11",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-core-11",
+        "record_digest": "2b42585ab9442b4f274fe1c39fc631821d8755aa76a3fb6266da6694ed4f1688"
+      }
+    },
+    {
+      "observation_id": "obs-slack-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-home-entry",
+        "record_digest": "2efbeb2bc2f35f712bd1caf8cd712da9fa3c90ce146e04bcda27d08593c10a09"
+      }
+    },
+    {
+      "observation_id": "obs-slack-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-pricing-entry",
+        "record_digest": "f2f36e95d09a1dedf528d9b288cadb0dabaabdf42a64370fd95bfe6595da6369"
+      }
+    },
+    {
+      "observation_id": "obs-slack-success-11",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-success-11",
+        "record_digest": "2bc8292b3aefccbd28401f9194994cedd5db3d6ba418f43e660a808f5e9f2119"
+      }
+    },
+    {
+      "observation_id": "obs-slack-success-16",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-success-16",
+        "record_digest": "1e7a675694bdbf2306b065d42f9df2abc475341470ca9e1c7a2b8f6c7d5a49aa"
+      }
+    },
+    {
+      "observation_id": "obs-slack-trouble-success",
+      "marker": "observed instruction",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-slack-trouble-success",
+        "record_digest": "150832e2c3cffa2a97939604c299effe771c76ab218513058450b6c5bb9a2bd7"
+      }
+    },
+    {
+      "observation_id": "obs-spotify-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-spotify-home-entry",
+        "record_digest": "bc00289d110c38d45638be70d2c6693cd50f2172d12bad347a53285465b8d7f5"
+      }
+    },
+    {
+      "observation_id": "obs-spotify-premium-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-spotify-premium-core",
+        "record_digest": "afa0b78acddc93ef19a46f784d7cd4b58e10f622f028880794e4b567e536ed66"
+      }
+    },
+    {
+      "observation_id": "obs-spotify-premium-india-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-spotify-premium-india-core",
+        "record_digest": "a5ce2d920ff05145723a890d05bd41af40ec1eaf534f9909b4ab5333a2273a0e"
+      }
+    },
+    {
+      "observation_id": "obs-spotify-premium-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-spotify-premium-success",
+        "record_digest": "34782250920f7db5c87d51e95230eebd9e6f0cb10087405c7566079ce3ce3639"
+      }
+    },
+    {
+      "observation_id": "obs-square-entry-13",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-square-entry-13",
+        "record_digest": "d821ef61de867d536190b96eb7c5785aca86b5bb4795dfbd8d0b20495e0a5cc7"
+      }
+    },
+    {
+      "observation_id": "obs-square-success-13",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-square-success-13",
+        "record_digest": "2e072aebf3e8e7c8420323abb635e561f365ee24df7d19ffba5d6283da801a0c"
+      }
+    },
+    {
+      "observation_id": "obs-statuspage-core-21",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-statuspage-core-21",
+        "record_digest": "a9b4034c3c6800e17addbbd75060d06bc9e0d1ea665b8b6ccf1ff226a849195f"
+      }
+    },
+    {
+      "observation_id": "obs-statuspage-entry-21",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-statuspage-entry-21",
+        "record_digest": "30f4b219d0dd334f2037babc3a9aa3d195e1ea5a9264c8d5fba9db541101c30b"
+      }
+    },
+    {
+      "observation_id": "obs-statuspage-success-21",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-statuspage-success-21",
+        "record_digest": "c75d49759ce97173fe5f64bc5da8855107d0e408cbcc99d5b747451a3dd2b48f"
+      }
+    },
+    {
+      "observation_id": "obs-stripe-core-18",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripe-core-18",
+        "record_digest": "bfdbf94e69e3a93efcccbe74a416dda70578a4dd8b1e8405a8f4e3a8786f05e2"
+      }
+    },
+    {
+      "observation_id": "obs-stripe-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripe-home-entry",
+        "record_digest": "eb126b71f4c84629caedab0c59c68494fe299198480c34c1c0f6830b126e43eb"
+      }
+    },
+    {
+      "observation_id": "obs-stripe-pricing-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripe-pricing-core",
+        "record_digest": "3279018d321cfd789590f91533c81f2986f0eda7eccd0023cb1869c7a5b4e5f0"
+      }
+    },
+    {
+      "observation_id": "obs-stripe-pricing-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripe-pricing-success",
+        "record_digest": "ad5c304b9cfe7a5c749a5bf56090f5102ed420ce46ca71c607a22d61c4a9a295"
+      }
+    },
+    {
+      "observation_id": "obs-stripebilling-core-18",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripebilling-core-18",
+        "record_digest": "b950b73e4392d14563e5b0ed3f0be45dd2313f79b995311b548d9ede5040fc1b"
+      }
+    },
+    {
+      "observation_id": "obs-stripebilling-entry-18",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-stripebilling-entry-18",
+        "record_digest": "fe56e2dd14fc733144e813ff90bd5bf962c317bd9dfa3095b2f073a095f879d8"
+      }
+    },
+    {
+      "observation_id": "obs-trello-entry-12",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-trello-entry-12",
+        "record_digest": "536e0f34603d837d4a1c4111a888f659b4af9b0ac6f17fdbee3f931c5cab45e8"
+      }
+    },
+    {
+      "observation_id": "obs-trello-success-12",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-trello-success-12",
+        "record_digest": "1eaee737577b4e069380443a61b03e918c7be56e6183144b00509e0cc87a0dfd"
+      }
+    },
+    {
+      "observation_id": "obs-uber-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-uber-home-entry",
+        "record_digest": "67c777ed30c936d85296081caa2ac650af0ff1abe9aaa92837a50abdedd3c915"
+      }
+    },
+    {
+      "observation_id": "obs-uber-ride-success",
+      "marker": "observed CTA",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-uber-ride-success",
+        "record_digest": "86e3f163fb1da84d010d2f3b3f905f9ddbf8c49536389aaee528ebf3d5e1c453"
+      }
+    },
+    {
+      "observation_id": "obs-uber-signin-core",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-uber-signin-core",
+        "record_digest": "f119e4c081b2ad75ca193e9b78b233d3555ef81b130160e5f4989f932a3219bc"
+      }
+    },
+    {
+      "observation_id": "obs-webflow-core-22",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-webflow-core-22",
+        "record_digest": "cffc4fe518fd86b47f9ef514fd5e347461124a8307cf8bcb01d455bfdb673bcf"
+      }
+    },
+    {
+      "observation_id": "obs-webflow-entry-22",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-webflow-entry-22",
+        "record_digest": "3089c4a65e0b1f7e810d94381309bd4fda28b8897ea772dc1064850dd1d9d7f3"
+      }
+    },
+    {
+      "observation_id": "obs-webflow-entry-37",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-webflow-entry-37",
+        "record_digest": "1c7cd58ed2a6e89ff31c399231146824e0996b15bdf529b9dcaad086b3d4ff4f"
+      }
+    },
+    {
+      "observation_id": "obs-wise-home-entry",
+      "marker": "observed title",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-wise-home-entry",
+        "record_digest": "1861abbc62fb71078217b7452726c8e580d0fc63c695831f8888d13c9c3e8bc7"
+      }
+    },
+    {
+      "observation_id": "obs-wise-pricing-business-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-wise-pricing-business-core",
+        "record_digest": "de931ef209085f137a74113d0e1ed781f573e491933d2818bee1a78aaf50afeb"
+      }
+    },
+    {
+      "observation_id": "obs-wise-pricing-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-wise-pricing-entry",
+        "record_digest": "b448aefc4b67c19bb1b4a3addb36cae71297125174432307fe03f8f45fc09073"
+      }
+    },
+    {
+      "observation_id": "obs-wise-send-success",
+      "marker": "observed reassurance",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-wise-send-success",
+        "record_digest": "3cce82eaa0c9ee848c9fbec5ab34eca0126409fdd9d76fbe5e926e4ba6f12a56"
+      }
+    },
+    {
+      "observation_id": "obs-youtube-home-entry",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-youtube-home-entry",
+        "record_digest": "e0da61ad4119b847d6f4b02bbc391dd1c08ae8b6bcba3c93c644315809043e41"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-core-11",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-core-11",
+        "record_digest": "14457e06cf8319b19d0b5ad9e9d408247c58a6fa4ea34b875ff80e0ee2d242bf"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-core-21",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-core-21",
+        "record_digest": "f015316e17c9e145830c6e8f42370387730d61a3bfd03141cf6a805092fadefe"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-entry-11",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-entry-11",
+        "record_digest": "dcff2dc93d3d14f5aa4173d70bd3eeb3ab40f0fa379f0e889565db360b395ded"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-success-11",
+      "marker": "observed continuation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-success-11",
+        "record_digest": "f7a0216dd97445c58140e207270c493965f9ed266193deef0b5c152b3ff27db3"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-success-18",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-success-18",
+        "record_digest": "0b0c76b3b5a3b3def5922182c9f3df2e25757a0847474c9a38cd1f1040e9a7b4"
+      }
+    },
+    {
+      "observation_id": "obs-zoom-success-21",
+      "marker": "observed confirmation",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-zoom-success-21",
+        "record_digest": "c96a4e6773adac27bd67fe934b5d35b9d7ff849cefdedfc8bf09ea4edf914414"
+      }
+    },
+    {
+      "observation_id": "obs-doordash-core-5",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-doordash-core-5",
+        "record_digest": "b25055f9e90111b5a0adffc13cc363a0ca7495d7bc9e320e8cf9841fb23afabc"
+      }
+    },
+    {
+      "observation_id": "obs-doordash-dasher-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-doordash-dasher-core",
+        "record_digest": "9471c03cc5d9e19e9b41ff68935af55178760d4f82a46f3ca1d36951d73b032a"
+      }
+    },
+    {
+      "observation_id": "obs-doordash-dasher-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-doordash-dasher-entry",
+        "record_digest": "62ee93e7cd2154825e78a0cd4a2e19d8ed51b7509771ce36c897bcff38d8aa64"
+      }
+    },
+    {
+      "observation_id": "obs-doordash-dasher-success",
+      "marker": "observed question heading",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-doordash-dasher-success",
+        "record_digest": "66e20e701fb48dd3b8dff0ef0429c4210c474a19d5b516b34c4300c1ea619af1"
+      }
+    },
+    {
+      "observation_id": "obs-doordash-track-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-doordash-track-entry",
+        "record_digest": "9f84a04e8557439adbb1efaa17ffaccaf398ba3c6693270a4700c5817be05bc3"
+      }
+    },
+    {
+      "observation_id": "obs-verizon-coverage-core",
+      "marker": "observed body text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-verizon-coverage-core",
+        "record_digest": "d285ed467bcf9d4f46c6473c32b0e8cddc2de5a64ba53c5d61077dda21015f85"
+      }
+    },
+    {
+      "observation_id": "obs-verizon-home-entry",
+      "marker": "observed headline",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-78",
+        "record_kind": "observation",
+        "record_id": "obs-verizon-home-entry",
+        "record_digest": "8144fa4ecd37090724eb711b02412fc4f31ec42f10bb0fe5de5931a5f90312a3"
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "observation_id": "obs-canva-pro-success",
+      "marker": "observed status-like text",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-canva-pro-success",
+        "record_digest": "351af4d2c123dc3c18ada328f093450fcc106d398177f838c0fe758c82fa6d47"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-passport-entry",
+      "marker": "observed headline; inferred journey",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-passport-entry",
+        "record_digest": "5b0cd26df2bea592f308ba991a9c5caef6de58f32688b82c5e1b12a4aa1b5b03"
+      }
+    },
+    {
+      "observation_id": "obs-govuk-passport-error",
+      "marker": "observed control; inferred recovery",
+      "original_subject_ref": {
+        "batch_id": "2026-08-27-batch-77",
+        "record_kind": "observation",
+        "record_id": "obs-govuk-passport-error",
+        "record_digest": "fced53d23cffdc18abaaf4f531f884949494b3863ca6580c124ab039bf7096b2"
+      }
+    }
+  ]
+}

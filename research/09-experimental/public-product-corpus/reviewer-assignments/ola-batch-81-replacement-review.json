@@ -1,0 +1,27 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-review-assignment/0.1.0",
+  "assignment_id": "batch-81-replacement-review.ola.alaska-flight-status",
+  "reviewer_id": "Ola",
+  "reviewer_role": "taxonomy_steward",
+  "candidate_ref": "remediation/batch-81-review-candidate/manifest.json",
+  "review_scope": "taxonomy and projection fit for Alaska Airlines flight-status replacement",
+  "prefilled_findings": {
+    "track_status_mapping_id": "experience-mapping.41debcd036d8e2064ec95fb6bd98e9de32d01abcca566dc1d4db018439ca1393",
+    "validation_failure_mapping_id": "experience-mapping.3c351c310e90ff68f0fdcdee764d50aa93acabcc54bc580dcc9b88f23cabcf11",
+    "both_mappings_have_two_review_receipts": true,
+    "new_taxonomy_mapping_required": false,
+    "canonical_url_conflicts_with_batch_80_until_supersession": true,
+    "isolated_projection_error_count": 177,
+    "isolated_projection_candidate_error_count": 0
+  },
+  "reviewer_checks_required": [
+    "confirm track status maps to pending_progress and journey.progress",
+    "confirm validation failure maps to error_recovery and journey.recovery",
+    "confirm both raw signatures exactly match reviewed mappings",
+    "confirm batch 80 source and observation are superseded atomically by batch 81"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

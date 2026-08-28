@@ -24,6 +24,23 @@ export interface AdapterDescriptor {
 
 export interface DiscoverRequest {
   project_root: string;
+  signal?: AbortSignal;
+  on_progress?: (event: DiscoveryProgressEvent) => void;
+}
+
+export interface DiscoveryProgressEvent {
+  stage:
+    | "scan_started"
+    | "inventory_started"
+    | "inventory_progress"
+    | "parsing_started"
+    | "parsing_progress"
+    | "qualification_started"
+    | "graph_started"
+    | "completed";
+  completed: number;
+  total: number | null;
+  current_artifact: string | null;
 }
 
 export type InventoryExclusionReason =
@@ -126,6 +143,7 @@ export interface RepositoryClaimDraft {
 
 export type ContentSyntaxKind =
   | "jsx_text"
+  | "jsx_composition"
   | "jsx_attribute"
   | "object_property"
   | "locale_message"

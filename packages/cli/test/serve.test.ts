@@ -1,12 +1,10 @@
-import { execFile, spawn } from "node:child_process";
-import { cp, mkdtemp, rm } from "node:fs/promises";
+import { spawn } from "node:child_process";
+import { access, cp, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { promisify } from "node:util";
 import { afterEach, describe, expect, it } from "vitest";
 
-const execute = promisify(execFile);
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const fixture = join(workspaceRoot, "fixtures/synthetic-mixed-stack");
 const cliSource = join(workspaceRoot, "packages/cli/src/main.ts");
@@ -17,36 +15,10 @@ afterEach(async () => {
 });
 
 describe("contentmd serve", () => {
-  it("blocks with an exact next action when no compiled model exists", async () => {
+  it("compiles in memory and prints a fetchable loopback URL without setup writes", async (context) => {
     const root = await mkdtemp(join(tmpdir(), "contentmd-cli-serve-"));
     temporaryDirectories.push(root);
     await cp(fixture, root, { recursive: true });
-
-    try {
-      await execute(process.execPath, ["--import", "tsx", cliSource, "serve", "--root", root, "--json"], {
-        cwd: workspaceRoot,
-        env: { ...process.env, NO_COLOR: "1" },
-      });
-      throw new Error("serve should have been blocked");
-    } catch (error) {
-      const failed = error as Error & { code?: number; stdout?: string };
-      expect(failed.code).toBe(20);
-      expect(JSON.parse(failed.stdout ?? "{}")).toMatchObject({
-        status: "blocked_by_evidence",
-        next_actions: ["Run contentmd model first."],
-      });
-    }
-  });
-
-  it("prints a fetchable loopback URL after running doctor", async () => {
-    const root = await mkdtemp(join(tmpdir(), "contentmd-cli-serve-"));
-    temporaryDirectories.push(root);
-    await cp(fixture, root, { recursive: true });
-    await execute(process.execPath, ["--import", "tsx", cliSource, "model", "--root", root, "--json"], {
-      cwd: workspaceRoot,
-      env: { ...process.env, NO_COLOR: "1" },
-    });
-
     const child = spawn(process.execPath, [
       "--import", "tsx", cliSource, "serve", "--root", root, "--port", "0", "--json",
     ], {
@@ -75,12 +47,24 @@ describe("contentmd serve", () => {
           reject(error);
         });
       });
+      const loopbackIsForbidden = result.command_id === "command.error"
+        && result.findings?.some((finding: { code?: string; message?: string }) =>
+          finding.code === "listen EPERM"
+          && finding.message?.includes("operation not permitted 127.0.0.1"));
+      if (loopbackIsForbidden) {
+        context.skip("This managed test host forbids opening loopback listeners.");
+        return;
+      }
       expect(result).toMatchObject({
         command_id: "serve",
         status: "completed",
-        data: { url: expect.stringMatching(/^http:\/\/127\.0\.0\.1:\d+\/$/u) },
+        data: {
+          url: expect.stringMatching(/^http:\/\/127\.0\.0\.1:\d+\/$/u),
+          write_effect: "none",
+        },
       });
       expect((await fetch(result.data.url)).status).toBe(200);
+      await expect(access(join(root, ".contentmd/runtime/model.json"))).rejects.toThrow();
     } finally {
       child.kill("SIGTERM");
       if (child.exitCode === null) await new Promise<void>((resolve) => child.once("exit", () => resolve()));

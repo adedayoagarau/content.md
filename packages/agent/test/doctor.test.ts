@@ -38,7 +38,7 @@ describe("contentmd doctor", () => {
       ],
       status: "current",
     });
-    await discoverLocalProject(root);
+    await discoverLocalProject(root, { save: true });
     await modelLocalProject(root);
 
     const report = await runDoctor(root);

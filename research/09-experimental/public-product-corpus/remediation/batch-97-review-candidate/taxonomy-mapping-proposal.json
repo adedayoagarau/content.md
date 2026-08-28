@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_type": "public_product_taxonomy_mapping_proposal",
+  "status": "independent_review_required",
+  "raw_signature": {
+    "journey": "pending/progress",
+    "event_state": "subscription submitting",
+    "content_slot_type": "button",
+    "surface_channel": "web"
+  },
+  "proposed_normalized_signature": {
+    "coverage_slot_id": "pending_progress",
+    "journey_family_id": "journey.progress",
+    "state_class_id": "state.processing",
+    "content_slot_class_id": "content.action.primary",
+    "surface_channel_id": "channel.web"
+  },
+  "rationale": "The primary action visibly enters a processing state after activation and the outcome remains unresolved. The mapping describes the communicated pending state, not proof that a valid subscription request exists or will succeed.",
+  "candidate_evidence_ref": "batch-97-review-candidate:observation:obs-statuspage-subscription-submitting-97-candidate",
+  "counterexample_boundary": "Do not apply to the ready Subscribe button, a disabled action before submission, a completed subscription, an explicit validation error, or a background status with no visible processing transition.",
+  "review_risk": "The transition followed an empty submission and remained unresolved. Reviewers should reject the mapping or observation if a stuck invalid-input state should not represent canonical task progress.",
+  "required_reviewers": ["qualified_content_designer", "taxonomy_steward"],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

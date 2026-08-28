@@ -1,0 +1,17 @@
+{
+  "contract_version": "contentmd.public-product-corpus-acquisition-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-101",
+  "status": "independent_content_design_and_taxonomy_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "unreviewed_mapping_count": 1,
+  "taxonomy_mapping_proposal_ref": "remediation/batch-101-review-candidate/taxonomy-mapping-proposal.json",
+  "collection_method": "Codex in-app browser; public signed-out chooser; non-personal selections only",
+  "collection_scope": "completed YubiKey product recommendation",
+  "source_rights_boundary": "public page; minimal UI quotation; evidence only",
+  "activation_preconditions": ["independent qualified-content-designer evidence review","independent taxonomy-steward mapping review","passing mapping added to a successor taxonomy","accepted observation included in a new consolidated immutable replacement","official verifier passes all non-breadth gates"],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

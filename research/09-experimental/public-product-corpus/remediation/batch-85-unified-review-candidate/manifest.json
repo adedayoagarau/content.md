@@ -1,0 +1,31 @@
+{
+  "contract_version": "contentmd.public-product-corpus-replacement-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-85",
+  "status": "projection_verified_independent_review_required",
+  "composition": [
+    "complete ledger-active projection from batch 84 candidate",
+    "208 unambiguous observed marker normalizations",
+    "Alaska flight-status replacement and observed empty-route validation from batch 81 candidate"
+  ],
+  "source_count": 498,
+  "observation_count": 430,
+  "replacement_scope": "complete active projection; atomic supersession of every current active subject required",
+  "isolated_projection_verification": {
+    "status": "fail",
+    "error_count": 177,
+    "candidate_specific_error_count": 0,
+    "direct_observed_slots": 216,
+    "products_with_direct_observations": 130,
+    "products_meeting_direct_state_target": 2,
+    "insufficient_direct_states_count": 174,
+    "report_digest": "61bcd9157d0b7d5c4664a96a3c99672707ae8cd1f59f100769d4d11b6ace1d7e"
+  },
+  "supersedes_review_candidates": [
+    "remediation/batch-81-review-candidate/manifest.json",
+    "remediation/batch-84-review-candidate/manifest.json"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

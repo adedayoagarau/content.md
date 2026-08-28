@@ -1,0 +1,24 @@
+{
+  "contract_version":"contentmd.public-product-corpus-atomic-normalization-candidate/0.1.0",
+  "candidate_batch_name":"2026-08-27-batch-106-canva-help-normalization",
+  "status":"independent_normalization_review_required",
+  "normalization_scope":"one source and its source-bound observation; atomic supersession required",
+  "superseded_records":[
+    {"record_kind":"source","record_id":"src-canva-help-home","projection_ref":"remediation/batch-98-consolidated-review-candidate/sources.jsonl","exact_line_digest":"b0e8adddcb28c73ea3c69d40bf38a03c2b29b3a3a99ac91baeac19ada75a072d"},
+    {"record_kind":"observation","record_id":"obs-canva-help-entry","projection_ref":"remediation/batch-98-consolidated-review-candidate/observations.jsonl","exact_line_digest":"d1dfc48c3271de4e39beef05cca7f6940cc33b611b96bdd6a615d3b4677bc0e2"}
+  ],
+  "replacement_records":["src-canva-help-index-106-candidate","obs-canva-help-route-index-106-candidate"],
+  "corrections":["source_class: official content guidance -> actual UI based on direct browser observation","product_system: Canva support -> Canva to match the conservative product-identity proposal","observation signature: generic entry headline -> directly observed help route index","freshness and access method updated to the direct observation"],
+  "reviewed_mapping_signature":{"journey":"support/recovery","event_state":"help route index","content_slot_type":"page heading","surface_channel":"web"},
+  "reviewed_coverage_slot_id":"destructive_permission_support",
+  "source_count":1,
+  "observation_count":1,
+  "unreviewed_mapping_count":0,
+  "atomic_replacement_projection":{"report_ref":"remediation/batch-106-canva-help-normalization-candidate/atomic-replacement-verification-report.json","report_digest":"7e24981b6df846078766c3e02f8c130b25b9807c36e00f7c7c2befb3658419ff","unexpected_error_count":0,"mapped_observations":450,"taxonomy_unmapped_observations":20,"direct_observed_slots":237,"products_meeting_direct_state_target":4},
+  "activation_preconditions":["independent qualified-content-designer normalization review","independent taxonomy-steward identity and mapping-reuse review","exact superseded-record digests still match","old source and observation are superseded in the same governed transition that introduces the replacements","official verifier passes all non-breadth gates"],
+  "prohibited_shortcuts":["do not edit activated source or observation rows","do not append the replacement while the old canonical source remains active","do not count the replacement before atomic supersession","do not treat this candidate as approval or activation authority"],
+  "authority_effect":"none",
+  "prompt_eligibility":"never",
+  "training_eligibility":"never",
+  "benchmark_eligibility":false
+}

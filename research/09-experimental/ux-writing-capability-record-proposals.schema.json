@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content.md/research/ux-writing-capability-record-proposals/0.1.0",
+  "title": "Proposed UX-writing request and candidate records",
+  "description": "Research proposal only. This schema is not registered, executable, approved, or an implementation authority.",
+  "oneOf": [
+    { "$ref": "#/$defs/uxWritingRequest" },
+    { "$ref": "#/$defs/uxWritingCandidate" }
+  ],
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "stringSet": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
+    "recordRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_id", "digest", "authority_effect"],
+      "properties": {
+        "record_id": { "$ref": "#/$defs/nonEmptyString" },
+        "digest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "authority_effect": { "enum": ["none", "advisory", "governing"] }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project_id", "product_ids", "service_ids", "markets", "locales", "channels", "modalities", "surfaces", "routes", "versions"],
+      "properties": {
+        "project_id": { "$ref": "#/$defs/nonEmptyString" },
+        "product_ids": { "$ref": "#/$defs/stringSet" },
+        "service_ids": { "$ref": "#/$defs/stringSet" },
+        "markets": { "$ref": "#/$defs/stringSet" },
+        "locales": { "$ref": "#/$defs/stringSet" },
+        "channels": { "$ref": "#/$defs/stringSet" },
+        "modalities": { "$ref": "#/$defs/stringSet" },
+        "surfaces": { "$ref": "#/$defs/stringSet" },
+        "routes": { "$ref": "#/$defs/stringSet" },
+        "versions": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "actor_type", "role", "authority_refs", "relationship_to_request"],
+      "properties": {
+        "actor_id": { "$ref": "#/$defs/nonEmptyString" },
+        "actor_type": { "enum": ["user", "delegate", "subject", "recipient", "operator", "organization", "human_representative", "automated_system", "model", "worker", "bystander", "public_authority", "other_affected_party"] },
+        "role": { "$ref": "#/$defs/nonEmptyString" },
+        "authority_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "relationship_to_request": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["goal_id", "holder_actor_ref", "description", "evidence_refs", "priority", "conflicts_with"],
+      "properties": {
+        "goal_id": { "$ref": "#/$defs/nonEmptyString" },
+        "holder_actor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" }, "minItems": 1 },
+        "priority": { "enum": ["required", "important", "optional", "unknown"] },
+        "conflicts_with": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "interactionState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_id", "state_type", "authoritative_state_ref", "known", "unknown", "predecessor_state_refs", "allowed_transition_refs", "terminal"],
+      "properties": {
+        "state_id": { "$ref": "#/$defs/nonEmptyString" },
+        "state_type": { "enum": ["entry", "orientation", "input", "review", "commitment", "processing", "pending", "partial", "success", "failure", "unknown_outcome", "blocked", "denied", "empty", "offline", "expired", "handoff", "recovery", "closure"] },
+        "authoritative_state_ref": { "oneOf": [{ "$ref": "#/$defs/recordRef" }, { "type": "null" }] },
+        "known": { "$ref": "#/$defs/stringSet" },
+        "unknown": { "$ref": "#/$defs/stringSet" },
+        "predecessor_state_refs": { "$ref": "#/$defs/stringSet" },
+        "allowed_transition_refs": { "$ref": "#/$defs/stringSet" },
+        "terminal": { "type": "boolean" }
+      }
+    },
+    "actionContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "actor_ref", "object_ref", "preconditions", "effect", "consequences", "commitment", "reversibility", "retry_safety", "result_state_refs", "recovery_refs"],
+      "properties": {
+        "action_id": { "$ref": "#/$defs/nonEmptyString" },
+        "actor_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "object_ref": { "$ref": "#/$defs/nonEmptyString" },
+        "preconditions": { "$ref": "#/$defs/stringSet" },
+        "effect": { "$ref": "#/$defs/nonEmptyString" },
+        "consequences": { "$ref": "#/$defs/stringSet" },
+        "commitment": { "enum": ["none", "reversible", "time_bounded_reversal", "difficult_to_reverse", "irreversible", "unknown"] },
+        "reversibility": { "$ref": "#/$defs/nonEmptyString" },
+        "retry_safety": { "enum": ["safe", "unsafe", "conditional", "unknown", "not_applicable"] },
+        "result_state_refs": { "$ref": "#/$defs/stringSet" },
+        "recovery_refs": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "riskContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk_level", "domains", "vulnerabilities", "material_information", "prohibited_inferences", "required_specialist_reviews", "remedy_requirements"],
+      "properties": {
+        "risk_level": { "enum": ["low", "medium", "high", "critical", "unknown"] },
+        "domains": { "$ref": "#/$defs/stringSet" },
+        "vulnerabilities": { "$ref": "#/$defs/stringSet" },
+        "material_information": { "$ref": "#/$defs/stringSet" },
+        "prohibited_inferences": { "$ref": "#/$defs/stringSet" },
+        "required_specialist_reviews": { "$ref": "#/$defs/stringSet" },
+        "remedy_requirements": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "localeContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_locale", "target_locales", "jurisdictions", "direction", "terminology_refs", "locale_authority_refs", "material_parity_required", "unresolved"],
+      "properties": {
+        "source_locale": { "$ref": "#/$defs/nonEmptyString" },
+        "target_locales": { "$ref": "#/$defs/stringSet" },
+        "jurisdictions": { "$ref": "#/$defs/stringSet" },
+        "direction": { "enum": ["ltr", "rtl", "mixed", "unknown"] },
+        "terminology_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "locale_authority_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "material_parity_required": { "type": "boolean" },
+        "unresolved": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "accessibilityContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_requirements", "input_modes", "output_modes", "focus_requirements", "announcement_requirements", "alternatives", "disabled_user_evidence_refs", "runtime_verification_required"],
+      "properties": {
+        "semantic_requirements": { "$ref": "#/$defs/stringSet" },
+        "input_modes": { "$ref": "#/$defs/stringSet" },
+        "output_modes": { "$ref": "#/$defs/stringSet" },
+        "focus_requirements": { "$ref": "#/$defs/stringSet" },
+        "announcement_requirements": { "$ref": "#/$defs/stringSet" },
+        "alternatives": { "$ref": "#/$defs/stringSet" },
+        "disabled_user_evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "runtime_verification_required": { "type": "boolean" }
+      }
+    },
+    "uxWritingRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "record_type", "request_id", "created_at", "scope", "request_type", "actors", "goals", "interaction_state", "message_intent", "required_facts", "forbidden_claims", "action_contracts", "risk_context", "locale_context", "accessibility_context", "voice_profile_refs", "tone_policy_refs", "evidence_refs", "open_questions", "acceptance_criteria", "authority_status"],
+      "properties": {
+        "schema_version": { "const": "contentmd.ux-writing-request-proposal/0.1.0" },
+        "record_type": { "const": "ux_writing_request" },
+        "request_id": { "$ref": "#/$defs/nonEmptyString" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "scope": { "$ref": "#/$defs/scope" },
+        "request_type": { "enum": ["strategy", "journey", "pattern", "contextual_microcopy", "rewrite", "review", "localization", "recovery", "notification", "conversational_turn"] },
+        "actors": { "type": "array", "items": { "$ref": "#/$defs/actor" }, "minItems": 1 },
+        "goals": { "type": "array", "items": { "$ref": "#/$defs/goal" }, "minItems": 1 },
+        "interaction_state": { "$ref": "#/$defs/interactionState" },
+        "message_intent": { "$ref": "#/$defs/nonEmptyString" },
+        "required_facts": { "$ref": "#/$defs/stringSet" },
+        "forbidden_claims": { "$ref": "#/$defs/stringSet" },
+        "action_contracts": { "type": "array", "items": { "$ref": "#/$defs/actionContract" } },
+        "risk_context": { "$ref": "#/$defs/riskContext" },
+        "locale_context": { "$ref": "#/$defs/localeContext" },
+        "accessibility_context": { "$ref": "#/$defs/accessibilityContext" },
+        "voice_profile_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "tone_policy_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" }, "minItems": 1 },
+        "open_questions": { "$ref": "#/$defs/stringSet" },
+        "acceptance_criteria": { "$ref": "#/$defs/stringSet" },
+        "authority_status": { "enum": ["not_established", "proposal_only", "review_authorized", "approved_for_bounded_drafting"] }
+      }
+    },
+    "semanticInvariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariant_id", "category", "statement", "source_refs", "status"],
+      "properties": {
+        "invariant_id": { "$ref": "#/$defs/nonEmptyString" },
+        "category": { "enum": ["actor", "fact", "certainty", "state", "action", "consequence", "commitment", "destination", "option", "recovery", "remedy", "data_use", "authority"] },
+        "statement": { "$ref": "#/$defs/nonEmptyString" },
+        "source_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" }, "minItems": 1 },
+        "status": { "enum": ["preserved", "changed_with_authority", "violated", "unverified"] }
+      }
+    },
+    "candidateExpression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expression_id", "locale", "channel", "modality", "surface", "component", "text", "accessible_name", "description", "announcement", "visual_or_audible_cues"],
+      "properties": {
+        "expression_id": { "$ref": "#/$defs/nonEmptyString" },
+        "locale": { "$ref": "#/$defs/nonEmptyString" },
+        "channel": { "$ref": "#/$defs/nonEmptyString" },
+        "modality": { "$ref": "#/$defs/nonEmptyString" },
+        "surface": { "$ref": "#/$defs/nonEmptyString" },
+        "component": { "type": ["string", "null"] },
+        "text": { "$ref": "#/$defs/nonEmptyString" },
+        "accessible_name": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
+        "announcement": { "type": ["string", "null"] },
+        "visual_or_audible_cues": { "$ref": "#/$defs/stringSet" }
+      }
+    },
+    "evaluationOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plane", "outcome", "finding_refs", "evidence_refs", "review_type"],
+      "properties": {
+        "plane": { "enum": ["authority", "truth", "semantic_fidelity", "product_state", "safety", "privacy", "security", "consent", "nondiscrimination", "accessibility", "localization", "material_information", "agency", "recovery", "comprehension", "task_outcome", "terminology", "voice", "tone", "concision", "coherence", "distinctiveness"] },
+        "outcome": { "enum": ["pass", "fail", "unknown", "not_applicable", "not_evaluated"] },
+        "finding_refs": { "$ref": "#/$defs/stringSet" },
+        "evidence_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "review_type": { "enum": ["deterministic", "specialist", "research", "human_judgment", "preference"] }
+      }
+    },
+    "uxWritingCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "record_type", "candidate_id", "request_ref", "created_at", "status", "semantic_invariants", "expressions", "rationale", "assumptions", "alternatives_considered", "unresolved_questions", "evaluation_outcomes", "hard_plane_status", "recommended_disposition", "approval_refs", "implementation_authority"],
+      "properties": {
+        "schema_version": { "const": "contentmd.ux-writing-candidate-proposal/0.1.0" },
+        "record_type": { "const": "ux_writing_candidate" },
+        "candidate_id": { "$ref": "#/$defs/nonEmptyString" },
+        "request_ref": { "$ref": "#/$defs/recordRef" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "status": { "enum": ["proposed", "needs_evidence", "needs_specialist_review", "rejected", "approved_for_bounded_use", "retired"] },
+        "semantic_invariants": { "type": "array", "items": { "$ref": "#/$defs/semanticInvariant" }, "minItems": 1 },
+        "expressions": { "type": "array", "items": { "$ref": "#/$defs/candidateExpression" }, "minItems": 1 },
+        "rationale": { "$ref": "#/$defs/nonEmptyString" },
+        "assumptions": { "$ref": "#/$defs/stringSet" },
+        "alternatives_considered": { "$ref": "#/$defs/stringSet" },
+        "unresolved_questions": { "$ref": "#/$defs/stringSet" },
+        "evaluation_outcomes": { "type": "array", "items": { "$ref": "#/$defs/evaluationOutcome" }, "minItems": 1 },
+        "hard_plane_status": { "enum": ["pass", "fail", "unknown"] },
+        "recommended_disposition": { "enum": ["abstain", "escalate", "revise", "human_review", "bounded_approval", "reject"] },
+        "approval_refs": { "type": "array", "items": { "$ref": "#/$defs/recordRef" } },
+        "implementation_authority": { "const": "none" }
+      }
+    }
+  }
+}

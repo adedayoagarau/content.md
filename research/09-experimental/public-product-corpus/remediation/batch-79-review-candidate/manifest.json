@@ -1,0 +1,22 @@
+{
+  "contract_version": "contentmd.public-product-corpus-acquisition-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-79",
+  "status": "review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "unreviewed_mapping_count": 1,
+  "collection_method": "Codex in-app browser; public signed-out page",
+  "collection_scope": "read-only visible-state inspection",
+  "source_rights_boundary": "public page; evidence only",
+  "activation_preconditions": [
+    "independent content-design review",
+    "independent taxonomy-steward review",
+    "reviewed mapping added to a successor taxonomy",
+    "candidate files copied into a new immutable batch without modification",
+    "official v0.2 verifier passes all non-breadth gates"
+  ],
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

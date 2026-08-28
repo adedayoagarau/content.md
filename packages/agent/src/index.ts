@@ -15,5 +15,7 @@ export * from "./model-workflow.js";
 export * from "./provider-audit.js";
 export * from "./provider-configuration.js";
 export * from "./repository-interpretation.js";
+export * from "./regular-user-improvement.js";
 export * from "./runtime-workflow.js";
 export * from "./task-workflow.js";
+export * from "./workspace-scope.js";

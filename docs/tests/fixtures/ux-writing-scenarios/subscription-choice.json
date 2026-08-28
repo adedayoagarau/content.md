@@ -1,0 +1,17 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.scenario.subscription-choice",
+  "target": { "source_artifact": "pricing/TrialDialog.tsx", "line": 31, "column": 7, "text": "Start free trial" },
+  "facts": { "evidence.present": true, "actor.authority_known": true, "agency.choice_required": true, "agency.material_choice_present": false, "state.outcome_evidence": "confirmed", "recovery.required": false, "control.present": true, "control.state_known": true, "navigation.destination_present": false, "system.generated_or_hybrid": false, "expression.invariants_preserved": true, "expression.invariants_mapped": true, "locale.specialist_review_required": false, "governance.authority_effect": "none" },
+  "evidence_refs": ["billing.trial-renews-automatically"],
+  "preserve": ["The trial is free for 14 days", "The subscription renews automatically at $12 per month"],
+  "must_not_claim": ["No commitment"],
+  "required_facts": ["Price after trial", "Renewal timing", "How to decline or cancel"],
+  "consequence": "The person will be charged unless they cancel",
+  "recovery": "Provide a clear decline and cancellation route",
+  "channel": "web",
+  "locale": "en-US",
+  "acceptance_criteria": ["Expose renewal terms", "Keep refusal available", "Do not obscure the charge"],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

@@ -1,5 +1,5 @@
-import { readFile, realpath } from "node:fs/promises";
-import { join } from "node:path";
+import { readFile, realpath, stat } from "node:fs/promises";
+import { join, relative, sep } from "node:path";
 import {
   FilesystemContentAdapter,
   proposeProjectIdentity,
@@ -9,15 +9,62 @@ import {
 } from "@contentmd/adapter-filesystem";
 import {
   compileContentContext,
+  qualifyContentOccurrences,
   sha256Canonical,
   resolveAuthority,
   type AuthorityAssessment,
   type ContentGraph,
   type ContextSourceDocument,
+  type ContentQualificationSummary,
+  type QualifiedContentUnit,
 } from "@contentmd/core";
+import type { DiscoveryProgressEvent } from "@contentmd/adapter-sdk";
 
 export interface CompileProjectModelRequest {
   project_root: string;
+  repository_root?: string;
+  signal?: AbortSignal;
+  on_progress?: (event: DiscoveryProgressEvent) => void;
+}
+
+function assertDiscoveryNotCancelled(signal: AbortSignal | undefined): void {
+  if (signal?.aborted === true) throw new Error("discovery_cancelled");
+}
+
+async function inheritedRepositoryContext(
+  repositoryRoot: string | undefined,
+  projectRoot: string,
+): Promise<ContextSourceDocument[]> {
+  if (repositoryRoot === undefined) return [];
+  const root = await realpath(repositoryRoot);
+  if (root === projectRoot) return [];
+  const projectRelative = relative(root, projectRoot);
+  if (projectRelative === ".." || projectRelative.startsWith(`..${sep}`)) {
+    throw new Error("workspace_outside_repository");
+  }
+  const names = ["CONTENT.md", "PRODUCT.md", "DESIGN.md", "README.md"] as const;
+  const sources: ContextSourceDocument[] = [];
+  for (const name of names) {
+    const path = join(root, name);
+    let metadata;
+    try {
+      metadata = await stat(path);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") continue;
+      throw error;
+    }
+    if (!metadata.isFile() || metadata.size > 2 * 1024 * 1024) continue;
+    const content = await readFile(path, "utf8");
+    const contentDigest = sha256Canonical({ content });
+    sources.push({
+      source_id: `source.inherited.${sha256Canonical({ name, content_digest: contentDigest }).slice(0, 24)}`,
+      source_type: "inherited_repository_context",
+      locator: `repository-root:${name}`,
+      content_digest: contentDigest,
+      content,
+    });
+  }
+  return sources;
 }
 
 export interface ProjectModelResult {
@@ -25,6 +72,10 @@ export interface ProjectModelResult {
   identity: ProjectIdentityProposal;
   sources: ContextSourceDocument[];
   discovery: DiscoverResult;
+  content_inventory: {
+    units: QualifiedContentUnit[];
+    summary: ContentQualificationSummary;
+  };
   assessments: AuthorityAssessment[];
   proposed_interpretation: StoredRepositoryInterpretation | null;
   graph: ContentGraph;
@@ -124,15 +175,33 @@ export async function compileProjectModel(
   request: CompileProjectModelRequest,
 ): Promise<ProjectModelResult> {
   const projectRoot = await realpath(request.project_root);
-  const discovery = await new FilesystemContentAdapter().discover({ project_root: projectRoot });
+  const discovery = await new FilesystemContentAdapter().discover({
+    project_root: projectRoot,
+    ...(request.signal === undefined ? {} : { signal: request.signal }),
+    ...(request.on_progress === undefined ? {} : { on_progress: request.on_progress }),
+  });
   const identity = await proposeProjectIdentity(projectRoot, discovery.inventory);
-  const sources = await readSourceDocuments(projectRoot, discovery.source_candidates);
+  const projectSources = await readSourceDocuments(projectRoot, discovery.source_candidates);
+  const sources = [
+    ...projectSources,
+    ...await inheritedRepositoryContext(request.repository_root, projectRoot),
+  ].sort((left, right) => left.locator.localeCompare(right.locator));
   const assessments = resolveAuthority(discovery.evidence_claims);
   const proposedInterpretation = await readStoredInterpretation(
     projectRoot,
     identity.proposed_project_id,
     sources,
   );
+  assertDiscoveryNotCancelled(request.signal);
+  request.on_progress?.({
+    stage: "qualification_started",
+    completed: 0,
+    total: discovery.occurrences.length,
+    current_artifact: null,
+  });
+  const contentInventory = qualifyContentOccurrences(discovery.occurrences);
+  assertDiscoveryNotCancelled(request.signal);
+  request.on_progress?.({ stage: "graph_started", completed: 0, total: null, current_artifact: null });
   const graph = compileContentContext({
     project_id: identity.proposed_project_id,
     sources,
@@ -144,11 +213,18 @@ export async function compileProjectModel(
       occurrences: discovery.occurrences,
     },
   });
+  request.on_progress?.({
+    stage: "completed",
+    completed: discovery.occurrences.length,
+    total: discovery.occurrences.length,
+    current_artifact: null,
+  });
   return {
     project_id: identity.proposed_project_id,
     identity,
     sources,
     discovery,
+    content_inventory: contentInventory,
     assessments,
     proposed_interpretation: proposedInterpretation,
     graph,

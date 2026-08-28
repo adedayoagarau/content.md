@@ -12,5 +12,6 @@ export * from "./parsers/typescript.js";
 export * from "./preview.js";
 export * from "./rollback.js";
 export * from "./source-candidates.js";
+export * from "./workspaces.js";
 export * from "./stack-detection.js";
 export * from "./verify.js";

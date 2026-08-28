@@ -1,0 +1,18 @@
+{
+  "contract_version":"contentmd.public-product-corpus-acquisition-candidate/0.1.0",
+  "candidate_batch_name":"2026-08-27-batch-102",
+  "status":"shared_taxonomy_review_required",
+  "source_count":4,
+  "observation_count":4,
+  "unreviewed_mapping_count":1,
+  "shared_mapping_proposal_ref":"remediation/batch-79-review-candidate/taxonomy-mapping-proposal.json",
+  "collection_method":"Codex in-app browser; deliberate nonexistent public paths; read-only observation",
+  "collection_scope":"direct branded page-not-found failure and recovery UI",
+  "source_rights_boundary":"public pages; minimal UI quotation; evidence only",
+  "excluded_attempts":[{"company":"Box","reason":"nonexistent path redirected to the homepage without a rendered failure state"}],
+  "activation_preconditions":["independent qualified-content-designer review of the successor shared evidence packet","independent taxonomy-steward review of the shared page-not-found mapping","reviewed mapping added once to a successor taxonomy","accepted observations included in a new consolidated immutable replacement","official verifier passes all non-breadth gates"],
+  "authority_effect":"none",
+  "prompt_eligibility":"never",
+  "training_eligibility":"never",
+  "benchmark_eligibility":false
+}

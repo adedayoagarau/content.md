@@ -163,6 +163,30 @@ describe("content context compiler", () => {
     );
   });
 
+  it("does not promote rejected or uncertain fragments into semantic graph records", () => {
+    const noisy = structuredClone(input);
+    noisy.discovery.occurrences.push(
+      {
+        ...input.discovery.occurrences[0]!,
+        occurrence_id: "occurrence.symbol",
+        expression_payload: "·",
+        route: null,
+        semantic_context: "component:Noise;element:p",
+      },
+      {
+        ...input.discovery.occurrences[0]!,
+        occurrence_id: "occurrence.connector",
+        expression_payload: "of",
+        route: null,
+        semantic_context: "component:Noise;element:p",
+      },
+    );
+
+    const graph = compileContentContext(noisy);
+    expect(graph.nodes.some((node) => node.label === "·" || node.label === "of")).toBe(false);
+    expect(graph.nodes.filter((node) => node.node_type === "implementation_occurrence")).toHaveLength(2);
+  });
+
   it("keeps a catalog message stable across locale expressions", () => {
     const localized = structuredClone(input);
     localized.discovery.occurrences = [

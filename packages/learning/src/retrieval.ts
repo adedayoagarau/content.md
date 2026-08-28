@@ -184,14 +184,14 @@ const CONTRACT_PATH = "docs/superpowers/specs/2026-08-20-contentmd-retrieval-fea
 const CONTRACT_DIGEST = "ef267d8533fd3d4dcd88c77f40b5555117df8d15034798ecf22f59d8b146d019";
 const RUNTIME_PROFILE_DIGEST = "eef23dc9f2e6c1dcd46201291758d07f400d834e24076e2bc4beb451ae526696";
 const RESOLUTION_ARTIFACT_DIGESTS: Readonly<Record<string, string>> = {
-  "package.json": "d607ba72a2bdf8a7fdf029379f5f43cbed4feea166eeed46c7bf1f4cee380215",
+  "package.json": "682d5a83cb2fc6ef8adfa143f9a61cf955db8a51fbf66ab275eed294fda042e0",
   "packages/core/package.json": "ac30cbc0dde687457af18dac4ea25dae8fcb24ba9ded2e14469d27fff493a420",
   "packages/core/tsconfig.json": "e65448deef4c80a91d7141388282bd0e70c1565da8b4750101673247d06be85c",
   "packages/learning/package.json": "c589857a9d193bfa85e075c1e0a5eb18f162329f1c393ab527d6c1b37628b34a",
   "packages/learning/tsconfig.json": "41ecc76204c5edec36bfbe6534a89fbfe23f0523b2cac3b4aec7fa1596ea42ac",
-  "pnpm-lock.yaml": "94afb99cb8faa4d152baeaa1083e99e26d1767197049b40be605e2a2185383ba",
+  "pnpm-lock.yaml": "507cd2460c0752e4c02d49e5fa6dc019bf3fba512e0ae504220861eabd32c69f",
   "tsconfig.base.json": "2447d4312f6115cf97f808aa3b611c4a72a133736df134dab7377e6a639a30c2",
-  "tsconfig.json": "8ecc29fe385358a9ac20c9ae4bb36f1fc74875312c8b72d7464d78b1dc3145fe",
+  "tsconfig.json": "8221a91bc77da14f98779b37e87bce105feaa290e4f54c5536f946695b8b3a61",
 };
 
 export function task4Sha256Utf8(value: string): string {

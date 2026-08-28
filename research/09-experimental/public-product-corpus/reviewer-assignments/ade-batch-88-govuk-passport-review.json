@@ -1,0 +1,27 @@
+{
+  "contract_version": "contentmd.public-product-corpus-additive-review-assignment/0.1.0",
+  "assignment_id": "batch-88-govuk-passport-review.ade",
+  "reviewer_id": "Ade",
+  "reviewer_role": "qualified_content_designer",
+  "candidate_ref": "remediation/batch-88-review-candidate/manifest.json",
+  "review_scope": "GOV.UK Passport service entry, help, and enquiry validation observations",
+  "prefilled_findings": {
+    "sources_are_public_signed_out_ui": true,
+    "wording_matches_visible_interfaces": true,
+    "validation_recovery_is_actionable": true,
+    "error_summary_and_inline_error_are_present": true,
+    "quotation_boundary_is_safe": true,
+    "candidate_specific_projection_errors": 0
+  },
+  "reviewer_checks_required": [
+    "confirm Passports is a genuine service entry state",
+    "confirm Help exposes distinct applicant support routes",
+    "confirm the empty enquiry-type submission produces the recorded error summary and inline recovery",
+    "confirm the three observations are distinct from existing task and tracking evidence",
+    "confirm no personal data was entered or retained"
+  ],
+  "decision": null,
+  "reviewer_rationale": null,
+  "reviewed_at": null,
+  "authority_effect": "none"
+}

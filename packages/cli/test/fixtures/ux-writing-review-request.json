@@ -1,0 +1,37 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.request.cli-fixture",
+  "target": {
+    "source_artifact": "checkout.tsx",
+    "line": 42,
+    "column": 3,
+    "text": "Payment failed. Try again."
+  },
+  "facts": {
+    "evidence.present": true,
+    "actor.authority_known": true,
+    "agency.choice_required": false,
+    "state.outcome_evidence": "unknown_possible",
+    "recovery.retry_safe": false,
+    "recovery.required": true,
+    "recovery.available": true,
+    "control.present": false,
+    "navigation.destination_present": false,
+    "system.generated_or_hybrid": false,
+    "expression.invariants_preserved": true,
+    "expression.invariants_mapped": true,
+    "locale.specialist_review_required": false,
+    "governance.authority_effect": "none"
+  },
+  "evidence_refs": ["fact.payment-state"],
+  "preserve": ["A payment was submitted", "The outcome is not confirmed"],
+  "must_not_claim": ["Payment failed", "Payment succeeded"],
+  "required_facts": ["The payment outcome may be unknown"],
+  "consequence": "Another attempt may duplicate payment",
+  "recovery": "Check payment status",
+  "channel": "web",
+  "locale": "en-US",
+  "acceptance_criteria": ["No unconditional retry", "Unknown state remains explicit"],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

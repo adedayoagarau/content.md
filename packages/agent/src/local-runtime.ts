@@ -12,7 +12,16 @@ import {
   sha256Canonical,
   type CanonicalDag,
 } from "@contentmd/core";
-import { reviewContent, type ReviewReport } from "@contentmd/evaluation";
+import {
+  reviewContent,
+  reviewUxWriting,
+  reviewUxWritingRepairCandidate,
+  type ReviewReport,
+  type UxWritingReviewRequest,
+  type UxWritingReviewResult,
+  type UxWritingRulePack,
+  type UxWritingRepairBrief,
+} from "@contentmd/evaluation";
 import type { AuthorizationInput } from "@contentmd/governance";
 import {
   admitPairwiseRuntime,
@@ -89,7 +98,7 @@ import {
 } from "./change-workflow.js";
 import { runDoctor, type DoctorReport } from "./doctor.js";
 import { FilesystemRuntimeArtifactStore } from "./local-artifacts.js";
-import { compileProjectModel, type ProjectModelResult } from "./model-workflow.js";
+import { compileProjectModel, type CompileProjectModelRequest, type ProjectModelResult } from "./model-workflow.js";
 import {
   readPreparedContentTask,
   readReviewedIdeCandidate,
@@ -198,10 +207,43 @@ export async function diagnoseLocalProject(root: string): Promise<DoctorReport> 
   return runDoctor(root);
 }
 
-export async function discoverLocalProject(root: string): Promise<ProjectModelResult["discovery"]> {
-  const model = await compileProjectModel({ project_root: root });
-  await writeJsonAtomic(runtimePath(root, "discovery.json"), model.discovery);
+export async function discoverLocalProject(
+  root: string,
+  options: {
+    save?: boolean;
+    signal?: AbortSignal;
+    on_progress?: import("@contentmd/adapter-sdk").DiscoverRequest["on_progress"];
+  } = {},
+): Promise<ProjectModelResult["discovery"]> {
+  const model = await compileProjectModel({
+    project_root: root,
+    ...(options.signal === undefined ? {} : { signal: options.signal }),
+    ...(options.on_progress === undefined ? {} : { on_progress: options.on_progress }),
+  });
+  if (options.save === true) await writeJsonAtomic(runtimePath(root, "discovery.json"), model.discovery);
   return model.discovery;
+}
+
+export async function scanLocalProject(
+  root: string,
+  options: {
+    signal?: CompileProjectModelRequest["signal"];
+    on_progress?: CompileProjectModelRequest["on_progress"];
+    repository_root?: CompileProjectModelRequest["repository_root"];
+  } = {},
+): Promise<Pick<ProjectModelResult, "project_id" | "identity" | "content_inventory" | "sources">> {
+  const model = await compileProjectModel({
+    project_root: root,
+    ...(options.signal === undefined ? {} : { signal: options.signal }),
+    ...(options.on_progress === undefined ? {} : { on_progress: options.on_progress }),
+    ...(options.repository_root === undefined ? {} : { repository_root: options.repository_root }),
+  });
+  return {
+    project_id: model.project_id,
+    identity: model.identity,
+    content_inventory: model.content_inventory,
+    sources: model.sources,
+  };
 }
 
 export async function modelLocalProject(root: string): Promise<ProjectModelResult> {
@@ -245,6 +287,47 @@ export async function reviewLocalProject(root: string): Promise<ReviewReport> {
   });
   await writeJsonAtomic(runtimePath(root, "review.json"), report);
   return report;
+}
+
+export async function reviewLocalUxWriting(
+  root: string,
+  contextPath: string,
+): Promise<UxWritingReviewResult> {
+  const request = await readJson<UxWritingReviewRequest>(contextPath);
+  const overlayPath = join(root, ".contentmd/evaluations/ux-writing-rule-packs.json");
+  const projectRulePacks = await exists(overlayPath)
+    ? await readJson<UxWritingRulePack[]>(overlayPath)
+    : [];
+  const result = reviewUxWriting({ request, project_rule_packs: projectRulePacks });
+  await writeJsonAtomic(runtimePath(root, "ux-writing-review-request.json"), request);
+  await writeJsonAtomic(runtimePath(root, "ux-writing-review.json"), result.report);
+  await writeJsonAtomic(runtimePath(root, "ux-writing-repair-brief.json"), result.repair_brief);
+  return result;
+}
+
+export async function reviewLocalUxWritingRewrite(
+  root: string,
+  contextPath: string,
+  repairBriefPath: string,
+  rewrite: ContentRewriteProposal,
+): Promise<UxWritingReviewResult[]> {
+  const request = await readJson<UxWritingReviewRequest>(contextPath);
+  const repairBrief = await readJson<UxWritingRepairBrief>(repairBriefPath);
+  const overlayPath = join(root, ".contentmd/evaluations/ux-writing-rule-packs.json");
+  const projectRulePacks = await exists(overlayPath)
+    ? await readJson<UxWritingRulePack[]>(overlayPath)
+    : [];
+  const results = rewrite.diffs.map((diff) => reviewUxWritingRepairCandidate({
+    request,
+    repair_brief: repairBrief,
+    candidate: {
+      text: diff.after,
+      semantic_invariant_refs: diff.semantic_invariant_refs ?? [],
+    },
+    project_rule_packs: projectRulePacks,
+  }));
+  await writeJsonAtomic(runtimePath(root, "ux-writing-rewrite-review.json"), results);
+  return results;
 }
 
 async function repositoryTask(root: string): Promise<ContentTaskPacket> {
@@ -380,15 +463,19 @@ export async function selectLocalDraftAlternative(
   return selection;
 }
 
-export async function createLocalRewrite(root: string, providerId: string): Promise<ContentRewriteProposal> {
+export async function createLocalRewrite(root: string, providerId: string, repairBriefPath?: string): Promise<ContentRewriteProposal> {
   if (providerId !== "recorded") throw new Error(`unsupported_provider:${providerId}`);
   const strategy = await readJson<ContentStrategyProposal>(runtimePath(root, "strategy.json"));
   const draft = await readJson<ContentDraftProposal>(runtimePath(root, "draft.json"));
+  const repairBrief = repairBriefPath === undefined
+    ? undefined
+    : await readJson<UxWritingRepairBrief>(repairBriefPath);
   const rewrite = await proposeContentRewrite(await recordedProvider(root), {
     task: await repositoryTask(root),
     strategy,
     draft,
     execution: await writerExecutionContext(root, false),
+    ...(repairBrief === undefined ? {} : { repair_brief: repairBrief }),
   });
   await writeJsonAtomic(runtimePath(root, "rewrite.json"), rewrite);
   return rewrite;

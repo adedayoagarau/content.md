@@ -10,6 +10,7 @@ import {
 const STRATEGY_ID = "contentmd.strategy-model-output/0.1.0" as const;
 const DRAFT_ID = "contentmd.draft-model-output/0.1.0" as const;
 const REWRITE_ID = "contentmd.rewrite-model-output/0.1.0" as const;
+const UX_REPAIR_REWRITE_ID = "contentmd.ux-repair-rewrite-model-output/0.1.0" as const;
 const CLASSIFICATION_ID = "contentmd.classification-model-output/0.1.0" as const;
 const EVALUATION_ID = "contentmd.evaluation-model-output/0.1.0" as const;
 const RANKING_ID = "contentmd.candidate-ranking-model-output/0.1.0" as const;
@@ -71,6 +72,29 @@ const VALID_OUTPUTS: Readonly<Record<ModelOutputSchemaId, unknown>> = {
     verification_plan: ["Verify the rendered state after an ambiguous provider response."],
     rollback_plan: "Restore the prior expression version through an authorized change transaction.",
   },
+  [UX_REPAIR_REWRITE_ID]: {
+    authority_effect: "none",
+    approval_status: "not_requested",
+    diffs: [{
+      source_artifact: "src/checkout.tsx",
+      line: 42,
+      column: 7,
+      before: "Payment failed. Try again.",
+      after: "We couldn't confirm your payment. Check its status before trying again.",
+      rationale: "Avoids declaring failure without evidence.",
+      evidence_refs: ["evidence.payment.state"],
+      pattern_refs: ["pattern.unknown.outcome"],
+      acceptance_criteria: ["Outcome remains explicitly unknown."],
+      semantic_invariant_refs: ["Payment was submitted", "Outcome is not confirmed"],
+      mutation_status: "not_applied",
+    }],
+    evidence_refs: ["evidence.payment.state"],
+    pattern_refs: ["pattern.unknown.outcome"],
+    uncertainty: ["Semantic preservation requires independent review."],
+    tradeoffs: ["The replacement is longer than the current copy."],
+    verification_plan: ["Re-run deterministic UX-writing review."],
+    rollback_plan: "Restore the prior expression version through an authorized change transaction.",
+  },
   [CLASSIFICATION_ID]: {
     authority_effect: "none",
     intent: "draft",
@@ -118,11 +142,12 @@ const VALID_OUTPUTS: Readonly<Record<ModelOutputSchemaId, unknown>> = {
 };
 
 describe("model output schema registry", () => {
-  it("registers the six exact governed model-output schema IDs", () => {
+  it("registers the seven exact governed model-output schema IDs", () => {
     expect(MODEL_OUTPUT_SCHEMA_IDS).toEqual([
       STRATEGY_ID,
       DRAFT_ID,
       REWRITE_ID,
+      UX_REPAIR_REWRITE_ID,
       CLASSIFICATION_ID,
       EVALUATION_ID,
       RANKING_ID,

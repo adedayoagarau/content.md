@@ -5,6 +5,7 @@ export const EXIT_CODES = {
   denied_by_governance: 21,
   invalid_input: 22,
   unsupported_capability: 23,
+  cancelled: 130,
   internal_failure: 30,
 } as const;
 

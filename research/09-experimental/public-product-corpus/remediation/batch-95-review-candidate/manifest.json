@@ -1,0 +1,28 @@
+{
+  "contract_version": "contentmd.public-product-corpus-acquisition-candidate/0.1.0",
+  "candidate_batch_name": "2026-08-27-batch-95",
+  "status": "taxonomy_review_required",
+  "source_count": 1,
+  "observation_count": 1,
+  "unreviewed_mapping_count": 1,
+  "collection_method": "Codex in-app browser; generic public provider search",
+  "collection_scope": "completed read-only specialty search; no provider or appointment action",
+  "source_rights_boundary": "public page; evidence only; provider records not retained",
+  "activation_preconditions": [
+    "independent qualified-content-designer review",
+    "independent taxonomy-steward review",
+    "reviewed mapping added to a successor taxonomy",
+    "candidate evidence included in a new consolidated immutable replacement",
+    "official verifier passes all non-breadth gates"
+  ],
+  "expected_coverage_effect_after_review": {
+    "product_system": "Cleveland Clinic care access",
+    "coverage_slot_id": "success",
+    "projected_direct_states": 5,
+    "projected_product_meets_target": true
+  },
+  "authority_effect": "none",
+  "prompt_eligibility": "never",
+  "training_eligibility": "never",
+  "benchmark_eligibility": false
+}

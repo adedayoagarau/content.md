@@ -1,0 +1,17 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.scenario.payment-unknown",
+  "target": { "source_artifact": "checkout/PaymentStatus.tsx", "line": 18, "column": 5, "text": "Payment failed. Try again." },
+  "facts": { "evidence.present": true, "actor.authority_known": true, "agency.choice_required": false, "state.outcome_evidence": "unknown_possible", "recovery.retry_safe": false, "recovery.required": true, "recovery.available": true, "control.present": false, "navigation.destination_present": false, "system.generated_or_hybrid": false, "expression.invariants_preserved": true, "expression.invariants_mapped": true, "locale.specialist_review_required": false, "governance.authority_effect": "none" },
+  "evidence_refs": ["payment-api.timeout-does-not-confirm-outcome"],
+  "preserve": ["A payment was submitted", "The payment outcome is not confirmed"],
+  "must_not_claim": ["Payment failed", "Payment succeeded"],
+  "required_facts": ["The payment outcome may be unknown after a timeout"],
+  "consequence": "A second attempt may duplicate the charge",
+  "recovery": "Check order or payment status before another attempt",
+  "channel": "web",
+  "locale": "en-US",
+  "acceptance_criteria": ["Do not claim failure", "Do not invite an unconditional retry", "Provide a verification path"],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}
