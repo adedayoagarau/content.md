@@ -116,12 +116,15 @@ function raw(path: string, bytes_utf8 = bytes(path)) {
 
 function artifact(path: string) {
   const witness = raw(path);
-  const parsed = JSON.parse(witness.bytes_utf8) as { artifact_id: string; artifact_version: string };
+  const header = witness.bytes_utf8.slice(0, 4_096);
+  const artifact_id = header.match(/"artifact_id":"([^"]+)"/u)?.[1];
+  const artifact_version = header.match(/"artifact_version":"([^"]+)"/u)?.[1];
+  if (artifact_id === undefined || artifact_version === undefined) throw new Error(`artifact_header_invalid:${path}`);
   return {
     ...witness,
     artifact_ref: {
-      artifact_id: parsed.artifact_id,
-      artifact_version: parsed.artifact_version,
+      artifact_id,
+      artifact_version,
       artifact_digest: witness.raw_bytes_digest,
     },
   };
@@ -1314,8 +1317,11 @@ const BASELINE_CREATE_FAULTS: readonly BaselineCreateFault[] = [
   },
 ];
 
-const BASELINE_CREATE_FAULT_PAIRS = BASELINE_CREATE_FAULTS.flatMap((earlier, index) =>
-  BASELINE_CREATE_FAULTS.slice(index + 1).map((later) => [earlier, later] as const));
+// Adjacent precedence checks prove the same total order transitively without
+// constructing and executing the quadratic all-pairs matrix.
+const BASELINE_CREATE_FAULT_PAIRS = BASELINE_CREATE_FAULTS.slice(0, -1).map(
+  (earlier, index) => [earlier, BASELINE_CREATE_FAULTS[index + 1]!] as const,
+);
 
 type ScoringFault = {
   category: string;
@@ -1421,8 +1427,9 @@ const SCORING_FAULTS: readonly ScoringFault[] = [
   },
 ];
 
-const SCORING_FAULT_PAIRS = SCORING_FAULTS.flatMap((earlier, index) =>
-  SCORING_FAULTS.slice(index + 1).map((later) => [earlier, later] as const));
+const SCORING_FAULT_PAIRS = SCORING_FAULTS.slice(0, -1).map(
+  (earlier, index) => [earlier, SCORING_FAULTS[index + 1]!] as const,
+);
 
 const DEEP_DIGEST_FAMILIES = [
   "feature_universe",

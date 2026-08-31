@@ -1,7 +1,7 @@
-import { mkdtemp } from "node:fs/promises";
+import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { sha256Canonical } from "@contentmd/core";
 import {
   RUNTIME_INTERFACE_IDS,
@@ -18,6 +18,11 @@ import {
 } from "./runtime-test-fixtures.js";
 
 const NOW = "2026-08-23T12:00:00.000Z";
+const temporaryRoots = new Set<string>();
+afterEach(async () => {
+  await Promise.all([...temporaryRoots].map((root) => rm(root, { recursive: true, force: true })));
+  temporaryRoots.clear();
+});
 
 function implementationId(interfaceId: string): string {
   return `runtime.local.${interfaceId.slice("runtime.".length)}`;
@@ -101,6 +106,7 @@ async function runtimeFixture(input: {
   node_version?: string;
 } = {}) {
   const root = await mkdtemp(join(tmpdir(), "contentmd-local-runtime-"));
+  temporaryRoots.add(root);
   const authority = authorityFixture(root);
   const receipts = input.receipts ?? RUNTIME_INTERFACE_IDS.map(receipt);
   const localDescriptor = input.descriptor ?? descriptor(receipts);

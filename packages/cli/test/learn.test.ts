@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { DatabaseSync } from "node:sqlite";
 import { afterEach, describe, expect, it } from "vitest";
-import { canonicalJson, decodeCanonicalDag, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
+import { canonicalJson, encodeCanonicalDag, sha256Canonical, type CanonicalDag } from "@contentmd/core";
 import {
   adaptContentDecisionEvent,
   buildLearningDataset,
@@ -34,6 +34,28 @@ const execute = promisify(execFile);
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const cliSource = join(workspaceRoot, "packages/cli/src/main.ts");
 const temporaryDirectories: string[] = [];
+
+function readDagPath(dag: CanonicalDag, path: readonly string[]): unknown {
+  const nodes = new Map(dag.nodes.map((node) => [node.node_digest, node]));
+  let digest = dag.root_digest;
+  for (const key of path) {
+    const node = nodes.get(digest);
+    if (node?.kind !== "object") throw new Error(`canonical_dag_path_not_object:${key}`);
+    const entry = node.entries.find(([candidate]) => candidate === key);
+    if (entry === undefined) throw new Error(`canonical_dag_path_missing:${key}`);
+    digest = entry[1];
+  }
+  const readValue = (nodeDigest: string): unknown => {
+    const node = nodes.get(nodeDigest);
+    if (node === undefined) throw new Error("canonical_dag_path_missing_node");
+    if (node.kind === "array") return node.items.map(readValue);
+    if (node.kind === "object") {
+      return Object.fromEntries(node.entries.map(([key, valueDigest]) => [key, readValue(valueDigest)]));
+    }
+    return node.kind === "null" ? null : node.value;
+  };
+  return readValue(digest);
+}
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map((directory) => (
@@ -395,13 +417,11 @@ describe("governed recursive learning CLI", () => {
       ".contentmd/runtime/learning-training-result.dag.json",
     );
     const trainingArtifact = JSON.parse(await readFile(trainingArtifactPath, "utf8"));
-    expect(decodeCanonicalDag(trainingArtifact)).toMatchObject({
-      contract_version: "contentmd.local-learning-training-artifact/0.1.0",
-      training: {
-        state: "trained",
-        model_record: { record_id: trained.envelope.record_refs?.[1] },
-      },
-    });
+    expect(readDagPath(trainingArtifact, ["contract_version"]))
+      .toBe("contentmd.local-learning-training-artifact/0.1.0");
+    expect(readDagPath(trainingArtifact, ["training", "state"])).toBe("trained");
+    expect(readDagPath(trainingArtifact, ["training", "model_record", "record_id"]))
+      .toBe(trained.envelope.record_refs?.[1]);
     expect(trainingArtifact.root_digest).toBe(
       (trained.envelope.data as { training_artifact_digest: string }).training_artifact_digest,
     );
@@ -461,23 +481,13 @@ describe("governed recursive learning CLI", () => {
     const evaluationArtifact = JSON.parse(await readFile(
       join(root, ".contentmd/runtime/learning-evaluation-result.dag.json"),
       "utf8",
-    )) as Parameters<typeof decodeCanonicalDag>[0];
-    const persistedEvaluation = decodeCanonicalDag(evaluationArtifact) as {
-      readonly contract_version: string;
-      readonly evaluation: { readonly evaluation_record: { readonly payload: {
-        readonly evaluation_state: string;
-      } } };
-      readonly sealed_test_replay: { readonly contract_version: string };
-    };
-    expect(persistedEvaluation).toMatchObject({
-      contract_version: "contentmd.local-learning-evaluation-artifact/0.1.0",
-      evaluation: {
-        evaluation_record: { payload: { evaluation_state: "passed" } },
-      },
-      sealed_test_replay: {
-        contract_version: "contentmd.sealed-test-replay/0.1.0",
-      },
-    });
+    )) as CanonicalDag;
+    expect(readDagPath(evaluationArtifact, ["contract_version"]))
+      .toBe("contentmd.local-learning-evaluation-artifact/0.1.0");
+    expect(readDagPath(evaluationArtifact, ["evaluation", "evaluation_record", "payload", "evaluation_state"]))
+      .toBe("passed");
+    expect(readDagPath(evaluationArtifact, ["sealed_test_replay", "contract_version"]))
+      .toBe("contentmd.sealed-test-replay/0.1.0");
     expect(evaluationArtifact.root_digest).toBe(
       (evaluated.envelope.data as Record<string, unknown>).evaluation_artifact_digest,
     );
@@ -584,24 +594,13 @@ describe("governed recursive learning CLI", () => {
     const shadowDag = JSON.parse(await readFile(
       join(root, ".contentmd/runtime/learning-shadow-result.dag.json"),
       "utf8",
-    )) as Parameters<typeof decodeCanonicalDag>[0];
-    const persistedShadow = decodeCanonicalDag(shadowDag) as {
-      readonly contract_version: string;
-      readonly evaluation_artifact_digest: string;
-      readonly shadow: {
-        readonly plan: { readonly payload: { readonly active_baseline_ref: {
-          readonly record_id: string;
-          readonly content_digest: string;
-        } } };
-        readonly result: Parameters<
-          typeof createSimulatedPromotionDecision
-        >[0]["shadow_result"];
-      };
-    };
-    expect(persistedShadow).toMatchObject({
-      contract_version: "contentmd.local-learning-shadow-artifact/0.1.0",
-      evaluation_artifact_digest: evaluationArtifact.root_digest,
-    });
+    )) as CanonicalDag;
+    expect(readDagPath(shadowDag, ["contract_version"])).toBe(
+      "contentmd.local-learning-shadow-artifact/0.1.0",
+    );
+    expect(readDagPath(shadowDag, ["evaluation_artifact_digest"])).toBe(
+      evaluationArtifact.root_digest,
+    );
     expect(shadowDag.root_digest).toBe(
       (shadowed.envelope.data as Record<string, unknown>).shadow_artifact_digest,
     );
@@ -610,10 +609,12 @@ describe("governed recursive learning CLI", () => {
     const actorFixtureDigest = sha256Canonical({ actor: "task7-cli-governance-reviewer" });
     const decision = createSimulatedPromotionDecision({
       record_mode: "development_fixture",
-      evaluation: persistedEvaluation.evaluation as Parameters<
+      evaluation: readDagPath(evaluationArtifact, ["evaluation"]) as Parameters<
         typeof createSimulatedPromotionDecision
       >[0]["evaluation"],
-      shadow_result: persistedShadow.shadow.result,
+      shadow_result: readDagPath(shadowDag, ["shadow", "result"]) as Parameters<
+        typeof createSimulatedPromotionDecision
+      >[0]["shadow_result"],
       proposed_scope: evaluationSource.replay.proposed_scope,
       actor_fixture_ref: {
         record_id: `actor_fixture.${actorFixtureDigest.slice(0, 32)}`,
@@ -666,12 +667,15 @@ describe("governed recursive learning CLI", () => {
     const promotionDag = JSON.parse(await readFile(
       join(root, ".contentmd/runtime/learning-promotion-result.dag.json"),
       "utf8",
-    )) as Parameters<typeof decodeCanonicalDag>[0];
-    expect(decodeCanonicalDag(promotionDag)).toMatchObject({
-      contract_version: "contentmd.local-learning-promotion-artifact/0.1.0",
-      shadow_artifact_digest: shadowDag.root_digest,
-      promotion: { decision: { decision_id: decision.decision_id }, transition: null },
-    });
+    )) as CanonicalDag;
+    expect(readDagPath(promotionDag, ["contract_version"])).toBe(
+      "contentmd.local-learning-promotion-artifact/0.1.0",
+    );
+    expect(readDagPath(promotionDag, ["shadow_artifact_digest"])).toBe(shadowDag.root_digest);
+    expect(readDagPath(promotionDag, ["promotion", "decision", "decision_id"])).toBe(
+      decision.decision_id,
+    );
+    expect(readDagPath(promotionDag, ["promotion", "transition"])).toBeNull();
     expect(promotionDag.root_digest).toBe(
       (promoted.envelope.data as Record<string, unknown>).promotion_artifact_digest,
     );

@@ -1,10 +1,11 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
-import { cp, lstat, mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { cp, lstat, mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, join, relative, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
+import { inventoryFiles } from "./lib/repository-inventory.mjs";
 
 const execute = promisify(execFile);
 const root = resolve(fileURLToPath(new URL("../", import.meta.url)));
@@ -44,26 +45,6 @@ function digestBytes(bytes) {
 
 function digestValue(value) {
   return digestBytes(canonical(value));
-}
-
-async function inventory(directory) {
-  const output = new Map();
-  async function visit(current) {
-    const entries = await readdir(current, { withFileTypes: true });
-    for (const entry of entries.sort((left, right) => left.name.localeCompare(right.name, "en"))) {
-      const path = join(current, entry.name);
-      const relativePath = relative(directory, path).replaceAll("\\", "/");
-      if (entry.isSymbolicLink()) {
-        output.set(relativePath, `symlink:${await readFile(path, "utf8").catch(() => "unreadable")}`);
-      } else if (entry.isDirectory()) {
-        await visit(path);
-      } else if (entry.isFile()) {
-        output.set(relativePath, digestBytes(await readFile(path)));
-      }
-    }
-  }
-  await visit(directory);
-  return output;
 }
 
 function envelope(stdout, args) {
@@ -122,7 +103,7 @@ try {
   const [major, minor] = process.versions.node.split(".").map(Number);
   assert(major === 24 && minor >= 14, "node_version");
   await cp(fixture, project, { recursive: true });
-  const before = await inventory(project);
+  const before = await inventoryFiles(project, digestBytes);
   const fixtureDigest = digestValue([...before.entries()].sort());
   await writeFile(preload, `
 import fs from "node:fs";
@@ -228,13 +209,13 @@ dns.lookup = deny; dns.resolve = deny;
   assert(!canonical(uninstall.data).includes("studio/app/analyze/page.tsx"), "uninstall_ownership");
 
   const runtimeDirectory = join(project, ".contentmd/runtime");
-  const runtimeInventory = await inventory(runtimeDirectory);
+  const runtimeInventory = await inventoryFiles(runtimeDirectory, digestBytes);
   const runtimeText = (await Promise.all([...runtimeInventory.keys()].map((path) => readFile(join(runtimeDirectory, path), "utf8").catch(() => "")))).join("\n");
   const observable = `${outputs.join("\n")}\n${runtimeText}`;
   for (const canary of canaries) assert(!observable.includes(canary), `canary:${canary}`);
   assert((await readFile(preloadMarker, "utf8")).includes("loaded"), "network_preload");
 
-  const after = await inventory(project);
+  const after = await inventoryFiles(project, digestBytes);
   const changedOriginals = [...before.entries()]
     .filter(([path, digest]) => after.get(path) !== digest)
     .map(([path]) => path)

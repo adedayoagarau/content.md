@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
-import { access, mkdtemp, readFile, stat } from "node:fs/promises";
+import { access, mkdtemp, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { sha256Canonical } from "@contentmd/core";
 import { LocalBlobStore } from "@contentmd/runtime-local";
 import type {
@@ -20,12 +20,19 @@ import {
   runtimeClaims,
 } from "./runtime-test-fixtures.js";
 
+const temporaryRoots = new Set<string>();
+afterEach(async () => {
+  await Promise.all([...temporaryRoots].map((root) => rm(root, { recursive: true, force: true })));
+  temporaryRoots.clear();
+});
+
 function bytesDigest(bytes: Uint8Array): string {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
 async function fixture() {
   const root = await mkdtemp(join(tmpdir(), "contentmd-runtime-blobs-"));
+  temporaryRoots.add(root);
   const authorization = authorityFixture(root);
   const binding = runtimeBindingFixture();
   const references = new Set<string>();
