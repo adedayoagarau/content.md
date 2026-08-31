@@ -60,7 +60,10 @@ describe("contentmd doctor", () => {
     await executeAdoption(plan, {
       approval_id: "approval.fixture.doctor.001",
       plan_digest: plan.plan_digest,
-      approved_paths: plan.creates.map((file) => file.relative_path),
+      approved_paths: [
+        ...plan.creates.map((file) => file.relative_path),
+        ...plan.bridge_previews.map((bridge) => bridge.relative_path),
+      ],
       status: "current",
     });
 

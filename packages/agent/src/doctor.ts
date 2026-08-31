@@ -1,6 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { join } from "node:path";
+import { planHostBridge, type HostKind } from "./host-bridge.js";
 
 export interface DoctorCheck {
   check_id: string;
@@ -73,11 +74,12 @@ export async function runDoctor(projectRoot: string): Promise<DoctorReport> {
   const manifest = await jsonIfPresent(join(projectRoot, ".contentmd/manifest.json"));
   const bridgeEntries = Array.isArray(manifest?.managed_host_bridges) ? manifest.managed_host_bridges : [];
   const bridgeStates = await Promise.all(bridgeEntries.map(async (entry) => {
-    const path = record(entry).relative_path;
-    if (typeof path !== "string") return false;
+    const bridge = record(entry);
+    const path = bridge.relative_path;
+    const host = bridge.host;
+    if (typeof path !== "string" || typeof host !== "string") return false;
     try {
-      const content = await readFile(join(projectRoot, path), "utf8");
-      return content.includes("<!-- contentmd:bridge:start -->") && content.includes("<!-- contentmd:bridge:end -->");
+      return (await planHostBridge(projectRoot, host as HostKind, path)).status === "current";
     } catch {
       return false;
     }
@@ -139,8 +141,8 @@ export async function runDoctor(projectRoot: string): Promise<DoctorReport> {
       detail: bridgeEntries.length === 0
         ? "No managed host bridge is recorded."
         : bridgeStates.every(Boolean)
-          ? `${bridgeEntries.length} managed host bridge(s) contain the exact contentmd marker block.`
-          : "A managed host bridge is missing or changed.",
+          ? `${bridgeEntries.length} managed host bridge(s) contain the current versioned contentmd block.`
+          : "A managed host bridge is missing, outdated, malformed, or changed.",
     },
     {
       check_id: "permissions.repository-write",
