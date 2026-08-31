@@ -22,6 +22,7 @@ import {
   type OpenQuestion,
 } from "./content-contract.js";
 import {
+  HOST_BRIDGE_VERSION,
   planHostBridge,
   type HostBridgePreview,
   type HostKind,
@@ -137,6 +138,9 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
       bridgePreviews.push(await planHostBridge(root, host, source.relative_path));
     }
   }
+  if (bridgePreviews.length === 0) {
+    bridgePreviews.push(await planHostBridge(root, "agents"));
+  }
   const unresolvedQuestions = defaultOpenQuestions();
   const alreadyAdopted = await exists(join(root, "CONTENT.md"));
   const creates = alreadyAdopted
@@ -165,12 +169,16 @@ export async function planAdoption(projectRoot: string): Promise<AdoptionPlan> {
               ".contentmd/runtime/",
             ],
             managed_host_bridges: bridgePreviews
-              .filter((bridge) => bridge.status === "change_proposed")
+              .filter((bridge) => ["change_proposed", "outdated"].includes(bridge.status))
               .map((bridge) => ({
+                host: bridge.host,
                 relative_path: bridge.relative_path,
-                start_marker: "<!-- contentmd:bridge:start -->",
+                bridge_version: HOST_BRIDGE_VERSION,
+                created_by_contentmd: bridge.before_digest === null,
+                start_marker_prefix: "<!-- contentmd:bridge:start",
                 end_marker: "<!-- contentmd:bridge:end -->",
                 before_digest: bridge.before_digest,
+                installed_digest: bridge.after_digest,
               })),
             excluded: ["credentials", "raw_private_context", "model_secrets"],
           }),
@@ -263,7 +271,8 @@ export async function executeAdoption(
     unresolved_questions: plan.unresolved_questions,
     governance_bootstrap: plan.governance_bootstrap,
   });
-  const changedBridges = plan.bridge_previews.filter((bridge) => bridge.status === "change_proposed");
+  const changedBridges = plan.bridge_previews.filter((bridge) =>
+    ["change_proposed", "outdated"].includes(bridge.status));
   const plannedPaths = [
     ...plan.creates.map((file) => file.relative_path),
     ...changedBridges.map((bridge) => bridge.relative_path),
@@ -351,7 +360,8 @@ export interface UninstallPreview {
   host_files_affected: Array<{
     relative_path: string;
     operation: "remove_exact_marker_block";
-    start_marker: "<!-- contentmd:bridge:start -->";
+    created_by_contentmd: boolean;
+    start_marker_prefix: "<!-- contentmd:bridge:start";
     end_marker: "<!-- contentmd:bridge:end -->";
   }>;
 }
@@ -385,16 +395,21 @@ export async function previewUninstall(projectRoot: string): Promise<UninstallPr
           throw new Error("invalid_installed_manifest");
         }
         const bridge = value as Record<string, unknown>;
+        const legacyStartMarker = bridge.start_marker === "<!-- contentmd:bridge:start -->";
+        const versionedStartMarker = bridge.start_marker_prefix === "<!-- contentmd:bridge:start";
         if (
           typeof bridge.relative_path !== "string" ||
-          bridge.start_marker !== "<!-- contentmd:bridge:start -->" ||
+          (!legacyStartMarker && !versionedStartMarker) ||
           bridge.end_marker !== "<!-- contentmd:bridge:end -->"
         ) throw new Error("invalid_installed_manifest");
         assertOwnedRelativePath(bridge.relative_path);
         return {
           relative_path: bridge.relative_path,
           operation: "remove_exact_marker_block" as const,
-          start_marker: "<!-- contentmd:bridge:start -->" as const,
+          created_by_contentmd: typeof bridge.created_by_contentmd === "boolean"
+            ? bridge.created_by_contentmd
+            : bridge.before_digest === null,
+          start_marker_prefix: "<!-- contentmd:bridge:start" as const,
           end_marker: "<!-- contentmd:bridge:end -->" as const,
         };
       })

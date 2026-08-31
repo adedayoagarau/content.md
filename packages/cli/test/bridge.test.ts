@@ -75,7 +75,7 @@ describe("host bridge CLI", () => {
     });
     const content = await readFile(join(root, "CLAUDE.md"), "utf8");
     expect(content).toContain(original);
-    expect(content.match(/<!-- contentmd:bridge:start -->/g)).toHaveLength(1);
+    expect(content.match(/<!-- contentmd:bridge:start/g)).toHaveLength(1);
 
     const repeated = await run([
       "bridge", "--host", "claude", "--yes", "--root", root, "--json",
@@ -83,8 +83,32 @@ describe("host bridge CLI", () => {
     expect(repeated).toMatchObject({
       command_id: "bridge.install",
       status: "completed",
-      data: { status: "already_installed", authority_effect: "none" },
+      data: { status: "current", authority_effect: "none" },
     });
     expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toBe(content);
+  });
+
+  it("installs and removes a scoped bridge through separate explicit confirmations", async () => {
+    const root = await mkdtemp(join(tmpdir(), "contentmd-bridge-cli-"));
+    temporaryDirectories.push(root);
+
+    await run([
+      "bridge", "--host", "agents", "--path", "apps/web/AGENTS.md", "--yes", "--root", root, "--json",
+    ]);
+    expect(await readFile(join(root, "apps/web/AGENTS.md"), "utf8")).toContain("version=\"0.2.0\"");
+
+    const preview = await run([
+      "bridge", "--host", "agents", "--path", "apps/web/AGENTS.md", "--remove", "--root", root, "--json",
+    ]);
+    expect(preview).toMatchObject({
+      command_id: "bridge.remove.preview",
+      data: { status: "removal_proposed", delete_file: true },
+    });
+
+    const removed = await run([
+      "bridge", "--host", "agents", "--path", "apps/web/AGENTS.md", "--remove", "--yes", "--root", root, "--json",
+    ]);
+    expect(removed).toMatchObject({ command_id: "bridge.remove", data: { status: "removed" } });
+    await expect(readFile(join(root, "apps/web/AGENTS.md"), "utf8")).rejects.toMatchObject({ code: "ENOENT" });
   });
 });

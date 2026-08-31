@@ -56,7 +56,7 @@ describe("preview-first one-command adoption", () => {
       "init", "--root", root, "--yes", "--plan-digest", digest, "--json",
     ]);
     expect(applied).toMatchObject({ command_id: "init.apply", status: "completed" });
-    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain("<!-- contentmd:bridge:start -->");
+    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain("<!-- contentmd:bridge:start version=\"0.2.0\"");
     const contract = await readFile(join(root, "CONTENT.md"), "utf8");
     expect(contract).toContain("> Guidance status: provisional.");
     expect(contract.split("\n").length).toBeLessThan(250);

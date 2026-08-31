@@ -193,7 +193,7 @@ export async function initializeLocalProject(root: string, approvedPlanDigest: s
     approved_paths: [
       ...plan.creates.map((item) => item.relative_path),
       ...plan.bridge_previews
-        .filter((bridge) => bridge.status === "change_proposed")
+        .filter((bridge) => ["change_proposed", "outdated"].includes(bridge.status))
         .map((bridge) => bridge.relative_path),
     ],
     status: "current",

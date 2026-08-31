@@ -76,7 +76,7 @@ describe("repository adoption", () => {
 
     expect(receipt.bridged_paths).toEqual(["CLAUDE.md"]);
     expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain(originalClaude);
-    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain("<!-- contentmd:bridge:start -->");
+    expect(await readFile(join(root, "CLAUDE.md"), "utf8")).toContain("<!-- contentmd:bridge:start version=\"0.2.0\"");
     expect(await readFile(join(root, ".contentmd/records/repository-model.json"), "utf8"))
       .toContain('"authority_effect":"none"');
     const contract = await readFile(join(root, "CONTENT.md"), "utf8");
@@ -107,6 +107,9 @@ describe("repository adoption", () => {
       "CONTENT.md",
     ]);
     expect(plan.governance_bootstrap.external_publication).toBe("denied");
+    expect(plan.bridge_previews).toEqual([
+      expect.objectContaining({ host: "agents", relative_path: "AGENTS.md", status: "change_proposed" }),
+    ]);
     expect(plan.unresolved_questions.map((question) => question.question_id)).toContain(
       "question.product-owner",
     );
@@ -114,7 +117,10 @@ describe("repository adoption", () => {
     const receipt = await executeAdoption(plan, {
       approval_id: "approval.fixture.adoption.001",
       plan_digest: plan.plan_digest,
-      approved_paths: plan.creates.map((file) => file.relative_path),
+      approved_paths: [
+        ...plan.creates.map((file) => file.relative_path),
+        ...plan.bridge_previews.map((bridge) => bridge.relative_path),
+      ],
       status: "current",
     });
 
@@ -164,7 +170,7 @@ describe("repository adoption", () => {
     expect(plan.bridge_previews.every((preview) => preview.status === "change_proposed")).toBe(true);
     for (const preview of plan.bridge_previews) {
       expect(preview.after_content).toContain(existingFiles[preview.relative_path as keyof typeof existingFiles]);
-      expect(preview.after_content).toContain("<!-- contentmd:bridge:start -->");
+      expect(preview.after_content).toContain("<!-- contentmd:bridge:start version=\"0.2.0\"");
     }
 
     await executeAdoption(plan, {
@@ -181,7 +187,7 @@ describe("repository adoption", () => {
       const installed = await readFile(join(root, path), "utf8");
       expect(installed).toContain(content);
       if (["AGENTS.md", "CLAUDE.md", "CODEX.md"].includes(path)) {
-        expect(installed).toContain("<!-- contentmd:bridge:start -->");
+        expect(installed).toContain("<!-- contentmd:bridge:start version=\"0.2.0\"");
       } else {
         expect(installed).toBe(content);
       }
@@ -219,7 +225,7 @@ describe("repository adoption", () => {
       expect(preview.after_content).toContain(
         existingFiles[preview.relative_path as keyof typeof existingFiles],
       );
-      expect(preview.after_content).toContain("Run /contentmd (or `contentmd doctor` in a terminal)");
+      expect(preview.after_content).toContain("ask the user to run `contentmd doctor`");
     }
     expect(plan.governance_bootstrap.external_publication).toBe("denied");
   });
@@ -267,7 +273,10 @@ describe("repository adoption", () => {
     await executeAdoption(plan, {
       approval_id: "approval.fixture.adoption.004",
       plan_digest: plan.plan_digest,
-      approved_paths: plan.creates.map((file) => file.relative_path),
+      approved_paths: [
+        ...plan.creates.map((file) => file.relative_path),
+        ...plan.bridge_previews.map((bridge) => bridge.relative_path),
+      ],
       status: "current",
     });
 

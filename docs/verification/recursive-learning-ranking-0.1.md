@@ -1,7 +1,7 @@
 ---
 title: Recursive learning and ranking release verification 0.1
 status: current-development-evidence
-verified_at: 2026-08-23
+verified_at: 2026-08-30
 runtime: Node.js 24.14.0
 ---
 
@@ -42,10 +42,10 @@ The complete verification is intentionally expensive: full Task 4 replay is exha
 | `fixtures/learning-ranking/preferences.jsonl` | `a4d36aaf02bac56ae319b1a7c30416da8783fcb279b1c35b3a08bfb7a64bcd59` |
 | `fixtures/learning-ranking/leakage-groups.jsonl` | `abc8d5db87f2e4446185ee189f07e48b36cd272ae7c9520292bab23d4e4aefa6` |
 | `fixtures/learning-ranking/dataset-manifest.json` | `8001c9a40cd0e24bcccac490585d6b60c5447f7a315ca8b3ee6ed52d0ac498be` |
-| `fixtures/learning-ranking/feature-profile.json` | `8d0ab849686b78364c0a9056cfe8e3c0a7e4ffd4fdb17c96f7c78ec9c6088b19` |
-| `fixtures/learning-ranking/shadow-plan.json` | `c714d1d03be8dcc3ede080d774fb6c240ecbb062dd77f7ed36b857a072dd619c` |
+| `fixtures/learning-ranking/feature-profile.json` | `f39a5514eaa0e2006dc506808a84494b39e2aba864994c94370cefbe7e7ae38d` |
+| `fixtures/learning-ranking/shadow-plan.json` | `8b05ac63dc66c0e074ed161326fbc11eebf9468ee837d8b6660c29afdef76c3e` |
 | `fixtures/learning-ranking/golden-model.json` | `81fe9e4982c39cec8dd31a3e676bbee89fc71010530d87e486f64d0dbde96483` |
-| `fixtures/learning-ranking/task6-simulator-golden.json` | `2bddfc7ccfc50310411c8ccc68ad22940c635480475f3fbfad37904dfd34bd1d` |
+| `fixtures/learning-ranking/task6-simulator-golden.json` | `6049094accbdb4c7291f717a9889eb43237dd596355db952bbca56ce80c96cdc` |
 
 ## Boundary
 

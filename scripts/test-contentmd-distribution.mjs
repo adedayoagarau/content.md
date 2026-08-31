@@ -77,7 +77,7 @@ if (!bare.includes("scan.summary: completed") || !bare.includes("qualified conte
   throw new Error(`installed bare command did not run the regular-user scan\n${bare}`);
 }
 const npxResult = JSON.parse(run("npx", [
-  "--no-install", "contentmd", "scan", "--summary", "--root", fixture, "--json",
+  "--offline", "--", "contentmd", "scan", "--summary", "--root", fixture, "--json",
 ], consumer));
 if (
   npxResult.command_id !== "scan.summary" || npxResult.data?.write_effect !== "none"

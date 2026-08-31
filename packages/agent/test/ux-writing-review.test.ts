@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { describe, expect, it } from "vitest";
@@ -8,6 +8,7 @@ import type { UxWritingReviewRequest } from "@contentmd/evaluation";
 describe("local UX-writing review", () => {
   it("persists a deterministic report and repair brief without model execution", async () => {
     const root = await mkdtemp(join(tmpdir(), "contentmd-uxw-review-"));
+    try {
     const inputPath = join(root, "review-request.json");
     const request: UxWritingReviewRequest = {
       contract_version: "contentmd.ux-writing-review-request/0.1.0",
@@ -38,5 +39,8 @@ describe("local UX-writing review", () => {
     expect(result.report.hard_plane_status).toBe("fail");
     expect(JSON.parse(await readFile(join(root, ".contentmd/runtime/ux-writing-review.json"), "utf8"))).toEqual(result.report);
     expect(JSON.parse(await readFile(join(root, ".contentmd/runtime/ux-writing-repair-brief.json"), "utf8"))).toEqual(result.repair_brief);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
   });
 });

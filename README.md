@@ -32,7 +32,7 @@ cd /absolute/path/to/project
 
 The public distribution candidate now packages the CLI as one dependency-free
 `contentmd@0.1.0` tarball. Its clean-install smoke test proves the installed
-binary, bare-command scan, local `npx --no-install` journey, qualified-content
+binary, bare-command scan, local-only `npx` journey, qualified-content
 summary, digest-bound `init` preview, clean uninstall, and non-mutation boundary
 under Node 24:
 
@@ -102,6 +102,30 @@ pnpm contentmd model --root /absolute/path/to/project --json
 pnpm contentmd model packet --root /absolute/path/to/project --json
 ```
 
+Adoption preserves existing agent instructions and proposes a versioned,
+marker-owned content.md bridge for every supported host file it finds. When a
+repository has no recognized host instructions, the plan includes a minimal
+root `AGENTS.md` bridge instead of silently leaving agent integration absent.
+The bridge remains part of the digest-bound adoption approval and never grants
+mutation, approval, release, or publication authority.
+
+Bridge maintenance is independently previewable. `--path` scopes an
+`AGENTS.md`, `CLAUDE.md`, `CODEX.md`, or `GEMINI.md` bridge to a subtree;
+Copilot retains its repository-standard path. Current, outdated, and malformed
+blocks are reported separately. Installation, reconciliation, and removal each
+recheck the exact source digest before changing the host file:
+
+```bash
+contentmd bridge --host agents --path apps/web/AGENTS.md --root . --json
+contentmd bridge --host agents --path apps/web/AGENTS.md --root . --yes --json
+contentmd bridge --host agents --path apps/web/AGENTS.md --root . --remove --json
+contentmd bridge --host agents --path apps/web/AGENTS.md --root . --remove --yes --json
+```
+
+Removal deletes only the single well-formed managed marker block. It fails
+closed for missing, duplicate, or malformed markers and preserves host-authored
+content outside the block.
+
 Give the bounded model packet to the intelligent model already available in the IDE, then ingest its cited structured response with `model ingest`. For a specific content issue, prepare a source-bound task, let the IDE model return structured alternatives, and review them before any decision or edit:
 
 ```bash
@@ -140,7 +164,7 @@ The verified portable local runtime exposes 12 focused interfaces for authorized
 
 ## Run the local foundation
 
-Requirements: Node.js `24.14.x` and `pnpm@11.9.0`.
+Requirements: Node.js `24.20.0` and `pnpm@11.9.0`.
 
 ```bash
 pnpm install --frozen-lockfile

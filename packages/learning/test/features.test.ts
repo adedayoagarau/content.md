@@ -70,8 +70,11 @@ function raw(path: string, bytes_utf8 = bytes(path)) {
 
 function artifact(path: string) {
   const witness = raw(path);
-  const parsed = JSON.parse(witness.bytes_utf8) as { artifact_id: string; artifact_version: string };
-  return { ...witness, artifact_ref: { artifact_id: parsed.artifact_id, artifact_version: parsed.artifact_version, artifact_digest: witness.raw_bytes_digest } };
+  const header = witness.bytes_utf8.slice(0, 4_096);
+  const artifact_id = header.match(/"artifact_id":"([^"]+)"/u)?.[1];
+  const artifact_version = header.match(/"artifact_version":"([^"]+)"/u)?.[1];
+  if (artifact_id === undefined || artifact_version === undefined) throw new Error(`artifact_header_invalid:${path}`);
+  return { ...witness, artifact_ref: { artifact_id, artifact_version, artifact_digest: witness.raw_bytes_digest } };
 }
 
 function storeArtifact(path: string, artifact_id: string) {

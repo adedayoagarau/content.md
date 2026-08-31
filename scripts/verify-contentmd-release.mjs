@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdtemp, readFile } from "node:fs/promises";
-import { rmSync } from "node:fs";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -11,7 +10,6 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const manifest = JSON.parse(await readFile(path.join(distribution, "package.json"), "utf8"));
 const npmCache = await mkdtemp(path.join(tmpdir(), "contentmd-release-npm-cache-"));
-process.once("exit", () => rmSync(npmCache, { recursive: true, force: true }));
 
 function fail(message) {
   throw new Error(`contentmd_release_invalid:${message}`);
@@ -27,6 +25,7 @@ function run(command, args, cwd = root) {
   return result.stdout;
 }
 
+try {
 if (manifest.name !== "contentmd") fail("package_name");
 if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/u.test(manifest.version)) fail("package_version");
 if (manifest.private === true) fail("package_private");
@@ -48,7 +47,9 @@ if (!Number.isInteger(npmMajor) || !Number.isInteger(npmMinor) || npmMajor < 11 
 
 run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")]);
 const dryRun = JSON.parse(run("npm", ["publish", "--dry-run", "--json"], distribution));
-const published = Array.isArray(dryRun) ? dryRun[0] : dryRun;
+const published = Array.isArray(dryRun)
+  ? dryRun[0]
+  : dryRun[manifest.name] ?? dryRun;
 const files = (published.files ?? []).map((item) => item.path).sort();
 const expectedFiles = ["LICENSE", "README.md", "dist/contentmd.cjs", "package.json"];
 if (JSON.stringify(files) !== JSON.stringify(expectedFiles)) fail(`package_files_${files.join(",")}`);
@@ -65,3 +66,6 @@ console.log(JSON.stringify({
   publish_effect: "none_dry_run",
   bootstrap_status: "first_authenticated_publish_required_before_trusted_publisher_binding",
 }, null, 2));
+} finally {
+  await rm(npmCache, { recursive: true, force: true });
+}
