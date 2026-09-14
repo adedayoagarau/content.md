@@ -40,3 +40,19 @@ npm run prepare:content-design-review
 The packet includes one scenario for every ability-by-candidate-variant cell.
 It omits injected defects and provisional generator expectations. Reviewers
 should work only from the packet, not from `scenarios.jsonl`.
+
+Use `createReviewSubmissionTemplate()` from
+`scripts/qualify-content-design-review.mjs` to create a separate response file.
+The packet itself remains immutable. Qualification requires every response, a
+qualified-content-designer role, an independence attestation, evidence refs,
+hard-dimension judgments, and a meaning-based rationale. Qualified records are
+benchmark-eligible only; retrieval and training remain disabled. The same
+module scores bound tool predictions overall and by ability, risk, surface,
+locale, voice, and tone.
+
+```bash
+node scripts/qualify-content-design-review.mjs \
+  --template \
+  --packet docs/tests/fixtures/content-design-scenarios/review-sample-100.json \
+  --out review-submission.json
+```

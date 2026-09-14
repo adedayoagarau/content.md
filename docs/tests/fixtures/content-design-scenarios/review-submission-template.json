@@ -1,0 +1,2617 @@
+{
+  "contract_version": "contentmd.content-design-review-submission/0.1.0",
+  "packet_ref": {
+    "packet_digest": "ba96464141a595e96c0e34f32c3655636486acd452acc11657de2b8b8395a7fe",
+    "sample_count": 100
+  },
+  "reviewer": {
+    "reviewer_id": null,
+    "reviewer_role": "qualified_content_designer",
+    "reviewed_at": null,
+    "independent_review_attested": false
+  },
+  "responses": [
+    {
+      "work_unit_id": "review-cdes-07728",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07202",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07585",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07834",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07067",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07349",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07611",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07180",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07956",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-07493",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04238",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04562",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04845",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04014",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04377",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04659",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04191",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04930",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04406",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-04783",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00518",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00872",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00055",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00394",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00627",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00109",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00981",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00440",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00766",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-00243",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06898",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06022",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06305",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06684",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06137",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06969",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06441",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06720",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06276",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-06553",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02088",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02332",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02665",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02144",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02917",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02479",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02751",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02300",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02526",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-02803",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08348",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08612",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08175",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08954",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08497",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08729",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08201",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08590",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08836",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-08063",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03658",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03192",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03925",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03404",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03787",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03239",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03561",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03850",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03016",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-03373",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01108",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01982",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01435",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01764",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01247",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01519",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01871",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01060",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01396",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-01623",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05968",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05442",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05715",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05274",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05557",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05899",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05021",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05310",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05686",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-05133",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09478",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09752",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09295",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09524",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09807",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09089",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09331",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09670",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09146",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    },
+    {
+      "work_unit_id": "review-cdes-09913",
+      "disposition": null,
+      "hard_dimension_results": {
+        "factual_accuracy": null,
+        "state_accuracy": null,
+        "semantic_fidelity": null,
+        "agency": null,
+        "recovery": null,
+        "authority_boundary": null
+      },
+      "quality_dimension_scores": {
+        "clarity": null,
+        "specificity": null,
+        "hierarchy": null,
+        "accessibility_readiness": null,
+        "locale_readiness": null,
+        "voice_fit": null,
+        "tone_fit": null,
+        "economy": null
+      },
+      "rationale": null,
+      "acceptable_meaning_invariants": null,
+      "recommended_revision": null,
+      "review_evidence_refs": null
+    }
+  ],
+  "submission_state": "incomplete",
+  "authority_effect": "none"
+}
