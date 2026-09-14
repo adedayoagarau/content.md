@@ -13,6 +13,14 @@ implementation_status: governed-development-system-active
 
 The system owns the content-design process and its structured memory. Products and organizations retain authority over facts, policies, approvals, provider access, publication, and product outcomes. The implementation is substantial but remains a development system: it does not prove universal writing effectiveness, production authority, or a released product.
 
+The current [open-source release-candidate verification](docs/verification/open-source-release-candidate-0.1.md) records the locally demonstrated 0.1 product journey and its remaining external authority gates.
+
+The supported open-source product surface is the `contentmd` CLI and its local
+workbench. See the [public interface contract](docs/public-api.md),
+[contribution guide](CONTRIBUTING.md), and [security policy](SECURITY.md).
+Workspace package exports and the public-product research corpus are not a
+stable JavaScript SDK or implicit training data.
+
 ## Implementation status
 
 The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce an 18-package TypeScript workspace and a functional local CLI. The [host-agnostic repository-intelligence verification](docs/verification/host-agnostic-repository-intelligence-0.2.md) proves the mixed-stack discovery, evidence-linked model, bounded IDE handoff, governed task loop, exact apply/readback path, and local workbench without network access. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
@@ -32,9 +40,12 @@ cd /absolute/path/to/project
 
 The public distribution candidate now packages the CLI as one dependency-free
 `contentmd@0.1.0` tarball. Its clean-install smoke test proves the installed
-binary, bare-command scan, local-only `npx` journey, qualified-content
-summary, digest-bound `init` preview, clean uninstall, and non-mutation boundary
-under Node 24:
+binary, bare-command scan, offline local `npx` journey, qualified-content
+summary, packed loopback workbench, compare/preview/apply/undo cycle, fresh
+digest-bound adoption, post-adoption diagnosis, bounded repository uninstall
+preview, package removal, and the relevant non-mutation boundaries under Node
+24. The synthetic adoption remains at `ready_with_governance_warnings` because
+the test does not fabricate a content owner:
 
 ```bash
 pnpm test:distribution
@@ -164,7 +175,16 @@ The verified portable local runtime exposes 12 focused interfaces for authorized
 
 ## Run the local foundation
 
-Requirements: Node.js `24.20.0` and `pnpm@11.9.0`.
+Requirements for repository development: Node.js `24.14.0` and `pnpm@11.9.0`.
+The published CLI supports the broader Node.js `>=24.14.0 <25` range. Exact-runtime
+learning fixtures are replayed under that same pinned profile and are never silently
+regenerated under another runtime.
+
+```bash
+nvm use
+corepack prepare pnpm@11.9.0 --activate
+pnpm verify:toolchain
+```
 
 ```bash
 pnpm install --frozen-lockfile

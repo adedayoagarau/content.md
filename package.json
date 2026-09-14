@@ -8,6 +8,8 @@
     "node": ">=24.14.0 <25"
   },
   "scripts": {
+    "preinstall": "node scripts/verify-development-toolchain.mjs --install",
+    "verify:toolchain": "node scripts/verify-development-toolchain.mjs",
     "build": "tsc -b tsconfig.json",
     "contentmd": "node packages/cli/dist/main.js",
     "typecheck": "tsc -b tsconfig.json --pretty false",

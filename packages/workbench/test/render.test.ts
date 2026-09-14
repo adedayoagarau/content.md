@@ -54,12 +54,24 @@ describe("local task-first workbench rendering", () => {
       authority_effect: "none",
     };
 
-    const html = renderWorkbench(model as any, review as any);
+    const html = renderWorkbench(model as any, review as any, {
+      status: "not_adopted",
+      plan_digest: "b".repeat(64),
+      project_root: "/tmp/project's <draft>",
+      creates: ["CONTENT.md", ".contentmd/manifest.json"],
+    });
 
     expect(html).toContain("Task and context");
     expect(html).toContain("Proposal and diff");
     expect(html).toContain("Evidence and control");
     expect(html).toContain("Guidance status: provisional");
+    expect(html).toContain("Review the proposed content change");
+    expect(html).toContain("Inspect the exact before-and-after diff");
+    expect(html).toContain("Reviewed proposal");
+    expect(html).toContain("Use the workbench now. Adopt when you are ready.");
+    expect(html).toContain(`--plan-digest ${"b".repeat(64)}`);
+    expect(html).toContain("CONTENT.md · .contentmd/manifest.json");
+    expect(html).not.toContain("<draft>");
     expect(html).toContain("<meter");
     expect(html).toContain("<ol");
     expect(html).toContain("<svg");

@@ -4,23 +4,62 @@ import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const scratch = await mkdtemp(path.join(tmpdir(), "contentmd-distribution-"));
 const npmCache = path.join(scratch, "npm-cache");
+const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
 
 function run(command, args, cwd) {
   const result = spawnSync(command, args, {
     cwd,
     encoding: "utf8",
-    env: { ...process.env, NPM_CONFIG_CACHE: npmCache },
+    env: { ...process.env, PATH: toolchainPath, NPM_CONFIG_CACHE: npmCache },
   });
   if (result.status !== 0) {
     throw new Error(`${command} ${args.join(" ")} failed\n${result.stdout}\n${result.stderr}`);
   }
   return result.stdout;
+}
+
+async function startPackedWorkbench(entry, fixtureRoot, cwd) {
+  const child = spawn(process.execPath, [
+    entry, "serve", "--root", fixtureRoot, "--port", "0", "--json",
+  ], {
+    cwd,
+    encoding: "utf8",
+    env: { ...process.env, PATH: toolchainPath },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  const result = await new Promise((resolve, reject) => {
+    let stdout = "";
+    let stderr = "";
+    const timeout = setTimeout(() => reject(new Error(`packed workbench timeout\n${stderr}`)), 10_000);
+    child.stdout.on("data", (chunk) => {
+      stdout += String(chunk);
+      try {
+        const parsed = JSON.parse(stdout);
+        clearTimeout(timeout);
+        resolve(parsed);
+      } catch {
+        // The canonical JSON envelope may arrive in more than one chunk.
+      }
+    });
+    child.stderr.on("data", (chunk) => { stderr += String(chunk); });
+    child.once("error", (error) => {
+      clearTimeout(timeout);
+      reject(error);
+    });
+    child.once("exit", (code) => {
+      if (code !== null && code !== 0) {
+        clearTimeout(timeout);
+        reject(new Error(`packed workbench exited ${code}\n${stdout}\n${stderr}`));
+      }
+    });
+  });
+  return { child, result };
 }
 
 run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")], root);
@@ -58,6 +97,7 @@ await writeFile(path.join(fixture, "src/App.tsx"), fixtureSource);
 const previewResult = spawnSync(process.execPath, [installedEntry, "init", "--root", fixture, "--json"], {
   cwd: consumer,
   encoding: "utf8",
+  env: { ...process.env, PATH: toolchainPath },
 });
 if (previewResult.status !== 20) {
   throw new Error(`init preview returned ${previewResult.status}\n${previewResult.stdout}\n${previewResult.stderr}`);
@@ -83,6 +123,26 @@ if (
   npxResult.command_id !== "scan.summary" || npxResult.data?.write_effect !== "none"
   || npxResult.data?.occurrence_count !== 1 || npxResult.data?.qualified_count !== 1
 ) throw new Error("local npx journey did not return the compact qualified-content summary");
+const packedWorkbench = await startPackedWorkbench(installedEntry, fixture, consumer);
+try {
+  if (packedWorkbench.result.command_id !== "serve" || packedWorkbench.result.data?.write_effect !== "none") {
+    throw new Error("packed workbench did not start with a non-mutating result");
+  }
+  const workbenchResponse = await fetch(packedWorkbench.result.data.url);
+  const workbenchHtml = await workbenchResponse.text();
+  if (
+    workbenchResponse.status !== 200
+    || !workbenchHtml.includes("Improve the highest-priority content issue")
+    || !workbenchHtml.includes("Preview mode")
+    || !workbenchHtml.includes("npx contentmd init --yes --plan-digest")
+    || !workbenchHtml.includes('class="improvement-form"')
+  ) throw new Error("packed workbench did not render the first-run product flow");
+} finally {
+  packedWorkbench.child.kill("SIGTERM");
+  if (packedWorkbench.child.exitCode === null) {
+    await new Promise((resolve) => packedWorkbench.child.once("exit", resolve));
+  }
+}
 const improvement = JSON.parse(run(process.execPath, [
   installedEntry, "scan", "--root", fixture, "--improve", "1", "--json",
 ], consumer));
@@ -140,6 +200,53 @@ if (
   || reviewEvaluation.data?.review_evaluation?.evaluation?.exact_disposition_accuracy !== 1
   || reviewEvaluation.data?.review_evaluation?.authority_effect !== "none"
 ) throw new Error("installed package did not evaluate the completed qualification packet");
+const freshAdoptionPreviewResult = spawnSync(process.execPath, [
+  installedEntry, "init", "--root", fixture, "--json",
+], {
+  cwd: consumer,
+  encoding: "utf8",
+  env: { ...process.env, PATH: toolchainPath },
+});
+if (freshAdoptionPreviewResult.status !== 20) {
+  throw new Error(`fresh adoption preview returned ${freshAdoptionPreviewResult.status}\n${freshAdoptionPreviewResult.stdout}\n${freshAdoptionPreviewResult.stderr}`);
+}
+const freshAdoptionPreview = JSON.parse(freshAdoptionPreviewResult.stdout);
+const freshPlanDigest = freshAdoptionPreview.data?.adoption?.plan_digest;
+if (typeof freshPlanDigest !== "string") throw new Error("fresh adoption plan digest missing");
+const adopted = JSON.parse(run(process.execPath, [
+  installedEntry, "init", "--root", fixture, "--yes", "--plan-digest", freshPlanDigest, "--json",
+], consumer));
+if (
+  adopted.command_id !== "init.apply"
+  || adopted.data?.plan_digest !== freshPlanDigest
+  || !adopted.data?.created_paths?.includes("CONTENT.md")
+  || !adopted.data?.created_paths?.includes(".contentmd/manifest.json")
+) throw new Error("installed package did not apply the exact approved adoption plan");
+for (const relativePath of [
+  "CONTENT.md",
+  ".contentmd/manifest.json",
+  ".contentmd/governance/starter-policy.yaml",
+  ".contentmd/records/repository-model.json",
+]) {
+  await readFile(path.join(fixture, relativePath), "utf8");
+}
+if ((await readFile(path.join(fixture, "src/App.tsx"), "utf8")) !== fixtureSource) {
+  throw new Error("repository adoption changed product source");
+}
+const doctor = JSON.parse(run(process.execPath, [
+  installedEntry, "doctor", "--root", fixture, "--json",
+], consumer));
+if (doctor.command_id !== "doctor" || doctor.data?.overall_status === "not_adopted") {
+  throw new Error("adopted fixture still reports not adopted");
+}
+const uninstallPreview = JSON.parse(run(process.execPath, [
+  installedEntry, "uninstall", "--root", fixture, "--preview", "--json",
+], consumer));
+if (
+  uninstallPreview.command_id !== "uninstall.preview"
+  || !uninstallPreview.data?.owned_files?.includes("CONTENT.md")
+  || JSON.stringify(uninstallPreview.data).includes("src/App.tsx")
+) throw new Error("installed package did not produce a bounded uninstall preview");
 try {
   await readFile(path.join(fixture, ".contentmd/runtime/discovery.json"), "utf8");
   throw new Error("regular-user scan unexpectedly persisted discovery state");
@@ -165,10 +272,14 @@ console.log(JSON.stringify({
   fixture_mutated: false,
   bare_scan_completed: true,
   local_npx_scan_completed: true,
+  packed_workbench_completed: true,
   qualification_review_sample_completed: true,
   qualification_review_evaluation_completed: true,
   regular_user_patch_applied: true,
   regular_user_patch_undone: true,
+  exact_adoption_applied: true,
+  adopted_doctor_status: doctor.data.overall_status,
+  bounded_uninstall_preview_completed: true,
   scan_write_effect: npxResult.data.write_effect,
   qualified_content_count: npxResult.data.qualified_count,
   clean_uninstall_verified: true,

@@ -88,7 +88,7 @@ describe("Task 6 externally locked simulator golden", () => {
     }));
 
     const runFresh = () => execFileSync(process.execPath, [
-      "--max-old-space-size=4096",
+      "--max-old-space-size=5120",
       "--import",
       "tsx",
       RUNNER_PATH,

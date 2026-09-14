@@ -10,6 +10,12 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const manifest = JSON.parse(await readFile(path.join(distribution, "package.json"), "utf8"));
 const npmCache = await mkdtemp(path.join(tmpdir(), "contentmd-release-npm-cache-"));
+const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
+
+for (const requiredFile of ["SECURITY.md", "CONTRIBUTING.md", "docs/public-api.md"]) {
+  const contents = await readFile(path.join(root, requiredFile), "utf8");
+  if (contents.trim().length === 0) fail(`empty_release_document_${requiredFile}`);
+}
 
 function fail(message) {
   throw new Error(`contentmd_release_invalid:${message}`);
@@ -19,7 +25,7 @@ function run(command, args, cwd = root) {
   const result = spawnSync(command, args, {
     cwd,
     encoding: "utf8",
-    env: { ...process.env, NPM_CONFIG_CACHE: npmCache },
+    env: { ...process.env, PATH: toolchainPath, NPM_CONFIG_CACHE: npmCache },
   });
   if (result.status !== 0) fail(`${command}_${args[0] ?? "command"}_failed\n${result.stdout}\n${result.stderr}`);
   return result.stdout;

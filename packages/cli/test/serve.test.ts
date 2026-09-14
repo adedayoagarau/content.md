@@ -64,6 +64,10 @@ describe("contentmd serve", () => {
         },
       });
       expect((await fetch(result.data.url)).status).toBe(200);
+      const html = await (await fetch(result.data.url)).text();
+      expect(html).toContain("Preview mode");
+      expect(html).toContain("npx contentmd init --yes --plan-digest");
+      expect(html).toContain("This scan has not changed the repository.");
       await expect(access(join(root, ".contentmd/runtime/model.json"))).rejects.toThrow();
     } finally {
       child.kill("SIGTERM");
