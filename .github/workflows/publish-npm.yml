@@ -33,6 +33,9 @@ jobs:
       - name: Install exact dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build the workspace from source
+        run: pnpm build
+
       - name: Verify repository test suite
         run: pnpm test
 

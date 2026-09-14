@@ -39,7 +39,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
-| Publish workflow supply chain | immutable action revisions and mandatory test, lint, foundation, learning, complete content-design benchmark, distribution, and release-identity gates verified |
+| Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, distribution, and release-identity gates verified |
 | Generated README parity | passed |
 | Git whitespace check | passed |
 
