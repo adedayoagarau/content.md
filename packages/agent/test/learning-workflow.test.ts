@@ -622,7 +622,7 @@ describe("governed recursive learning workflow", () => {
     } finally {
       await events.close();
     }
-  }, 1_200_000);
+  }, 1_500_000);
 
   it("reports durable workflow status without inferring any completed phase", async () => {
     const root = await projectRoot();

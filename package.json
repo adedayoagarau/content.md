@@ -13,7 +13,7 @@
     "build": "tsc -b tsconfig.json",
     "contentmd": "node packages/cli/dist/main.js",
     "typecheck": "tsc -b tsconfig.json --pretty false",
-    "test": "vitest run && pnpm test:node",
+    "test": "node scripts/run-vitest-release-gate.mjs && pnpm test:node",
     "test:node": "node --test scripts/*.test.mjs packages/research/test/*.test.mjs",
     "test:watch": "vitest",
     "lint": "node scripts/check-package-boundaries.mjs && tsc -b tsconfig.json --pretty false",

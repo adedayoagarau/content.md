@@ -43,18 +43,20 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Generated README parity | passed |
 | Git whitespace check | passed |
 
-The suites were partitioned after a monolithic run exposed test-only retention
-of two complete sealed replay graphs. The terminal-fault scenario was moved to
-its own worker, and redundant aliases were released before the independently
-verified evaluation boundary. No behavioral assertion was removed. This is a
-test-isolation correction, not a larger heap substituted for correctness.
+The TypeScript release gate runs each test file in a fresh Vitest process after
+a monolithic run exposed test-only retention of complete sealed replay graphs.
+The eight-phase learning journey is additionally isolated from the other tests
+in its source file and has a 25-minute ceiling; its observed exact-runtime cost
+was 21 minutes 56 seconds. No assertion is removed, and the heap limit remains
+unchanged. This is process isolation and a measured timeout, not extra memory
+substituted for correctness.
 
 ## Packed artifact
 
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2139285
+tarball bytes: 2139286
 unpacked bytes: 13107013
 file count: 4
 qualified synthetic content items: 1

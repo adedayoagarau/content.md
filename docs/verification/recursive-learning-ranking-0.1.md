@@ -42,16 +42,17 @@ The complete verification is intentionally expensive: full Task 4 replay is exha
 | `fixtures/learning-ranking/preferences.jsonl` | `a4d36aaf02bac56ae319b1a7c30416da8783fcb279b1c35b3a08bfb7a64bcd59` |
 | `fixtures/learning-ranking/leakage-groups.jsonl` | `abc8d5db87f2e4446185ee189f07e48b36cd272ae7c9520292bab23d4e4aefa6` |
 | `fixtures/learning-ranking/dataset-manifest.json` | `8001c9a40cd0e24bcccac490585d6b60c5447f7a315ca8b3ee6ed52d0ac498be` |
-| `fixtures/learning-ranking/feature-profile.json` | `29ad9962cd527df43120430c4e5ee5383179f2c859c5e582481187348ec8ca7b` |
-| `fixtures/learning-ranking/shadow-plan.json` | `68c5cf8b0647f534862486d9dcb95597189d518cf383f5ec18ab6be0ae83821d` |
-| `fixtures/learning-ranking/golden-model.json` | `f97b18599e5e7af2329876bba704584eda1854f54a2421f3481e6878aa56e7cf` |
-| `fixtures/learning-ranking/task6-simulator-golden.json` | `d9893424d17e77b62bd54b24982d31990458391d0e217610ef37df18f31165ff` |
+| `fixtures/learning-ranking/feature-profile.json` | `1f6da141f7c7f3e44a9d1e8bb3924c627000d018e878d34203b0a46131e4305f` |
+| `fixtures/learning-ranking/shadow-plan.json` | `40ed9c93f7b9d355647d65d58d3358ff18284b883b5c28511ca80cb396310f4c` |
+| `fixtures/learning-ranking/golden-model.json` | `5034fd018bfea6c562eee0de455c47a2a93cff51b393464cb81ce271cd5dcb2c` |
+| `fixtures/learning-ranking/task6-simulator-golden.json` | `db70c6f0e63c9a36dd0ed1bf07ae30962982ac50e68f4d0a763a0c8f04509754` |
 
-These four identities were requalified on 2026-09-14 after the root package
-manifest gained content-design benchmark scripts and its Task 4 resolution pin
-was refreshed. Exact-runtime comparison confirmed unchanged feature
-definitions, learned coefficient bits, prediction expectations, and Task 6
-terminal outcomes; the new locks bind changed upstream artifact identities.
+These identities were requalified on 2026-09-14 after the root package
+manifest gained content-design benchmark and isolated release-test scripts and
+its Task 4 resolution pin was refreshed. Exact-runtime comparison confirmed
+unchanged feature definitions, dataset and preference bytes, learned
+coefficient bits, prediction expectations, and Task 6 terminal outcomes; the
+new feature-profile lock binds the changed upstream manifest identity.
 
 ## Boundary
 
