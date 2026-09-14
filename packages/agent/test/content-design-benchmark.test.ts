@@ -23,6 +23,11 @@ describe("content-design benchmark", () => {
     expect(result.prediction_count).toBe(100);
     expect(result.evaluation_status).toBe("unscored_pending_qualified_gold");
     expect(result.label_access).toBe("blind_packet_only");
+    expect(result.predictions.some((prediction) => prediction.disposition === "pass")).toBe(true);
+    expect(result.predictions.some((prediction) => prediction.disposition === "abstain")).toBe(true);
+    for (const prediction of result.predictions.filter((candidate) => candidate.disposition === "pass")) {
+      expect(Object.values(prediction.hard_dimension_results).every((value) => value === "pass" || value === "not_applicable")).toBe(true);
+    }
   });
 
   it("reproduces the committed independent-review response template", async () => {
@@ -50,7 +55,7 @@ describe("content-design benchmark", () => {
     try {
       const packet = await writeBuiltinContentDesignReviewPacket(output);
       expect(packet.sample_count).toBe(100);
-      expect(packet.packet_digest).toBe("d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a");
+      expect(packet.packet_digest).toBe("99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b");
       await expect(writeBuiltinContentDesignReviewPacket(output)).rejects.toThrow(/EEXIST/);
     } finally {
       await rm(directory, { recursive: true, force: true });

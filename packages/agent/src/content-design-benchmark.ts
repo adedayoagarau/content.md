@@ -19,12 +19,16 @@ interface ReviewWorkUnit {
     risk: string;
     source_locale: string;
     target_locale: string;
+    voice_profile: string;
+    situational_tone: string;
+    evidence: {
+      material_fact_status: "scenario_facts_available" | "missing";
+      unresolved_question: string | null;
+    };
   };
   candidate: {
     text: string;
     supporting_text: string | null;
-    voice: string;
-    tone: string;
     localization_status: string;
   };
   rubric: {
@@ -114,14 +118,14 @@ interface ContentDesignPrediction {
   hard_dimension_results: Record<string, HardResult>;
   quality_dimension_scores: Record<string, number | null>;
   rationale_codes: string[];
-  evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0";
+  evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0";
   authority_effect: "none";
 }
 
 export interface ContentDesignPredictionSet {
   contract_version: "contentmd.content-design-predictions/0.1.0";
   packet_digest: string;
-  evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0";
+  evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0";
   prediction_count: number;
   predictions: ContentDesignPrediction[];
   evaluation_status: "unscored_pending_qualified_gold";
@@ -160,7 +164,7 @@ function digest(value: unknown): string {
 function validatePacket(value: unknown): BlindReviewPacket {
   if (value === null || typeof value !== "object") throw new TypeError("content_design_benchmark_invalid:packet");
   const packet = value as BlindReviewPacket;
-  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.1.0"
+  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.2.0"
     || packet.authority_effect !== "none"
     || !Number.isSafeInteger(packet.sample_count) || packet.sample_count < 1
     || !Array.isArray(packet.review_work_units) || packet.review_work_units.length !== packet.sample_count) {
@@ -178,28 +182,35 @@ function predict(unit: ReviewWorkUnit): ContentDesignPrediction {
   const state = unit.context.state.toLocaleLowerCase("en-US");
   const falseCertainty = /\beverything is complete\b/u.test(lower) && !/completed successfully/u.test(state);
   const vague = /\bsomething happened\b/u.test(lower) || /^continue\.?$/iu.test(text.trim());
-  const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake)/iu.test(text);
+  const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake|issue)/iu.test(text);
   const pressure = /\bact now\b|\bdon't miss out\b|\bhurry\b/iu.test(text);
+  const stylisticNearMiss = /^(?:we're here to help\.|important:)/iu.test(text.trim());
   const overloaded = text.trim().split(/\s+/u).length > 28;
   const stateRepresented = lower.includes(unit.context.state_expression.toLocaleLowerCase("en-US"));
   const consequenceRepresented = lower.includes(unit.context.consequence_expression.toLocaleLowerCase("en-US"));
   const localeMismatch = unit.context.target_locale !== unit.context.source_locale
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
+  const materialEvidenceMissing = unit.context.evidence?.material_fact_status === "missing";
   const recovery: HardResult = unit.context.situation !== "payment_unknown"
     ? "not_applicable"
-    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(text) ? "pass" : "fail";
+    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(combinedText) ? "pass" : "fail";
   const hard: Record<string, HardResult> = {
-    factual_accuracy: falseCertainty ? "fail" : "unknown",
+    factual_accuracy: materialEvidenceMissing ? "unknown" : falseCertainty ? "fail" : "pass",
     state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
-    semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "unknown",
-    agency: pressure ? "fail" : "unknown",
+    semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "pass",
+    agency: pressure ? "fail" : "pass",
     recovery,
     authority_boundary: /\b(?:approved|authorized|guaranteed)\b/iu.test(text) ? "unknown" : "pass",
   };
   const hardFailure = Object.values(hard).includes("fail");
-  const disposition: Disposition = hardFailure || blame || pressure
+  const allHardResolved = Object.values(hard).every((result) => result === "pass" || result === "not_applicable");
+  const disposition: Disposition = materialEvidenceMissing
+    ? "abstain"
+    : hardFailure || blame || pressure
     ? "revise"
-    : localeMismatch ? "escalate" : "human_preference_review";
+    : localeMismatch
+      ? "escalate"
+      : allHardResolved && !stylisticNearMiss ? "pass" : "human_preference_review";
   const rationaleCodes = [
     falseCertainty && "unsupported_certainty",
     vague && "unclear_action_or_state",
@@ -208,6 +219,7 @@ function predict(unit: ReviewWorkUnit): ContentDesignPrediction {
     blame && "user_blame",
     pressure && "unsupported_urgency_or_pressure",
     overloaded && "poor_economy",
+    materialEvidenceMissing && "material_evidence_missing",
     localeMismatch && "in_locale_review_required",
   ].filter((value): value is string => typeof value === "string");
   return {
@@ -224,8 +236,10 @@ function predict(unit: ReviewWorkUnit): ContentDesignPrediction {
       tone_fit: blame || pressure ? 1 : 3,
       economy: overloaded ? 1 : vague ? 2 : text.split(/\s+/u).length > 20 ? 2 : 4,
     },
-    rationale_codes: rationaleCodes.length === 0 ? ["hard_checks_passed_preference_unresolved"] : rationaleCodes,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0",
+    rationale_codes: rationaleCodes.length === 0
+      ? disposition === "pass" ? ["hard_checks_passed"] : ["hard_checks_passed_preference_unresolved"]
+      : rationaleCodes,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
     authority_effect: "none",
   };
 }
@@ -236,7 +250,7 @@ export function predictContentDesignBenchmark(packetValue: unknown): ContentDesi
   const preimage = {
     contract_version: "contentmd.content-design-predictions/0.1.0" as const,
     packet_digest: packet.packet_digest,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0" as const,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0" as const,
     prediction_count: predictions.length,
     predictions,
     evaluation_status: "unscored_pending_qualified_gold" as const,
@@ -388,8 +402,8 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     by_risk: slice((unit) => unit.context.risk),
     by_surface: slice((unit) => unit.context.surface),
     by_locale: slice((unit) => unit.context.target_locale),
-    by_voice: slice((unit) => unit.candidate.voice),
-    by_tone: slice((unit) => unit.candidate.tone),
+    by_voice: slice((unit) => unit.context.voice_profile),
+    by_tone: slice((unit) => unit.context.situational_tone),
     authority_effect: "none" as const,
   };
   return { ...preimage, report_digest: digest(preimage) };

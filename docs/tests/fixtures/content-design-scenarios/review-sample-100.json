@@ -1,9 +1,13 @@
 {
-  "contract_version": "contentmd.content-design-blind-review-packet/0.1.0",
+  "contract_version": "contentmd.content-design-blind-review-packet/0.2.0",
   "sampling_method": "deterministic_stratified_ability_by_candidate_variant",
   "sample_count": 100,
   "blinded_fields": [
+    "candidate.variant",
+    "candidate.voice",
+    "candidate.tone",
     "candidate.injected_defect",
+    "evaluation_control",
     "provisional_expectation"
   ],
   "required_reviewer_role": "qualified_content_designer",
@@ -13,7 +17,7 @@
       "work_unit_id": "review-cdes-07728",
       "scenario_ref": {
         "scenario_id": "cdes-07728",
-        "scenario_digest": "03a55788c00efd2d77a26a9b8d65b1bcc9954279339163c8a60f5d75a79cf799"
+        "scenario_digest": "719a798c820fd7c559666d52b940400b223afde74720feca2ecc64617fe527ee"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -36,13 +40,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "fr-FR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this automated assistant issue. Contact support.",
         "supporting_text": "A support agent can help with account changes",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -95,7 +103,7 @@
       "work_unit_id": "review-cdes-07202",
       "scenario_ref": {
         "scenario_id": "cdes-07202",
-        "scenario_digest": "db9c6b4f5a78556996bb6c73058abcf15174dde948a9477220965420b6ed4e5d"
+        "scenario_digest": "355cdc8a862b24665284558801d11b559aaf883d4b761a3a5f0f39346a115724"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -118,13 +126,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Delete project",
         "supporting_text": "Deleting this project permanently removes it for everyone. This can't be undone.",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -174,10 +186,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-07585",
+      "work_unit_id": "review-cdes-07589",
       "scenario_ref": {
-        "scenario_id": "cdes-07585",
-        "scenario_digest": "e8ca99c87bfbec35d3282ba0f269eccc253b31665e028ab50b8b956624721253"
+        "scenario_id": "cdes-07589",
+        "scenario_digest": "95a2e8625c5317a904e8f0f6de0c55b840c4e758d21fd9c8ced01c57673f4770"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -199,14 +211,18 @@
         "surface_context": "assistant response",
         "channel": "web_chat",
         "source_locale": "en-US",
-        "target_locale": "de-DE",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for empty state. Create project.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "No projects yet. Create project.",
+        "supporting_text": "Your projects will appear here",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -256,10 +272,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-07834",
+      "work_unit_id": "review-cdes-07835",
       "scenario_ref": {
-        "scenario_id": "cdes-07834",
-        "scenario_digest": "83c414abcfd4f8186ad3a0c28dcabb155602aaf5f8d9cfe6d2a80221f1728065"
+        "scenario_id": "cdes-07835",
+        "scenario_digest": "efbf08e19dfb69429386dcdeb33becf54a829b2e3e0f45a1e50bb65aaab47930"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -281,14 +297,18 @@
         "surface_context": "interruptive decision dialog",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-GB",
-        "direction": "ltr"
+        "target_locale": "es-US",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Manage your password and sign-in options in Security. This opens Security settings.",
-        "supporting_text": "Go to Security",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for navigation destination. Go to Security.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -338,10 +358,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-07067",
+      "work_unit_id": "review-cdes-07064",
       "scenario_ref": {
-        "scenario_id": "cdes-07067",
-        "scenario_digest": "1370f0a21600dc08a75bffa677baf05e8e972e9174f623fcea27b2abd915b8a0"
+        "scenario_id": "cdes-07064",
+        "scenario_digest": "54169965947d781b14541a78f1b09f35e7a205964ee36670e4fc061d667a76ed"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -363,14 +383,18 @@
         "surface_context": "transactional email",
         "channel": "email",
         "source_locale": "en-US",
-        "target_locale": "en-IN",
-        "direction": "ltr"
+        "target_locale": "he-IL",
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "We couldn't confirm your payment. Check payment status.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: We couldn't confirm your payment. Paying again could result in a duplicate charge. Check payment status.",
+        "supporting_text": "Regarding payment unknown",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -420,10 +444,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-07349",
+      "work_unit_id": "review-cdes-07347",
       "scenario_ref": {
-        "scenario_id": "cdes-07349",
-        "scenario_digest": "f7bb76ddae3b7fb26c11b59d60a7ac53a8dc5160c9a7d2ef4e3044791fbeeb9d"
+        "scenario_id": "cdes-07347",
+        "scenario_digest": "fcbd418a23e01d1aabfa8f8a40b714637a08fba29dc292a2eb7ec6a772500d3a"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -445,16 +469,20 @@
         "surface_context": "page-level zero state",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "es-US",
-        "direction": "ltr"
+        "target_locale": "en-US",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about permission request: Location access shows nearby pickup options. Please carefully review all available information before determining whether to proceed. You can change this later in Settings. Choose location access.",
+        "text": "Location access shows nearby pickup options. Choose location access.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
-        "localization_status": "source_language_candidate_requires_localization"
+        "localization_status": "target_language_candidate"
       },
       "rubric": {
         "evaluation_order": [
@@ -505,7 +533,7 @@
       "work_unit_id": "review-cdes-07611",
       "scenario_ref": {
         "scenario_id": "cdes-07611",
-        "scenario_digest": "552c217d6a9e9d8ab32cff376db1154f7a687e21dbb08b010a54998271b37063"
+        "scenario_digest": "8fdb84f8c8db2ab2690032868be0ef43000e571c10e824ff39d91490b840d3af"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -528,13 +556,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We can't complete this right now. Try again later.",
         "supporting_text": "Your saved work is still here",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -587,7 +619,7 @@
       "work_unit_id": "review-cdes-07180",
       "scenario_ref": {
         "scenario_id": "cdes-07180",
-        "scenario_digest": "fa00f2b8379f1a618ad27943bb9100ae2f688dc7614c7710cb0cf983610673fc"
+        "scenario_digest": "f7c5a73ab2f2d083a337c35e845db1dd67c7dc0c1a524e5d65eb85ec28366cfe"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -610,13 +642,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on subscription renewal. Review or cancel subscription.",
         "supporting_text": "You'll be charged unless you cancel before renewal",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -669,7 +705,7 @@
       "work_unit_id": "review-cdes-07956",
       "scenario_ref": {
         "scenario_id": "cdes-07956",
-        "scenario_digest": "a104f750987c785bebb3f827f9012669ecc2e31afc0f8b625051361a7612118e"
+        "scenario_digest": "b1e88133de7263a6dd15b0df718d0beec17e933dca301d6241bdeec333acf01c"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -692,13 +728,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with successful update.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -751,7 +791,7 @@
       "work_unit_id": "review-cdes-07493",
       "scenario_ref": {
         "scenario_id": "cdes-07493",
-        "scenario_digest": "b6bb42cfee285098a4c20ea4d0f3a75e709007b3142a04f563d610f377f5273f"
+        "scenario_digest": "2697aba1eaef936e43f11748a178978233bf4146fe5fc2a54099230947aea793"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -774,13 +814,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "es-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Enter a valid expiry date",
         "supporting_text": "We can't submit the form until this is corrected. Review expiry date.",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -833,7 +877,7 @@
       "work_unit_id": "review-cdes-04238",
       "scenario_ref": {
         "scenario_id": "cdes-04238",
-        "scenario_digest": "df4b1d312dc629de052d32115ed99a420ff72aad0c5f1a38369f38b6061c7608"
+        "scenario_digest": "74aff3c7814816386815e2c11617f60c5e286a53f866c3325efb722d179ef4f5"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -856,13 +900,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this destructive delete issue. Delete project.",
         "supporting_text": "This can't be undone",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -915,7 +963,7 @@
       "work_unit_id": "review-cdes-04562",
       "scenario_ref": {
         "scenario_id": "cdes-04562",
-        "scenario_digest": "d68c100ad338e5467608bddc0b4851666179f627640a8fb916098848b2301825"
+        "scenario_digest": "49a199bacff77ab58c9e25c2f14eb198764cb47b900f91b1cd0608fb7c61d855"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -938,13 +986,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "No projects yet. Your projects will appear here. Create project",
         "supporting_text": "Regarding empty state",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -994,10 +1046,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-04845",
+      "work_unit_id": "review-cdes-04849",
       "scenario_ref": {
-        "scenario_id": "cdes-04845",
-        "scenario_digest": "12b9de4887599833fa6c9e3a30e90c3e073b57082642f156714e396ac25b8bf4"
+        "scenario_id": "cdes-04849",
+        "scenario_digest": "cb662da77daa91fa66a60559a7e926fe8df3a68c172d64a66a63a96bc8ffc96c"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1019,96 +1071,18 @@
         "surface_context": "page-level zero state",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "de-DE",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for navigation destination. Go to Security.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
-        "language": "en",
-        "localization_status": "target_language_candidate"
-      },
-      "rubric": {
-        "evaluation_order": [
-          "evidence_authority",
-          "truth_state",
-          "action_consequence_recovery",
-          "semantic_completeness",
-          "accessibility_locale",
-          "comprehension_structure",
-          "voice_tone_economy"
-        ],
-        "hard_dimensions": [
-          "factual_accuracy",
-          "state_accuracy",
-          "semantic_fidelity",
-          "agency",
-          "recovery",
-          "authority_boundary"
-        ],
-        "quality_dimensions": [
-          "clarity",
-          "specificity",
-          "hierarchy",
-          "accessibility_readiness",
-          "locale_readiness",
-          "voice_fit",
-          "tone_fit",
-          "economy"
-        ]
-      },
-      "reviewer_response": {
-        "disposition": null,
-        "hard_dimension_results": null,
-        "quality_dimension_scores": null,
-        "rationale": null,
-        "acceptable_meaning_invariants": null,
-        "recommended_revision": null,
-        "reviewer_role": null,
-        "review_evidence_refs": null
-      },
-      "review_state": "unreviewed",
-      "authority_effect": "none",
-      "retrieval_eligibility": "never",
-      "training_eligibility": "never",
-      "benchmark_eligibility": false
-    },
-    {
-      "work_unit_id": "review-cdes-04014",
-      "scenario_ref": {
-        "scenario_id": "cdes-04014",
-        "scenario_digest": "27aff887330a9fd177d805286035bfc5d89cae55924bbf86b5fab7b504d72801"
-      },
-      "sampling_cell": {
-        "ability_id": "agency_trust",
-        "candidate_variant_slot": 4
-      },
-      "ability": {
-        "id": "agency_trust",
-        "objective": "Expose material choice, commitment, automation, uncertainty, and control"
-      },
-      "context": {
-        "situation": "payment_unknown",
-        "state": "A payment submission timed out and its outcome is not confirmed",
-        "risk": "high",
-        "user_goal": "Verify payment status before another attempt",
-        "state_expression": "We couldn't confirm your payment",
-        "action_expression": "Check payment status",
-        "consequence_expression": "Paying again could result in a duplicate charge",
-        "surface": "form_error",
-        "surface_context": "inline validation message",
-        "channel": "web",
-        "source_locale": "en-US",
-        "target_locale": "pt-BR",
-        "direction": "ltr"
-      },
-      "candidate": {
-        "text": "Important: We couldn't confirm your payment. Check payment status.",
-        "supporting_text": "Paying again could result in a duplicate charge",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Manage your password and sign-in options in Security. Go to Security.",
+        "supporting_text": "This opens Security settings",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1158,41 +1132,45 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-04377",
+      "work_unit_id": "review-cdes-04015",
       "scenario_ref": {
-        "scenario_id": "cdes-04377",
-        "scenario_digest": "cb30104947407c81a7d7ceb916f43728a11775d6e7312b511c1878f30963f163"
+        "scenario_id": "cdes-04015",
+        "scenario_digest": "dbe30e0cb939b9b0ce5b7c81b8836cfe482a8f75a7fae32935cd251e7e185cd5"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
-        "candidate_variant_slot": 5
+        "candidate_variant_slot": 4
       },
       "ability": {
         "id": "agency_trust",
         "objective": "Expose material choice, commitment, automation, uncertainty, and control"
       },
       "context": {
-        "situation": "permission_request",
-        "state": "The product requests access to sensitive device data",
+        "situation": "payment_unknown",
+        "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
-        "user_goal": "Explain purpose, scope, choice, and settings recovery",
-        "state_expression": "Location access shows nearby pickup options",
-        "action_expression": "Choose location access",
-        "consequence_expression": "You can change this later in Settings",
-        "surface": "help_article",
-        "surface_context": "support guidance",
-        "channel": "help",
+        "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
+        "surface": "form_error",
+        "surface_context": "inline validation message",
+        "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "en-IN",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Location access shows nearby pickup options. Choose location access.",
+        "text": "Everything is complete for payment unknown. Check payment status.",
         "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
         "language": "en",
-        "localization_status": "target_language_candidate"
+        "localization_status": "source_language_candidate_requires_localization"
       },
       "rubric": {
         "evaluation_order": [
@@ -1240,10 +1218,96 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-04659",
+      "work_unit_id": "review-cdes-04374",
       "scenario_ref": {
-        "scenario_id": "cdes-04659",
-        "scenario_digest": "fb701ba37ad7c6a4d8dac249aa38fd08db86b4155842af178bd99adc6e0884d5"
+        "scenario_id": "cdes-04374",
+        "scenario_digest": "55212605d3196ab8fbf04537756655b9d5694f5d42309bf545a46d204baf12ff"
+      },
+      "sampling_cell": {
+        "ability_id": "agency_trust",
+        "candidate_variant_slot": 5
+      },
+      "ability": {
+        "id": "agency_trust",
+        "objective": "Expose material choice, commitment, automation, uncertainty, and control"
+      },
+      "context": {
+        "situation": "permission_request",
+        "state": "The product requests access to sensitive device data",
+        "risk": "high",
+        "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
+        "surface": "help_article",
+        "surface_context": "support guidance",
+        "channel": "help",
+        "source_locale": "en-US",
+        "target_locale": "ja-JP",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
+      },
+      "candidate": {
+        "text": "Important: Location access shows nearby pickup options. You can change this later in Settings. Choose location access.",
+        "supporting_text": "Help with permission request",
+        "language": "en",
+        "localization_status": "source_language_candidate_requires_localization"
+      },
+      "rubric": {
+        "evaluation_order": [
+          "evidence_authority",
+          "truth_state",
+          "action_consequence_recovery",
+          "semantic_completeness",
+          "accessibility_locale",
+          "comprehension_structure",
+          "voice_tone_economy"
+        ],
+        "hard_dimensions": [
+          "factual_accuracy",
+          "state_accuracy",
+          "semantic_fidelity",
+          "agency",
+          "recovery",
+          "authority_boundary"
+        ],
+        "quality_dimensions": [
+          "clarity",
+          "specificity",
+          "hierarchy",
+          "accessibility_readiness",
+          "locale_readiness",
+          "voice_fit",
+          "tone_fit",
+          "economy"
+        ]
+      },
+      "reviewer_response": {
+        "disposition": null,
+        "hard_dimension_results": null,
+        "quality_dimension_scores": null,
+        "rationale": null,
+        "acceptable_meaning_invariants": null,
+        "recommended_revision": null,
+        "reviewer_role": null,
+        "review_evidence_refs": null
+      },
+      "review_state": "unreviewed",
+      "authority_effect": "none",
+      "retrieval_eligibility": "never",
+      "training_eligibility": "never",
+      "benchmark_eligibility": false
+    },
+    {
+      "work_unit_id": "review-cdes-04657",
+      "scenario_ref": {
+        "scenario_id": "cdes-04657",
+        "scenario_digest": "2b2cf86cbae2cf696a017d26cd464259510775f7e8f2a55ef89674a1bed5a6e9"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1265,14 +1329,18 @@
         "surface_context": "out-of-product notification",
         "channel": "push",
         "source_locale": "en-US",
-        "target_locale": "fr-FR",
-        "direction": "ltr"
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about service interruption: We can't complete this right now. Please carefully review all available information before determining whether to proceed. Your saved work is still here. Try again later.",
+        "text": "We can't complete this right now. Try again later.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1325,7 +1393,7 @@
       "work_unit_id": "review-cdes-04191",
       "scenario_ref": {
         "scenario_id": "cdes-04191",
-        "scenario_digest": "7c60411a3edbe6c52161d35dd1e00a065105f31441481fb3465ee4b56def5e1b"
+        "scenario_digest": "c3744a6c18fbb2de27f387fd70a655b2e3ab5d5796d7072906fe11b33105c0cc"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1348,13 +1416,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Your 14-day trial will renew at $12 a month",
         "supporting_text": "You'll be charged unless you cancel before renewal. Review or cancel subscription.",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1407,7 +1479,7 @@
       "work_unit_id": "review-cdes-04930",
       "scenario_ref": {
         "scenario_id": "cdes-04930",
-        "scenario_digest": "fc30e246ea74ae5639fc2918e1427cbb8d459e6e82cc4763c841ec00e6d2ae7c"
+        "scenario_digest": "2a85b69abb0079b815b245fa28f125177ab11593f078eb8e8901adf17415f3e9"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1430,13 +1502,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on successful update. View profile.",
         "supporting_text": "Your changes are saved",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1489,7 +1565,7 @@
       "work_unit_id": "review-cdes-04406",
       "scenario_ref": {
         "scenario_id": "cdes-04406",
-        "scenario_digest": "ea9357f10334f3b54a4aca2b005890fa51d273f0ffd432e4693c3c2eee1eba16"
+        "scenario_digest": "9eef2634b133f09ffd5dc7ab729805806851db6daad1d573b8b91ad9c34a7e9a"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1512,13 +1588,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "fr-FR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with validation error.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1571,7 +1651,7 @@
       "work_unit_id": "review-cdes-04783",
       "scenario_ref": {
         "scenario_id": "cdes-04783",
-        "scenario_digest": "5ca17edb83d9f858619c30a5f9556768f879302037bc1237be509575f65616aa"
+        "scenario_digest": "435321833c042db0af55da9431d305c2f12100f085af8f111ac7f4558d4cb03c"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1594,13 +1674,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "en-GB",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
         "supporting_text": "A support agent can help with account changes",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1653,7 +1737,7 @@
       "work_unit_id": "review-cdes-00518",
       "scenario_ref": {
         "scenario_id": "cdes-00518",
-        "scenario_digest": "d3cf2894f30c829b350e01c71570c47050d1d430db0bfa17362fc061004e10e9"
+        "scenario_digest": "e477833e5e204ec9addaa8d8e159bb02d6a51eec2817f0f7473ea7a5ca172efb"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1676,13 +1760,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "fr-FR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this empty state issue. Create project.",
         "supporting_text": "Your projects will appear here",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1735,7 +1823,7 @@
       "work_unit_id": "review-cdes-00872",
       "scenario_ref": {
         "scenario_id": "cdes-00872",
-        "scenario_digest": "0a7585e73bf996f39ac5d084743aed9748203537aaa8bb2d60ccc6e41c241635"
+        "scenario_digest": "8638ae5f3143d6bed3617003803aaf95809fa0feb99518da24bc414d9e980f95"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1758,13 +1846,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Manage your password and sign-in options in Security. This opens Security settings. Go to Security",
         "supporting_text": "Help with navigation destination",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1814,10 +1906,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-00055",
+      "work_unit_id": "review-cdes-00059",
       "scenario_ref": {
-        "scenario_id": "cdes-00055",
-        "scenario_digest": "271b746883d4ff59d8073e1e333c88fae0caacf6f581f801a3b5076508862de5"
+        "scenario_id": "cdes-00059",
+        "scenario_digest": "c14fbe3ce56796fc16688c6a0b250818e342b52ad18dbad05e3815204d45cd86"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1839,14 +1931,18 @@
         "surface_context": "out-of-product notification",
         "channel": "push",
         "source_locale": "en-US",
-        "target_locale": "en-IN",
-        "direction": "ltr"
+        "target_locale": "fr-FR",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for payment unknown. Check payment status.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "We couldn't confirm your payment. Check payment status.",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1896,10 +1992,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-00394",
+      "work_unit_id": "review-cdes-00395",
       "scenario_ref": {
-        "scenario_id": "cdes-00394",
-        "scenario_digest": "77b132d920b5f46d68fd66830b3092804cb81c181a84c914689142ed7fdd2cb4"
+        "scenario_id": "cdes-00395",
+        "scenario_digest": "82f9a14c9105a4c66b9bfe6fd8e8c940f3a58155b9e8900073c64ac9f1f64893"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1921,14 +2017,18 @@
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
         "source_locale": "en-US",
-        "target_locale": "ar-SA",
-        "direction": "rtl"
+        "target_locale": "he-IL",
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Location access shows nearby pickup options",
-        "supporting_text": "You can change this later in Settings. Choose location access.",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for permission request. Choose location access.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -1978,10 +2078,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-00627",
+      "work_unit_id": "review-cdes-00624",
       "scenario_ref": {
-        "scenario_id": "cdes-00627",
-        "scenario_digest": "4792a329246ddad98c59c9d45ed435d5834e460c6e78377490843f7b6ccfaf39"
+        "scenario_id": "cdes-00624",
+        "scenario_digest": "d37f83a16a76f2ac0d845a614f95a8d1c42c9d14147a7391f1ddeb68288fe9ff"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2003,14 +2103,18 @@
         "surface_context": "persistent page-level notice",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "de-DE",
-        "direction": "ltr"
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "We can't complete this right now. Try again later.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: We can't complete this right now. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2060,10 +2164,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-00109",
+      "work_unit_id": "review-cdes-00107",
       "scenario_ref": {
-        "scenario_id": "cdes-00109",
-        "scenario_digest": "8dbafc964d8942c2b3baeecffa511d3f48990b2144178d9d51d39a1c2268e824"
+        "scenario_id": "cdes-00107",
+        "scenario_digest": "1a4e6210e32730ef23bcb2eaf7683e17cf6076249ff81272d361733306b86ea1"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2085,14 +2189,18 @@
         "surface_context": "compact control label",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-IN",
-        "direction": "ltr"
+        "target_locale": "ja-JP",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about subscription renewal: Your 14-day trial will renew at $12 a month. Please carefully review all available information before determining whether to proceed. You'll be charged unless you cancel before renewal. Review or cancel subscription.",
+        "text": "Your 14-day trial will renew at $12 a month. Review or cancel subscription.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2145,7 +2253,7 @@
       "work_unit_id": "review-cdes-00981",
       "scenario_ref": {
         "scenario_id": "cdes-00981",
-        "scenario_digest": "7d4e85af87de39b71eb2b9b2f56999d2828dd91feeaaaf04d37330ff665a9565"
+        "scenario_digest": "0ca66e1eab7543f6492bfd705178a00f8678cc02762ac3e5869e0b6bc9e9c182"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2168,13 +2276,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Profile updated. View profile.",
         "supporting_text": "Your changes are saved",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2227,7 +2339,7 @@
       "work_unit_id": "review-cdes-00440",
       "scenario_ref": {
         "scenario_id": "cdes-00440",
-        "scenario_digest": "360f91240320eac2383ed565e805d627201b9a9e7980dabd0f8e94a1668c9fd8"
+        "scenario_digest": "b1b502439a638da4bb20c7ae986a8809c5c46a3bbb64db4425bfc2ca417880c6"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2250,13 +2362,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on validation error. Review expiry date.",
         "supporting_text": "We can't submit the form until this is corrected",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2309,7 +2425,7 @@
       "work_unit_id": "review-cdes-00766",
       "scenario_ref": {
         "scenario_id": "cdes-00766",
-        "scenario_digest": "36fc9eb5c3024c375798f8823ca547d26312e2b6747c22060a41a60ac614689b"
+        "scenario_digest": "b46e1aa51424e8a413bdcf718502eca8074927c89baf7ba80c02ea42bce440b2"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2332,13 +2448,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "pt-BR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with automated assistant.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2391,7 +2511,7 @@
       "work_unit_id": "review-cdes-00243",
       "scenario_ref": {
         "scenario_id": "cdes-00243",
-        "scenario_digest": "4c2de5af1f48c138c38e48eef2e9c47d6ef53d73b342a63ec1daaf8cfd5d7019"
+        "scenario_digest": "2088ba4f38dcd64a4d720fb749f0edca0fe8bfb3e3bf2f7742239e2a0ea77ec1"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2414,13 +2534,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "pt-BR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Deleting this project permanently removes it for everyone. Delete project.",
         "supporting_text": "This can't be undone",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2473,7 +2597,7 @@
       "work_unit_id": "review-cdes-06898",
       "scenario_ref": {
         "scenario_id": "cdes-06898",
-        "scenario_digest": "e0ee65fe9c739ee7428c969bbdb459516b282dd8d1cd12f5f772dd67b78d9b72"
+        "scenario_digest": "6930f27093e081a23197bd690bd18fd487a3ca0eca6efac29a0c4d25145a1c0e"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2496,13 +2620,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this navigation destination issue. Go to Security.",
         "supporting_text": "This opens Security settings",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -2555,7 +2683,7 @@
       "work_unit_id": "review-cdes-06022",
       "scenario_ref": {
         "scenario_id": "cdes-06022",
-        "scenario_digest": "65ed5c683a053a345f3eb9c61b1114bab9c5a050585dc635817e96358da35bb6"
+        "scenario_digest": "900b5c1c4e994809a50f97f4cc40ea611d6a9798f57cf1abe10b297a4bd11590"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2578,13 +2706,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We couldn't confirm your payment. Check payment status",
         "supporting_text": "Paying again could result in a duplicate charge",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2634,10 +2766,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-06305",
+      "work_unit_id": "review-cdes-06309",
       "scenario_ref": {
-        "scenario_id": "cdes-06305",
-        "scenario_digest": "dd240da877bfddcd7303b2c252cfc861245584a189a4afe975d0d6ebc143610f"
+        "scenario_id": "cdes-06309",
+        "scenario_digest": "e544b9c47e8c7378cd768f8ba4bfdf6c15e840060d56df87b3e2a5c3a8efd184"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2659,14 +2791,18 @@
         "surface_context": "compact control label",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "fr-FR",
-        "direction": "ltr"
+        "target_locale": "ja-JP",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for permission request. Choose location access.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "Choose location access",
+        "supporting_text": "Location access shows nearby pickup options. You can change this later in Settings.",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2716,10 +2852,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-06684",
+      "work_unit_id": "review-cdes-06685",
       "scenario_ref": {
-        "scenario_id": "cdes-06684",
-        "scenario_digest": "88e09df9a857961862d9eec446e11f11f174860cfc7ac7e846d0ee1646c27a54"
+        "scenario_id": "cdes-06685",
+        "scenario_digest": "ed449528dfc69d36dbc0e368319f90076ef5b6239566fc52ddc9c89d97b5d7fc"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2741,14 +2877,18 @@
         "surface_context": "assistant response",
         "channel": "web_chat",
         "source_locale": "en-US",
-        "target_locale": "fr-FR",
-        "direction": "ltr"
+        "target_locale": "de-DE",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: We can't complete this right now. Try again later.",
-        "supporting_text": "Your saved work is still here",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for service interruption. Try again later.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2798,10 +2938,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-06137",
+      "work_unit_id": "review-cdes-06134",
       "scenario_ref": {
-        "scenario_id": "cdes-06137",
-        "scenario_digest": "e71cc43a2c72f14045e7186f7ffd8d05a346522182fa7c18e34608c49bda709e"
+        "scenario_id": "cdes-06134",
+        "scenario_digest": "5efd1653f40782d51a8a7811b0445dc78eecc027c2e77fb80596daab44ab6652"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2823,14 +2963,18 @@
         "surface_context": "interruptive decision dialog",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "he-IL",
-        "direction": "rtl"
+        "target_locale": "fr-FR",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Your 14-day trial will renew at $12 a month. Review or cancel subscription.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: Your 14-day trial will renew at $12 a month. You'll be charged unless you cancel before renewal.",
+        "supporting_text": "Review or cancel subscription",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2880,10 +3024,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-06969",
+      "work_unit_id": "review-cdes-06967",
       "scenario_ref": {
-        "scenario_id": "cdes-06969",
-        "scenario_digest": "41874524228edba27281c7f36210e512b1ea3d6199ecfd0cd3af1f6f70681019"
+        "scenario_id": "cdes-06967",
+        "scenario_digest": "97ed40f3e0a4a1b96235f4bd64db5dff22841d13fd6e703c58e01c1943584488"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2905,14 +3049,18 @@
         "surface_context": "transactional email",
         "channel": "email",
         "source_locale": "en-US",
-        "target_locale": "en-IN",
-        "direction": "ltr"
+        "target_locale": "ja-JP",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about successful update: Profile updated. Please carefully review all available information before determining whether to proceed. Your changes are saved. View profile.",
+        "text": "Profile updated. View profile.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -2965,7 +3113,7 @@
       "work_unit_id": "review-cdes-06441",
       "scenario_ref": {
         "scenario_id": "cdes-06441",
-        "scenario_digest": "d0ba69de522fcbdca401bc2e372da65ce0058ba6f30a3bf93323759aae39348d"
+        "scenario_digest": "b2fc16e01526ba848f6e55f334dfb89b6336c1d5edcc684ea3aa7471bdee3e6d"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2988,13 +3136,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Enter a valid expiry date. Review expiry date.",
         "supporting_text": "We can't submit the form until this is corrected",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3047,7 +3199,7 @@
       "work_unit_id": "review-cdes-06720",
       "scenario_ref": {
         "scenario_id": "cdes-06720",
-        "scenario_digest": "8a2973dd90ed12f9d14ace2701ffc701492e3dd8dc4b7539dc31b5c6de43bb73"
+        "scenario_digest": "069921e3e7b379134554210aa5c86791bb987ae808b9d1be9d0ee79a2707a120"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -3070,13 +3222,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "fr-FR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on automated assistant. Contact support.",
         "supporting_text": "A support agent can help with account changes",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3129,7 +3285,7 @@
       "work_unit_id": "review-cdes-06276",
       "scenario_ref": {
         "scenario_id": "cdes-06276",
-        "scenario_digest": "ad4c0c2470d7b4402d347f7f8a83575cbbf7945fc45547dbddf695d8a63c95e9"
+        "scenario_digest": "55d750fab5e9015e5379ab5bb172727b2e4e3d2e7eb2fdc35cf7655a2421792b"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -3152,13 +3308,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with destructive delete.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -3211,7 +3371,7 @@
       "work_unit_id": "review-cdes-06553",
       "scenario_ref": {
         "scenario_id": "cdes-06553",
-        "scenario_digest": "5d71c3162677dccbe238a37d76ae9848fdde1f8e021195baf46e8c356d7fd448"
+        "scenario_digest": "37578826062b432649b59b0ad4d794723db7f4b5dedd06fc5e60345dbd8afa4b"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -3234,13 +3394,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "pt-BR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. No projects yet. Create project.",
         "supporting_text": "Your projects will appear here",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3293,7 +3457,7 @@
       "work_unit_id": "review-cdes-02088",
       "scenario_ref": {
         "scenario_id": "cdes-02088",
-        "scenario_digest": "56102bb07d6d20bee98f643ff89b9a646eeba7c108835b0d05b9cb41ca49e296"
+        "scenario_digest": "0d196fe425864c972a4cc6798f389889583933fbf48911a7cbd6324b383c34fc"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3316,13 +3480,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this payment unknown issue. Check payment status.",
         "supporting_text": "Paying again could result in a duplicate charge",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3375,7 +3543,7 @@
       "work_unit_id": "review-cdes-02332",
       "scenario_ref": {
         "scenario_id": "cdes-02332",
-        "scenario_digest": "48f7c960837419734158f330348f722f4893c3c5a303d8a37143d095c3533600"
+        "scenario_digest": "9418332a7d98ba182741ae143913c229d18c8a107c23c214aef7c3e3ecb08736"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3398,13 +3566,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Location access shows nearby pickup options. You can change this later in Settings",
         "supporting_text": "Choose location access",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3454,10 +3626,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-02665",
+      "work_unit_id": "review-cdes-02669",
       "scenario_ref": {
-        "scenario_id": "cdes-02665",
-        "scenario_digest": "277bcf634e180c8655a0b152b4d8b813a676600dad34f6176e7705c206b7109d"
+        "scenario_id": "cdes-02669",
+        "scenario_digest": "71ef1c5e28dc5ab57e6686e0f340986be18c5f6735b16833a4191c2405052780"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3479,14 +3651,18 @@
         "surface_context": "transactional email",
         "channel": "email",
         "source_locale": "en-US",
-        "target_locale": "pt-BR",
-        "direction": "ltr"
+        "target_locale": "es-US",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for service interruption. Try again later.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "We can't complete this right now. Your saved work is still here. Try again later.",
+        "supporting_text": "Regarding service interruption",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3536,10 +3712,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-02144",
+      "work_unit_id": "review-cdes-02145",
       "scenario_ref": {
-        "scenario_id": "cdes-02144",
-        "scenario_digest": "d6acfe5ee0cdd691d3984e5beb3385a9c3ffd89cfe99bd82b9f4be1fa42cf383"
+        "scenario_id": "cdes-02145",
+        "scenario_digest": "72f85f0d48868a911066a85f00d7a757d3d3d627cfa174d8e5540a0dbe5d54a8"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3561,96 +3737,18 @@
         "surface_context": "page-level zero state",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Your 14-day trial will renew at $12 a month. Review or cancel subscription.",
-        "supporting_text": "You'll be charged unless you cancel before renewal",
-        "voice": "formal",
-        "tone": "serious",
-        "language": "en",
-        "localization_status": "target_language_candidate"
-      },
-      "rubric": {
-        "evaluation_order": [
-          "evidence_authority",
-          "truth_state",
-          "action_consequence_recovery",
-          "semantic_completeness",
-          "accessibility_locale",
-          "comprehension_structure",
-          "voice_tone_economy"
-        ],
-        "hard_dimensions": [
-          "factual_accuracy",
-          "state_accuracy",
-          "semantic_fidelity",
-          "agency",
-          "recovery",
-          "authority_boundary"
-        ],
-        "quality_dimensions": [
-          "clarity",
-          "specificity",
-          "hierarchy",
-          "accessibility_readiness",
-          "locale_readiness",
-          "voice_fit",
-          "tone_fit",
-          "economy"
-        ]
-      },
-      "reviewer_response": {
-        "disposition": null,
-        "hard_dimension_results": null,
-        "quality_dimension_scores": null,
-        "rationale": null,
-        "acceptable_meaning_invariants": null,
-        "recommended_revision": null,
-        "reviewer_role": null,
-        "review_evidence_refs": null
-      },
-      "review_state": "unreviewed",
-      "authority_effect": "none",
-      "retrieval_eligibility": "never",
-      "training_eligibility": "never",
-      "benchmark_eligibility": false
-    },
-    {
-      "work_unit_id": "review-cdes-02917",
-      "scenario_ref": {
-        "scenario_id": "cdes-02917",
-        "scenario_digest": "5ce68a75324d4b78e74923db06f20067465896abdfe05a38ce0e9b7603e1df63"
-      },
-      "sampling_cell": {
-        "ability_id": "interaction_state",
-        "candidate_variant_slot": 5
-      },
-      "ability": {
-        "id": "interaction_state",
-        "objective": "Match content to the current state and the next available action"
-      },
-      "context": {
-        "situation": "successful_update",
-        "state": "A requested profile change completed successfully",
-        "risk": "low",
-        "user_goal": "Confirm the completed result without extra claims",
-        "state_expression": "Profile updated",
-        "action_expression": "View profile",
-        "consequence_expression": "Your changes are saved",
-        "surface": "form_error",
-        "surface_context": "inline validation message",
-        "channel": "web",
-        "source_locale": "en-US",
-        "target_locale": "pt-BR",
-        "direction": "ltr"
-      },
-      "candidate": {
-        "text": "Profile updated. View profile.",
+        "text": "Everything is complete for subscription renewal. Review or cancel subscription.",
         "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3700,10 +3798,96 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-02479",
+      "work_unit_id": "review-cdes-02914",
       "scenario_ref": {
-        "scenario_id": "cdes-02479",
-        "scenario_digest": "0fc5c7fd8a3b8c630d480cb5b6f891a6f8acf17d362ea4c20ff382d53cab419e"
+        "scenario_id": "cdes-02914",
+        "scenario_digest": "9b10f03472ed257dcd2f9c30f26a16b1012df3b260ae1ae91419aaf85ab834a3"
+      },
+      "sampling_cell": {
+        "ability_id": "interaction_state",
+        "candidate_variant_slot": 5
+      },
+      "ability": {
+        "id": "interaction_state",
+        "objective": "Match content to the current state and the next available action"
+      },
+      "context": {
+        "situation": "successful_update",
+        "state": "A requested profile change completed successfully",
+        "risk": "low",
+        "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
+        "surface": "form_error",
+        "surface_context": "inline validation message",
+        "channel": "web",
+        "source_locale": "en-US",
+        "target_locale": "ar-SA",
+        "direction": "rtl",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
+      },
+      "candidate": {
+        "text": "Important: Profile updated. View profile.",
+        "supporting_text": "Your changes are saved",
+        "language": "en",
+        "localization_status": "source_language_candidate_requires_localization"
+      },
+      "rubric": {
+        "evaluation_order": [
+          "evidence_authority",
+          "truth_state",
+          "action_consequence_recovery",
+          "semantic_completeness",
+          "accessibility_locale",
+          "comprehension_structure",
+          "voice_tone_economy"
+        ],
+        "hard_dimensions": [
+          "factual_accuracy",
+          "state_accuracy",
+          "semantic_fidelity",
+          "agency",
+          "recovery",
+          "authority_boundary"
+        ],
+        "quality_dimensions": [
+          "clarity",
+          "specificity",
+          "hierarchy",
+          "accessibility_readiness",
+          "locale_readiness",
+          "voice_fit",
+          "tone_fit",
+          "economy"
+        ]
+      },
+      "reviewer_response": {
+        "disposition": null,
+        "hard_dimension_results": null,
+        "quality_dimension_scores": null,
+        "rationale": null,
+        "acceptable_meaning_invariants": null,
+        "recommended_revision": null,
+        "reviewer_role": null,
+        "review_evidence_refs": null
+      },
+      "review_state": "unreviewed",
+      "authority_effect": "none",
+      "retrieval_eligibility": "never",
+      "training_eligibility": "never",
+      "benchmark_eligibility": false
+    },
+    {
+      "work_unit_id": "review-cdes-02477",
+      "scenario_ref": {
+        "scenario_id": "cdes-02477",
+        "scenario_digest": "901042284d2ffc9b5cd0d0b1e47eea7e2cf9a1fd332df91d86dd7c89e8e3c67c"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3725,14 +3909,18 @@
         "surface_context": "support guidance",
         "channel": "help",
         "source_locale": "en-US",
-        "target_locale": "en-GB",
-        "direction": "ltr"
+        "target_locale": "en-IN",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about validation error: Enter a valid expiry date. Please carefully review all available information before determining whether to proceed. We can't submit the form until this is corrected. Review expiry date.",
+        "text": "Enter a valid expiry date. Review expiry date.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3785,7 +3973,7 @@
       "work_unit_id": "review-cdes-02751",
       "scenario_ref": {
         "scenario_id": "cdes-02751",
-        "scenario_digest": "63fd92d8122af4b36f609facde67a3de8491913430e7ab03bcea0373199bd8c2"
+        "scenario_digest": "19628598088661a49014dd553b03ad780dd38f40859098fa7e021ba01286c45a"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3808,13 +3996,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
         "supporting_text": "A support agent can help with account changes",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3867,7 +4059,7 @@
       "work_unit_id": "review-cdes-02300",
       "scenario_ref": {
         "scenario_id": "cdes-02300",
-        "scenario_digest": "55459b3bda2c898f9e368fc7836c35b8680e86c48d42d56157e5d92db8856777"
+        "scenario_digest": "5e9e1a64cfab7babbf175f0cb7a6203ae960eaff3e45d1395543832e2a3646a0"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3890,13 +4082,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "es-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on destructive delete. Delete project.",
         "supporting_text": "This can't be undone",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -3949,7 +4145,7 @@
       "work_unit_id": "review-cdes-02526",
       "scenario_ref": {
         "scenario_id": "cdes-02526",
-        "scenario_digest": "8c482f4d9e35420d02b44f2de6d9bddb04865b09586a5842668aa6c7abf0c04e"
+        "scenario_digest": "48ffd349f5f3d8b23ebca6fba61e973cd2ee2848fe17580fe6e05de87bed3697"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3972,13 +4168,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with empty state.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4031,7 +4231,7 @@
       "work_unit_id": "review-cdes-02803",
       "scenario_ref": {
         "scenario_id": "cdes-02803",
-        "scenario_digest": "85ddca7ea125a64dec16c1a0a3f5df59ed6478ae3b51a43137bf866ec0f8f55f"
+        "scenario_digest": "6e9ac31bba8ffdf6eb8d23f00ab312c9a41b36fe0f8e9f21d31e3dee1b69cea0"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -4054,13 +4254,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "es-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Go to Security",
         "supporting_text": "Manage your password and sign-in options in Security. This opens Security settings.",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4113,7 +4317,7 @@
       "work_unit_id": "review-cdes-08348",
       "scenario_ref": {
         "scenario_id": "cdes-08348",
-        "scenario_digest": "03650c58f61ced22d14a593766e55df3acfba44690d8efca4fb0e87dc3668caa"
+        "scenario_digest": "124dc8c4004f6cce5b587cb451932e11f965782fdb83bbfe62de1b74a562f4eb"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4136,13 +4340,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "es-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this permission request issue. Choose location access.",
         "supporting_text": "You can change this later in Settings",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4195,7 +4403,7 @@
       "work_unit_id": "review-cdes-08612",
       "scenario_ref": {
         "scenario_id": "cdes-08612",
-        "scenario_digest": "b57e1e1c44c6ac81629085d617eaea0ef5b7dfa8a2d252b4df831d6c9135ee13"
+        "scenario_digest": "98a5737df7ca2281d632e8c01cfeb3f6c6bc66ed70af209271cf8e16c94174b8"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4218,13 +4426,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We can't complete this right now. Try again later",
         "supporting_text": "Your saved work is still here",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4274,10 +4486,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-08175",
+      "work_unit_id": "review-cdes-08179",
       "scenario_ref": {
-        "scenario_id": "cdes-08175",
-        "scenario_digest": "ac187de73fc7bd642c30f8ac8ea56443f91e90aecb2d2f70613557492add79b3"
+        "scenario_id": "cdes-08179",
+        "scenario_digest": "349d2d7ab1dd1dc97deac6553bc75849c4318555235c2d7b3839f3c62fe64595"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4299,16 +4511,20 @@
         "surface_context": "support guidance",
         "channel": "help",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "de-DE",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for subscription renewal. Review or cancel subscription.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "Your 14-day trial will renew at $12 a month. You'll be charged unless you cancel before renewal. Review or cancel subscription.",
+        "supporting_text": "Help with subscription renewal",
         "language": "en",
-        "localization_status": "target_language_candidate"
+        "localization_status": "source_language_candidate_requires_localization"
       },
       "rubric": {
         "evaluation_order": [
@@ -4356,10 +4572,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-08954",
+      "work_unit_id": "review-cdes-08955",
       "scenario_ref": {
-        "scenario_id": "cdes-08954",
-        "scenario_digest": "2944ed30351ce2d6490d9f96f4ce3aad1b29ea697c5cf9a5fd49201a7907a900"
+        "scenario_id": "cdes-08955",
+        "scenario_digest": "aecf41b6c3231ffe2d70950060e17c875695756a19814412ca66b21c1c3a889c"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4381,14 +4597,18 @@
         "surface_context": "out-of-product notification",
         "channel": "push",
         "source_locale": "en-US",
-        "target_locale": "ar-SA",
-        "direction": "rtl"
+        "target_locale": "he-IL",
+        "direction": "rtl",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Profile updated. View profile.",
-        "supporting_text": "Your changes are saved",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for successful update. View profile.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4438,10 +4658,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-08497",
+      "work_unit_id": "review-cdes-08494",
       "scenario_ref": {
-        "scenario_id": "cdes-08497",
-        "scenario_digest": "c1735bc87255114fc2347cb40a0c5da3bcc4a339b2583023545822a8bd50c6cf"
+        "scenario_id": "cdes-08494",
+        "scenario_digest": "9a99b13108231148043dda0ec9f93c2d1b704be303ad7686238d57a64657572d"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4463,14 +4683,18 @@
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
         "source_locale": "en-US",
-        "target_locale": "ja-JP",
-        "direction": "ltr"
+        "target_locale": "de-DE",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Enter a valid expiry date. Review expiry date.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: Enter a valid expiry date",
+        "supporting_text": "We can't submit the form until this is corrected. Review expiry date.",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4520,10 +4744,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-08729",
+      "work_unit_id": "review-cdes-08727",
       "scenario_ref": {
-        "scenario_id": "cdes-08729",
-        "scenario_digest": "6d7052e09208fb501b4d3e5a881d8fb66173dfcaec00e541bbe9d5096ce8de37"
+        "scenario_id": "cdes-08727",
+        "scenario_digest": "9659b1a23ba4ad82a007158e0fc6499e993f37b0184c693a9d6340949b85e6c4"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4545,14 +4769,18 @@
         "surface_context": "persistent page-level notice",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "ar-SA",
-        "direction": "rtl"
+        "target_locale": "fr-FR",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about automated assistant: I'm an automated assistant and can explain billing, but I can't change your account. Please carefully review all available information before determining whether to proceed. A support agent can help with account changes. Contact support.",
+        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4605,7 +4833,7 @@
       "work_unit_id": "review-cdes-08201",
       "scenario_ref": {
         "scenario_id": "cdes-08201",
-        "scenario_digest": "c3abe48137943baa419a7d66c29efd24d36d4278b28aaef95f0829d6c3fa4bab"
+        "scenario_digest": "1425243253f80737097e001f8d8fff467f2769f933f5a0694877fe8243a57bb7"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4628,13 +4856,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Delete project",
         "supporting_text": "Deleting this project permanently removes it for everyone. This can't be undone.",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -4687,7 +4919,7 @@
       "work_unit_id": "review-cdes-08590",
       "scenario_ref": {
         "scenario_id": "cdes-08590",
-        "scenario_digest": "fe3dbde3d9db8eaa203b083b880fc2db97167f56dd60c0e3fe6474e5cc3890db"
+        "scenario_digest": "fe121ec563a7716d1abdf295bdccf95c0ea8850274c151fe05c2e520f8f6c558"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4710,13 +4942,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on empty state. Create project.",
         "supporting_text": "Your projects will appear here",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -4769,7 +5005,7 @@
       "work_unit_id": "review-cdes-08836",
       "scenario_ref": {
         "scenario_id": "cdes-08836",
-        "scenario_digest": "19624f7a90a2767776bcca3803d6f8d7070f5e5ebcec57ef119c2b2e77241474"
+        "scenario_digest": "2f7d8af2679e76f06aabdcad18069fa258d01e822f652c434df7b7a92c0befd7"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4792,13 +5028,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with navigation destination.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4851,7 +5091,7 @@
       "work_unit_id": "review-cdes-08063",
       "scenario_ref": {
         "scenario_id": "cdes-08063",
-        "scenario_digest": "85a859ee8e0dee8692b67488773b7f53e64334ed0805974534244ee55426dc8a"
+        "scenario_digest": "8985ff8e5929047e0563d58cb4c273e83a2a8979201887899595c96e70af23c0"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4874,13 +5114,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. We couldn't confirm your payment. Paying again could result in a duplicate charge. Check payment status.",
         "supporting_text": "Regarding payment unknown",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -4933,7 +5177,7 @@
       "work_unit_id": "review-cdes-03658",
       "scenario_ref": {
         "scenario_id": "cdes-03658",
-        "scenario_digest": "1efa4e4b56209fde81f9a1fc67a0fa3774bfb701ccee2c824ba3987a1c23fc03"
+        "scenario_digest": "079d9d74048b5bb5db6b29c4a46140385dfa997ae3cec6aba5d79cc6fbc86df8"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -4956,13 +5200,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "en-GB",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this service interruption issue. Try again later.",
         "supporting_text": "Your saved work is still here",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5015,7 +5263,7 @@
       "work_unit_id": "review-cdes-03192",
       "scenario_ref": {
         "scenario_id": "cdes-03192",
-        "scenario_digest": "26284c22af66666c130b85e81264d6e33cd759877c648a9430a19a76a4504a1b"
+        "scenario_digest": "98e726a00b6975453effc53e64fb8fdf45355225636b72be8ca6c4e6e9a051e4"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5038,13 +5286,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Your 14-day trial will renew at $12 a month",
         "supporting_text": "You'll be charged unless you cancel before renewal. Review or cancel subscription.",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5094,10 +5346,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-03925",
+      "work_unit_id": "review-cdes-03929",
       "scenario_ref": {
-        "scenario_id": "cdes-03925",
-        "scenario_digest": "b59a2869d484326cc29f381e866dfc36c8335ecc4174575b0b5019247290c8d0"
+        "scenario_id": "cdes-03929",
+        "scenario_digest": "8082aff844b4d5444f030dfcc3f9d1ae0de48a094d45100c67fdb4e253cc9358"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5119,14 +5371,18 @@
         "surface_context": "persistent page-level notice",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "pt-BR",
-        "direction": "ltr"
+        "target_locale": "es-US",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for successful update. View profile.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "Profile updated. View profile.",
+        "supporting_text": "Your changes are saved",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5176,10 +5432,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-03404",
+      "work_unit_id": "review-cdes-03405",
       "scenario_ref": {
-        "scenario_id": "cdes-03404",
-        "scenario_digest": "8d0d33258ea8462d6a61da62b67ee139a16064168e845f3e598f5fca0ea5f8ab"
+        "scenario_id": "cdes-03405",
+        "scenario_digest": "6d9ef95e49b997f63b735787fdcd21838b4a4092a76fc4067a8a9bf0373790fb"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5201,96 +5457,18 @@
         "surface_context": "compact control label",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Review expiry date",
-        "supporting_text": "Enter a valid expiry date. We can't submit the form until this is corrected.",
-        "voice": "formal",
-        "tone": "serious",
-        "language": "en",
-        "localization_status": "target_language_candidate"
-      },
-      "rubric": {
-        "evaluation_order": [
-          "evidence_authority",
-          "truth_state",
-          "action_consequence_recovery",
-          "semantic_completeness",
-          "accessibility_locale",
-          "comprehension_structure",
-          "voice_tone_economy"
-        ],
-        "hard_dimensions": [
-          "factual_accuracy",
-          "state_accuracy",
-          "semantic_fidelity",
-          "agency",
-          "recovery",
-          "authority_boundary"
-        ],
-        "quality_dimensions": [
-          "clarity",
-          "specificity",
-          "hierarchy",
-          "accessibility_readiness",
-          "locale_readiness",
-          "voice_fit",
-          "tone_fit",
-          "economy"
-        ]
-      },
-      "reviewer_response": {
-        "disposition": null,
-        "hard_dimension_results": null,
-        "quality_dimension_scores": null,
-        "rationale": null,
-        "acceptable_meaning_invariants": null,
-        "recommended_revision": null,
-        "reviewer_role": null,
-        "review_evidence_refs": null
-      },
-      "review_state": "unreviewed",
-      "authority_effect": "none",
-      "retrieval_eligibility": "never",
-      "training_eligibility": "never",
-      "benchmark_eligibility": false
-    },
-    {
-      "work_unit_id": "review-cdes-03787",
-      "scenario_ref": {
-        "scenario_id": "cdes-03787",
-        "scenario_digest": "973f96bb4ae93127f9b1a8dcc50716833a672e1cd7004217b8b7828d9a380e27"
-      },
-      "sampling_cell": {
-        "ability_id": "recovery",
-        "candidate_variant_slot": 5
-      },
-      "ability": {
-        "id": "recovery",
-        "objective": "Provide safe verification, correction, reversal, alternatives, or support"
-      },
-      "context": {
-        "situation": "automated_assistant",
-        "state": "An automated assistant can explain but cannot change the account",
-        "risk": "medium",
-        "user_goal": "Disclose automation, limits, and human handoff",
-        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
-        "action_expression": "Contact support",
-        "consequence_expression": "A support agent can help with account changes",
-        "surface": "chat",
-        "surface_context": "assistant response",
-        "channel": "web_chat",
-        "source_locale": "en-US",
-        "target_locale": "de-DE",
-        "direction": "ltr"
-      },
-      "candidate": {
-        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "text": "Everything is complete for validation error. Review expiry date.",
         "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5340,10 +5518,96 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-03239",
+      "work_unit_id": "review-cdes-03784",
       "scenario_ref": {
-        "scenario_id": "cdes-03239",
-        "scenario_digest": "0f65cd232a7e2c1f8ff20a825f08256ef1b9b6be6a5c40ce880209303978f1c4"
+        "scenario_id": "cdes-03784",
+        "scenario_digest": "b9bf074a372c684fd9b8a1d55e886cabbd988aa0225b45a1da47ffb1efc67f80"
+      },
+      "sampling_cell": {
+        "ability_id": "recovery",
+        "candidate_variant_slot": 5
+      },
+      "ability": {
+        "id": "recovery",
+        "objective": "Provide safe verification, correction, reversal, alternatives, or support"
+      },
+      "context": {
+        "situation": "automated_assistant",
+        "state": "An automated assistant can explain but cannot change the account",
+        "risk": "medium",
+        "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
+        "surface": "chat",
+        "surface_context": "assistant response",
+        "channel": "web_chat",
+        "source_locale": "en-US",
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
+      },
+      "candidate": {
+        "text": "Important: I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
+        "language": "en",
+        "localization_status": "source_language_candidate_requires_localization"
+      },
+      "rubric": {
+        "evaluation_order": [
+          "evidence_authority",
+          "truth_state",
+          "action_consequence_recovery",
+          "semantic_completeness",
+          "accessibility_locale",
+          "comprehension_structure",
+          "voice_tone_economy"
+        ],
+        "hard_dimensions": [
+          "factual_accuracy",
+          "state_accuracy",
+          "semantic_fidelity",
+          "agency",
+          "recovery",
+          "authority_boundary"
+        ],
+        "quality_dimensions": [
+          "clarity",
+          "specificity",
+          "hierarchy",
+          "accessibility_readiness",
+          "locale_readiness",
+          "voice_fit",
+          "tone_fit",
+          "economy"
+        ]
+      },
+      "reviewer_response": {
+        "disposition": null,
+        "hard_dimension_results": null,
+        "quality_dimension_scores": null,
+        "rationale": null,
+        "acceptable_meaning_invariants": null,
+        "recommended_revision": null,
+        "reviewer_role": null,
+        "review_evidence_refs": null
+      },
+      "review_state": "unreviewed",
+      "authority_effect": "none",
+      "retrieval_eligibility": "never",
+      "training_eligibility": "never",
+      "benchmark_eligibility": false
+    },
+    {
+      "work_unit_id": "review-cdes-03237",
+      "scenario_ref": {
+        "scenario_id": "cdes-03237",
+        "scenario_digest": "6151a86fd76e979e07e28036ff9a1a85404d6d70c3c00ceb6c94860dc9e2cebb"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5365,14 +5629,18 @@
         "surface_context": "interruptive decision dialog",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "he-IL",
-        "direction": "rtl"
+        "target_locale": "de-DE",
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about destructive delete: Deleting this project permanently removes it for everyone. Please carefully review all available information before determining whether to proceed. This can't be undone. Delete project.",
+        "text": "Deleting this project permanently removes it for everyone. Delete project.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5425,7 +5693,7 @@
       "work_unit_id": "review-cdes-03561",
       "scenario_ref": {
         "scenario_id": "cdes-03561",
-        "scenario_digest": "65112e928813301c161cd70743ca62d402d7ca6abbb9a25fbba406b9035e6e97"
+        "scenario_digest": "07792d98d54722c7fb1b5130a1aa9b6e7169c2aaac2d2dda658f2caf0d7dcaed"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5448,13 +5716,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "No projects yet. Your projects will appear here. Create project.",
         "supporting_text": "Regarding empty state",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5507,7 +5779,7 @@
       "work_unit_id": "review-cdes-03850",
       "scenario_ref": {
         "scenario_id": "cdes-03850",
-        "scenario_digest": "45f686281d1df3e64218fe7981e856ad3891e83a9fad1325de5d2736ee0763b0"
+        "scenario_digest": "182046fbd2e777d2242ff3e7927bf94642c568810fdf192a791bd16d1b56f3e8"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5530,13 +5802,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on navigation destination. Go to Security.",
         "supporting_text": "This opens Security settings",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5589,7 +5865,7 @@
       "work_unit_id": "review-cdes-03016",
       "scenario_ref": {
         "scenario_id": "cdes-03016",
-        "scenario_digest": "d11e0ac5dbedf456db5199164a4d74c7cea1b165c0a9f7d8949a60b6e39e4432"
+        "scenario_digest": "9a41e8c4457a617f089d47d18b58f401daa9aa441544769b97a0aa29658b5557"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5612,13 +5888,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with payment unknown.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5671,7 +5951,7 @@
       "work_unit_id": "review-cdes-03373",
       "scenario_ref": {
         "scenario_id": "cdes-03373",
-        "scenario_digest": "72de086c4155d52e125e4f8f364446b0bc5261cd41fe9105e9666f088a53d172"
+        "scenario_digest": "c12706231563150bc56f2fc7ca612b26a3679a99445bff62fad911c6f04b0343"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5694,13 +5974,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "ar-SA",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Location access shows nearby pickup options. You can change this later in Settings. Choose location access.",
         "supporting_text": "Help with permission request",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5753,7 +6037,7 @@
       "work_unit_id": "review-cdes-01108",
       "scenario_ref": {
         "scenario_id": "cdes-01108",
-        "scenario_digest": "705c5380b4a9a03fe70c48307d82f792df5002612c3e95af8026552d09f78562"
+        "scenario_digest": "44f5496fb38937c42c37564bee7004295689d0e074ece0f5eba1e43661480249"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5776,13 +6060,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this subscription renewal issue. Review or cancel subscription.",
         "supporting_text": "You'll be charged unless you cancel before renewal",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5835,7 +6123,7 @@
       "work_unit_id": "review-cdes-01982",
       "scenario_ref": {
         "scenario_id": "cdes-01982",
-        "scenario_digest": "cdacb166066218ff464351871c249766d5673d72c3aefeb41d58b363b2e6d483"
+        "scenario_digest": "8d9d9a2e71d7f80ed4dd99773e90a1a85f0ce909b2098548ee96c26742f0989d"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5858,13 +6146,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Profile updated. View profile",
         "supporting_text": "Your changes are saved",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5914,10 +6206,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-01435",
+      "work_unit_id": "review-cdes-01439",
       "scenario_ref": {
-        "scenario_id": "cdes-01435",
-        "scenario_digest": "f7501c1243ff764a14955561233ca9313fd66c96f540d735a9a6b01d4a0eb2e2"
+        "scenario_id": "cdes-01439",
+        "scenario_digest": "b41681021f524e46d43c09cccbf6767de5e7cde3b7178c066f3be906c4a30f00"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5939,14 +6231,18 @@
         "surface_context": "interruptive decision dialog",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "es-US",
-        "direction": "ltr"
+        "target_locale": "he-IL",
+        "direction": "rtl",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for validation error. Review expiry date.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "Enter a valid expiry date. We can't submit the form until this is corrected.",
+        "supporting_text": "Review expiry date",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -5996,10 +6292,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-01764",
+      "work_unit_id": "review-cdes-01765",
       "scenario_ref": {
-        "scenario_id": "cdes-01764",
-        "scenario_digest": "fe72eb423c1dea2d50641aea1cbb641e59e24587123c75b2e170faf0cd7cc995"
+        "scenario_id": "cdes-01765",
+        "scenario_digest": "441c39c07fb7108c77a6c04b337a5918f83fa7f454a47fbc8bab1822b1cfa0c7"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6021,14 +6317,18 @@
         "surface_context": "transactional email",
         "channel": "email",
         "source_locale": "en-US",
-        "target_locale": "ja-JP",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: I'm an automated assistant and can explain billing, but I can't change your account. A support agent can help with account changes. Contact support.",
-        "supporting_text": "Regarding automated assistant",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for automated assistant. Contact support.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6078,10 +6378,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-01247",
+      "work_unit_id": "review-cdes-01244",
       "scenario_ref": {
-        "scenario_id": "cdes-01247",
-        "scenario_digest": "67842b6e56e95e81003451a878d2c9c48d0781707d1e99317d342b8c06b2e4c2"
+        "scenario_id": "cdes-01244",
+        "scenario_digest": "3d0ad1e8e10d5c732ef4462488cb54acc8f59347f68fc161feab016e9e93a2d5"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6103,16 +6403,20 @@
         "surface_context": "page-level zero state",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "fr-FR",
-        "direction": "ltr"
+        "target_locale": "en-US",
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Deleting this project permanently removes it for everyone. Delete project.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: Deleting this project permanently removes it for everyone. Delete project.",
+        "supporting_text": "This can't be undone",
         "language": "en",
-        "localization_status": "source_language_candidate_requires_localization"
+        "localization_status": "target_language_candidate"
       },
       "rubric": {
         "evaluation_order": [
@@ -6160,10 +6464,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-01519",
+      "work_unit_id": "review-cdes-01517",
       "scenario_ref": {
-        "scenario_id": "cdes-01519",
-        "scenario_digest": "02bd230dd70c237f8173defdce0808d5b4f915bb7a592fa9e306054d05e22622"
+        "scenario_id": "cdes-01517",
+        "scenario_digest": "c47b1b295f49d7edc8b3c24dec2d400208e0682359a48889fd0371187a4d69a6"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6185,14 +6489,18 @@
         "surface_context": "inline validation message",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "ar-SA",
-        "direction": "rtl"
+        "target_locale": "fr-FR",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about empty state: No projects yet. Please carefully review all available information before determining whether to proceed. Your projects will appear here. Create project.",
+        "text": "No projects yet. Create project.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6245,7 +6553,7 @@
       "work_unit_id": "review-cdes-01871",
       "scenario_ref": {
         "scenario_id": "cdes-01871",
-        "scenario_digest": "122e7810d4cff99e9f43a18b0bc47970ebf298c8e0edc5c153e586305ea43c21"
+        "scenario_digest": "4a15497da78aad32c9e6d4225bf4c0e428f38af9a2770a69f941ee94d2fe2723"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6268,13 +6576,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "he-IL",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Manage your password and sign-in options in Security. This opens Security settings. Go to Security.",
         "supporting_text": "Help with navigation destination",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6327,7 +6639,7 @@
       "work_unit_id": "review-cdes-01060",
       "scenario_ref": {
         "scenario_id": "cdes-01060",
-        "scenario_digest": "77a19efc1d80610b34ecd16fe90289c9ece31b3b2ff16e6fa8ba2dc9f76972d4"
+        "scenario_digest": "c1d8ece13ca826ca2501bba9abede0c45791bf4c1187914990a293f1e1618580"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6350,13 +6662,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "ar-SA",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on payment unknown. Check payment status.",
         "supporting_text": "Paying again could result in a duplicate charge",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6409,7 +6725,7 @@
       "work_unit_id": "review-cdes-01396",
       "scenario_ref": {
         "scenario_id": "cdes-01396",
-        "scenario_digest": "abee02fd674bd4ac606252def4fa4d8c7154ddfc492c96b564ad0724dda97cb2"
+        "scenario_digest": "405e3f99f1af3253b4945859d93b0e9d61c103bb5be275a9f8049398e54519b0"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6432,13 +6748,17 @@
         "channel": "assistive_technology",
         "source_locale": "en-US",
         "target_locale": "pt-BR",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with permission request.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6491,7 +6811,7 @@
       "work_unit_id": "review-cdes-01623",
       "scenario_ref": {
         "scenario_id": "cdes-01623",
-        "scenario_digest": "df0ee85de5135d5849987567d4b66cfe6c6f6ef62aef8ac568e8adb8b83069bf"
+        "scenario_digest": "a2226a45a8b29e37d1ba82186a22e3772a782d37588948c8ea08d06c9267dd72"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6514,13 +6834,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-GB",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. We can't complete this right now. Try again later.",
         "supporting_text": "Your saved work is still here",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6573,7 +6897,7 @@
       "work_unit_id": "review-cdes-05968",
       "scenario_ref": {
         "scenario_id": "cdes-05968",
-        "scenario_digest": "32ed4387b7e7a28990360f08cef4e0ca0429cea9eb1b7f734e4d991a15352ee5"
+        "scenario_digest": "32d4d031e90b4c6e8093f0f31dabb23a1140b53ddae09adf469f4a93df9bc5d7"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6596,13 +6920,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this successful update issue. View profile.",
         "supporting_text": "Your changes are saved",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6655,7 +6983,7 @@
       "work_unit_id": "review-cdes-05442",
       "scenario_ref": {
         "scenario_id": "cdes-05442",
-        "scenario_digest": "f2a3f04c1a1a37c1b12438106101a7b6e040b87542c02014498293435ba3d2b7"
+        "scenario_digest": "23d9ea95fb0e71a12f56379b6073d0f2cb0a74f008bb5e0f683ec049be255be5"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6678,13 +7006,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Enter a valid expiry date. Review expiry date",
         "supporting_text": "We can't submit the form until this is corrected",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6734,10 +7066,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-05715",
+      "work_unit_id": "review-cdes-05719",
       "scenario_ref": {
-        "scenario_id": "cdes-05715",
-        "scenario_digest": "60db3765badfa0a781cf76de2fa05714ebf3fb813590b6397646d1ba044706a7"
+        "scenario_id": "cdes-05719",
+        "scenario_digest": "2998efb6ce3f40d05be8e5320d0d05e8abe43d8835ff810cdf13c695897d6d81"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6759,14 +7091,18 @@
         "surface_context": "inline validation message",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "ja-JP",
-        "direction": "ltr"
+        "target_locale": "en-GB",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for automated assistant. Contact support.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6816,10 +7152,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-05274",
+      "work_unit_id": "review-cdes-05275",
       "scenario_ref": {
-        "scenario_id": "cdes-05274",
-        "scenario_digest": "c3cb6a67470ab93820a1237c3a14590091355db600d4d10b7f9e06069b1e2a9c"
+        "scenario_id": "cdes-05275",
+        "scenario_digest": "953b7323d16e7ace0fa9a3ec51111b898bf94ab97de12657c6a2739fb5179f54"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6841,14 +7177,18 @@
         "surface_context": "support guidance",
         "channel": "help",
         "source_locale": "en-US",
-        "target_locale": "ja-JP",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: Deleting this project permanently removes it for everyone. This can't be undone. Delete project.",
-        "supporting_text": "Help with destructive delete",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for destructive delete. Delete project.",
+        "supporting_text": null,
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6898,10 +7238,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-05557",
+      "work_unit_id": "review-cdes-05554",
       "scenario_ref": {
-        "scenario_id": "cdes-05557",
-        "scenario_digest": "ebdf1ed8cce25854aa8aab3fd8302444ed3c4c8c68920763f02d7a9ecd96e17d"
+        "scenario_id": "cdes-05554",
+        "scenario_digest": "0772cc43f957e9f738d96dce0857ed7de07a2b9228b3e4d4733fa49e4b8570d6"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6923,14 +7263,18 @@
         "surface_context": "out-of-product notification",
         "channel": "push",
         "source_locale": "en-US",
-        "target_locale": "en-GB",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "No projects yet. Create project.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: No projects yet. Create project.",
+        "supporting_text": "Your projects will appear here",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -6980,10 +7324,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-05899",
+      "work_unit_id": "review-cdes-05897",
       "scenario_ref": {
-        "scenario_id": "cdes-05899",
-        "scenario_digest": "eacc68a5c6a347129e473f686c72330b716346cdba08ff09ce95a21266bd0f58"
+        "scenario_id": "cdes-05897",
+        "scenario_digest": "b2d1f1208198d8b8cb547fa7cb2b8e5aa880bc6e497eccf593a4c17ebe77d439"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -7005,16 +7349,20 @@
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
         "source_locale": "en-US",
-        "target_locale": "en-US",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about navigation destination: Manage your password and sign-in options in Security. Please carefully review all available information before determining whether to proceed. This opens Security settings. Go to Security.",
+        "text": "Manage your password and sign-in options in Security. Go to Security.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
-        "localization_status": "target_language_candidate"
+        "localization_status": "source_language_candidate_requires_localization"
       },
       "rubric": {
         "evaluation_order": [
@@ -7065,7 +7413,7 @@
       "work_unit_id": "review-cdes-05021",
       "scenario_ref": {
         "scenario_id": "cdes-05021",
-        "scenario_digest": "8e1b8e1bf5e31204d1071b72798aa5f631ca9cad832e28d2e69918d63ea39477"
+        "scenario_digest": "2cd6388e59d21a4c4993d8643cc16f6057dfb471cf0b611cbb3e279f189d77f4"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -7088,13 +7436,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We couldn't confirm your payment. Check payment status.",
         "supporting_text": "Paying again could result in a duplicate charge",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7147,7 +7499,7 @@
       "work_unit_id": "review-cdes-05310",
       "scenario_ref": {
         "scenario_id": "cdes-05310",
-        "scenario_digest": "0e5a4e70d54e281d7dfdfec2cfb7c3bcde92bf4e06cfa018f53f85bee38b5f73"
+        "scenario_digest": "12f1102bb8a7d5f3a2e67ddc855cae870a54db1af7d9f763dd9ff49b740d64e4"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -7170,13 +7522,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on permission request. Choose location access.",
         "supporting_text": "You can change this later in Settings",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7229,7 +7585,7 @@
       "work_unit_id": "review-cdes-05686",
       "scenario_ref": {
         "scenario_id": "cdes-05686",
-        "scenario_digest": "c63cf26e38089cbe72b29281ff237ab7bc64f6366ff2330cf5b4e916902fc816"
+        "scenario_digest": "9c971e6cbac8eba42a2f5d029c911a426ebfeda308357a57045a20ee3cdcd1fc"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -7252,13 +7608,17 @@
         "channel": "web_chat",
         "source_locale": "en-US",
         "target_locale": "de-DE",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with service interruption.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7311,7 +7671,7 @@
       "work_unit_id": "review-cdes-05133",
       "scenario_ref": {
         "scenario_id": "cdes-05133",
-        "scenario_digest": "74874bdaae590b1cbc86873e12d5bb2ac5fb783edeec6ff7a63b51974f961b68"
+        "scenario_digest": "2495da7f16cd6c6f272ca4186a21d238a32dd79ba891503b853423c2cf28bf69"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -7334,13 +7694,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-GB",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Your 14-day trial will renew at $12 a month. You'll be charged unless you cancel before renewal.",
         "supporting_text": "Review or cancel subscription",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7393,7 +7757,7 @@
       "work_unit_id": "review-cdes-09478",
       "scenario_ref": {
         "scenario_id": "cdes-09478",
-        "scenario_digest": "79d8646b8b8a0fa8c5cb5ba03a6d2d14e098a486bc937ea678afd11085d93d73"
+        "scenario_digest": "44e5bb357c45db0038bad4624ce4b6366d5e75b95e50147f6b609e563cb9e364"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7416,13 +7780,17 @@
         "channel": "help",
         "source_locale": "en-US",
         "target_locale": "ja-JP",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "You caused this validation error issue. Review expiry date.",
         "supporting_text": "We can't submit the form until this is corrected",
-        "voice": "blunt",
-        "tone": "accusatory",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7475,7 +7843,7 @@
       "work_unit_id": "review-cdes-09752",
       "scenario_ref": {
         "scenario_id": "cdes-09752",
-        "scenario_digest": "a9b03e9624c76a3fb59ae5ab804b56c77f5d08c8dfaeb60d797d2a34db6d1199"
+        "scenario_digest": "a23335b3930f4c68e72c7b28eee666a606db3cb9cc7406d6f0c0c4e7131b4e62"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7498,13 +7866,17 @@
         "channel": "push",
         "source_locale": "en-US",
         "target_locale": "es-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support",
         "supporting_text": "A support agent can help with account changes",
-        "voice": "concise",
-        "tone": "calm",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7554,10 +7926,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-09295",
+      "work_unit_id": "review-cdes-09299",
       "scenario_ref": {
-        "scenario_id": "cdes-09295",
-        "scenario_digest": "0873cbfaeeb9878bb0713b49ce6956f0d4983b863e91b762ff8a414551ddde0f"
+        "scenario_id": "cdes-09299",
+        "scenario_digest": "ed01f8ff3604772413f9ed80be0fb709923a8a72f54ec3bc6e0f6d81be6c8baf"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7579,14 +7951,18 @@
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
         "source_locale": "en-US",
-        "target_locale": "de-DE",
-        "direction": "ltr"
+        "target_locale": "pt-BR",
+        "direction": "ltr",
+        "voice_profile": "plain_respectful",
+        "situational_tone": "serious_calm",
+        "evidence": {
+          "material_fact_status": "missing",
+          "unresolved_question": "The available source does not establish whether the stated product state and consequence are accurate."
+        }
       },
       "candidate": {
-        "text": "Everything is complete for destructive delete. Delete project.",
-        "supporting_text": null,
-        "voice": "confident",
-        "tone": "reassuring",
+        "text": "Deleting this project permanently removes it for everyone",
+        "supporting_text": "This can't be undone. Delete project.",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7636,10 +8012,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-09524",
+      "work_unit_id": "review-cdes-09525",
       "scenario_ref": {
-        "scenario_id": "cdes-09524",
-        "scenario_digest": "f9eca075789e53bebcccb6b65130a63a55d9ee270a9ec5e7c6e64e8f3d294713"
+        "scenario_id": "cdes-09525",
+        "scenario_digest": "c3cab95a3b84fc64c7cb2bc42dc7ecde68b368e8c27b82acdf00c601e47d4605"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7661,16 +8037,20 @@
         "surface_context": "persistent page-level notice",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "en-IN",
-        "direction": "ltr"
+        "target_locale": "en-US",
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Important: No projects yet. Create project.",
-        "supporting_text": "Your projects will appear here",
-        "voice": "formal",
-        "tone": "serious",
+        "text": "Everything is complete for empty state. Create project.",
+        "supporting_text": null,
         "language": "en",
-        "localization_status": "source_language_candidate_requires_localization"
+        "localization_status": "target_language_candidate"
       },
       "rubric": {
         "evaluation_order": [
@@ -7718,10 +8098,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-09807",
+      "work_unit_id": "review-cdes-09804",
       "scenario_ref": {
-        "scenario_id": "cdes-09807",
-        "scenario_digest": "ab6f400987dfb14bfe9e3a9e8f1faae5e2a34392ce190219e51ebf96ec038dba"
+        "scenario_id": "cdes-09804",
+        "scenario_digest": "2a968a84456c938927bf5cff2389b34384d20dec12f046191c72affd0551372a"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7743,16 +8123,20 @@
         "surface_context": "compact control label",
         "channel": "web",
         "source_locale": "en-US",
-        "target_locale": "fr-FR",
-        "direction": "ltr"
+        "target_locale": "en-US",
+        "direction": "ltr",
+        "voice_profile": "plain_helpful",
+        "situational_tone": "neutral_supportive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "Manage your password and sign-in options in Security. Go to Security.",
-        "supporting_text": null,
-        "voice": "concise",
-        "tone": "neutral",
+        "text": "Important: Go to Security",
+        "supporting_text": "Manage your password and sign-in options in Security. This opens Security settings.",
         "language": "en",
-        "localization_status": "source_language_candidate_requires_localization"
+        "localization_status": "target_language_candidate"
       },
       "rubric": {
         "evaluation_order": [
@@ -7800,10 +8184,10 @@
       "benchmark_eligibility": false
     },
     {
-      "work_unit_id": "review-cdes-09089",
+      "work_unit_id": "review-cdes-09087",
       "scenario_ref": {
-        "scenario_id": "cdes-09089",
-        "scenario_digest": "80674f47fde678df2aab2752acd4da65f9de540dc13f3d77442dae186b882192"
+        "scenario_id": "cdes-09087",
+        "scenario_digest": "8ade910274b7c13024d7013794c939cd63cc7f23bef661e5a47091064067b539"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7825,14 +8209,18 @@
         "surface_context": "assistant response",
         "channel": "web_chat",
         "source_locale": "en-US",
-        "target_locale": "ar-SA",
-        "direction": "rtl"
+        "target_locale": "fr-FR",
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
-        "text": "System information about payment unknown: We couldn't confirm your payment. Please carefully review all available information before determining whether to proceed. Paying again could result in a duplicate charge. Check payment status.",
+        "text": "We couldn't confirm your payment. Check payment status.",
         "supporting_text": null,
-        "voice": "technical",
-        "tone": "verbose",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7885,7 +8273,7 @@
       "work_unit_id": "review-cdes-09331",
       "scenario_ref": {
         "scenario_id": "cdes-09331",
-        "scenario_digest": "ace852f6fba315e8ebee4d2a70150af9c6b447c33bf70498d44a54b167c605b2"
+        "scenario_digest": "a6a325b92e230ba4d46b137fea663b31690caaf034bb3136114ccd0e0508670f"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7908,13 +8296,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "ar-SA",
-        "direction": "rtl"
+        "direction": "rtl",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Location access shows nearby pickup options. You can change this later in Settings.",
         "supporting_text": "Choose location access",
-        "voice": "plain",
-        "tone": "direct",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -7967,7 +8359,7 @@
       "work_unit_id": "review-cdes-09670",
       "scenario_ref": {
         "scenario_id": "cdes-09670",
-        "scenario_digest": "504d035d6ff3d8155a7e39d731791de6e5ece58a02befc67f564bd96d59589ab"
+        "scenario_digest": "a75015464153086a88c74e91d6c5985453607542a37ecac867c26363e18ee49a"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7990,13 +8382,17 @@
         "channel": "email",
         "source_locale": "en-US",
         "target_locale": "en-US",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Act now—don't miss out on service interruption. Try again later.",
         "supporting_text": "Your saved work is still here",
-        "voice": "promotional",
-        "tone": "urgent",
         "language": "en",
         "localization_status": "target_language_candidate"
       },
@@ -8049,7 +8445,7 @@
       "work_unit_id": "review-cdes-09146",
       "scenario_ref": {
         "scenario_id": "cdes-09146",
-        "scenario_digest": "d52d8237ebc43733bf13ea4c651c46ec3586fcc2b03c85079990cb6475f6d67d"
+        "scenario_digest": "a55ea888caad8d77b380e9e2a7d3d6c8d05a371e9b7dadee9054c4f480a15a94"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -8072,13 +8468,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-IN",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_reassuring",
+        "situational_tone": "calm_direct",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "Continue with subscription renewal.",
         "supporting_text": "Something happened.",
-        "voice": "minimal",
-        "tone": "neutral",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -8131,7 +8531,7 @@
       "work_unit_id": "review-cdes-09913",
       "scenario_ref": {
         "scenario_id": "cdes-09913",
-        "scenario_digest": "b044bd10f8203c7f28c5ed14ef5da010d9a393af0d50dd98519eea328130924c"
+        "scenario_digest": "6ba17368445ab8d10155ab3e12e7f6c251c0098eb7f83702b582171d06cb37aa"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -8154,13 +8554,17 @@
         "channel": "web",
         "source_locale": "en-US",
         "target_locale": "en-GB",
-        "direction": "ltr"
+        "direction": "ltr",
+        "voice_profile": "plain_economical",
+        "situational_tone": "concise_positive",
+        "evidence": {
+          "material_fact_status": "scenario_facts_available",
+          "unresolved_question": null
+        }
       },
       "candidate": {
         "text": "We're here to help. Profile updated. View profile.",
         "supporting_text": "Your changes are saved",
-        "voice": "warm",
-        "tone": "supportive",
         "language": "en",
         "localization_status": "source_language_candidate_requires_localization"
       },
@@ -8212,5 +8616,5 @@
   ],
   "packet_state": "unreviewed",
   "authority_effect": "none",
-  "packet_digest": "d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a"
+  "packet_digest": "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b"
 }

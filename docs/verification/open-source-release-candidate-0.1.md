@@ -53,12 +53,12 @@ test-isolation correction, not a larger heap substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2136843
-unpacked bytes: 13078413
+tarball bytes: 2137048
+unpacked bytes: 13095410
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
-content-design packet digest: d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a
+content-design packet digest: 99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b
 doctor after adoption: ready_with_governance_warnings
 ```
 

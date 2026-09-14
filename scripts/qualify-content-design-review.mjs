@@ -153,8 +153,8 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
     by_risk: slice((unit) => unit.context.risk),
     by_surface: slice((unit) => unit.context.surface),
     by_locale: slice((unit) => unit.context.target_locale),
-    by_voice: slice((unit) => unit.candidate.voice),
-    by_tone: slice((unit) => unit.candidate.tone),
+    by_voice: slice((unit) => unit.context.voice_profile),
+    by_tone: slice((unit) => unit.context.situational_tone),
     authority_effect: "none",
   };
   return { ...preimage, report_digest: digest(preimage) };

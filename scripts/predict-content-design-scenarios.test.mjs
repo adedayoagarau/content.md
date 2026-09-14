@@ -17,7 +17,7 @@ test("produces replay-stable predictions from the blind packet only", () => {
   assert.equal(first.predictions.every((prediction) => prediction.authority_effect === "none"), true);
 });
 
-test("detects explicit state, pressure, blame, and locale boundaries without hidden labels", () => {
+test("detects pass, abstention, state, pressure, blame, and locale boundaries without hidden labels", () => {
   const packet = prepareReviewSample(generateScenarios());
   const result = predictContentDesignPacket(packet);
   const byId = new Map(result.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
@@ -26,10 +26,20 @@ test("detects explicit state, pressure, blame, and locale boundaries without hid
     assert.ok(prediction);
     assert.equal(Object.hasOwn(prediction, "injected_defect"), false);
     assert.equal(Object.hasOwn(prediction, "provisional_expectation"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "voice"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "tone"), false);
+    if (unit.context.evidence.material_fact_status === "missing") assert.equal(prediction.disposition, "abstain");
     if (/act now|don't miss out/iu.test(unit.candidate.text)) assert.equal(prediction.disposition, "revise");
-    if (/you did this incorrectly/iu.test(unit.candidate.text)) assert.equal(prediction.disposition, "revise");
-    if (unit.context.target_locale !== "en-US" && !Object.values(prediction.hard_dimension_results).includes("fail")) {
+    if (/you caused this/iu.test(unit.candidate.text)) assert.equal(prediction.disposition, "revise");
+    if (unit.context.target_locale !== "en-US"
+      && unit.context.evidence.material_fact_status !== "missing"
+      && !Object.values(prediction.hard_dimension_results).includes("fail")) {
       assert.equal(prediction.disposition, "escalate");
     }
+  }
+  assert.ok(result.predictions.some((prediction) => prediction.disposition === "pass"));
+  assert.ok(result.predictions.some((prediction) => prediction.disposition === "abstain"));
+  for (const prediction of result.predictions.filter((candidate) => candidate.disposition === "pass")) {
+    assert.equal(Object.values(prediction.hard_dimension_results).every((value) => value === "pass" || value === "not_applicable"), true);
   }
 });

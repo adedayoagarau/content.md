@@ -34,16 +34,17 @@ It does not duplicate the bulk generated records in the repository.
 | Blinded packet records | 10,000 |
 | Predictions | 10,000 |
 | Predictions per core ability | 1,000 |
-| `revise` | 5,080 |
-| `escalate` | 4,428 |
-| `human_preference_review` | 492 |
-| `pass` | 0 |
+| `revise` | 5,000 |
+| `abstain` | 1,000 |
+| `escalate` | 3,600 |
+| `human_preference_review` | 200 |
+| `pass` | 200 |
 
 Packet digest:
-`3a3bdf31a593f38fa9e4b592ae8d00a740a780a38245d65ac092d8e74cc80460`
+`d3c8eac0c55eb51d75794fc07bc369780ed890ee5a222acac74009fef05dcc2f`
 
 Prediction-set digest:
-`495827bd56516b66095d76e50a0ceeea441dcf807c4b70b4427a53b70387841e`
+`66e2a5f45e012d5ccf7811992de1c16bb09f4f83030e6122d133775bf31aa56c`
 
 The prediction set reports:
 
@@ -53,8 +54,11 @@ The prediction set reports:
 
 ## Interpretation
 
-The baseline does not collapse into a universal approval decision and does not
-promote synthetic candidates into evidence, gold, retrieval, or training data.
-Its cautious distribution is not proof that the individual judgments are
-correct. Accuracy, false-acceptance risk, and quality calibration remain blocked
-on independent qualified content-design review.
+The baseline exercises all five dispositions and does not collapse into a
+universal approval or rejection decision. Every ability includes positive,
+clear-failure, underspecified, and near-miss controls, while untranslated
+candidates continue to route to in-locale review. The evaluator does not promote
+synthetic candidates into evidence, gold, retrieval, or training data. This
+distribution is not proof that the individual judgments are correct. Accuracy,
+false-acceptance risk, and quality calibration remain blocked on independent
+qualified content-design review.

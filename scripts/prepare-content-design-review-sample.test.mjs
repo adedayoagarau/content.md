@@ -12,10 +12,14 @@ test("creates a replay-stable blinded 100-cell review packet", () => {
   assert.equal(first.sample_count, 100);
   assert.equal(new Set(first.review_work_units.map((unit) => unit.ability.id)).size, 10);
   assert.equal(new Set(first.review_work_units.map((unit) => `${unit.sampling_cell.ability_id}:${unit.sampling_cell.candidate_variant_slot}`)).size, 100);
-  assert.ok(new Set(first.review_work_units.map((unit) => unit.candidate.voice)).size >= 8);
-  assert.ok(new Set(first.review_work_units.map((unit) => unit.candidate.tone)).size >= 8);
+  assert.ok(new Set(first.review_work_units.map((unit) => unit.context.voice_profile)).size >= 3);
+  assert.ok(new Set(first.review_work_units.map((unit) => unit.context.situational_tone)).size >= 3);
   for (const unit of first.review_work_units) {
     assert.equal(Object.hasOwn(unit.candidate, "injected_defect"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "variant"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "voice"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "tone"), false);
+    assert.equal(Object.hasOwn(unit, "evaluation_control"), false);
     assert.equal(Object.hasOwn(unit, "provisional_expectation"), false);
     assert.equal(unit.reviewer_response.disposition, null);
     assert.equal(unit.training_eligibility, "never");
@@ -40,6 +44,10 @@ test("creates a fully blinded packet for all 10,000 scenarios", () => {
   assert.equal(new Set(packet.review_work_units.map((unit) => unit.scenario_ref.scenario_id)).size, 10_000);
   for (const unit of packet.review_work_units) {
     assert.equal(Object.hasOwn(unit.candidate, "injected_defect"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "variant"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "voice"), false);
+    assert.equal(Object.hasOwn(unit.candidate, "tone"), false);
+    assert.equal(Object.hasOwn(unit, "evaluation_control"), false);
     assert.equal(Object.hasOwn(unit, "provisional_expectation"), false);
   }
 });

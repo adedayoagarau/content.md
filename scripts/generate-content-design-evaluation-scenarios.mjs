@@ -48,16 +48,16 @@ const surfaces = [
 ];
 
 const variants = [
-  { id: "plain_direct", voice: "plain", tone: "direct", defect: null, disposition: "human_preference_review" },
-  { id: "concise_calm", voice: "concise", tone: "calm", defect: null, disposition: "human_preference_review" },
-  { id: "warm_supportive", voice: "warm", tone: "supportive", defect: null, disposition: "human_preference_review" },
-  { id: "formal_serious", voice: "formal", tone: "serious", defect: null, disposition: "human_preference_review" },
-  { id: "false_certainty", voice: "confident", tone: "reassuring", defect: "unsupported_certainty", disposition: "revise" },
-  { id: "vague_action", voice: "minimal", tone: "neutral", defect: "unclear_action_or_object", disposition: "revise" },
-  { id: "missing_consequence", voice: "concise", tone: "neutral", defect: "material_consequence_omitted", disposition: "revise" },
-  { id: "blameful", voice: "blunt", tone: "accusatory", defect: "user_blame", disposition: "human_preference_review" },
-  { id: "overloaded", voice: "technical", tone: "verbose", defect: "poor_hierarchy_and_economy", disposition: "human_preference_review" },
-  { id: "urgent_pressure", voice: "promotional", tone: "urgent", defect: "unsupported_urgency_or_pressure", disposition: "revise" },
+  { id: "plain_direct", controlClass: "positive_control", voice: "plain", tone: "direct", defect: null, disposition: "pass" },
+  { id: "concise_calm", controlClass: "positive_control", voice: "concise", tone: "calm", defect: null, disposition: "pass" },
+  { id: "warm_supportive", controlClass: "near_miss", voice: "warm", tone: "supportive", defect: null, disposition: "human_preference_review" },
+  { id: "formal_serious", controlClass: "near_miss", voice: "formal", tone: "serious", defect: null, disposition: "human_preference_review" },
+  { id: "false_certainty", controlClass: "clear_failure", voice: "confident", tone: "reassuring", defect: "unsupported_certainty", disposition: "revise" },
+  { id: "vague_action", controlClass: "clear_failure", voice: "minimal", tone: "neutral", defect: "unclear_action_or_object", disposition: "revise" },
+  { id: "missing_consequence", controlClass: "clear_failure", voice: "concise", tone: "neutral", defect: "material_consequence_omitted", disposition: "revise" },
+  { id: "blameful", controlClass: "clear_failure", voice: "blunt", tone: "accusatory", defect: "user_blame", disposition: "revise" },
+  { id: "evidence_gap", controlClass: "underspecified", voice: "plain", tone: "neutral", defect: "material_evidence_missing", disposition: "abstain" },
+  { id: "urgent_pressure", controlClass: "clear_failure", voice: "promotional", tone: "urgent", defect: "unsupported_urgency_or_pressure", disposition: "revise" },
 ];
 
 const localeSlices = ["en-US", "en-GB", "es-US", "fr-FR", "de-DE", "ar-SA", "he-IL", "ja-JP", "pt-BR", "en-IN"];
@@ -83,7 +83,7 @@ function candidateText(situation, surface, variant) {
   if (variant.defect === "unclear_action_or_object") return { text: `Continue with ${situationId.replaceAll("_", " ")}.`, supporting_text: "Something happened." };
   if (variant.defect === "material_consequence_omitted") return { text: `${state}. ${action}.`, supporting_text: null };
   if (variant.defect === "user_blame") return { text: `You caused this ${situationId.replaceAll("_", " ")} issue. ${action}.`, supporting_text: consequence };
-  if (variant.defect === "poor_hierarchy_and_economy") return { text: `System information about ${situationId.replaceAll("_", " ")}: ${state}. Please carefully review all available information before determining whether to proceed. ${consequence}. ${action}.`, supporting_text: null };
+  if (variant.defect === "material_evidence_missing") return base;
   if (variant.defect === "unsupported_urgency_or_pressure") return { text: `Act now—don't miss out on ${situationId.replaceAll("_", " ")}. ${action}.`, supporting_text: consequence };
   if (variant.id === "warm_supportive") return { text: `We're here to help. ${base.text}`, supporting_text: base.supporting_text };
   if (variant.id === "formal_serious") return { text: `Important: ${base.text}`, supporting_text: base.supporting_text };
@@ -92,6 +92,13 @@ function candidateText(situation, surface, variant) {
 }
 
 function provisionalExpectation(variant, locale) {
+  if (variant.controlClass === "underspecified") {
+    return {
+      disposition: "abstain",
+      basis: variant.defect,
+      status: "generator_label_not_human_gold",
+    };
+  }
   if (variant.defect !== null) {
     return {
       disposition: variant.disposition,
@@ -106,6 +113,13 @@ function provisionalExpectation(variant, locale) {
       status: "generator_label_not_human_gold",
     };
   }
+  if (variant.controlClass === "positive_control") {
+    return {
+      disposition: "pass",
+      basis: "scenario_facts_and_hard_requirements_satisfied",
+      status: "generator_label_not_human_gold",
+    };
+  }
   return {
     disposition: "human_preference_review",
     basis: "hard_requirements_assumed_satisfied_preference_unresolved",
@@ -117,6 +131,13 @@ function digest(value) {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
 }
 
+function voiceContext(risk) {
+  if (risk === "critical") return { voice_profile: "plain_respectful", situational_tone: "serious_calm" };
+  if (risk === "high") return { voice_profile: "plain_reassuring", situational_tone: "calm_direct" };
+  if (risk === "medium") return { voice_profile: "plain_helpful", situational_tone: "neutral_supportive" };
+  return { voice_profile: "plain_economical", situational_tone: "concise_positive" };
+}
+
 export function generateScenarios() {
   const scenarios = [];
   for (const [abilityIndex, ability] of abilities.entries()) {
@@ -126,8 +147,9 @@ export function generateScenarios() {
           const ordinal = (((abilityIndex * situations.length + situationIndex) * surfaces.length + surfaceIndex) * variants.length) + variantIndex + 1;
           const locale = localeSlices[(abilityIndex + situationIndex + surfaceIndex + variantIndex) % localeSlices.length];
           const expression = candidateText(situation, surface, variant);
+          const intendedExpression = voiceContext(situation[2]);
           const scenario = {
-            contract_version: "contentmd.content-design-evaluation-scenario/0.1.0",
+            contract_version: "contentmd.content-design-evaluation-scenario/0.2.0",
             scenario_id: `cdes-${String(ordinal).padStart(5, "0")}`,
             provenance: {
               source_type: "synthetic_combinatorial",
@@ -151,6 +173,14 @@ export function generateScenarios() {
               source_locale: "en-US",
               target_locale: locale,
               direction: locale === "ar-SA" || locale === "he-IL" ? "rtl" : "ltr",
+              voice_profile: intendedExpression.voice_profile,
+              situational_tone: intendedExpression.situational_tone,
+              evidence: variant.controlClass === "underspecified"
+                ? {
+                    material_fact_status: "missing",
+                    unresolved_question: "The available source does not establish whether the stated product state and consequence are accurate.",
+                  }
+                : { material_fact_status: "scenario_facts_available", unresolved_question: null },
             },
             candidate: {
               variant: variant.id,
@@ -163,6 +193,10 @@ export function generateScenarios() {
               localization_status: locale === "en-US" ? "target_language_candidate" : "source_language_candidate_requires_localization",
             },
             provisional_expectation: provisionalExpectation(variant, locale),
+            evaluation_control: {
+              class: variant.controlClass,
+              expected_disposition: provisionalExpectation(variant, locale).disposition,
+            },
             rubric: {
               evaluation_order: ["evidence_authority", "truth_state", "action_consequence_recovery", "semantic_completeness", "accessibility_locale", "comprehension_structure", "voice_tone_economy"],
               hard_dimensions: ["factual_accuracy", "state_accuracy", "semantic_fidelity", "agency", "recovery", "authority_boundary"],
@@ -182,7 +216,7 @@ export function buildManifest(scenarios) {
   const count = (selector) => Object.fromEntries([...new Set(scenarios.map(selector))].sort().map((key) => [key, scenarios.filter((scenario) => selector(scenario) === key).length]));
   const scenarioDigests = scenarios.map((scenario) => scenario.scenario_digest);
   return {
-    contract_version: "contentmd.content-design-evaluation-manifest/0.1.0",
+    contract_version: "contentmd.content-design-evaluation-manifest/0.2.0",
     generated_count: scenarios.length,
     qualification_status: "synthetic_candidates_not_gold_or_training_eligible",
     distributions: {
@@ -191,6 +225,7 @@ export function buildManifest(scenarios) {
       surface: count((scenario) => scenario.context.surface),
       target_locale: count((scenario) => scenario.context.target_locale),
       candidate_variant: count((scenario) => scenario.candidate.variant),
+      control_class: count((scenario) => scenario.evaluation_control.class),
     },
     scenario_set_digest: digest(scenarioDigests),
   };

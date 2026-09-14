@@ -12,7 +12,15 @@ voice and tone in the same evaluation order as factual accuracy, product state,
 action, consequence, recovery, semantic fidelity, accessibility, localization,
 structure, and governance.
 
-The current matrix contains 230 unique visible candidate strings and 280 unique
+Each ability has all four controls required by the content-design standard:
+positive controls, clear failures, underspecified evidence cases, and semantic
+near-misses. Locale-routing can supersede an otherwise valid or preference-level
+candidate, while missing material evidence is evaluated before expression.
+Candidate style labels are also removed from review packets. Reviewers receive
+the intended contextual voice profile and situational tone, not the generator's
+description of how the candidate sounds.
+
+The current matrix contains 220 unique visible candidate strings and 270 unique
 candidate-plus-supporting-context expressions. Reuse across ability and locale
 slices is intentional: it tests whether the same words receive different
 judgments when context changes. The diversity tests prevent a future generator

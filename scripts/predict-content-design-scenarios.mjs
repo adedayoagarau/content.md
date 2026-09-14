@@ -25,21 +25,23 @@ function predictUnit(unit) {
   const lower = combinedText.toLocaleLowerCase("en-US");
   const falseCertainty = /\beverything is complete\b/u.test(lower) && !/completed successfully/u.test(unit.context.state.toLocaleLowerCase("en-US"));
   const vague = /\bsomething happened\b/u.test(lower) || /^continue\.?$/iu.test(text.trim());
-  const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake)/iu.test(text);
+  const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake|issue)/iu.test(text);
   const pressure = /\bact now\b|\bdon't miss out\b|\bhurry\b/iu.test(text);
+  const stylisticNearMiss = /^(?:we're here to help\.|important:)/iu.test(text.trim());
   const overloaded = text.trim().split(/\s+/u).length > 28;
   const stateRepresented = lower.includes(unit.context.state_expression.toLocaleLowerCase("en-US"));
   const consequenceRepresented = lower.includes(unit.context.consequence_expression.toLocaleLowerCase("en-US"));
   const localeMismatch = unit.context.target_locale !== unit.context.source_locale
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
+  const materialEvidenceMissing = unit.context.evidence?.material_fact_status === "missing";
   const paymentRecovery = unit.context.situation !== "payment_unknown"
     ? "not_applicable"
-    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(text) ? "pass" : "fail";
+    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(combinedText) ? "pass" : "fail";
   const hard = {
-    factual_accuracy: falseCertainty ? "fail" : "unknown",
+    factual_accuracy: materialEvidenceMissing ? "unknown" : falseCertainty ? "fail" : "pass",
     state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
-    semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "unknown",
-    agency: pressure ? "fail" : "unknown",
+    semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "pass",
+    agency: pressure ? "fail" : "pass",
     recovery: paymentRecovery,
     authority_boundary: /\b(?:approved|authorized|guaranteed)\b/iu.test(text) ? "unknown" : "pass",
   };
@@ -54,10 +56,14 @@ function predictUnit(unit) {
     economy: overloaded ? 1 : vague ? 2 : text.split(/\s+/u).length > 20 ? 2 : 4,
   };
   const hardFailure = Object.values(hard).includes("fail");
-  const disposition = hardFailure || blame || pressure
+  const allHardResolved = Object.values(hard).every((result) => result === "pass" || result === "not_applicable");
+  const disposition = materialEvidenceMissing
+    ? "abstain"
+    : hardFailure || blame || pressure
     ? "revise"
-    : localeMismatch ? "escalate"
-      : "human_preference_review";
+    : localeMismatch
+      ? "escalate"
+      : allHardResolved && !stylisticNearMiss ? "pass" : "human_preference_review";
   const rationaleCodes = [
     falseCertainty && "unsupported_certainty",
     vague && "unclear_action_or_state",
@@ -66,6 +72,7 @@ function predictUnit(unit) {
     blame && "user_blame",
     pressure && "unsupported_urgency_or_pressure",
     overloaded && "poor_economy",
+    materialEvidenceMissing && "material_evidence_missing",
     localeMismatch && "in_locale_review_required",
   ].filter(Boolean);
   return {
@@ -73,8 +80,10 @@ function predictUnit(unit) {
     disposition,
     hard_dimension_results: hard,
     quality_dimension_scores: quality,
-    rationale_codes: rationaleCodes.length === 0 ? ["hard_checks_passed_preference_unresolved"] : rationaleCodes,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0",
+    rationale_codes: rationaleCodes.length === 0
+      ? disposition === "pass" ? ["hard_checks_passed"] : ["hard_checks_passed_preference_unresolved"]
+      : rationaleCodes,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
     authority_effect: "none",
   };
 }
@@ -85,7 +94,7 @@ export function predictContentDesignPacket(packet) {
   const preimage = {
     contract_version: "contentmd.content-design-predictions/0.1.0",
     packet_digest: packet.packet_digest,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
     prediction_count: predictions.length,
     predictions,
     evaluation_status: "unscored_pending_qualified_gold",

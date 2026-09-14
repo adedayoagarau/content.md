@@ -27,8 +27,6 @@ function workUnitFor(scenario, samplingCell) {
     candidate: {
       text: scenario.candidate.text,
       supporting_text: scenario.candidate.supporting_text,
-      voice: scenario.candidate.voice,
-      tone: scenario.candidate.tone,
       language: scenario.candidate.language,
       localization_status: scenario.candidate.localization_status,
     },
@@ -53,10 +51,10 @@ function workUnitFor(scenario, samplingCell) {
 
 function packetFor(workUnits, samplingMethod) {
   const preimage = {
-    contract_version: "contentmd.content-design-blind-review-packet/0.1.0",
+    contract_version: "contentmd.content-design-blind-review-packet/0.2.0",
     sampling_method: samplingMethod,
     sample_count: workUnits.length,
-    blinded_fields: ["candidate.injected_defect", "provisional_expectation"],
+    blinded_fields: ["candidate.variant", "candidate.voice", "candidate.tone", "candidate.injected_defect", "evaluation_control", "provisional_expectation"],
     required_reviewer_role: "qualified_content_designer",
     source_qualification: "synthetic_candidates_not_gold_or_training_eligible",
     review_work_units: workUnits,
@@ -96,7 +94,7 @@ export function prepareFullBenchmarkPacket(scenarios) {
 }
 
 export function validateBlindPacket(packet, expectedCount) {
-  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.1.0"
+  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.2.0"
     || packet.sample_count !== expectedCount
     || packet.review_work_units.length !== expectedCount
     || packet.packet_state !== "unreviewed"
@@ -105,7 +103,12 @@ export function validateBlindPacket(packet, expectedCount) {
   if (packetDigest !== digest(preimage)) throw new Error("content_design_review_packet_invalid:digest");
   if (new Set(packet.review_work_units.map((unit) => unit.work_unit_id)).size !== expectedCount) throw new Error("content_design_review_packet_invalid:duplicate_work_unit");
   for (const unit of packet.review_work_units) {
-    if (Object.hasOwn(unit.candidate, "injected_defect") || Object.hasOwn(unit, "provisional_expectation")) throw new Error("content_design_review_packet_invalid:unblinded_label");
+    if (Object.hasOwn(unit.candidate, "variant")
+      || Object.hasOwn(unit.candidate, "voice")
+      || Object.hasOwn(unit.candidate, "tone")
+      || Object.hasOwn(unit.candidate, "injected_defect")
+      || Object.hasOwn(unit, "evaluation_control")
+      || Object.hasOwn(unit, "provisional_expectation")) throw new Error("content_design_review_packet_invalid:unblinded_label");
     if (unit.review_state !== "unreviewed" || unit.training_eligibility !== "never" || unit.retrieval_eligibility !== "never") throw new Error("content_design_review_packet_invalid:eligibility");
   }
   return packet;

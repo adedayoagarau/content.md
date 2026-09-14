@@ -35,6 +35,24 @@ test("covers every matrix slice evenly", () => {
   assert.deepEqual(new Set(Object.values(manifest.distributions.surface)), new Set([1_000]));
   assert.deepEqual(new Set(Object.values(manifest.distributions.target_locale)), new Set([1_000]));
   assert.deepEqual(new Set(Object.values(manifest.distributions.candidate_variant)), new Set([1_000]));
+  assert.deepEqual(manifest.distributions.control_class, {
+    clear_failure: 5_000,
+    near_miss: 2_000,
+    positive_control: 2_000,
+    underspecified: 1_000,
+  });
+});
+
+test("gives every ability all four required evaluation controls", () => {
+  const scenarios = generateScenarios();
+  for (const ability of new Set(scenarios.map((scenario) => scenario.ability.id))) {
+    assert.deepEqual(
+      new Set(scenarios.filter((scenario) => scenario.ability.id === ability).map((scenario) => scenario.evaluation_control.class)),
+      new Set(["clear_failure", "near_miss", "positive_control", "underspecified"]),
+    );
+  }
+  assert.ok(scenarios.some((scenario) => scenario.provisional_expectation.disposition === "pass"));
+  assert.ok(scenarios.some((scenario) => scenario.provisional_expectation.disposition === "abstain"));
 });
 
 test("routes untranslated locale candidates to specialist review", () => {
