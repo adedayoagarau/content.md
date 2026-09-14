@@ -21,13 +21,15 @@ function includesState(unit) {
 
 function predictUnit(unit) {
   const text = unit.candidate.text;
-  const lower = text.toLocaleLowerCase("en-US");
+  const combinedText = [unit.candidate.supporting_text, text].filter(Boolean).join(" ");
+  const lower = combinedText.toLocaleLowerCase("en-US");
   const falseCertainty = /\beverything is complete\b/u.test(lower) && !/completed successfully/u.test(unit.context.state.toLocaleLowerCase("en-US"));
   const vague = /\bsomething happened\b/u.test(lower) || /^continue\.?$/iu.test(text.trim());
   const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake)/iu.test(text);
   const pressure = /\bact now\b|\bdon't miss out\b|\bhurry\b/iu.test(text);
   const overloaded = text.trim().split(/\s+/u).length > 28;
-  const stateRepresented = includesState(unit);
+  const stateRepresented = lower.includes(unit.context.state_expression.toLocaleLowerCase("en-US"));
+  const consequenceRepresented = lower.includes(unit.context.consequence_expression.toLocaleLowerCase("en-US"));
   const localeMismatch = unit.context.target_locale !== unit.context.source_locale
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
   const paymentRecovery = unit.context.situation !== "payment_unknown"
@@ -36,7 +38,7 @@ function predictUnit(unit) {
   const hard = {
     factual_accuracy: falseCertainty ? "fail" : "unknown",
     state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
-    semantic_fidelity: vague || !stateRepresented ? "fail" : "unknown",
+    semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "unknown",
     agency: pressure ? "fail" : "unknown",
     recovery: paymentRecovery,
     authority_boundary: /\b(?:approved|authorized|guaranteed)\b/iu.test(text) ? "unknown" : "pass",
@@ -60,6 +62,7 @@ function predictUnit(unit) {
     falseCertainty && "unsupported_certainty",
     vague && "unclear_action_or_state",
     !stateRepresented && "state_not_represented",
+    !consequenceRepresented && "consequence_not_represented",
     blame && "user_blame",
     pressure && "unsupported_urgency_or_pressure",
     overloaded && "poor_economy",

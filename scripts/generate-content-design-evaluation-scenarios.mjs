@@ -22,16 +22,16 @@ const abilities = [
 ];
 
 const situations = [
-  ["payment_unknown", "A payment submission timed out and its outcome is not confirmed", "high", "Verify payment status before another attempt"],
-  ["subscription_renewal", "A trial converts to a paid recurring subscription", "high", "Show price, timing, refusal, and cancellation"],
-  ["destructive_delete", "Deleting the item permanently removes shared work", "critical", "Name the object, impact, and irreversible result"],
-  ["permission_request", "The product requests access to sensitive device data", "high", "Explain purpose, scope, choice, and settings recovery"],
-  ["validation_error", "Submitted information fails a known field requirement", "medium", "Bind the error to the field and explain correction"],
-  ["empty_state", "No items exist yet and the user can create the first one", "low", "Explain the state and available first action"],
-  ["service_interruption", "A temporary outage blocks completion and timing is unknown", "high", "Represent uncertainty and preserve completed work"],
-  ["automated_assistant", "An automated assistant can explain but cannot change the account", "medium", "Disclose automation, limits, and human handoff"],
-  ["navigation_destination", "Several entry points lead to the same account-security destination", "medium", "Use one governed destination promise"],
-  ["successful_update", "A requested profile change completed successfully", "low", "Confirm the completed result without extra claims"],
+  ["payment_unknown", "A payment submission timed out and its outcome is not confirmed", "high", "Verify payment status before another attempt", "We couldn't confirm your payment", "Check payment status", "Paying again could result in a duplicate charge"],
+  ["subscription_renewal", "A trial converts to a paid recurring subscription", "high", "Show price, timing, refusal, and cancellation", "Your 14-day trial will renew at $12 a month", "Review or cancel subscription", "You'll be charged unless you cancel before renewal"],
+  ["destructive_delete", "Deleting the item permanently removes shared work", "critical", "Name the object, impact, and irreversible result", "Deleting this project permanently removes it for everyone", "Delete project", "This can't be undone"],
+  ["permission_request", "The product requests access to sensitive device data", "high", "Explain purpose, scope, choice, and settings recovery", "Location access shows nearby pickup options", "Choose location access", "You can change this later in Settings"],
+  ["validation_error", "Submitted information fails a known field requirement", "medium", "Bind the error to the field and explain correction", "Enter a valid expiry date", "Review expiry date", "We can't submit the form until this is corrected"],
+  ["empty_state", "No items exist yet and the user can create the first one", "low", "Explain the state and available first action", "No projects yet", "Create project", "Your projects will appear here"],
+  ["service_interruption", "A temporary outage blocks completion and timing is unknown", "high", "Represent uncertainty and preserve completed work", "We can't complete this right now", "Try again later", "Your saved work is still here"],
+  ["automated_assistant", "An automated assistant can explain but cannot change the account", "medium", "Disclose automation, limits, and human handoff", "I'm an automated assistant and can explain billing, but I can't change your account", "Contact support", "A support agent can help with account changes"],
+  ["navigation_destination", "Several entry points lead to the same account-security destination", "medium", "Use one governed destination promise", "Manage your password and sign-in options in Security", "Go to Security", "This opens Security settings"],
+  ["successful_update", "A requested profile change completed successfully", "low", "Confirm the completed result without extra claims", "Profile updated", "View profile", "Your changes are saved"],
 ];
 
 const surfaces = [
@@ -62,17 +62,33 @@ const variants = [
 
 const localeSlices = ["en-US", "en-GB", "es-US", "fr-FR", "de-DE", "ar-SA", "he-IL", "ja-JP", "pt-BR", "en-IN"];
 
+function baseCandidate(situation, surface) {
+  const [situationId, , , , state, action, consequence] = situation;
+  const surfaceId = surface[0];
+  if (surfaceId === "button") return { text: action, supporting_text: `${state}. ${consequence}.` };
+  if (surfaceId === "form_error") return { text: `${state}. ${action}.`, supporting_text: consequence };
+  if (surfaceId === "dialog") return { text: `${state}. ${consequence}.`, supporting_text: action };
+  if (surfaceId === "notification") return { text: `${state}. ${action}.`, supporting_text: consequence };
+  if (surfaceId === "email") return { text: `${state}. ${consequence}. ${action}.`, supporting_text: `Regarding ${situationId.replaceAll("_", " ")}` };
+  if (surfaceId === "help_article") return { text: `${state}. ${consequence}. ${action}.`, supporting_text: `Help with ${situationId.replaceAll("_", " ")}` };
+  if (surfaceId === "chat") return { text: `${state}. ${action}.`, supporting_text: consequence };
+  if (surfaceId === "screen_reader_status") return { text: state, supporting_text: `${consequence}. ${action}.` };
+  return { text: `${state}. ${action}.`, supporting_text: consequence };
+}
+
 function candidateText(situation, surface, variant) {
-  const state = situation[1];
-  const action = situation[3];
-  if (variant.defect === "unsupported_certainty") return `Everything is complete. ${action}.`;
-  if (variant.defect === "unclear_action_or_object") return "Something happened. Continue.";
-  if (variant.defect === "material_consequence_omitted") return `${action}.`;
-  if (variant.defect === "user_blame") return `You did this incorrectly. ${action}.`;
-  if (variant.defect === "poor_hierarchy_and_economy") return `System operational information: ${state}. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. ${action}.`;
-  if (variant.defect === "unsupported_urgency_or_pressure") return `Act now—don't miss out. ${action}.`;
-  const prefix = variant.id === "warm_supportive" ? "We can help. " : variant.id === "formal_serious" ? "Important: " : "";
-  return `${prefix}${state}. ${action}.`;
+  const [situationId, , , , state, action, consequence] = situation;
+  const base = baseCandidate(situation, surface);
+  if (variant.defect === "unsupported_certainty") return { text: `Everything is complete for ${situationId.replaceAll("_", " ")}. ${action}.`, supporting_text: null };
+  if (variant.defect === "unclear_action_or_object") return { text: `Continue with ${situationId.replaceAll("_", " ")}.`, supporting_text: "Something happened." };
+  if (variant.defect === "material_consequence_omitted") return { text: `${state}. ${action}.`, supporting_text: null };
+  if (variant.defect === "user_blame") return { text: `You caused this ${situationId.replaceAll("_", " ")} issue. ${action}.`, supporting_text: consequence };
+  if (variant.defect === "poor_hierarchy_and_economy") return { text: `System information about ${situationId.replaceAll("_", " ")}: ${state}. Please carefully review all available information before determining whether to proceed. ${consequence}. ${action}.`, supporting_text: null };
+  if (variant.defect === "unsupported_urgency_or_pressure") return { text: `Act now—don't miss out on ${situationId.replaceAll("_", " ")}. ${action}.`, supporting_text: consequence };
+  if (variant.id === "warm_supportive") return { text: `We're here to help. ${base.text}`, supporting_text: base.supporting_text };
+  if (variant.id === "formal_serious") return { text: `Important: ${base.text}`, supporting_text: base.supporting_text };
+  if (variant.id === "concise_calm") return { text: base.text.replace(/\.$/u, ""), supporting_text: base.supporting_text };
+  return base;
 }
 
 function provisionalExpectation(variant, locale) {
@@ -109,6 +125,7 @@ export function generateScenarios() {
         for (const [variantIndex, variant] of variants.entries()) {
           const ordinal = (((abilityIndex * situations.length + situationIndex) * surfaces.length + surfaceIndex) * variants.length) + variantIndex + 1;
           const locale = localeSlices[(abilityIndex + situationIndex + surfaceIndex + variantIndex) % localeSlices.length];
+          const expression = candidateText(situation, surface, variant);
           const scenario = {
             contract_version: "contentmd.content-design-evaluation-scenario/0.1.0",
             scenario_id: `cdes-${String(ordinal).padStart(5, "0")}`,
@@ -125,6 +142,9 @@ export function generateScenarios() {
               state: situation[1],
               risk: situation[2],
               user_goal: situation[3],
+              state_expression: situation[4],
+              action_expression: situation[5],
+              consequence_expression: situation[6],
               surface: surface[0],
               surface_context: surface[1],
               channel: surface[2],
@@ -134,7 +154,8 @@ export function generateScenarios() {
             },
             candidate: {
               variant: variant.id,
-              text: candidateText(situation, surface, variant),
+              text: expression.text,
+              supporting_text: expression.supporting_text,
               voice: variant.voice,
               tone: variant.tone,
               injected_defect: variant.defect,

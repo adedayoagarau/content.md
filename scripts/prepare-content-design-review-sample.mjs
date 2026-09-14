@@ -26,6 +26,7 @@ function workUnitFor(scenario, samplingCell) {
     context: scenario.context,
     candidate: {
       text: scenario.candidate.text,
+      supporting_text: scenario.candidate.supporting_text,
       voice: scenario.candidate.voice,
       tone: scenario.candidate.tone,
       language: scenario.candidate.language,

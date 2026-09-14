@@ -12,6 +12,12 @@ voice and tone in the same evaluation order as factual accuracy, product state,
 action, consequence, recovery, semantic fidelity, accessibility, localization,
 structure, and governance.
 
+The current matrix contains 230 unique visible candidate strings and 280 unique
+candidate-plus-supporting-context expressions. Reuse across ability and locale
+slices is intentional: it tests whether the same words receive different
+judgments when context changes. The diversity tests prevent a future generator
+from collapsing the suite back into a handful of repeated phrases.
+
 These records are project-authored synthetic evaluation candidates. Generator
 labels are hypotheses used to exercise the evaluation pipeline; they are not
 human gold labels, observed product evidence, approved retrieval material, or

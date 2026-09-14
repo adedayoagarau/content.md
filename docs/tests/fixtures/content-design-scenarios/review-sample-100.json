@@ -13,7 +13,7 @@
       "work_unit_id": "review-cdes-07728",
       "scenario_ref": {
         "scenario_id": "cdes-07728",
-        "scenario_digest": "f5292fcfd0271d9a18547c85193252ab13dbbc577923a840d57173bf0437c65c"
+        "scenario_digest": "03a55788c00efd2d77a26a9b8d65b1bcc9954279339163c8a60f5d75a79cf799"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -28,6 +28,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -36,7 +39,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Disclose automation, limits, and human handoff.",
+        "text": "You caused this automated assistant issue. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -91,7 +95,7 @@
       "work_unit_id": "review-cdes-07202",
       "scenario_ref": {
         "scenario_id": "cdes-07202",
-        "scenario_digest": "c6682370672f59849c4129a0efb41a6c4d69f5b09aef35156dbbc6b2d97e3fba"
+        "scenario_digest": "db9c6b4f5a78556996bb6c73058abcf15174dde948a9477220965420b6ed4e5d"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -106,6 +110,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -114,7 +121,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Deleting the item permanently removes shared work. Name the object, impact, and irreversible result.",
+        "text": "Delete project",
+        "supporting_text": "Deleting this project permanently removes it for everyone. This can't be undone.",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -169,7 +177,7 @@
       "work_unit_id": "review-cdes-07585",
       "scenario_ref": {
         "scenario_id": "cdes-07585",
-        "scenario_digest": "ffa962e6785d0001af229fc7bc0fc1ad44fe09185206fa50d6a3edba28517312"
+        "scenario_digest": "e8ca99c87bfbec35d3282ba0f269eccc253b31665e028ab50b8b956624721253"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -184,6 +192,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -192,7 +203,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Explain the state and available first action.",
+        "text": "Everything is complete for empty state. Create project.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -247,7 +259,7 @@
       "work_unit_id": "review-cdes-07834",
       "scenario_ref": {
         "scenario_id": "cdes-07834",
-        "scenario_digest": "4848e29027ed8b99a3920d2a1d64cfee4f47c87fa8e3b4638ed32f1ddc553769"
+        "scenario_digest": "83c414abcfd4f8186ad3a0c28dcabb155602aaf5f8d9cfe6d2a80221f1728065"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -262,6 +274,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -270,7 +285,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: Several entry points lead to the same account-security destination. Use one governed destination promise.",
+        "text": "Important: Manage your password and sign-in options in Security. This opens Security settings.",
+        "supporting_text": "Go to Security",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -325,7 +341,7 @@
       "work_unit_id": "review-cdes-07067",
       "scenario_ref": {
         "scenario_id": "cdes-07067",
-        "scenario_digest": "e86dbe5944e663f2ffd14fef1f7c59fa36ecb93262e93a9111a24a5de147e777"
+        "scenario_digest": "1370f0a21600dc08a75bffa677baf05e8e972e9174f623fcea27b2abd915b8a0"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -340,6 +356,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -348,7 +367,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Verify payment status before another attempt.",
+        "text": "We couldn't confirm your payment. Check payment status.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -403,7 +423,7 @@
       "work_unit_id": "review-cdes-07349",
       "scenario_ref": {
         "scenario_id": "cdes-07349",
-        "scenario_digest": "3ecb6e865f6ca5b798abc57b44a77ca29446d63a1607c3b9e0fc3c70727a59ed"
+        "scenario_digest": "f7bb76ddae3b7fb26c11b59d60a7ac53a8dc5160c9a7d2ef4e3044791fbeeb9d"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -418,6 +438,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -426,7 +449,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: The product requests access to sensitive device data. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Explain purpose, scope, choice, and settings recovery.",
+        "text": "System information about permission request: Location access shows nearby pickup options. Please carefully review all available information before determining whether to proceed. You can change this later in Settings. Choose location access.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -481,7 +505,7 @@
       "work_unit_id": "review-cdes-07611",
       "scenario_ref": {
         "scenario_id": "cdes-07611",
-        "scenario_digest": "8b1d1d3e104e3ae666618e60f6d63a484926fec7518f67fde59fc6dc20f33fb5"
+        "scenario_digest": "552c217d6a9e9d8ab32cff376db1154f7a687e21dbb08b010a54998271b37063"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -496,6 +520,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -504,7 +531,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A temporary outage blocks completion and timing is unknown. Represent uncertainty and preserve completed work.",
+        "text": "We can't complete this right now. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -559,7 +587,7 @@
       "work_unit_id": "review-cdes-07180",
       "scenario_ref": {
         "scenario_id": "cdes-07180",
-        "scenario_digest": "c4d26c61f78e1437b324ad446ce55be5239906295ae72d1aa5ccb80cad60d3f6"
+        "scenario_digest": "fa00f2b8379f1a618ad27943bb9100ae2f688dc7614c7710cb0cf983610673fc"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -574,6 +602,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -582,7 +613,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Show price, timing, refusal, and cancellation.",
+        "text": "Act now—don't miss out on subscription renewal. Review or cancel subscription.",
+        "supporting_text": "You'll be charged unless you cancel before renewal",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -637,7 +669,7 @@
       "work_unit_id": "review-cdes-07956",
       "scenario_ref": {
         "scenario_id": "cdes-07956",
-        "scenario_digest": "0cfd57c85e6026b2330263d983487db48ec40e692d82af0343810074f032d395"
+        "scenario_digest": "a104f750987c785bebb3f827f9012669ecc2e31afc0f8b625051361a7612118e"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -652,6 +684,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -660,7 +695,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with successful update.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -715,7 +751,7 @@
       "work_unit_id": "review-cdes-07493",
       "scenario_ref": {
         "scenario_id": "cdes-07493",
-        "scenario_digest": "e28c6e17fb0473c3e4c599019ad6c37d9d6924ca44d030f729c9e60c1bf2bee7"
+        "scenario_digest": "b6bb42cfee285098a4c20ea4d0f3a75e709007b3142a04f563d610f377f5273f"
       },
       "sampling_cell": {
         "ability_id": "accessibility",
@@ -730,6 +766,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -738,7 +777,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. Submitted information fails a known field requirement. Bind the error to the field and explain correction.",
+        "text": "We're here to help. Enter a valid expiry date",
+        "supporting_text": "We can't submit the form until this is corrected. Review expiry date.",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -793,7 +833,7 @@
       "work_unit_id": "review-cdes-04238",
       "scenario_ref": {
         "scenario_id": "cdes-04238",
-        "scenario_digest": "d7e1cc205a2c08520f139a47c5d407584b48a8ddaf65fab4fc565231d825c31a"
+        "scenario_digest": "df4b1d312dc629de052d32115ed99a420ff72aad0c5f1a38369f38b6061c7608"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -808,6 +848,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -816,7 +859,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "You did this incorrectly. Name the object, impact, and irreversible result.",
+        "text": "You caused this destructive delete issue. Delete project.",
+        "supporting_text": "This can't be undone",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -871,7 +915,7 @@
       "work_unit_id": "review-cdes-04562",
       "scenario_ref": {
         "scenario_id": "cdes-04562",
-        "scenario_digest": "1047b3110d30f0c7e9cfb259fb9d2346d9f34888350c831c1a53b983dc31e69e"
+        "scenario_digest": "d68c100ad338e5467608bddc0b4851666179f627640a8fb916098848b2301825"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -886,6 +930,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -894,7 +941,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "No items exist yet and the user can create the first one. Explain the state and available first action.",
+        "text": "No projects yet. Your projects will appear here. Create project",
+        "supporting_text": "Regarding empty state",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -949,7 +997,7 @@
       "work_unit_id": "review-cdes-04845",
       "scenario_ref": {
         "scenario_id": "cdes-04845",
-        "scenario_digest": "508d91346c1d81c979beb4d0b2f4d335943c0b4eed50aa425f9fe35d6927db63"
+        "scenario_digest": "12b9de4887599833fa6c9e3a30e90c3e073b57082642f156714e396ac25b8bf4"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -964,6 +1012,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -972,7 +1023,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Use one governed destination promise.",
+        "text": "Everything is complete for navigation destination. Go to Security.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -1027,7 +1079,7 @@
       "work_unit_id": "review-cdes-04014",
       "scenario_ref": {
         "scenario_id": "cdes-04014",
-        "scenario_digest": "8e729051a362ad58c355366e7ccc36d498e9a2ead8efaa81882f3a153419b9cb"
+        "scenario_digest": "27aff887330a9fd177d805286035bfc5d89cae55924bbf86b5fab7b504d72801"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1042,6 +1094,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -1050,7 +1105,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: A payment submission timed out and its outcome is not confirmed. Verify payment status before another attempt.",
+        "text": "Important: We couldn't confirm your payment. Check payment status.",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -1105,7 +1161,7 @@
       "work_unit_id": "review-cdes-04377",
       "scenario_ref": {
         "scenario_id": "cdes-04377",
-        "scenario_digest": "e042a1dc66a55d884678205be484fe37b73982ef40ac7e84c45876da4bb76db1"
+        "scenario_digest": "cb30104947407c81a7d7ceb916f43728a11775d6e7312b511c1878f30963f163"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1120,6 +1176,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -1128,7 +1187,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Explain purpose, scope, choice, and settings recovery.",
+        "text": "Location access shows nearby pickup options. Choose location access.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -1183,7 +1243,7 @@
       "work_unit_id": "review-cdes-04659",
       "scenario_ref": {
         "scenario_id": "cdes-04659",
-        "scenario_digest": "37e94202007aced073ba7ad770f8f8966ab640770c954fd3c47883c07f946707"
+        "scenario_digest": "fb701ba37ad7c6a4d8dac249aa38fd08db86b4155842af178bd99adc6e0884d5"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1198,6 +1258,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -1206,7 +1269,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: A temporary outage blocks completion and timing is unknown. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Represent uncertainty and preserve completed work.",
+        "text": "System information about service interruption: We can't complete this right now. Please carefully review all available information before determining whether to proceed. Your saved work is still here. Try again later.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -1261,7 +1325,7 @@
       "work_unit_id": "review-cdes-04191",
       "scenario_ref": {
         "scenario_id": "cdes-04191",
-        "scenario_digest": "ebb9dcf93f7016b31cd9b4b1fd017a524c20fb71d309a8a60526da743909e6bb"
+        "scenario_digest": "7c60411a3edbe6c52161d35dd1e00a065105f31441481fb3465ee4b56def5e1b"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1276,6 +1340,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -1284,7 +1351,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A trial converts to a paid recurring subscription. Show price, timing, refusal, and cancellation.",
+        "text": "Your 14-day trial will renew at $12 a month",
+        "supporting_text": "You'll be charged unless you cancel before renewal. Review or cancel subscription.",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -1339,7 +1407,7 @@
       "work_unit_id": "review-cdes-04930",
       "scenario_ref": {
         "scenario_id": "cdes-04930",
-        "scenario_digest": "85e87721bd8d5e421e380ca1e7bc7e883b21dae71ed1005ae10c3973a443bb06"
+        "scenario_digest": "fc30e246ea74ae5639fc2918e1427cbb8d459e6e82cc4763c841ec00e6d2ae7c"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1354,6 +1422,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -1362,7 +1433,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Confirm the completed result without extra claims.",
+        "text": "Act now—don't miss out on successful update. View profile.",
+        "supporting_text": "Your changes are saved",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -1417,7 +1489,7 @@
       "work_unit_id": "review-cdes-04406",
       "scenario_ref": {
         "scenario_id": "cdes-04406",
-        "scenario_digest": "9ef50fa94dde3bbb2285a4eee674724befaaf4a65fb091b3156edf3fa793cf1c"
+        "scenario_digest": "ea9357f10334f3b54a4aca2b005890fa51d273f0ffd432e4693c3c2eee1eba16"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1432,6 +1504,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -1440,7 +1515,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with validation error.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -1495,7 +1571,7 @@
       "work_unit_id": "review-cdes-04783",
       "scenario_ref": {
         "scenario_id": "cdes-04783",
-        "scenario_digest": "5b5d0de703c27d687788afb0b87eba1b866d361aa34db131cede58cf044f7040"
+        "scenario_digest": "5ca17edb83d9f858619c30a5f9556768f879302037bc1237be509575f65616aa"
       },
       "sampling_cell": {
         "ability_id": "agency_trust",
@@ -1510,6 +1586,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -1518,7 +1597,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. An automated assistant can explain but cannot change the account. Disclose automation, limits, and human handoff.",
+        "text": "We're here to help. I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -1573,7 +1653,7 @@
       "work_unit_id": "review-cdes-00518",
       "scenario_ref": {
         "scenario_id": "cdes-00518",
-        "scenario_digest": "e4c18d18f5d030fcb4e371901261b0e54544f9833120ca22e56b33be1193a82a"
+        "scenario_digest": "d3cf2894f30c829b350e01c71570c47050d1d430db0bfa17362fc061004e10e9"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1588,6 +1668,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -1596,7 +1679,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Explain the state and available first action.",
+        "text": "You caused this empty state issue. Create project.",
+        "supporting_text": "Your projects will appear here",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -1651,7 +1735,7 @@
       "work_unit_id": "review-cdes-00872",
       "scenario_ref": {
         "scenario_id": "cdes-00872",
-        "scenario_digest": "72a994095ac6f4298e0d77d67dc09191bfd4d8344df92bc2175bf58ae21538b8"
+        "scenario_digest": "0a7585e73bf996f39ac5d084743aed9748203537aaa8bb2d60ccc6e41c241635"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1666,6 +1750,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -1674,7 +1761,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Several entry points lead to the same account-security destination. Use one governed destination promise.",
+        "text": "Manage your password and sign-in options in Security. This opens Security settings. Go to Security",
+        "supporting_text": "Help with navigation destination",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -1729,7 +1817,7 @@
       "work_unit_id": "review-cdes-00055",
       "scenario_ref": {
         "scenario_id": "cdes-00055",
-        "scenario_digest": "260f551636feea1a07f4128615b81303a4a13ec8a390daba368ccd70f1d6c264"
+        "scenario_digest": "271b746883d4ff59d8073e1e333c88fae0caacf6f581f801a3b5076508862de5"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1744,6 +1832,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -1752,7 +1843,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Verify payment status before another attempt.",
+        "text": "Everything is complete for payment unknown. Check payment status.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -1807,7 +1899,7 @@
       "work_unit_id": "review-cdes-00394",
       "scenario_ref": {
         "scenario_id": "cdes-00394",
-        "scenario_digest": "ff986b1e1df5a6b2dafd026cf6ee87032eb53ee470e4871fe7a76a76166a6bcc"
+        "scenario_digest": "77b132d920b5f46d68fd66830b3092804cb81c181a84c914689142ed7fdd2cb4"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1822,6 +1914,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -1830,7 +1925,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Important: The product requests access to sensitive device data. Explain purpose, scope, choice, and settings recovery.",
+        "text": "Important: Location access shows nearby pickup options",
+        "supporting_text": "You can change this later in Settings. Choose location access.",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -1885,7 +1981,7 @@
       "work_unit_id": "review-cdes-00627",
       "scenario_ref": {
         "scenario_id": "cdes-00627",
-        "scenario_digest": "a11443f89117e47f248967e4be07a38b9c9b9ac4f5a39188a0a5ced674a8eb7e"
+        "scenario_digest": "4792a329246ddad98c59c9d45ed435d5834e460c6e78377490843f7b6ccfaf39"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1900,6 +1996,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -1908,7 +2007,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Represent uncertainty and preserve completed work.",
+        "text": "We can't complete this right now. Try again later.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -1963,7 +2063,7 @@
       "work_unit_id": "review-cdes-00109",
       "scenario_ref": {
         "scenario_id": "cdes-00109",
-        "scenario_digest": "24a44157fd48fa2fdb80efd53f9b8b3c17f9456b116218d07c5d6c2c8b6b3a1c"
+        "scenario_digest": "8dbafc964d8942c2b3baeecffa511d3f48990b2144178d9d51d39a1c2268e824"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -1978,6 +2078,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -1986,7 +2089,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: A trial converts to a paid recurring subscription. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Show price, timing, refusal, and cancellation.",
+        "text": "System information about subscription renewal: Your 14-day trial will renew at $12 a month. Please carefully review all available information before determining whether to proceed. You'll be charged unless you cancel before renewal. Review or cancel subscription.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -2041,7 +2145,7 @@
       "work_unit_id": "review-cdes-00981",
       "scenario_ref": {
         "scenario_id": "cdes-00981",
-        "scenario_digest": "d34b3c3b6f9d1760227b4e06abfac4900ff81503e6cf08a8a0a515127c89b413"
+        "scenario_digest": "7d4e85af87de39b71eb2b9b2f56999d2828dd91feeaaaf04d37330ff665a9565"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2056,6 +2160,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -2064,7 +2171,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A requested profile change completed successfully. Confirm the completed result without extra claims.",
+        "text": "Profile updated. View profile.",
+        "supporting_text": "Your changes are saved",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -2119,7 +2227,7 @@
       "work_unit_id": "review-cdes-00440",
       "scenario_ref": {
         "scenario_id": "cdes-00440",
-        "scenario_digest": "a59356a0472e9d563f96ecbb6bf574666d38fbccf3c67766472e58538b30597d"
+        "scenario_digest": "360f91240320eac2383ed565e805d627201b9a9e7980dabd0f8e94a1668c9fd8"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2134,6 +2242,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -2142,7 +2253,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Bind the error to the field and explain correction.",
+        "text": "Act now—don't miss out on validation error. Review expiry date.",
+        "supporting_text": "We can't submit the form until this is corrected",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -2197,7 +2309,7 @@
       "work_unit_id": "review-cdes-00766",
       "scenario_ref": {
         "scenario_id": "cdes-00766",
-        "scenario_digest": "ac5803e9dfa843f56d0d84c5eede5a6cdf57a5439603d37b1769ead8feebec79"
+        "scenario_digest": "36fc9eb5c3024c375798f8823ca547d26312e2b6747c22060a41a60ac614689b"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2212,6 +2324,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -2220,7 +2335,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with automated assistant.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -2275,7 +2391,7 @@
       "work_unit_id": "review-cdes-00243",
       "scenario_ref": {
         "scenario_id": "cdes-00243",
-        "scenario_digest": "77daba3436f372cf698f9ab11f627e3275be25e22ae53f419dc6c1b95e750504"
+        "scenario_digest": "4c2de5af1f48c138c38e48eef2e9c47d6ef53d73b342a63ec1daaf8cfd5d7019"
       },
       "sampling_cell": {
         "ability_id": "context_framing",
@@ -2290,6 +2406,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -2298,7 +2417,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. Deleting the item permanently removes shared work. Name the object, impact, and irreversible result.",
+        "text": "We're here to help. Deleting this project permanently removes it for everyone. Delete project.",
+        "supporting_text": "This can't be undone",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -2353,7 +2473,7 @@
       "work_unit_id": "review-cdes-06898",
       "scenario_ref": {
         "scenario_id": "cdes-06898",
-        "scenario_digest": "f370f136a3a1d187dda0f11d402e914c945b22970ed8bc62594e0a24a1113ce0"
+        "scenario_digest": "e0ee65fe9c739ee7428c969bbdb459516b282dd8d1cd12f5f772dd67b78d9b72"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2368,6 +2488,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -2376,7 +2499,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Use one governed destination promise.",
+        "text": "You caused this navigation destination issue. Go to Security.",
+        "supporting_text": "This opens Security settings",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -2431,7 +2555,7 @@
       "work_unit_id": "review-cdes-06022",
       "scenario_ref": {
         "scenario_id": "cdes-06022",
-        "scenario_digest": "cb10d89ca90a61380693811faf6680177b725918515a629d5b92fba0ce55cfd1"
+        "scenario_digest": "65ed5c683a053a345f3eb9c61b1114bab9c5a050585dc635817e96358da35bb6"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2446,6 +2570,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -2454,7 +2581,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A payment submission timed out and its outcome is not confirmed. Verify payment status before another attempt.",
+        "text": "We couldn't confirm your payment. Check payment status",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -2509,7 +2637,7 @@
       "work_unit_id": "review-cdes-06305",
       "scenario_ref": {
         "scenario_id": "cdes-06305",
-        "scenario_digest": "806cef4c3257ed5709b4ab7064c26b09a7eba683593889560e956c0c4eff6b40"
+        "scenario_digest": "dd240da877bfddcd7303b2c252cfc861245584a189a4afe975d0d6ebc143610f"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2524,6 +2652,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -2532,7 +2663,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Explain purpose, scope, choice, and settings recovery.",
+        "text": "Everything is complete for permission request. Choose location access.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -2587,7 +2719,7 @@
       "work_unit_id": "review-cdes-06684",
       "scenario_ref": {
         "scenario_id": "cdes-06684",
-        "scenario_digest": "3cccd10b365e504afbbe543e15918651a8d779bc6779a8689c76984b52ce6f69"
+        "scenario_digest": "88e09df9a857961862d9eec446e11f11f174860cfc7ac7e846d0ee1646c27a54"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2602,6 +2734,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -2610,7 +2745,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: A temporary outage blocks completion and timing is unknown. Represent uncertainty and preserve completed work.",
+        "text": "Important: We can't complete this right now. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -2665,7 +2801,7 @@
       "work_unit_id": "review-cdes-06137",
       "scenario_ref": {
         "scenario_id": "cdes-06137",
-        "scenario_digest": "d3ac47ea32be28604dee5458cd3dc5a91baf4d2bf03be0d7a568e846c7d31b68"
+        "scenario_digest": "e71cc43a2c72f14045e7186f7ffd8d05a346522182fa7c18e34608c49bda709e"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2680,6 +2816,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -2688,7 +2827,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Show price, timing, refusal, and cancellation.",
+        "text": "Your 14-day trial will renew at $12 a month. Review or cancel subscription.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -2743,7 +2883,7 @@
       "work_unit_id": "review-cdes-06969",
       "scenario_ref": {
         "scenario_id": "cdes-06969",
-        "scenario_digest": "31d77360fd93e37eaef04e7f956e13591d4370d6d572c2423fa43986690159a0"
+        "scenario_digest": "41874524228edba27281c7f36210e512b1ea3d6199ecfd0cd3af1f6f70681019"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2758,6 +2898,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -2766,7 +2909,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: A requested profile change completed successfully. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Confirm the completed result without extra claims.",
+        "text": "System information about successful update: Profile updated. Please carefully review all available information before determining whether to proceed. Your changes are saved. View profile.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -2821,7 +2965,7 @@
       "work_unit_id": "review-cdes-06441",
       "scenario_ref": {
         "scenario_id": "cdes-06441",
-        "scenario_digest": "3384440b87408f1b8d10c7946b01602b5b70f16d39fd77fbc774b8075b69aa60"
+        "scenario_digest": "d0ba69de522fcbdca401bc2e372da65ce0058ba6f30a3bf93323759aae39348d"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2836,6 +2980,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -2844,7 +2991,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Submitted information fails a known field requirement. Bind the error to the field and explain correction.",
+        "text": "Enter a valid expiry date. Review expiry date.",
+        "supporting_text": "We can't submit the form until this is corrected",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -2899,7 +3047,7 @@
       "work_unit_id": "review-cdes-06720",
       "scenario_ref": {
         "scenario_id": "cdes-06720",
-        "scenario_digest": "12dda8520af30a3dce136e60d1d5819a1d360123a7ffc7b5dd74a9c4d9b046fa"
+        "scenario_digest": "8a2973dd90ed12f9d14ace2701ffc701492e3dd8dc4b7539dc31b5c6de43bb73"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2914,6 +3062,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -2922,7 +3073,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Disclose automation, limits, and human handoff.",
+        "text": "Act now—don't miss out on automated assistant. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -2977,7 +3129,7 @@
       "work_unit_id": "review-cdes-06276",
       "scenario_ref": {
         "scenario_id": "cdes-06276",
-        "scenario_digest": "be68a048d208d60bf65052eb81c469afacbe113ed916040a864a69c9af55769d"
+        "scenario_digest": "ad4c0c2470d7b4402d347f7f8a83575cbbf7945fc45547dbddf695d8a63c95e9"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -2992,6 +3144,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -3000,7 +3155,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with destructive delete.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -3055,7 +3211,7 @@
       "work_unit_id": "review-cdes-06553",
       "scenario_ref": {
         "scenario_id": "cdes-06553",
-        "scenario_digest": "b8c0de2bde539b39b35a7124e30a1e4bc493869b8c85c4b81036a43368687980"
+        "scenario_digest": "5d71c3162677dccbe238a37d76ae9848fdde1f8e021195baf46e8c356d7fd448"
       },
       "sampling_cell": {
         "ability_id": "controls_forms",
@@ -3070,6 +3226,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -3078,7 +3237,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. No items exist yet and the user can create the first one. Explain the state and available first action.",
+        "text": "We're here to help. No projects yet. Create project.",
+        "supporting_text": "Your projects will appear here",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -3133,7 +3293,7 @@
       "work_unit_id": "review-cdes-02088",
       "scenario_ref": {
         "scenario_id": "cdes-02088",
-        "scenario_digest": "f4530aa9d0a8357066172ec44456bfd7099a8d6c99b80731a6b40beec1886110"
+        "scenario_digest": "56102bb07d6d20bee98f643ff89b9a646eeba7c108835b0d05b9cb41ca49e296"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3148,6 +3308,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -3156,7 +3319,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Verify payment status before another attempt.",
+        "text": "You caused this payment unknown issue. Check payment status.",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -3211,7 +3375,7 @@
       "work_unit_id": "review-cdes-02332",
       "scenario_ref": {
         "scenario_id": "cdes-02332",
-        "scenario_digest": "23bdeacfa2de35033e5928b7a51ff48f78d33c8bb8c9435d1a5a3ff1107bfa42"
+        "scenario_digest": "48f7c960837419734158f330348f722f4893c3c5a303d8a37143d095c3533600"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3226,6 +3390,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -3234,7 +3401,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "The product requests access to sensitive device data. Explain purpose, scope, choice, and settings recovery.",
+        "text": "Location access shows nearby pickup options. You can change this later in Settings",
+        "supporting_text": "Choose location access",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -3289,7 +3457,7 @@
       "work_unit_id": "review-cdes-02665",
       "scenario_ref": {
         "scenario_id": "cdes-02665",
-        "scenario_digest": "940b3dd121f46df6aec251d4b81976e8bdf3984e29dc73ad8ef7da558a8662ed"
+        "scenario_digest": "277bcf634e180c8655a0b152b4d8b813a676600dad34f6176e7705c206b7109d"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3304,6 +3472,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -3312,7 +3483,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Represent uncertainty and preserve completed work.",
+        "text": "Everything is complete for service interruption. Try again later.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -3367,7 +3539,7 @@
       "work_unit_id": "review-cdes-02144",
       "scenario_ref": {
         "scenario_id": "cdes-02144",
-        "scenario_digest": "aad3d0ea2db7f3f3dafc70a8cd89ee78a1a0064732d1b7f2b6faf005a134448d"
+        "scenario_digest": "d6acfe5ee0cdd691d3984e5beb3385a9c3ffd89cfe99bd82b9f4be1fa42cf383"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3382,6 +3554,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -3390,7 +3565,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: A trial converts to a paid recurring subscription. Show price, timing, refusal, and cancellation.",
+        "text": "Important: Your 14-day trial will renew at $12 a month. Review or cancel subscription.",
+        "supporting_text": "You'll be charged unless you cancel before renewal",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -3445,7 +3621,7 @@
       "work_unit_id": "review-cdes-02917",
       "scenario_ref": {
         "scenario_id": "cdes-02917",
-        "scenario_digest": "9fa1b07fa2a093294728a22c0c4e0077cfb28fcb408b983368fe846b65f00c29"
+        "scenario_digest": "5ce68a75324d4b78e74923db06f20067465896abdfe05a38ce0e9b7603e1df63"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3460,6 +3636,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -3468,7 +3647,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Confirm the completed result without extra claims.",
+        "text": "Profile updated. View profile.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -3523,7 +3703,7 @@
       "work_unit_id": "review-cdes-02479",
       "scenario_ref": {
         "scenario_id": "cdes-02479",
-        "scenario_digest": "116820ef43e1c9b4c174a5b9ac7e692c904b7645170f946c66698bea1bcdf160"
+        "scenario_digest": "0fc5c7fd8a3b8c630d480cb5b6f891a6f8acf17d362ea4c20ff382d53cab419e"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3538,6 +3718,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -3546,7 +3729,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: Submitted information fails a known field requirement. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Bind the error to the field and explain correction.",
+        "text": "System information about validation error: Enter a valid expiry date. Please carefully review all available information before determining whether to proceed. We can't submit the form until this is corrected. Review expiry date.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -3601,7 +3785,7 @@
       "work_unit_id": "review-cdes-02751",
       "scenario_ref": {
         "scenario_id": "cdes-02751",
-        "scenario_digest": "f3878cbbae8e6ec059b6e1c01273bbe1bdca0e752705d390dd3b97d669fe7259"
+        "scenario_digest": "63fd92d8122af4b36f609facde67a3de8491913430e7ab03bcea0373199bd8c2"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3616,6 +3800,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -3624,7 +3811,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "An automated assistant can explain but cannot change the account. Disclose automation, limits, and human handoff.",
+        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "supporting_text": "A support agent can help with account changes",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -3679,7 +3867,7 @@
       "work_unit_id": "review-cdes-02300",
       "scenario_ref": {
         "scenario_id": "cdes-02300",
-        "scenario_digest": "949918808b5ccb541b9c8f27f997701fc8f6b70266a4df78273b5739d83f4923"
+        "scenario_digest": "55459b3bda2c898f9e368fc7836c35b8680e86c48d42d56157e5d92db8856777"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3694,6 +3882,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -3702,7 +3893,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Name the object, impact, and irreversible result.",
+        "text": "Act now—don't miss out on destructive delete. Delete project.",
+        "supporting_text": "This can't be undone",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -3757,7 +3949,7 @@
       "work_unit_id": "review-cdes-02526",
       "scenario_ref": {
         "scenario_id": "cdes-02526",
-        "scenario_digest": "1d123c58cf31c1741ae4065cf4cbf99562a4c80748b40395b3a54472bdb89508"
+        "scenario_digest": "8c482f4d9e35420d02b44f2de6d9bddb04865b09586a5842668aa6c7abf0c04e"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3772,6 +3964,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -3780,7 +3975,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with empty state.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -3835,7 +4031,7 @@
       "work_unit_id": "review-cdes-02803",
       "scenario_ref": {
         "scenario_id": "cdes-02803",
-        "scenario_digest": "ca88a6db5bdcbe39ad65b55aaf9b87813a2ff7c64552fbfd9914da084cf1c354"
+        "scenario_digest": "85ddca7ea125a64dec16c1a0a3f5df59ed6478ae3b51a43137bf866ec0f8f55f"
       },
       "sampling_cell": {
         "ability_id": "interaction_state",
@@ -3850,6 +4046,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -3858,7 +4057,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. Several entry points lead to the same account-security destination. Use one governed destination promise.",
+        "text": "We're here to help. Go to Security",
+        "supporting_text": "Manage your password and sign-in options in Security. This opens Security settings.",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -3913,7 +4113,7 @@
       "work_unit_id": "review-cdes-08348",
       "scenario_ref": {
         "scenario_id": "cdes-08348",
-        "scenario_digest": "3f00cf736d444e6404fa4d5fcdbe30b9b0de1546c10b094ab985bf0cd90645e4"
+        "scenario_digest": "03650c58f61ced22d14a593766e55df3acfba44690d8efca4fb0e87dc3668caa"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -3928,6 +4128,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -3936,7 +4139,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Explain purpose, scope, choice, and settings recovery.",
+        "text": "You caused this permission request issue. Choose location access.",
+        "supporting_text": "You can change this later in Settings",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -3991,7 +4195,7 @@
       "work_unit_id": "review-cdes-08612",
       "scenario_ref": {
         "scenario_id": "cdes-08612",
-        "scenario_digest": "ef14820d5cc58a2c624a39ab93acf3c64796937e0e58c9e21f6b3ab26409a5e8"
+        "scenario_digest": "b57e1e1c44c6ac81629085d617eaea0ef5b7dfa8a2d252b4df831d6c9135ee13"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4006,6 +4210,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -4014,7 +4221,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "A temporary outage blocks completion and timing is unknown. Represent uncertainty and preserve completed work.",
+        "text": "We can't complete this right now. Try again later",
+        "supporting_text": "Your saved work is still here",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -4069,7 +4277,7 @@
       "work_unit_id": "review-cdes-08175",
       "scenario_ref": {
         "scenario_id": "cdes-08175",
-        "scenario_digest": "cb69bb9953d4d090b95249ae8148efc1ab8132248d7cf8a7311f7beeed93874b"
+        "scenario_digest": "ac187de73fc7bd642c30f8ac8ea56443f91e90aecb2d2f70613557492add79b3"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4084,6 +4292,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -4092,7 +4303,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Show price, timing, refusal, and cancellation.",
+        "text": "Everything is complete for subscription renewal. Review or cancel subscription.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -4147,7 +4359,7 @@
       "work_unit_id": "review-cdes-08954",
       "scenario_ref": {
         "scenario_id": "cdes-08954",
-        "scenario_digest": "32d9b8c21431b00491e7a534809e4dee6ddb5fb8df20158c18a8f9702b15fdcb"
+        "scenario_digest": "2944ed30351ce2d6490d9f96f4ce3aad1b29ea697c5cf9a5fd49201a7907a900"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4162,6 +4374,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -4170,7 +4385,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Important: A requested profile change completed successfully. Confirm the completed result without extra claims.",
+        "text": "Important: Profile updated. View profile.",
+        "supporting_text": "Your changes are saved",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -4225,7 +4441,7 @@
       "work_unit_id": "review-cdes-08497",
       "scenario_ref": {
         "scenario_id": "cdes-08497",
-        "scenario_digest": "67278156d5dde354d927d4c2357ae12f073af3c9a2ace3d283b9ea0b46aebf8e"
+        "scenario_digest": "c1735bc87255114fc2347cb40a0c5da3bcc4a339b2583023545822a8bd50c6cf"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4240,6 +4456,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -4248,7 +4467,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Bind the error to the field and explain correction.",
+        "text": "Enter a valid expiry date. Review expiry date.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -4303,7 +4523,7 @@
       "work_unit_id": "review-cdes-08729",
       "scenario_ref": {
         "scenario_id": "cdes-08729",
-        "scenario_digest": "422291a03ffa97eaeb73208b9de806b8a90655075f2a6ccf289688ba0d886758"
+        "scenario_digest": "6d7052e09208fb501b4d3e5a881d8fb66173dfcaec00e541bbe9d5096ce8de37"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4318,6 +4538,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -4326,7 +4549,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "System operational information: An automated assistant can explain but cannot change the account. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Disclose automation, limits, and human handoff.",
+        "text": "System information about automated assistant: I'm an automated assistant and can explain billing, but I can't change your account. Please carefully review all available information before determining whether to proceed. A support agent can help with account changes. Contact support.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -4381,7 +4605,7 @@
       "work_unit_id": "review-cdes-08201",
       "scenario_ref": {
         "scenario_id": "cdes-08201",
-        "scenario_digest": "6365456a333b5df0a1875c9006a03dab088d4eb1e2921d8b08083a2ee4cbad66"
+        "scenario_digest": "c3abe48137943baa419a7d66c29efd24d36d4278b28aaef95f0829d6c3fa4bab"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4396,6 +4620,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -4404,7 +4631,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Deleting the item permanently removes shared work. Name the object, impact, and irreversible result.",
+        "text": "Delete project",
+        "supporting_text": "Deleting this project permanently removes it for everyone. This can't be undone.",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -4459,7 +4687,7 @@
       "work_unit_id": "review-cdes-08590",
       "scenario_ref": {
         "scenario_id": "cdes-08590",
-        "scenario_digest": "bd5d6c787e28f9498558e38741933845e97555524efdb02b76f83d58e4601a8f"
+        "scenario_digest": "fe3dbde3d9db8eaa203b083b880fc2db97167f56dd60c0e3fe6474e5cc3890db"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4474,6 +4702,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -4482,7 +4713,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Explain the state and available first action.",
+        "text": "Act now—don't miss out on empty state. Create project.",
+        "supporting_text": "Your projects will appear here",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -4537,7 +4769,7 @@
       "work_unit_id": "review-cdes-08836",
       "scenario_ref": {
         "scenario_id": "cdes-08836",
-        "scenario_digest": "0b163b130c641c0f93357deee0e8b299466db0c1535aa18a45aaecf9750e342f"
+        "scenario_digest": "19624f7a90a2767776bcca3803d6f8d7070f5e5ebcec57ef119c2b2e77241474"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4552,6 +4784,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -4560,7 +4795,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with navigation destination.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -4615,7 +4851,7 @@
       "work_unit_id": "review-cdes-08063",
       "scenario_ref": {
         "scenario_id": "cdes-08063",
-        "scenario_digest": "a3e7ce7201ec82f8630b8c544588e343af84fc59d2ff45e3c0262a5cfaa3c961"
+        "scenario_digest": "85a859ee8e0dee8692b67488773b7f53e64334ed0805974534244ee55426dc8a"
       },
       "sampling_cell": {
         "ability_id": "localization",
@@ -4630,6 +4866,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -4638,7 +4877,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "We can help. A payment submission timed out and its outcome is not confirmed. Verify payment status before another attempt.",
+        "text": "We're here to help. We couldn't confirm your payment. Paying again could result in a duplicate charge. Check payment status.",
+        "supporting_text": "Regarding payment unknown",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -4693,7 +4933,7 @@
       "work_unit_id": "review-cdes-03658",
       "scenario_ref": {
         "scenario_id": "cdes-03658",
-        "scenario_digest": "7b2d0eeb7b7cff901b8bd0ca2382e2a1271cfdb65caa3688e7fbe55545fe4d22"
+        "scenario_digest": "1efa4e4b56209fde81f9a1fc67a0fa3774bfb701ccee2c824ba3987a1c23fc03"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -4708,6 +4948,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -4716,7 +4959,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Represent uncertainty and preserve completed work.",
+        "text": "You caused this service interruption issue. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -4771,7 +5015,7 @@
       "work_unit_id": "review-cdes-03192",
       "scenario_ref": {
         "scenario_id": "cdes-03192",
-        "scenario_digest": "49657257b1a04488a7267d17b15eee947bc418fd8a80b4aea72fdd09f4b95ad7"
+        "scenario_digest": "26284c22af66666c130b85e81264d6e33cd759877c648a9430a19a76a4504a1b"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -4786,6 +5030,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -4794,7 +5041,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A trial converts to a paid recurring subscription. Show price, timing, refusal, and cancellation.",
+        "text": "Your 14-day trial will renew at $12 a month",
+        "supporting_text": "You'll be charged unless you cancel before renewal. Review or cancel subscription.",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -4849,7 +5097,7 @@
       "work_unit_id": "review-cdes-03925",
       "scenario_ref": {
         "scenario_id": "cdes-03925",
-        "scenario_digest": "5758ed0a83f8ca564a871aae8e94ed57a6a147b2316bc4dd5deb08defa619b9a"
+        "scenario_digest": "b59a2869d484326cc29f381e866dfc36c8335ecc4174575b0b5019247290c8d0"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -4864,6 +5112,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -4872,7 +5123,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Confirm the completed result without extra claims.",
+        "text": "Everything is complete for successful update. View profile.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -4927,7 +5179,7 @@
       "work_unit_id": "review-cdes-03404",
       "scenario_ref": {
         "scenario_id": "cdes-03404",
-        "scenario_digest": "1e6a69633f77fff42c8fcae388e798acb013a1092a5a909d18203cdf64bbeab4"
+        "scenario_digest": "8d0d33258ea8462d6a61da62b67ee139a16064168e845f3e598f5fca0ea5f8ab"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -4942,6 +5194,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -4950,7 +5205,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: Submitted information fails a known field requirement. Bind the error to the field and explain correction.",
+        "text": "Important: Review expiry date",
+        "supporting_text": "Enter a valid expiry date. We can't submit the form until this is corrected.",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -5005,7 +5261,7 @@
       "work_unit_id": "review-cdes-03787",
       "scenario_ref": {
         "scenario_id": "cdes-03787",
-        "scenario_digest": "53e3f3d0f80abc4288bf4fe71e81267e48b9492e432841e284bd350b2303846a"
+        "scenario_digest": "973f96bb4ae93127f9b1a8dcc50716833a672e1cd7004217b8b7828d9a380e27"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5020,6 +5276,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -5028,7 +5287,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Disclose automation, limits, and human handoff.",
+        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -5083,7 +5343,7 @@
       "work_unit_id": "review-cdes-03239",
       "scenario_ref": {
         "scenario_id": "cdes-03239",
-        "scenario_digest": "3ed0d3ca985821f9990ded9ad29942beb82eb259ea76b7f19f64af85ac9d20c6"
+        "scenario_digest": "0f65cd232a7e2c1f8ff20a825f08256ef1b9b6be6a5c40ce880209303978f1c4"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5098,6 +5358,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -5106,7 +5369,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "System operational information: Deleting the item permanently removes shared work. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Name the object, impact, and irreversible result.",
+        "text": "System information about destructive delete: Deleting this project permanently removes it for everyone. Please carefully review all available information before determining whether to proceed. This can't be undone. Delete project.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -5161,7 +5425,7 @@
       "work_unit_id": "review-cdes-03561",
       "scenario_ref": {
         "scenario_id": "cdes-03561",
-        "scenario_digest": "782d171bc5d077ac417ce5b73c2b4b9117864607b7ada2f8dd82461761652108"
+        "scenario_digest": "65112e928813301c161cd70743ca62d402d7ca6abbb9a25fbba406b9035e6e97"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5176,6 +5440,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -5184,7 +5451,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "No items exist yet and the user can create the first one. Explain the state and available first action.",
+        "text": "No projects yet. Your projects will appear here. Create project.",
+        "supporting_text": "Regarding empty state",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -5239,7 +5507,7 @@
       "work_unit_id": "review-cdes-03850",
       "scenario_ref": {
         "scenario_id": "cdes-03850",
-        "scenario_digest": "e9d23fffbe5cc12852b61b8a5786ea51a27fc7ebfc4f1d584e2ce29f98f450c5"
+        "scenario_digest": "45f686281d1df3e64218fe7981e856ad3891e83a9fad1325de5d2736ee0763b0"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5254,6 +5522,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -5262,7 +5533,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Use one governed destination promise.",
+        "text": "Act now—don't miss out on navigation destination. Go to Security.",
+        "supporting_text": "This opens Security settings",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -5317,7 +5589,7 @@
       "work_unit_id": "review-cdes-03016",
       "scenario_ref": {
         "scenario_id": "cdes-03016",
-        "scenario_digest": "dbb00d45578b7b5096627067fabc6b6a79fcb181e4b104f453ca9985ab5d5cff"
+        "scenario_digest": "d11e0ac5dbedf456db5199164a4d74c7cea1b165c0a9f7d8949a60b6e39e4432"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5332,6 +5604,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -5340,7 +5615,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with payment unknown.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -5395,7 +5671,7 @@
       "work_unit_id": "review-cdes-03373",
       "scenario_ref": {
         "scenario_id": "cdes-03373",
-        "scenario_digest": "f865f414ff0044e935dbfda49eb2b94592018809c25bb1cdb9f14f1533cbd42b"
+        "scenario_digest": "72de086c4155d52e125e4f8f364446b0bc5261cd41fe9105e9666f088a53d172"
       },
       "sampling_cell": {
         "ability_id": "recovery",
@@ -5410,6 +5686,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -5418,7 +5697,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "We can help. The product requests access to sensitive device data. Explain purpose, scope, choice, and settings recovery.",
+        "text": "We're here to help. Location access shows nearby pickup options. You can change this later in Settings. Choose location access.",
+        "supporting_text": "Help with permission request",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -5473,7 +5753,7 @@
       "work_unit_id": "review-cdes-01108",
       "scenario_ref": {
         "scenario_id": "cdes-01108",
-        "scenario_digest": "eb10a1077acebc9702c7392ce2c66859c35585e0fbf2df2c225b9984f58bdd46"
+        "scenario_digest": "705c5380b4a9a03fe70c48307d82f792df5002612c3e95af8026552d09f78562"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5488,6 +5768,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -5496,7 +5779,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Show price, timing, refusal, and cancellation.",
+        "text": "You caused this subscription renewal issue. Review or cancel subscription.",
+        "supporting_text": "You'll be charged unless you cancel before renewal",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -5551,7 +5835,7 @@
       "work_unit_id": "review-cdes-01982",
       "scenario_ref": {
         "scenario_id": "cdes-01982",
-        "scenario_digest": "cb736f90f273f004398d19634ebc8df819474d74acce97eceabebec673cfee81"
+        "scenario_digest": "cdacb166066218ff464351871c249766d5673d72c3aefeb41d58b363b2e6d483"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5566,6 +5850,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -5574,7 +5861,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A requested profile change completed successfully. Confirm the completed result without extra claims.",
+        "text": "Profile updated. View profile",
+        "supporting_text": "Your changes are saved",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -5629,7 +5917,7 @@
       "work_unit_id": "review-cdes-01435",
       "scenario_ref": {
         "scenario_id": "cdes-01435",
-        "scenario_digest": "cbbc7db10c2ec1bf91124de2469a3f3f534c1a6ba4c5da1b8a484effc0456b21"
+        "scenario_digest": "f7501c1243ff764a14955561233ca9313fd66c96f540d735a9a6b01d4a0eb2e2"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5644,6 +5932,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -5652,7 +5943,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Bind the error to the field and explain correction.",
+        "text": "Everything is complete for validation error. Review expiry date.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -5707,7 +5999,7 @@
       "work_unit_id": "review-cdes-01764",
       "scenario_ref": {
         "scenario_id": "cdes-01764",
-        "scenario_digest": "abf712a948f4ea8ab878e9fb1a4cde85964cd549c8f7c6264a176e1eaf1d2a19"
+        "scenario_digest": "fe72eb423c1dea2d50641aea1cbb641e59e24587123c75b2e170faf0cd7cc995"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5722,6 +6014,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -5730,7 +6025,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: An automated assistant can explain but cannot change the account. Disclose automation, limits, and human handoff.",
+        "text": "Important: I'm an automated assistant and can explain billing, but I can't change your account. A support agent can help with account changes. Contact support.",
+        "supporting_text": "Regarding automated assistant",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -5785,7 +6081,7 @@
       "work_unit_id": "review-cdes-01247",
       "scenario_ref": {
         "scenario_id": "cdes-01247",
-        "scenario_digest": "d853d87cefa5f0b898f6f50d4c48f3b15165d630d6d76f03e3f48c65237c355b"
+        "scenario_digest": "67842b6e56e95e81003451a878d2c9c48d0781707d1e99317d342b8c06b2e4c2"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5800,6 +6096,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -5808,7 +6107,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Name the object, impact, and irreversible result.",
+        "text": "Deleting this project permanently removes it for everyone. Delete project.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -5863,7 +6163,7 @@
       "work_unit_id": "review-cdes-01519",
       "scenario_ref": {
         "scenario_id": "cdes-01519",
-        "scenario_digest": "16630f4f1ba723fe4f3ef051a47a2bae76fbbf3306e637a262a4a73a39411bc3"
+        "scenario_digest": "02bd230dd70c237f8173defdce0808d5b4f915bb7a592fa9e306054d05e22622"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5878,6 +6178,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -5886,7 +6189,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "System operational information: No items exist yet and the user can create the first one. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Explain the state and available first action.",
+        "text": "System information about empty state: No projects yet. Please carefully review all available information before determining whether to proceed. Your projects will appear here. Create project.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -5941,7 +6245,7 @@
       "work_unit_id": "review-cdes-01871",
       "scenario_ref": {
         "scenario_id": "cdes-01871",
-        "scenario_digest": "44524727c99e3da60aa3edaac1ba2482df0ba38c54e24e88ef46900ef0b986b6"
+        "scenario_digest": "122e7810d4cff99e9f43a18b0bc47970ebf298c8e0edc5c153e586305ea43c21"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -5956,6 +6260,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -5964,7 +6271,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Several entry points lead to the same account-security destination. Use one governed destination promise.",
+        "text": "Manage your password and sign-in options in Security. This opens Security settings. Go to Security.",
+        "supporting_text": "Help with navigation destination",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -6019,7 +6327,7 @@
       "work_unit_id": "review-cdes-01060",
       "scenario_ref": {
         "scenario_id": "cdes-01060",
-        "scenario_digest": "26a3851bdd923287f9cab3c320094cfc55209eb52f3039c69fbb240258c1e923"
+        "scenario_digest": "77a19efc1d80610b34ecd16fe90289c9ece31b3b2ff16e6fa8ba2dc9f76972d4"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6034,6 +6342,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -6042,7 +6353,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Verify payment status before another attempt.",
+        "text": "Act now—don't miss out on payment unknown. Check payment status.",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -6097,7 +6409,7 @@
       "work_unit_id": "review-cdes-01396",
       "scenario_ref": {
         "scenario_id": "cdes-01396",
-        "scenario_digest": "bf4bc7bd039dbf7460195e4723beb4c5f9544fee0a6ac98426ca610cef70dc1c"
+        "scenario_digest": "abee02fd674bd4ac606252def4fa4d8c7154ddfc492c96b564ad0724dda97cb2"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6112,6 +6424,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -6120,7 +6435,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with permission request.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -6175,7 +6491,7 @@
       "work_unit_id": "review-cdes-01623",
       "scenario_ref": {
         "scenario_id": "cdes-01623",
-        "scenario_digest": "c4d3cc44273290baa632044b5267be4994077f4f6cf920be58a37a362f0eaa07"
+        "scenario_digest": "df0ee85de5135d5849987567d4b66cfe6c6f6ef62aef8ac568e8adb8b83069bf"
       },
       "sampling_cell": {
         "ability_id": "semantic_fidelity",
@@ -6190,6 +6506,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -6198,7 +6517,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. A temporary outage blocks completion and timing is unknown. Represent uncertainty and preserve completed work.",
+        "text": "We're here to help. We can't complete this right now. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -6253,7 +6573,7 @@
       "work_unit_id": "review-cdes-05968",
       "scenario_ref": {
         "scenario_id": "cdes-05968",
-        "scenario_digest": "6c92c98186abf06e35ddb2ed82928ef345911973978b607a7141d4451b963ffc"
+        "scenario_digest": "32ed4387b7e7a28990360f08cef4e0ca0429cea9eb1b7f734e4d991a15352ee5"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6268,6 +6588,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -6276,7 +6599,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Confirm the completed result without extra claims.",
+        "text": "You caused this successful update issue. View profile.",
+        "supporting_text": "Your changes are saved",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -6331,7 +6655,7 @@
       "work_unit_id": "review-cdes-05442",
       "scenario_ref": {
         "scenario_id": "cdes-05442",
-        "scenario_digest": "9b85c983875803c63ca7bb41fda8e8ec6c2ef4d82cc9926812c5915697c9d058"
+        "scenario_digest": "f2a3f04c1a1a37c1b12438106101a7b6e040b87542c02014498293435ba3d2b7"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6346,6 +6670,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -6354,7 +6681,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Submitted information fails a known field requirement. Bind the error to the field and explain correction.",
+        "text": "Enter a valid expiry date. Review expiry date",
+        "supporting_text": "We can't submit the form until this is corrected",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -6409,7 +6737,7 @@
       "work_unit_id": "review-cdes-05715",
       "scenario_ref": {
         "scenario_id": "cdes-05715",
-        "scenario_digest": "fdb42e091065d3cf9578e1d42d7c591e6c1dd05d5fb35d41a020bfc66a963557"
+        "scenario_digest": "60db3765badfa0a781cf76de2fa05714ebf3fb813590b6397646d1ba044706a7"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6424,6 +6752,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -6432,7 +6763,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Disclose automation, limits, and human handoff.",
+        "text": "Everything is complete for automated assistant. Contact support.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -6487,7 +6819,7 @@
       "work_unit_id": "review-cdes-05274",
       "scenario_ref": {
         "scenario_id": "cdes-05274",
-        "scenario_digest": "f264e11da990648097a0cd10b4c7fbb6e2673162a6b037e76b98cf4db56e650c"
+        "scenario_digest": "c3cb6a67470ab93820a1237c3a14590091355db600d4d10b7f9e06069b1e2a9c"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6502,6 +6834,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -6510,7 +6845,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: Deleting the item permanently removes shared work. Name the object, impact, and irreversible result.",
+        "text": "Important: Deleting this project permanently removes it for everyone. This can't be undone. Delete project.",
+        "supporting_text": "Help with destructive delete",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -6565,7 +6901,7 @@
       "work_unit_id": "review-cdes-05557",
       "scenario_ref": {
         "scenario_id": "cdes-05557",
-        "scenario_digest": "c483d46f2d4ca5f6f591448fd72e69603b93e38c78a1ad27bb324f2c0c3129f9"
+        "scenario_digest": "ebdf1ed8cce25854aa8aab3fd8302444ed3c4c8c68920763f02d7a9ecd96e17d"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6580,6 +6916,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -6588,7 +6927,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Explain the state and available first action.",
+        "text": "No projects yet. Create project.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -6643,7 +6983,7 @@
       "work_unit_id": "review-cdes-05899",
       "scenario_ref": {
         "scenario_id": "cdes-05899",
-        "scenario_digest": "b8a2a5050ad19052ecae846fdf9a21f9ea24b84aebfc7e4db3007d208e917fdd"
+        "scenario_digest": "eacc68a5c6a347129e473f686c72330b716346cdba08ff09ce95a21266bd0f58"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6658,6 +6998,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -6666,7 +7009,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "System operational information: Several entry points lead to the same account-security destination. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Use one governed destination promise.",
+        "text": "System information about navigation destination: Manage your password and sign-in options in Security. Please carefully review all available information before determining whether to proceed. This opens Security settings. Go to Security.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -6721,7 +7065,7 @@
       "work_unit_id": "review-cdes-05021",
       "scenario_ref": {
         "scenario_id": "cdes-05021",
-        "scenario_digest": "88dd52f9ed26752d6383c1d91876a7881f910dea7c5f1234a41f4e8d99fcb1f2"
+        "scenario_digest": "8e1b8e1bf5e31204d1071b72798aa5f631ca9cad832e28d2e69918d63ea39477"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6736,6 +7080,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -6744,7 +7091,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "A payment submission timed out and its outcome is not confirmed. Verify payment status before another attempt.",
+        "text": "We couldn't confirm your payment. Check payment status.",
+        "supporting_text": "Paying again could result in a duplicate charge",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -6799,7 +7147,7 @@
       "work_unit_id": "review-cdes-05310",
       "scenario_ref": {
         "scenario_id": "cdes-05310",
-        "scenario_digest": "91804a45c0b061f131adfd481e7160b49229725d45f4e46c7ab7b5ab1bce3f70"
+        "scenario_digest": "0e5a4e70d54e281d7dfdfec2cfb7c3bcde92bf4e06cfa018f53f85bee38b5f73"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6814,6 +7162,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -6822,7 +7173,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Explain purpose, scope, choice, and settings recovery.",
+        "text": "Act now—don't miss out on permission request. Choose location access.",
+        "supporting_text": "You can change this later in Settings",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -6877,7 +7229,7 @@
       "work_unit_id": "review-cdes-05686",
       "scenario_ref": {
         "scenario_id": "cdes-05686",
-        "scenario_digest": "05bbffbf8346afe94fbbf7dade265908a74e4cd64b05e255776ed19192286347"
+        "scenario_digest": "c63cf26e38089cbe72b29281ff237ab7bc64f6366ff2330cf5b4e916902fc816"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6892,6 +7244,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -6900,7 +7255,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with service interruption.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -6955,7 +7311,7 @@
       "work_unit_id": "review-cdes-05133",
       "scenario_ref": {
         "scenario_id": "cdes-05133",
-        "scenario_digest": "0cbbed15659a672cf8b1bd593e5f648d51dd1219cbf01240b4ac2281192bffc7"
+        "scenario_digest": "74874bdaae590b1cbc86873e12d5bb2ac5fb783edeec6ff7a63b51974f961b68"
       },
       "sampling_cell": {
         "ability_id": "structure_navigation",
@@ -6970,6 +7326,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -6978,7 +7337,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. A trial converts to a paid recurring subscription. Show price, timing, refusal, and cancellation.",
+        "text": "We're here to help. Your 14-day trial will renew at $12 a month. You'll be charged unless you cancel before renewal.",
+        "supporting_text": "Review or cancel subscription",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -7033,7 +7393,7 @@
       "work_unit_id": "review-cdes-09478",
       "scenario_ref": {
         "scenario_id": "cdes-09478",
-        "scenario_digest": "247e7bf015cfab10884fa71c40666eed33ba8c94cbc45c513ade80680d6ab4c4"
+        "scenario_digest": "79d8646b8b8a0fa8c5cb5ba03a6d2d14e098a486bc937ea678afd11085d93d73"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7048,6 +7408,9 @@
         "state": "Submitted information fails a known field requirement",
         "risk": "medium",
         "user_goal": "Bind the error to the field and explain correction",
+        "state_expression": "Enter a valid expiry date",
+        "action_expression": "Review expiry date",
+        "consequence_expression": "We can't submit the form until this is corrected",
         "surface": "help_article",
         "surface_context": "support guidance",
         "channel": "help",
@@ -7056,7 +7419,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "You did this incorrectly. Bind the error to the field and explain correction.",
+        "text": "You caused this validation error issue. Review expiry date.",
+        "supporting_text": "We can't submit the form until this is corrected",
         "voice": "blunt",
         "tone": "accusatory",
         "language": "en",
@@ -7111,7 +7475,7 @@
       "work_unit_id": "review-cdes-09752",
       "scenario_ref": {
         "scenario_id": "cdes-09752",
-        "scenario_digest": "6125430b2cd7ceaa7f98c8fe30f3dec4d3582e4e1b3a7a15b718760a8f4c01e4"
+        "scenario_digest": "a9b03e9624c76a3fb59ae5ab804b56c77f5d08c8dfaeb60d797d2a34db6d1199"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7126,6 +7490,9 @@
         "state": "An automated assistant can explain but cannot change the account",
         "risk": "medium",
         "user_goal": "Disclose automation, limits, and human handoff",
+        "state_expression": "I'm an automated assistant and can explain billing, but I can't change your account",
+        "action_expression": "Contact support",
+        "consequence_expression": "A support agent can help with account changes",
         "surface": "notification",
         "surface_context": "out-of-product notification",
         "channel": "push",
@@ -7134,7 +7501,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "An automated assistant can explain but cannot change the account. Disclose automation, limits, and human handoff.",
+        "text": "I'm an automated assistant and can explain billing, but I can't change your account. Contact support",
+        "supporting_text": "A support agent can help with account changes",
         "voice": "concise",
         "tone": "calm",
         "language": "en",
@@ -7189,7 +7557,7 @@
       "work_unit_id": "review-cdes-09295",
       "scenario_ref": {
         "scenario_id": "cdes-09295",
-        "scenario_digest": "21e327cb5bd15634d7f1f9a8c5f3de1085fe084382f48a2180534eff2229c949"
+        "scenario_digest": "0873cbfaeeb9878bb0713b49ce6956f0d4983b863e91b762ff8a414551ddde0f"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7204,6 +7572,9 @@
         "state": "Deleting the item permanently removes shared work",
         "risk": "critical",
         "user_goal": "Name the object, impact, and irreversible result",
+        "state_expression": "Deleting this project permanently removes it for everyone",
+        "action_expression": "Delete project",
+        "consequence_expression": "This can't be undone",
         "surface": "screen_reader_status",
         "surface_context": "non-visual status announcement",
         "channel": "assistive_technology",
@@ -7212,7 +7583,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Everything is complete. Name the object, impact, and irreversible result.",
+        "text": "Everything is complete for destructive delete. Delete project.",
+        "supporting_text": null,
         "voice": "confident",
         "tone": "reassuring",
         "language": "en",
@@ -7267,7 +7639,7 @@
       "work_unit_id": "review-cdes-09524",
       "scenario_ref": {
         "scenario_id": "cdes-09524",
-        "scenario_digest": "85a0890337dc4a8ccc16ca85252f943b77a653c018fac54a9c85f1f747b35ceb"
+        "scenario_digest": "f9eca075789e53bebcccb6b65130a63a55d9ee270a9ec5e7c6e64e8f3d294713"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7282,6 +7654,9 @@
         "state": "No items exist yet and the user can create the first one",
         "risk": "low",
         "user_goal": "Explain the state and available first action",
+        "state_expression": "No projects yet",
+        "action_expression": "Create project",
+        "consequence_expression": "Your projects will appear here",
         "surface": "banner",
         "surface_context": "persistent page-level notice",
         "channel": "web",
@@ -7290,7 +7665,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Important: No items exist yet and the user can create the first one. Explain the state and available first action.",
+        "text": "Important: No projects yet. Create project.",
+        "supporting_text": "Your projects will appear here",
         "voice": "formal",
         "tone": "serious",
         "language": "en",
@@ -7345,7 +7721,7 @@
       "work_unit_id": "review-cdes-09807",
       "scenario_ref": {
         "scenario_id": "cdes-09807",
-        "scenario_digest": "d6566f14a19dbb99157e6722b10518c8322e27cf4454db05d1e4287d724020ae"
+        "scenario_digest": "ab6f400987dfb14bfe9e3a9e8f1faae5e2a34392ce190219e51ebf96ec038dba"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7360,6 +7736,9 @@
         "state": "Several entry points lead to the same account-security destination",
         "risk": "medium",
         "user_goal": "Use one governed destination promise",
+        "state_expression": "Manage your password and sign-in options in Security",
+        "action_expression": "Go to Security",
+        "consequence_expression": "This opens Security settings",
         "surface": "button",
         "surface_context": "compact control label",
         "channel": "web",
@@ -7368,7 +7747,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Use one governed destination promise.",
+        "text": "Manage your password and sign-in options in Security. Go to Security.",
+        "supporting_text": null,
         "voice": "concise",
         "tone": "neutral",
         "language": "en",
@@ -7423,7 +7803,7 @@
       "work_unit_id": "review-cdes-09089",
       "scenario_ref": {
         "scenario_id": "cdes-09089",
-        "scenario_digest": "f6392359e3198242769fac6b01416d5c11f3557ea2bce395e7e1ca9c098dfe82"
+        "scenario_digest": "80674f47fde678df2aab2752acd4da65f9de540dc13f3d77442dae186b882192"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7438,6 +7818,9 @@
         "state": "A payment submission timed out and its outcome is not confirmed",
         "risk": "high",
         "user_goal": "Verify payment status before another attempt",
+        "state_expression": "We couldn't confirm your payment",
+        "action_expression": "Check payment status",
+        "consequence_expression": "Paying again could result in a duplicate charge",
         "surface": "chat",
         "surface_context": "assistant response",
         "channel": "web_chat",
@@ -7446,7 +7829,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "System operational information: A payment submission timed out and its outcome is not confirmed. Please carefully review all available interface information before determining whether to proceed with the applicable workflow. Verify payment status before another attempt.",
+        "text": "System information about payment unknown: We couldn't confirm your payment. Please carefully review all available information before determining whether to proceed. Paying again could result in a duplicate charge. Check payment status.",
+        "supporting_text": null,
         "voice": "technical",
         "tone": "verbose",
         "language": "en",
@@ -7501,7 +7885,7 @@
       "work_unit_id": "review-cdes-09331",
       "scenario_ref": {
         "scenario_id": "cdes-09331",
-        "scenario_digest": "4c8a2ca8b0267f53e675d1389f166836b08f9d768ba7c75d300ca77aa92c2496"
+        "scenario_digest": "ace852f6fba315e8ebee4d2a70150af9c6b447c33bf70498d44a54b167c605b2"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7516,6 +7900,9 @@
         "state": "The product requests access to sensitive device data",
         "risk": "high",
         "user_goal": "Explain purpose, scope, choice, and settings recovery",
+        "state_expression": "Location access shows nearby pickup options",
+        "action_expression": "Choose location access",
+        "consequence_expression": "You can change this later in Settings",
         "surface": "dialog",
         "surface_context": "interruptive decision dialog",
         "channel": "web",
@@ -7524,7 +7911,8 @@
         "direction": "rtl"
       },
       "candidate": {
-        "text": "The product requests access to sensitive device data. Explain purpose, scope, choice, and settings recovery.",
+        "text": "Location access shows nearby pickup options. You can change this later in Settings.",
+        "supporting_text": "Choose location access",
         "voice": "plain",
         "tone": "direct",
         "language": "en",
@@ -7579,7 +7967,7 @@
       "work_unit_id": "review-cdes-09670",
       "scenario_ref": {
         "scenario_id": "cdes-09670",
-        "scenario_digest": "2aa7fbcd2aee542356fce54b1281b6a6eb2b96b43a53e2594fd809aae694e389"
+        "scenario_digest": "504d035d6ff3d8155a7e39d731791de6e5ece58a02befc67f564bd96d59589ab"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7594,6 +7982,9 @@
         "state": "A temporary outage blocks completion and timing is unknown",
         "risk": "high",
         "user_goal": "Represent uncertainty and preserve completed work",
+        "state_expression": "We can't complete this right now",
+        "action_expression": "Try again later",
+        "consequence_expression": "Your saved work is still here",
         "surface": "email",
         "surface_context": "transactional email",
         "channel": "email",
@@ -7602,7 +7993,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Act now—don't miss out. Represent uncertainty and preserve completed work.",
+        "text": "Act now—don't miss out on service interruption. Try again later.",
+        "supporting_text": "Your saved work is still here",
         "voice": "promotional",
         "tone": "urgent",
         "language": "en",
@@ -7657,7 +8049,7 @@
       "work_unit_id": "review-cdes-09146",
       "scenario_ref": {
         "scenario_id": "cdes-09146",
-        "scenario_digest": "a79aad863cd7be6a3f85f39f0046160770ae9adc55382d6058450d66721bab58"
+        "scenario_digest": "d52d8237ebc43733bf13ea4c651c46ec3586fcc2b03c85079990cb6475f6d67d"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7672,6 +8064,9 @@
         "state": "A trial converts to a paid recurring subscription",
         "risk": "high",
         "user_goal": "Show price, timing, refusal, and cancellation",
+        "state_expression": "Your 14-day trial will renew at $12 a month",
+        "action_expression": "Review or cancel subscription",
+        "consequence_expression": "You'll be charged unless you cancel before renewal",
         "surface": "empty_state",
         "surface_context": "page-level zero state",
         "channel": "web",
@@ -7680,7 +8075,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "Something happened. Continue.",
+        "text": "Continue with subscription renewal.",
+        "supporting_text": "Something happened.",
         "voice": "minimal",
         "tone": "neutral",
         "language": "en",
@@ -7735,7 +8131,7 @@
       "work_unit_id": "review-cdes-09913",
       "scenario_ref": {
         "scenario_id": "cdes-09913",
-        "scenario_digest": "4d5ad61ef2d0a67677b92fbc19cdc5dba196bf6b12bd5f9d7faa251ecbf90469"
+        "scenario_digest": "b044bd10f8203c7f28c5ed14ef5da010d9a393af0d50dd98519eea328130924c"
       },
       "sampling_cell": {
         "ability_id": "voice_tone",
@@ -7750,6 +8146,9 @@
         "state": "A requested profile change completed successfully",
         "risk": "low",
         "user_goal": "Confirm the completed result without extra claims",
+        "state_expression": "Profile updated",
+        "action_expression": "View profile",
+        "consequence_expression": "Your changes are saved",
         "surface": "form_error",
         "surface_context": "inline validation message",
         "channel": "web",
@@ -7758,7 +8157,8 @@
         "direction": "ltr"
       },
       "candidate": {
-        "text": "We can help. A requested profile change completed successfully. Confirm the completed result without extra claims.",
+        "text": "We're here to help. Profile updated. View profile.",
+        "supporting_text": "Your changes are saved",
         "voice": "warm",
         "tone": "supportive",
         "language": "en",
@@ -7812,5 +8212,5 @@
   ],
   "packet_state": "unreviewed",
   "authority_effect": "none",
-  "packet_digest": "ba96464141a595e96c0e34f32c3655636486acd452acc11657de2b8b8395a7fe"
+  "packet_digest": "d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a"
 }

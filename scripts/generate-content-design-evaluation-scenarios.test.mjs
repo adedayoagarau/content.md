@@ -9,6 +9,9 @@ test("generates 10,000 unique, replay-stable content-design candidates", () => {
   assert.equal(first.length, 10_000);
   assert.equal(new Set(first.map((scenario) => scenario.scenario_id)).size, 10_000);
   assert.equal(new Set(first.map((scenario) => scenario.scenario_digest)).size, 10_000);
+  assert.ok(new Set(first.map((scenario) => scenario.candidate.text)).size >= 200);
+  assert.ok(new Set(first.map((scenario) => JSON.stringify([scenario.candidate.text, scenario.candidate.supporting_text]))).size >= 250);
+  assert.equal(first.every((scenario) => typeof scenario.context.state_expression === "string" && typeof scenario.context.consequence_expression === "string"), true);
   assert.deepEqual(first, second);
   assert.deepEqual(buildManifest(first), buildManifest(second));
 });

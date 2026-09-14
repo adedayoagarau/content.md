@@ -34,16 +34,16 @@ It does not duplicate the bulk generated records in the repository.
 | Blinded packet records | 10,000 |
 | Predictions | 10,000 |
 | Predictions per core ability | 1,000 |
-| `revise` | 5,000 |
-| `escalate` | 4,500 |
-| `human_preference_review` | 500 |
+| `revise` | 5,080 |
+| `escalate` | 4,428 |
+| `human_preference_review` | 492 |
 | `pass` | 0 |
 
 Packet digest:
-`23d372369bd17ac2d10ab79f5ec330b1ca9e3843581d9e3e10397c983e1bad25`
+`3a3bdf31a593f38fa9e4b592ae8d00a740a780a38245d65ac092d8e74cc80460`
 
 Prediction-set digest:
-`51d0c303cbaa972c787872031b3788bb2bc60c88b8a435ae81ccebfbc6971490`
+`495827bd56516b66095d76e50a0ceeea441dcf807c4b70b4427a53b70387841e`
 
 The prediction set reports:
 
