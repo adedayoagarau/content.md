@@ -28,7 +28,8 @@ configuration, contact a model provider, or treat existing copy as approved.
 grant approval, publication, policy, or release authority.
 
 The supported open-source surface is the `contentmd` CLI and local workbench.
-Read the [public interface contract](https://github.com/adedayoagarau/content.md/blob/main/docs/public-api.md),
+Read the [content-design standard](https://github.com/adedayoagarau/content.md/blob/main/docs/content-design-standard.md),
+[public interface contract](https://github.com/adedayoagarau/content.md/blob/main/docs/public-api.md),
 [contribution guide](https://github.com/adedayoagarau/content.md/blob/main/CONTRIBUTING.md),
 [security policy](https://github.com/adedayoagarau/content.md/blob/main/SECURITY.md),
 and [release-candidate verification](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/open-source-release-candidate-0.1.md).

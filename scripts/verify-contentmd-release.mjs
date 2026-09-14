@@ -12,7 +12,12 @@ const manifest = JSON.parse(await readFile(path.join(distribution, "package.json
 const npmCache = await mkdtemp(path.join(tmpdir(), "contentmd-release-npm-cache-"));
 const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
 
-for (const requiredFile of ["SECURITY.md", "CONTRIBUTING.md", "docs/public-api.md"]) {
+for (const requiredFile of [
+  "SECURITY.md",
+  "CONTRIBUTING.md",
+  "docs/content-design-standard.md",
+  "docs/public-api.md",
+]) {
   const contents = await readFile(path.join(root, requiredFile), "utf8");
   if (contents.trim().length === 0) fail(`empty_release_document_${requiredFile}`);
 }
