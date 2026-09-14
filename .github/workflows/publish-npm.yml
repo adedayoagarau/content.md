@@ -45,6 +45,9 @@ jobs:
       - name: Verify governed learning fixtures
         run: pnpm verify:learning
 
+      - name: Verify the complete content-design benchmark
+        run: pnpm verify:content-design-benchmark
+
       - name: Verify clean installation and regular-user journeys
         run: pnpm test:distribution
 

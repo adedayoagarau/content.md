@@ -48,7 +48,12 @@ if (manifest.repository?.url !== "git+https://github.com/adedayoagarau/content.m
 if (manifest.publishConfig?.access !== "public") fail("public_access");
 if (manifest.engines?.node !== ">=24.14.0 <25") fail("node_engine");
 
-for (const requiredGate of ["pnpm verify:foundation", "pnpm verify:learning"]) {
+const requiredPublishGates = [
+  "pnpm verify:foundation",
+  "pnpm verify:learning",
+  "pnpm verify:content-design-benchmark",
+];
+for (const requiredGate of requiredPublishGates) {
   if (!publishWorkflow.includes(`run: ${requiredGate}`)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
 }
 const actionUses = [...publishWorkflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
@@ -103,7 +108,7 @@ console.log(JSON.stringify({
   repository: manifest.repository.url,
   publish_access: manifest.publishConfig.access,
   publish_workflow_actions: actionUses,
-  publish_workflow_gates: ["verify:foundation", "verify:learning"],
+  publish_workflow_gates: requiredPublishGates.map((gate) => gate.slice("pnpm ".length)),
   files,
   publish_effect: "none_dry_run",
   bootstrap_status: "first_authenticated_publish_required_before_trusted_publisher_binding",
