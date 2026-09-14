@@ -47,7 +47,8 @@ test("scores exact agreement and reports every required slice", () => {
   const gold = qualifyReviewSubmission(packet, submission);
   const predictions = {
     contract_version: "contentmd.content-design-predictions/0.1.0",
-    gold_set_digest: gold.gold_set_digest,
+    packet_digest: packet.packet_digest,
+    evaluation_status: "unscored_pending_qualified_gold",
     predictions: gold.records.map((record) => ({
       work_unit_id: record.work_unit_id,
       disposition: record.human_gold.disposition,
@@ -70,7 +71,8 @@ test("rejects predictions that do not bind to the exact gold set", () => {
   const gold = qualifyReviewSubmission(packet, submission);
   assert.throws(() => scoreContentDesignPredictions(gold, {
     contract_version: "contentmd.content-design-predictions/0.1.0",
-    gold_set_digest: "wrong",
+    packet_digest: "wrong",
+    evaluation_status: "unscored_pending_qualified_gold",
     predictions: [],
     authority_effect: "none",
   }), /predictions_envelope/);

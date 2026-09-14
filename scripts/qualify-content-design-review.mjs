@@ -131,7 +131,8 @@ function metric(records) {
 export function scoreContentDesignPredictions(goldSet, predictions) {
   if (goldSet.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
     || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
-    || predictions.gold_set_digest !== goldSet.gold_set_digest
+    || predictions.packet_digest !== goldSet.packet_ref.packet_digest
+    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
     || predictions.authority_effect !== "none"
     || !Array.isArray(predictions.predictions)) invalid("predictions_envelope");
   const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
@@ -145,6 +146,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
   const preimage = {
     contract_version: "contentmd.content-design-evaluation-report/0.1.0",
     gold_set_digest: goldSet.gold_set_digest,
+    packet_digest: predictions.packet_digest,
     prediction_set_digest: digest(predictions),
     overall: metric(joined),
     by_ability: slice((unit) => unit.ability.id),

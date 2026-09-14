@@ -1,0 +1,107 @@
+#!/usr/bin/env node
+
+import { createHash } from "node:crypto";
+import { readFile, writeFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+import { validateReviewSample } from "./prepare-content-design-review-sample.mjs";
+
+const root = fileURLToPath(new URL("../", import.meta.url));
+const defaultPacket = path.join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json");
+const defaultOutput = path.join(root, "docs/tests/fixtures/content-design-scenarios/contentmd-baseline-predictions.json");
+
+function digest(value) {
+  return createHash("sha256").update(JSON.stringify(value)).digest("hex");
+}
+
+function includesState(unit) {
+  return unit.candidate.text.toLocaleLowerCase("en-US").includes(unit.context.state.toLocaleLowerCase("en-US"));
+}
+
+function predictUnit(unit) {
+  const text = unit.candidate.text;
+  const lower = text.toLocaleLowerCase("en-US");
+  const falseCertainty = /\beverything is complete\b/u.test(lower) && !/completed successfully/u.test(unit.context.state.toLocaleLowerCase("en-US"));
+  const vague = /\bsomething happened\b/u.test(lower) || /^continue\.?$/iu.test(text.trim());
+  const blame = /\byou (?:did|entered|chose|caused)\b.*\b(?:incorrect|wrong|failed|mistake)/iu.test(text);
+  const pressure = /\bact now\b|\bdon't miss out\b|\bhurry\b/iu.test(text);
+  const overloaded = text.trim().split(/\s+/u).length > 28;
+  const stateRepresented = includesState(unit);
+  const localeMismatch = unit.context.target_locale !== unit.context.source_locale
+    && unit.candidate.localization_status === "source_language_candidate_requires_localization";
+  const paymentRecovery = unit.context.situation !== "payment_unknown"
+    ? "not_applicable"
+    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(text) ? "pass" : "fail";
+  const hard = {
+    factual_accuracy: falseCertainty ? "fail" : "unknown",
+    state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
+    semantic_fidelity: vague || !stateRepresented ? "fail" : "unknown",
+    agency: pressure ? "fail" : "unknown",
+    recovery: paymentRecovery,
+    authority_boundary: /\b(?:approved|authorized|guaranteed)\b/iu.test(text) ? "unknown" : "pass",
+  };
+  const quality = {
+    clarity: vague ? 1 : overloaded ? 2 : 4,
+    specificity: vague ? 1 : stateRepresented ? 4 : 2,
+    hierarchy: overloaded ? 1 : unit.context.surface === "button" && text.split(/\s+/u).length > 8 ? 2 : 3,
+    accessibility_readiness: unit.context.surface === "screen_reader_status" ? (overloaded ? 2 : 3) : null,
+    locale_readiness: localeMismatch ? 1 : 4,
+    voice_fit: blame || pressure ? 1 : 3,
+    tone_fit: blame || pressure ? 1 : 3,
+    economy: overloaded ? 1 : vague ? 2 : text.split(/\s+/u).length > 20 ? 2 : 4,
+  };
+  const hardFailure = Object.values(hard).includes("fail");
+  const disposition = hardFailure || blame || pressure
+    ? "revise"
+    : localeMismatch ? "escalate"
+      : "human_preference_review";
+  const rationaleCodes = [
+    falseCertainty && "unsupported_certainty",
+    vague && "unclear_action_or_state",
+    !stateRepresented && "state_not_represented",
+    blame && "user_blame",
+    pressure && "unsupported_urgency_or_pressure",
+    overloaded && "poor_economy",
+    localeMismatch && "in_locale_review_required",
+  ].filter(Boolean);
+  return {
+    work_unit_id: unit.work_unit_id,
+    disposition,
+    hard_dimension_results: hard,
+    quality_dimension_scores: quality,
+    rationale_codes: rationaleCodes.length === 0 ? ["hard_checks_passed_preference_unresolved"] : rationaleCodes,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0",
+    authority_effect: "none",
+  };
+}
+
+export function predictContentDesignPacket(packet) {
+  validateReviewSample(packet);
+  const predictions = packet.review_work_units.map(predictUnit);
+  const preimage = {
+    contract_version: "contentmd.content-design-predictions/0.1.0",
+    packet_digest: packet.packet_digest,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.1.0",
+    prediction_count: predictions.length,
+    predictions,
+    evaluation_status: "unscored_pending_qualified_gold",
+    label_access: "blind_packet_only",
+    authority_effect: "none",
+  };
+  return { ...preimage, prediction_set_digest: digest(preimage) };
+}
+
+async function main() {
+  const packetIndex = process.argv.indexOf("--packet");
+  const outputIndex = process.argv.indexOf("--out");
+  const packetPath = packetIndex >= 0 ? process.argv[packetIndex + 1] : defaultPacket;
+  const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
+  if (packetPath === undefined || outputPath === undefined) throw new Error("content_design_prediction_invalid:arguments");
+  const packet = JSON.parse(await readFile(packetPath, "utf8"));
+  const result = predictContentDesignPacket(packet);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`);
+  console.log(JSON.stringify({ output: outputPath, prediction_count: result.prediction_count, prediction_set_digest: result.prediction_set_digest, evaluation_status: result.evaluation_status }, null, 2));
+}
+
+if (process.argv[1] !== undefined && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main();

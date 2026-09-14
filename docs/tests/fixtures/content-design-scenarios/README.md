@@ -56,3 +56,15 @@ node scripts/qualify-content-design-review.mjs \
   --packet docs/tests/fixtures/content-design-scenarios/review-sample-100.json \
   --out review-submission.json
 ```
+
+Generate the deterministic `content.md` baseline predictions from the blind
+packet before opening any completed human review:
+
+```bash
+npm run predict:content-design-scenarios
+```
+
+Predictions are bound to the packet digest and report
+`unscored_pending_qualified_gold`. The baseline uses only explicit text and
+scenario context checks; null or unknown dimensions remain visible instead of
+being converted into invented confidence.
