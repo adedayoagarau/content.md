@@ -184,7 +184,7 @@ const CONTRACT_PATH = "docs/superpowers/specs/2026-08-20-contentmd-retrieval-fea
 const CONTRACT_DIGEST = "ef267d8533fd3d4dcd88c77f40b5555117df8d15034798ecf22f59d8b146d019";
 const RUNTIME_PROFILE_DIGEST = "eef23dc9f2e6c1dcd46201291758d07f400d834e24076e2bc4beb451ae526696";
 const RESOLUTION_ARTIFACT_DIGESTS: Readonly<Record<string, string>> = {
-  "package.json": "b17d7c6ce0a063d79a3ba0b120af40b49a3e06222e4969bec1532195ce5cd39c",
+  "package.json": "117316fbe5fdcb801d3d039d4c06480157882fc13ff4c9964a7a53dfaed8136f",
   "packages/core/package.json": "ac30cbc0dde687457af18dac4ea25dae8fcb24ba9ded2e14469d27fff493a420",
   "packages/core/tsconfig.json": "e65448deef4c80a91d7141388282bd0e70c1565da8b4750101673247d06be85c",
   "packages/learning/package.json": "c589857a9d193bfa85e075c1e0a5eb18f162329f1c393ab527d6c1b37628b34a",

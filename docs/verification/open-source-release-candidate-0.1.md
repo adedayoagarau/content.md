@@ -3,8 +3,8 @@
 Status: `verified_local_release_candidate`; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
-workbench as verified on 2026-09-14 under compatible Node `24.19.0` on `darwin`
-/ `arm64`. Exact-runtime sealed learning goldens still require Node `24.14.0`.
+workbench as verified on 2026-09-14 under Node `24.14.0` on `darwin` / `arm64`.
+Compatible-runtime packaging was also replayed under Node `24.19.0`.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
 
@@ -27,7 +27,10 @@ deployment, organizational approval, or claim of general writing effectiveness.
 
 | Gate | Outcome |
 | --- | --- |
-| Development runtime | Compatible Node `24.19.0`; passed for packaging and distribution; exact Node `24.14.0` learning goldens not replayed in this run |
+| Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
+| Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
+| Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
+| Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
 | TypeScript project build | passed |
 | Learning complement | 19 files; 1,470 tests passed |
 | Non-learning complement | 28 files; 1,280 tests passed |
