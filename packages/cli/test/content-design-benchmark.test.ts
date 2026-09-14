@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,5 +33,36 @@ describe("contentmd benchmark content-design", () => {
     expect(result.responses).toHaveLength(100);
     expect(result.submission_state).toBe("incomplete");
     expect(result.authority_effect).toBe("none");
+  });
+
+  it("qualifies completed review and scores packet-bound predictions", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-loop-cli-"));
+    temporary.push(directory);
+    const templatePath = join(directory, "review.json");
+    const predictionsPath = join(directory, "predictions.json");
+    const goldPath = join(directory, "gold.json");
+    const reportPath = join(directory, "report.json");
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--review-template", templatePath]);
+    const submission = JSON.parse(await readFile(templatePath, "utf8"));
+    submission.reviewer = { reviewer_id: "reviewer.fixture", reviewer_role: "qualified_content_designer", reviewed_at: "2026-09-14T12:00:00.000Z", independent_review_attested: true };
+    submission.submission_state = "complete";
+    for (const response of submission.responses) {
+      response.disposition = "human_preference_review";
+      response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results).map((dimension) => [dimension, "pass"]));
+      response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores).map((dimension) => [dimension, 3]));
+      response.rationale = "Independent fixture review records a complete meaning-based judgment.";
+      response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+      response.review_evidence_refs = ["review.fixture.session"];
+    }
+    await writeFile(templatePath, `${JSON.stringify(submission, null, 2)}\n`);
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--out", predictionsPath]);
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--submission", templatePath, "--gold-out", goldPath]);
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--gold", goldPath, "--predictions", predictionsPath, "--report-out", reportPath]);
+    const gold = JSON.parse(await readFile(goldPath, "utf8"));
+    const report = JSON.parse(await readFile(reportPath, "utf8"));
+    expect(gold.qualified_count).toBe(100);
+    expect(gold.training_eligibility).toBe("never");
+    expect(report.overall.count).toBe(100);
+    expect(Object.keys(report.by_ability)).toHaveLength(10);
   });
 });

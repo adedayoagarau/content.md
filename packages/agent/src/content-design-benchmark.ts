@@ -2,14 +2,16 @@ import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 
 type HardResult = "pass" | "fail" | "unknown" | "not_applicable";
-type Disposition = "revise" | "escalate" | "human_preference_review";
+type Disposition = "pass" | "revise" | "abstain" | "escalate" | "human_preference_review";
 
 interface ReviewWorkUnit {
   work_unit_id: string;
+  ability: { id: string; objective: string };
   context: {
     state: string;
     situation: string;
     surface: string;
+    risk: string;
     source_locale: string;
     target_locale: string;
   };
@@ -23,6 +25,73 @@ interface ReviewWorkUnit {
     hard_dimensions: string[];
     quality_dimensions: string[];
   };
+}
+
+interface CompletedReviewResponse {
+  work_unit_id: string;
+  disposition: Disposition;
+  hard_dimension_results: Record<string, HardResult>;
+  quality_dimension_scores: Record<string, number | null>;
+  rationale: string;
+  acceptable_meaning_invariants: string[];
+  recommended_revision: string | null;
+  review_evidence_refs: string[];
+}
+
+interface ContentDesignReviewSubmission {
+  contract_version: string;
+  packet_ref: { packet_digest: string; sample_count: number };
+  reviewer: {
+    reviewer_id: string;
+    reviewer_role: string;
+    reviewed_at: string;
+    independent_review_attested: boolean;
+  };
+  responses: CompletedReviewResponse[];
+  submission_state: string;
+  authority_effect: string;
+}
+
+export interface QualifiedContentDesignGoldSet {
+  contract_version: "contentmd.content-design-qualified-gold-set/0.1.0";
+  packet_ref: { packet_digest: string; sample_count: number };
+  reviewer: ContentDesignReviewSubmission["reviewer"];
+  qualified_count: number;
+  records: Array<ReviewWorkUnit & {
+    human_gold: CompletedReviewResponse;
+    review_state: "qualified";
+    benchmark_eligibility: true;
+    retrieval_eligibility: "never";
+    training_eligibility: "never";
+  }>;
+  benchmark_eligibility: true;
+  retrieval_eligibility: "never";
+  training_eligibility: "never";
+  authority_effect: "none";
+  gold_set_digest: string;
+}
+
+export interface ContentDesignEvaluationReport {
+  contract_version: "contentmd.content-design-evaluation-report/0.1.0";
+  gold_set_digest: string;
+  packet_digest: string;
+  prediction_set_digest: string;
+  overall: ContentDesignMetrics;
+  by_ability: Record<string, ContentDesignMetrics>;
+  by_risk: Record<string, ContentDesignMetrics>;
+  by_surface: Record<string, ContentDesignMetrics>;
+  by_locale: Record<string, ContentDesignMetrics>;
+  by_voice: Record<string, ContentDesignMetrics>;
+  by_tone: Record<string, ContentDesignMetrics>;
+  authority_effect: "none";
+  report_digest: string;
+}
+
+interface ContentDesignMetrics {
+  count: number;
+  disposition_exact_agreement: number | null;
+  hard_dimension_accuracy: number | null;
+  quality_score_mean_absolute_error: number | null;
 }
 
 interface BlindReviewPacket {
@@ -194,6 +263,129 @@ export function createContentDesignReviewSubmissionTemplate(packetValue: unknown
   };
 }
 
+const DISPOSITIONS: readonly Disposition[] = ["pass", "revise", "abstain", "escalate", "human_preference_review"];
+const HARD_RESULTS: readonly HardResult[] = ["pass", "fail", "unknown", "not_applicable"];
+
+function incomplete(reason: string): never {
+  throw new Error(`qualification_review_incomplete:content_design:${reason}`);
+}
+
+function validateCompletedResponse(unit: ReviewWorkUnit, response: CompletedReviewResponse): void {
+  if (response.work_unit_id !== unit.work_unit_id || !DISPOSITIONS.includes(response.disposition)) incomplete(`${unit.work_unit_id}:disposition`);
+  if (response.hard_dimension_results === null || typeof response.hard_dimension_results !== "object") incomplete(`${unit.work_unit_id}:hard_dimensions`);
+  for (const dimension of unit.rubric.hard_dimensions) {
+    if (!HARD_RESULTS.includes(response.hard_dimension_results[dimension]!)) incomplete(`${unit.work_unit_id}:hard:${dimension}`);
+  }
+  if (response.quality_dimension_scores === null || typeof response.quality_dimension_scores !== "object") incomplete(`${unit.work_unit_id}:quality_dimensions`);
+  for (const dimension of unit.rubric.quality_dimensions) {
+    const score = response.quality_dimension_scores[dimension];
+    if (score === undefined || score !== null && (!Number.isInteger(score) || score < 1 || score > 5)) incomplete(`${unit.work_unit_id}:quality:${dimension}`);
+  }
+  if (typeof response.rationale !== "string" || response.rationale.trim().length < 20) incomplete(`${unit.work_unit_id}:rationale`);
+  if (!Array.isArray(response.acceptable_meaning_invariants) || response.acceptable_meaning_invariants.length === 0
+    || response.acceptable_meaning_invariants.some((value) => typeof value !== "string" || value.trim().length === 0)) incomplete(`${unit.work_unit_id}:invariants`);
+  if (response.disposition === "revise" && (typeof response.recommended_revision !== "string" || response.recommended_revision.trim().length === 0)) incomplete(`${unit.work_unit_id}:recommended_revision`);
+  if (!Array.isArray(response.review_evidence_refs) || response.review_evidence_refs.length === 0
+    || response.review_evidence_refs.some((value) => typeof value !== "string" || value.trim().length === 0)) incomplete(`${unit.work_unit_id}:evidence_refs`);
+}
+
+export function qualifyContentDesignReview(packetValue: unknown, submissionValue: unknown): QualifiedContentDesignGoldSet {
+  const packet = validatePacket(packetValue);
+  if (submissionValue === null || typeof submissionValue !== "object") incomplete("submission");
+  const submission = submissionValue as ContentDesignReviewSubmission;
+  if (submission.contract_version !== "contentmd.content-design-review-submission/0.1.0"
+    || submission.packet_ref?.packet_digest !== packet.packet_digest
+    || submission.packet_ref?.sample_count !== packet.sample_count
+    || submission.submission_state !== "complete"
+    || submission.authority_effect !== "none"
+    || submission.reviewer?.reviewer_role !== "qualified_content_designer"
+    || typeof submission.reviewer?.reviewer_id !== "string" || submission.reviewer.reviewer_id.trim().length === 0
+    || typeof submission.reviewer?.reviewed_at !== "string" || !Number.isFinite(Date.parse(submission.reviewer.reviewed_at))
+    || submission.reviewer?.independent_review_attested !== true
+    || !Array.isArray(submission.responses) || submission.responses.length !== packet.sample_count) incomplete("envelope");
+  const responses = new Map(submission.responses.map((response) => [response.work_unit_id, response]));
+  if (responses.size !== packet.sample_count) incomplete("duplicate_or_missing_response");
+  const records = packet.review_work_units.map((unit) => {
+    const response = responses.get(unit.work_unit_id);
+    if (response === undefined) incomplete(`missing:${unit.work_unit_id}`);
+    validateCompletedResponse(unit, response);
+    return {
+      ...unit,
+      human_gold: response,
+      review_state: "qualified" as const,
+      benchmark_eligibility: true as const,
+      retrieval_eligibility: "never" as const,
+      training_eligibility: "never" as const,
+    };
+  });
+  const preimage = {
+    contract_version: "contentmd.content-design-qualified-gold-set/0.1.0" as const,
+    packet_ref: submission.packet_ref,
+    reviewer: submission.reviewer,
+    qualified_count: records.length,
+    records,
+    benchmark_eligibility: true as const,
+    retrieval_eligibility: "never" as const,
+    training_eligibility: "never" as const,
+    authority_effect: "none" as const,
+  };
+  return { ...preimage, gold_set_digest: digest(preimage) };
+}
+
+type JoinedRecord = { unit: QualifiedContentDesignGoldSet["records"][number]; gold: CompletedReviewResponse; prediction: ContentDesignPrediction };
+
+function metrics(records: JoinedRecord[]): ContentDesignMetrics {
+  const dispositionCorrect = records.filter(({ gold, prediction }) => gold.disposition === prediction.disposition).length;
+  const hardPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.hard_dimensions.map((dimension) => [gold.hard_dimension_results[dimension], prediction.hard_dimension_results[dimension]] as const));
+  const hardComparable = hardPairs.filter(([goldValue, predictedValue]) => goldValue !== "unknown" && predictedValue !== undefined);
+  const qualityPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.map((dimension) => [gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores[dimension]] as const))
+    .filter((pair): pair is readonly [number, number] => typeof pair[0] === "number" && typeof pair[1] === "number");
+  return {
+    count: records.length,
+    disposition_exact_agreement: records.length === 0 ? null : dispositionCorrect / records.length,
+    hard_dimension_accuracy: hardComparable.length === 0 ? null : hardComparable.filter(([goldValue, predictedValue]) => goldValue === predictedValue).length / hardComparable.length,
+    quality_score_mean_absolute_error: qualityPairs.length === 0 ? null : qualityPairs.reduce((sum, [goldValue, predictedValue]) => sum + Math.abs(goldValue - predictedValue), 0) / qualityPairs.length,
+  };
+}
+
+export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue: unknown): ContentDesignEvaluationReport {
+  const gold = goldValue as QualifiedContentDesignGoldSet;
+  const predictions = predictionValue as ContentDesignPredictionSet;
+  if (gold?.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
+    || predictions?.contract_version !== "contentmd.content-design-predictions/0.1.0"
+    || predictions.packet_digest !== gold.packet_ref?.packet_digest
+    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
+    || predictions.authority_effect !== "none"
+    || !Array.isArray(gold.records) || !Array.isArray(predictions.predictions)) incomplete("score_envelope");
+  const { gold_set_digest: goldDigest, ...goldPreimage } = gold;
+  if (goldDigest !== digest(goldPreimage)) incomplete("gold_digest");
+  const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
+  if (predictionMap.size !== gold.records.length) incomplete("prediction_coverage");
+  const joined = gold.records.map((unit) => {
+    const prediction = predictionMap.get(unit.work_unit_id);
+    if (prediction === undefined) incomplete(`prediction:${unit.work_unit_id}`);
+    return { unit, gold: unit.human_gold, prediction };
+  });
+  const slice = (field: (unit: JoinedRecord["unit"]) => string): Record<string, ContentDesignMetrics> => Object.fromEntries(
+    [...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metrics(joined.filter(({ unit }) => field(unit) === key))]),
+  );
+  const preimage = {
+    contract_version: "contentmd.content-design-evaluation-report/0.1.0" as const,
+    gold_set_digest: gold.gold_set_digest,
+    packet_digest: predictions.packet_digest,
+    prediction_set_digest: predictions.prediction_set_digest,
+    overall: metrics(joined),
+    by_ability: slice((unit) => unit.ability.id),
+    by_risk: slice((unit) => unit.context.risk),
+    by_surface: slice((unit) => unit.context.surface),
+    by_locale: slice((unit) => unit.context.target_locale),
+    by_voice: slice((unit) => unit.candidate.voice),
+    by_tone: slice((unit) => unit.candidate.tone),
+    authority_effect: "none" as const,
+  };
+  return { ...preimage, report_digest: digest(preimage) };
+}
+
 export async function predictLocalContentDesignBenchmark(inputPath: string, outputPath?: string): Promise<ContentDesignPredictionSet> {
   const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
   const result = predictContentDesignBenchmark(packet);
@@ -204,6 +396,26 @@ export async function predictLocalContentDesignBenchmark(inputPath: string, outp
 export async function createLocalContentDesignReviewSubmissionTemplate(inputPath: string, outputPath: string): Promise<ContentDesignReviewSubmissionTemplate> {
   const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
   const result = createContentDesignReviewSubmissionTemplate(packet);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  return result;
+}
+
+export async function qualifyLocalContentDesignReview(packetPath: string, submissionPath: string, outputPath: string): Promise<QualifiedContentDesignGoldSet> {
+  const [packet, submission] = await Promise.all([
+    readFile(packetPath, "utf8").then((value) => JSON.parse(value) as unknown),
+    readFile(submissionPath, "utf8").then((value) => JSON.parse(value) as unknown),
+  ]);
+  const result = qualifyContentDesignReview(packet, submission);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  return result;
+}
+
+export async function scoreLocalContentDesignBenchmark(goldPath: string, predictionsPath: string, outputPath: string): Promise<ContentDesignEvaluationReport> {
+  const [gold, predictions] = await Promise.all([
+    readFile(goldPath, "utf8").then((value) => JSON.parse(value) as unknown),
+    readFile(predictionsPath, "utf8").then((value) => JSON.parse(value) as unknown),
+  ]);
+  const result = scoreContentDesignBenchmark(gold, predictions);
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
 }

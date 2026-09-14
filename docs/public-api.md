@@ -26,6 +26,23 @@ form the advanced local adoption and workbench surface. Other commands shown by
 `contentmd --help` are available development interfaces but are not yet promised
 as stable automation APIs for 0.1.
 
+### Content-design benchmark
+
+`contentmd benchmark content-design` accepts an immutable blinded packet and
+supports four bounded operations:
+
+- default prediction with optional `--out`;
+- independent response-template creation with `--review-template`;
+- completed-review qualification with `--submission` and `--gold-out`;
+- scoring with `--gold`, `--predictions`, and `--report-out`.
+
+All output paths are create-only. Predictions remain unscored until qualified
+gold exists. Qualification requires complete independent review and produces
+benchmark-only records with retrieval and training eligibility set to `never`.
+Scoring reports exact disposition agreement, hard-dimension accuracy, and
+quality-score error overall and by ability, risk, surface, locale, voice, and
+tone. None of these operations grants content approval or product authority.
+
 ## Machine-readable output
 
 Use `--json` where offered. Consumers must inspect `status`, `command_id`, and

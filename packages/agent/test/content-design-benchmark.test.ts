@@ -3,7 +3,13 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { createContentDesignReviewSubmissionTemplate, predictContentDesignBenchmark, predictLocalContentDesignBenchmark } from "@contentmd/agent";
+import {
+  createContentDesignReviewSubmissionTemplate,
+  predictContentDesignBenchmark,
+  predictLocalContentDesignBenchmark,
+  qualifyContentDesignReview,
+  scoreContentDesignBenchmark,
+} from "@contentmd/agent";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
@@ -35,5 +41,35 @@ describe("content-design benchmark", () => {
     } finally {
       await rm(directory, { recursive: true, force: true });
     }
+  });
+
+  it("qualifies complete independent review for benchmarking only and scores bound predictions", async () => {
+    const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
+    const submission = createContentDesignReviewSubmissionTemplate(packet) as unknown as Record<string, unknown> & { reviewer: Record<string, unknown>; responses: Array<Record<string, unknown>> };
+    submission.reviewer = {
+      reviewer_id: "reviewer.fixture",
+      reviewer_role: "qualified_content_designer",
+      reviewed_at: "2026-09-14T12:00:00.000Z",
+      independent_review_attested: true,
+    };
+    submission.submission_state = "complete";
+    for (const response of submission.responses) {
+      response.disposition = "human_preference_review";
+      response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results as object).map((dimension) => [dimension, "pass"]));
+      response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores as object).map((dimension) => [dimension, 3]));
+      response.rationale = "Independent fixture review records a complete meaning-based judgment.";
+      response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+      response.recommended_revision = null;
+      response.review_evidence_refs = ["review.fixture.session"];
+    }
+    const gold = qualifyContentDesignReview(packet, submission);
+    expect(gold.qualified_count).toBe(100);
+    expect(gold.benchmark_eligibility).toBe(true);
+    expect(gold.retrieval_eligibility).toBe("never");
+    expect(gold.training_eligibility).toBe("never");
+    const report = scoreContentDesignBenchmark(gold, predictContentDesignBenchmark(packet));
+    expect(report.overall.count).toBe(100);
+    expect(Object.keys(report.by_ability)).toHaveLength(10);
+    expect(report.authority_effect).toBe("none");
   });
 });

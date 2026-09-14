@@ -99,6 +99,26 @@ npx contentmd benchmark content-design \
   --review-template reviewer-response.json
 ```
 
+After an independent qualified content designer completes every response and
+attests the review, qualify it for benchmarking and score the prediction set:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --submission reviewer-response.json \
+  --gold-out qualified-gold.json
+
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold qualified-gold.json \
+  --predictions contentmd-predictions.json \
+  --report-out evaluation-report.json
+```
+
+Qualification fails closed for incomplete reviews, packet drift, missing
+evidence, or missing reviewer attestation. Qualified records are eligible for
+this benchmark only; they do not become retrieval or training data.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command
