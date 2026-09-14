@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -14,6 +15,11 @@ import {
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
+function redigest(packet: Record<string, unknown>): void {
+  const { packet_digest: _packetDigest, ...preimage } = packet;
+  packet.packet_digest = createHash("sha256").update(JSON.stringify(preimage)).digest("hex");
+}
+
 describe("content-design benchmark", () => {
   it("reproduces the committed blinded baseline without hidden labels", async () => {
     const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
@@ -28,6 +34,18 @@ describe("content-design benchmark", () => {
     for (const prediction of result.predictions.filter((candidate) => candidate.disposition === "pass")) {
       expect(Object.values(prediction.hard_dimension_results).every((value) => value === "pass" || value === "not_applicable")).toBe(true);
     }
+  });
+
+  it("rejects redigested malformed or label-leaking packets", async () => {
+    const source = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
+    const leaked = structuredClone(source);
+    leaked.review_work_units[0].candidate.voice = "accusatory";
+    redigest(leaked);
+    expect(() => predictContentDesignBenchmark(leaked)).toThrow("content_design_benchmark_invalid:packet_shape");
+    const malformed = structuredClone(source);
+    delete malformed.review_work_units[0].context.evidence;
+    redigest(malformed);
+    expect(() => predictContentDesignBenchmark(malformed)).toThrow("content_design_benchmark_invalid:packet_shape");
   });
 
   it("reproduces the committed independent-review response template", async () => {

@@ -9,16 +9,23 @@ type Disposition = "pass" | "revise" | "abstain" | "escalate" | "human_preferenc
 
 interface ReviewWorkUnit {
   work_unit_id: string;
+  scenario_ref: { scenario_id: string; scenario_digest: string };
+  sampling_cell: Record<string, string | number>;
   ability: { id: string; objective: string };
   context: {
     state: string;
     state_expression: string;
+    action_expression: string;
     consequence_expression: string;
     situation: string;
     surface: string;
+    surface_context: string;
+    channel: string;
     risk: string;
+    user_goal: string;
     source_locale: string;
     target_locale: string;
+    direction: "ltr" | "rtl";
     voice_profile: string;
     situational_tone: string;
     evidence: {
@@ -29,12 +36,20 @@ interface ReviewWorkUnit {
   candidate: {
     text: string;
     supporting_text: string | null;
+    language: string;
     localization_status: string;
   };
   rubric: {
+    evaluation_order: string[];
     hard_dimensions: string[];
     quality_dimensions: string[];
   };
+  reviewer_response: Record<string, null>;
+  review_state: "unreviewed" | "qualified";
+  authority_effect: "none";
+  retrieval_eligibility: "never";
+  training_eligibility: "never";
+  benchmark_eligibility: boolean;
 }
 
 interface CompletedReviewResponse {
@@ -124,11 +139,16 @@ interface ContentDesignMetrics {
 }
 
 export interface BlindReviewPacket {
-  contract_version: string;
+  contract_version: "contentmd.content-design-blind-review-packet/0.2.0";
   packet_digest: string;
+  sampling_method: string;
   sample_count: number;
+  blinded_fields: string[];
+  required_reviewer_role: "qualified_content_designer";
+  source_qualification: "synthetic_candidates_not_gold_or_training_eligible";
   review_work_units: ReviewWorkUnit[];
-  authority_effect: string;
+  packet_state: "unreviewed";
+  authority_effect: "none";
 }
 
 interface ContentDesignPrediction {
@@ -180,17 +200,70 @@ function digest(value: unknown): string {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
 }
 
+const BLINDED_FIELDS = ["candidate.variant", "candidate.voice", "candidate.tone", "candidate.injected_defect", "evaluation_control", "provisional_expectation"];
+
+function record(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function nonempty(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function stringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.length > 0 && new Set(value).size === value.length && value.every(nonempty);
+}
+
+function validWorkUnit(value: unknown): value is ReviewWorkUnit {
+  if (!record(value) || !record(value.scenario_ref) || !record(value.sampling_cell)
+    || !record(value.ability) || !record(value.context) || !record(value.candidate)
+    || !record(value.rubric) || !record(value.reviewer_response)) return false;
+  const context = value.context;
+  const candidate = value.candidate;
+  const evidence = context.evidence;
+  if (!record(evidence)
+    || !["scenario_facts_available", "missing"].includes(String(evidence.material_fact_status))
+    || (evidence.material_fact_status === "missing" ? !nonempty(evidence.unresolved_question) : evidence.unresolved_question !== null)) return false;
+  if (["variant", "voice", "tone", "injected_defect"].some((key) => Object.hasOwn(candidate, key))
+    || Object.hasOwn(value, "evaluation_control") || Object.hasOwn(value, "provisional_expectation")) return false;
+  const requiredContext = ["state", "state_expression", "action_expression", "consequence_expression", "situation", "surface", "surface_context", "channel", "risk", "user_goal", "source_locale", "target_locale", "voice_profile", "situational_tone"];
+  return nonempty(value.work_unit_id)
+    && nonempty(value.scenario_ref.scenario_id) && nonempty(value.scenario_ref.scenario_digest)
+    && nonempty(value.ability.id) && nonempty(value.ability.objective)
+    && requiredContext.every((key) => nonempty(context[key]))
+    && (context.direction === "ltr" || context.direction === "rtl")
+    && nonempty(candidate.text)
+    && (candidate.supporting_text === null || typeof candidate.supporting_text === "string")
+    && nonempty(candidate.language) && nonempty(candidate.localization_status)
+    && stringArray(value.rubric.evaluation_order)
+    && stringArray(value.rubric.hard_dimensions)
+    && stringArray(value.rubric.quality_dimensions)
+    && Object.values(value.reviewer_response).every((item) => item === null)
+    && value.review_state === "unreviewed"
+    && value.authority_effect === "none"
+    && value.retrieval_eligibility === "never"
+    && value.training_eligibility === "never"
+    && value.benchmark_eligibility === false;
+}
+
 function validatePacket(value: unknown): BlindReviewPacket {
   if (value === null || typeof value !== "object") throw new TypeError("content_design_benchmark_invalid:packet");
   const packet = value as BlindReviewPacket;
   if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.2.0"
     || packet.authority_effect !== "none"
+    || packet.packet_state !== "unreviewed"
+    || packet.required_reviewer_role !== "qualified_content_designer"
+    || packet.source_qualification !== "synthetic_candidates_not_gold_or_training_eligible"
+    || !nonempty(packet.sampling_method)
+    || JSON.stringify(packet.blinded_fields) !== JSON.stringify(BLINDED_FIELDS)
     || !Number.isSafeInteger(packet.sample_count) || packet.sample_count < 1
     || !Array.isArray(packet.review_work_units) || packet.review_work_units.length !== packet.sample_count) {
     throw new TypeError("content_design_benchmark_invalid:packet");
   }
   const { packet_digest: packetDigest, ...preimage } = packet;
   if (packetDigest !== digest(preimage)) throw new TypeError("content_design_benchmark_invalid:packet_digest");
+  if (new Set(packet.review_work_units.map((unit) => unit.work_unit_id)).size !== packet.sample_count
+    || !packet.review_work_units.every(validWorkUnit)) throw new TypeError("content_design_benchmark_invalid:packet_shape");
   return packet;
 }
 

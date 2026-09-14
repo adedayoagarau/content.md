@@ -40,11 +40,28 @@ supports six bounded operations:
 
 The bundled packet contains no hidden generator labels, and `--sample-out` is a
 standalone operation. All output paths are create-only. Predictions remain
-unscored until qualified gold exists. Qualification requires complete independent review and produces
+unscored until qualified gold exists. Qualification requires complete
+independent review, including a strict RFC 3339 review timestamp, and produces
 benchmark-only records with retrieval and training eligibility set to `never`.
 Scoring reports exact disposition agreement, hard-dimension accuracy, and
-quality-score error overall and by ability, risk, surface, locale, voice, and
-tone. None of these operations grants content approval or product authority.
+quality-score error overall and by ability, risk, surface, locale, intended
+voice, and situational tone. It also reports the complete disposition confusion
+matrix, critical false acceptance, abstention and escalation recall, and
+positive-case false rejection. None of these operations grants content
+approval, benchmark claims, release, publication, or product authority.
+
+The JSON contracts exposed by this command are:
+
+- blinded review packet `contentmd.content-design-blind-review-packet/0.2.0`;
+- prediction set `contentmd.content-design-predictions/0.1.0`, produced by
+  evaluator `contentmd.deterministic-content-design-baseline/0.2.0`;
+- review submission and qualified gold set `0.1.0`;
+- evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
+
+Packet and output digests are opaque content identities. Editing a record and
+recomputing its outer digest does not make it valid: the CLI independently
+checks required context, evidence, rubric, eligibility, unreviewed state, and
+label-blinding invariants before evaluation.
 
 ## Machine-readable output
 
