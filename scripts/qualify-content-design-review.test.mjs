@@ -48,6 +48,12 @@ function predictionSet(packet, records, predictionFor) {
   return { ...preimage, prediction_set_digest: createHash("sha256").update(JSON.stringify(preimage)).digest("hex") };
 }
 
+function redigest(value, field = "gold_set_digest") {
+  const preimage = structuredClone(value);
+  delete preimage[field];
+  value[field] = createHash("sha256").update(JSON.stringify(preimage)).digest("hex");
+}
+
 test("rejects incomplete review rather than creating synthetic gold", () => {
   const packet = prepareReviewSample(generateScenarios());
   const submission = createReviewSubmissionTemplate(packet);
@@ -93,6 +99,19 @@ test("scores exact agreement and reports every required slice", () => {
   const altered = structuredClone(predictions);
   altered.predictions[0].disposition = "revise";
   assert.throws(() => scoreContentDesignPredictions(gold, altered), /predictions_digest/);
+
+  const alteredGold = structuredClone(gold);
+  alteredGold.records[0].benchmark_eligibility = false;
+  assert.throws(() => scoreContentDesignPredictions(alteredGold, predictions), /gold_digest/);
+
+  const redigestedGold = structuredClone(alteredGold);
+  redigest(redigestedGold);
+  assert.throws(() => scoreContentDesignPredictions(redigestedGold, predictions), /gold_record|gold_shape/);
+
+  const extraDimensionGold = structuredClone(gold);
+  extraDimensionGold.records[0].human_gold.hard_dimension_results.injected_dimension = "pass";
+  redigest(extraDimensionGold);
+  assert.throws(() => scoreContentDesignPredictions(extraDimensionGold, predictions), /hard_dimensions/);
 });
 
 test("reports safety and routing failures without converting diagnostics into authority", () => {

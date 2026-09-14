@@ -434,13 +434,17 @@ function validatePredictionSet(value: unknown, packetDigest: string, units: Qual
   return predictions;
 }
 
-function validateCompletedResponse(unit: ReviewWorkUnit, response: CompletedReviewResponse): void {
+function validateCompletedResponse(unit: ReviewWorkUnit, value: unknown): asserts value is CompletedReviewResponse {
+  if (!record(value)) incomplete(`${unit.work_unit_id}:response`);
+  const response = value as unknown as CompletedReviewResponse;
   if (response.work_unit_id !== unit.work_unit_id || !DISPOSITIONS.includes(response.disposition)) incomplete(`${unit.work_unit_id}:disposition`);
-  if (response.hard_dimension_results === null || typeof response.hard_dimension_results !== "object") incomplete(`${unit.work_unit_id}:hard_dimensions`);
+  if (!record(response.hard_dimension_results)
+    || !sameKeys(response.hard_dimension_results, unit.rubric.hard_dimensions)) incomplete(`${unit.work_unit_id}:hard_dimensions`);
   for (const dimension of unit.rubric.hard_dimensions) {
     if (!HARD_RESULTS.includes(response.hard_dimension_results[dimension]!)) incomplete(`${unit.work_unit_id}:hard:${dimension}`);
   }
-  if (response.quality_dimension_scores === null || typeof response.quality_dimension_scores !== "object") incomplete(`${unit.work_unit_id}:quality_dimensions`);
+  if (!record(response.quality_dimension_scores)
+    || !sameKeys(response.quality_dimension_scores, unit.rubric.quality_dimensions)) incomplete(`${unit.work_unit_id}:quality_dimensions`);
   for (const dimension of unit.rubric.quality_dimensions) {
     const score = response.quality_dimension_scores[dimension];
     if (score === undefined || score !== null && (!Number.isInteger(score) || score < 1 || score > 5)) incomplete(`${unit.work_unit_id}:quality:${dimension}`);
@@ -449,8 +453,49 @@ function validateCompletedResponse(unit: ReviewWorkUnit, response: CompletedRevi
   if (!Array.isArray(response.acceptable_meaning_invariants) || response.acceptable_meaning_invariants.length === 0
     || response.acceptable_meaning_invariants.some((value) => typeof value !== "string" || value.trim().length === 0)) incomplete(`${unit.work_unit_id}:invariants`);
   if (response.disposition === "revise" && (typeof response.recommended_revision !== "string" || response.recommended_revision.trim().length === 0)) incomplete(`${unit.work_unit_id}:recommended_revision`);
+  if (response.recommended_revision !== null && typeof response.recommended_revision !== "string") incomplete(`${unit.work_unit_id}:recommended_revision_type`);
   if (!Array.isArray(response.review_evidence_refs) || response.review_evidence_refs.length === 0
     || response.review_evidence_refs.some((value) => typeof value !== "string" || value.trim().length === 0)) incomplete(`${unit.work_unit_id}:evidence_refs`);
+}
+
+function validateGoldSet(value: unknown): QualifiedContentDesignGoldSet {
+  if (!record(value)) incomplete("score_envelope");
+  const gold = value as unknown as QualifiedContentDesignGoldSet;
+  if (gold.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
+    || !record(gold.packet_ref) || !nonempty(gold.packet_ref.packet_digest)
+    || !Number.isSafeInteger(gold.packet_ref.sample_count) || gold.packet_ref.sample_count < 1
+    || !record(gold.reviewer)
+    || !Array.isArray(gold.records)) incomplete("score_envelope");
+  const { gold_set_digest: goldDigest, ...goldPreimage } = gold;
+  if (goldDigest !== digest(goldPreimage)) incomplete("gold_digest");
+  if (gold.reviewer.reviewer_role !== "qualified_content_designer"
+    || !nonempty(gold.reviewer.reviewer_id)
+    || !isRfc3339(gold.reviewer.reviewed_at)
+    || gold.reviewer.independent_review_attested !== true
+    || gold.qualified_count !== gold.records.length
+    || gold.packet_ref.sample_count !== gold.records.length
+    || gold.benchmark_eligibility !== true
+    || gold.retrieval_eligibility !== "never"
+    || gold.training_eligibility !== "never"
+    || gold.authority_effect !== "none") incomplete("gold_shape");
+  const ids = new Set<string>();
+  for (const qualified of gold.records) {
+    if (!record(qualified) || !nonempty(qualified.work_unit_id) || ids.has(qualified.work_unit_id)) incomplete("gold_coverage");
+    ids.add(qualified.work_unit_id);
+    const base = structuredClone(qualified) as Record<string, unknown>;
+    const humanGold = base.human_gold;
+    delete base.human_gold;
+    base.review_state = "unreviewed";
+    base.benchmark_eligibility = false;
+    if (!validWorkUnit(base)
+      || qualified.review_state !== "qualified"
+      || qualified.benchmark_eligibility !== true
+      || qualified.retrieval_eligibility !== "never"
+      || qualified.training_eligibility !== "never"
+      || qualified.authority_effect !== "none") incomplete(`gold_record:${qualified.work_unit_id}`);
+    validateCompletedResponse(base, humanGold);
+  }
+  return gold;
 }
 
 export function qualifyContentDesignReview(packetValue: unknown, submissionValue: unknown): QualifiedContentDesignGoldSet {
@@ -553,11 +598,7 @@ function dispositionConfusion(records: JoinedRecord[]): Record<Disposition, Reco
 }
 
 export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue: unknown): ContentDesignEvaluationReport {
-  const gold = goldValue as QualifiedContentDesignGoldSet;
-  if (gold?.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
-    || !Array.isArray(gold.records)) incomplete("score_envelope");
-  const { gold_set_digest: goldDigest, ...goldPreimage } = gold;
-  if (goldDigest !== digest(goldPreimage)) incomplete("gold_digest");
+  const gold = validateGoldSet(goldValue);
   const predictions = validatePredictionSet(predictionValue, gold.packet_ref.packet_digest, gold.records);
   const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
   if (predictionMap.size !== gold.records.length) incomplete("prediction_coverage");

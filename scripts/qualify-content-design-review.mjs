@@ -29,6 +29,14 @@ function sameKeys(value, expected) {
     && JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
 }
 
+function nonempty(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function stringArray(value) {
+  return Array.isArray(value) && value.length > 0 && new Set(value).size === value.length && value.every(nonempty);
+}
+
 function validatePredictionSet(predictions, packetDigest, units) {
   if (predictions === null || typeof predictions !== "object"
     || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
@@ -93,12 +101,13 @@ export function createReviewSubmissionTemplate(packet) {
 }
 
 function validateResponse(unit, response) {
+  if (response === null || typeof response !== "object" || Array.isArray(response)) invalid(`response:${unit.work_unit_id}:shape`);
   if (response.work_unit_id !== unit.work_unit_id || !DISPOSITIONS.includes(response.disposition)) invalid(`response:${unit.work_unit_id}:disposition`);
-  if (response.hard_dimension_results === null || typeof response.hard_dimension_results !== "object") invalid(`response:${unit.work_unit_id}:hard_dimensions`);
+  if (!sameKeys(response.hard_dimension_results, unit.rubric.hard_dimensions)) invalid(`response:${unit.work_unit_id}:hard_dimensions`);
   for (const dimension of unit.rubric.hard_dimensions) {
     if (!HARD_RESULTS.includes(response.hard_dimension_results[dimension])) invalid(`response:${unit.work_unit_id}:hard:${dimension}`);
   }
-  if (response.quality_dimension_scores === null || typeof response.quality_dimension_scores !== "object") invalid(`response:${unit.work_unit_id}:quality_dimensions`);
+  if (!sameKeys(response.quality_dimension_scores, unit.rubric.quality_dimensions)) invalid(`response:${unit.work_unit_id}:quality_dimensions`);
   for (const dimension of unit.rubric.quality_dimensions) {
     const score = response.quality_dimension_scores[dimension];
     if (score !== null && (!Number.isInteger(score) || score < 1 || score > 5)) invalid(`response:${unit.work_unit_id}:quality:${dimension}`);
@@ -116,6 +125,64 @@ function validateResponse(unit, response) {
     || response.review_evidence_refs.some((value) => typeof value !== "string" || value.trim().length === 0)) {
     invalid(`response:${unit.work_unit_id}:evidence_refs`);
   }
+}
+
+function validateQualifiedRecord(unit) {
+  if (unit === null || typeof unit !== "object" || Array.isArray(unit)
+    || typeof unit.work_unit_id !== "string" || unit.work_unit_id.trim().length === 0
+    || unit.review_state !== "qualified" || unit.benchmark_eligibility !== true
+    || unit.retrieval_eligibility !== "never" || unit.training_eligibility !== "never"
+    || unit.authority_effect !== "none"
+    || unit.scenario_ref === null || typeof unit.scenario_ref !== "object"
+    || typeof unit.scenario_ref.scenario_id !== "string" || unit.scenario_ref.scenario_id.trim().length === 0
+    || typeof unit.scenario_ref.scenario_digest !== "string" || unit.scenario_ref.scenario_digest.trim().length === 0
+    || unit.ability === null || typeof unit.ability !== "object"
+    || typeof unit.ability.id !== "string" || unit.ability.id.trim().length === 0
+    || typeof unit.ability.objective !== "string" || unit.ability.objective.trim().length === 0
+    || unit.context === null || typeof unit.context !== "object"
+    || !["state", "state_expression", "action_expression", "consequence_expression", "situation", "surface", "surface_context", "channel", "risk", "user_goal", "source_locale", "target_locale", "voice_profile", "situational_tone"].every((key) => nonempty(unit.context[key]))
+    || !["ltr", "rtl"].includes(unit.context.direction)
+    || unit.context.evidence === null || typeof unit.context.evidence !== "object"
+    || !["scenario_facts_available", "missing"].includes(unit.context.evidence.material_fact_status)
+    || (unit.context.evidence.material_fact_status === "missing" ? !nonempty(unit.context.evidence.unresolved_question) : unit.context.evidence.unresolved_question !== null)
+    || unit.candidate === null || typeof unit.candidate !== "object"
+    || !nonempty(unit.candidate.text)
+    || (unit.candidate.supporting_text !== null && typeof unit.candidate.supporting_text !== "string")
+    || !nonempty(unit.candidate.language) || !nonempty(unit.candidate.localization_status)
+    || ["variant", "voice", "tone", "injected_defect"].some((key) => Object.hasOwn(unit.candidate, key))
+    || Object.hasOwn(unit, "evaluation_control") || Object.hasOwn(unit, "provisional_expectation")
+    || unit.rubric === null || typeof unit.rubric !== "object"
+    || !stringArray(unit.rubric.evaluation_order)
+    || !stringArray(unit.rubric.hard_dimensions)
+    || !stringArray(unit.rubric.quality_dimensions)
+    || unit.reviewer_response === null || typeof unit.reviewer_response !== "object" || Array.isArray(unit.reviewer_response)
+    || Object.values(unit.reviewer_response).some((item) => item !== null)) invalid(`gold_record:${unit?.work_unit_id ?? "unknown"}`);
+  validateResponse(unit, unit.human_gold);
+}
+
+function validateGoldSet(value) {
+  if (value === null || typeof value !== "object" || Array.isArray(value)
+    || value.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
+    || value.packet_ref === null || typeof value.packet_ref !== "object"
+    || typeof value.packet_ref.packet_digest !== "string" || value.packet_ref.packet_digest.trim().length === 0
+    || !Number.isSafeInteger(value.packet_ref.sample_count) || value.packet_ref.sample_count < 1
+    || value.reviewer === null || typeof value.reviewer !== "object"
+    || !Array.isArray(value.records)) invalid("gold_envelope");
+  const { gold_set_digest: goldDigest, ...preimage } = value;
+  if (goldDigest !== digest(preimage)) invalid("gold_digest");
+  if (value.reviewer.reviewer_role !== "qualified_content_designer"
+    || typeof value.reviewer.reviewer_id !== "string" || value.reviewer.reviewer_id.trim().length === 0
+    || !isRfc3339(value.reviewer.reviewed_at) || value.reviewer.independent_review_attested !== true
+    || value.qualified_count !== value.records.length || value.packet_ref.sample_count !== value.records.length
+    || value.benchmark_eligibility !== true || value.retrieval_eligibility !== "never"
+    || value.training_eligibility !== "never" || value.authority_effect !== "none") invalid("gold_shape");
+  const ids = new Set();
+  for (const unit of value.records) {
+    if (ids.has(unit?.work_unit_id)) invalid("gold_coverage");
+    ids.add(unit?.work_unit_id);
+    validateQualifiedRecord(unit);
+  }
+  return value;
 }
 
 export function qualifyReviewSubmission(packet, submission) {
@@ -217,8 +284,7 @@ function dispositionConfusion(records) {
 }
 
 export function scoreContentDesignPredictions(goldSet, predictions) {
-  if (goldSet.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
-    || !Array.isArray(goldSet.records)) invalid("predictions_envelope");
+  goldSet = validateGoldSet(goldSet);
   predictions = validatePredictionSet(predictions, goldSet.packet_ref.packet_digest, goldSet.records);
   const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
   if (predictionMap.size !== goldSet.records.length) invalid("predictions_coverage");

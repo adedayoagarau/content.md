@@ -60,8 +60,11 @@ The JSON contracts exposed by this command are:
 
 Packet and output digests are opaque content identities. Editing a record and
 recomputing its outer digest does not make it valid: the CLI independently
-checks required context, evidence, rubric, eligibility, unreviewed state, and
-label-blinding invariants before evaluation.
+checks required context, evidence, rubric, eligibility, state, label-blinding,
+and completed-review invariants before evaluation. Qualified gold is rechecked
+at score time, including review coverage and exact rubric dimensions. These
+content-addressed checks detect mutation; they do not authenticate a reviewer's
+identity or prove that the reviewer is qualified.
 
 ## Machine-readable output
 

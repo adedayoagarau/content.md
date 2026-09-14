@@ -113,6 +113,22 @@ describe("content-design benchmark", () => {
     expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
     expect(report.authority_effect).toBe("none");
 
+    const alteredGold = structuredClone(gold) as unknown as Record<string, unknown> & { records: Array<Record<string, unknown>> };
+    alteredGold.records[0].benchmark_eligibility = false;
+    expect(() => scoreContentDesignBenchmark(alteredGold, predictContentDesignBenchmark(packet)))
+      .toThrow("qualification_review_incomplete:content_design:gold_digest");
+
+    const redigestedGold = structuredClone(alteredGold);
+    redigest(redigestedGold, "gold_set_digest");
+    expect(() => scoreContentDesignBenchmark(redigestedGold, predictContentDesignBenchmark(packet)))
+      .toThrow(/gold_record|gold_shape/);
+
+    const extraDimensionGold = structuredClone(gold) as unknown as Record<string, unknown> & { records: Array<{ human_gold: { hard_dimension_results: Record<string, unknown> } }> };
+    extraDimensionGold.records[0].human_gold.hard_dimension_results.injected_dimension = "pass";
+    redigest(extraDimensionGold, "gold_set_digest");
+    expect(() => scoreContentDesignBenchmark(extraDimensionGold, predictContentDesignBenchmark(packet)))
+      .toThrow(/hard_dimensions/);
+
     const altered = structuredClone(predictContentDesignBenchmark(packet)) as unknown as Record<string, unknown> & { predictions: Array<Record<string, unknown>> };
     const reviseIndex = altered.predictions.findIndex((prediction) => prediction.disposition === "revise");
     expect(reviseIndex).toBeGreaterThanOrEqual(0);
