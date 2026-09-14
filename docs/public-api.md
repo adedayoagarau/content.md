@@ -29,13 +29,15 @@ as stable automation APIs for 0.1.
 ### Content-design benchmark
 
 `contentmd benchmark content-design` includes a blinded 100-scenario packet and
-supports six bounded operations:
+supports seven bounded operations:
 
 - create-only extraction of the bundled packet with `--sample-out`, without requiring a repository checkout;
 - default prediction with optional `--out`;
 - independent response-template creation with `--review-template`;
 - a loopback-only one-scenario-at-a-time review desk with `--review-workbench`;
 - completed-review qualification with `--submission` and `--gold-out`;
+- independent-review calibration with `--gold`, `--compare-gold`, and
+  `--report-out`;
 - scoring with `--gold`, `--predictions`, and `--report-out`.
 
 The bundled packet contains no hidden generator labels, and `--sample-out` is a
@@ -46,6 +48,11 @@ reviewer-qualification bundle whose replay binds the reviewer, content-design
 role, benchmark-review objective, and exact packet scope. A role string and
 self-attestation alone fail closed. Qualified output remains benchmark-only,
 with retrieval and training eligibility set to `never`.
+Calibration requires two valid gold sets for the exact same packet and rejects
+reviewer reuse, record drift, mismatched coverage, or tampering. It reports
+disposition and hard-dimension agreement, quality-score distance, per-ability
+agreement, and every work unit requiring adjudication without replacing either
+review.
 Scoring reports exact disposition agreement, hard-dimension accuracy, and
 quality-score error overall and by ability, risk, surface, locale, intended
 voice, and situational tone. It also reports the complete disposition confusion
@@ -59,6 +66,7 @@ The JSON contracts exposed by this command are:
 - prediction set `contentmd.content-design-predictions/0.1.0`, produced by
   evaluator `contentmd.deterministic-content-design-baseline/0.2.0`;
 - review submission and qualified gold set `0.2.0`;
+- calibration report `contentmd.content-design-calibration-report/0.1.0`;
 - evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
 
 Packet and output digests are opaque content identities. Editing a record and

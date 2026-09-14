@@ -23,7 +23,8 @@ deployment, organizational approval, or claim of general writing effectiveness.
   and bounded uninstall preview.
 - The packed content-design benchmark covers extraction of the blinded
   100-scenario sample, packet-bound prediction, reviewer-blank template
-  creation, and the loopback-only independent-review workbench.
+  creation, two-reviewer calibration with an explicit disagreement queue, and
+  the loopback-only independent-review workbench.
 - Research candidates and the public-product corpus are excluded from the npm
   tarball and remain separately governed evidence assets.
 
@@ -61,8 +62,8 @@ substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2141335
-unpacked bytes: 13119381
+tarball bytes: 2142546
+unpacked bytes: 13126142
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -76,7 +77,9 @@ evaluation, regular-user patch apply and undo, fresh digest-bound adoption,
 bounded uninstall preview, npm uninstall, source-fixture preservation, and
 `authority_effect: none` for scanning. It also demonstrated installed-package
 content-design sample extraction, blind prediction, reviewer-blank template
-creation, and review-workbench rendering with generator labels absent.
+creation, two-reviewer calibration, and review-workbench rendering with
+generator labels absent. Calibration reports remain non-authorizing and retain
+disagreements for adjudication.
 
 The release dry-run admitted exactly:
 

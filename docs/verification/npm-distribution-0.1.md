@@ -26,14 +26,17 @@ The verifier runs these operations in a fresh temporary consumer project:
 11. Extract the bundled blinded 100-scenario content-design packet and verify
     its immutable digest and absence of generator labels.
 12. Produce packet-bound unscored predictions and a reviewer-blank response template.
-13. Start the packed content-design review workbench and verify its rendered
+13. Qualify two distinct governed-reviewer fixtures and compare them through
+    the installed CLI, confirming agreement remains non-authorizing and any
+    disagreement would require adjudication.
+14. Start the packed content-design review workbench and verify its rendered
     review shell and blinded data endpoint. The shell exposes user goal, state,
     action, consequence, risk, evidence status, locale, intended voice, and
     situational tone; it never displays generator-assigned candidate style.
     Export remains disabled until every response, reviewer identity, strict
     RFC 3339 timestamp, and independence attestation is complete.
-14. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
-15. Uninstall the package and confirm its installed entry is removed.
+15. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
+16. Uninstall the package and confirm its installed entry is removed.
 
 Run the proof with the supported Node 24 runtime:
 

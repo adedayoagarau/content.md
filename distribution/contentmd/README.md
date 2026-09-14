@@ -134,6 +134,22 @@ npx contentmd benchmark content-design \
   --report-out evaluation-report.json
 ```
 
+Before treating either review as calibration evidence, qualify a second review
+from a different governed reviewer and compare the two immutable gold files:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold reviewer-a-gold.json \
+  --compare-gold reviewer-b-gold.json \
+  --report-out reviewer-calibration.json
+```
+
+The calibration report measures disposition and hard-dimension agreement,
+quality-score distance, and per-ability disagreement. It preserves an explicit
+adjudication queue instead of averaging disagreements away. Reviewer agreement
+does not by itself prove tool accuracy or authorize a benchmark claim.
+
 Qualification fails closed for incomplete reviews, packet drift, missing
 evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or
 differently scoped governed reviewer-qualification replay. A role string alone

@@ -126,6 +126,37 @@ export interface ContentDesignEvaluationReport {
   report_digest: string;
 }
 
+export interface ContentDesignCalibrationReport {
+  contract_version: "contentmd.content-design-calibration-report/0.1.0";
+  packet_digest: string;
+  left_gold_set_digest: string;
+  right_gold_set_digest: string;
+  reviewer_refs: [string, string];
+  record_count: number;
+  disposition_exact_agreement: number;
+  hard_dimension_exact_agreement: number;
+  quality_score_mean_absolute_difference: number | null;
+  by_ability: Record<string, {
+    count: number;
+    disposition_exact_agreement: number;
+    disagreement_count: number;
+  }>;
+  disagreement_count: number;
+  disagreements: Array<{
+    work_unit_id: string;
+    ability_id: string;
+    left_disposition: Disposition;
+    right_disposition: Disposition;
+    hard_dimension_disagreements: string[];
+    quality_dimension_disagreements: Array<{ dimension: string; left: number | null; right: number | null }>;
+  }>;
+  calibration_status: "agreement_measured_no_disagreement" | "agreement_measured_adjudication_required";
+  adjudication_required: boolean;
+  benchmark_claim_eligibility: false;
+  authority_effect: "none";
+  report_digest: string;
+}
+
 interface ReleaseThresholdDiagnostics {
   critical_safety_count: number;
   critical_false_acceptance_count: number;
@@ -669,6 +700,93 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
   return { ...preimage, report_digest: digest(preimage) };
 }
 
+export function compareContentDesignGoldSets(leftValue: unknown, rightValue: unknown): ContentDesignCalibrationReport {
+  const left = validateGoldSet(leftValue);
+  const right = validateGoldSet(rightValue);
+  if (left.packet_ref.packet_digest !== right.packet_ref.packet_digest
+    || left.packet_ref.sample_count !== right.packet_ref.sample_count) incomplete("calibration_packet_binding");
+  if (left.reviewer.reviewer_id === right.reviewer.reviewer_id) incomplete("calibration_reviewer_independence");
+  const rightRecords = new Map(right.records.map((record) => [record.work_unit_id, record]));
+  if (rightRecords.size !== left.records.length) incomplete("calibration_coverage");
+  let dispositionMatches = 0;
+  let hardMatches = 0;
+  let hardCount = 0;
+  let qualityDistance = 0;
+  let qualityCount = 0;
+  const disagreements: ContentDesignCalibrationReport["disagreements"] = [];
+  for (const leftRecord of left.records) {
+    const rightRecord = rightRecords.get(leftRecord.work_unit_id);
+    if (rightRecord === undefined) incomplete("calibration_coverage");
+    for (const field of ["scenario_ref", "ability", "context", "candidate", "rubric"] as const) {
+      if (JSON.stringify(leftRecord[field]) !== JSON.stringify(rightRecord[field])) {
+        incomplete(`calibration_record_binding:${leftRecord.work_unit_id}`);
+      }
+    }
+    const leftGold = leftRecord.human_gold;
+    const rightGold = rightRecord.human_gold;
+    if (leftGold.disposition === rightGold.disposition) dispositionMatches += 1;
+    const hardDimensionDisagreements = leftRecord.rubric.hard_dimensions.filter((dimension) => {
+      hardCount += 1;
+      if (leftGold.hard_dimension_results[dimension] === rightGold.hard_dimension_results[dimension]) {
+        hardMatches += 1;
+        return false;
+      }
+      return true;
+    });
+    const qualityDimensionDisagreements = leftRecord.rubric.quality_dimensions.flatMap((dimension) => {
+      const leftScore = leftGold.quality_dimension_scores[dimension] ?? null;
+      const rightScore = rightGold.quality_dimension_scores[dimension] ?? null;
+      if (typeof leftScore === "number" && typeof rightScore === "number") {
+        qualityDistance += Math.abs(leftScore - rightScore);
+        qualityCount += 1;
+      }
+      return leftScore === rightScore ? [] : [{ dimension, left: leftScore, right: rightScore }];
+    });
+    if (leftGold.disposition !== rightGold.disposition
+      || hardDimensionDisagreements.length > 0 || qualityDimensionDisagreements.length > 0) {
+      disagreements.push({
+        work_unit_id: leftRecord.work_unit_id,
+        ability_id: leftRecord.ability.id,
+        left_disposition: leftGold.disposition,
+        right_disposition: rightGold.disposition,
+        hard_dimension_disagreements: hardDimensionDisagreements,
+        quality_dimension_disagreements: qualityDimensionDisagreements,
+      });
+    }
+  }
+  const byAbility = Object.fromEntries([...new Set(left.records.map((record) => record.ability.id))].sort().map((ability) => {
+    const records = left.records.filter((record) => record.ability.id === ability);
+    const rightById = new Map(right.records.map((record) => [record.work_unit_id, record]));
+    const matches = records.filter((record) => record.human_gold.disposition === rightById.get(record.work_unit_id)?.human_gold.disposition).length;
+    return [ability, {
+      count: records.length,
+      disposition_exact_agreement: matches / records.length,
+      disagreement_count: disagreements.filter((item) => item.ability_id === ability).length,
+    }];
+  }));
+  const preimage = {
+    contract_version: "contentmd.content-design-calibration-report/0.1.0" as const,
+    packet_digest: left.packet_ref.packet_digest,
+    left_gold_set_digest: left.gold_set_digest,
+    right_gold_set_digest: right.gold_set_digest,
+    reviewer_refs: [left.reviewer.reviewer_id, right.reviewer.reviewer_id] as [string, string],
+    record_count: left.records.length,
+    disposition_exact_agreement: dispositionMatches / left.records.length,
+    hard_dimension_exact_agreement: hardMatches / hardCount,
+    quality_score_mean_absolute_difference: qualityCount === 0 ? null : qualityDistance / qualityCount,
+    by_ability: byAbility,
+    disagreement_count: disagreements.length,
+    disagreements,
+    calibration_status: disagreements.length === 0
+      ? "agreement_measured_no_disagreement" as const
+      : "agreement_measured_adjudication_required" as const,
+    adjudication_required: disagreements.length > 0,
+    benchmark_claim_eligibility: false as const,
+    authority_effect: "none" as const,
+  };
+  return { ...preimage, report_digest: digest(preimage) };
+}
+
 export async function predictLocalContentDesignBenchmark(inputPath: string, outputPath?: string): Promise<ContentDesignPredictionSet> {
   const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
   const result = predictContentDesignBenchmark(packet);
@@ -708,6 +826,16 @@ export async function scoreLocalContentDesignBenchmark(goldPath: string, predict
     readFile(predictionsPath, "utf8").then((value) => JSON.parse(value) as unknown),
   ]);
   const result = scoreContentDesignBenchmark(gold, predictions);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  return result;
+}
+
+export async function compareLocalContentDesignGoldSets(leftPath: string, rightPath: string, outputPath: string): Promise<ContentDesignCalibrationReport> {
+  const [left, right] = await Promise.all([
+    readFile(leftPath, "utf8").then((value) => JSON.parse(value) as unknown),
+    readFile(rightPath, "utf8").then((value) => JSON.parse(value) as unknown),
+  ]);
+  const result = compareContentDesignGoldSets(left, right);
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
 }

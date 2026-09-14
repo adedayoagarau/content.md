@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn, spawnSync } from "node:child_process";
+import { governedContentDesignReviewerFixture } from "./content-design-reviewer-fixture.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
@@ -156,6 +157,43 @@ if (
   || benchmarkReviewTemplate.reviewer?.independent_review_attested !== false
   || benchmarkReviewTemplate.reviewer?.qualification_bundle !== null
 ) throw new Error("installed package did not create a reviewer-blank content-design template");
+const completeBenchmarkReview = (reviewerId) => {
+  const completed = structuredClone(benchmarkReviewTemplate);
+  completed.reviewer = governedContentDesignReviewerFixture(completed.packet_ref.packet_digest, { reviewerId });
+  completed.submission_state = "complete";
+  for (const response of completed.responses) {
+    response.disposition = "human_preference_review";
+    response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results).map((dimension) => [dimension, "pass"]));
+    response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores).map((dimension) => [dimension, 3]));
+    response.rationale = "Independent distribution fixture records a complete meaning-based judgment.";
+    response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+    response.recommended_revision = null;
+    response.review_evidence_refs = [`review.distribution.${reviewerId}`];
+  }
+  return completed;
+};
+const benchmarkReviewAPath = path.join(scratch, "content-design-review-a.json");
+const benchmarkReviewBPath = path.join(scratch, "content-design-review-b.json");
+const benchmarkGoldAPath = path.join(scratch, "content-design-gold-a.json");
+const benchmarkGoldBPath = path.join(scratch, "content-design-gold-b.json");
+const benchmarkCalibrationPath = path.join(scratch, "content-design-calibration.json");
+await writeFile(benchmarkReviewAPath, JSON.stringify(completeBenchmarkReview("reviewer.distribution.a")));
+await writeFile(benchmarkReviewBPath, JSON.stringify(completeBenchmarkReview("reviewer.distribution.b")));
+run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--submission", benchmarkReviewAPath, "--gold-out", benchmarkGoldAPath, "--json"], consumer);
+run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--submission", benchmarkReviewBPath, "--gold-out", benchmarkGoldBPath, "--json"], consumer);
+const benchmarkCalibration = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
+  "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--compare-gold", benchmarkGoldBPath,
+  "--report-out", benchmarkCalibrationPath, "--json"], consumer));
+if (
+  benchmarkCalibration.command_id !== "benchmark.content-design.calibrate"
+  || benchmarkCalibration.data?.record_count !== 100
+  || benchmarkCalibration.data?.disposition_exact_agreement !== 1
+  || benchmarkCalibration.data?.adjudication_required !== false
+  || benchmarkCalibration.data?.benchmark_claim_eligibility !== false
+  || benchmarkCalibration.data?.authority_effect !== "none"
+) throw new Error("installed package did not calibrate independent content-design reviews");
 const benchmarkReviewWorkbench = await startPackedServer(installedEntry, [
   "benchmark", "content-design", "--packet", benchmarkPacketPath,
   "--review-workbench", "--port", "0", "--json",
@@ -334,6 +372,7 @@ console.log(JSON.stringify({
   content_design_packet_digest: benchmarkPacket.packet_digest,
   content_design_predictions_completed: true,
   content_design_review_template_completed: true,
+  content_design_reviewer_calibration_completed: true,
   content_design_review_workbench_completed: true,
   packed_workbench_completed: true,
   qualification_review_sample_completed: true,

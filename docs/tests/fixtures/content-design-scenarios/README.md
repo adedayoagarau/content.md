@@ -69,6 +69,24 @@ disposition confusion matrix plus critical false-acceptance, abstention,
 escalation, and positive-control rejection diagnostics. These metrics never
 grant benchmark, release, or publication authority.
 
+Create two independently qualified gold files, then compare them before using
+either as calibration evidence:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold reviewer-a-gold.json \
+  --compare-gold reviewer-b-gold.json \
+  --report-out reviewer-calibration.json \
+  --json
+```
+
+The calibration report rejects the same reviewer, mismatched packets, changed
+scenario context, or tampered gold. It reports disposition agreement,
+hard-dimension agreement, quality-score distance, per-ability disagreement,
+and an explicit adjudication queue. Agreement remains measurement evidence,
+not benchmark, release, retrieval, training, or publication authority.
+
 ```bash
 node scripts/qualify-content-design-review.mjs \
   --template \

@@ -1,4 +1,5 @@
 import {
+  compareLocalContentDesignGoldSets,
   createLocalContentDesignReviewSubmissionTemplate,
   predictLocalContentDesignBenchmark,
   qualifyLocalContentDesignReview,
@@ -26,17 +27,18 @@ export function registerBenchmark(program: Command): void {
     .option("--submission <path>", "completed independent-review response file")
     .option("--gold-out <path>", "new qualified benchmark-gold output file")
     .option("--gold <path>", "qualified benchmark-gold file")
+    .option("--compare-gold <path>", "second independently reviewed gold file for calibration")
     .option("--predictions <path>", "packet-bound prediction file")
     .option("--report-out <path>", "new evaluation-report output file")
     .option("--review-workbench", "start the loopback-only independent-review workbench")
     .option("--host <host>", "loopback host", "127.0.0.1")
     .option("--port <port>", "review workbench port", port, 4179)
     .option("--json", "emit the stable JSON envelope")
-    .action(async (options: { packet?: string; sampleOut?: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
+    .action(async (options: { packet?: string; sampleOut?: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; compareGold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
       if (options.sampleOut !== undefined) {
         if (options.packet !== undefined || options.out !== undefined || options.reviewTemplate !== undefined
           || options.submission !== undefined || options.goldOut !== undefined || options.gold !== undefined
-          || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true) {
+          || options.compareGold !== undefined || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true) {
           throw new Error("content_design_benchmark_invalid:sample_out_is_standalone");
         }
         const packet = await writeBuiltinContentDesignReviewPacket(options.sampleOut);
@@ -69,6 +71,21 @@ export function registerBenchmark(program: Command): void {
           warnings: ["Qualified records are benchmark-eligible only; retrieval and training remain disabled."],
           next_actions: ["Score a prediction set bound to this packet, then inspect every weak slice before changing the evaluator."],
           data: gold,
+        };
+      }
+      if (options.compareGold !== undefined) {
+        if (options.gold === undefined || options.reportOut === undefined || options.predictions !== undefined) {
+          throw new Error("content_design_benchmark_invalid:gold_compare_gold_and_report_out_required");
+        }
+        const report = await compareLocalContentDesignGoldSets(options.gold, options.compareGold, options.reportOut);
+        return {
+          command_id: "benchmark.content-design.calibrate",
+          record_refs: [report.left_gold_set_digest, report.right_gold_set_digest, report.report_digest],
+          warnings: ["Agreement is calibration evidence only; disagreements require adjudication and consensus grants no release authority."],
+          next_actions: report.adjudication_required
+            ? ["Adjudicate every listed disagreement without replacing either independent review."]
+            : ["Retain both independent reviews and the calibration report; do not infer effectiveness from reviewer agreement alone."],
+          data: report,
         };
       }
       if (options.gold !== undefined || options.predictions !== undefined || options.reportOut !== undefined) {

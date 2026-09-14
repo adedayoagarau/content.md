@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
+  compareContentDesignGoldSets,
   createContentDesignReviewSubmissionTemplate,
   predictContentDesignBenchmark,
   predictLocalContentDesignBenchmark,
@@ -134,5 +135,53 @@ describe("content-design benchmark", () => {
     const redigested = structuredClone(altered);
     redigest(redigested, "prediction_set_digest");
     expect(() => scoreContentDesignBenchmark(gold, redigested)).toThrow(/prediction_pass_unresolved|prediction_shape/);
+  });
+
+  it("compares two independent reviews and preserves disagreements for adjudication", async () => {
+    const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
+    const complete = (reviewerId: string) => {
+      const submission = createContentDesignReviewSubmissionTemplate(packet) as unknown as Record<string, unknown> & { reviewer: Record<string, unknown>; responses: Array<Record<string, unknown>> };
+      submission.reviewer = governedContentDesignReviewerFixture(packet.packet_digest, { reviewerId });
+      submission.submission_state = "complete";
+      for (const response of submission.responses) {
+        response.disposition = "pass";
+        response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results as object).map((dimension) => [dimension, "pass"]));
+        response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores as object).map((dimension) => [dimension, 4]));
+        response.rationale = "Independent fixture review records a complete meaning-based judgment.";
+        response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+        response.recommended_revision = null;
+        response.review_evidence_refs = [`review.fixture.${reviewerId}`];
+      }
+      return submission;
+    };
+    const left = qualifyContentDesignReview(packet, complete("reviewer.fixture.a"));
+    const rightSubmission = complete("reviewer.fixture.b");
+    rightSubmission.responses[0].disposition = "revise";
+    rightSubmission.responses[0].recommended_revision = "State the supported outcome and next step.";
+    rightSubmission.responses[0].hard_dimension_results.factual_accuracy = "fail";
+    rightSubmission.responses[0].quality_dimension_scores.clarity = 2;
+    const right = qualifyContentDesignReview(packet, rightSubmission);
+    const report = compareContentDesignGoldSets(left, right);
+    expect(report.record_count).toBe(100);
+    expect(report.disposition_exact_agreement).toBe(0.99);
+    expect(report.hard_dimension_exact_agreement).toBeLessThan(1);
+    expect(report.quality_score_mean_absolute_difference).toBeGreaterThan(0);
+    expect(report.disagreement_count).toBe(1);
+    expect(report.disagreements[0]).toMatchObject({
+      work_unit_id: left.records[0].work_unit_id,
+      left_disposition: "pass",
+      right_disposition: "revise",
+      hard_dimension_disagreements: ["factual_accuracy"],
+    });
+    expect(report.calibration_status).toBe("agreement_measured_adjudication_required");
+    expect(report.adjudication_required).toBe(true);
+    expect(report.benchmark_claim_eligibility).toBe(false);
+    expect(report.authority_effect).toBe("none");
+    expect(() => compareContentDesignGoldSets(left, left)).toThrow("calibration_reviewer_independence");
+
+    const altered = structuredClone(right) as unknown as Record<string, unknown> & { records: Array<Record<string, unknown>> };
+    altered.records[0].context = { changed: true };
+    redigest(altered, "gold_set_digest");
+    expect(() => compareContentDesignGoldSets(left, altered)).toThrow(/gold_record|calibration_record_binding/);
   });
 });
