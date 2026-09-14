@@ -11,6 +11,7 @@ import {
   predictLocalContentDesignBenchmark,
   qualifyContentDesignReview,
   scoreContentDesignBenchmark,
+  scoreLocalContentDesignBenchmark,
   writeBuiltinContentDesignReviewPacket,
 } from "@contentmd/agent";
 import { governedContentDesignReviewerFixture } from "../../../scripts/content-design-reviewer-fixture.mjs";
@@ -183,5 +184,39 @@ describe("content-design benchmark", () => {
     altered.records[0].context = { changed: true };
     redigest(altered, "gold_set_digest");
     expect(() => compareContentDesignGoldSets(left, altered)).toThrow(/gold_record|calibration_record_binding/);
+  });
+
+  it("rejects caller-redigested gold whose scenario context differs from the blind packet", async () => {
+    const packetValue = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
+    const submission = createContentDesignReviewSubmissionTemplate(packetValue) as unknown as Record<string, unknown> & { reviewer: Record<string, unknown>; responses: Array<Record<string, unknown>> };
+    submission.reviewer = governedContentDesignReviewerFixture(packetValue.packet_digest);
+    submission.submission_state = "complete";
+    for (const response of submission.responses) {
+      response.disposition = "pass";
+      response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results as object).map((dimension) => [dimension, "pass"]));
+      response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores as object).map((dimension) => [dimension, 4]));
+      response.rationale = "Independent fixture review records a complete meaning-based judgment.";
+      response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+      response.recommended_revision = null;
+      response.review_evidence_refs = ["review.fixture.session"];
+    }
+    const gold = qualifyContentDesignReview(packetValue, submission) as unknown as Record<string, unknown> & { records: Array<{ context: { state: string } }> };
+    gold.records[0].context.state = "A different but structurally valid product state";
+    redigest(gold, "gold_set_digest");
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-packet-binding-"));
+    const goldPath = join(directory, "gold.json");
+    const predictionsPath = join(directory, "predictions.json");
+    try {
+      await writeFile(goldPath, JSON.stringify(gold));
+      await writeFile(predictionsPath, JSON.stringify(predictContentDesignBenchmark(packetValue)));
+      await expect(scoreLocalContentDesignBenchmark(
+        join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"),
+        goldPath,
+        predictionsPath,
+        join(directory, "report.json"),
+      )).rejects.toThrow(/gold_packet_binding/);
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 });

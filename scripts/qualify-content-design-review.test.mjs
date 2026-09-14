@@ -87,6 +87,11 @@ test("qualifies a complete review for benchmarking only", () => {
   assert.equal(gold.retrieval_eligibility, "never");
   assert.equal(gold.training_eligibility, "never");
   assert.equal(gold.records.every((record) => record.review_state === "qualified"), true);
+  const originalState = packet.review_work_units[0].context.state;
+  gold.records[0].context.state = "A changed qualified-record state";
+  gold.records[0].human_gold.rationale = "A changed qualified-record rationale that remains structurally complete.";
+  assert.equal(packet.review_work_units[0].context.state, originalState);
+  assert.notEqual(submission.responses[0].rationale, gold.records[0].human_gold.rationale);
 });
 
 test("scores exact agreement and reports every required slice", () => {

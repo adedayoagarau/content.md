@@ -568,6 +568,22 @@ function validateGoldSet(value: unknown): QualifiedContentDesignGoldSet {
   return gold;
 }
 
+function verifyGoldPacketBinding(gold: QualifiedContentDesignGoldSet, packet: BlindReviewPacket): void {
+  if (gold.packet_ref.packet_digest !== packet.packet_digest
+    || gold.packet_ref.sample_count !== packet.sample_count
+    || gold.records.length !== packet.review_work_units.length) incomplete("gold_packet_binding");
+  const packetUnits = new Map(packet.review_work_units.map((unit) => [unit.work_unit_id, unit]));
+  for (const record of gold.records) {
+    const expected = packetUnits.get(record.work_unit_id);
+    if (expected === undefined) incomplete("gold_packet_binding");
+    const actual = structuredClone(record) as unknown as Record<string, unknown>;
+    delete actual.human_gold;
+    actual.review_state = "unreviewed";
+    actual.benchmark_eligibility = false;
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) incomplete(`gold_packet_binding:${record.work_unit_id}`);
+  }
+}
+
 export function qualifyContentDesignReview(packetValue: unknown, submissionValue: unknown): QualifiedContentDesignGoldSet {
   const packet = validatePacket(packetValue);
   if (submissionValue === null || typeof submissionValue !== "object") incomplete("submission");
@@ -590,8 +606,8 @@ export function qualifyContentDesignReview(packetValue: unknown, submissionValue
     if (response === undefined) incomplete(`missing:${unit.work_unit_id}`);
     validateCompletedResponse(unit, response);
     return {
-      ...unit,
-      human_gold: response,
+      ...structuredClone(unit),
+      human_gold: structuredClone(response),
       review_state: "qualified" as const,
       benchmark_eligibility: true as const,
       retrieval_eligibility: "never" as const,
@@ -820,21 +836,31 @@ export async function qualifyLocalContentDesignReview(packetPath: string, submis
   return result;
 }
 
-export async function scoreLocalContentDesignBenchmark(goldPath: string, predictionsPath: string, outputPath: string): Promise<ContentDesignEvaluationReport> {
-  const [gold, predictions] = await Promise.all([
+export async function scoreLocalContentDesignBenchmark(packetPath: string, goldPath: string, predictionsPath: string, outputPath: string): Promise<ContentDesignEvaluationReport> {
+  const [packetValue, goldValue, predictions] = await Promise.all([
+    readFile(packetPath, "utf8").then((value) => JSON.parse(value) as unknown),
     readFile(goldPath, "utf8").then((value) => JSON.parse(value) as unknown),
     readFile(predictionsPath, "utf8").then((value) => JSON.parse(value) as unknown),
   ]);
+  const packet = validatePacket(packetValue);
+  const gold = validateGoldSet(goldValue);
+  verifyGoldPacketBinding(gold, packet);
   const result = scoreContentDesignBenchmark(gold, predictions);
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
 }
 
-export async function compareLocalContentDesignGoldSets(leftPath: string, rightPath: string, outputPath: string): Promise<ContentDesignCalibrationReport> {
-  const [left, right] = await Promise.all([
+export async function compareLocalContentDesignGoldSets(packetPath: string, leftPath: string, rightPath: string, outputPath: string): Promise<ContentDesignCalibrationReport> {
+  const [packetValue, leftValue, rightValue] = await Promise.all([
+    readFile(packetPath, "utf8").then((value) => JSON.parse(value) as unknown),
     readFile(leftPath, "utf8").then((value) => JSON.parse(value) as unknown),
     readFile(rightPath, "utf8").then((value) => JSON.parse(value) as unknown),
   ]);
+  const packet = validatePacket(packetValue);
+  const left = validateGoldSet(leftValue);
+  const right = validateGoldSet(rightValue);
+  verifyGoldPacketBinding(left, packet);
+  verifyGoldPacketBinding(right, packet);
   const result = compareContentDesignGoldSets(left, right);
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;

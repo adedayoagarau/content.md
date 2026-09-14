@@ -49,7 +49,7 @@ role, benchmark-review objective, and exact packet scope. A role string and
 self-attestation alone fail closed. Qualified output remains benchmark-only,
 with retrieval and training eligibility set to `never`.
 Calibration requires two valid gold sets for the exact same packet and rejects
-reviewer reuse, record drift, mismatched coverage, or tampering. It reports
+reviewer reuse, record drift, mismatched coverage, or digest-invalid files. It reports
 disposition and hard-dimension agreement, quality-score distance, per-ability
 agreement, and every work unit requiring adjudication without replacing either
 review.
@@ -69,15 +69,20 @@ The JSON contracts exposed by this command are:
 - calibration report `contentmd.content-design-calibration-report/0.1.0`;
 - evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
 
-Packet and output digests are opaque content identities. Editing a record and
-recomputing its outer digest does not make it valid: the CLI independently
+Packet and output digests are opaque content identities. The CLI independently
 checks required context, evidence, rubric, eligibility, state, label-blinding,
-and completed-review invariants before evaluation. Qualified gold is rechecked
-at score time, including review coverage and exact rubric dimensions. These
-content-addressed checks detect mutation. The governed qualification replay
-proves policy, grant, approval, role, objective, scope, currency, and revocation
-consistency; authenticating the external principals and issuer remains the
-adopting project's responsibility.
+and completed-review invariants before evaluation. For scoring and calibration,
+it also replays every gold record against the supplied immutable packet, so a
+caller-recomputed digest cannot substitute changed scenario context. Qualified
+gold is rechecked at score time, including review coverage and exact rubric
+dimensions.
+
+These content-addressed checks provide integrity and binding, not reviewer
+identity authentication or a digital signature over each judgment. The
+governed qualification replay proves internal policy, grant, approval, role,
+objective, scope, currency, and revocation consistency. Authenticating the
+external reviewer and issuer—and ensuring the submitted judgments are the
+reviewer's authentic output—remains the adopting project's responsibility.
 
 ## Machine-readable output
 

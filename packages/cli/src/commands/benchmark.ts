@@ -77,7 +77,7 @@ export function registerBenchmark(program: Command): void {
         if (options.gold === undefined || options.reportOut === undefined || options.predictions !== undefined) {
           throw new Error("content_design_benchmark_invalid:gold_compare_gold_and_report_out_required");
         }
-        const report = await compareLocalContentDesignGoldSets(options.gold, options.compareGold, options.reportOut);
+        const report = await compareLocalContentDesignGoldSets(packetPath, options.gold, options.compareGold, options.reportOut);
         return {
           command_id: "benchmark.content-design.calibrate",
           record_refs: [report.left_gold_set_digest, report.right_gold_set_digest, report.report_digest],
@@ -90,7 +90,7 @@ export function registerBenchmark(program: Command): void {
       }
       if (options.gold !== undefined || options.predictions !== undefined || options.reportOut !== undefined) {
         if (options.gold === undefined || options.predictions === undefined || options.reportOut === undefined) throw new Error("content_design_benchmark_invalid:gold_predictions_and_report_out_required");
-        const report = await scoreLocalContentDesignBenchmark(options.gold, options.predictions, options.reportOut);
+        const report = await scoreLocalContentDesignBenchmark(packetPath, options.gold, options.predictions, options.reportOut);
         return {
           command_id: "benchmark.content-design.score",
           record_refs: [report.gold_set_digest, report.prediction_set_digest, report.report_digest],

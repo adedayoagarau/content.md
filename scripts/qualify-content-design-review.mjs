@@ -231,8 +231,8 @@ export function qualifyReviewSubmission(packet, submission) {
     if (response === undefined) invalid(`missing:${unit.work_unit_id}`);
     validateResponse(unit, response);
     return {
-      ...unit,
-      human_gold: response,
+      ...structuredClone(unit),
+      human_gold: structuredClone(response),
       review_state: "qualified",
       benchmark_eligibility: true,
       retrieval_eligibility: "never",
