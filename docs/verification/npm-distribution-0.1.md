@@ -23,8 +23,13 @@ The verifier runs these operations in a fresh temporary consumer project:
    the intentional governance exit code 20.
 9. Confirm neither scan nor init preview changes the target repository or persists discovery state.
 10. Create and evaluate a source-bound qualification-review packet.
-11. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
-12. Uninstall the package and confirm its installed entry is removed.
+11. Extract the bundled blinded 100-scenario content-design packet and verify
+    its immutable digest and absence of generator labels.
+12. Produce packet-bound unscored predictions and a reviewer-blank response template.
+13. Start the packed content-design review workbench and verify its rendered
+    review shell and blinded data endpoint.
+14. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
+15. Uninstall the package and confirm its installed entry is removed.
 
 Run the proof with the supported Node 24 runtime:
 

@@ -3,7 +3,8 @@
 Status: `verified_local_release_candidate`; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
-workbench as verified on 2026-09-14 under Node `24.14.0` on `darwin` / `arm64`.
+workbench as verified on 2026-09-14 under compatible Node `24.19.0` on `darwin`
+/ `arm64`. Exact-runtime sealed learning goldens still require Node `24.14.0`.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
 
@@ -16,6 +17,9 @@ deployment, organizational approval, or claim of general writing effectiveness.
   preview, digest-bound apply, and undo.
 - Local adoption covers preview, explicit digest-bound initialization, doctor,
   and bounded uninstall preview.
+- The packed content-design benchmark covers extraction of the blinded
+  100-scenario sample, packet-bound prediction, reviewer-blank template
+  creation, and the loopback-only independent-review workbench.
 - Research candidates and the public-product corpus are excluded from the npm
   tarball and remain separately governed evidence assets.
 
@@ -23,7 +27,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 
 | Gate | Outcome |
 | --- | --- |
-| Development runtime | Node `24.14.0`; passed |
+| Development runtime | Compatible Node `24.19.0`; passed for packaging and distribution; exact Node `24.14.0` learning goldens not replayed in this run |
 | TypeScript project build | passed |
 | Learning complement | 19 files; 1,470 tests passed |
 | Non-learning complement | 28 files; 1,280 tests passed |
@@ -45,10 +49,12 @@ test-isolation correction, not a larger heap substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2112239
-unpacked bytes: 12767172
+tarball bytes: 2136843
+unpacked bytes: 13078413
 file count: 4
 qualified synthetic content items: 1
+blinded content-design sample: 100
+content-design packet digest: d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a
 doctor after adoption: ready_with_governance_warnings
 ```
 
@@ -56,7 +62,9 @@ The journey demonstrated a clean installation, installed binary, bare scan,
 offline local `npx` scan, packed loopback workbench, qualification sample and
 evaluation, regular-user patch apply and undo, fresh digest-bound adoption,
 bounded uninstall preview, npm uninstall, source-fixture preservation, and
-`authority_effect: none` for scanning.
+`authority_effect: none` for scanning. It also demonstrated installed-package
+content-design sample extraction, blind prediction, reviewer-blank template
+creation, and review-workbench rendering with generator labels absent.
 
 The release dry-run admitted exactly:
 

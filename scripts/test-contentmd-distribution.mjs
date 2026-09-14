@@ -24,10 +24,8 @@ function run(command, args, cwd) {
   return result.stdout;
 }
 
-async function startPackedWorkbench(entry, fixtureRoot, cwd) {
-  const child = spawn(process.execPath, [
-    entry, "serve", "--root", fixtureRoot, "--port", "0", "--json",
-  ], {
+async function startPackedServer(entry, args, cwd, label) {
+  const child = spawn(process.execPath, [entry, ...args], {
     cwd,
     encoding: "utf8",
     env: { ...process.env, PATH: toolchainPath },
@@ -36,7 +34,7 @@ async function startPackedWorkbench(entry, fixtureRoot, cwd) {
   const result = await new Promise((resolve, reject) => {
     let stdout = "";
     let stderr = "";
-    const timeout = setTimeout(() => reject(new Error(`packed workbench timeout\n${stderr}`)), 10_000);
+    const timeout = setTimeout(() => reject(new Error(`packed ${label} timeout\n${stderr}`)), 10_000);
     child.stdout.on("data", (chunk) => {
       stdout += String(chunk);
       try {
@@ -55,7 +53,7 @@ async function startPackedWorkbench(entry, fixtureRoot, cwd) {
     child.once("exit", (code) => {
       if (code !== null && code !== 0) {
         clearTimeout(timeout);
-        reject(new Error(`packed workbench exited ${code}\n${stdout}\n${stderr}`));
+        reject(new Error(`packed ${label} exited ${code}\n${stdout}\n${stderr}`));
       }
     });
   });
@@ -123,7 +121,65 @@ if (
   npxResult.command_id !== "scan.summary" || npxResult.data?.write_effect !== "none"
   || npxResult.data?.occurrence_count !== 1 || npxResult.data?.qualified_count !== 1
 ) throw new Error("local npx journey did not return the compact qualified-content summary");
-const packedWorkbench = await startPackedWorkbench(installedEntry, fixture, consumer);
+const benchmarkPacketPath = path.join(scratch, "review-sample-100.json");
+const benchmarkSample = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--sample-out", benchmarkPacketPath, "--json",
+], consumer));
+const benchmarkPacket = JSON.parse(await readFile(benchmarkPacketPath, "utf8"));
+if (
+  benchmarkSample.command_id !== "benchmark.content-design.sample"
+  || benchmarkPacket.sample_count !== 100
+  || benchmarkPacket.packet_digest !== "d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a"
+  || JSON.stringify(benchmarkPacket).includes("generator_label")
+) throw new Error("installed package did not create the expected blinded content-design packet");
+const benchmarkPredictionsPath = path.join(scratch, "contentmd-predictions.json");
+const benchmarkPredictions = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--out", benchmarkPredictionsPath, "--json",
+], consumer));
+if (
+  benchmarkPredictions.command_id !== "benchmark.content-design"
+  || benchmarkPredictions.data?.prediction_count !== 100
+  || benchmarkPredictions.data?.evaluation_status !== "unscored_pending_qualified_gold"
+  || benchmarkPredictions.data?.label_access !== "blind_packet_only"
+) throw new Error("installed package did not produce blind packet-bound predictions");
+const benchmarkReviewPath = path.join(scratch, "content-design-review.json");
+const benchmarkReview = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--review-template", benchmarkReviewPath, "--json",
+], consumer));
+const benchmarkReviewTemplate = JSON.parse(await readFile(benchmarkReviewPath, "utf8"));
+if (
+  benchmarkReview.command_id !== "benchmark.content-design.review-template"
+  || benchmarkReviewTemplate.responses?.length !== 100
+  || benchmarkReviewTemplate.submission_state !== "incomplete"
+  || benchmarkReviewTemplate.reviewer?.independent_review_attested !== false
+) throw new Error("installed package did not create a reviewer-blank content-design template");
+const benchmarkReviewWorkbench = await startPackedServer(installedEntry, [
+  "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--review-workbench", "--port", "0", "--json",
+], consumer, "content-design review workbench");
+try {
+  const response = await fetch(benchmarkReviewWorkbench.result.data.url);
+  const html = await response.text();
+  const reviewDataResponse = await fetch(new URL("review-data.json", benchmarkReviewWorkbench.result.data.url));
+  const reviewDataText = await reviewDataResponse.text();
+  const reviewData = JSON.parse(reviewDataText);
+  if (
+    response.status !== 200 || !html.includes("Judge the meaning, not the generator")
+    || !html.includes("<dt>State</dt>") || !html.includes("Export completed review")
+    || reviewDataResponse.status !== 200 || reviewData.packet?.sample_count !== 100
+    || reviewDataText.includes("generator_label")
+  ) throw new Error("packed content-design review workbench did not render the blinded review flow");
+} finally {
+  benchmarkReviewWorkbench.child.kill("SIGTERM");
+  if (benchmarkReviewWorkbench.child.exitCode === null) {
+    await new Promise((resolve) => benchmarkReviewWorkbench.child.once("exit", resolve));
+  }
+}
+const packedWorkbench = await startPackedServer(installedEntry, [
+  "serve", "--root", fixture, "--port", "0", "--json",
+], consumer, "workbench");
 try {
   if (packedWorkbench.result.command_id !== "serve" || packedWorkbench.result.data?.write_effect !== "none") {
     throw new Error("packed workbench did not start with a non-mutating result");
@@ -272,6 +328,11 @@ console.log(JSON.stringify({
   fixture_mutated: false,
   bare_scan_completed: true,
   local_npx_scan_completed: true,
+  content_design_sample_count: benchmarkPacket.sample_count,
+  content_design_packet_digest: benchmarkPacket.packet_digest,
+  content_design_predictions_completed: true,
+  content_design_review_template_completed: true,
+  content_design_review_workbench_completed: true,
   packed_workbench_completed: true,
   qualification_review_sample_completed: true,
   qualification_review_evaluation_completed: true,
