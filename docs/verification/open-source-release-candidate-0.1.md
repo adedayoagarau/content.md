@@ -7,7 +7,7 @@ This record covers the repository-native `contentmd@0.1.0` CLI and local
 workbench as verified on 2026-09-14 under Node `24.14.0` on `darwin` / `arm64`.
 Compatible-runtime packaging was also replayed under Node `24.19.0`.
 The clean replay source commit is
-`be74ae65f1c53bb15c8fe4e07dbe37f82c301a4b`; this record update changes only
+`f37fef1aed19d8ab0f25a4d207b3eabe7fa50bc2`; this record update changes only
 the verification documentation, not the packed artifact.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
@@ -33,7 +33,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Gate | Outcome |
 | --- | --- |
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
-| Clean committed checkout | commit `be74ae6`; frozen offline install reused 78/78 packages with zero downloads; source build, 90/90 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, and packed journey including two-reviewer calibration passed |
+| Clean committed checkout | commit `f37fef1`; frozen offline install reused 78/78 packages with zero downloads; source build, 90/90 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, and packed journey including packet-bound scoring and two-reviewer calibration passed |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
@@ -137,7 +137,7 @@ and do not overlap it with packaging or another learning verifier.
 ## Remaining external gates
 
 The replayed product and release-candidate files are committed through
-`be74ae6`; unrelated local public-product research remains outside that commit.
+`f37fef1`; unrelated local public-product research remains outside that commit.
 The remaining gates require external authority or evidence:
 
 1. With explicit release authority, replace the stale local `v0.1.0` candidate
