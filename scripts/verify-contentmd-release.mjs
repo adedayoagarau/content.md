@@ -10,6 +10,7 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const manifest = JSON.parse(await readFile(path.join(distribution, "package.json"), "utf8"));
 const publishWorkflow = await readFile(path.join(root, ".github/workflows/publish-npm.yml"), "utf8");
+const verificationWorkflow = await readFile(path.join(root, ".github/workflows/verify.yml"), "utf8");
 const npmCache = await mkdtemp(path.join(tmpdir(), "contentmd-release-npm-cache-"));
 const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
 
@@ -60,13 +61,21 @@ const requiredPublishGates = [
 ];
 for (const requiredGate of requiredPublishGates) {
   if (!publishWorkflow.includes(`run: ${requiredGate}`)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
+  if (!verificationWorkflow.includes(`run: ${requiredGate}`)) fail(`verification_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
 }
-const actionUses = [...publishWorkflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
-if (actionUses.length === 0) fail("publish_workflow_missing_actions");
-for (const action of actionUses) {
-  const revision = action.split("@").at(-1) ?? "";
-  if (!/^[0-9a-f]{40}$/u.test(revision)) fail(`publish_workflow_mutable_action_${action}`);
+function verifyPinnedActions(workflowName, workflow) {
+  const actions = [...workflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
+  if (actions.length === 0) fail(`${workflowName}_workflow_missing_actions`);
+  for (const action of actions) {
+    const revision = action.split("@").at(-1) ?? "";
+    if (!/^[0-9a-f]{40}$/u.test(revision)) fail(`${workflowName}_workflow_mutable_action_${action}`);
+  }
+  return actions;
 }
+const actionUses = verifyPinnedActions("publish", publishWorkflow);
+const verificationActionUses = verifyPinnedActions("verification", verificationWorkflow);
+if (!verificationWorkflow.includes("permissions:\n  contents: read")
+  || verificationWorkflow.includes("id-token: write")) fail("verification_workflow_permissions");
 
 const expectedTag = `v${manifest.version}`;
 const suppliedTag = process.env.CONTENTMD_RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
@@ -114,6 +123,8 @@ console.log(JSON.stringify({
   publish_access: manifest.publishConfig.access,
   publish_workflow_actions: actionUses,
   publish_workflow_gates: requiredPublishGates.map((gate) => gate.slice("pnpm ".length)),
+  verification_workflow_actions: verificationActionUses,
+  verification_workflow_gates: requiredPublishGates.map((gate) => gate.slice("pnpm ".length)),
   files,
   publish_effect: "none_dry_run",
   bootstrap_status: "first_authenticated_publish_required_before_trusted_publisher_binding",

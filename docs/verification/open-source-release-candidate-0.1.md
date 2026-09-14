@@ -40,6 +40,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
 | Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, distribution, and release-identity gates verified |
+| Pull-request verification | least-privilege CI runs the same complete non-publishing gate chain on pull requests and `main` pushes |
 | Generated README parity | passed |
 | Git whitespace check | passed |
 
