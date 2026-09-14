@@ -12,7 +12,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, join, relative, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
@@ -248,14 +248,13 @@ async function verifyPackageInventory(verificationRoot) {
   invariant(activeStoreMatch !== null, "inventory.offline-store", "active pnpm store is recorded");
   const activeStoreVersionRoot = await realpath(activeStoreMatch[1]);
   const activeStoreRoot = dirname(activeStoreVersionRoot);
-  const pnpmCli = resolve(dirname(process.execPath), "../node_modules/pnpm/bin/pnpm.mjs");
-  const pnpmVersion = await run(process.execPath, [pnpmCli, "--version"]);
+  const pnpmVersion = await run("pnpm", ["--version"]);
   invariant(
     pnpmVersion.code === 0 && pnpmVersion.stdout.trim() === "11.9.0",
     "inventory.pnpm-runtime",
     pnpmVersion.stderr.trim() || pnpmVersion.stdout.trim() || "pinned pnpm CLI unavailable",
   );
-  const cleanInstall = await run(process.execPath, [pnpmCli,
+  const cleanInstall = await run("pnpm", [
     "install",
     "--frozen-lockfile",
     "--trust-lockfile",
