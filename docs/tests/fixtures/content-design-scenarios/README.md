@@ -30,3 +30,13 @@ separate governed qualification workflow rather than editing generated files.
 4. Adjudicate disagreements without replacing either original review.
 5. Admit only qualified records to a versioned gold set.
 6. Keep held-out scenarios isolated from retrieval and learning evaluation.
+
+Create the deterministic 100-scenario blind review packet with:
+
+```bash
+npm run prepare:content-design-review
+```
+
+The packet includes one scenario for every ability-by-candidate-variant cell.
+It omits injected defects and provisional generator expectations. Reviewers
+should work only from the packet, not from `scenarios.jsonl`.
