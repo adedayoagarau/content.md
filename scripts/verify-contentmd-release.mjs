@@ -61,6 +61,13 @@ for (const action of actionUses) {
 const expectedTag = `v${manifest.version}`;
 const suppliedTag = process.env.CONTENTMD_RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
 if (suppliedTag !== undefined && suppliedTag !== expectedTag) fail(`tag_expected_${expectedTag}_received_${suppliedTag}`);
+const headCommit = run("git", ["rev-parse", "HEAD"]).trim();
+let releaseTagCommit = null;
+if (suppliedTag !== undefined) {
+  releaseTagCommit = run("git", ["rev-list", "-n", "1", `refs/tags/${suppliedTag}`]).trim();
+  if (!/^[0-9a-f]{40}$/u.test(releaseTagCommit)) fail(`tag_unresolved_${suppliedTag}`);
+  if (releaseTagCommit !== headCommit) fail(`tag_${suppliedTag}_points_to_${releaseTagCommit}_not_head_${headCommit}`);
+}
 
 const npmVersion = run("npm", ["--version"]).trim();
 const [npmMajor, npmMinor] = npmVersion.split(".").map(Number);
@@ -89,6 +96,8 @@ if (published.name !== manifest.name || published.version !== manifest.version) 
 console.log(JSON.stringify({
   package: `${manifest.name}@${manifest.version}`,
   expected_tag: expectedTag,
+  head_commit: headCommit,
+  release_tag_commit: releaseTagCommit,
   npm_version: npmVersion,
   node_engine: manifest.engines.node,
   repository: manifest.repository.url,

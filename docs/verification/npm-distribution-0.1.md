@@ -46,8 +46,8 @@ the package has no runtime package dependencies.
 
 `pnpm verify:release` separately verifies the package identity, exact
 `v<version>` tag expectation, supported npm CLI, repository URL, public access,
-Node engine, executable, and the exact four-file `npm publish --dry-run`
-payload. It never publishes.
+Node engine, executable, exact tag-to-checked-out-commit binding, and the exact
+four-file `npm publish --dry-run` payload. It never publishes.
 
 ## Not yet proven
 

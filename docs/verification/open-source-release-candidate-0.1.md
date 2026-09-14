@@ -1,6 +1,7 @@
 # Open-source release candidate 0.1 verification
 
-Status: `verified_local_release_candidate`; not published.
+Status: `verified_local_release_candidate`; release tag must be recreated from
+the reviewed release commit before publication; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
 workbench as verified on 2026-09-14 under Node `24.14.0` on `darwin` / `arm64`.
@@ -53,8 +54,8 @@ test-isolation correction, not a larger heap substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2139003
-unpacked bytes: 13105070
+tarball bytes: 2139285
+unpacked bytes: 13107013
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -81,7 +82,10 @@ package.json
 
 The package declares Node `>=24.14.0 <25`, public npm access, and repository
 `git+https://github.com/adedayoagarau/content.md.git`. The expected source tag is
-`v0.1.0`.
+`v0.1.0`. The release verifier requires a supplied release tag to resolve to
+the exact checked-out commit. The current local `v0.1.0` tag predates the
+benchmark hardening work and therefore fails that gate; it must not be moved
+without explicit release authority.
 
 ## Reproduction
 
@@ -123,7 +127,8 @@ and do not overlap it with packaging or another learning verifier.
 
 1. Review and commit the intended release-candidate worktree without absorbing
    unrelated local research files.
-2. Create and inspect tag `v0.1.0` from that reviewed commit.
+2. With explicit release authority, replace the stale local `v0.1.0` candidate
+   tag from that reviewed commit and inspect its target before any push.
 3. Perform the first authenticated npm publish with explicit publisher
    authority, then verify package provenance and bind trusted publishing.
 4. Continue public-corpus observation as a separate governed workstream; do not
