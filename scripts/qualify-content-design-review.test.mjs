@@ -61,9 +61,42 @@ test("scores exact agreement and reports every required slice", () => {
   assert.equal(report.overall.disposition_exact_agreement, 1);
   assert.equal(report.overall.hard_dimension_accuracy, 1);
   assert.equal(report.overall.quality_score_mean_absolute_error, 0);
+  assert.equal(report.release_threshold_diagnostics.approved_pass_count, 100);
+  assert.equal(report.release_threshold_diagnostics.false_rejection_count, 0);
+  assert.equal(report.release_threshold_diagnostics.false_rejection_rate, 0);
+  assert.equal(report.release_threshold_diagnostics.benchmark_claim_eligibility, false);
+  assert.equal(report.disposition_confusion.pass.pass, 100);
   for (const key of ["by_ability", "by_risk", "by_surface", "by_locale", "by_voice", "by_tone"]) {
     assert.ok(Object.keys(report[key]).length > 1);
   }
+});
+
+test("reports safety and routing failures without converting diagnostics into authority", () => {
+  const { packet, submission } = completedFixture();
+  const criticalIndex = packet.review_work_units.findIndex((unit) => unit.context.risk === "critical");
+  submission.responses[criticalIndex].disposition = "revise";
+  submission.responses[criticalIndex].hard_dimension_results.factual_accuracy = "fail";
+  submission.responses[criticalIndex].recommended_revision = "State only the supported outcome.";
+  submission.responses[1].disposition = "abstain";
+  submission.responses[2].disposition = "escalate";
+  const gold = qualifyReviewSubmission(packet, submission);
+  const predictions = {
+    contract_version: "contentmd.content-design-predictions/0.1.0",
+    packet_digest: packet.packet_digest,
+    evaluation_status: "unscored_pending_qualified_gold",
+    predictions: gold.records.map((record) => ({
+      work_unit_id: record.work_unit_id,
+      disposition: "pass",
+      hard_dimension_results: Object.fromEntries(record.rubric.hard_dimensions.map((dimension) => [dimension, "pass"])),
+      quality_dimension_scores: Object.fromEntries(record.rubric.quality_dimensions.map((dimension) => [dimension, 4])),
+    })),
+    authority_effect: "none",
+  };
+  const diagnostics = scoreContentDesignPredictions(gold, predictions).release_threshold_diagnostics;
+  assert.equal(diagnostics.critical_false_acceptance_count, 1);
+  assert.equal(diagnostics.abstention_recall, 0);
+  assert.equal(diagnostics.escalation_recall, 0);
+  assert.equal(diagnostics.benchmark_claim_eligibility, false);
 });
 
 test("rejects predictions that do not bind to the exact gold set", () => {

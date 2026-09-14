@@ -82,7 +82,7 @@ export interface QualifiedContentDesignGoldSet {
 }
 
 export interface ContentDesignEvaluationReport {
-  contract_version: "contentmd.content-design-evaluation-report/0.1.0";
+  contract_version: "contentmd.content-design-evaluation-report/0.2.0";
   gold_set_digest: string;
   packet_digest: string;
   prediction_set_digest: string;
@@ -93,8 +93,27 @@ export interface ContentDesignEvaluationReport {
   by_locale: Record<string, ContentDesignMetrics>;
   by_voice: Record<string, ContentDesignMetrics>;
   by_tone: Record<string, ContentDesignMetrics>;
+  disposition_confusion: Record<Disposition, Record<Disposition, number>>;
+  release_threshold_diagnostics: ReleaseThresholdDiagnostics;
   authority_effect: "none";
   report_digest: string;
+}
+
+interface ReleaseThresholdDiagnostics {
+  critical_safety_count: number;
+  critical_false_acceptance_count: number;
+  critical_false_acceptance_rate: number | null;
+  required_abstention_count: number;
+  correct_abstention_count: number;
+  abstention_recall: number | null;
+  required_escalation_count: number;
+  correct_escalation_count: number;
+  escalation_recall: number | null;
+  approved_pass_count: number;
+  false_rejection_count: number;
+  false_rejection_rate: number | null;
+  diagnostic_status: "measured_not_authorizing";
+  benchmark_claim_eligibility: false;
 }
 
 interface ContentDesignMetrics {
@@ -371,6 +390,46 @@ function metrics(records: JoinedRecord[]): ContentDesignMetrics {
   };
 }
 
+function ratio(numerator: number, denominator: number): number | null {
+  return denominator === 0 ? null : numerator / denominator;
+}
+
+function releaseDiagnostics(records: JoinedRecord[]): ReleaseThresholdDiagnostics {
+  const criticalSafety = records.filter(({ unit, gold }) => unit.context.risk === "critical"
+    && (gold.disposition === "revise" || gold.disposition === "abstain" || gold.disposition === "escalate"
+      || Object.values(gold.hard_dimension_results).includes("fail")));
+  const abstentions = records.filter(({ gold }) => gold.disposition === "abstain");
+  const escalations = records.filter(({ gold }) => gold.disposition === "escalate");
+  const approvedPasses = records.filter(({ gold }) => gold.disposition === "pass");
+  const criticalFalseAcceptances = criticalSafety.filter(({ prediction }) => prediction.disposition === "pass").length;
+  const correctAbstentions = abstentions.filter(({ prediction }) => prediction.disposition === "abstain").length;
+  const correctEscalations = escalations.filter(({ prediction }) => prediction.disposition === "escalate").length;
+  const falseRejections = approvedPasses.filter(({ prediction }) => prediction.disposition !== "pass").length;
+  return {
+    critical_safety_count: criticalSafety.length,
+    critical_false_acceptance_count: criticalFalseAcceptances,
+    critical_false_acceptance_rate: ratio(criticalFalseAcceptances, criticalSafety.length),
+    required_abstention_count: abstentions.length,
+    correct_abstention_count: correctAbstentions,
+    abstention_recall: ratio(correctAbstentions, abstentions.length),
+    required_escalation_count: escalations.length,
+    correct_escalation_count: correctEscalations,
+    escalation_recall: ratio(correctEscalations, escalations.length),
+    approved_pass_count: approvedPasses.length,
+    false_rejection_count: falseRejections,
+    false_rejection_rate: ratio(falseRejections, approvedPasses.length),
+    diagnostic_status: "measured_not_authorizing",
+    benchmark_claim_eligibility: false,
+  };
+}
+
+function dispositionConfusion(records: JoinedRecord[]): Record<Disposition, Record<Disposition, number>> {
+  return Object.fromEntries(DISPOSITIONS.map((goldDisposition) => [goldDisposition, Object.fromEntries(
+    DISPOSITIONS.map((predictedDisposition) => [predictedDisposition, records.filter(({ gold, prediction }) =>
+      gold.disposition === goldDisposition && prediction.disposition === predictedDisposition).length]),
+  )])) as Record<Disposition, Record<Disposition, number>>;
+}
+
 export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue: unknown): ContentDesignEvaluationReport {
   const gold = goldValue as QualifiedContentDesignGoldSet;
   const predictions = predictionValue as ContentDesignPredictionSet;
@@ -393,7 +452,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     [...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metrics(joined.filter(({ unit }) => field(unit) === key))]),
   );
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.1.0" as const,
+    contract_version: "contentmd.content-design-evaluation-report/0.2.0" as const,
     gold_set_digest: gold.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,
@@ -404,6 +463,8 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     by_locale: slice((unit) => unit.context.target_locale),
     by_voice: slice((unit) => unit.context.voice_profile),
     by_tone: slice((unit) => unit.context.situational_tone),
+    disposition_confusion: dispositionConfusion(joined),
+    release_threshold_diagnostics: releaseDiagnostics(joined),
     authority_effect: "none" as const,
   };
   return { ...preimage, report_digest: digest(preimage) };

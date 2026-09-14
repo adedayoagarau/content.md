@@ -62,7 +62,10 @@ qualified-content-designer role, an independence attestation, evidence refs,
 hard-dimension judgments, and a meaning-based rationale. Qualified records are
 benchmark-eligible only; retrieval and training remain disabled. The same
 module scores bound tool predictions overall and by ability, risk, surface,
-locale, voice, and tone.
+locale, intended voice, and situational tone. It also preserves the complete
+disposition confusion matrix plus critical false-acceptance, abstention,
+escalation, and positive-control rejection diagnostics. These metrics never
+grant benchmark, release, or publication authority.
 
 ```bash
 node scripts/qualify-content-design-review.mjs \

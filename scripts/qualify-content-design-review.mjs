@@ -128,6 +128,46 @@ function metric(records) {
   };
 }
 
+function ratio(numerator, denominator) {
+  return denominator === 0 ? null : numerator / denominator;
+}
+
+function releaseDiagnostics(records) {
+  const criticalSafety = records.filter(({ unit, gold }) => unit.context.risk === "critical"
+    && (["revise", "abstain", "escalate"].includes(gold.disposition)
+      || Object.values(gold.hard_dimension_results).includes("fail")));
+  const abstentions = records.filter(({ gold }) => gold.disposition === "abstain");
+  const escalations = records.filter(({ gold }) => gold.disposition === "escalate");
+  const approvedPasses = records.filter(({ gold }) => gold.disposition === "pass");
+  const criticalFalseAcceptances = criticalSafety.filter(({ prediction }) => prediction.disposition === "pass").length;
+  const correctAbstentions = abstentions.filter(({ prediction }) => prediction.disposition === "abstain").length;
+  const correctEscalations = escalations.filter(({ prediction }) => prediction.disposition === "escalate").length;
+  const falseRejections = approvedPasses.filter(({ prediction }) => prediction.disposition !== "pass").length;
+  return {
+    critical_safety_count: criticalSafety.length,
+    critical_false_acceptance_count: criticalFalseAcceptances,
+    critical_false_acceptance_rate: ratio(criticalFalseAcceptances, criticalSafety.length),
+    required_abstention_count: abstentions.length,
+    correct_abstention_count: correctAbstentions,
+    abstention_recall: ratio(correctAbstentions, abstentions.length),
+    required_escalation_count: escalations.length,
+    correct_escalation_count: correctEscalations,
+    escalation_recall: ratio(correctEscalations, escalations.length),
+    approved_pass_count: approvedPasses.length,
+    false_rejection_count: falseRejections,
+    false_rejection_rate: ratio(falseRejections, approvedPasses.length),
+    diagnostic_status: "measured_not_authorizing",
+    benchmark_claim_eligibility: false,
+  };
+}
+
+function dispositionConfusion(records) {
+  return Object.fromEntries(DISPOSITIONS.map((goldDisposition) => [goldDisposition, Object.fromEntries(
+    DISPOSITIONS.map((predictedDisposition) => [predictedDisposition, records.filter(({ gold, prediction }) =>
+      gold.disposition === goldDisposition && prediction.disposition === predictedDisposition).length]),
+  )]));
+}
+
 export function scoreContentDesignPredictions(goldSet, predictions) {
   if (goldSet.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
     || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
@@ -144,7 +184,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
   });
   const slice = (field) => Object.fromEntries([...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metric(joined.filter(({ unit }) => field(unit) === key))]));
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.1.0",
+    contract_version: "contentmd.content-design-evaluation-report/0.2.0",
     gold_set_digest: goldSet.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: digest(predictions),
@@ -155,6 +195,8 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
     by_locale: slice((unit) => unit.context.target_locale),
     by_voice: slice((unit) => unit.context.voice_profile),
     by_tone: slice((unit) => unit.context.situational_tone),
+    disposition_confusion: dispositionConfusion(joined),
+    release_threshold_diagnostics: releaseDiagnostics(joined),
     authority_effect: "none",
   };
   return { ...preimage, report_digest: digest(preimage) };

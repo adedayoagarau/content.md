@@ -89,6 +89,9 @@ describe("content-design benchmark", () => {
     const report = scoreContentDesignBenchmark(gold, predictContentDesignBenchmark(packet));
     expect(report.overall.count).toBe(100);
     expect(Object.keys(report.by_ability)).toHaveLength(10);
+    expect(report.contract_version).toBe("contentmd.content-design-evaluation-report/0.2.0");
+    expect(report.release_threshold_diagnostics.benchmark_claim_eligibility).toBe(false);
+    expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
     expect(report.authority_effect).toBe("none");
   });
 });

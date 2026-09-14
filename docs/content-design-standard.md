@@ -102,6 +102,8 @@ A content-design capability may be described as demonstrated only when:
   review, with disagreements retained rather than overwritten;
 - results are reported by ability, risk, surface, and locale—not only as one
   aggregate score;
+- critical false acceptance, abstention recall, escalation recall, positive
+  false rejection, and the complete disposition confusion matrix remain visible;
 - the exact fixtures, rubric, implementation, and result digests are
   reproducible.
 
