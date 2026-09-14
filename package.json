@@ -23,6 +23,7 @@
     "verify:runtime": "node scripts/verify-portable-runtime.mjs",
     "verify:repository-intelligence": "node scripts/verify-repository-intelligence.mjs",
     "verify:voice-research": "node scripts/verify-voice-tone-research.mjs",
+    "generate:content-design-scenarios": "node scripts/generate-content-design-evaluation-scenarios.mjs",
     "build:distribution": "node scripts/build-contentmd-distribution.mjs",
     "test:distribution": "node scripts/test-contentmd-distribution.mjs",
     "verify:release": "node scripts/verify-contentmd-release.mjs"

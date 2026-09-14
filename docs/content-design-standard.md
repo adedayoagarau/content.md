@@ -123,3 +123,10 @@ expansion must cover controls and validation, destructive actions, permissions,
 empty and zero states, onboarding, notifications, navigation and hierarchy,
 accessible naming, localization and bidirectionality, multi-step recovery, and
 candidate-generation quality.
+
+The repository includes 10,000 reproducible synthetic candidates under
+`docs/tests/fixtures/content-design-scenarios/`. They provide broad matrix
+coverage for exercising evaluators, sampling review work, and finding rule
+gaps. They are deliberately ineligible for retrieval, gold-set learning, or
+fine-tuning until independent review records a qualified disposition and
+meaning-based rationale.
