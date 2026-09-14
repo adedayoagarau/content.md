@@ -3,6 +3,7 @@ import {
   predictLocalContentDesignBenchmark,
   qualifyLocalContentDesignReview,
   scoreLocalContentDesignBenchmark,
+  writeBuiltinContentDesignReviewPacket,
 } from "@contentmd/agent";
 import type { Command } from "commander";
 import { startContentDesignReviewWorkbench } from "@contentmd/workbench";
@@ -18,7 +19,8 @@ export function registerBenchmark(program: Command): void {
   const benchmark = program.command("benchmark").description("evaluate bounded content-design capabilities");
   benchmark.command("content-design")
     .description("predict a blinded content-design review packet")
-    .requiredOption("--packet <path>", "immutable blinded review packet")
+    .option("--packet <path>", "immutable blinded review packet")
+    .option("--sample-out <path>", "write the built-in blinded 100-scenario sample to a new file")
     .option("--out <path>", "new output file; refuses to overwrite")
     .option("--review-template <path>", "create a new independent-review response template")
     .option("--submission <path>", "completed independent-review response file")
@@ -30,9 +32,26 @@ export function registerBenchmark(program: Command): void {
     .option("--host <host>", "loopback host", "127.0.0.1")
     .option("--port <port>", "review workbench port", port, 4179)
     .option("--json", "emit the stable JSON envelope")
-    .action(async (options: { packet: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
+    .action(async (options: { packet?: string; sampleOut?: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
+      if (options.sampleOut !== undefined) {
+        if (options.packet !== undefined || options.out !== undefined || options.reviewTemplate !== undefined
+          || options.submission !== undefined || options.goldOut !== undefined || options.gold !== undefined
+          || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true) {
+          throw new Error("content_design_benchmark_invalid:sample_out_is_standalone");
+        }
+        const packet = await writeBuiltinContentDesignReviewPacket(options.sampleOut);
+        return {
+          command_id: "benchmark.content-design.sample",
+          record_refs: [packet.packet_digest],
+          warnings: ["This packet is blinded and contains no hidden generator labels."],
+          next_actions: ["Open the review workbench or create a review template for independent assessment."],
+          data: { output: options.sampleOut, packet_digest: packet.packet_digest, sample_count: packet.sample_count, write_effect: "create_only", authority_effect: "none" },
+        };
+      }
+      if (options.packet === undefined) throw new Error("content_design_benchmark_invalid:packet_required");
+      const packetPath = options.packet;
       if (options.reviewWorkbench === true) {
-        const server = await startContentDesignReviewWorkbench({ packet: options.packet, host: options.host, port: options.port });
+        const server = await startContentDesignReviewWorkbench({ packet: packetPath, host: options.host, port: options.port });
         return {
           command_id: "benchmark.content-design.review-workbench",
           record_refs: [],
@@ -43,7 +62,7 @@ export function registerBenchmark(program: Command): void {
       }
       if (options.submission !== undefined || options.goldOut !== undefined) {
         if (options.submission === undefined || options.goldOut === undefined) throw new Error("content_design_benchmark_invalid:submission_and_gold_out_required");
-        const gold = await qualifyLocalContentDesignReview(options.packet, options.submission, options.goldOut);
+        const gold = await qualifyLocalContentDesignReview(packetPath, options.submission, options.goldOut);
         return {
           command_id: "benchmark.content-design.qualify",
           record_refs: [gold.packet_ref.packet_digest, gold.gold_set_digest],
@@ -64,7 +83,7 @@ export function registerBenchmark(program: Command): void {
       }
       if (options.reviewTemplate !== undefined) {
         if (options.out !== undefined) throw new Error("content_design_benchmark_invalid:choose_out_or_review_template");
-        const template = await createLocalContentDesignReviewSubmissionTemplate(options.packet, options.reviewTemplate);
+        const template = await createLocalContentDesignReviewSubmissionTemplate(packetPath, options.reviewTemplate);
         return {
           command_id: "benchmark.content-design.review-template",
           record_refs: [template.packet_ref.packet_digest],
@@ -73,7 +92,7 @@ export function registerBenchmark(program: Command): void {
           data: template,
         };
       }
-      const result = await predictLocalContentDesignBenchmark(options.packet, options.out);
+      const result = await predictLocalContentDesignBenchmark(packetPath, options.out);
       return {
         command_id: "benchmark.content-design",
         record_refs: [result.packet_digest, result.prediction_set_digest],

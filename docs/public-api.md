@@ -28,17 +28,19 @@ as stable automation APIs for 0.1.
 
 ### Content-design benchmark
 
-`contentmd benchmark content-design` accepts an immutable blinded packet and
-supports four bounded operations:
+`contentmd benchmark content-design` includes a blinded 100-scenario packet and
+supports six bounded operations:
 
+- create-only extraction of the bundled packet with `--sample-out`, without requiring a repository checkout;
 - default prediction with optional `--out`;
 - independent response-template creation with `--review-template`;
 - a loopback-only one-scenario-at-a-time review desk with `--review-workbench`;
 - completed-review qualification with `--submission` and `--gold-out`;
 - scoring with `--gold`, `--predictions`, and `--report-out`.
 
-All output paths are create-only. Predictions remain unscored until qualified
-gold exists. Qualification requires complete independent review and produces
+The bundled packet contains no hidden generator labels, and `--sample-out` is a
+standalone operation. All output paths are create-only. Predictions remain
+unscored until qualified gold exists. Qualification requires complete independent review and produces
 benchmark-only records with retrieval and training eligibility set to `never`.
 Scoring reports exact disposition agreement, hard-dimension accuracy, and
 quality-score error overall and by ability, risk, surface, locale, voice, and

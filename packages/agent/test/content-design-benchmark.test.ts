@@ -9,6 +9,7 @@ import {
   predictLocalContentDesignBenchmark,
   qualifyContentDesignReview,
   scoreContentDesignBenchmark,
+  writeBuiltinContentDesignReviewPacket,
 } from "@contentmd/agent";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
@@ -38,6 +39,19 @@ describe("content-design benchmark", () => {
       await expect(predictLocalContentDesignBenchmark(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), output))
         .rejects.toThrow(/EEXIST/);
       expect(await readFile(output, "utf8")).toBe("preserve me");
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
+  });
+
+  it("writes the built-in blinded review sample and refuses to overwrite it", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-sample-"));
+    const output = join(directory, "review-sample-100.json");
+    try {
+      const packet = await writeBuiltinContentDesignReviewPacket(output);
+      expect(packet.sample_count).toBe(100);
+      expect(packet.packet_digest).toBe("d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a");
+      await expect(writeBuiltinContentDesignReviewPacket(output)).rejects.toThrow(/EEXIST/);
     } finally {
       await rm(directory, { recursive: true, force: true });
     }

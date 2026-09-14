@@ -14,6 +14,16 @@ afterEach(async () => {
 });
 
 describe("contentmd benchmark content-design", () => {
+  it("creates the built-in blinded sample without requiring a repository packet path", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-sample-cli-"));
+    temporary.push(directory);
+    const output = join(directory, "review-sample-100.json");
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--sample-out", output]);
+    const result = JSON.parse(await readFile(output, "utf8"));
+    expect(result.sample_count).toBe(100);
+    expect(result.packet_digest).toBe("d418a8f58009b3ffc4e223a9d3336140402d850d603985becf90eb31704c1a1a");
+  });
+
   it("writes a packet-bound prediction set to a new path", async () => {
     const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-cli-"));
     temporary.push(directory);

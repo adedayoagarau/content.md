@@ -78,8 +78,15 @@ npx contentmd scan --improve 1        # see its missing facts and acceptance cri
 npx contentmd serve                   # open the local interactive proofing desk
 ```
 
-To run the built-in deterministic baseline against an immutable blinded review
-packet before human labels are available:
+First, create the bundled immutable blinded 100-scenario review packet. This
+works from the published package and refuses to overwrite an existing file:
+
+```bash
+npx contentmd benchmark content-design \
+  --sample-out review-sample-100.json
+```
+
+Then run the built-in deterministic baseline before human labels are available:
 
 ```bash
 npx contentmd benchmark content-design \

@@ -1,5 +1,8 @@
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
+
+declare const CONTENTMD_BUILTIN_REVIEW_PACKET: string | undefined;
 
 type HardResult = "pass" | "fail" | "unknown" | "not_applicable";
 type Disposition = "pass" | "revise" | "abstain" | "escalate" | "human_preference_review";
@@ -97,7 +100,7 @@ interface ContentDesignMetrics {
   quality_score_mean_absolute_error: number | null;
 }
 
-interface BlindReviewPacket {
+export interface BlindReviewPacket {
   contract_version: string;
   packet_digest: string;
   sample_count: number;
@@ -397,6 +400,15 @@ export async function predictLocalContentDesignBenchmark(inputPath: string, outp
   const result = predictContentDesignBenchmark(packet);
   if (outputPath !== undefined) await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
+}
+
+export async function writeBuiltinContentDesignReviewPacket(outputPath: string): Promise<BlindReviewPacket> {
+  const serialized = typeof CONTENTMD_BUILTIN_REVIEW_PACKET === "string"
+    ? CONTENTMD_BUILTIN_REVIEW_PACKET
+    : await readFile(join(process.cwd(), "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8");
+  const packet = validatePacket(JSON.parse(serialized) as unknown);
+  await writeFile(outputPath, `${JSON.stringify(packet, null, 2)}\n`, { flag: "wx" });
+  return packet;
 }
 
 export async function createLocalContentDesignReviewSubmissionTemplate(inputPath: string, outputPath: string): Promise<ContentDesignReviewSubmissionTemplate> {
