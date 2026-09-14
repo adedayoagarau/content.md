@@ -78,6 +78,19 @@ npx contentmd scan --improve 1        # see its missing facts and acceptance cri
 npx contentmd serve                   # open the local interactive proofing desk
 ```
 
+To run the built-in deterministic baseline against an immutable blinded review
+packet before human labels are available:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --out contentmd-predictions.json
+```
+
+The command refuses to overwrite its output and reports predictions as
+`unscored_pending_qualified_gold`. It does not read generator labels, create
+gold, or make the results eligible for learning.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command
