@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { generateScenarios } from "./generate-content-design-evaluation-scenarios.mjs";
-import { prepareReviewSample, validateReviewSample } from "./prepare-content-design-review-sample.mjs";
+import { prepareFullBenchmarkPacket, prepareReviewSample, validateBlindPacket, validateReviewSample } from "./prepare-content-design-review-sample.mjs";
 
 test("creates a replay-stable blinded 100-cell review packet", () => {
   const first = prepareReviewSample(generateScenarios());
@@ -30,4 +30,16 @@ test("rejects label leakage and digest drift", () => {
   const drifted = structuredClone(packet);
   drifted.review_work_units[0].candidate.text = "Changed after sampling";
   assert.throws(() => validateReviewSample(drifted), /digest/);
+});
+
+test("creates a fully blinded packet for all 10,000 scenarios", () => {
+  const packet = prepareFullBenchmarkPacket(generateScenarios());
+  assert.equal(validateBlindPacket(packet, 10_000), packet);
+  assert.equal(packet.sample_count, 10_000);
+  assert.equal(packet.sampling_method, "complete_deterministic_10000_scenario_matrix");
+  assert.equal(new Set(packet.review_work_units.map((unit) => unit.scenario_ref.scenario_id)).size, 10_000);
+  for (const unit of packet.review_work_units) {
+    assert.equal(Object.hasOwn(unit.candidate, "injected_defect"), false);
+    assert.equal(Object.hasOwn(unit, "provisional_expectation"), false);
+  }
 });

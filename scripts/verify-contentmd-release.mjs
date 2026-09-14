@@ -17,6 +17,7 @@ for (const requiredFile of [
   "CONTRIBUTING.md",
   "docs/content-design-standard.md",
   "docs/public-api.md",
+  "docs/verification/content-design-benchmark-10000.md",
 ]) {
   const contents = await readFile(path.join(root, requiredFile), "utf8");
   if (contents.trim().length === 0) fail(`empty_release_document_${requiredFile}`);

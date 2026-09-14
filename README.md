@@ -119,6 +119,11 @@ Qualification fails closed for incomplete reviews, packet drift, missing
 evidence, or missing reviewer attestation. Qualified records are eligible for
 this benchmark only; they do not become retrieval or training data.
 
+The packaged baseline has been replayed across all 10,000 synthetic scenarios.
+See the [verification record](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/content-design-benchmark-10000.md).
+This demonstrates deterministic execution and coverage—not content-design
+accuracy, which requires qualified human review.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command

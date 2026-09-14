@@ -27,6 +27,7 @@
     "prepare:content-design-review": "node scripts/prepare-content-design-review-sample.mjs",
     "qualify:content-design-review": "node scripts/qualify-content-design-review.mjs",
     "predict:content-design-scenarios": "node scripts/predict-content-design-scenarios.mjs",
+    "verify:content-design-benchmark": "node scripts/verify-content-design-benchmark.mjs",
     "build:distribution": "node scripts/build-contentmd-distribution.mjs",
     "test:distribution": "node scripts/test-contentmd-distribution.mjs",
     "verify:release": "node scripts/verify-contentmd-release.mjs"

@@ -17,6 +17,54 @@ function sortedUnique(values) {
   return [...new Set(values)].sort();
 }
 
+function workUnitFor(scenario, samplingCell) {
+  return {
+    work_unit_id: `review-${scenario.scenario_id}`,
+    scenario_ref: { scenario_id: scenario.scenario_id, scenario_digest: scenario.scenario_digest },
+    sampling_cell: samplingCell,
+    ability: scenario.ability,
+    context: scenario.context,
+    candidate: {
+      text: scenario.candidate.text,
+      voice: scenario.candidate.voice,
+      tone: scenario.candidate.tone,
+      language: scenario.candidate.language,
+      localization_status: scenario.candidate.localization_status,
+    },
+    rubric: scenario.rubric,
+    reviewer_response: {
+      disposition: null,
+      hard_dimension_results: null,
+      quality_dimension_scores: null,
+      rationale: null,
+      acceptable_meaning_invariants: null,
+      recommended_revision: null,
+      reviewer_role: null,
+      review_evidence_refs: null,
+    },
+    review_state: "unreviewed",
+    authority_effect: "none",
+    retrieval_eligibility: "never",
+    training_eligibility: "never",
+    benchmark_eligibility: false,
+  };
+}
+
+function packetFor(workUnits, samplingMethod) {
+  const preimage = {
+    contract_version: "contentmd.content-design-blind-review-packet/0.1.0",
+    sampling_method: samplingMethod,
+    sample_count: workUnits.length,
+    blinded_fields: ["candidate.injected_defect", "provisional_expectation"],
+    required_reviewer_role: "qualified_content_designer",
+    source_qualification: "synthetic_candidates_not_gold_or_training_eligible",
+    review_work_units: workUnits,
+    packet_state: "unreviewed",
+    authority_effect: "none",
+  };
+  return { ...preimage, packet_digest: digest(preimage) };
+}
+
 export function prepareReviewSample(scenarios) {
   const abilities = sortedUnique(scenarios.map((scenario) => scenario.ability.id));
   const variants = sortedUnique(scenarios.map((scenario) => scenario.candidate.variant));
@@ -33,77 +81,41 @@ export function prepareReviewSample(scenarios) {
       const surface = surfaces[(abilityIndex * 3 + variantIndex) % surfaces.length];
       const scenario = byKey.get([ability, situation, surface, variant].join("\u0000"));
       if (scenario === undefined) throw new Error(`content_design_sample_missing:${ability}:${situation}:${surface}:${variant}`);
-      workUnits.push({
-        work_unit_id: `review-${scenario.scenario_id}`,
-        scenario_ref: { scenario_id: scenario.scenario_id, scenario_digest: scenario.scenario_digest },
-        sampling_cell: { ability_id: ability, candidate_variant_slot: variantIndex + 1 },
-        ability: scenario.ability,
-        context: scenario.context,
-        candidate: {
-          text: scenario.candidate.text,
-          voice: scenario.candidate.voice,
-          tone: scenario.candidate.tone,
-          language: scenario.candidate.language,
-          localization_status: scenario.candidate.localization_status,
-        },
-        rubric: scenario.rubric,
-        reviewer_response: {
-          disposition: null,
-          hard_dimension_results: null,
-          quality_dimension_scores: null,
-          rationale: null,
-          acceptable_meaning_invariants: null,
-          recommended_revision: null,
-          reviewer_role: null,
-          review_evidence_refs: null,
-        },
-        review_state: "unreviewed",
-        authority_effect: "none",
-        retrieval_eligibility: "never",
-        training_eligibility: "never",
-        benchmark_eligibility: false,
-      });
+      workUnits.push(workUnitFor(scenario, { ability_id: ability, candidate_variant_slot: variantIndex + 1 }));
     }
   }
-  const preimage = {
-    contract_version: "contentmd.content-design-blind-review-packet/0.1.0",
-    sampling_method: "deterministic_stratified_ability_by_candidate_variant",
-    sample_count: workUnits.length,
-    blinded_fields: ["candidate.injected_defect", "provisional_expectation"],
-    required_reviewer_role: "qualified_content_designer",
-    source_qualification: "synthetic_candidates_not_gold_or_training_eligible",
-    review_work_units: workUnits,
-    packet_state: "unreviewed",
-    authority_effect: "none",
-  };
-  return { ...preimage, packet_digest: digest(preimage) };
+  return packetFor(workUnits, "deterministic_stratified_ability_by_candidate_variant");
+}
+
+export function prepareFullBenchmarkPacket(scenarios) {
+  return packetFor(scenarios.map((scenario, index) => workUnitFor(scenario, {
+    ability_id: scenario.ability.id,
+    full_matrix_slot: index + 1,
+  })), "complete_deterministic_10000_scenario_matrix");
+}
+
+export function validateBlindPacket(packet, expectedCount) {
+  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.1.0"
+    || packet.sample_count !== expectedCount
+    || packet.review_work_units.length !== expectedCount
+    || packet.packet_state !== "unreviewed"
+    || packet.authority_effect !== "none") throw new Error("content_design_review_packet_invalid:envelope");
+  const { packet_digest: packetDigest, ...preimage } = packet;
+  if (packetDigest !== digest(preimage)) throw new Error("content_design_review_packet_invalid:digest");
+  if (new Set(packet.review_work_units.map((unit) => unit.work_unit_id)).size !== expectedCount) throw new Error("content_design_review_packet_invalid:duplicate_work_unit");
+  for (const unit of packet.review_work_units) {
+    if (Object.hasOwn(unit.candidate, "injected_defect") || Object.hasOwn(unit, "provisional_expectation")) throw new Error("content_design_review_packet_invalid:unblinded_label");
+    if (unit.review_state !== "unreviewed" || unit.training_eligibility !== "never" || unit.retrieval_eligibility !== "never") throw new Error("content_design_review_packet_invalid:eligibility");
+  }
+  return packet;
 }
 
 export function validateReviewSample(packet) {
-  if (packet.contract_version !== "contentmd.content-design-blind-review-packet/0.1.0"
-    || packet.sample_count !== 100
-    || packet.review_work_units.length !== 100
-    || packet.packet_state !== "unreviewed"
-    || packet.authority_effect !== "none") {
-    throw new Error("content_design_review_packet_invalid:envelope");
-  }
-  const { packet_digest: packetDigest, ...preimage } = packet;
-  if (packetDigest !== digest(preimage)) throw new Error("content_design_review_packet_invalid:digest");
-  if (new Set(packet.review_work_units.map((unit) => unit.work_unit_id)).size !== 100) {
-    throw new Error("content_design_review_packet_invalid:duplicate_work_unit");
-  }
+  validateBlindPacket(packet, 100);
   const cells = new Set(packet.review_work_units.map((unit) =>
     `${unit.sampling_cell.ability_id}\u0000${unit.sampling_cell.candidate_variant_slot}`
   ));
   if (cells.size !== 100) throw new Error("content_design_review_packet_invalid:stratification");
-  for (const unit of packet.review_work_units) {
-    if (Object.hasOwn(unit.candidate, "injected_defect") || Object.hasOwn(unit, "provisional_expectation")) {
-      throw new Error("content_design_review_packet_invalid:unblinded_label");
-    }
-    if (unit.review_state !== "unreviewed" || unit.training_eligibility !== "never" || unit.retrieval_eligibility !== "never") {
-      throw new Error("content_design_review_packet_invalid:eligibility");
-    }
-  }
   return packet;
 }
 

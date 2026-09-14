@@ -130,3 +130,8 @@ coverage for exercising evaluators, sampling review work, and finding rule
 gaps. They are deliberately ineligible for retrieval, gold-set learning, or
 fine-tuning until independent review records a qualified disposition and
 meaning-based rationale.
+
+The packaged deterministic baseline has processed the complete blinded matrix;
+the reproducible result is recorded in the
+[10,000-scenario verification](verification/content-design-benchmark-10000.md).
+That record demonstrates execution and coverage, not judgment accuracy.
