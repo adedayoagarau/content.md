@@ -5,16 +5,12 @@ import test from "node:test";
 import { generateScenarios } from "./generate-content-design-evaluation-scenarios.mjs";
 import { prepareReviewSample } from "./prepare-content-design-review-sample.mjs";
 import { createReviewSubmissionTemplate, qualifyReviewSubmission, scoreContentDesignPredictions } from "./qualify-content-design-review.mjs";
+import { governedContentDesignReviewerFixture } from "./content-design-reviewer-fixture.mjs";
 
 function completedFixture() {
   const packet = prepareReviewSample(generateScenarios());
   const submission = createReviewSubmissionTemplate(packet);
-  submission.reviewer = {
-    reviewer_id: "reviewer.fixture",
-    reviewer_role: "qualified_content_designer",
-    reviewed_at: "2026-09-14T12:00:00.000Z",
-    independent_review_attested: true,
-  };
+  submission.reviewer = governedContentDesignReviewerFixture(packet.packet_digest);
   submission.submission_state = "complete";
   for (const response of submission.responses) {
     response.disposition = "pass";
@@ -64,6 +60,23 @@ test("rejects a parseable timestamp that is not RFC 3339", () => {
   const { packet, submission } = completedFixture();
   submission.reviewer.reviewed_at = "2026-09-14";
   assert.throws(() => qualifyReviewSubmission(packet, submission), /invalid:envelope/);
+});
+
+test("rejects a role string and self-attestation without governed qualification", () => {
+  const { packet, submission } = completedFixture();
+  delete submission.reviewer.qualification_bundle;
+  assert.throws(() => qualifyReviewSubmission(packet, submission), /reviewer_qualification/);
+});
+
+test("rejects forged or differently scoped reviewer qualification", () => {
+  const forged = completedFixture();
+  forged.submission.reviewer = structuredClone(forged.submission.reviewer);
+  forged.submission.reviewer.qualification_bundle.qualification.qualification_digest = "0".repeat(64);
+  assert.throws(() => qualifyReviewSubmission(forged.packet, forged.submission), /reviewer_qualification/);
+
+  const wrongScope = completedFixture();
+  wrongScope.submission.reviewer = governedContentDesignReviewerFixture("0".repeat(64));
+  assert.throws(() => qualifyReviewSubmission(wrongScope.packet, wrongScope.submission), /reviewer_qualification_scope/);
 });
 
 test("qualifies a complete review for benchmarking only", () => {

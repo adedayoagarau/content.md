@@ -41,8 +41,11 @@ supports six bounded operations:
 The bundled packet contains no hidden generator labels, and `--sample-out` is a
 standalone operation. All output paths are create-only. Predictions remain
 unscored until qualified gold exists. Qualification requires complete
-independent review, including a strict RFC 3339 review timestamp, and produces
-benchmark-only records with retrieval and training eligibility set to `never`.
+independent review, a strict RFC 3339 review timestamp, and a current governed
+reviewer-qualification bundle whose replay binds the reviewer, content-design
+role, benchmark-review objective, and exact packet scope. A role string and
+self-attestation alone fail closed. Qualified output remains benchmark-only,
+with retrieval and training eligibility set to `never`.
 Scoring reports exact disposition agreement, hard-dimension accuracy, and
 quality-score error overall and by ability, risk, surface, locale, intended
 voice, and situational tone. It also reports the complete disposition confusion
@@ -55,7 +58,7 @@ The JSON contracts exposed by this command are:
 - blinded review packet `contentmd.content-design-blind-review-packet/0.2.0`;
 - prediction set `contentmd.content-design-predictions/0.1.0`, produced by
   evaluator `contentmd.deterministic-content-design-baseline/0.2.0`;
-- review submission and qualified gold set `0.1.0`;
+- review submission and qualified gold set `0.2.0`;
 - evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
 
 Packet and output digests are opaque content identities. Editing a record and
@@ -63,8 +66,10 @@ recomputing its outer digest does not make it valid: the CLI independently
 checks required context, evidence, rubric, eligibility, state, label-blinding,
 and completed-review invariants before evaluation. Qualified gold is rechecked
 at score time, including review coverage and exact rubric dimensions. These
-content-addressed checks detect mutation; they do not authenticate a reviewer's
-identity or prove that the reviewer is qualified.
+content-addressed checks detect mutation. The governed qualification replay
+proves policy, grant, approval, role, objective, scope, currency, and revocation
+consistency; authenticating the external principals and issuer remains the
+adopting project's responsibility.
 
 ## Machine-readable output
 

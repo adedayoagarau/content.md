@@ -1,5 +1,5 @@
 {
-  "contract_version": "contentmd.content-design-review-submission/0.1.0",
+  "contract_version": "contentmd.content-design-review-submission/0.2.0",
   "packet_ref": {
     "packet_digest": "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b",
     "sample_count": 100
@@ -8,7 +8,8 @@
     "reviewer_id": null,
     "reviewer_role": "qualified_content_designer",
     "reviewed_at": null,
-    "independent_review_attested": false
+    "independent_review_attested": false,
+    "qualification_bundle": null
   },
   "responses": [
     {

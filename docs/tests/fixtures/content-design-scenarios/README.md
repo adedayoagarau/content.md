@@ -59,8 +59,10 @@ Use `createReviewSubmissionTemplate()` from
 `scripts/qualify-content-design-review.mjs` to create a separate response file.
 The packet itself remains immutable. Qualification requires every response, a
 qualified-content-designer role, an independence attestation, evidence refs,
-hard-dimension judgments, and a meaning-based rationale. Qualified records are
-benchmark-eligible only; retrieval and training remain disabled. The same
+hard-dimension judgments, a meaning-based rationale, and a current governed
+qualification bundle scoped to the exact packet and benchmark-review objective.
+A role string alone is rejected. Qualified records are benchmark-eligible only;
+retrieval and training remain disabled. The same
 module scores bound tool predictions overall and by ability, risk, surface,
 locale, intended voice, and situational tone. It also preserves the complete
 disposition confusion matrix plus critical false-acceptance, abstention,

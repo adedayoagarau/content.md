@@ -62,3 +62,10 @@ synthetic candidates into evidence, gold, retrieval, or training data. This
 distribution is not proof that the individual judgments are correct. Accuracy,
 false-acceptance risk, and quality calibration remain blocked on independent
 qualified content-design review.
+
+Gold qualification now requires a current governed reviewer-qualification
+replay bound to the reviewer, `qualified_content_designer` role,
+`content_design_benchmark_review` objective, and exact packet digest. A role
+string plus self-attestation is rejected. The replay verifies internal policy,
+grant, approval, scope, currency, and revocation consistency; external principal
+and issuer authentication remains the adopting project's responsibility.

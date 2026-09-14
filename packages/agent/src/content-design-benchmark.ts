@@ -1,6 +1,11 @@
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import {
+  verifyReviewerQualification,
+  type AuthorizationReplay,
+  type ReviewerQualificationRecord,
+} from "@contentmd/governance";
 
 declare const CONTENTMD_BUILTIN_REVIEW_PACKET: string | undefined;
 
@@ -64,21 +69,28 @@ interface CompletedReviewResponse {
 }
 
 interface ContentDesignReviewSubmission {
-  contract_version: string;
+  contract_version: "contentmd.content-design-review-submission/0.2.0";
   packet_ref: { packet_digest: string; sample_count: number };
   reviewer: {
     reviewer_id: string;
     reviewer_role: string;
     reviewed_at: string;
     independent_review_attested: boolean;
+    qualification_bundle: ReviewerQualificationBundle;
   };
   responses: CompletedReviewResponse[];
   submission_state: string;
   authority_effect: string;
 }
 
+interface ReviewerQualificationBundle {
+  qualification: ReviewerQualificationRecord;
+  issuance: AuthorizationReplay;
+  revocation: AuthorizationReplay | null;
+}
+
 export interface QualifiedContentDesignGoldSet {
-  contract_version: "contentmd.content-design-qualified-gold-set/0.1.0";
+  contract_version: "contentmd.content-design-qualified-gold-set/0.2.0";
   packet_ref: { packet_digest: string; sample_count: number };
   reviewer: ContentDesignReviewSubmission["reviewer"];
   qualified_count: number;
@@ -174,13 +186,14 @@ export interface ContentDesignPredictionSet {
 }
 
 export interface ContentDesignReviewSubmissionTemplate {
-  contract_version: "contentmd.content-design-review-submission/0.1.0";
+  contract_version: "contentmd.content-design-review-submission/0.2.0";
   packet_ref: { packet_digest: string; sample_count: number };
   reviewer: {
     reviewer_id: null;
     reviewer_role: "qualified_content_designer";
     reviewed_at: null;
     independent_review_attested: false;
+    qualification_bundle: null;
   };
   responses: Array<{
     work_unit_id: string;
@@ -355,13 +368,14 @@ export function predictContentDesignBenchmark(packetValue: unknown): ContentDesi
 export function createContentDesignReviewSubmissionTemplate(packetValue: unknown): ContentDesignReviewSubmissionTemplate {
   const packet = validatePacket(packetValue);
   return {
-    contract_version: "contentmd.content-design-review-submission/0.1.0",
+    contract_version: "contentmd.content-design-review-submission/0.2.0",
     packet_ref: { packet_digest: packet.packet_digest, sample_count: packet.sample_count },
     reviewer: {
       reviewer_id: null,
       reviewer_role: "qualified_content_designer",
       reviewed_at: null,
       independent_review_attested: false,
+      qualification_bundle: null,
     },
     responses: packet.review_work_units.map((unit) => ({
       work_unit_id: unit.work_unit_id,
@@ -376,6 +390,30 @@ export function createContentDesignReviewSubmissionTemplate(packetValue: unknown
     submission_state: "incomplete",
     authority_effect: "none",
   };
+}
+
+function verifyBenchmarkReviewer(
+  reviewer: ContentDesignReviewSubmission["reviewer"],
+  packetDigest: string,
+): void {
+  let qualification: ReviewerQualificationRecord;
+  try {
+    qualification = verifyReviewerQualification({
+      ...reviewer.qualification_bundle,
+      as_of: reviewer.reviewed_at,
+      verification_mode: "official",
+    });
+  } catch {
+    incomplete("reviewer_qualification");
+  }
+  const packetScope = `content-design-benchmark-packet:${packetDigest}`;
+  if (qualification.reviewer_ref.object_id !== reviewer.reviewer_id
+    || !qualification.eligible_roles.includes("qualified_content_designer")
+    || !qualification.qualified_objectives.includes("content_design_benchmark_review")
+    || !qualification.authorized_resource_scopes.includes("content-design-benchmark")
+    || !qualification.authorized_resource_scopes.includes(packetScope)) {
+    incomplete("reviewer_qualification_scope");
+  }
 }
 
 const DISPOSITIONS: readonly Disposition[] = ["pass", "revise", "abstain", "escalate", "human_preference_review"];
@@ -461,7 +499,7 @@ function validateCompletedResponse(unit: ReviewWorkUnit, value: unknown): assert
 function validateGoldSet(value: unknown): QualifiedContentDesignGoldSet {
   if (!record(value)) incomplete("score_envelope");
   const gold = value as unknown as QualifiedContentDesignGoldSet;
-  if (gold.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
+  if (gold.contract_version !== "contentmd.content-design-qualified-gold-set/0.2.0"
     || !record(gold.packet_ref) || !nonempty(gold.packet_ref.packet_digest)
     || !Number.isSafeInteger(gold.packet_ref.sample_count) || gold.packet_ref.sample_count < 1
     || !record(gold.reviewer)
@@ -478,6 +516,7 @@ function validateGoldSet(value: unknown): QualifiedContentDesignGoldSet {
     || gold.retrieval_eligibility !== "never"
     || gold.training_eligibility !== "never"
     || gold.authority_effect !== "none") incomplete("gold_shape");
+  verifyBenchmarkReviewer(gold.reviewer, gold.packet_ref.packet_digest);
   const ids = new Set<string>();
   for (const qualified of gold.records) {
     if (!record(qualified) || !nonempty(qualified.work_unit_id) || ids.has(qualified.work_unit_id)) incomplete("gold_coverage");
@@ -502,7 +541,7 @@ export function qualifyContentDesignReview(packetValue: unknown, submissionValue
   const packet = validatePacket(packetValue);
   if (submissionValue === null || typeof submissionValue !== "object") incomplete("submission");
   const submission = submissionValue as ContentDesignReviewSubmission;
-  if (submission.contract_version !== "contentmd.content-design-review-submission/0.1.0"
+  if (submission.contract_version !== "contentmd.content-design-review-submission/0.2.0"
     || submission.packet_ref?.packet_digest !== packet.packet_digest
     || submission.packet_ref?.sample_count !== packet.sample_count
     || submission.submission_state !== "complete"
@@ -512,6 +551,7 @@ export function qualifyContentDesignReview(packetValue: unknown, submissionValue
     || !isRfc3339(submission.reviewer?.reviewed_at)
     || submission.reviewer?.independent_review_attested !== true
     || !Array.isArray(submission.responses) || submission.responses.length !== packet.sample_count) incomplete("envelope");
+  verifyBenchmarkReviewer(submission.reviewer, packet.packet_digest);
   const responses = new Map(submission.responses.map((response) => [response.work_unit_id, response]));
   if (responses.size !== packet.sample_count) incomplete("duplicate_or_missing_response");
   const records = packet.review_work_units.map((unit) => {
@@ -528,7 +568,7 @@ export function qualifyContentDesignReview(packetValue: unknown, submissionValue
     };
   });
   const preimage = {
-    contract_version: "contentmd.content-design-qualified-gold-set/0.1.0" as const,
+    contract_version: "contentmd.content-design-qualified-gold-set/0.2.0" as const,
     packet_ref: submission.packet_ref,
     reviewer: submission.reviewer,
     qualified_count: records.length,

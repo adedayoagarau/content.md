@@ -135,8 +135,10 @@ npx contentmd benchmark content-design \
 ```
 
 Qualification fails closed for incomplete reviews, packet drift, missing
-evidence, or missing reviewer attestation. Qualified records are eligible for
-this benchmark only; they do not become retrieval or training data.
+evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or
+differently scoped governed reviewer-qualification replay. A role string alone
+cannot create gold. Qualified records are eligible for this benchmark only;
+they do not become retrieval or training data.
 
 The packaged baseline has been replayed across all 10,000 synthetic scenarios.
 See the [verification record](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/content-design-benchmark-10000.md).

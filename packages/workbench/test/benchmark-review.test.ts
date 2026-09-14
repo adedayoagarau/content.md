@@ -20,8 +20,10 @@ describe("content-design review workbench", () => {
       expect(page).toContain("id=\"consequence\"");
       expect(page).toContain("id=\"evidence\"");
       expect(page).toContain("id=\"next-incomplete\"");
+      expect(page).toContain("id=\"qualification-json\"");
       expect(data.packet.sample_count).toBe(100);
       expect(data.template.submission_state).toBe("incomplete");
+      expect(data.template.reviewer.qualification_bundle).toBeNull();
       for (const unit of data.packet.review_work_units) {
         expect(unit.candidate).not.toHaveProperty("injected_defect");
         expect(unit.candidate).not.toHaveProperty("voice");
@@ -33,6 +35,7 @@ describe("content-design review workbench", () => {
       expect(client).not.toContain("unit.candidate.voice");
       expect(client).toContain("Current review incomplete");
       expect(client).toContain("rfc3339");
+      expect(client).toContain("qualification_bundle");
       expect(page).toContain("Export completed review");
       expect(client).toContain("contentmd-review-submission.json");
     } finally {

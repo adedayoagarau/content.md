@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 import { validateReviewSample } from "./prepare-content-design-review-sample.mjs";
+import { verifyReviewerQualification } from "../packages/governance/dist/index.js";
 
 const DISPOSITIONS = ["pass", "revise", "abstain", "escalate", "human_preference_review"];
 const HARD_RESULTS = ["pass", "fail", "unknown", "not_applicable"];
@@ -77,13 +78,14 @@ function validatePredictionSet(predictions, packetDigest, units) {
 export function createReviewSubmissionTemplate(packet) {
   validateReviewSample(packet);
   return {
-    contract_version: "contentmd.content-design-review-submission/0.1.0",
+    contract_version: "contentmd.content-design-review-submission/0.2.0",
     packet_ref: { packet_digest: packet.packet_digest, sample_count: packet.sample_count },
     reviewer: {
       reviewer_id: null,
       reviewer_role: "qualified_content_designer",
       reviewed_at: null,
       independent_review_attested: false,
+      qualification_bundle: null,
     },
     responses: packet.review_work_units.map((unit) => ({
       work_unit_id: unit.work_unit_id,
@@ -98,6 +100,27 @@ export function createReviewSubmissionTemplate(packet) {
     submission_state: "incomplete",
     authority_effect: "none",
   };
+}
+
+function verifyBenchmarkReviewer(reviewer, packetDigest) {
+  let qualification;
+  try {
+    qualification = verifyReviewerQualification({
+      ...reviewer.qualification_bundle,
+      as_of: reviewer.reviewed_at,
+      verification_mode: "official",
+    });
+  } catch {
+    invalid("reviewer_qualification");
+  }
+  const packetScope = `content-design-benchmark-packet:${packetDigest}`;
+  if (qualification.reviewer_ref.object_id !== reviewer.reviewer_id
+    || !qualification.eligible_roles.includes("qualified_content_designer")
+    || !qualification.qualified_objectives.includes("content_design_benchmark_review")
+    || !qualification.authorized_resource_scopes.includes("content-design-benchmark")
+    || !qualification.authorized_resource_scopes.includes(packetScope)) {
+    invalid("reviewer_qualification_scope");
+  }
 }
 
 function validateResponse(unit, response) {
@@ -162,7 +185,7 @@ function validateQualifiedRecord(unit) {
 
 function validateGoldSet(value) {
   if (value === null || typeof value !== "object" || Array.isArray(value)
-    || value.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
+    || value.contract_version !== "contentmd.content-design-qualified-gold-set/0.2.0"
     || value.packet_ref === null || typeof value.packet_ref !== "object"
     || typeof value.packet_ref.packet_digest !== "string" || value.packet_ref.packet_digest.trim().length === 0
     || !Number.isSafeInteger(value.packet_ref.sample_count) || value.packet_ref.sample_count < 1
@@ -176,6 +199,7 @@ function validateGoldSet(value) {
     || value.qualified_count !== value.records.length || value.packet_ref.sample_count !== value.records.length
     || value.benchmark_eligibility !== true || value.retrieval_eligibility !== "never"
     || value.training_eligibility !== "never" || value.authority_effect !== "none") invalid("gold_shape");
+  verifyBenchmarkReviewer(value.reviewer, value.packet_ref.packet_digest);
   const ids = new Set();
   for (const unit of value.records) {
     if (ids.has(unit?.work_unit_id)) invalid("gold_coverage");
@@ -187,7 +211,7 @@ function validateGoldSet(value) {
 
 export function qualifyReviewSubmission(packet, submission) {
   validateReviewSample(packet);
-  if (submission.contract_version !== "contentmd.content-design-review-submission/0.1.0"
+  if (submission.contract_version !== "contentmd.content-design-review-submission/0.2.0"
     || submission.packet_ref?.packet_digest !== packet.packet_digest
     || submission.packet_ref?.sample_count !== packet.sample_count
     || submission.submission_state !== "complete"
@@ -199,6 +223,7 @@ export function qualifyReviewSubmission(packet, submission) {
     || !Array.isArray(submission.responses) || submission.responses.length !== packet.sample_count) {
     invalid("envelope");
   }
+  verifyBenchmarkReviewer(submission.reviewer, packet.packet_digest);
   const responses = new Map(submission.responses.map((response) => [response.work_unit_id, response]));
   if (responses.size !== packet.sample_count) invalid("duplicate_or_missing_response");
   const qualified = packet.review_work_units.map((unit) => {
@@ -215,7 +240,7 @@ export function qualifyReviewSubmission(packet, submission) {
     };
   });
   const preimage = {
-    contract_version: "contentmd.content-design-qualified-gold-set/0.1.0",
+    contract_version: "contentmd.content-design-qualified-gold-set/0.2.0",
     packet_ref: submission.packet_ref,
     reviewer: submission.reviewer,
     qualified_count: qualified.length,

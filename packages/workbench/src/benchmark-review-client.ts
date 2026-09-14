@@ -46,11 +46,12 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
   const completeResponse = (response) => response.disposition && Object.values(response.hard_dimension_results).every(Boolean) && typeof response.rationale === "string" && response.rationale.length >= 20 && response.acceptable_meaning_invariants?.length > 0 && response.review_evidence_refs?.length > 0 && (response.disposition !== "revise" || response.recommended_revision);
   const renderStatus = () => {
     const complete = submission.responses.filter(completeResponse).length;
-    const reviewerReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested;
+    const reviewerReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested && submission.reviewer.qualification_bundle && typeof submission.reviewer.qualification_bundle === "object";
     byId("completion").textContent = complete + " of " + submission.responses.length + " reviews complete";
     byId("item-status").textContent = completeResponse(submission.responses[index]) ? "Current review complete" : "Current review incomplete";
     byId("reviewer-id").setAttribute("aria-invalid", String(!submission.reviewer.reviewer_id?.trim()));
     byId("reviewed-at").setAttribute("aria-invalid", String(!rfc3339(submission.reviewer.reviewed_at)));
+    byId("qualification-json").setAttribute("aria-invalid", String(!submission.reviewer.qualification_bundle));
     byId("export").disabled = complete !== submission.responses.length || !reviewerReady;
   };
   const reviewerInput = (id, key) => byId(id).addEventListener("input", (event) => { submission.reviewer[key] = event.target.type === "checkbox" ? event.target.checked : event.target.value; save(); renderStatus(); });
@@ -58,8 +59,9 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
     data = loaded; submission = data.template;
     const saved = localStorage.getItem("contentmd-review:" + data.packet.packet_digest);
     if (saved) { try { const parsed = JSON.parse(saved); submission = parsed.submission; index = parsed.index || 0; } catch {} }
-    byId("reviewer-id").value = submission.reviewer.reviewer_id || ""; byId("reviewed-at").value = submission.reviewer.reviewed_at || ""; byId("attest").checked = submission.reviewer.independent_review_attested;
+    byId("reviewer-id").value = submission.reviewer.reviewer_id || ""; byId("reviewed-at").value = submission.reviewer.reviewed_at || ""; byId("attest").checked = submission.reviewer.independent_review_attested; byId("qualification-json").value = submission.reviewer.qualification_bundle ? JSON.stringify(submission.reviewer.qualification_bundle, null, 2) : "";
     reviewerInput("reviewer-id", "reviewer_id"); reviewerInput("reviewed-at", "reviewed_at"); reviewerInput("attest", "independent_review_attested");
+    byId("qualification-json").addEventListener("input", (event) => { try { const parsed = JSON.parse(event.target.value); submission.reviewer.qualification_bundle = parsed && typeof parsed === "object" ? parsed : null; } catch { submission.reviewer.qualification_bundle = null; } save(); renderStatus(); });
     byId("previous").addEventListener("click", () => { if (index > 0) { index -= 1; save(); render(); } });
     byId("next").addEventListener("click", () => { if (index < data.packet.sample_count - 1) { index += 1; save(); render(); } });
     byId("next-incomplete").addEventListener("click", () => { const offset = submission.responses.findIndex((response, candidateIndex) => candidateIndex > index && !completeResponse(response)); const wrapped = offset < 0 ? submission.responses.findIndex((response) => !completeResponse(response)) : offset; if (wrapped >= 0) { index = wrapped; save(); render(); } });

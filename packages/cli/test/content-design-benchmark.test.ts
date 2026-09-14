@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
 import { buildProgram } from "../src/main.js";
+import { governedContentDesignReviewerFixture } from "../../../scripts/content-design-reviewer-fixture.mjs";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const packet = join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json");
@@ -54,7 +55,7 @@ describe("contentmd benchmark content-design", () => {
     const reportPath = join(directory, "report.json");
     await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--review-template", templatePath]);
     const submission = JSON.parse(await readFile(templatePath, "utf8"));
-    submission.reviewer = { reviewer_id: "reviewer.fixture", reviewer_role: "qualified_content_designer", reviewed_at: "2026-09-14T12:00:00.000Z", independent_review_attested: true };
+    submission.reviewer = governedContentDesignReviewerFixture(submission.packet_ref.packet_digest);
     submission.submission_state = "complete";
     for (const response of submission.responses) {
       response.disposition = "human_preference_review";

@@ -154,6 +154,7 @@ if (
   || benchmarkReviewTemplate.responses?.length !== 100
   || benchmarkReviewTemplate.submission_state !== "incomplete"
   || benchmarkReviewTemplate.reviewer?.independent_review_attested !== false
+  || benchmarkReviewTemplate.reviewer?.qualification_bundle !== null
 ) throw new Error("installed package did not create a reviewer-blank content-design template");
 const benchmarkReviewWorkbench = await startPackedServer(installedEntry, [
   "benchmark", "content-design", "--packet", benchmarkPacketPath,
@@ -168,6 +169,7 @@ try {
   if (
     response.status !== 200 || !html.includes("Judge the meaning, not the generator")
     || !html.includes("<dt>State</dt>") || !html.includes("Export completed review")
+    || !html.includes("Governed reviewer qualification bundle")
     || reviewDataResponse.status !== 200 || reviewData.packet?.sample_count !== 100
     || reviewDataText.includes("generator_label")
   ) throw new Error("packed content-design review workbench did not render the blinded review flow");

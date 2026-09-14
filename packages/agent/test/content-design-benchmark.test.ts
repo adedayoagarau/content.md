@@ -12,6 +12,7 @@ import {
   scoreContentDesignBenchmark,
   writeBuiltinContentDesignReviewPacket,
 } from "@contentmd/agent";
+import { governedContentDesignReviewerFixture } from "../../../scripts/content-design-reviewer-fixture.mjs";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
@@ -84,12 +85,7 @@ describe("content-design benchmark", () => {
   it("qualifies complete independent review for benchmarking only and scores bound predictions", async () => {
     const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
     const submission = createContentDesignReviewSubmissionTemplate(packet) as unknown as Record<string, unknown> & { reviewer: Record<string, unknown>; responses: Array<Record<string, unknown>> };
-    submission.reviewer = {
-      reviewer_id: "reviewer.fixture",
-      reviewer_role: "qualified_content_designer",
-      reviewed_at: "2026-09-14T12:00:00.000Z",
-      independent_review_attested: true,
-    };
+    submission.reviewer = governedContentDesignReviewerFixture(packet.packet_digest);
     submission.submission_state = "complete";
     for (const response of submission.responses) {
       response.disposition = "human_preference_review";
