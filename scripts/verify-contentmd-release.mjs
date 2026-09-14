@@ -49,9 +49,13 @@ if (manifest.publishConfig?.access !== "public") fail("public_access");
 if (manifest.engines?.node !== ">=24.14.0 <25") fail("node_engine");
 
 const requiredPublishGates = [
+  "pnpm test",
+  "pnpm lint",
   "pnpm verify:foundation",
   "pnpm verify:learning",
   "pnpm verify:content-design-benchmark",
+  "pnpm test:distribution",
+  "pnpm verify:release",
 ];
 for (const requiredGate of requiredPublishGates) {
   if (!publishWorkflow.includes(`run: ${requiredGate}`)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
