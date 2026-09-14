@@ -55,6 +55,33 @@ test("gives every ability all four required evaluation controls", () => {
   assert.ok(scenarios.some((scenario) => scenario.provisional_expectation.disposition === "abstain"));
 });
 
+test("gives every ability the complete situation, surface, and locale context", () => {
+  const scenarios = generateScenarios();
+  const values = (field) => new Set(scenarios.map(field));
+  const situations = values((scenario) => scenario.context.situation);
+  const surfaces = values((scenario) => scenario.context.surface);
+  const locales = values((scenario) => scenario.context.target_locale);
+  for (const ability of values((scenario) => scenario.ability.id)) {
+    const slice = scenarios.filter((scenario) => scenario.ability.id === ability);
+    assert.deepEqual(valuesFrom(slice, (scenario) => scenario.context.situation), situations);
+    assert.deepEqual(valuesFrom(slice, (scenario) => scenario.context.surface), surfaces);
+    assert.deepEqual(valuesFrom(slice, (scenario) => scenario.context.target_locale), locales);
+  }
+});
+
+function valuesFrom(records, field) {
+  return new Set(records.map(field));
+}
+
+test("covers contextual voice, tone, risk, channel, and direction breadth", () => {
+  const scenarios = generateScenarios();
+  assert.deepEqual(valuesFrom(scenarios, (scenario) => scenario.context.risk), new Set(["critical", "high", "low", "medium"]));
+  assert.equal(valuesFrom(scenarios, (scenario) => scenario.context.voice_profile).size, 4);
+  assert.equal(valuesFrom(scenarios, (scenario) => scenario.context.situational_tone).size, 4);
+  assert.equal(valuesFrom(scenarios, (scenario) => scenario.context.channel).size, 6);
+  assert.deepEqual(valuesFrom(scenarios, (scenario) => scenario.context.direction), new Set(["ltr", "rtl"]));
+});
+
 test("routes untranslated locale candidates to specialist review", () => {
   const scenarios = generateScenarios();
   const untranslatedWithoutInjectedDefect = scenarios.filter((scenario) =>

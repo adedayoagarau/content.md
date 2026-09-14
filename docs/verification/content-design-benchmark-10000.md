@@ -34,6 +34,14 @@ It does not duplicate the bulk generated records in the repository.
 | Blinded packet records | 10,000 |
 | Predictions | 10,000 |
 | Predictions per core ability | 1,000 |
+| Situations represented per ability | 10/10 |
+| Surfaces represented per ability | 10/10 |
+| Target locales represented per ability | 10/10 |
+| Risk levels | 4 |
+| Intended voice profiles | 4 |
+| Situational-tone profiles | 4 |
+| Channels | 6 |
+| Text directions | LTR and RTL |
 | `revise` | 5,000 |
 | `abstain` | 1,000 |
 | `escalate` | 3,600 |
@@ -62,6 +70,13 @@ synthetic candidates into evidence, gold, retrieval, or training data. This
 distribution is not proof that the individual judgments are correct. Accuracy,
 false-acceptance risk, and quality calibration remain blocked on independent
 qualified content-design review.
+
+The release verifier also rejects a matrix that collapses any ability,
+situation, surface, or locale axis. Every ability must span all ten situations,
+all ten surfaces, and all ten target locales. It separately checks contextual
+risk, intended voice, situational tone, channel, LTR/RTL direction, unique
+scenario digests, and absence of generator-only candidate labels from the blind
+review packet.
 
 Gold qualification now requires a current governed reviewer-qualification
 replay bound to the reviewer, `qualified_content_designer` role,
