@@ -59,9 +59,15 @@ const requiredPublishGates = [
   "pnpm test:distribution",
   "pnpm verify:release",
 ];
+function workflowRunCommands(workflow) {
+  return [...workflow.matchAll(/^\s+run:\s*([^#\r\n]+?)\s*$/gmu)]
+    .map((match) => match[1].trim());
+}
+const publishRunCommands = new Set(workflowRunCommands(publishWorkflow));
+const verificationRunCommands = new Set(workflowRunCommands(verificationWorkflow));
 for (const requiredGate of requiredPublishGates) {
-  if (!publishWorkflow.includes(`run: ${requiredGate}`)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
-  if (!verificationWorkflow.includes(`run: ${requiredGate}`)) fail(`verification_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
+  if (!publishRunCommands.has(requiredGate)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
+  if (!verificationRunCommands.has(requiredGate)) fail(`verification_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
 }
 function verifyPinnedActions(workflowName, workflow) {
   const actions = [...workflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
@@ -74,8 +80,8 @@ function verifyPinnedActions(workflowName, workflow) {
 }
 const actionUses = verifyPinnedActions("publish", publishWorkflow);
 const verificationActionUses = verifyPinnedActions("verification", verificationWorkflow);
-if (!verificationWorkflow.includes("permissions:\n  contents: read")
-  || verificationWorkflow.includes("id-token: write")) fail("verification_workflow_permissions");
+if (!/^permissions:\r?\n  contents: read\s*$/mu.test(verificationWorkflow)
+  || /^\s+[a-z-]+:\s*write\s*$/mu.test(verificationWorkflow)) fail("verification_workflow_permissions");
 
 const expectedTag = `v${manifest.version}`;
 const suppliedTag = process.env.CONTENTMD_RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
