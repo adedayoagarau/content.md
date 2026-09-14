@@ -52,6 +52,14 @@ if (!Number.isInteger(npmMajor) || !Number.isInteger(npmMinor) || npmMajor < 11 
 }
 
 run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")]);
+const sourceReadme = await readFile(path.join(root, "README.md"), "utf8");
+const packagedReadme = await readFile(path.join(distribution, "README.md"), "utf8");
+if (packagedReadme !== sourceReadme) fail("packaged_readme_stale");
+for (const repositoryOnlyTarget of ["docs/", "CONTRIBUTING.md", "SECURITY.md"]) {
+  if (packagedReadme.includes(`](${repositoryOnlyTarget}`)) {
+    fail(`packaged_readme_missing_target_${repositoryOnlyTarget.replaceAll("/", "_")}`);
+  }
+}
 const dryRun = JSON.parse(run("npm", ["publish", "--dry-run", "--json"], distribution));
 const published = Array.isArray(dryRun)
   ? dryRun[0]

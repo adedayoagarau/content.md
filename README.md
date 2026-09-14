@@ -1,31 +1,39 @@
----
-title: content.md
-status: active-build
-started: 2026-08-17
-updated: 2026-08-25
-foundation_draft: 0.2
-implementation_status: governed-development-system-active
----
-
 # content.md
 
-`content.md` is a repository-native content-design system: a durable content contract plus a governed agent workflow that can understand a product, make content decisions, draft and evaluate language, learn from project-owned comparisons, change implementation safely, and keep the product's language coherent over time.
+`content.md` is a repository-native content-design agent. It finds product
+language in your codebase, explains what needs attention, helps you improve it
+with the facts you provide, and can apply one reviewed change at a time.
 
-The system owns the content-design process and its structured memory. Products and organizations retain authority over facts, policies, approvals, provider access, publication, and product outcomes. The implementation is substantial but remains a development system: it does not prove universal writing effectiveness, production authority, or a released product.
+Run it in an existing repository without adopting a framework or uploading the
+repository:
 
-The current [open-source release-candidate verification](docs/verification/open-source-release-candidate-0.1.md) records the locally demonstrated 0.1 product journey and its remaining external authority gates.
+```bash
+npx contentmd
+```
 
-The supported open-source product surface is the `contentmd` CLI and its local
-workbench. See the [public interface contract](docs/public-api.md),
-[contribution guide](CONTRIBUTING.md), and [security policy](SECURITY.md).
+The first run is a preview-only scan. It does not edit files, install repository
+configuration, contact a model provider, or treat existing copy as approved.
+
+## What you can do
+
+- Find user-facing content with exact source locations.
+- Inspect why a finding was selected and what context is missing.
+- Compare a candidate against repository evidence and explicit constraints.
+- Preview an exact patch before anything changes.
+- Apply only the reviewed patch digest, then undo it if needed.
+- Explore the same evidence in a loopback-only local workbench.
+- Adopt a durable `CONTENT.md` contract and bridge existing agent instructions.
+
+`content.md` assists with content decisions; it does not invent product facts or
+grant approval, publication, policy, or release authority.
+
+The supported open-source surface is the `contentmd` CLI and local workbench.
+Read the [public interface contract](https://github.com/adedayoagarau/content.md/blob/main/docs/public-api.md),
+[contribution guide](https://github.com/adedayoagarau/content.md/blob/main/CONTRIBUTING.md),
+[security policy](https://github.com/adedayoagarau/content.md/blob/main/SECURITY.md),
+and [release-candidate verification](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/open-source-release-candidate-0.1.md).
 Workspace package exports and the public-product research corpus are not a
 stable JavaScript SDK or implicit training data.
-
-## Implementation status
-
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce an 18-package TypeScript workspace and a functional local CLI. The [host-agnostic repository-intelligence verification](docs/verification/host-agnostic-repository-intelligence-0.2.md) proves the mixed-stack discovery, evidence-linked model, bounded IDE handoff, governed task loop, exact apply/readback path, and local workbench without network access. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
-
-The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; detect React, Next.js, TypeScript, Python, FastAPI, templates, and structured product documentation; discover content and IA with exact source coordinates; compile an evidence-linked product model; issue bounded packets to the user's IDE model; review proposed writing deterministically; apply and undo one explicitly confirmed local source change with digest-bound readback; retain a separate governed team approval workflow; and present the model in a loopback-only local workbench. It can also ingest rights-bounded research; compile voice/tone maps and evidence graphs; use governed model execution; learn from sealed project-owned comparisons; retain append-only audit state; and preview uninstall.
 
 ## Use it today
 
