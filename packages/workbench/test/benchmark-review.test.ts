@@ -18,13 +18,21 @@ describe("content-design review workbench", () => {
       expect(page).toContain("Judge the meaning, not the generator");
       expect(page).toContain("id=\"state\"");
       expect(page).toContain("id=\"consequence\"");
+      expect(page).toContain("id=\"evidence\"");
+      expect(page).toContain("id=\"next-incomplete\"");
       expect(data.packet.sample_count).toBe(100);
       expect(data.template.submission_state).toBe("incomplete");
       for (const unit of data.packet.review_work_units) {
         expect(unit.candidate).not.toHaveProperty("injected_defect");
+        expect(unit.candidate).not.toHaveProperty("voice");
+        expect(unit.candidate).not.toHaveProperty("tone");
         expect(unit).not.toHaveProperty("provisional_expectation");
       }
       expect(client).toContain("localStorage");
+      expect(client).toContain("unit.context.voice_profile");
+      expect(client).not.toContain("unit.candidate.voice");
+      expect(client).toContain("Current review incomplete");
+      expect(client).toContain("rfc3339");
       expect(page).toContain("Export completed review");
       expect(client).toContain("contentmd-review-submission.json");
     } finally {

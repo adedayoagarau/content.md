@@ -18,6 +18,12 @@ function invalid(reason) {
   throw new Error(`content_design_review_submission_invalid:${reason}`);
 }
 
+function isRfc3339(value) {
+  return typeof value === "string"
+    && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/u.test(value)
+    && Number.isFinite(Date.parse(value));
+}
+
 export function createReviewSubmissionTemplate(packet) {
   validateReviewSample(packet);
   return {
@@ -79,7 +85,7 @@ export function qualifyReviewSubmission(packet, submission) {
     || submission.authority_effect !== "none"
     || submission.reviewer?.reviewer_role !== "qualified_content_designer"
     || typeof submission.reviewer?.reviewer_id !== "string" || submission.reviewer.reviewer_id.trim().length === 0
-    || typeof submission.reviewer?.reviewed_at !== "string" || !Number.isFinite(Date.parse(submission.reviewer.reviewed_at))
+    || !isRfc3339(submission.reviewer?.reviewed_at)
     || submission.reviewer?.independent_review_attested !== true
     || !Array.isArray(submission.responses) || submission.responses.length !== packet.sample_count) {
     invalid("envelope");

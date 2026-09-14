@@ -2,6 +2,7 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
   "use strict";
   const byId = (id) => document.getElementById(id);
   const lines = (value) => value.split("\n").map((item) => item.trim()).filter(Boolean);
+  const rfc3339 = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value));
   let data;
   let submission;
   let index = 0;
@@ -14,14 +15,19 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
     byId("progress").textContent = (index + 1) + " of " + data.packet.sample_count;
     byId("ability").textContent = unit.ability.id.replaceAll("_", " ");
     byId("objective").textContent = unit.ability.objective;
+    byId("goal").textContent = unit.context.user_goal;
     byId("state").textContent = unit.context.state;
     byId("action").textContent = unit.context.action_expression;
     byId("consequence").textContent = unit.context.consequence_expression;
+    byId("risk").textContent = unit.context.risk;
+    byId("evidence").textContent = unit.context.evidence.material_fact_status === "missing"
+      ? unit.context.evidence.unresolved_question
+      : "Scenario facts are available for this evaluation.";
     byId("surface").textContent = unit.context.surface_context + " · " + unit.context.channel;
     byId("locale").textContent = unit.context.source_locale + " → " + unit.context.target_locale + " · " + unit.context.direction;
     byId("candidate").textContent = unit.candidate.text;
     byId("supporting").textContent = unit.candidate.supporting_text || "No supporting text";
-    byId("voice-tone").textContent = unit.candidate.voice + " voice · " + unit.candidate.tone + " tone";
+    byId("voice-tone").textContent = "Target: " + unit.context.voice_profile.replaceAll("_", " ") + " · " + unit.context.situational_tone.replaceAll("_", " ");
     const form = byId("review-fields"); form.replaceChildren();
     const disposition = select([["", "Choose a disposition"], ["pass", "Pass"], ["revise", "Revise"], ["abstain", "Abstain"], ["escalate", "Escalate"], ["human_preference_review", "Human preference review"]], response.disposition || "");
     disposition.addEventListener("change", () => { response.disposition = disposition.value || null; save(); renderStatus(); });
@@ -38,7 +44,15 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
     renderStatus();
   };
   const completeResponse = (response) => response.disposition && Object.values(response.hard_dimension_results).every(Boolean) && typeof response.rationale === "string" && response.rationale.length >= 20 && response.acceptable_meaning_invariants?.length > 0 && response.review_evidence_refs?.length > 0 && (response.disposition !== "revise" || response.recommended_revision);
-  const renderStatus = () => { const complete = submission.responses.filter(completeResponse).length; byId("completion").textContent = complete + " of " + submission.responses.length + " reviews complete"; byId("export").disabled = complete !== submission.responses.length || !submission.reviewer.reviewer_id || !submission.reviewer.reviewed_at || !submission.reviewer.independent_review_attested; };
+  const renderStatus = () => {
+    const complete = submission.responses.filter(completeResponse).length;
+    const reviewerReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested;
+    byId("completion").textContent = complete + " of " + submission.responses.length + " reviews complete";
+    byId("item-status").textContent = completeResponse(submission.responses[index]) ? "Current review complete" : "Current review incomplete";
+    byId("reviewer-id").setAttribute("aria-invalid", String(!submission.reviewer.reviewer_id?.trim()));
+    byId("reviewed-at").setAttribute("aria-invalid", String(!rfc3339(submission.reviewer.reviewed_at)));
+    byId("export").disabled = complete !== submission.responses.length || !reviewerReady;
+  };
   const reviewerInput = (id, key) => byId(id).addEventListener("input", (event) => { submission.reviewer[key] = event.target.type === "checkbox" ? event.target.checked : event.target.value; save(); renderStatus(); });
   fetch("/review-data.json").then((response) => response.json()).then((loaded) => {
     data = loaded; submission = data.template;
@@ -48,6 +62,7 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
     reviewerInput("reviewer-id", "reviewer_id"); reviewerInput("reviewed-at", "reviewed_at"); reviewerInput("attest", "independent_review_attested");
     byId("previous").addEventListener("click", () => { if (index > 0) { index -= 1; save(); render(); } });
     byId("next").addEventListener("click", () => { if (index < data.packet.sample_count - 1) { index += 1; save(); render(); } });
+    byId("next-incomplete").addEventListener("click", () => { const offset = submission.responses.findIndex((response, candidateIndex) => candidateIndex > index && !completeResponse(response)); const wrapped = offset < 0 ? submission.responses.findIndex((response) => !completeResponse(response)) : offset; if (wrapped >= 0) { index = wrapped; save(); render(); } });
     byId("export").addEventListener("click", () => { submission.submission_state = "complete"; const blob = new Blob([JSON.stringify(submission, null, 2) + "\n"], { type: "application/json" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "contentmd-review-submission.json"; link.click(); setTimeout(() => URL.revokeObjectURL(link.href), 0); });
     render();
   }).catch(() => { byId("completion").textContent = "Review packet could not be loaded"; });

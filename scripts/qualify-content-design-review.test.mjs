@@ -32,6 +32,12 @@ test("rejects incomplete review rather than creating synthetic gold", () => {
   assert.throws(() => qualifyReviewSubmission(packet, submission), /invalid:envelope/);
 });
 
+test("rejects a parseable timestamp that is not RFC 3339", () => {
+  const { packet, submission } = completedFixture();
+  submission.reviewer.reviewed_at = "2026-09-14";
+  assert.throws(() => qualifyReviewSubmission(packet, submission), /invalid:envelope/);
+});
+
 test("qualifies a complete review for benchmarking only", () => {
   const { packet, submission } = completedFixture();
   const gold = qualifyReviewSubmission(packet, submission);

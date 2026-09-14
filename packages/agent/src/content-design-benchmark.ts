@@ -312,6 +312,12 @@ function incomplete(reason: string): never {
   throw new Error(`qualification_review_incomplete:content_design:${reason}`);
 }
 
+function isRfc3339(value: unknown): value is string {
+  return typeof value === "string"
+    && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/u.test(value)
+    && Number.isFinite(Date.parse(value));
+}
+
 function validateCompletedResponse(unit: ReviewWorkUnit, response: CompletedReviewResponse): void {
   if (response.work_unit_id !== unit.work_unit_id || !DISPOSITIONS.includes(response.disposition)) incomplete(`${unit.work_unit_id}:disposition`);
   if (response.hard_dimension_results === null || typeof response.hard_dimension_results !== "object") incomplete(`${unit.work_unit_id}:hard_dimensions`);
@@ -342,7 +348,7 @@ export function qualifyContentDesignReview(packetValue: unknown, submissionValue
     || submission.authority_effect !== "none"
     || submission.reviewer?.reviewer_role !== "qualified_content_designer"
     || typeof submission.reviewer?.reviewer_id !== "string" || submission.reviewer.reviewer_id.trim().length === 0
-    || typeof submission.reviewer?.reviewed_at !== "string" || !Number.isFinite(Date.parse(submission.reviewer.reviewed_at))
+    || !isRfc3339(submission.reviewer?.reviewed_at)
     || submission.reviewer?.independent_review_attested !== true
     || !Array.isArray(submission.responses) || submission.responses.length !== packet.sample_count) incomplete("envelope");
   const responses = new Map(submission.responses.map((response) => [response.work_unit_id, response]));

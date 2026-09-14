@@ -27,7 +27,11 @@ The verifier runs these operations in a fresh temporary consumer project:
     its immutable digest and absence of generator labels.
 12. Produce packet-bound unscored predictions and a reviewer-blank response template.
 13. Start the packed content-design review workbench and verify its rendered
-    review shell and blinded data endpoint.
+    review shell and blinded data endpoint. The shell exposes user goal, state,
+    action, consequence, risk, evidence status, locale, intended voice, and
+    situational tone; it never displays generator-assigned candidate style.
+    Export remains disabled until every response, reviewer identity, strict
+    RFC 3339 timestamp, and independence attestation is complete.
 14. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
 15. Uninstall the package and confirm its installed entry is removed.
 
