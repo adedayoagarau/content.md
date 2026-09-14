@@ -5,7 +5,14 @@ import {
   scoreLocalContentDesignBenchmark,
 } from "@contentmd/agent";
 import type { Command } from "commander";
+import { startContentDesignReviewWorkbench } from "@contentmd/workbench";
 import { runCommand } from "./shared.js";
+
+function port(value: string): number {
+  const parsed = Number(value);
+  if (!Number.isSafeInteger(parsed) || parsed < 0 || parsed > 65_535) throw new Error("benchmark_review_port_invalid");
+  return parsed;
+}
 
 export function registerBenchmark(program: Command): void {
   const benchmark = program.command("benchmark").description("evaluate bounded content-design capabilities");
@@ -19,8 +26,21 @@ export function registerBenchmark(program: Command): void {
     .option("--gold <path>", "qualified benchmark-gold file")
     .option("--predictions <path>", "packet-bound prediction file")
     .option("--report-out <path>", "new evaluation-report output file")
+    .option("--review-workbench", "start the loopback-only independent-review workbench")
+    .option("--host <host>", "loopback host", "127.0.0.1")
+    .option("--port <port>", "review workbench port", port, 4179)
     .option("--json", "emit the stable JSON envelope")
-    .action(async (options: { packet: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; predictions?: string; reportOut?: string; json?: boolean }) => runCommand(options, async () => {
+    .action(async (options: { packet: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
+      if (options.reviewWorkbench === true) {
+        const server = await startContentDesignReviewWorkbench({ packet: options.packet, host: options.host, port: options.port });
+        return {
+          command_id: "benchmark.content-design.review-workbench",
+          record_refs: [],
+          warnings: ["Review progress is stored only in this browser until you export a completed response file."],
+          next_actions: [`Open ${server.url}`],
+          data: { url: server.url, write_effect: "none", authority_effect: "none" },
+        };
+      }
       if (options.submission !== undefined || options.goldOut !== undefined) {
         if (options.submission === undefined || options.goldOut === undefined) throw new Error("content_design_benchmark_invalid:submission_and_gold_out_required");
         const gold = await qualifyLocalContentDesignReview(options.packet, options.submission, options.goldOut);

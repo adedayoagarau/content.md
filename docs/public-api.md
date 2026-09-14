@@ -33,6 +33,7 @@ supports four bounded operations:
 
 - default prediction with optional `--out`;
 - independent response-template creation with `--review-template`;
+- a loopback-only one-scenario-at-a-time review desk with `--review-workbench`;
 - completed-review qualification with `--submission` and `--gold-out`;
 - scoring with `--gold`, `--predictions`, and `--report-out`.
 

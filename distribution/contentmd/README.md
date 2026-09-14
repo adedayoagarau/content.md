@@ -99,6 +99,18 @@ npx contentmd benchmark content-design \
   --review-template reviewer-response.json
 ```
 
+Or complete the same blinded review one scenario at a time in the loopback-only
+review workbench:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --review-workbench
+```
+
+Progress stays in that browser until the reviewer exports the completed JSON
+submission. The workbench never displays generator labels.
+
 After an independent qualified content designer completes every response and
 attests the review, qualify it for benchmarking and score the prediction set:
 
