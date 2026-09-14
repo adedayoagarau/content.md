@@ -83,10 +83,13 @@ availability is not reserved until an authenticated publish succeeds.
 
 The repository now includes `.github/workflows/publish-npm.yml`. A published
 GitHub release invokes a GitHub-hosted Node 24 job with only `contents: read` and
-`id-token: write`, installs pinned pnpm 11.9.0, runs the complete test, lint,
-distribution, and release-verification gates, then calls `npm publish` from the
-four-file distribution directory. The `npm-production` GitHub environment is
-intentional so repository owners can require a human deployment approval.
+`id-token: write`, uses immutable commit pins for every third-party action,
+installs pinned pnpm 11.9.0, and runs the complete test, lint, foundation,
+governed-learning, distribution, and release-verification gates. Only then does
+it call `npm publish` from the four-file distribution directory. The release
+verifier rejects mutable action references or either missing governed gate. The
+`npm-production` GitHub environment is intentional so repository owners can
+require a human deployment approval.
 
 The first publication is a distinct bootstrap step because npm trusted
 publishing is configured from an existing package's settings. For 0.1.0:

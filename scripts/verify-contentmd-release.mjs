@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const manifest = JSON.parse(await readFile(path.join(distribution, "package.json"), "utf8"));
+const publishWorkflow = await readFile(path.join(root, ".github/workflows/publish-npm.yml"), "utf8");
 const npmCache = await mkdtemp(path.join(tmpdir(), "contentmd-release-npm-cache-"));
 const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
 
@@ -47,6 +48,16 @@ if (manifest.repository?.url !== "git+https://github.com/adedayoagarau/content.m
 if (manifest.publishConfig?.access !== "public") fail("public_access");
 if (manifest.engines?.node !== ">=24.14.0 <25") fail("node_engine");
 
+for (const requiredGate of ["pnpm verify:foundation", "pnpm verify:learning"]) {
+  if (!publishWorkflow.includes(`run: ${requiredGate}`)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
+}
+const actionUses = [...publishWorkflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
+if (actionUses.length === 0) fail("publish_workflow_missing_actions");
+for (const action of actionUses) {
+  const revision = action.split("@").at(-1) ?? "";
+  if (!/^[0-9a-f]{40}$/u.test(revision)) fail(`publish_workflow_mutable_action_${action}`);
+}
+
 const expectedTag = `v${manifest.version}`;
 const suppliedTag = process.env.CONTENTMD_RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
 if (suppliedTag !== undefined && suppliedTag !== expectedTag) fail(`tag_expected_${expectedTag}_received_${suppliedTag}`);
@@ -82,6 +93,8 @@ console.log(JSON.stringify({
   node_engine: manifest.engines.node,
   repository: manifest.repository.url,
   publish_access: manifest.publishConfig.access,
+  publish_workflow_actions: actionUses,
+  publish_workflow_gates: ["verify:foundation", "verify:learning"],
   files,
   publish_effect: "none_dry_run",
   bootstrap_status: "first_authenticated_publish_required_before_trusted_publisher_binding",

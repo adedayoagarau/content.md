@@ -38,6 +38,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
+| Publish workflow supply chain | immutable action revisions and mandatory foundation/learning gates verified |
 | Generated README parity | passed |
 | Git whitespace check | passed |
 
@@ -93,6 +94,8 @@ corepack prepare pnpm@11.9.0 --activate
 pnpm verify:toolchain
 pnpm build
 pnpm test
+pnpm verify:foundation
+pnpm verify:learning
 pnpm test:distribution
 pnpm verify:release
 git diff --check
