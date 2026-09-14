@@ -391,6 +391,49 @@ function isRfc3339(value: unknown): value is string {
     && Number.isFinite(Date.parse(value));
 }
 
+function sameKeys(value: Record<string, unknown>, expected: string[]): boolean {
+  return JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
+}
+
+function validatePredictionSet(value: unknown, packetDigest: string, units: QualifiedContentDesignGoldSet["records"]): ContentDesignPredictionSet {
+  if (!record(value)) incomplete("predictions_envelope");
+  const predictions = value as unknown as ContentDesignPredictionSet;
+  if (predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
+    || predictions.packet_digest !== packetDigest
+    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
+    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
+    || predictions.label_access !== "blind_packet_only"
+    || predictions.authority_effect !== "none"
+    || !Number.isSafeInteger(predictions.prediction_count)
+    || predictions.prediction_count !== units.length
+    || !Array.isArray(predictions.predictions)
+    || predictions.predictions.length !== units.length) incomplete("predictions_envelope");
+  const { prediction_set_digest: predictionDigest, ...preimage } = predictions;
+  if (predictionDigest !== digest(preimage)) incomplete("predictions_digest");
+  const unitMap = new Map(units.map((unit) => [unit.work_unit_id, unit]));
+  const ids = new Set<string>();
+  for (const prediction of predictions.predictions) {
+    const unit = record(prediction) && nonempty(prediction.work_unit_id) ? unitMap.get(prediction.work_unit_id) : undefined;
+    if (unit === undefined || ids.has(prediction.work_unit_id)) incomplete("prediction_coverage");
+    ids.add(prediction.work_unit_id);
+    if (!DISPOSITIONS.includes(prediction.disposition as Disposition)
+      || prediction.evaluator_version !== predictions.evaluator_version
+      || prediction.authority_effect !== "none"
+      || !record(prediction.hard_dimension_results)
+      || !sameKeys(prediction.hard_dimension_results, unit.rubric.hard_dimensions)
+      || Object.values(prediction.hard_dimension_results).some((result) => !HARD_RESULTS.includes(result as HardResult))
+      || !record(prediction.quality_dimension_scores)
+      || !sameKeys(prediction.quality_dimension_scores, unit.rubric.quality_dimensions)
+      || Object.values(prediction.quality_dimension_scores).some((score) => score !== null && (!Number.isInteger(score) || Number(score) < 1 || Number(score) > 5))
+      || !stringArray(prediction.rationale_codes)) incomplete(`prediction_shape:${prediction.work_unit_id}`);
+    if (prediction.disposition === "pass"
+      && Object.values(prediction.hard_dimension_results).some((result) => result !== "pass" && result !== "not_applicable")) {
+      incomplete(`prediction_pass_unresolved:${prediction.work_unit_id}`);
+    }
+  }
+  return predictions;
+}
+
 function validateCompletedResponse(unit: ReviewWorkUnit, response: CompletedReviewResponse): void {
   if (response.work_unit_id !== unit.work_unit_id || !DISPOSITIONS.includes(response.disposition)) incomplete(`${unit.work_unit_id}:disposition`);
   if (response.hard_dimension_results === null || typeof response.hard_dimension_results !== "object") incomplete(`${unit.work_unit_id}:hard_dimensions`);
@@ -511,15 +554,11 @@ function dispositionConfusion(records: JoinedRecord[]): Record<Disposition, Reco
 
 export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue: unknown): ContentDesignEvaluationReport {
   const gold = goldValue as QualifiedContentDesignGoldSet;
-  const predictions = predictionValue as ContentDesignPredictionSet;
   if (gold?.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
-    || predictions?.contract_version !== "contentmd.content-design-predictions/0.1.0"
-    || predictions.packet_digest !== gold.packet_ref?.packet_digest
-    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
-    || predictions.authority_effect !== "none"
-    || !Array.isArray(gold.records) || !Array.isArray(predictions.predictions)) incomplete("score_envelope");
+    || !Array.isArray(gold.records)) incomplete("score_envelope");
   const { gold_set_digest: goldDigest, ...goldPreimage } = gold;
   if (goldDigest !== digest(goldPreimage)) incomplete("gold_digest");
+  const predictions = validatePredictionSet(predictionValue, gold.packet_ref.packet_digest, gold.records);
   const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
   if (predictionMap.size !== gold.records.length) incomplete("prediction_coverage");
   const joined = gold.records.map((unit) => {

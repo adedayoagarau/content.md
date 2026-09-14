@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -26,6 +27,27 @@ function completedFixture() {
   return { packet, submission };
 }
 
+function predictionSet(packet, records, predictionFor) {
+  const predictions = records.map((record) => ({
+    work_unit_id: record.work_unit_id,
+    ...predictionFor(record),
+    rationale_codes: ["test_fixture_judgment"],
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    authority_effect: "none",
+  }));
+  const preimage = {
+    contract_version: "contentmd.content-design-predictions/0.1.0",
+    packet_digest: packet.packet_digest,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    prediction_count: predictions.length,
+    predictions,
+    evaluation_status: "unscored_pending_qualified_gold",
+    label_access: "blind_packet_only",
+    authority_effect: "none",
+  };
+  return { ...preimage, prediction_set_digest: createHash("sha256").update(JSON.stringify(preimage)).digest("hex") };
+}
+
 test("rejects incomplete review rather than creating synthetic gold", () => {
   const packet = prepareReviewSample(generateScenarios());
   const submission = createReviewSubmissionTemplate(packet);
@@ -51,18 +73,11 @@ test("qualifies a complete review for benchmarking only", () => {
 test("scores exact agreement and reports every required slice", () => {
   const { packet, submission } = completedFixture();
   const gold = qualifyReviewSubmission(packet, submission);
-  const predictions = {
-    contract_version: "contentmd.content-design-predictions/0.1.0",
-    packet_digest: packet.packet_digest,
-    evaluation_status: "unscored_pending_qualified_gold",
-    predictions: gold.records.map((record) => ({
-      work_unit_id: record.work_unit_id,
+  const predictions = predictionSet(packet, gold.records, (record) => ({
       disposition: record.human_gold.disposition,
       hard_dimension_results: record.human_gold.hard_dimension_results,
       quality_dimension_scores: record.human_gold.quality_dimension_scores,
-    })),
-    authority_effect: "none",
-  };
+  }));
   const report = scoreContentDesignPredictions(gold, predictions);
   assert.equal(report.overall.disposition_exact_agreement, 1);
   assert.equal(report.overall.hard_dimension_accuracy, 1);
@@ -75,6 +90,9 @@ test("scores exact agreement and reports every required slice", () => {
   for (const key of ["by_ability", "by_risk", "by_surface", "by_locale", "by_voice", "by_tone"]) {
     assert.ok(Object.keys(report[key]).length > 1);
   }
+  const altered = structuredClone(predictions);
+  altered.predictions[0].disposition = "revise";
+  assert.throws(() => scoreContentDesignPredictions(gold, altered), /predictions_digest/);
 });
 
 test("reports safety and routing failures without converting diagnostics into authority", () => {
@@ -86,18 +104,11 @@ test("reports safety and routing failures without converting diagnostics into au
   submission.responses[1].disposition = "abstain";
   submission.responses[2].disposition = "escalate";
   const gold = qualifyReviewSubmission(packet, submission);
-  const predictions = {
-    contract_version: "contentmd.content-design-predictions/0.1.0",
-    packet_digest: packet.packet_digest,
-    evaluation_status: "unscored_pending_qualified_gold",
-    predictions: gold.records.map((record) => ({
-      work_unit_id: record.work_unit_id,
+  const predictions = predictionSet(packet, gold.records, (record) => ({
       disposition: "pass",
       hard_dimension_results: Object.fromEntries(record.rubric.hard_dimensions.map((dimension) => [dimension, "pass"])),
       quality_dimension_scores: Object.fromEntries(record.rubric.quality_dimensions.map((dimension) => [dimension, 4])),
-    })),
-    authority_effect: "none",
-  };
+  }));
   const diagnostics = scoreContentDesignPredictions(gold, predictions).release_threshold_diagnostics;
   assert.equal(diagnostics.critical_false_acceptance_count, 1);
   assert.equal(diagnostics.abstention_recall, 0);

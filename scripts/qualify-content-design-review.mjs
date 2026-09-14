@@ -24,6 +24,48 @@ function isRfc3339(value) {
     && Number.isFinite(Date.parse(value));
 }
 
+function sameKeys(value, expected) {
+  return value !== null && typeof value === "object" && !Array.isArray(value)
+    && JSON.stringify(Object.keys(value).sort()) === JSON.stringify([...expected].sort());
+}
+
+function validatePredictionSet(predictions, packetDigest, units) {
+  if (predictions === null || typeof predictions !== "object"
+    || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
+    || predictions.packet_digest !== packetDigest
+    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
+    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
+    || predictions.label_access !== "blind_packet_only"
+    || predictions.authority_effect !== "none"
+    || !Number.isSafeInteger(predictions.prediction_count)
+    || predictions.prediction_count !== units.length
+    || !Array.isArray(predictions.predictions)
+    || predictions.predictions.length !== units.length) invalid("predictions_envelope");
+  const { prediction_set_digest: predictionDigest, ...preimage } = predictions;
+  if (predictionDigest !== digest(preimage)) invalid("predictions_digest");
+  const unitMap = new Map(units.map((unit) => [unit.work_unit_id, unit]));
+  const ids = new Set();
+  for (const prediction of predictions.predictions) {
+    const unit = prediction !== null && typeof prediction === "object" ? unitMap.get(prediction.work_unit_id) : undefined;
+    if (unit === undefined || ids.has(prediction.work_unit_id)) invalid("predictions_coverage");
+    ids.add(prediction.work_unit_id);
+    if (!DISPOSITIONS.includes(prediction.disposition)
+      || prediction.evaluator_version !== predictions.evaluator_version
+      || prediction.authority_effect !== "none"
+      || !sameKeys(prediction.hard_dimension_results, unit.rubric.hard_dimensions)
+      || Object.values(prediction.hard_dimension_results).some((result) => !HARD_RESULTS.includes(result))
+      || !sameKeys(prediction.quality_dimension_scores, unit.rubric.quality_dimensions)
+      || Object.values(prediction.quality_dimension_scores).some((score) => score !== null && (!Number.isInteger(score) || score < 1 || score > 5))
+      || !Array.isArray(prediction.rationale_codes) || prediction.rationale_codes.length === 0
+      || prediction.rationale_codes.some((code) => typeof code !== "string" || code.trim().length === 0)) invalid(`prediction_shape:${prediction.work_unit_id}`);
+    if (prediction.disposition === "pass"
+      && Object.values(prediction.hard_dimension_results).some((result) => result !== "pass" && result !== "not_applicable")) {
+      invalid(`prediction_pass_unresolved:${prediction.work_unit_id}`);
+    }
+  }
+  return predictions;
+}
+
 export function createReviewSubmissionTemplate(packet) {
   validateReviewSample(packet);
   return {
@@ -176,11 +218,8 @@ function dispositionConfusion(records) {
 
 export function scoreContentDesignPredictions(goldSet, predictions) {
   if (goldSet.contract_version !== "contentmd.content-design-qualified-gold-set/0.1.0"
-    || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
-    || predictions.packet_digest !== goldSet.packet_ref.packet_digest
-    || predictions.evaluation_status !== "unscored_pending_qualified_gold"
-    || predictions.authority_effect !== "none"
-    || !Array.isArray(predictions.predictions)) invalid("predictions_envelope");
+    || !Array.isArray(goldSet.records)) invalid("predictions_envelope");
+  predictions = validatePredictionSet(predictions, goldSet.packet_ref.packet_digest, goldSet.records);
   const predictionMap = new Map(predictions.predictions.map((prediction) => [prediction.work_unit_id, prediction]));
   if (predictionMap.size !== goldSet.records.length) invalid("predictions_coverage");
   const joined = goldSet.records.map((unit) => {
@@ -193,7 +232,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
     contract_version: "contentmd.content-design-evaluation-report/0.2.0",
     gold_set_digest: goldSet.gold_set_digest,
     packet_digest: predictions.packet_digest,
-    prediction_set_digest: digest(predictions),
+    prediction_set_digest: predictions.prediction_set_digest,
     overall: metric(joined),
     by_ability: slice((unit) => unit.ability.id),
     by_risk: slice((unit) => unit.context.risk),

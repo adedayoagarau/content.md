@@ -15,9 +15,10 @@ import {
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 
-function redigest(packet: Record<string, unknown>): void {
-  const { packet_digest: _packetDigest, ...preimage } = packet;
-  packet.packet_digest = createHash("sha256").update(JSON.stringify(preimage)).digest("hex");
+function redigest(value: Record<string, unknown>, digestField = "packet_digest"): void {
+  const preimage = structuredClone(value);
+  delete preimage[digestField];
+  value[digestField] = createHash("sha256").update(JSON.stringify(preimage)).digest("hex");
 }
 
 describe("content-design benchmark", () => {
@@ -111,5 +112,15 @@ describe("content-design benchmark", () => {
     expect(report.release_threshold_diagnostics.benchmark_claim_eligibility).toBe(false);
     expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
     expect(report.authority_effect).toBe("none");
+
+    const altered = structuredClone(predictContentDesignBenchmark(packet)) as unknown as Record<string, unknown> & { predictions: Array<Record<string, unknown>> };
+    const reviseIndex = altered.predictions.findIndex((prediction) => prediction.disposition === "revise");
+    expect(reviseIndex).toBeGreaterThanOrEqual(0);
+    altered.predictions[reviseIndex].disposition = "pass";
+    expect(() => scoreContentDesignBenchmark(gold, altered)).toThrow("qualification_review_incomplete:content_design:predictions_digest");
+
+    const redigested = structuredClone(altered);
+    redigest(redigested, "prediction_set_digest");
+    expect(() => scoreContentDesignBenchmark(gold, redigested)).toThrow(/prediction_pass_unresolved|prediction_shape/);
   });
 });
