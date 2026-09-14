@@ -23,4 +23,15 @@ describe("contentmd benchmark content-design", () => {
     expect(result.prediction_count).toBe(100);
     expect(result.evaluation_status).toBe("unscored_pending_qualified_gold");
   });
+
+  it("creates an incomplete independent-review template", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-review-cli-"));
+    temporary.push(directory);
+    const output = join(directory, "review.json");
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--review-template", output]);
+    const result = JSON.parse(await readFile(output, "utf8"));
+    expect(result.responses).toHaveLength(100);
+    expect(result.submission_state).toBe("incomplete");
+    expect(result.authority_effect).toBe("none");
+  });
 });

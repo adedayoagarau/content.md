@@ -19,6 +19,10 @@ interface ReviewWorkUnit {
     tone: string;
     localization_status: string;
   };
+  rubric: {
+    hard_dimensions: string[];
+    quality_dimensions: string[];
+  };
 }
 
 interface BlindReviewPacket {
@@ -49,6 +53,29 @@ export interface ContentDesignPredictionSet {
   label_access: "blind_packet_only";
   authority_effect: "none";
   prediction_set_digest: string;
+}
+
+export interface ContentDesignReviewSubmissionTemplate {
+  contract_version: "contentmd.content-design-review-submission/0.1.0";
+  packet_ref: { packet_digest: string; sample_count: number };
+  reviewer: {
+    reviewer_id: null;
+    reviewer_role: "qualified_content_designer";
+    reviewed_at: null;
+    independent_review_attested: false;
+  };
+  responses: Array<{
+    work_unit_id: string;
+    disposition: null;
+    hard_dimension_results: Record<string, null>;
+    quality_dimension_scores: Record<string, null>;
+    rationale: null;
+    acceptable_meaning_invariants: null;
+    recommended_revision: null;
+    review_evidence_refs: null;
+  }>;
+  submission_state: "incomplete";
+  authority_effect: "none";
 }
 
 function digest(value: unknown): string {
@@ -141,9 +168,42 @@ export function predictContentDesignBenchmark(packetValue: unknown): ContentDesi
   return { ...preimage, prediction_set_digest: digest(preimage) };
 }
 
+export function createContentDesignReviewSubmissionTemplate(packetValue: unknown): ContentDesignReviewSubmissionTemplate {
+  const packet = validatePacket(packetValue);
+  return {
+    contract_version: "contentmd.content-design-review-submission/0.1.0",
+    packet_ref: { packet_digest: packet.packet_digest, sample_count: packet.sample_count },
+    reviewer: {
+      reviewer_id: null,
+      reviewer_role: "qualified_content_designer",
+      reviewed_at: null,
+      independent_review_attested: false,
+    },
+    responses: packet.review_work_units.map((unit) => ({
+      work_unit_id: unit.work_unit_id,
+      disposition: null,
+      hard_dimension_results: Object.fromEntries(unit.rubric.hard_dimensions.map((dimension) => [dimension, null])),
+      quality_dimension_scores: Object.fromEntries(unit.rubric.quality_dimensions.map((dimension) => [dimension, null])),
+      rationale: null,
+      acceptable_meaning_invariants: null,
+      recommended_revision: null,
+      review_evidence_refs: null,
+    })),
+    submission_state: "incomplete",
+    authority_effect: "none",
+  };
+}
+
 export async function predictLocalContentDesignBenchmark(inputPath: string, outputPath?: string): Promise<ContentDesignPredictionSet> {
   const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
   const result = predictContentDesignBenchmark(packet);
   if (outputPath !== undefined) await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  return result;
+}
+
+export async function createLocalContentDesignReviewSubmissionTemplate(inputPath: string, outputPath: string): Promise<ContentDesignReviewSubmissionTemplate> {
+  const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
+  const result = createContentDesignReviewSubmissionTemplate(packet);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
 }

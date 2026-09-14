@@ -91,6 +91,14 @@ The command refuses to overwrite its output and reports predictions as
 `unscored_pending_qualified_gold`. It does not read generator labels, create
 gold, or make the results eligible for learning.
 
+Create the separate response template for an independent reviewer:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --review-template reviewer-response.json
+```
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command
