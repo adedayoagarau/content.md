@@ -29,6 +29,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Gate | Outcome |
 | --- | --- |
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
+| Clean committed checkout | frozen offline install reused 78/78 packages with zero downloads; source build, 87 committed native tests, complete 10,000-scenario benchmark, and packed journey passed |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
