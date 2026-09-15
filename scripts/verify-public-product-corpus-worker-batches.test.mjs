@@ -1,14 +1,32 @@
 import assert from "node:assert/strict";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
 
 import { planPublicProductCorpusExpansion } from "./plan-public-product-corpus-expansion.mjs";
 import { partitionPublicProductCorpusWorkers } from "./partition-public-product-corpus-workers.mjs";
 import {
   finalizePublicProductBlockedAttempt,
+  finalizePublicProductUnavailableAttempt,
   parseArguments,
+  readJsonLines,
+  unwrapWorkerPlan,
   verifyPublicProductCorpusWorkerAssignment,
   verifyPublicProductCorpusWorkerBatches,
 } from "./verify-public-product-corpus-worker-batches.mjs";
+
+test("loads an empty evidence file only when the caller permits it", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "contentmd-empty-worker-evidence-"));
+  const file = path.join(root, "sources.jsonl");
+  await writeFile(file, "");
+  try {
+    await assert.rejects(() => readJsonLines(file), /batch_file/u);
+    assert.deepEqual(await readJsonLines(file, { allowEmpty: true }), []);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
 
 function workerPlanFixture() {
   const sources = [
@@ -63,7 +81,13 @@ function completedBatches(workerPlan) {
       company: task.company,
       product_system: task.product_system,
     }));
-    return { batch_name: assignment.batch_name, sources, observations, blocked_attempts: [] };
+    return {
+      batch_name: assignment.batch_name,
+      sources,
+      observations,
+      blocked_attempts: [],
+      unavailable_attempts: [],
+    };
   });
 }
 
@@ -78,6 +102,29 @@ function blockedAttempt(workerPlan, assignment, task) {
     attempted_at: "2026-08-24T12:00:00Z",
     block_class: "site_access_block",
     detail: "Public site rejected automated access; no bypass attempted.",
+    bypass_attempted: false,
+    retained_as_product_evidence: false,
+    authority_effect: "none",
+    prompt_eligibility: "never",
+    training_eligibility: "never",
+    benchmark_eligibility: false,
+  });
+}
+
+function unavailableAttempt(workerPlan, assignment, task) {
+  return finalizePublicProductUnavailableAttempt({
+    source_worker_plan_digest: workerPlan.plan_digest,
+    batch_name: assignment.batch_name,
+    worker_id: assignment.worker_id,
+    company: task.company,
+    product_system: task.product_system,
+    source_url: "https://unavailable.example/",
+    attempted_at: "2026-08-24T12:00:00Z",
+    retry_count: 2,
+    profile_isolation_status: "established_fresh_per_attempt",
+    disposition_class: "no_visible_public_ui",
+    observed_state: "not_observed",
+    detail: "Two isolated public renders exposed no qualifying visible UI; no content was retained.",
     bypass_attempted: false,
     retained_as_product_evidence: false,
     authority_effect: "none",
@@ -190,6 +237,41 @@ test("accepts a digest-bound blocked attempt for ownership completion without ev
   assert.equal(report.aggregate_corpus_verification_required, true);
 });
 
+test("accepts a retry-backed unavailable disposition without evidence or block credit", () => {
+  const workerPlan = workerPlanFixture();
+  const batches = completedBatches(workerPlan);
+  const assignment = workerPlan.assignments[0];
+  const task = assignment.tasks[0];
+  batches[0].sources.shift();
+  batches[0].observations.shift();
+  batches[0].unavailable_attempts.push(unavailableAttempt(workerPlan, assignment, task));
+
+  const report = verifyPublicProductCorpusWorkerBatches({ workerPlan, batches });
+  assert.equal(report.status, "pass");
+  assert.equal(report.counts.completed_tasks, 2);
+  assert.equal(report.counts.blocked_tasks, 0);
+  assert.equal(report.counts.unavailable_tasks, 1);
+  assert.equal(report.counts.incomplete_tasks, 0);
+});
+
+test("rejects unavailable dispositions without two isolated attempts", () => {
+  const workerPlan = workerPlanFixture();
+  const batches = completedBatches(workerPlan);
+  const assignment = workerPlan.assignments[0];
+  const task = assignment.tasks[0];
+  batches[0].sources.shift();
+  batches[0].observations.shift();
+  const attempt = structuredClone(unavailableAttempt(workerPlan, assignment, task));
+  attempt.retry_count = 1;
+  batches[0].unavailable_attempts.push(attempt);
+
+  const report = verifyPublicProductCorpusWorkerBatches({ workerPlan, batches });
+  assert.equal(report.status, "fail");
+  assert.equal(report.counts.unavailable_tasks, 0);
+  assert.ok(report.errors.some((error) => error.code === "unavailable_attempt_policy"));
+  assert.ok(report.errors.some((error) => error.code === "incomplete_task"));
+});
+
 test("rejects a tampered or authority-enlarging blocked attempt and leaves its task incomplete", () => {
   const workerPlan = workerPlanFixture();
   const batches = completedBatches(workerPlan);
@@ -252,4 +334,11 @@ test("parses a coordinator-owned single-assignment verification invocation", () 
     planFile: "worker-plan.json",
     assignmentId: "corpus-worker-01",
   });
+});
+
+test("unwraps both corpus and discovery worker-plan envelopes", () => {
+  const plan = workerPlanFixture();
+  assert.equal(unwrapWorkerPlan({ worker_plan: plan }), plan);
+  assert.equal(unwrapWorkerPlan({ discovery_worker_plan: plan }), plan);
+  assert.equal(unwrapWorkerPlan(plan), plan);
 });
