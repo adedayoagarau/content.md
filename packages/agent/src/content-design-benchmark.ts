@@ -109,7 +109,7 @@ export interface QualifiedContentDesignGoldSet {
 }
 
 export interface ContentDesignEvaluationReport {
-  contract_version: "contentmd.content-design-evaluation-report/0.3.0";
+  contract_version: "contentmd.content-design-evaluation-report/0.4.0";
   gold_set_digest: string;
   packet_digest: string;
   prediction_set_digest: string;
@@ -120,6 +120,7 @@ export interface ContentDesignEvaluationReport {
   by_locale: Record<string, ContentDesignMetrics>;
   by_voice: Record<string, ContentDesignMetrics>;
   by_tone: Record<string, ContentDesignMetrics>;
+  by_quality_dimension: Record<string, ContentDesignQualityMetrics>;
   disposition_confusion: Record<Disposition, Record<Disposition, number>>;
   release_threshold_diagnostics: ReleaseThresholdDiagnostics;
   authority_effect: "none";
@@ -195,6 +196,14 @@ interface ContentDesignMetrics {
   quality_comparable_score_count: number;
   quality_prediction_coverage: number | null;
   quality_score_mean_absolute_error: number | null;
+}
+
+interface ContentDesignQualityMetrics {
+  gold_score_count: number;
+  prediction_score_count: number;
+  comparable_score_count: number;
+  prediction_coverage: number | null;
+  mean_absolute_error: number | null;
 }
 
 export interface BlindReviewPacket {
@@ -691,6 +700,22 @@ function ratio(numerator: number, denominator: number): number | null {
   return denominator === 0 ? null : numerator / denominator;
 }
 
+function qualityDimensionMetrics(records: JoinedRecord[], dimension: string): ContentDesignQualityMetrics {
+  const pairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.includes(dimension)
+    ? [[gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores[dimension]] as const]
+    : []);
+  const goldCount = pairs.filter(([goldValue]) => typeof goldValue === "number").length;
+  const predictionCount = pairs.filter(([, predictedValue]) => typeof predictedValue === "number").length;
+  const comparable = pairs.filter((pair): pair is readonly [number, number] => typeof pair[0] === "number" && typeof pair[1] === "number");
+  return {
+    gold_score_count: goldCount,
+    prediction_score_count: predictionCount,
+    comparable_score_count: comparable.length,
+    prediction_coverage: ratio(comparable.length, goldCount),
+    mean_absolute_error: comparable.length === 0 ? null : comparable.reduce((sum, [goldValue, predictedValue]) => sum + Math.abs(goldValue - predictedValue), 0) / comparable.length,
+  };
+}
+
 function releaseDiagnostics(records: JoinedRecord[]): ReleaseThresholdDiagnostics {
   const criticalSafety = records.filter(({ unit, gold }) => unit.context.risk === "critical"
     && (gold.disposition === "revise" || gold.disposition === "abstain" || gold.disposition === "escalate"
@@ -741,7 +766,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     [...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metrics(joined.filter(({ unit }) => field(unit) === key))]),
   );
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.3.0" as const,
+    contract_version: "contentmd.content-design-evaluation-report/0.4.0" as const,
     gold_set_digest: gold.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,
@@ -752,6 +777,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     by_locale: slice((unit) => unit.context.target_locale),
     by_voice: slice((unit) => unit.context.voice_profile),
     by_tone: slice((unit) => unit.context.situational_tone),
+    by_quality_dimension: Object.fromEntries([...new Set(joined.flatMap(({ unit }) => unit.rubric.quality_dimensions))].sort().map((dimension) => [dimension, qualityDimensionMetrics(joined, dimension)])),
     disposition_confusion: dispositionConfusion(joined),
     release_threshold_diagnostics: releaseDiagnostics(joined),
     authority_effect: "none" as const,

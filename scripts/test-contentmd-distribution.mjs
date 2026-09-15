@@ -201,10 +201,12 @@ const benchmarkEvaluation = JSON.parse(run(process.execPath, [installedEntry, "b
   "--report-out", benchmarkEvaluationPath, "--json"], consumer));
 if (
   benchmarkEvaluation.command_id !== "benchmark.content-design.score"
-  || benchmarkEvaluation.data?.contract_version !== "contentmd.content-design-evaluation-report/0.3.0"
+  || benchmarkEvaluation.data?.contract_version !== "contentmd.content-design-evaluation-report/0.4.0"
   || benchmarkEvaluation.data?.overall?.quality_gold_score_count !== 800
   || benchmarkEvaluation.data?.overall?.quality_comparable_score_count >= 800
   || !(benchmarkEvaluation.data?.overall?.quality_prediction_coverage < 1)
+  || !(benchmarkEvaluation.data?.by_quality_dimension?.accessibility_readiness?.prediction_coverage < 1)
+  || benchmarkEvaluation.data?.by_quality_dimension?.clarity?.prediction_coverage !== 1
 ) throw new Error("installed package did not expose missing quality-score coverage");
 const benchmarkCalibration = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
   "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--compare-gold", benchmarkGoldBPath,
