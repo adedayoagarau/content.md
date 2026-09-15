@@ -55,6 +55,22 @@ The packet includes one scenario for every ability-by-candidate-variant cell.
 It omits injected defects and provisional generator expectations. Reviewers
 should work only from the packet, not from `scenarios.jsonl`.
 
+After the 100-item smoke calibration is operational, create the deterministic
+500-item calibration cohort with:
+
+```bash
+npm run prepare:content-design-calibration
+```
+
+This cohort includes five distinct contexts for every
+ability-by-candidate-variant cell. Within each ability it covers all ten
+situations, surfaces, and target locales. Its committed packet digest is
+`0700ba4c6b252c3cec3459e134381dc571459d0682143981d577442d84683e5a`.
+It remains blinded, synthetic, unreviewed, and ineligible for retrieval or
+training. The 100-item packet is the lower-cost workflow check; the 500-item
+cohort is the stronger human-calibration instrument, not a substitute for a
+separate held-out evaluation set.
+
 Use `createReviewSubmissionTemplate()` from
 `scripts/qualify-content-design-review.mjs` to create a separate response file.
 The packet itself remains immutable. Qualification requires every response, a

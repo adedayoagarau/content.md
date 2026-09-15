@@ -86,6 +86,32 @@ export function prepareReviewSample(scenarios) {
   return packetFor(workUnits, "deterministic_stratified_ability_by_candidate_variant");
 }
 
+export function prepareCalibrationCohort(scenarios) {
+  const abilities = sortedUnique(scenarios.map((scenario) => scenario.ability.id));
+  const variants = sortedUnique(scenarios.map((scenario) => scenario.candidate.variant));
+  const workUnits = [];
+  for (const [abilityIndex, ability] of abilities.entries()) {
+    for (const [variantIndex, variant] of variants.entries()) {
+      const candidates = scenarios
+        .filter((scenario) => scenario.ability.id === ability && scenario.candidate.variant === variant)
+        .sort((left, right) => left.scenario_id.localeCompare(right.scenario_id));
+      if (candidates.length !== 100) {
+        throw new Error(`content_design_calibration_missing:${ability}:${variant}`);
+      }
+      for (let cohortSlot = 0; cohortSlot < 5; cohortSlot += 1) {
+        const matrixIndex = (cohortSlot * 21 + abilityIndex * 7 + variantIndex * 3) % candidates.length;
+        const scenario = candidates[matrixIndex];
+        workUnits.push(workUnitFor(scenario, {
+          ability_id: ability,
+          candidate_variant_slot: variantIndex + 1,
+          calibration_context_slot: cohortSlot + 1,
+        }));
+      }
+    }
+  }
+  return packetFor(workUnits, "deterministic_stratified_ability_by_candidate_variant_five_contexts");
+}
+
 export function prepareFullBenchmarkPacket(scenarios) {
   return packetFor(scenarios.map((scenario, index) => workUnitFor(scenario, {
     ability_id: scenario.ability.id,
@@ -123,14 +149,43 @@ export function validateReviewSample(packet) {
   return packet;
 }
 
+export function validateCalibrationCohort(packet) {
+  validateBlindPacket(packet, 500);
+  const cells = new Set(packet.review_work_units.map((unit) => [
+    unit.sampling_cell.ability_id,
+    unit.sampling_cell.candidate_variant_slot,
+    unit.sampling_cell.calibration_context_slot,
+  ].join("\u0000")));
+  if (cells.size !== 500) throw new Error("content_design_review_packet_invalid:calibration_stratification");
+  const abilityIds = sortedUnique(packet.review_work_units.map((unit) => unit.ability.id));
+  for (const abilityId of abilityIds) {
+    const units = packet.review_work_units.filter((unit) => unit.ability.id === abilityId);
+    for (const field of ["situation", "surface", "target_locale"]) {
+      if (new Set(units.map((unit) => unit.context[field])).size !== 10) {
+        throw new Error(`content_design_review_packet_invalid:calibration_${field}_coverage`);
+      }
+    }
+  }
+  return packet;
+}
+
 async function main() {
   const inputIndex = process.argv.indexOf("--input");
   const outputIndex = process.argv.indexOf("--out");
+  const calibrationOutputIndex = process.argv.indexOf("--calibration-out");
   const input = inputIndex >= 0 ? process.argv[inputIndex + 1] : defaultInput;
-  const output = outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
+  if (outputIndex >= 0 && calibrationOutputIndex >= 0) {
+    throw new Error("content_design_review_packet_invalid:choose_out_or_calibration_out");
+  }
+  const calibration = calibrationOutputIndex >= 0;
+  const output = calibration
+    ? process.argv[calibrationOutputIndex + 1]
+    : outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
   if (input === undefined || output === undefined) throw new Error("content_design_review_packet_invalid:arguments");
   const scenarios = (await readFile(input, "utf8")).trim().split("\n").map((line) => JSON.parse(line));
-  const packet = validateReviewSample(prepareReviewSample(scenarios));
+  const packet = calibration
+    ? validateCalibrationCohort(prepareCalibrationCohort(scenarios))
+    : validateReviewSample(prepareReviewSample(scenarios));
   await writeFile(output, `${JSON.stringify(packet, null, 2)}\n`);
   console.log(JSON.stringify({ output, sample_count: packet.sample_count, packet_digest: packet.packet_digest }, null, 2));
 }

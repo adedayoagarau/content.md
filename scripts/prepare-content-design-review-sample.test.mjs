@@ -1,8 +1,16 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { generateScenarios } from "./generate-content-design-evaluation-scenarios.mjs";
-import { prepareFullBenchmarkPacket, prepareReviewSample, validateBlindPacket, validateReviewSample } from "./prepare-content-design-review-sample.mjs";
+import {
+  prepareCalibrationCohort,
+  prepareFullBenchmarkPacket,
+  prepareReviewSample,
+  validateBlindPacket,
+  validateCalibrationCohort,
+  validateReviewSample,
+} from "./prepare-content-design-review-sample.mjs";
 
 test("creates a replay-stable blinded 100-cell review packet", () => {
   const first = prepareReviewSample(generateScenarios());
@@ -50,4 +58,34 @@ test("creates a fully blinded packet for all 10,000 scenarios", () => {
     assert.equal(Object.hasOwn(unit, "evaluation_control"), false);
     assert.equal(Object.hasOwn(unit, "provisional_expectation"), false);
   }
+});
+
+test("creates a replay-stable 500-item calibration cohort with five contexts per cell", () => {
+  const first = prepareCalibrationCohort(generateScenarios());
+  const second = prepareCalibrationCohort(generateScenarios());
+  assert.deepEqual(first, second);
+  assert.equal(validateCalibrationCohort(first), first);
+  assert.equal(first.sample_count, 500);
+  assert.equal(new Set(first.review_work_units.map((unit) => unit.scenario_ref.scenario_id)).size, 500);
+  assert.equal(new Set(first.review_work_units.map((unit) => [
+    unit.sampling_cell.ability_id,
+    unit.sampling_cell.candidate_variant_slot,
+    unit.sampling_cell.calibration_context_slot,
+  ].join(":"))).size, 500);
+  for (const ability of new Set(first.review_work_units.map((unit) => unit.ability.id))) {
+    const units = first.review_work_units.filter((unit) => unit.ability.id === ability);
+    assert.equal(units.length, 50);
+    assert.equal(new Set(units.map((unit) => unit.context.situation)).size, 10);
+    assert.equal(new Set(units.map((unit) => unit.context.surface)).size, 10);
+    assert.equal(new Set(units.map((unit) => unit.context.target_locale)).size, 10);
+  }
+});
+
+test("keeps the committed 500-item calibration cohort in generator parity", async () => {
+  const committed = JSON.parse(await readFile(
+    "docs/tests/fixtures/content-design-scenarios/calibration-cohort-500.json",
+    "utf8",
+  ));
+  assert.deepEqual(committed, prepareCalibrationCohort(generateScenarios()));
+  assert.equal(validateCalibrationCohort(committed), committed);
 });

@@ -137,6 +137,13 @@ The scenarios are deliberately ineligible for retrieval, gold-set learning, or
 fine-tuning until independent review records a qualified disposition and
 meaning-based rationale.
 
+The deterministic 500-item calibration cohort selects five distinct contexts
+for every ability-by-candidate-variant cell and covers all ten situations,
+surfaces, and target locales within every ability. Use it for independent human
+calibration only after the 100-item workflow packet is operational. Keep final
+effectiveness measurement on a separately frozen held-out set; reviewer
+agreement and repeated exposure to the calibration cohort are not test results.
+
 The packaged deterministic baseline has processed the complete blinded matrix;
 the reproducible result is recorded in the
 [10,000-scenario verification](verification/content-design-benchmark-10000.md).
