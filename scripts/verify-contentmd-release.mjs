@@ -19,6 +19,7 @@ for (const requiredFile of [
   "CONTRIBUTING.md",
   "docs/content-design-standard.md",
   "docs/public-api.md",
+  "docs/tests/fixtures/content-design-authored-challenges/README.md",
   "docs/verification/content-design-benchmark-10000.md",
   "docs/verification/open-source-security-0.1.md",
 ]) {
@@ -57,6 +58,7 @@ const requiredPublishGates = [
   "pnpm verify:foundation",
   "pnpm verify:learning",
   "pnpm verify:content-design-benchmark",
+  "pnpm verify:content-design-challenges",
   "pnpm test:distribution",
   "pnpm verify:security",
   "pnpm verify:release",

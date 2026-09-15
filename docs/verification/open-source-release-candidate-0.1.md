@@ -13,7 +13,10 @@ same cryptographically verified replay fixture; the workflow itself, authority
 handoffs, replay checks, and assertions remain complete. The foundation,
 governed-learning, content-design benchmark, distribution, security, and
 release gates had already passed locally against the same product files before
-that test-only consolidation. This record does not represent the current pull
+that test-only consolidation. The authored English challenge verifier is now a
+separate mandatory workflow gate; its integrity checks pass for the three
+committed challenge folders, but external model reviews remain pending and do
+not establish effectiveness. This record does not represent the current pull
 request CI as passed until its complete run reaches a successful conclusion.
 Unrelated dirty public-product research remains outside this verification
 scope.
@@ -58,7 +61,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
-| Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, distribution, and release-identity gates verified |
+| Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, distribution, and release-identity gates verified |
 | Pull-request verification | least-privilege CI runs the same complete non-publishing gate chain on pull requests and `main` pushes |
 | Generated README parity | passed |
 | Git whitespace check | passed |
@@ -139,6 +142,7 @@ pnpm test
 pnpm verify:foundation
 pnpm verify:learning
 pnpm verify:content-design-benchmark
+pnpm verify:content-design-challenges
 pnpm test:distribution
 pnpm verify:security
 pnpm verify:release
