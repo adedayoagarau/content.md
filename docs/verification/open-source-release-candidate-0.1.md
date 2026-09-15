@@ -10,9 +10,10 @@ The last exhaustive clean-checkout replay used commit
 `5fa0acb4cc0fbbd9707da2a7cdb3c331bcc1cb87`. Recovery evaluation was then
 expanded and verified at `4bc2849350151b2357f0312f51a8a6d928ec0acf`;
 the packed-artifact evidence was refreshed at
-`a6e4d51f22878f451cac7e0525b78b07cb139821`. The exact-commit release gate
-passed at `a6e4d51`; this record does not imply that the earlier exhaustive
-clean-checkout replay was rerun for the later commits.
+`a6e4d51f22878f451cac7e0525b78b07cb139821`. The reviewer handoff and public
+README were then consolidated and the packed journey replayed at
+`5cdf4754f7f7d3c02fdb418400a5ffbadc3394c2`. This record does not imply that the
+earlier exhaustive clean-checkout replay was rerun for the later commits.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
 
@@ -40,7 +41,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, packed journey including packet-bound scoring and two-reviewer calibration, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
-| Current packed checkpoint | commit `a6e4d51`; four-file tarball journey and exact-commit release dry-run passed under Node `24.19.0` |
+| Current packed checkpoint | commit `5cdf475`; four-file tarball journey passed under Node `24.19.0`; exact-commit release dry-run follows this evidence-only record update |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
@@ -70,8 +71,8 @@ substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2145686
-unpacked bytes: 13143653
+tarball bytes: 2145764
+unpacked bytes: 13143891
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -146,7 +147,7 @@ and do not overlap it with packaging or another learning verifier.
 ## Remaining external gates
 
 The recovery evaluator and refreshed release-candidate evidence are committed
-through `a6e4d51`; unrelated local public-product research remains outside those
+through `5cdf475`; unrelated local public-product research remains outside those
 commits. The remaining gates require external authority or evidence:
 
 1. Complete review of the final release commit. With explicit release authority,
