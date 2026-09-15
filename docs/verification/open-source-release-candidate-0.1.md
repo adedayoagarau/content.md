@@ -61,7 +61,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Heavy learning workflows | pairwise replay, sealed evaluation, ranking, drift, binding, shadow, snapshot transfer, CLI lifecycle, and Task 6 golden replay passed in isolated exact-runtime runs |
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
-| Authored English challenges | 4/4 integrity checks passed; all four content.md candidates remain unreviewed and both external reviews remain pending |
+| Authored English challenges | 5/5 integrity checks passed; all five content.md candidates remain unreviewed and both external reviews remain pending for each challenge |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
 | Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, distribution, and release-identity gates verified |

@@ -1,0 +1,69 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.authored-challenge.005-flight-cancellation-rebooking",
+  "target": {
+    "source_artifact": "scenario.json#current_content",
+    "line": 1,
+    "column": 1,
+    "text": "Good news! We found you another flight. Continue to see your updated trip. Continue Not now"
+  },
+  "facts": {
+    "evidence.present": true,
+    "actor.authority_known": true,
+    "agency.choice_required": true,
+    "agency.material_choice_present": false,
+    "state.outcome_evidence": "confirmed",
+    "recovery.retry_safe": true,
+    "recovery.required": true,
+    "recovery.available": false,
+    "control.present": true,
+    "control.state_known": true,
+    "navigation.destination_present": false,
+    "system.generated_or_hybrid": false,
+    "expression.invariants_preserved": false,
+    "expression.invariants_mapped": false,
+    "locale.specialist_review_required": false,
+    "locale.specialist_review_complete": false,
+    "governance.authority_effect": "none"
+  },
+  "evidence_refs": [
+    "scenario.005.product-state"
+  ],
+  "preserve": [
+    "Flight 207 was canceled.",
+    "The replacement is Flight 418 on September 19 at 10:20 AM.",
+    "Accepting the replacement adds no fare.",
+    "The checked bag transfers, but seat 12A does not.",
+    "The primary action accepts Flight 418 and opens seat selection.",
+    "The secondary action opens available-flight and refund choices without accepting Flight 418."
+  ],
+  "must_not_claim": [
+    "Flight 207 will operate as booked.",
+    "The traveler has already accepted Flight 418.",
+    "Seat 12A transfers to Flight 418.",
+    "The replacement requires an additional fare.",
+    "Opening other options automatically cancels Flight 418."
+  ],
+  "required_facts": [
+    "Flight 207 was canceled.",
+    "The replacement is Flight 418 on September 19 at 10:20 AM.",
+    "Accepting Flight 418 adds no fare.",
+    "The checked bag transfers and seat 12A does not.",
+    "Another flight and a refund remain available choices."
+  ],
+  "consequence": "Flight 207 is canceled; Flight 418 leaves September 19 at 10:20 AM at no extra fare, and the checked bag transfers but seat 12A does not.",
+  "recovery": "Accept Flight 418 and choose a seat, or open other options to choose another flight or request a refund.",
+  "channel": "mobile_disruption_card",
+  "locale": "en",
+  "acceptance_criteria": [
+    "Lead with the canceled state instead of cheerful replacement framing.",
+    "Name Flight 418 and its September 19 departure time.",
+    "State that accepting the replacement adds no fare.",
+    "Distinguish the transferred checked bag from the lost seat assignment.",
+    "Expose acceptance, seat selection, another flight, and refund choices.",
+    "Name both actions by their effects.",
+    "Stay within the declared field limits."
+  ],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

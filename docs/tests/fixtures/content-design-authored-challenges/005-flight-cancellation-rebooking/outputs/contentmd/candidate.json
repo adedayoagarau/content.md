@@ -1,0 +1,86 @@
+{
+  "contract_version": "contentmd.authored-challenge-candidate/0.1.0",
+  "scenario_id": "content-design.challenge.005-flight-cancellation-rebooking",
+  "generator": {
+    "system": "content.md",
+    "version": "0.1.0",
+    "execution_path": "repository_agent",
+    "host_system": "Codex",
+    "run_id": null
+  },
+  "candidate": {
+    "headline": "Flight 207 was canceled",
+    "body": "Flight 418 leaves September 19 at 10:20 AM at no extra cost. Your checked bag transfers; seat 12A doesn't. Accept and choose a seat, or view other flights and request a refund.",
+    "primary_button": "Accept, choose seat",
+    "secondary_button": "See other options"
+  },
+  "character_counts": {
+    "headline": 23,
+    "body": 176,
+    "primary_button": 19,
+    "secondary_button": 17
+  },
+  "meaning_map": [
+    {
+      "required_meaning": "Flight 207 was canceled.",
+      "expressed_in": [
+        "headline"
+      ],
+      "explanation": "The headline states the affected flight and canceled state before presenting the replacement."
+    },
+    {
+      "required_meaning": "The replacement is Flight 418 on September 19 at 10:20 AM.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The body identifies the replacement flight, date, and departure time."
+    },
+    {
+      "required_meaning": "Accepting the replacement adds no fare.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The phrase 'at no extra cost' preserves the established fare effect without promising other compensation."
+    },
+    {
+      "required_meaning": "The checked bag transfers, but seat 12A does not.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "One sentence contrasts the transferred bag with the lost seat assignment."
+    },
+    {
+      "required_meaning": "The primary action accepts Flight 418 and opens seat selection.",
+      "expressed_in": [
+        "body",
+        "primary_button"
+      ],
+      "explanation": "The body and primary label state both the acceptance and seat-selection effects."
+    },
+    {
+      "required_meaning": "The secondary action opens available-flight and refund choices without accepting Flight 418.",
+      "expressed_in": [
+        "body",
+        "secondary_button"
+      ],
+      "explanation": "The body names the available alternatives while 'See other options' signals navigation rather than automatic acceptance or cancellation."
+    }
+  ],
+  "rationale": {
+    "state_accuracy": "The headline states the cancellation first. The body then gives the exact replacement, departure time, fare effect, checked-bag transfer, and missing seat assignment.",
+    "actions": "Accept, choose seat names both effects of the primary action. See other options remains non-committal, while the preceding body names the other-flight and refund choices it opens.",
+    "hierarchy": "The content moves from the disruptive fact to the replacement details, then to travel effects and the choice between acceptance and alternatives.",
+    "voice_and_tone": "The wording is calm, direct, and helpful. It removes cheerful framing, vague labels, pressure, blame, and unsupported reassurance.",
+    "economy": "The candidate preserves six material meanings within four constrained fields, using the buttons to carry action detail instead of repeating every instruction in the body."
+  },
+  "unresolved_questions": [
+    "The scenario does not establish an acceptance deadline or refund-processing time, so the candidate does not state either."
+  ],
+  "self_check": {
+    "all_constraints_met": true,
+    "all_required_meanings_mapped": true,
+    "forbidden_claims_absent": true
+  },
+  "review_state": "unreviewed",
+  "authority_effect": "none"
+}
