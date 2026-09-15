@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   detectLocaleReference,
+  prepareEnglishDisagreementPilot,
   summarizeExternalReviewPairs,
   validateExternalReviewRecord,
 } from "./analyze-content-design-external-audit.mjs";
@@ -109,4 +110,72 @@ test("summarizes only English non-localization records for the usable slice", ()
   assert.equal(report.english_only.synthetic_control_agreement.cursor.agreement_count, 1);
   assert.equal(report.english_only.disposition_comparison_by_situation.email_situation.disagreement_count, 1);
   assert.equal(report.english_only.disposition_comparison_by_surface.email.disagreement_count, 1);
+});
+
+test("prepares a deterministic 100-item English disagreement pilot without regional fields", () => {
+  const variants = ["concise_calm", "warm_supportive", "plain_direct", "missing_consequence"];
+  const scenarios = [];
+  const claude = new Map();
+  const cursor = new Map();
+  for (const [variantIndex, variant] of variants.entries()) {
+    for (let item = 0; item < 45; item += 1) {
+      const ordinal = variantIndex * 45 + item + 1;
+      const id = `cdes-${String(ordinal).padStart(5, "0")}`;
+      const workUnitId = `review-${id}`;
+      scenarios.push({
+        scenario_id: id,
+        scenario_digest: String(ordinal).padStart(64, "0"),
+        ability: { id: `ability_${Math.floor(item / 5)}`, objective: "Review English expression" },
+        context: {
+          situation: `situation_${item % 10}`,
+          surface: `surface_${item % 10}`,
+          source_locale: "en-US",
+          target_locale: ["en-US", "en-GB", "en-IN"][item % 3],
+          direction: "ltr",
+          state: "A known product state",
+        },
+        candidate: {
+          variant,
+          text: `Candidate ${ordinal}`,
+          supporting_text: "Supporting content",
+        },
+        rubric: {
+          evaluation_order: ["accessibility_locale", "voice_tone_economy"],
+          hard_dimensions: Object.keys(hard),
+          quality_dimensions: Object.keys(quality),
+        },
+      });
+      claude.set(workUnitId, review(workUnitId));
+      cursor.set(workUnitId, review(workUnitId, {
+        disposition: "revise",
+        hard_dimension_results: { ...hard, semantic_fidelity: "fail" },
+      }));
+    }
+  }
+  const sourceEvidence = {
+    source_packet_digest: "a".repeat(64),
+    reviewer_submission_digests: { claude: "b".repeat(64), cursor: "c".repeat(64) },
+  };
+  const first = prepareEnglishDisagreementPilot(scenarios, { claude, cursor }, sourceEvidence);
+  const second = prepareEnglishDisagreementPilot(scenarios, { claude, cursor }, sourceEvidence);
+  assert.deepEqual(first, second);
+  assert.equal(first.packet.sample_count, 100);
+  assert.equal(first.selection_manifest.selected_count, 100);
+  assert.deepEqual(first.selection_manifest.variant_quotas, {
+    concise_calm: 25,
+    warm_supportive: 25,
+    plain_direct: 25,
+    missing_consequence: 25,
+  });
+  assert.equal(/locale|localization/iu.test(JSON.stringify(first.packet)), false);
+  assert.equal(first.packet.review_work_units.every((unit) => (
+    !Object.hasOwn(unit.context, "source_locale")
+    && !Object.hasOwn(unit.context, "target_locale")
+    && !Object.hasOwn(unit.candidate, "variant")
+  )), true);
+  const abilityCounts = Object.values(first.selection_manifest.selected_records.reduce((counts, record) => ({
+    ...counts,
+    [record.ability_id]: (counts[record.ability_id] ?? 0) + 1,
+  }), {}));
+  assert.ok(Math.max(...abilityCounts) - Math.min(...abilityCounts) <= 1);
 });

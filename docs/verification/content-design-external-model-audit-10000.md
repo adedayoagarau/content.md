@@ -106,6 +106,33 @@ batch files, invalid JSONL, wrong record order or identity, invalid enums,
 missing required scores, and malformed evidence fields. It reports exact
 coverage and disagreements without modifying the returned evidence.
 
+## Disagreement pilot checkpoint
+
+The analyzer can also create a blinded 100-item human-review pilot and a
+separate operator manifest:
+
+```bash
+pnpm analyze:content-design-external-audit \
+  /path/to/contentmd-content-design-external-audit-10000 \
+  --pilot-out /isolated/reviewer-copy/review-packet.json \
+  --pilot-manifest-out /operator-only/selection-manifest.json
+```
+
+The current verified submissions produce pilot packet digest
+`039de50636f99db3733f01f34ab45ea0fac4eed33f3d5943c42d43d1e1e23cf5`
+and selection-manifest digest
+`957390801d2065883ed00e9993bfa166e50156b0ef6e9e7237215b2471c3a254`.
+The packet contains 25 cases from each of the four disputed variants, all nine
+English abilities, all ten situations, and all ten surfaces. Every ability
+appears 11 or 12 times. Regional and translation variables, model judgments,
+and hidden synthetic controls are absent from the reviewer packet.
+
+This pilot uses previously exposed synthetic scenarios and is calibration input
+only. Reviewers must receive isolated copies of the packet and
+[reviewer prompt](../tests/fixtures/content-design-disagreement-pilot/REVIEWER-PROMPT.md),
+while the selection manifest remains operator-only until both submissions are
+frozen.
+
 ## Decision
 
 These outputs can guide rubric repair, but they must not be promoted to gold or

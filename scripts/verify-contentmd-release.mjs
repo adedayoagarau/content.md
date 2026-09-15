@@ -20,6 +20,8 @@ for (const requiredFile of [
   "docs/content-design-standard.md",
   "docs/public-api.md",
   "docs/tests/fixtures/content-design-authored-challenges/README.md",
+  "docs/tests/fixtures/content-design-disagreement-pilot/README.md",
+  "docs/tests/fixtures/content-design-disagreement-pilot/REVIEWER-PROMPT.md",
   "docs/verification/content-design-benchmark-10000.md",
   "docs/verification/content-design-external-model-audit-10000.md",
   "docs/verification/open-source-security-0.1.md",

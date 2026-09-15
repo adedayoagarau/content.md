@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { readFile, readdir, writeFile } from "node:fs/promises";
+import { access, readFile, readdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -35,6 +35,12 @@ const REVIEWERS = ["claude", "cursor"];
 const ENGLISH_TARGET_LOCALES = ["en-US", "en-GB", "en-IN"];
 const ENGLISH_EXCLUDED_ABILITIES = ["localization"];
 const ENGLISH_EXCLUDED_QUALITY_DIMENSIONS = ["locale_readiness"];
+const DISAGREEMENT_PILOT_VARIANTS = [
+  "concise_calm",
+  "warm_supportive",
+  "plain_direct",
+  "missing_consequence",
+];
 
 function fail(reason) {
   throw new Error(`content_design_external_audit_invalid:${reason}`);
@@ -159,7 +165,6 @@ function englishSyntheticControlDisposition(scenario) {
 }
 
 export function summarizeExternalReviewPairs(scenarios, reviewsByReviewer) {
-  const scenarioById = new Map(scenarios.map((scenario) => [scenario.scenario_id, scenario]));
   const records = scenarios.map((scenario) => ({
     work_unit_id: `review-${scenario.scenario_id}`,
     scenario,
@@ -252,6 +257,194 @@ export function summarizeExternalReviewPairs(scenarios, reviewsByReviewer) {
   };
 }
 
+function differingHardDimensions(workUnitId, reviewsByReviewer) {
+  return HARD_DIMENSIONS.filter((dimension) => (
+    reviewsByReviewer.claude.get(workUnitId).hard_dimension_results[dimension]
+    !== reviewsByReviewer.cursor.get(workUnitId).hard_dimension_results[dimension]
+  ));
+}
+
+function emptySelectionCounts() {
+  return { abilities: new Map(), situations: new Map(), surfaces: new Map() };
+}
+
+function diverseSelection(candidates, quota, reviewsByReviewer, globalCounts) {
+  const remaining = [...candidates].sort((left, right) => left.scenario_id.localeCompare(right.scenario_id));
+  const selected = [];
+  const seen = {
+    abilities: new Map(),
+    hard_dimensions: new Set(),
+    situations: new Map(),
+    surfaces: new Map(),
+  };
+  const seenCount = (counts, key) => counts.get(key) ?? 0;
+  const increment = (counts, key) => counts.set(key, seenCount(counts, key) + 1);
+  while (selected.length < quota) {
+    if (remaining.length === 0) fail("pilot_quota_unavailable");
+    const ranked = remaining.map((scenario) => {
+      const workUnitId = `review-${scenario.scenario_id}`;
+      const hardDifferences = differingHardDimensions(workUnitId, reviewsByReviewer);
+      const novelty = (seenCount(seen.surfaces, scenario.context.surface) === 0 ? 16 : 0)
+        + (seenCount(seen.situations, scenario.context.situation) === 0 ? 16 : 0)
+        + (seenCount(seen.abilities, scenario.ability.id) === 0 ? 8 : 0)
+        + hardDifferences.filter((dimension) => !seen.hard_dimensions.has(dimension)).length * 2;
+      const balanceLoad = seenCount(globalCounts.abilities, scenario.ability.id) * 16
+        + seenCount(globalCounts.surfaces, scenario.context.surface) * 4
+        + seenCount(globalCounts.situations, scenario.context.situation) * 4
+        + seenCount(seen.abilities, scenario.ability.id) * 4
+        + seenCount(seen.surfaces, scenario.context.surface) * 2
+        + seenCount(seen.situations, scenario.context.situation) * 2;
+      return { scenario, novelty, balanceLoad, hardDifferences };
+    }).sort((left, right) => right.novelty - left.novelty
+      || left.balanceLoad - right.balanceLoad
+      || left.scenario.scenario_id.localeCompare(right.scenario.scenario_id));
+    const next = ranked[0];
+    selected.push(next.scenario);
+    increment(seen.surfaces, next.scenario.context.surface);
+    increment(seen.situations, next.scenario.context.situation);
+    increment(seen.abilities, next.scenario.ability.id);
+    increment(globalCounts.surfaces, next.scenario.context.surface);
+    increment(globalCounts.situations, next.scenario.context.situation);
+    increment(globalCounts.abilities, next.scenario.ability.id);
+    for (const dimension of next.hardDifferences) seen.hard_dimensions.add(dimension);
+    remaining.splice(remaining.findIndex((scenario) => scenario.scenario_id === next.scenario.scenario_id), 1);
+  }
+  return selected;
+}
+
+function englishPilotWorkUnit(scenario, pilotSlot) {
+  const {
+    source_locale: _sourceLocale,
+    target_locale: _targetLocale,
+    direction: _direction,
+    ...context
+  } = scenario.context;
+  return {
+    work_unit_id: `pilot-${scenario.scenario_id}`,
+    scenario_ref: {
+      scenario_id: scenario.scenario_id,
+      scenario_digest: scenario.scenario_digest,
+    },
+    sampling_cell: { pilot_slot: pilotSlot },
+    ability: scenario.ability,
+    context,
+    candidate: {
+      text: scenario.candidate.text,
+      supporting_text: scenario.candidate.supporting_text,
+    },
+    rubric: {
+      evaluation_order: scenario.rubric.evaluation_order.map((dimension) => (
+        dimension === "accessibility_locale" ? "accessibility_readiness" : dimension
+      )),
+      hard_dimensions: scenario.rubric.hard_dimensions,
+      quality_dimensions: scenario.rubric.quality_dimensions.filter((dimension) => dimension !== "locale_readiness"),
+    },
+    reviewer_response: {
+      disposition: null,
+      hard_dimension_results: null,
+      quality_dimension_scores: null,
+      rationale: null,
+      acceptable_meaning_invariants: null,
+      recommended_revision: null,
+      reviewer_role: null,
+      review_evidence_refs: null,
+    },
+    review_state: "unreviewed",
+    authority_effect: "none",
+    retrieval_eligibility: "never",
+    training_eligibility: "never",
+    benchmark_eligibility: false,
+  };
+}
+
+export function prepareEnglishDisagreementPilot(scenarios, reviewsByReviewer, sourceEvidence) {
+  for (const reviewer of REVIEWERS) {
+    if (!/^[a-f0-9]{64}$/u.test(sourceEvidence.reviewer_submission_digests?.[reviewer] ?? "")) {
+      fail(`pilot_source_digest:${reviewer}`);
+    }
+  }
+  if (!/^[a-f0-9]{64}$/u.test(sourceEvidence.source_packet_digest ?? "")) fail("pilot_source_packet_digest");
+  const eligible = scenarios.filter((scenario) => {
+    const workUnitId = `review-${scenario.scenario_id}`;
+    return ENGLISH_TARGET_LOCALES.includes(scenario.context.target_locale)
+      && !ENGLISH_EXCLUDED_ABILITIES.includes(scenario.ability.id)
+      && DISAGREEMENT_PILOT_VARIANTS.includes(scenario.candidate.variant)
+      && reviewsByReviewer.claude.get(workUnitId)?.disposition
+        !== reviewsByReviewer.cursor.get(workUnitId)?.disposition;
+  });
+  const globalCounts = emptySelectionCounts();
+  const selected = DISAGREEMENT_PILOT_VARIANTS.flatMap((variant) => {
+    const candidates = eligible.filter((scenario) => scenario.candidate.variant === variant);
+    if (candidates.length < 25) fail(`pilot_variant_population:${variant}`);
+    return diverseSelection(candidates, 25, reviewsByReviewer, globalCounts);
+  });
+  const selectedIds = new Set(selected.map((scenario) => scenario.scenario_id));
+  if (selected.length !== 100 || selectedIds.size !== 100) fail("pilot_selection_identity");
+
+  const workUnits = selected.map((scenario, index) => englishPilotWorkUnit(scenario, index + 1));
+  const packetPreimage = {
+    contract_version: "contentmd.english-disagreement-pilot-packet/0.1.0",
+    language_scope: "English",
+    sample_count: workUnits.length,
+    selection_method: "four_disagreement_variants_25_each_greedy_context_breadth",
+    source_status: "previously_exposed_synthetic_scenarios_for_calibration_only",
+    blinded_fields: [
+      "candidate.variant",
+      "candidate.voice",
+      "candidate.tone",
+      "candidate.injected_defect",
+      "evaluation_control",
+      "provisional_expectation",
+      "external_reviewer_outputs",
+    ],
+    required_reviewer_role: "qualified_content_designer",
+    review_work_units: workUnits,
+    packet_state: "unreviewed",
+    authority_effect: "none",
+    retrieval_eligibility: "never",
+    training_eligibility: "never",
+    effectiveness_claim_eligibility: false,
+  };
+  const packet = { ...packetPreimage, packet_digest: sha256(JSON.stringify(packetPreimage)) };
+  if (/locale|localization/iu.test(JSON.stringify(packet))) fail("pilot_language_boundary");
+
+  const selectedRecords = selected.map((scenario, index) => {
+    const originalWorkUnitId = `review-${scenario.scenario_id}`;
+    return {
+      pilot_slot: index + 1,
+      pilot_work_unit_id: `pilot-${scenario.scenario_id}`,
+      scenario_id: scenario.scenario_id,
+      scenario_digest: scenario.scenario_digest,
+      ability_id: scenario.ability.id,
+      situation: scenario.context.situation,
+      surface: scenario.context.surface,
+      candidate_variant: scenario.candidate.variant,
+      claude_disposition: reviewsByReviewer.claude.get(originalWorkUnitId).disposition,
+      cursor_disposition: reviewsByReviewer.cursor.get(originalWorkUnitId).disposition,
+      differing_hard_dimensions: differingHardDimensions(originalWorkUnitId, reviewsByReviewer),
+    };
+  });
+  const manifestPreimage = {
+    contract_version: "contentmd.english-disagreement-pilot-selection/0.1.0",
+    packet_digest: packet.packet_digest,
+    source_packet_digest: sourceEvidence.source_packet_digest,
+    reviewer_submission_digests: sourceEvidence.reviewer_submission_digests,
+    source_status: "exploratory_external_model_disagreements_not_human_gold",
+    selected_count: selectedRecords.length,
+    variant_quotas: Object.fromEntries(DISAGREEMENT_PILOT_VARIANTS.map((variant) => [variant, 25])),
+    selected_records: selectedRecords,
+    authority_effect: "none",
+    retrieval_eligibility: "never",
+    training_eligibility: "never",
+    effectiveness_claim_eligibility: false,
+  };
+  const selectionManifest = {
+    ...manifestPreimage,
+    manifest_digest: sha256(JSON.stringify(manifestPreimage)),
+  };
+  return { packet, selection_manifest: selectionManifest };
+}
+
 async function readJson(file, reason) {
   try {
     return JSON.parse(await readFile(file, "utf8"));
@@ -300,7 +493,7 @@ async function readReviewerSubmission(auditRoot, reviewer, expectedWorkUnitIds, 
   };
 }
 
-export async function analyzeContentDesignExternalAudit(auditRoot) {
+async function loadContentDesignExternalAudit(auditRoot) {
   const resolvedAuditRoot = path.resolve(auditRoot);
   const manifest = await readJson(path.join(resolvedAuditRoot, "MANIFEST.json"), "manifest");
   const scenarios = generateScenarios();
@@ -368,7 +561,7 @@ export async function analyzeContentDesignExternalAudit(auditRoot) {
   }
 
   const comparisonReport = summarizeExternalReviewPairs(scenarios, reviewsByReviewer);
-  return {
+  const report = {
     contract_version: "contentmd.external-model-audit-analysis/0.1.0",
     audit_kind: manifest.audit_kind,
     source_packet_digest: packet.packet_digest,
@@ -390,16 +583,31 @@ export async function analyzeContentDesignExternalAudit(auditRoot) {
     },
     verification_status: "passed",
   };
+  return { report, scenarios, reviewsByReviewer, reviewerSubmissions };
+}
+
+export async function analyzeContentDesignExternalAudit(auditRoot) {
+  return (await loadContentDesignExternalAudit(auditRoot)).report;
 }
 
 function parseArguments(argv) {
   let auditRoot;
   let output;
+  let pilotOutput;
+  let pilotManifestOutput;
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index];
     if (value === "--out") {
       output = argv[index + 1];
       if (output === undefined) fail("missing_out_path");
+      index += 1;
+    } else if (value === "--pilot-out") {
+      pilotOutput = argv[index + 1];
+      if (pilotOutput === undefined) fail("missing_pilot_out_path");
+      index += 1;
+    } else if (value === "--pilot-manifest-out") {
+      pilotManifestOutput = argv[index + 1];
+      if (pilotManifestOutput === undefined) fail("missing_pilot_manifest_out_path");
       index += 1;
     } else if (auditRoot === undefined) {
       auditRoot = value;
@@ -407,15 +615,49 @@ function parseArguments(argv) {
       fail(`unexpected_argument:${value}`);
     }
   }
-  if (auditRoot === undefined) fail("usage:node scripts/analyze-content-design-external-audit.mjs <audit-root> [--out report.json]");
-  return { auditRoot, output };
+  if ((pilotOutput === undefined) !== (pilotManifestOutput === undefined)) fail("pilot_outputs_must_be_paired");
+  if (auditRoot === undefined) {
+    fail("usage:node scripts/analyze-content-design-external-audit.mjs <audit-root> [--out report.json] [--pilot-out packet.json --pilot-manifest-out selection.json]");
+  }
+  return { auditRoot, output, pilotOutput, pilotManifestOutput };
+}
+
+async function preflightCreateOnlyOutputs(outputs) {
+  const paths = outputs.filter((value) => value !== undefined).map((value) => path.resolve(value));
+  if (new Set(paths).size !== paths.length) fail("output_paths_must_be_distinct");
+  for (const outputPath of paths) {
+    try {
+      await access(outputPath);
+    } catch (error) {
+      if (error !== null && typeof error === "object" && error.code === "ENOENT") continue;
+      throw error;
+    }
+    fail(`output_exists:${outputPath}`);
+  }
 }
 
 const invokedPath = process.argv[1] === undefined ? null : path.resolve(process.argv[1]);
 if (invokedPath === fileURLToPath(import.meta.url)) {
-  const { auditRoot, output } = parseArguments(process.argv.slice(2));
-  const report = await analyzeContentDesignExternalAudit(auditRoot);
+  const { auditRoot, output, pilotOutput, pilotManifestOutput } = parseArguments(process.argv.slice(2));
+  await preflightCreateOnlyOutputs([output, pilotOutput, pilotManifestOutput]);
+  const loaded = await loadContentDesignExternalAudit(auditRoot);
+  const report = loaded.report;
   const serialized = `${JSON.stringify(report, null, 2)}\n`;
   if (output !== undefined) await writeFile(path.resolve(output), serialized, { flag: "wx" });
+  if (pilotOutput !== undefined && pilotManifestOutput !== undefined) {
+    const pilot = prepareEnglishDisagreementPilot(loaded.scenarios, loaded.reviewsByReviewer, {
+      source_packet_digest: report.source_packet_digest,
+      reviewer_submission_digests: Object.fromEntries(REVIEWERS.map((reviewer) => [
+        reviewer,
+        report.reviewer_submissions[reviewer].submission_digest,
+      ])),
+    });
+    await writeFile(path.resolve(pilotOutput), `${JSON.stringify(pilot.packet, null, 2)}\n`, { flag: "wx" });
+    await writeFile(
+      path.resolve(pilotManifestOutput),
+      `${JSON.stringify(pilot.selection_manifest, null, 2)}\n`,
+      { flag: "wx" },
+    );
+  }
   process.stdout.write(serialized);
 }
