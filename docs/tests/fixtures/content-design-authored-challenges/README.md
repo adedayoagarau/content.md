@@ -47,3 +47,14 @@ The scenario/challenge/constraints structure is inspired by the public article
 [The Daily UX Writing Challenge, then and now](https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/).
 No scenario, candidate wording, evaluation label, or review from that article is
 copied into this track.
+
+Verify every committed challenge and any received outputs with:
+
+```bash
+pnpm verify:content-design-challenges
+```
+
+The verifier replays the deterministic `content.md` diagnosis, enforces the
+English-only boundary, checks candidate field limits and meaning mappings when
+a candidate exists, and rejects external reviews that appear before the frozen
+candidate. It validates artifact integrity, not writing quality.

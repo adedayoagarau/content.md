@@ -32,6 +32,7 @@
     "qualify:content-design-review": "node scripts/qualify-content-design-review.mjs",
     "predict:content-design-scenarios": "node scripts/predict-content-design-scenarios.mjs",
     "verify:content-design-benchmark": "node scripts/verify-content-design-benchmark.mjs",
+    "verify:content-design-challenges": "node scripts/verify-authored-content-design-challenges.mjs",
     "verify:security": "node scripts/verify-contentmd-security.mjs",
     "build:distribution": "node scripts/build-contentmd-distribution.mjs",
     "test:distribution": "node scripts/test-contentmd-distribution.mjs",
