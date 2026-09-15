@@ -26,6 +26,7 @@
     "verify:voice-research": "node scripts/verify-voice-tone-research.mjs",
     "generate:content-design-scenarios": "node scripts/generate-content-design-evaluation-scenarios.mjs",
     "prepare:content-design-review": "node scripts/prepare-content-design-review-sample.mjs",
+    "prepare:content-design-challenge-reviews": "node scripts/prepare-authored-content-design-reviews.mjs",
     "prepare:content-design-calibration": "node scripts/prepare-content-design-review-sample.mjs --calibration-out docs/tests/fixtures/content-design-scenarios/calibration-cohort-500.json",
     "review:content-design-calibration": "node packages/cli/dist/main.js benchmark content-design --packet docs/tests/fixtures/content-design-scenarios/calibration-cohort-500.json --review-workbench",
     "reserve:content-design-evaluation": "node scripts/prepare-content-design-review-sample.mjs --reservation-out docs/tests/fixtures/content-design-scenarios/held-out-reservation-500.json",

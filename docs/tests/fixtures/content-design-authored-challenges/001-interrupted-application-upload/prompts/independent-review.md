@@ -10,6 +10,9 @@ Return one JSON object:
 {
   "contract_version": "contentmd.authored-challenge-independent-review/0.1.0",
   "scenario_id": "content-design.challenge.001-interrupted-application-upload",
+  "review_packet_digest": "<review-packet.json packet_digest>",
+  "scenario_digest": "<review-packet.json scenario_ref.content_digest>",
+  "candidate_digest": "<review-packet.json candidate_ref.content_digest>",
   "reviewer": {
     "system": "<Claude or Cursor>",
     "model": "<exact model if available>",
@@ -61,6 +64,7 @@ Use `abstain` when missing evidence could change the correct content and
 `escalate` when a qualified authority is required. Use
 `human_preference_review` only after every hard requirement passes.
 
-Evaluate English expression only. Ignore locale, translation, regional
+Copy all three digest bindings exactly from your `review-packet.json`. Evaluate
+English expression only. Ignore locale, translation, regional
 terminology, and in-market readiness. Your review is external model evidence,
 not qualified human gold and not release authority.

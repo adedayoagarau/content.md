@@ -1,4 +1,4 @@
-import { cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -6,6 +6,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { verifyAuthoredContentDesignChallenges } from "./verify-authored-content-design-challenges.mjs";
+import { prepareAuthoredChallengeReviews } from "./prepare-authored-content-design-reviews.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const sourceRoot = path.join(repositoryRoot, "docs/tests/fixtures/content-design-authored-challenges");
@@ -27,6 +28,22 @@ test("verifies the committed English-only authored challenge", async () => {
   assert.equal(report.challenges[0].locale_evaluation, false);
 });
 
+test("prepares two candidate-bound reviewer packets and refuses to overwrite them", async (context) => {
+  const { temporary, root } = await fixture();
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const challenge = path.join(root, "001-interrupted-application-upload");
+  await unlink(path.join(challenge, "outputs/claude/review-packet.json"));
+  await unlink(path.join(challenge, "outputs/cursor/review-packet.json"));
+  const result = await prepareAuthoredChallengeReviews(challenge);
+  assert.equal(result.packets.length, 2);
+  assert.notEqual(result.packets[0].packet_digest, result.packets[1].packet_digest);
+  assert.equal((await verifyAuthoredContentDesignChallenges(root)).verification_status, "passed");
+  await assert.rejects(
+    prepareAuthoredChallengeReviews(challenge),
+    /authored_content_design_review_prepare_failed:output_exists/u,
+  );
+});
+
 test("rejects a generated candidate that exceeds a field limit", async (context) => {
   const { temporary, root } = await fixture();
   context.after(() => rm(temporary, { recursive: true, force: true }));
@@ -38,6 +55,19 @@ test("rejects a generated candidate that exceeds a field limit", async (context)
   await assert.rejects(
     verifyAuthoredContentDesignChallenges(root),
     /authored_content_design_challenge_invalid:001-interrupted-application-upload:candidate_field:headline/u,
+  );
+});
+
+test("rejects a reviewer packet that is not bound to the frozen candidate", async (context) => {
+  const { temporary, root } = await fixture();
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const file = path.join(root, "001-interrupted-application-upload/outputs/claude/review-packet.json");
+  const packet = JSON.parse(await readFile(file, "utf8"));
+  packet.candidate_ref.content_digest = "0".repeat(64);
+  await writeFile(file, `${JSON.stringify(packet, null, 2)}\n`);
+  await assert.rejects(
+    verifyAuthoredContentDesignChallenges(root),
+    /authored_content_design_challenge_invalid:001-interrupted-application-upload:review_packet_binding:claude/u,
   );
 });
 

@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 import { reviewUxWriting } from "../packages/evaluation/dist/index.js";
+import { createAuthoredChallengeReviewPacket } from "./prepare-authored-content-design-reviews.mjs";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
 const defaultRoot = path.join(
@@ -184,10 +185,13 @@ function validateCandidate(candidate, scenario, request, challenge) {
   }
 }
 
-function validateExternalReview(review, reviewer, scenario, challenge) {
+function validateExternalReview(review, reviewer, scenario, packet, challenge) {
   if (!record(review)
     || review.contract_version !== "contentmd.authored-challenge-independent-review/0.1.0"
     || review.scenario_id !== scenario.scenario_id
+    || review.review_packet_digest !== packet.packet_digest
+    || review.scenario_digest !== packet.scenario_ref.content_digest
+    || review.candidate_digest !== packet.candidate_ref.content_digest
     || review.reviewer?.system !== reviewer
     || !nonEmpty(review.reviewer?.model)
     || review.independent_review_attestation !== true
@@ -239,15 +243,34 @@ async function verifyChallenge(root, challenge) {
 
   const candidatePath = path.join(directory, "outputs/contentmd/candidate.json");
   const candidatePresent = await exists(candidatePath);
-  if (candidatePresent) validateCandidate(await readJson(candidatePath, challenge), scenario, request, challenge);
+  const candidate = candidatePresent ? await readJson(candidatePath, challenge) : null;
+  if (candidate !== null) validateCandidate(candidate, scenario, request, challenge);
+
+  const reviewPrompt = await readFile(path.join(directory, "prompts/independent-review.md"), "utf8");
 
   const reviewerStatus = {};
   for (const reviewer of ["claude", "cursor"]) {
+    const reviewerSystem = reviewer === "claude" ? "Claude" : "Cursor";
+    const packetPath = path.join(directory, `outputs/${reviewer}/review-packet.json`);
+    const packetPresent = await exists(packetPath);
+    if (candidatePresent && !packetPresent) fail(challenge, `review_packet_missing:${reviewer}`);
+    if (!candidatePresent && packetPresent) fail(challenge, `review_packet_without_candidate:${reviewer}`);
+    let packet = null;
+    if (packetPresent) {
+      packet = await readJson(packetPath, challenge);
+      const expectedPacket = createAuthoredChallengeReviewPacket({
+        reviewer_system: reviewerSystem,
+        scenario,
+        candidate,
+        review_prompt: reviewPrompt,
+      });
+      if (!isDeepStrictEqual(packet, expectedPacket)) fail(challenge, `review_packet_binding:${reviewer}`);
+    }
     const reviewPath = path.join(directory, `outputs/${reviewer}/review.json`);
     const reviewPresent = await exists(reviewPath);
     if (reviewPresent && !candidatePresent) fail(challenge, `external_review_without_candidate:${reviewer}`);
     if (reviewPresent) {
-      validateExternalReview(await readJson(reviewPath, challenge), reviewer === "claude" ? "Claude" : "Cursor", scenario, challenge);
+      validateExternalReview(await readJson(reviewPath, challenge), reviewerSystem, scenario, packet, challenge);
     }
     reviewerStatus[reviewer] = reviewPresent ? "received_unqualified" : "pending";
   }
