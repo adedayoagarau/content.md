@@ -125,18 +125,27 @@ gold set. A learned or fine-tuned candidate must then beat the non-learned
 baseline on held-out scenarios without regressing safety, abstention, or
 minority-slice performance.
 
-## Current baseline
+## Current implementation evidence
 
-The current executable baseline demonstrates four bounded cases: unsafe retry
-after an unknown payment outcome, an obscured subscription choice, undisclosed
-automated-assistant limits, and a supported success confirmation. This is
-evidence of deterministic diagnosis and repair-brief generation only.
+The regular-user UX-writing review path has four fixed end-to-end fixtures:
+unsafe retry after an unknown payment outcome, an obscured subscription choice,
+undisclosed automated-assistant limits, and a supported success confirmation.
+Those fixtures demonstrate deterministic diagnosis and repair-brief generation;
+they are not the full content-design benchmark.
 
-It does not yet demonstrate broad content-design quality. The next gold-set
-expansion must cover controls and validation, destructive actions, permissions,
-empty and zero states, onboarding, notifications, navigation and hierarchy,
-accessible naming, localization and bidirectionality, multi-step recovery, and
-candidate-generation quality.
+The separate deterministic benchmark processes 10,000 generated candidates
+across ten abilities, situations, surfaces, and target locales. It exercises
+controls and validation, destructive action, permissions, empty state,
+notifications, navigation and hierarchy, accessible status, localization and
+bidirectionality, recovery, and voice and tone. This is matrix and control-path
+coverage, not evidence that the evaluator's judgments are correct.
+
+Broad content-design quality therefore remains undemonstrated. Independent
+qualified review must establish whether the rubric, generated expectations,
+and evaluator behavior hold across those slices. Onboarding, richer multi-step
+flows, candidate generation from repair briefs, rendered accessibility, and
+in-locale judgment also require later product or study evidence rather than an
+inference from synthetic coverage.
 
 The repository includes 10,000 reproducible synthetic candidates under
 `docs/tests/fixtures/content-design-scenarios/`. They provide broad matrix
