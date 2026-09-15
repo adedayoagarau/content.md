@@ -69,9 +69,10 @@ approval, benchmark claims, release, publication, or product authority.
 The JSON contracts exposed by this command are:
 
 - blinded review packet `contentmd.content-design-blind-review-packet/0.2.0`;
-- prediction set `contentmd.content-design-predictions/0.2.0`, produced by
+- prediction set `contentmd.content-design-predictions/0.3.0`, produced by
   evaluator `contentmd.deterministic-content-design-baseline/0.2.0` and carrying
-  self-reported score coverage for every quality dimension;
+  self-reported score coverage for every quality dimension plus pass, fail,
+  unknown, and not-applicable distributions for every hard dimension;
 - review submission and qualified gold set `0.2.0`;
 - reviewer qualification request
   `contentmd.content-design-reviewer-qualification-request/0.1.0`;

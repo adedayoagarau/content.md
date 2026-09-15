@@ -37,6 +37,9 @@ describe("content-design benchmark", () => {
     expect(result.label_access).toBe("blind_packet_only");
     expect(result.quality_dimension_coverage.accessibility_readiness.coverage).toBeLessThan(1);
     expect(result.quality_dimension_coverage.clarity.coverage).toBe(1);
+    expect(result.hard_dimension_result_distribution.recovery.opportunity_count).toBe(100);
+    expect(result.hard_dimension_result_distribution.recovery.not_applicable).toBeGreaterThan(0);
+    expect(Object.values(result.hard_dimension_result_distribution.recovery).slice(1).reduce((sum, count) => sum + count, 0)).toBe(100);
     expect(result.predictions.some((prediction) => prediction.disposition === "pass")).toBe(true);
     expect(result.predictions.some((prediction) => prediction.disposition === "abstain")).toBe(true);
     for (const prediction of result.predictions.filter((candidate) => candidate.disposition === "pass")) {
@@ -197,6 +200,16 @@ describe("content-design benchmark", () => {
     const redigested = structuredClone(altered);
     redigest(redigested, "prediction_set_digest");
     expect(() => scoreContentDesignBenchmark(gold, redigested)).toThrow(/prediction_pass_unresolved|prediction_shape/);
+
+    const falsifiedCoverage = structuredClone(predictContentDesignBenchmark(packet));
+    falsifiedCoverage.quality_dimension_coverage.clarity.prediction_count = 0;
+    redigest(falsifiedCoverage as unknown as Record<string, unknown>, "prediction_set_digest");
+    expect(() => scoreContentDesignBenchmark(gold, falsifiedCoverage)).toThrow(/prediction_quality_coverage/);
+
+    const falsifiedHardDistribution = structuredClone(predictContentDesignBenchmark(packet));
+    falsifiedHardDistribution.hard_dimension_result_distribution.authority_boundary.pass = 0;
+    redigest(falsifiedHardDistribution as unknown as Record<string, unknown>, "prediction_set_digest");
+    expect(() => scoreContentDesignBenchmark(gold, falsifiedHardDistribution)).toThrow(/prediction_hard_distribution/);
   });
 
   it("compares two independent reviews and preserves disagreements for adjudication", async () => {

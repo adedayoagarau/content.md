@@ -49,12 +49,14 @@ It does not duplicate the bulk generated records in the repository.
 | `pass` | 200 |
 | Accessibility-readiness score coverage | 1,000/10,000 (10%) |
 | Every other quality-dimension score coverage | 10,000/10,000 (100%) |
+| Recovery results | 900 pass; 100 fail; 9,000 not applicable |
+| Authority-boundary results | 10,000 pass; no fail, unknown, or not-applicable result |
 
 Packet digest:
 `d3c8eac0c55eb51d75794fc07bc369780ed890ee5a222acac74009fef05dcc2f`
 
 Prediction-set digest:
-`ecae038f278e903d988600ebb195226c8169d42f47277d8db2e9dbb651c2a063`
+`92aee8e95eb550498e0518691ace14c076177560c21239667b49cbfc9b5c3876`
 
 The prediction set reports:
 
@@ -67,6 +69,13 @@ readiness is scored only for the 1,000 screen-reader-status scenarios, so its
 10% matrix coverage is explicit; clarity, specificity, hierarchy, locale
 readiness, voice fit, tone fit, and economy are scored for all 10,000 records.
 Coverage is not accuracy.
+
+Every hard dimension also reports pass, fail, unknown, and not-applicable
+counts. This exposes two important limits: recovery is not applicable in 9,000
+matrix records, and the authority-boundary rule returns pass for all 10,000.
+The latter is not evidence of perfect authority handling; it means this blind
+matrix did not exercise a detected authority-boundary result and requires human
+gold plus stronger controls before any capability claim.
 
 ## Interpretation
 

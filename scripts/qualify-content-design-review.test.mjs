@@ -32,7 +32,7 @@ function predictionSet(packet, records, predictionFor) {
     authority_effect: "none",
   }));
   const preimage = {
-    contract_version: "contentmd.content-design-predictions/0.2.0",
+    contract_version: "contentmd.content-design-predictions/0.3.0",
     packet_digest: packet.packet_digest,
     evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
     prediction_count: predictions.length,
@@ -41,6 +41,16 @@ function predictionSet(packet, records, predictionFor) {
       const opportunityCount = predictions.filter((prediction) => Object.hasOwn(prediction.quality_dimension_scores, dimension)).length;
       const predictionCount = predictions.filter((prediction) => typeof prediction.quality_dimension_scores[dimension] === "number").length;
       return [dimension, { prediction_count: predictionCount, opportunity_count: opportunityCount, coverage: predictionCount / opportunityCount }];
+    })),
+    hard_dimension_result_distribution: Object.fromEntries([...new Set(predictions.flatMap((prediction) => Object.keys(prediction.hard_dimension_results)))].sort().map((dimension) => {
+      const results = predictions.flatMap((prediction) => Object.hasOwn(prediction.hard_dimension_results, dimension) ? [prediction.hard_dimension_results[dimension]] : []);
+      return [dimension, {
+        opportunity_count: results.length,
+        pass: results.filter((result) => result === "pass").length,
+        fail: results.filter((result) => result === "fail").length,
+        unknown: results.filter((result) => result === "unknown").length,
+        not_applicable: results.filter((result) => result === "not_applicable").length,
+      }];
     })),
     evaluation_status: "unscored_pending_qualified_gold",
     label_access: "blind_packet_only",

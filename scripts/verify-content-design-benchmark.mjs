@@ -58,6 +58,14 @@ try {
     || Object.entries(predictions.quality_dimension_coverage ?? {}).some(([dimension, coverage]) => dimension !== "accessibility_readiness" && coverage.coverage !== 1)) {
     fail("prediction_quality_coverage");
   }
+  for (const [dimension, distribution] of Object.entries(predictions.hard_dimension_result_distribution ?? {})) {
+    if (distribution.opportunity_count !== 10_000
+      || distribution.pass + distribution.fail + distribution.unknown + distribution.not_applicable !== distribution.opportunity_count) {
+      fail(`prediction_hard_distribution:${dimension}`);
+    }
+  }
+  if (Object.keys(predictions.hard_dimension_result_distribution ?? {}).length !== 6
+    || predictions.hard_dimension_result_distribution?.recovery?.not_applicable !== 9_000) fail("prediction_hard_distribution");
   if (new Set(scenarios.map((scenario) => scenario.scenario_digest)).size !== 10_000) fail("scenario_digest_identity");
   const byAbility = counts(packet.review_work_units.map((unit) => unit.ability.id));
   const bySituation = counts(packet.review_work_units.map((unit) => unit.context.situation));
@@ -113,6 +121,7 @@ try {
     prediction_set_digest: predictions.prediction_set_digest,
     dispositions: counts(predictions.predictions.map((prediction) => prediction.disposition)),
     quality_dimension_coverage: predictions.quality_dimension_coverage,
+    hard_dimension_result_distribution: predictions.hard_dimension_result_distribution,
     by_ability_count: byAbility,
     cross_dimensional_coverage: {
       situations: Object.keys(bySituation).length,

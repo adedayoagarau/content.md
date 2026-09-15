@@ -241,12 +241,13 @@ interface ContentDesignPrediction {
 }
 
 export interface ContentDesignPredictionSet {
-  contract_version: "contentmd.content-design-predictions/0.2.0";
+  contract_version: "contentmd.content-design-predictions/0.3.0";
   packet_digest: string;
   evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0";
   prediction_count: number;
   predictions: ContentDesignPrediction[];
   quality_dimension_coverage: Record<string, { prediction_count: number; opportunity_count: number; coverage: number }>;
+  hard_dimension_result_distribution: Record<string, { opportunity_count: number; pass: number; fail: number; unknown: number; not_applicable: number }>;
   evaluation_status: "unscored_pending_qualified_gold";
   label_access: "blind_packet_only";
   authority_effect: "none";
@@ -426,16 +427,31 @@ function predictionQualityCoverage(predictions: ContentDesignPrediction[]): Reco
   }));
 }
 
+function predictionHardDistribution(predictions: ContentDesignPrediction[]): Record<string, { opportunity_count: number; pass: number; fail: number; unknown: number; not_applicable: number }> {
+  const dimensions = [...new Set(predictions.flatMap((prediction) => Object.keys(prediction.hard_dimension_results)))].sort();
+  return Object.fromEntries(dimensions.map((dimension) => {
+    const results = predictions.flatMap((prediction) => Object.hasOwn(prediction.hard_dimension_results, dimension) ? [prediction.hard_dimension_results[dimension]!] : []);
+    return [dimension, {
+      opportunity_count: results.length,
+      pass: results.filter((result) => result === "pass").length,
+      fail: results.filter((result) => result === "fail").length,
+      unknown: results.filter((result) => result === "unknown").length,
+      not_applicable: results.filter((result) => result === "not_applicable").length,
+    }];
+  }));
+}
+
 export function predictContentDesignBenchmark(packetValue: unknown): ContentDesignPredictionSet {
   const packet = validatePacket(packetValue);
   const predictions = packet.review_work_units.map(predict);
   const preimage = {
-    contract_version: "contentmd.content-design-predictions/0.2.0" as const,
+    contract_version: "contentmd.content-design-predictions/0.3.0" as const,
     packet_digest: packet.packet_digest,
     evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0" as const,
     prediction_count: predictions.length,
     predictions,
     quality_dimension_coverage: predictionQualityCoverage(predictions),
+    hard_dimension_result_distribution: predictionHardDistribution(predictions),
     evaluation_status: "unscored_pending_qualified_gold" as const,
     label_access: "blind_packet_only" as const,
     authority_effect: "none" as const,
@@ -532,7 +548,7 @@ function sameKeys(value: Record<string, unknown>, expected: string[]): boolean {
 function validatePredictionSet(value: unknown, packetDigest: string, units: QualifiedContentDesignGoldSet["records"]): ContentDesignPredictionSet {
   if (!record(value)) incomplete("predictions_envelope");
   const predictions = value as unknown as ContentDesignPredictionSet;
-  if (predictions.contract_version !== "contentmd.content-design-predictions/0.2.0"
+  if (predictions.contract_version !== "contentmd.content-design-predictions/0.3.0"
     || predictions.packet_digest !== packetDigest
     || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
     || predictions.evaluation_status !== "unscored_pending_qualified_gold"
@@ -566,6 +582,7 @@ function validatePredictionSet(value: unknown, packetDigest: string, units: Qual
     }
   }
   if (JSON.stringify(predictions.quality_dimension_coverage) !== JSON.stringify(predictionQualityCoverage(predictions.predictions))) incomplete("prediction_quality_coverage");
+  if (JSON.stringify(predictions.hard_dimension_result_distribution) !== JSON.stringify(predictionHardDistribution(predictions.predictions))) incomplete("prediction_hard_distribution");
   return predictions;
 }
 

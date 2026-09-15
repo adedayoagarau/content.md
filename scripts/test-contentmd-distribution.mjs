@@ -145,6 +145,8 @@ if (
   || benchmarkPredictions.data?.label_access !== "blind_packet_only"
   || !(benchmarkPredictions.data?.quality_dimension_coverage?.accessibility_readiness?.coverage < 1)
   || benchmarkPredictions.data?.quality_dimension_coverage?.clarity?.coverage !== 1
+  || benchmarkPredictions.data?.hard_dimension_result_distribution?.recovery?.opportunity_count !== 100
+  || !(benchmarkPredictions.data?.hard_dimension_result_distribution?.recovery?.not_applicable > 0)
 ) throw new Error("installed package did not produce blind packet-bound predictions");
 const benchmarkReviewPath = path.join(scratch, "content-design-review.json");
 const benchmarkReview = JSON.parse(run(process.execPath, [

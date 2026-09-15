@@ -64,8 +64,8 @@ substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2145448
-unpacked bytes: 13141902
+tarball bytes: 2145628
+unpacked bytes: 13143090
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100

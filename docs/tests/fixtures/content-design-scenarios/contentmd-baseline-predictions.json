@@ -1,5 +1,5 @@
 {
-  "contract_version": "contentmd.content-design-predictions/0.2.0",
+  "contract_version": "contentmd.content-design-predictions/0.3.0",
   "packet_digest": "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b",
   "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
   "prediction_count": 100,
@@ -2860,8 +2860,52 @@
       "coverage": 1
     }
   },
+  "hard_dimension_result_distribution": {
+    "agency": {
+      "opportunity_count": 100,
+      "pass": 90,
+      "fail": 10,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "authority_boundary": {
+      "opportunity_count": 100,
+      "pass": 100,
+      "fail": 0,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "factual_accuracy": {
+      "opportunity_count": 100,
+      "pass": 81,
+      "fail": 9,
+      "unknown": 10,
+      "not_applicable": 0
+    },
+    "recovery": {
+      "opportunity_count": 100,
+      "pass": 9,
+      "fail": 1,
+      "unknown": 0,
+      "not_applicable": 90
+    },
+    "semantic_fidelity": {
+      "opportunity_count": 100,
+      "pass": 50,
+      "fail": 50,
+      "unknown": 0,
+      "not_applicable": 0
+    },
+    "state_accuracy": {
+      "opportunity_count": 100,
+      "pass": 60,
+      "fail": 40,
+      "unknown": 0,
+      "not_applicable": 0
+    }
+  },
   "evaluation_status": "unscored_pending_qualified_gold",
   "label_access": "blind_packet_only",
   "authority_effect": "none",
-  "prediction_set_digest": "ae2567d983474f1bd814741ceb9d5a14fd873cba87d5cf2e3640c14f80c351fe"
+  "prediction_set_digest": "ff8297f4f89177f5937b2ab6dc0b6678efc4611b27c47ce1b68a1fdb330eea6e"
 }
