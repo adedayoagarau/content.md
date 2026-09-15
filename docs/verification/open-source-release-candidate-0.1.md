@@ -42,6 +42,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Non-learning complement | 28 files; 1,280 tests passed |
 | Heavy learning workflows | pairwise replay, sealed evaluation, ranking, drift, binding, shadow, snapshot transfer, CLI lifecycle, and Task 6 golden replay passed in isolated exact-runtime runs |
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
+| Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
 | Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, distribution, and release-identity gates verified |
@@ -111,6 +112,7 @@ pnpm test
 pnpm verify:foundation
 pnpm verify:learning
 pnpm verify:content-design-benchmark
+pnpm verify:security
 pnpm test:distribution
 pnpm verify:release
 git diff --check

@@ -20,6 +20,7 @@ for (const requiredFile of [
   "docs/content-design-standard.md",
   "docs/public-api.md",
   "docs/verification/content-design-benchmark-10000.md",
+  "docs/verification/open-source-security-0.1.md",
 ]) {
   const contents = await readFile(path.join(root, requiredFile), "utf8");
   if (contents.trim().length === 0) fail(`empty_release_document_${requiredFile}`);
@@ -56,6 +57,7 @@ const requiredPublishGates = [
   "pnpm verify:foundation",
   "pnpm verify:learning",
   "pnpm verify:content-design-benchmark",
+  "pnpm verify:security",
   "pnpm test:distribution",
   "pnpm verify:release",
 ];
