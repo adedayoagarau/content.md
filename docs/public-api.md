@@ -75,10 +75,12 @@ The JSON contracts exposed by this command are:
 - reviewer qualification request
   `contentmd.content-design-reviewer-qualification-request/0.1.0`;
 - calibration report `contentmd.content-design-calibration-report/0.1.0`;
-- evaluation report `contentmd.content-design-evaluation-report/0.4.0`, including
+- evaluation report `contentmd.content-design-evaluation-report/0.5.0`, including
   explicit gold, prediction, comparable-score, and prediction-coverage counts
   overall, within every contextual slice, and by quality dimension so an
-  evaluator cannot improve apparent error by omitting difficult judgments.
+  evaluator cannot improve apparent error by omitting difficult judgments. It
+  also reports decisive-gold, predicted, comparable, coverage, and accuracy
+  counts separately for every hard dimension.
 
 ### Repository-only evaluation fixtures
 

@@ -135,7 +135,7 @@ describe("content-design benchmark", () => {
     const report = scoreContentDesignBenchmark(gold, predictContentDesignBenchmark(packet));
     expect(report.overall.count).toBe(100);
     expect(Object.keys(report.by_ability)).toHaveLength(10);
-    expect(report.contract_version).toBe("contentmd.content-design-evaluation-report/0.4.0");
+    expect(report.contract_version).toBe("contentmd.content-design-evaluation-report/0.5.0");
     expect(report.overall.quality_gold_score_count).toBe(800);
     expect(report.overall.quality_prediction_score_count).toBeLessThan(800);
     expect(report.overall.quality_comparable_score_count).toBe(report.overall.quality_prediction_score_count);
@@ -145,6 +145,15 @@ describe("content-design benchmark", () => {
     ]);
     expect(report.by_quality_dimension.accessibility_readiness.prediction_coverage).toBeLessThan(1);
     expect(report.by_quality_dimension.clarity.prediction_coverage).toBe(1);
+    expect(Object.keys(report.by_hard_dimension)).toEqual([
+      "agency", "authority_boundary", "factual_accuracy", "recovery", "semantic_fidelity", "state_accuracy",
+    ]);
+    expect(report.by_hard_dimension.factual_accuracy).toMatchObject({
+      gold_decisive_count: 100,
+      prediction_result_count: 100,
+      comparable_result_count: 100,
+      comparison_coverage: 1,
+    });
     expect(report.release_threshold_diagnostics.benchmark_claim_eligibility).toBe(false);
     expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
     expect(report.authority_effect).toBe("none");

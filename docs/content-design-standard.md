@@ -106,6 +106,8 @@ A content-design capability may be described as demonstrated only when:
   aggregate score;
 - quality-score coverage and missing evaluator judgments remain visible beside
   quality error for every reported slice and each quality dimension;
+- hard-requirement coverage and accuracy remain visible for each hard
+  dimension rather than only as an aggregate;
 - critical false acceptance, abstention recall, escalation recall, positive
   false rejection, and the complete disposition confusion matrix remain visible;
 - the exact fixtures, rubric, implementation, and result digests are

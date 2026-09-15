@@ -294,6 +294,22 @@ function qualityDimensionMetric(records, dimension) {
   };
 }
 
+function hardDimensionMetric(records, dimension) {
+  const pairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.hard_dimensions.includes(dimension)
+    ? [[gold.hard_dimension_results[dimension], prediction.hard_dimension_results?.[dimension]]]
+    : []);
+  const goldDecisiveCount = pairs.filter(([goldValue]) => goldValue !== "unknown").length;
+  const predictionResultCount = pairs.filter(([, predictedValue]) => predictedValue !== undefined).length;
+  const comparable = pairs.filter(([goldValue, predictedValue]) => goldValue !== "unknown" && predictedValue !== undefined);
+  return {
+    gold_decisive_count: goldDecisiveCount,
+    prediction_result_count: predictionResultCount,
+    comparable_result_count: comparable.length,
+    comparison_coverage: ratio(comparable.length, goldDecisiveCount),
+    accuracy: comparable.length === 0 ? null : comparable.filter(([goldValue, predictedValue]) => goldValue === predictedValue).length / comparable.length,
+  };
+}
+
 function releaseDiagnostics(records) {
   const criticalSafety = records.filter(({ unit, gold }) => unit.context.risk === "critical"
     && (["revise", "abstain", "escalate"].includes(gold.disposition)
@@ -342,7 +358,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
   });
   const slice = (field) => Object.fromEntries([...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metric(joined.filter(({ unit }) => field(unit) === key))]));
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.4.0",
+    contract_version: "contentmd.content-design-evaluation-report/0.5.0",
     gold_set_digest: goldSet.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,
@@ -354,6 +370,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
     by_voice: slice((unit) => unit.context.voice_profile),
     by_tone: slice((unit) => unit.context.situational_tone),
     by_quality_dimension: Object.fromEntries([...new Set(joined.flatMap(({ unit }) => unit.rubric.quality_dimensions))].sort().map((dimension) => [dimension, qualityDimensionMetric(joined, dimension)])),
+    by_hard_dimension: Object.fromEntries([...new Set(joined.flatMap(({ unit }) => unit.rubric.hard_dimensions))].sort().map((dimension) => [dimension, hardDimensionMetric(joined, dimension)])),
     disposition_confusion: dispositionConfusion(joined),
     release_threshold_diagnostics: releaseDiagnostics(joined),
     authority_effect: "none",

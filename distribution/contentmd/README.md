@@ -169,6 +169,9 @@ counts plus quality prediction coverage for every reported slice and each
 quality dimension. Voice, tone, accessibility, clarity, and other dimensions
 therefore expose their own missing judgments and error. A baseline cannot
 improve its apparent quality error by silently leaving dimensions unscored.
+Hard requirements are also separated by factual accuracy, state accuracy,
+semantic fidelity, agency, recovery, and authority boundary, with explicit
+comparison coverage and accuracy for each.
 
 Qualification fails closed for incomplete reviews, packet drift, missing
 evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or

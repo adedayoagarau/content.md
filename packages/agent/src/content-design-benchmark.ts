@@ -109,7 +109,7 @@ export interface QualifiedContentDesignGoldSet {
 }
 
 export interface ContentDesignEvaluationReport {
-  contract_version: "contentmd.content-design-evaluation-report/0.4.0";
+  contract_version: "contentmd.content-design-evaluation-report/0.5.0";
   gold_set_digest: string;
   packet_digest: string;
   prediction_set_digest: string;
@@ -121,6 +121,7 @@ export interface ContentDesignEvaluationReport {
   by_voice: Record<string, ContentDesignMetrics>;
   by_tone: Record<string, ContentDesignMetrics>;
   by_quality_dimension: Record<string, ContentDesignQualityMetrics>;
+  by_hard_dimension: Record<string, ContentDesignHardMetrics>;
   disposition_confusion: Record<Disposition, Record<Disposition, number>>;
   release_threshold_diagnostics: ReleaseThresholdDiagnostics;
   authority_effect: "none";
@@ -204,6 +205,14 @@ interface ContentDesignQualityMetrics {
   comparable_score_count: number;
   prediction_coverage: number | null;
   mean_absolute_error: number | null;
+}
+
+interface ContentDesignHardMetrics {
+  gold_decisive_count: number;
+  prediction_result_count: number;
+  comparable_result_count: number;
+  comparison_coverage: number | null;
+  accuracy: number | null;
 }
 
 export interface BlindReviewPacket {
@@ -716,6 +725,22 @@ function qualityDimensionMetrics(records: JoinedRecord[], dimension: string): Co
   };
 }
 
+function hardDimensionMetrics(records: JoinedRecord[], dimension: string): ContentDesignHardMetrics {
+  const pairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.hard_dimensions.includes(dimension)
+    ? [[gold.hard_dimension_results[dimension], prediction.hard_dimension_results[dimension]] as const]
+    : []);
+  const goldDecisiveCount = pairs.filter(([goldValue]) => goldValue !== "unknown").length;
+  const predictionResultCount = pairs.filter(([, predictedValue]) => predictedValue !== undefined).length;
+  const comparable = pairs.filter((pair): pair is readonly [HardResult, HardResult] => pair[0] !== "unknown" && pair[1] !== undefined);
+  return {
+    gold_decisive_count: goldDecisiveCount,
+    prediction_result_count: predictionResultCount,
+    comparable_result_count: comparable.length,
+    comparison_coverage: ratio(comparable.length, goldDecisiveCount),
+    accuracy: comparable.length === 0 ? null : comparable.filter(([goldValue, predictedValue]) => goldValue === predictedValue).length / comparable.length,
+  };
+}
+
 function releaseDiagnostics(records: JoinedRecord[]): ReleaseThresholdDiagnostics {
   const criticalSafety = records.filter(({ unit, gold }) => unit.context.risk === "critical"
     && (gold.disposition === "revise" || gold.disposition === "abstain" || gold.disposition === "escalate"
@@ -766,7 +791,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     [...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metrics(joined.filter(({ unit }) => field(unit) === key))]),
   );
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.4.0" as const,
+    contract_version: "contentmd.content-design-evaluation-report/0.5.0" as const,
     gold_set_digest: gold.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,
@@ -778,6 +803,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     by_voice: slice((unit) => unit.context.voice_profile),
     by_tone: slice((unit) => unit.context.situational_tone),
     by_quality_dimension: Object.fromEntries([...new Set(joined.flatMap(({ unit }) => unit.rubric.quality_dimensions))].sort().map((dimension) => [dimension, qualityDimensionMetrics(joined, dimension)])),
+    by_hard_dimension: Object.fromEntries([...new Set(joined.flatMap(({ unit }) => unit.rubric.hard_dimensions))].sort().map((dimension) => [dimension, hardDimensionMetrics(joined, dimension)])),
     disposition_confusion: dispositionConfusion(joined),
     release_threshold_diagnostics: releaseDiagnostics(joined),
     authority_effect: "none" as const,
