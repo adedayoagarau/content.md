@@ -357,6 +357,77 @@ function englishPilotWorkUnit(scenario, pilotSlot) {
   };
 }
 
+export function validateEnglishDisagreementPilotPacket(packet) {
+  if (packet === null || typeof packet !== "object" || Array.isArray(packet)
+    || packet.contract_version !== "contentmd.english-disagreement-pilot-packet/0.1.0"
+    || packet.language_scope !== "English"
+    || packet.sample_count !== 100
+    || !Array.isArray(packet.review_work_units)
+    || packet.review_work_units.length !== 100
+    || packet.packet_state !== "unreviewed"
+    || packet.authority_effect !== "none"
+    || packet.retrieval_eligibility !== "never"
+    || packet.training_eligibility !== "never"
+    || packet.effectiveness_claim_eligibility !== false) fail("pilot_packet_envelope");
+  const { packet_digest: packetDigest, ...preimage } = packet;
+  if (packetDigest !== sha256(JSON.stringify(preimage))) fail("pilot_packet_digest");
+  if (/locale|localization/iu.test(JSON.stringify(packet))) fail("pilot_language_boundary");
+  if (new Set(packet.review_work_units.map((unit) => unit.work_unit_id)).size !== 100) {
+    fail("pilot_packet_work_unit_identity");
+  }
+  for (const unit of packet.review_work_units) {
+    if (!/^pilot-cdes-\d{5}$/u.test(unit.work_unit_id)
+      || unit.review_state !== "unreviewed"
+      || unit.authority_effect !== "none"
+      || unit.retrieval_eligibility !== "never"
+      || unit.training_eligibility !== "never"
+      || unit.benchmark_eligibility !== false
+      || Object.hasOwn(unit.candidate, "variant")
+      || Object.hasOwn(unit.candidate, "voice")
+      || Object.hasOwn(unit.candidate, "tone")
+      || Object.hasOwn(unit.candidate, "injected_defect")
+      || Object.hasOwn(unit, "evaluation_control")
+      || Object.hasOwn(unit, "provisional_expectation")
+      || !exactKeys(unit.rubric?.hard_dimensions?.reduce((result, name) => ({ ...result, [name]: true }), {}), HARD_DIMENSIONS)
+      || JSON.stringify(unit.rubric?.quality_dimensions) !== JSON.stringify(
+        QUALITY_DIMENSIONS.filter((dimension) => dimension !== "locale_readiness"),
+      )) fail(`pilot_packet_work_unit:${unit.work_unit_id ?? "unknown"}`);
+  }
+  return packet;
+}
+
+export function createEnglishPilotSubmissionTemplate(packet, reviewerSlot) {
+  validateEnglishDisagreementPilotPacket(packet);
+  if (!["reviewer-a", "reviewer-b"].includes(reviewerSlot)) fail("pilot_reviewer_slot");
+  const template = {
+    contract_version: "contentmd.english-disagreement-pilot-submission/0.1.0",
+    packet_ref: { packet_digest: packet.packet_digest, sample_count: packet.sample_count },
+    reviewer: {
+      reviewer_slot: reviewerSlot,
+      reviewer_id: null,
+      reviewer_role: "qualified_content_designer",
+      reviewed_at: null,
+      independent_review_attested: false,
+      qualification_bundle: null,
+    },
+    responses: packet.review_work_units.map((unit) => ({
+      work_unit_id: unit.work_unit_id,
+      disposition: null,
+      hard_dimension_results: Object.fromEntries(unit.rubric.hard_dimensions.map((dimension) => [dimension, null])),
+      quality_dimension_scores: Object.fromEntries(unit.rubric.quality_dimensions.map((dimension) => [dimension, null])),
+      rationale: null,
+      acceptable_meaning_invariants: null,
+      recommended_revision: null,
+      review_evidence_refs: null,
+    })),
+    submission_state: "incomplete",
+    human_gold_eligibility: false,
+    authority_effect: "none",
+  };
+  if (/locale|localization/iu.test(JSON.stringify(template))) fail("pilot_template_language_boundary");
+  return template;
+}
+
 export function prepareEnglishDisagreementPilot(scenarios, reviewsByReviewer, sourceEvidence) {
   for (const reviewer of REVIEWERS) {
     if (!/^[a-f0-9]{64}$/u.test(sourceEvidence.reviewer_submission_digests?.[reviewer] ?? "")) {
@@ -405,8 +476,10 @@ export function prepareEnglishDisagreementPilot(scenarios, reviewsByReviewer, so
     training_eligibility: "never",
     effectiveness_claim_eligibility: false,
   };
-  const packet = { ...packetPreimage, packet_digest: sha256(JSON.stringify(packetPreimage)) };
-  if (/locale|localization/iu.test(JSON.stringify(packet))) fail("pilot_language_boundary");
+  const packet = validateEnglishDisagreementPilotPacket({
+    ...packetPreimage,
+    packet_digest: sha256(JSON.stringify(packetPreimage)),
+  });
 
   const selectedRecords = selected.map((scenario, index) => {
     const originalWorkUnitId = `review-${scenario.scenario_id}`;
@@ -442,7 +515,14 @@ export function prepareEnglishDisagreementPilot(scenarios, reviewsByReviewer, so
     ...manifestPreimage,
     manifest_digest: sha256(JSON.stringify(manifestPreimage)),
   };
-  return { packet, selection_manifest: selectionManifest };
+  return {
+    packet,
+    selection_manifest: selectionManifest,
+    reviewer_templates: {
+      "reviewer-a": createEnglishPilotSubmissionTemplate(packet, "reviewer-a"),
+      "reviewer-b": createEnglishPilotSubmissionTemplate(packet, "reviewer-b"),
+    },
+  };
 }
 
 async function readJson(file, reason) {
@@ -595,6 +675,8 @@ function parseArguments(argv) {
   let output;
   let pilotOutput;
   let pilotManifestOutput;
+  let reviewerATemplateOutput;
+  let reviewerBTemplateOutput;
   for (let index = 0; index < argv.length; index += 1) {
     const value = argv[index];
     if (value === "--out") {
@@ -609,6 +691,14 @@ function parseArguments(argv) {
       pilotManifestOutput = argv[index + 1];
       if (pilotManifestOutput === undefined) fail("missing_pilot_manifest_out_path");
       index += 1;
+    } else if (value === "--reviewer-a-template-out") {
+      reviewerATemplateOutput = argv[index + 1];
+      if (reviewerATemplateOutput === undefined) fail("missing_reviewer_a_template_out_path");
+      index += 1;
+    } else if (value === "--reviewer-b-template-out") {
+      reviewerBTemplateOutput = argv[index + 1];
+      if (reviewerBTemplateOutput === undefined) fail("missing_reviewer_b_template_out_path");
+      index += 1;
     } else if (auditRoot === undefined) {
       auditRoot = value;
     } else {
@@ -616,10 +706,21 @@ function parseArguments(argv) {
     }
   }
   if ((pilotOutput === undefined) !== (pilotManifestOutput === undefined)) fail("pilot_outputs_must_be_paired");
-  if (auditRoot === undefined) {
-    fail("usage:node scripts/analyze-content-design-external-audit.mjs <audit-root> [--out report.json] [--pilot-out packet.json --pilot-manifest-out selection.json]");
+  if ((reviewerATemplateOutput === undefined) !== (reviewerBTemplateOutput === undefined)) {
+    fail("reviewer_template_outputs_must_be_paired");
   }
-  return { auditRoot, output, pilotOutput, pilotManifestOutput };
+  if (reviewerATemplateOutput !== undefined && pilotOutput === undefined) fail("reviewer_templates_require_pilot_outputs");
+  if (auditRoot === undefined) {
+    fail("usage:node scripts/analyze-content-design-external-audit.mjs <audit-root> [--out report.json] [--pilot-out packet.json --pilot-manifest-out selection.json --reviewer-a-template-out reviewer-a.json --reviewer-b-template-out reviewer-b.json]");
+  }
+  return {
+    auditRoot,
+    output,
+    pilotOutput,
+    pilotManifestOutput,
+    reviewerATemplateOutput,
+    reviewerBTemplateOutput,
+  };
 }
 
 async function preflightCreateOnlyOutputs(outputs) {
@@ -638,8 +739,21 @@ async function preflightCreateOnlyOutputs(outputs) {
 
 const invokedPath = process.argv[1] === undefined ? null : path.resolve(process.argv[1]);
 if (invokedPath === fileURLToPath(import.meta.url)) {
-  const { auditRoot, output, pilotOutput, pilotManifestOutput } = parseArguments(process.argv.slice(2));
-  await preflightCreateOnlyOutputs([output, pilotOutput, pilotManifestOutput]);
+  const {
+    auditRoot,
+    output,
+    pilotOutput,
+    pilotManifestOutput,
+    reviewerATemplateOutput,
+    reviewerBTemplateOutput,
+  } = parseArguments(process.argv.slice(2));
+  await preflightCreateOnlyOutputs([
+    output,
+    pilotOutput,
+    pilotManifestOutput,
+    reviewerATemplateOutput,
+    reviewerBTemplateOutput,
+  ]);
   const loaded = await loadContentDesignExternalAudit(auditRoot);
   const report = loaded.report;
   const serialized = `${JSON.stringify(report, null, 2)}\n`;
@@ -658,6 +772,18 @@ if (invokedPath === fileURLToPath(import.meta.url)) {
       `${JSON.stringify(pilot.selection_manifest, null, 2)}\n`,
       { flag: "wx" },
     );
+    if (reviewerATemplateOutput !== undefined && reviewerBTemplateOutput !== undefined) {
+      await writeFile(
+        path.resolve(reviewerATemplateOutput),
+        `${JSON.stringify(pilot.reviewer_templates["reviewer-a"], null, 2)}\n`,
+        { flag: "wx" },
+      );
+      await writeFile(
+        path.resolve(reviewerBTemplateOutput),
+        `${JSON.stringify(pilot.reviewer_templates["reviewer-b"], null, 2)}\n`,
+        { flag: "wx" },
+      );
+    }
   }
   process.stdout.write(serialized);
 }

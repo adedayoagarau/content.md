@@ -161,6 +161,11 @@ test("prepares a deterministic 100-item English disagreement pilot without regio
   assert.deepEqual(first, second);
   assert.equal(first.packet.sample_count, 100);
   assert.equal(first.selection_manifest.selected_count, 100);
+  assert.equal(first.reviewer_templates["reviewer-a"].responses.length, 100);
+  assert.equal(first.reviewer_templates["reviewer-b"].responses.length, 100);
+  assert.equal(first.reviewer_templates["reviewer-a"].reviewer.reviewer_slot, "reviewer-a");
+  assert.equal(first.reviewer_templates["reviewer-b"].reviewer.reviewer_slot, "reviewer-b");
+  assert.equal(/locale|localization/iu.test(JSON.stringify(first.reviewer_templates)), false);
   assert.deepEqual(first.selection_manifest.variant_quotas, {
     concise_calm: 25,
     warm_supportive: 25,

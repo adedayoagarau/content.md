@@ -14,19 +14,23 @@ Generate the pilot from the unchanged returned audit folder:
 pnpm analyze:content-design-external-audit \
   /path/to/contentmd-content-design-external-audit-10000 \
   --pilot-out /isolated/reviewer-copy/review-packet.json \
-  --pilot-manifest-out /operator-only/selection-manifest.json
+  --pilot-manifest-out /operator-only/selection-manifest.json \
+  --reviewer-a-template-out /isolated/reviewer-a/review-submission.json \
+  --reviewer-b-template-out /isolated/reviewer-b/review-submission.json
 ```
 
 The writes are create-only. Keep the two outputs separate:
 
-- Give each reviewer an isolated copy of `review-packet.json` and
-  `REVIEWER-PROMPT.md`.
+- Give each reviewer an isolated copy of `review-packet.json`,
+  `REVIEWER-PROMPT.md`, and only their own `review-submission.json` template.
 - Keep `selection-manifest.json` operator-only until both original submissions
   are frozen. It reveals the candidate variants and model dispositions used to
   select the pilot.
 - Do not give either reviewer repository access for this task. The repository
   contains the synthetic controls and source matrix.
 - Do not let reviewers inspect or coordinate with each other.
+- Keep `review-packet.json` unchanged. Each reviewer fills and returns their
+  separate submission template.
 
 The current evidence produces packet digest
 `039de50636f99db3733f01f34ab45ea0fac4eed33f3d5943c42d43d1e1e23cf5`

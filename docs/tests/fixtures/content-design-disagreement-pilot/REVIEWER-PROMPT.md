@@ -1,6 +1,7 @@
 # Independent English content-design review
 
-Review only the supplied `review-packet.json`. Do not open the source
+Review only the supplied `review-packet.json` and fill the supplied
+`review-submission.json`. Do not modify the packet. Do not open the source
 repository, operator selection manifest, synthetic controls, model reviews, or
 another reviewer's work.
 
@@ -38,10 +39,12 @@ readiness, voice fit, tone fit, and economy from 1 to 5 when the disposition is
 `pass`, `revise`, or `human_preference_review`. Use `null` only when an
 `abstain` or `escalate` decision prevents responsible scoring.
 
-For each decision, provide a meaning-based rationale, acceptable meaning
-invariants, a revision when useful, and exact packet-field evidence references.
-Do not optimize toward a single preferred sentence. Preserve the original
-submission unchanged when review is complete.
+For each response in the submission template, provide a meaning-based
+rationale, acceptable meaning invariants, a revision when useful, and exact
+packet-field evidence references.
+Do not optimize toward a single preferred sentence. Complete the reviewer
+identity, review time, and independence attestation, set `submission_state` to
+`complete`, and preserve the returned submission unchanged.
 
 Reviewing this packet does not grant product approval, publication authority,
 gold status, retrieval eligibility, training eligibility, or evidence of

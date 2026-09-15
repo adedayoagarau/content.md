@@ -115,7 +115,9 @@ separate operator manifest:
 pnpm analyze:content-design-external-audit \
   /path/to/contentmd-content-design-external-audit-10000 \
   --pilot-out /isolated/reviewer-copy/review-packet.json \
-  --pilot-manifest-out /operator-only/selection-manifest.json
+  --pilot-manifest-out /operator-only/selection-manifest.json \
+  --reviewer-a-template-out /isolated/reviewer-a/review-submission.json \
+  --reviewer-b-template-out /isolated/reviewer-b/review-submission.json
 ```
 
 The current verified submissions produce pilot packet digest
