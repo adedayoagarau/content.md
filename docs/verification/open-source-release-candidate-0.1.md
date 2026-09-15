@@ -53,6 +53,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
+| Current Task 4 resolution witness | root `package.json` digest `0fdacb3da8967997ee2a3b88cea8e93ca5106fffd3fd849c5e421da3e5b0e461`; 139/139 retrieval and 474/474 feature/baseline checks passed after adding the challenge and external-audit operator commands |
 | TypeScript project build | passed |
 | Learning complement | 19 files; 1,470 tests passed |
 | Non-learning complement | 28 files; 1,280 tests passed |

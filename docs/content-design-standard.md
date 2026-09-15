@@ -222,3 +222,8 @@ The packaged deterministic baseline has processed the complete blinded matrix;
 the reproducible result is recorded in the
 [10,000-scenario verification](verification/content-design-benchmark-10000.md).
 That record demonstrates execution and coverage, not judgment accuracy.
+The returned Claude and Cursor records, locale-protocol contamination, and
+English-expression disagreements are separately recorded in the
+[external model audit](verification/content-design-external-model-audit-10000.md).
+That audit is structurally reproducible but remains exploratory and
+non-authoritative.

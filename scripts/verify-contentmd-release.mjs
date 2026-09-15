@@ -21,6 +21,7 @@ for (const requiredFile of [
   "docs/public-api.md",
   "docs/tests/fixtures/content-design-authored-challenges/README.md",
   "docs/verification/content-design-benchmark-10000.md",
+  "docs/verification/content-design-external-model-audit-10000.md",
   "docs/verification/open-source-security-0.1.md",
 ]) {
   const contents = await readFile(path.join(root, requiredFile), "utf8");
