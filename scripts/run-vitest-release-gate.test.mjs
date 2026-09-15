@@ -24,13 +24,38 @@ test("discovers every TypeScript test file in stable order", async () => {
   }
 });
 
-test("isolates the complete learning journey without dropping the remaining file", () => {
+test("groups light packages while isolating heavy packages and the complete learning journey", () => {
   const file = "packages/agent/test/learning-workflow.test.ts";
-  const runs = releaseGateRuns(["packages/core/test/smoke.test.ts", file]);
-  assert.equal(runs.length, 3);
-  assert.deepEqual(runs.map((run) => run.file), ["packages/core/test/smoke.test.ts", file, file]);
-  assert.match(runs[1].namePattern, /^\^\(\?!/u);
-  assert.match(runs[2].namePattern, /runs real examples/u);
+  const runs = releaseGateRuns([
+    "packages/adapter-filesystem/test/a.test.ts",
+    "packages/adapter-filesystem/test/b.test.ts",
+    file,
+    "packages/cli/test/scan.test.ts",
+    "packages/core/test/a.test.ts",
+    "packages/core/test/b.test.ts",
+  ]);
+  assert.equal(runs.length, 5);
+  assert.deepEqual(runs.map((run) => run.files), [
+    [file],
+    [file],
+    ["packages/cli/test/scan.test.ts"],
+    ["packages/adapter-filesystem/test/a.test.ts", "packages/adapter-filesystem/test/b.test.ts"],
+    ["packages/core/test/a.test.ts", "packages/core/test/b.test.ts"],
+  ]);
+  assert.match(runs[0].namePattern, /^\^\(\?!/u);
+  assert.match(runs[1].namePattern, /runs real examples/u);
   assert.deepEqual(selectReleaseGateRuns(runs, 2), runs.slice(1));
   assert.throws(() => selectReleaseGateRuns(runs, 0), /invalid_from/);
+});
+
+test("covers every ordinary file exactly once", () => {
+  const files = [
+    "packages/adapter-filesystem/test/a.test.ts",
+    "packages/adapter-filesystem/test/b.test.ts",
+    "packages/cli/test/scan.test.ts",
+    "packages/core/test/smoke.test.ts",
+    "packages/learning/test/ranking.test.ts",
+  ];
+  const covered = releaseGateRuns(files).flatMap((run) => run.files);
+  assert.deepEqual(covered.toSorted(), files.toSorted());
 });

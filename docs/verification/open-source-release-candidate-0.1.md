@@ -63,15 +63,16 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Generated README parity | passed |
 | Git whitespace check | passed |
 
-The TypeScript release gate runs each test file in a fresh Vitest process after
-a monolithic run exposed test-only retention of complete sealed replay graphs.
-The eight-phase learning journey is additionally isolated from the other tests
-in its source file and has a one-hour phase-specific ceiling beneath the
-workflow job's independent six-hour ceiling. After duplicate replay-fixture
-construction was removed, its observed exact-runtime cost was 21 minutes 18
-seconds on Darwin/arm64. No phase or assertion is removed, and the heap limit
-remains unchanged. This is process isolation and a measured cross-runtime
-bound, not extra memory substituted for correctness.
+The TypeScript release gate keeps agent, CLI, and learning files in fresh
+Vitest processes after a monolithic run exposed test-only retention of complete
+sealed replay graphs. Lighter tests share one fresh process per package. The
+eight-phase learning journey is additionally isolated from the other tests in
+its source file and has a one-hour phase-specific ceiling beneath the workflow
+job's independent six-hour ceiling. After duplicate replay-fixture construction
+was removed, its observed exact-runtime cost was 21 minutes 18 seconds on
+Darwin/arm64. No phase, test, or assertion is removed, and the heap limit
+remains unchanged. This is bounded process isolation and a measured
+cross-runtime bound, not extra memory substituted for correctness.
 
 ## Packed artifact
 
