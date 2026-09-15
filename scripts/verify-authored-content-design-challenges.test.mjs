@@ -21,13 +21,15 @@ async function fixture() {
 test("verifies the committed English-only authored challenges", async () => {
   const report = await verifyAuthoredContentDesignChallenges(sourceRoot);
   assert.equal(report.verification_status, "passed");
-  assert.equal(report.challenge_count, 3);
+  assert.equal(report.challenge_count, 4);
   const interruptedUpload = report.challenges.find((challenge) =>
     challenge.scenario_id === "content-design.challenge.001-interrupted-application-upload");
   const priceChange = report.challenges.find((challenge) =>
     challenge.scenario_id === "content-design.challenge.002-subscription-price-change-email");
   const photoPermission = report.challenges.find((challenge) =>
     challenge.scenario_id === "content-design.challenge.003-optional-photo-permission");
+  const emailChange = report.challenges.find((challenge) =>
+    challenge.scenario_id === "content-design.challenge.004-sign-in-email-change-confirmation");
   assert.equal(interruptedUpload?.candidate_status, "present_unreviewed");
   assert.equal(interruptedUpload?.contentmd_diagnosis, "revise");
   assert.equal(interruptedUpload?.contentmd_finding_count, 3);
@@ -40,6 +42,10 @@ test("verifies the committed English-only authored challenges", async () => {
   assert.equal(photoPermission?.contentmd_diagnosis, "revise");
   assert.equal(photoPermission?.contentmd_finding_count, 4);
   assert.equal(photoPermission?.locale_evaluation, false);
+  assert.equal(emailChange?.candidate_status, "present_unreviewed");
+  assert.equal(emailChange?.contentmd_diagnosis, "revise");
+  assert.equal(emailChange?.contentmd_finding_count, 4);
+  assert.equal(emailChange?.locale_evaluation, false);
 });
 
 test("prepares two candidate-bound reviewer packets and refuses to overwrite them", async (context) => {

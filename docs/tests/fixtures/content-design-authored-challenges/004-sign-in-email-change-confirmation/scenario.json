@@ -1,0 +1,123 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.004-sign-in-email-change-confirmation",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "context": {
+    "product": "An online marketplace account",
+    "person": "A signed-in person who has just changed the email used to access their account",
+    "journey_stage": "Confirming an account-security change",
+    "surface": "Account-settings confirmation screen displayed immediately after the email change",
+    "user_goal": "Verify what changed, understand what happens next, and respond safely if the change was unauthorized"
+  },
+  "product_state": {
+    "preceding_state": "The person entered a new sign-in email and completed the required verification step.",
+    "current_state": "The sign-in email change succeeded and the person remains signed in on the current device.",
+    "known_facts": [
+      "The sign-in email was changed successfully.",
+      "Future sign-in verification codes and order updates go to the new email.",
+      "The current session remains signed in.",
+      "A security notice was sent to the previous email.",
+      "The security-recovery action signs out every current session and starts account recovery.",
+      "The person can return to account settings without starting recovery."
+    ],
+    "forbidden_claims": [
+      "The email change failed.",
+      "The email change signed the person out.",
+      "The previous email will continue receiving verification codes and order updates.",
+      "The security-recovery action only changes a password.",
+      "The account is secure merely because the email change succeeded."
+    ]
+  },
+  "current_content": {
+    "headline": "You're all set!",
+    "body": "Your account information was updated.",
+    "primary_button": "Done",
+    "secondary_button": null
+  },
+  "challenge": "Rewrite the confirmation so the person knows exactly what changed, where future codes and order updates will go, whether they are still signed in, how the previous email was notified, and what to do if they did not make the change.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 160
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 20
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 20
+      }
+    },
+    "character_counting_rule": "Count spaces and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Return to the account settings screen without starting account recovery.",
+    "secondary_action": "Sign out every current session and start account recovery.",
+    "consequence_to_preserve": "Future sign-in verification codes and order updates go to the new email while the current session remains signed in.",
+    "recovery_to_preserve": "If the person did not make the change, they can sign out every session and start account recovery."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "trustworthy"
+    ],
+    "situational_tone": [
+      "calm",
+      "matter-of-fact",
+      "security-aware"
+    ],
+    "avoid": [
+      "celebration",
+      "vague reassurance",
+      "alarmism",
+      "blame",
+      "unsupported security claims"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording distinguishes the completed change from its downstream effects.",
+      "Explain how the current-session state and previous-email notice are represented.",
+      "Explain how both actions name their effects, including the security consequence.",
+      "Report the character count for every candidate field.",
+      "Name unresolved product or security questions instead of inventing reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}
