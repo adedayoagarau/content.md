@@ -1,0 +1,62 @@
+{
+  "contract_version": "contentmd.ux-writing-review-request/0.1.0",
+  "request_id": "uxw.authored-challenge.001-interrupted-application-upload",
+  "target": {
+    "source_artifact": "scenario.json#current_content",
+    "line": 1,
+    "column": 1,
+    "text": "Welcome back! Everything was saved. Continue where you left off. Continue"
+  },
+  "facts": {
+    "evidence.present": true,
+    "actor.authority_known": true,
+    "agency.choice_required": true,
+    "agency.material_choice_present": false,
+    "state.outcome_evidence": "confirmed",
+    "recovery.retry_safe": true,
+    "recovery.required": true,
+    "recovery.available": true,
+    "control.present": true,
+    "control.state_known": true,
+    "navigation.destination_present": false,
+    "system.generated_or_hybrid": false,
+    "expression.invariants_preserved": false,
+    "expression.invariants_mapped": false,
+    "locale.specialist_review_required": false,
+    "locale.specialist_review_complete": false,
+    "governance.authority_effect": "none"
+  },
+  "evidence_refs": [
+    "scenario.001.product-state"
+  ],
+  "preserve": [
+    "The application was not submitted.",
+    "The attachment was not uploaded.",
+    "The attachment must be selected again before submission.",
+    "The person can continue editing without attaching the file immediately.",
+    "The text answers were saved at 10:42 AM."
+  ],
+  "must_not_claim": [
+    "Everything was saved.",
+    "The application was submitted.",
+    "The service can recover the previously selected local file."
+  ],
+  "required_facts": [
+    "The application was not submitted.",
+    "The attachment was not uploaded.",
+    "The text answers were saved at 10:42 AM."
+  ],
+  "consequence": "The application has not been submitted.",
+  "recovery": "Select the required attachment again before submission, or continue editing the saved application.",
+  "channel": "web_dialog",
+  "locale": "en",
+  "acceptance_criteria": [
+    "Distinguish the saved answers from the attachment that was not uploaded.",
+    "Expose both available next actions.",
+    "Make clear that the application was not submitted.",
+    "Name each action by its effect.",
+    "Stay within the declared field limits."
+  ],
+  "unresolved_questions": [],
+  "authority_effect": "none"
+}

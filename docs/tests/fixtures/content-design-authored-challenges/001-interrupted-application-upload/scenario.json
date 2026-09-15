@@ -1,0 +1,107 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.1.0",
+  "scenario_id": "content-design.challenge.001-interrupted-application-upload",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "context": {
+    "product": "A web service for submitting community grant applications",
+    "person": "A person returning to an application after their browser closed unexpectedly",
+    "journey_stage": "Drafting an application before submission",
+    "surface": "Recovery dialog shown immediately after the saved draft reopens",
+    "user_goal": "Resume the application and submit it with the required attachment"
+  },
+  "product_state": {
+    "preceding_state": "The person entered text answers and selected a required PDF attachment.",
+    "interruption": "The browser closed before the attachment finished uploading.",
+    "current_state": "The application reopened from its latest server-side save.",
+    "known_facts": [
+      "The text answers were saved at 10:42 AM.",
+      "The selected PDF attachment was not uploaded.",
+      "The application was not submitted.",
+      "The person can select the attachment again from this dialog.",
+      "The person can continue editing the saved application without attaching the file immediately."
+    ],
+    "forbidden_claims": [
+      "Everything was saved.",
+      "The application was submitted.",
+      "The service can recover the previously selected local file."
+    ]
+  },
+  "current_content": {
+    "headline": "Welcome back!",
+    "body": "Everything was saved. Continue where you left off.",
+    "primary_button": "Continue",
+    "secondary_button": null
+  },
+  "challenge": "Rewrite the dialog so the person understands what was saved, what was not uploaded, whether the application was submitted, and what they can safely do next.",
+  "constraints": {
+    "headline_max_characters": 40,
+    "body_max_characters": 140,
+    "primary_button_max_characters": 20,
+    "secondary_button_max_characters": 20,
+    "button_count": 2,
+    "character_counting_rule": "Count spaces and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open the file picker so the person can select the required attachment again.",
+    "secondary_action": "Close the dialog and return to the saved application.",
+    "consequence_to_preserve": "The application has not been submitted.",
+    "recovery_to_preserve": "The attachment must be selected again before submission."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "practical",
+      "non-blaming"
+    ],
+    "avoid": [
+      "celebration",
+      "vague reassurance",
+      "dramatic apology",
+      "urgency"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the known product state.",
+      "Explain how the action labels match their destinations or effects.",
+      "Explain the information hierarchy and tone choices.",
+      "Report the character count for every candidate field.",
+      "Name any unresolved question instead of inventing an answer."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}
