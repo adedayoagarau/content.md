@@ -20,7 +20,7 @@ install that reused 78 of 78 packages and downloaded none.
   `retrieval_eligibility: never`, `training_eligibility: never`, and
   `benchmark_eligibility: false`.
 - Regeneration reproduces packet digest
-  `0700ba4c6b252c3cec3459e134381dc571459d0682143981d577442d84683e5a`.
+  `b5028d9c6b16442b369cd98a9c9905dd457555f3bf03791e70aaa2a900fa2b74`.
 
 ## Clean replay
 
@@ -52,7 +52,7 @@ quality, or evidence that fine-tuning is warranted.
 The disjoint evaluation reservation is
 `docs/tests/fixtures/content-design-scenarios/held-out-reservation-500.json`,
 with digest
-`ab7c8fb458180f7cfbbf2086407fd71d6e8d0f4c321f7c0ce52f0d5bf560e38d`.
+`a1750713305bc8d6f8a53924489fcf554da27a93a6681eff3dded6d44f776b11`.
 It contains references rather than reviewer content and remains
 `frozen_unopened` until the calibration packet and evaluator are frozen.
 The clean replay verified its disjointness, closed reference-only schema,

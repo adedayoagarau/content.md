@@ -56,19 +56,19 @@
       "concise_calm": 1000,
       "evidence_gap": 1000,
       "false_certainty": 1000,
-      "formal_serious": 1000,
       "missing_consequence": 1000,
       "plain_direct": 1000,
+      "unsupported_authority": 1000,
       "urgent_pressure": 1000,
       "vague_action": 1000,
       "warm_supportive": 1000
     },
     "control_class": {
-      "clear_failure": 5000,
-      "near_miss": 2000,
+      "clear_failure": 6000,
+      "near_miss": 1000,
       "positive_control": 2000,
       "underspecified": 1000
     }
   },
-  "scenario_set_digest": "fb91eb606cc7faa06b7625af44544840da87a779270ff89bd0e7cf41bdfc7fe9"
+  "scenario_set_digest": "62601ebb273bda35a5810b7c5f61e46eff477e1c9b1b3eb1c5de443a3639913d"
 }

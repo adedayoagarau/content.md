@@ -22,7 +22,7 @@ describe("contentmd benchmark content-design", () => {
     await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--sample-out", output]);
     const result = JSON.parse(await readFile(output, "utf8"));
     expect(result.sample_count).toBe(100);
-    expect(result.packet_digest).toBe("99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b");
+    expect(result.packet_digest).toBe("7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7");
   });
 
   it("writes a packet-bound prediction set to a new path", async () => {

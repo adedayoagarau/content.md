@@ -65,7 +65,7 @@ npm run prepare:content-design-calibration
 This cohort includes five distinct contexts for every
 ability-by-candidate-variant cell. Within each ability it covers all ten
 situations, surfaces, and target locales. Its committed packet digest is
-`0700ba4c6b252c3cec3459e134381dc571459d0682143981d577442d84683e5a`.
+`b5028d9c6b16442b369cd98a9c9905dd457555f3bf03791e70aaa2a900fa2b74`.
 It remains blinded, synthetic, unreviewed, and ineligible for retrieval or
 training. The 100-item packet is the lower-cost workflow check; the 500-item
 cohort is the stronger human-calibration instrument, not a substitute for a
@@ -79,7 +79,7 @@ npm run reserve:content-design-evaluation
 
 `held-out-reservation-500.json` stores only scenario IDs, scenario digests, and
 sampling cells. It deliberately does not materialize reviewer content. Its
-digest is `ab7c8fb458180f7cfbbf2086407fd71d6e8d0f4c321f7c0ce52f0d5bf560e38d`.
+digest is `a1750713305bc8d6f8a53924489fcf554da27a93a6681eff3dded6d44f776b11`.
 The reservation is disjoint from the 500 calibration items and cannot be
 materialized until calibration is frozen and evaluation is authorized.
 

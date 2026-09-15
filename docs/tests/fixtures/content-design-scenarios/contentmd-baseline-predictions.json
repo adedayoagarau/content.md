@@ -1,6 +1,6 @@
 {
   "contract_version": "contentmd.content-design-predictions/0.3.0",
-  "packet_digest": "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b",
+  "packet_digest": "7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7",
   "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
   "prediction_count": 100,
   "predictions": [
@@ -119,12 +119,12 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-07064",
-      "disposition": "escalate",
+      "work_unit_id": "review-cdes-07067",
+      "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
+        "semantic_fidelity": "fail",
         "agency": "pass",
         "recovery": "pass",
         "authority_boundary": "pass"
@@ -140,40 +140,14 @@
         "economy": 4
       },
       "rationale_codes": [
+        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-07347",
-      "disposition": "revise",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "fail",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 4,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "consequence_not_represented"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-07611",
+      "work_unit_id": "review-cdes-07341",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -195,6 +169,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-07614",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -400,34 +402,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-04374",
-      "disposition": "escalate",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 1,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "in_locale_review_required"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-04657",
+      "work_unit_id": "review-cdes-04377",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -442,20 +417,19 @@
         "specificity": 4,
         "hierarchy": 3,
         "accessibility_readiness": null,
-        "locale_readiness": 1,
+        "locale_readiness": 4,
         "voice_fit": 3,
         "tone_fit": 3,
         "economy": 4
       },
       "rationale_codes": [
-        "consequence_not_represented",
-        "in_locale_review_required"
+        "consequence_not_represented"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-04191",
+      "work_unit_id": "review-cdes-04651",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -469,7 +443,7 @@
         "clarity": 4,
         "specificity": 4,
         "hierarchy": 3,
-        "accessibility_readiness": 3,
+        "accessibility_readiness": null,
         "locale_readiness": 1,
         "voice_fit": 3,
         "tone_fit": 3,
@@ -477,6 +451,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-04194",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": 3,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -682,34 +684,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-00624",
-      "disposition": "escalate",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 1,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "in_locale_review_required"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-00107",
+      "work_unit_id": "review-cdes-00627",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -722,7 +697,7 @@
       "quality_dimension_scores": {
         "clarity": 4,
         "specificity": 4,
-        "hierarchy": 2,
+        "hierarchy": 3,
         "accessibility_readiness": null,
         "locale_readiness": 1,
         "voice_fit": 3,
@@ -737,7 +712,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-00981",
+      "work_unit_id": "review-cdes-00101",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -759,6 +734,33 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-00984",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 4,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -963,34 +965,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-06134",
-      "disposition": "escalate",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 1,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "in_locale_review_required"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-06967",
+      "work_unit_id": "review-cdes-06137",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1018,7 +993,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-06441",
+      "work_unit_id": "review-cdes-06961",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1040,6 +1015,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-06444",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -1244,34 +1247,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-02914",
-      "disposition": "escalate",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 1,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "in_locale_review_required"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-02477",
+      "work_unit_id": "review-cdes-02917",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1299,7 +1275,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-02751",
+      "work_unit_id": "review-cdes-02471",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1321,6 +1297,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-02754",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -1525,12 +1529,12 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-08494",
-      "disposition": "escalate",
+      "work_unit_id": "review-cdes-08497",
+      "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
+        "semantic_fidelity": "fail",
         "agency": "pass",
         "recovery": "not_applicable",
         "authority_boundary": "pass"
@@ -1546,18 +1550,19 @@
         "economy": 4
       },
       "rationale_codes": [
+        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-08727",
-      "disposition": "revise",
+      "work_unit_id": "review-cdes-08721",
+      "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "fail",
+        "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "not_applicable",
         "authority_boundary": "pass"
@@ -1573,35 +1578,35 @@
         "economy": 4
       },
       "rationale_codes": [
-        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-08201",
-      "disposition": "pass",
+      "work_unit_id": "review-cdes-08204",
+      "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "not_applicable",
-        "authority_boundary": "pass"
+        "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
         "clarity": 4,
         "specificity": 4,
         "hierarchy": 3,
         "accessibility_readiness": null,
-        "locale_readiness": 4,
+        "locale_readiness": 1,
         "voice_fit": 3,
         "tone_fit": 3,
         "economy": 4
       },
       "rationale_codes": [
-        "hard_checks_passed"
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -1806,34 +1811,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-03784",
-      "disposition": "escalate",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 1,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "in_locale_review_required"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-03237",
+      "work_unit_id": "review-cdes-03787",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1861,7 +1839,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-03561",
+      "work_unit_id": "review-cdes-03231",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -1883,6 +1861,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-03564",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -2088,34 +2094,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-01244",
-      "disposition": "human_preference_review",
-      "hard_dimension_results": {
-        "factual_accuracy": "pass",
-        "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
-        "agency": "pass",
-        "recovery": "not_applicable",
-        "authority_boundary": "pass"
-      },
-      "quality_dimension_scores": {
-        "clarity": 4,
-        "specificity": 4,
-        "hierarchy": 3,
-        "accessibility_readiness": null,
-        "locale_readiness": 4,
-        "voice_fit": 3,
-        "tone_fit": 3,
-        "economy": 4
-      },
-      "rationale_codes": [
-        "hard_checks_passed_preference_unresolved"
-      ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
-      "authority_effect": "none"
-    },
-    {
-      "work_unit_id": "review-cdes-01517",
+      "work_unit_id": "review-cdes-01247",
       "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -2143,7 +2122,7 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-01871",
+      "work_unit_id": "review-cdes-01511",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -2165,6 +2144,34 @@
       },
       "rationale_codes": [
         "in_locale_review_required"
+      ],
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "authority_effect": "none"
+    },
+    {
+      "work_unit_id": "review-cdes-01874",
+      "disposition": "escalate",
+      "hard_dimension_results": {
+        "factual_accuracy": "pass",
+        "state_accuracy": "pass",
+        "semantic_fidelity": "pass",
+        "agency": "pass",
+        "recovery": "not_applicable",
+        "authority_boundary": "unknown"
+      },
+      "quality_dimension_scores": {
+        "clarity": 4,
+        "specificity": 4,
+        "hierarchy": 3,
+        "accessibility_readiness": null,
+        "locale_readiness": 1,
+        "voice_fit": 3,
+        "tone_fit": 3,
+        "economy": 4
+      },
+      "rationale_codes": [
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -2370,12 +2377,12 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-05554",
-      "disposition": "escalate",
+      "work_unit_id": "review-cdes-05557",
+      "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
+        "semantic_fidelity": "fail",
         "agency": "pass",
         "recovery": "not_applicable",
         "authority_boundary": "pass"
@@ -2391,18 +2398,19 @@
         "economy": 4
       },
       "rationale_codes": [
+        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-05897",
-      "disposition": "revise",
+      "work_unit_id": "review-cdes-05891",
+      "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "fail",
+        "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "not_applicable",
         "authority_boundary": "pass"
@@ -2418,14 +2426,13 @@
         "economy": 4
       },
       "rationale_codes": [
-        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-05021",
+      "work_unit_id": "review-cdes-05024",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -2433,20 +2440,20 @@
         "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "pass",
-        "authority_boundary": "pass"
+        "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
         "clarity": 4,
         "specificity": 4,
         "hierarchy": 3,
         "accessibility_readiness": null,
-        "locale_readiness": 1,
+        "locale_readiness": 4,
         "voice_fit": 3,
         "tone_fit": 3,
         "economy": 4
       },
       "rationale_codes": [
-        "in_locale_review_required"
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -2651,12 +2658,12 @@
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-09804",
-      "disposition": "human_preference_review",
+      "work_unit_id": "review-cdes-09807",
+      "disposition": "revise",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "pass",
+        "semantic_fidelity": "fail",
         "agency": "pass",
         "recovery": "not_applicable",
         "authority_boundary": "pass"
@@ -2664,26 +2671,27 @@
       "quality_dimension_scores": {
         "clarity": 4,
         "specificity": 4,
-        "hierarchy": 3,
+        "hierarchy": 2,
         "accessibility_readiness": null,
-        "locale_readiness": 4,
+        "locale_readiness": 1,
         "voice_fit": 3,
         "tone_fit": 3,
         "economy": 4
       },
       "rationale_codes": [
-        "hard_checks_passed_preference_unresolved"
+        "consequence_not_represented",
+        "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-09087",
-      "disposition": "revise",
+      "work_unit_id": "review-cdes-09081",
+      "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
         "state_accuracy": "pass",
-        "semantic_fidelity": "fail",
+        "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "pass",
         "authority_boundary": "pass"
@@ -2699,14 +2707,13 @@
         "economy": 4
       },
       "rationale_codes": [
-        "consequence_not_represented",
         "in_locale_review_required"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
     },
     {
-      "work_unit_id": "review-cdes-09331",
+      "work_unit_id": "review-cdes-09334",
       "disposition": "escalate",
       "hard_dimension_results": {
         "factual_accuracy": "pass",
@@ -2714,7 +2721,7 @@
         "semantic_fidelity": "pass",
         "agency": "pass",
         "recovery": "not_applicable",
-        "authority_boundary": "pass"
+        "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
         "clarity": 4,
@@ -2727,7 +2734,8 @@
         "economy": 4
       },
       "rationale_codes": [
-        "in_locale_review_required"
+        "in_locale_review_required",
+        "authority_claim_requires_verification"
       ],
       "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
       "authority_effect": "none"
@@ -2870,9 +2878,9 @@
     },
     "authority_boundary": {
       "opportunity_count": 100,
-      "pass": 100,
+      "pass": 90,
       "fail": 0,
-      "unknown": 0,
+      "unknown": 10,
       "not_applicable": 0
     },
     "factual_accuracy": {
@@ -2907,5 +2915,5 @@
   "evaluation_status": "unscored_pending_qualified_gold",
   "label_access": "blind_packet_only",
   "authority_effect": "none",
-  "prediction_set_digest": "ff8297f4f89177f5937b2ab6dc0b6678efc4611b27c47ce1b68a1fdb330eea6e"
+  "prediction_set_digest": "ee75148dfae333ac6c95f22d4aa450bd037f7f719a880c04d1d29e77e5943ab4"
 }

@@ -34,6 +34,7 @@ function predictUnit(unit) {
   const localeMismatch = unit.context.target_locale !== unit.context.source_locale
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
   const materialEvidenceMissing = unit.context.evidence?.material_fact_status === "missing";
+  const authorityUnresolved = /\b(?:approved|authorized|guaranteed)\b/iu.test(text);
   const paymentRecovery = unit.context.situation !== "payment_unknown"
     ? "not_applicable"
     : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(combinedText) ? "pass" : "fail";
@@ -43,7 +44,7 @@ function predictUnit(unit) {
     semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "pass",
     agency: pressure ? "fail" : "pass",
     recovery: paymentRecovery,
-    authority_boundary: /\b(?:approved|authorized|guaranteed)\b/iu.test(text) ? "unknown" : "pass",
+    authority_boundary: authorityUnresolved ? "unknown" : "pass",
   };
   const quality = {
     clarity: vague ? 1 : overloaded ? 2 : 4,
@@ -61,6 +62,8 @@ function predictUnit(unit) {
     ? "abstain"
     : hardFailure || blame || pressure
     ? "revise"
+    : authorityUnresolved
+      ? "escalate"
     : localeMismatch
       ? "escalate"
       : allHardResolved && !stylisticNearMiss ? "pass" : "human_preference_review";
@@ -74,6 +77,7 @@ function predictUnit(unit) {
     overloaded && "poor_economy",
     materialEvidenceMissing && "material_evidence_missing",
     localeMismatch && "in_locale_review_required",
+    authorityUnresolved && "authority_claim_requires_verification",
   ].filter(Boolean);
   return {
     work_unit_id: unit.work_unit_id,

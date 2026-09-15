@@ -130,7 +130,7 @@ const benchmarkPacket = JSON.parse(await readFile(benchmarkPacketPath, "utf8"));
 if (
   benchmarkSample.command_id !== "benchmark.content-design.sample"
   || benchmarkPacket.sample_count !== 100
-  || benchmarkPacket.packet_digest !== "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b"
+  || benchmarkPacket.packet_digest !== "7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7"
   || JSON.stringify(benchmarkPacket).includes("generator_label")
 ) throw new Error("installed package did not create the expected blinded content-design packet");
 const benchmarkPredictionsPath = path.join(scratch, "contentmd-predictions.json");

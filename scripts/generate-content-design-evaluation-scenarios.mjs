@@ -51,7 +51,7 @@ const variants = [
   { id: "plain_direct", controlClass: "positive_control", voice: "plain", tone: "direct", defect: null, disposition: "pass" },
   { id: "concise_calm", controlClass: "positive_control", voice: "concise", tone: "calm", defect: null, disposition: "pass" },
   { id: "warm_supportive", controlClass: "near_miss", voice: "warm", tone: "supportive", defect: null, disposition: "human_preference_review" },
-  { id: "formal_serious", controlClass: "near_miss", voice: "formal", tone: "serious", defect: null, disposition: "human_preference_review" },
+  { id: "unsupported_authority", controlClass: "clear_failure", voice: "official", tone: "certain", defect: "unsupported_authority_claim", disposition: "escalate" },
   { id: "false_certainty", controlClass: "clear_failure", voice: "confident", tone: "reassuring", defect: "unsupported_certainty", disposition: "revise" },
   { id: "vague_action", controlClass: "clear_failure", voice: "minimal", tone: "neutral", defect: "unclear_action_or_object", disposition: "revise" },
   { id: "missing_consequence", controlClass: "clear_failure", voice: "concise", tone: "neutral", defect: "material_consequence_omitted", disposition: "revise" },
@@ -85,8 +85,8 @@ function candidateText(situation, surface, variant) {
   if (variant.defect === "user_blame") return { text: `You caused this ${situationId.replaceAll("_", " ")} issue. ${action}.`, supporting_text: consequence };
   if (variant.defect === "material_evidence_missing") return base;
   if (variant.defect === "unsupported_urgency_or_pressure") return { text: `Act now—don't miss out on ${situationId.replaceAll("_", " ")}. ${action}.`, supporting_text: consequence };
+  if (variant.defect === "unsupported_authority_claim") return { text: `This is officially approved. ${base.text}`, supporting_text: base.supporting_text };
   if (variant.id === "warm_supportive") return { text: `We're here to help. ${base.text}`, supporting_text: base.supporting_text };
-  if (variant.id === "formal_serious") return { text: `Important: ${base.text}`, supporting_text: base.supporting_text };
   if (variant.id === "concise_calm") return { text: base.text.replace(/\.$/u, ""), supporting_text: base.supporting_text };
   return base;
 }

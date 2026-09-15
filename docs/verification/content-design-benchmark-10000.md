@@ -44,19 +44,19 @@ It does not duplicate the bulk generated records in the repository.
 | Text directions | LTR and RTL |
 | `revise` | 5,000 |
 | `abstain` | 1,000 |
-| `escalate` | 3,600 |
-| `human_preference_review` | 200 |
+| `escalate` | 3,700 |
+| `human_preference_review` | 100 |
 | `pass` | 200 |
 | Accessibility-readiness score coverage | 1,000/10,000 (10%) |
 | Every other quality-dimension score coverage | 10,000/10,000 (100%) |
 | Recovery results | 900 pass; 100 fail; 9,000 not applicable |
-| Authority-boundary results | 10,000 pass; no fail, unknown, or not-applicable result |
+| Authority-boundary results | 9,000 pass; 1,000 unknown |
 
 Packet digest:
-`d3c8eac0c55eb51d75794fc07bc369780ed890ee5a222acac74009fef05dcc2f`
+`2edd2fce34431e75c574b7ad975b5906e9afb58657b36a42dc8c2ea55a0c718c`
 
 Prediction-set digest:
-`92aee8e95eb550498e0518691ace14c076177560c21239667b49cbfc9b5c3876`
+`b711f3d2fa9fd114fe94e0aac3b74c6876c9dd8dfd3bf362da9b3a87a0475ec9`
 
 The prediction set reports:
 
@@ -71,11 +71,11 @@ readiness, voice fit, tone fit, and economy are scored for all 10,000 records.
 Coverage is not accuracy.
 
 Every hard dimension also reports pass, fail, unknown, and not-applicable
-counts. This exposes two important limits: recovery is not applicable in 9,000
-matrix records, and the authority-boundary rule returns pass for all 10,000.
-The latter is not evidence of perfect authority handling; it means this blind
-matrix did not exercise a detected authority-boundary result and requires human
-gold plus stronger controls before any capability claim.
+counts. Recovery is not applicable in 9,000 matrix records. The matrix now
+contains 1,000 explicit unsupported-authority controls; the evaluator returns
+`unknown` and routes those records to escalation rather than treating them as
+preference questions. This demonstrates control-path execution, not judgment
+accuracy, which still requires qualified human gold.
 
 ## Interpretation
 

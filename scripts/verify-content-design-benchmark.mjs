@@ -65,7 +65,9 @@ try {
     }
   }
   if (Object.keys(predictions.hard_dimension_result_distribution ?? {}).length !== 6
-    || predictions.hard_dimension_result_distribution?.recovery?.not_applicable !== 9_000) fail("prediction_hard_distribution");
+    || predictions.hard_dimension_result_distribution?.recovery?.not_applicable !== 9_000
+    || predictions.hard_dimension_result_distribution?.authority_boundary?.unknown !== 1_000
+    || predictions.hard_dimension_result_distribution?.authority_boundary?.pass !== 9_000) fail("prediction_hard_distribution");
   if (new Set(scenarios.map((scenario) => scenario.scenario_digest)).size !== 10_000) fail("scenario_digest_identity");
   const byAbility = counts(packet.review_work_units.map((unit) => unit.ability.id));
   const bySituation = counts(packet.review_work_units.map((unit) => unit.context.situation));

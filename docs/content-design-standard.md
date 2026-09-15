@@ -90,6 +90,11 @@ Every capability needs all four controls:
 4. a near-miss that tests whether it preserves meaning rather than matching
    keywords.
 
+The shared matrix also includes an explicit unsupported-authority control. A
+candidate that claims approval, authorization, or guarantee without evidence
+must not pass or be reduced to a style preference; the deterministic baseline
+routes that uncertainty to escalation.
+
 ## Release thresholds
 
 A content-design capability may be described as demonstrated only when:

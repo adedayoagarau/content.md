@@ -111,7 +111,7 @@ describe("content-design benchmark", () => {
     try {
       const packet = await writeBuiltinContentDesignReviewPacket(output);
       expect(packet.sample_count).toBe(100);
-      expect(packet.packet_digest).toBe("99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b");
+      expect(packet.packet_digest).toBe("7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7");
       await expect(writeBuiltinContentDesignReviewPacket(output)).rejects.toThrow(/EEXIST/);
     } finally {
       await rm(directory, { recursive: true, force: true });
@@ -160,7 +160,7 @@ describe("content-design benchmark", () => {
       comparison_coverage: 1,
     });
     expect(report.release_threshold_diagnostics.benchmark_claim_eligibility).toBe(false);
-    expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
+    expect(Object.values(report.disposition_confusion.human_preference_review).reduce((sum, count) => sum + count, 0)).toBe(100);
     expect(report.authority_effect).toBe("none");
 
     const missingDecisiveScore = structuredClone(submission);
