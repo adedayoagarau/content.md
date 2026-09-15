@@ -14,7 +14,11 @@ the packed-artifact evidence was refreshed at
 README were then consolidated; after correcting its packaged documentation
 link, the packed journey and release dry-run passed at
 `2261710f7b4f39a819c4662aa92d06adb7e9ca2c`. This record does not imply that the
-earlier exhaustive clean-checkout replay was rerun for the later commits.
+earlier exhaustive clean-checkout replay was rerun for every later commit. The
+foundation verifier was separately replayed against the current committed
+product files at `0e580051cf1df068b700ed8c45f0013b4ddb0a47` with the exact
+Node and pnpm toolchain; unrelated dirty public-product research was outside
+that verification scope.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
 
@@ -43,6 +47,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, packed journey including packet-bound scoring and two-reviewer calibration, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
 | Current packed checkpoint | commit `2261710`; four-file tarball journey and exact-commit release dry-run passed under Node `24.19.0` |
+| Current foundation checkpoint | product files at commit `0e58005`; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
