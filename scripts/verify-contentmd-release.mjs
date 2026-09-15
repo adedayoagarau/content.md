@@ -57,20 +57,32 @@ const requiredPublishGates = [
   "pnpm verify:foundation",
   "pnpm verify:learning",
   "pnpm verify:content-design-benchmark",
-  "pnpm verify:security",
   "pnpm test:distribution",
+  "pnpm verify:security",
   "pnpm verify:release",
 ];
 function workflowRunCommands(workflow) {
   return [...workflow.matchAll(/^\s+run:\s*([^#\r\n]+?)\s*$/gmu)]
     .map((match) => match[1].trim());
 }
-const publishRunCommands = new Set(workflowRunCommands(publishWorkflow));
-const verificationRunCommands = new Set(workflowRunCommands(verificationWorkflow));
+const publishRunCommandList = workflowRunCommands(publishWorkflow);
+const verificationRunCommandList = workflowRunCommands(verificationWorkflow);
+const publishRunCommands = new Set(publishRunCommandList);
+const verificationRunCommands = new Set(verificationRunCommandList);
 for (const requiredGate of requiredPublishGates) {
   if (!publishRunCommands.has(requiredGate)) fail(`publish_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
   if (!verificationRunCommands.has(requiredGate)) fail(`verification_workflow_missing_${requiredGate.replaceAll(" ", "_").replaceAll(":", "_")}`);
 }
+function verifyGateOrder(workflowName, commands) {
+  let previous = -1;
+  for (const gate of requiredPublishGates) {
+    const index = commands.indexOf(gate);
+    if (index <= previous) fail(`${workflowName}_workflow_gate_order_${gate.replaceAll(" ", "_").replaceAll(":", "_")}`);
+    previous = index;
+  }
+}
+verifyGateOrder("publish", publishRunCommandList);
+verifyGateOrder("verification", verificationRunCommandList);
 function verifyPinnedActions(workflowName, workflow) {
   const actions = [...workflow.matchAll(/^\s*uses:\s*([^\s#]+)/gmu)].map((match) => match[1]);
   if (actions.length === 0) fail(`${workflowName}_workflow_missing_actions`);

@@ -51,11 +51,11 @@ jobs:
       - name: Verify the complete content-design benchmark
         run: pnpm verify:content-design-benchmark
 
-      - name: Verify package and local-workbench security boundaries
-        run: pnpm verify:security
-
       - name: Verify clean installation and regular-user journeys
         run: pnpm test:distribution
+
+      - name: Verify package and local-workbench security boundaries
+        run: pnpm verify:security
 
       - name: Verify release identity and tarball contents
         env:
