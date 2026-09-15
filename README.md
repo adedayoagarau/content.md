@@ -136,7 +136,7 @@ Progress is saved in that browser, and the reviewer can export and later import
 a packet-bound incomplete backup before exporting the completed JSON
 submission. The workbench never displays generator labels.
 Independent reviewers, program stewards, and benchmark operators should follow
-the [reviewer guide](docs/content-design-reviewer-guide.md) so responsibilities,
+the [reviewer guide](https://github.com/adedayoagarau/content.md/blob/main/docs/content-design-reviewer-guide.md) so responsibilities,
 blinding, qualification, retained evidence, and adjudication remain separate.
 
 After an independent qualified content designer completes every response and
