@@ -3,7 +3,7 @@
 Status: `verified_unreviewed_calibration_instrument`; no quality, accuracy,
 retrieval, training, release-authority, or fine-tuning claim.
 
-Commit `b252243875f293ee4e9c43263b925e2fb4c1cc38` was replayed from a clean
+Commit `493de5bd066bc0b90e94a2efcdbfcc0a0a722291` was replayed from a clean
 git archive under Node `24.14.0` and pnpm `11.9.0` with an offline frozen
 install that reused 78 of 78 packages and downloaded none.
 
@@ -27,7 +27,7 @@ install that reused 78 of 78 packages and downloaded none.
 | Gate | Outcome |
 | --- | --- |
 | Build | passed |
-| Committed native tests | 101/101 passed |
+| Committed native tests | 102/102 passed |
 | Calibration generator and committed-fixture parity | passed |
 | Foundation verifier | 1,118/1,118 passed |
 | Packed CLI journey | passed; original 100-item package workflow retained |
@@ -55,3 +55,5 @@ with digest
 `ab7c8fb458180f7cfbbf2086407fd71d6e8d0f4c321f7c0ce52f0d5bf560e38d`.
 It contains references rather than reviewer content and remains
 `frozen_unopened` until the calibration packet and evaluator are frozen.
+The clean replay verified its disjointness, closed reference-only schema,
+committed-file parity, package exclusion, and unchanged four-file distribution.
