@@ -4,22 +4,19 @@ Status: `verified_local_release_candidate`; release tag must be recreated from
 the reviewed release commit before publication; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
-workbench as verified on 2026-09-14 under Node `24.14.0` on `darwin` / `arm64`.
-Compatible-runtime packaging was also replayed under Node `24.19.0`.
-The last exhaustive clean-checkout replay used commit
-`5fa0acb4cc0fbbd9707da2a7cdb3c331bcc1cb87`. Recovery evaluation was then
-expanded and verified at `4bc2849350151b2357f0312f51a8a6d928ec0acf`;
-the packed-artifact evidence was refreshed at
-`a6e4d51f22878f451cac7e0525b78b07cb139821`. The reviewer handoff and public
-README were then consolidated; after correcting its packaged documentation
-link, the packed journey and release dry-run passed at
-`2261710f7b4f39a819c4662aa92d06adb7e9ca2c`. This record does not imply that the
-earlier exhaustive clean-checkout replay was rerun for every later commit. The
-foundation and governed-learning verifiers were separately replayed against the
-current committed product files at
-`f5eac957a055d4c508dfbd8a0ecb5f0b06effda3` with the exact Node and pnpm
-toolchain; unrelated dirty public-product research was outside that
-verification scope.
+workbench as locally verified on 2026-09-15 under Node `24.14.0` on `darwin` /
+`arm64`. The current implementation checkpoint is
+`5575d8290ddf5824130e6bd5f3af7d7b58852a03`. At that commit, the packed
+regular-user journey and release dry-run passed. The exhaustive eight-phase
+learning workflow also passed after eliminating duplicate construction of the
+same cryptographically verified replay fixture; the workflow itself, authority
+handoffs, replay checks, and assertions remain complete. The foundation,
+governed-learning, content-design benchmark, distribution, security, and
+release gates had already passed locally against the same product files before
+that test-only consolidation. This record does not represent the current pull
+request CI as passed until its complete run reaches a successful conclusion.
+Unrelated dirty public-product research remains outside this verification
+scope.
 It records a local release candidate, not an npm publication, production
 deployment, organizational approval, or claim of general writing effectiveness.
 
@@ -47,9 +44,9 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, packed journey including packet-bound scoring and two-reviewer calibration, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
-| Current packed checkpoint | commit `2261710`; four-file tarball journey and exact-commit release dry-run passed under Node `24.19.0` |
-| Current foundation checkpoint | product files at commit `f5eac95`; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
-| Current governed-learning checkpoint | commit `f5eac95`; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
+| Current packed checkpoint | commit `5575d82`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
+| Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
+| Current governed-learning checkpoint | current product files; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
@@ -69,23 +66,25 @@ deployment, organizational approval, or claim of general writing effectiveness.
 The TypeScript release gate runs each test file in a fresh Vitest process after
 a monolithic run exposed test-only retention of complete sealed replay graphs.
 The eight-phase learning journey is additionally isolated from the other tests
-in its source file and has a 25-minute ceiling; its observed exact-runtime cost
-was 21 minutes 56 seconds. No assertion is removed, and the heap limit remains
-unchanged. This is process isolation and a measured timeout, not extra memory
-substituted for correctness.
+in its source file and has a one-hour phase-specific ceiling beneath the
+workflow job's independent six-hour ceiling. After duplicate replay-fixture
+construction was removed, its observed exact-runtime cost was 21 minutes 18
+seconds on Darwin/arm64. No phase or assertion is removed, and the heap limit
+remains unchanged. This is process isolation and a measured cross-runtime
+bound, not extra memory substituted for correctness.
 
 ## Packed artifact
 
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-package content digest: 0f28dc7734e760b4767154f3739fe4fee096daec4af2975c92d029540820fa03
+package content digest: b7f815abbd43fabc629a2f060fa77b59d9cf02737b9ee4869108580ef913c345
 LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
 README.md sha256: 0c4768171376453b0c16a61a15d3e6f9daaf9a1f09fa6c9bcec546b55baaa6b1
-dist/contentmd.cjs sha256: 205e3fd3a59414c2e81a1a2ada4891d74c43401c23e7a1f59b69e4f1cd4a44af
+dist/contentmd.cjs sha256: f061d62b430b1eddb551d01719d15c5aca9d7ad36a837011aa20ce4424f42913
 package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
-observed tarball bytes: 2145766
-unpacked bytes: 13143945
+observed tarball bytes: 2145909
+unpacked bytes: 13144281
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -165,9 +164,11 @@ and do not overlap it with packaging or another learning verifier.
 
 ## Remaining external gates
 
-The recovery evaluator and refreshed release-candidate evidence are committed
-through `2261710`; unrelated local public-product research remains outside those
-commits. The remaining gates require external authority or evidence:
+The implementation checkpoint is `5575d82`; this evidence-only documentation
+update does not alter that implementation. Unrelated local public-product
+research remains outside both commits. Pull-request verification must still
+complete for the final documented candidate. The remaining gates require
+external authority or evidence:
 
 1. Complete review of the final release commit. With explicit release authority,
    replace the stale local `v0.1.0` candidate tag from that reviewed commit and
