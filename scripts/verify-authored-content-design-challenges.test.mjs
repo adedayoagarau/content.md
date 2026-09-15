@@ -18,14 +18,22 @@ async function fixture() {
   return { temporary, root };
 }
 
-test("verifies the committed English-only authored challenge", async () => {
+test("verifies the committed English-only authored challenges", async () => {
   const report = await verifyAuthoredContentDesignChallenges(sourceRoot);
   assert.equal(report.verification_status, "passed");
-  assert.equal(report.challenge_count, 1);
-  assert.equal(report.challenges[0].candidate_status, "present_unreviewed");
-  assert.equal(report.challenges[0].contentmd_diagnosis, "revise");
-  assert.equal(report.challenges[0].contentmd_finding_count, 3);
-  assert.equal(report.challenges[0].locale_evaluation, false);
+  assert.equal(report.challenge_count, 2);
+  const interruptedUpload = report.challenges.find((challenge) =>
+    challenge.scenario_id === "content-design.challenge.001-interrupted-application-upload");
+  const priceChange = report.challenges.find((challenge) =>
+    challenge.scenario_id === "content-design.challenge.002-subscription-price-change-email");
+  assert.equal(interruptedUpload?.candidate_status, "present_unreviewed");
+  assert.equal(interruptedUpload?.contentmd_diagnosis, "revise");
+  assert.equal(interruptedUpload?.contentmd_finding_count, 3);
+  assert.equal(interruptedUpload?.locale_evaluation, false);
+  assert.equal(priceChange?.candidate_status, "present_unreviewed");
+  assert.equal(priceChange?.contentmd_diagnosis, "revise");
+  assert.equal(priceChange?.contentmd_finding_count, 5);
+  assert.equal(priceChange?.locale_evaluation, false);
 });
 
 test("prepares two candidate-bound reviewer packets and refuses to overwrite them", async (context) => {
