@@ -74,7 +74,8 @@ The JSON contracts exposed by this command are:
 - review submission and qualified gold set `0.2.0`;
 - reviewer qualification request
   `contentmd.content-design-reviewer-qualification-request/0.1.0`;
-- calibration report `contentmd.content-design-calibration-report/0.1.0`;
+- calibration report `contentmd.content-design-calibration-report/0.2.0`, with
+  agreement and disagreement diagnostics by hard and quality dimension;
 - evaluation report `contentmd.content-design-evaluation-report/0.5.0`, including
   explicit gold, prediction, comparable-score, and prediction-coverage counts
   overall, within every contextual slice, and by quality dimension so an

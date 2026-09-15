@@ -99,7 +99,8 @@ A content-design capability may be described as demonstrated only when:
   disposition;
 - positive controls are not rejected by over-broad rules;
 - candidate comparisons are calibrated against independent content-design
-  review, with disagreements retained rather than overwritten;
+  review, with disagreements retained by ability and by hard or quality
+  dimension rather than overwritten;
 - benchmark gold is bound to a current governed reviewer qualification for the
   exact packet; a claimed role or independence attestation is insufficient;
 - results are reported by ability, risk, surface, and locale—not only as one

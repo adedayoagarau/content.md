@@ -159,10 +159,11 @@ npx contentmd benchmark content-design \
   --report-out reviewer-calibration.json
 ```
 
-The calibration report measures disposition and hard-dimension agreement,
-quality-score distance, and per-ability disagreement. It preserves an explicit
-adjudication queue instead of averaging disagreements away. Reviewer agreement
-does not by itself prove tool accuracy or authorize a benchmark claim.
+The calibration report measures disposition agreement, per-ability
+disagreement, and agreement or distance separately for every hard and quality
+dimension. It preserves an explicit adjudication queue instead of averaging
+disagreements away. Reviewer agreement does not by itself prove tool accuracy
+or authorize a benchmark claim.
 
 Evaluation reports expose gold-score, evaluator-score, and comparable-score
 counts plus quality prediction coverage for every reported slice and each

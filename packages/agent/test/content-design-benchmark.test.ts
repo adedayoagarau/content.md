@@ -226,6 +226,11 @@ describe("content-design benchmark", () => {
     expect(report.disposition_exact_agreement).toBe(0.99);
     expect(report.hard_dimension_exact_agreement).toBeLessThan(1);
     expect(report.quality_score_mean_absolute_difference).toBeGreaterThan(0);
+    expect(report.contract_version).toBe("contentmd.content-design-calibration-report/0.2.0");
+    expect(report.by_hard_dimension.factual_accuracy).toEqual({ comparison_count: 100, exact_agreement: 0.99, disagreement_count: 1 });
+    expect(report.by_hard_dimension.agency).toEqual({ comparison_count: 100, exact_agreement: 1, disagreement_count: 0 });
+    expect(report.by_quality_dimension.clarity).toEqual({ comparable_score_count: 100, mean_absolute_difference: 0.02, disagreement_count: 1 });
+    expect(report.by_quality_dimension.voice_fit).toEqual({ comparable_score_count: 100, mean_absolute_difference: 0, disagreement_count: 0 });
     expect(report.disagreement_count).toBe(1);
     expect(report.disagreements[0]).toMatchObject({
       work_unit_id: left.records[0].work_unit_id,

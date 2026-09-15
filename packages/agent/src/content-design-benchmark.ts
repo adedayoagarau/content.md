@@ -129,7 +129,7 @@ export interface ContentDesignEvaluationReport {
 }
 
 export interface ContentDesignCalibrationReport {
-  contract_version: "contentmd.content-design-calibration-report/0.1.0";
+  contract_version: "contentmd.content-design-calibration-report/0.2.0";
   packet_digest: string;
   left_gold_set_digest: string;
   right_gold_set_digest: string;
@@ -143,6 +143,8 @@ export interface ContentDesignCalibrationReport {
     disposition_exact_agreement: number;
     disagreement_count: number;
   }>;
+  by_hard_dimension: Record<string, { comparison_count: number; exact_agreement: number | null; disagreement_count: number }>;
+  by_quality_dimension: Record<string, { comparable_score_count: number; mean_absolute_difference: number | null; disagreement_count: number }>;
   disagreement_count: number;
   disagreements: Array<{
     work_unit_id: string;
@@ -824,6 +826,8 @@ export function compareContentDesignGoldSets(leftValue: unknown, rightValue: unk
   let hardCount = 0;
   let qualityDistance = 0;
   let qualityCount = 0;
+  const hardByDimension = new Map<string, { count: number; matches: number; disagreements: number }>();
+  const qualityByDimension = new Map<string, { comparable: number; distance: number; disagreements: number }>();
   const disagreements: ContentDesignCalibrationReport["disagreements"] = [];
   for (const leftRecord of left.records) {
     const rightRecord = rightRecords.get(leftRecord.work_unit_id);
@@ -838,19 +842,31 @@ export function compareContentDesignGoldSets(leftValue: unknown, rightValue: unk
     if (leftGold.disposition === rightGold.disposition) dispositionMatches += 1;
     const hardDimensionDisagreements = leftRecord.rubric.hard_dimensions.filter((dimension) => {
       hardCount += 1;
+      const dimensionMetrics = hardByDimension.get(dimension) ?? { count: 0, matches: 0, disagreements: 0 };
+      dimensionMetrics.count += 1;
       if (leftGold.hard_dimension_results[dimension] === rightGold.hard_dimension_results[dimension]) {
         hardMatches += 1;
+        dimensionMetrics.matches += 1;
+        hardByDimension.set(dimension, dimensionMetrics);
         return false;
       }
+      dimensionMetrics.disagreements += 1;
+      hardByDimension.set(dimension, dimensionMetrics);
       return true;
     });
     const qualityDimensionDisagreements = leftRecord.rubric.quality_dimensions.flatMap((dimension) => {
       const leftScore = leftGold.quality_dimension_scores[dimension] ?? null;
       const rightScore = rightGold.quality_dimension_scores[dimension] ?? null;
+      const dimensionMetrics = qualityByDimension.get(dimension) ?? { comparable: 0, distance: 0, disagreements: 0 };
       if (typeof leftScore === "number" && typeof rightScore === "number") {
-        qualityDistance += Math.abs(leftScore - rightScore);
+        const distance = Math.abs(leftScore - rightScore);
+        qualityDistance += distance;
         qualityCount += 1;
+        dimensionMetrics.comparable += 1;
+        dimensionMetrics.distance += distance;
       }
+      if (leftScore !== rightScore) dimensionMetrics.disagreements += 1;
+      qualityByDimension.set(dimension, dimensionMetrics);
       return leftScore === rightScore ? [] : [{ dimension, left: leftScore, right: rightScore }];
     });
     if (leftGold.disposition !== rightGold.disposition
@@ -876,7 +892,7 @@ export function compareContentDesignGoldSets(leftValue: unknown, rightValue: unk
     }];
   }));
   const preimage = {
-    contract_version: "contentmd.content-design-calibration-report/0.1.0" as const,
+    contract_version: "contentmd.content-design-calibration-report/0.2.0" as const,
     packet_digest: left.packet_ref.packet_digest,
     left_gold_set_digest: left.gold_set_digest,
     right_gold_set_digest: right.gold_set_digest,
@@ -886,6 +902,16 @@ export function compareContentDesignGoldSets(leftValue: unknown, rightValue: unk
     hard_dimension_exact_agreement: hardMatches / hardCount,
     quality_score_mean_absolute_difference: qualityCount === 0 ? null : qualityDistance / qualityCount,
     by_ability: byAbility,
+    by_hard_dimension: Object.fromEntries([...hardByDimension].sort(([leftDimension], [rightDimension]) => leftDimension.localeCompare(rightDimension)).map(([dimension, values]) => [dimension, {
+      comparison_count: values.count,
+      exact_agreement: ratio(values.matches, values.count),
+      disagreement_count: values.disagreements,
+    }])),
+    by_quality_dimension: Object.fromEntries([...qualityByDimension].sort(([leftDimension], [rightDimension]) => leftDimension.localeCompare(rightDimension)).map(([dimension, values]) => [dimension, {
+      comparable_score_count: values.comparable,
+      mean_absolute_difference: values.comparable === 0 ? null : values.distance / values.comparable,
+      disagreement_count: values.disagreements,
+    }])),
     disagreement_count: disagreements.length,
     disagreements,
     calibration_status: disagreements.length === 0

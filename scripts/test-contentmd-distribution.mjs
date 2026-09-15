@@ -215,11 +215,14 @@ const benchmarkCalibration = JSON.parse(run(process.execPath, [installedEntry, "
   "--report-out", benchmarkCalibrationPath, "--json"], consumer));
 if (
   benchmarkCalibration.command_id !== "benchmark.content-design.calibrate"
+  || benchmarkCalibration.data?.contract_version !== "contentmd.content-design-calibration-report/0.2.0"
   || benchmarkCalibration.data?.record_count !== 100
   || benchmarkCalibration.data?.disposition_exact_agreement !== 1
   || benchmarkCalibration.data?.adjudication_required !== false
   || benchmarkCalibration.data?.benchmark_claim_eligibility !== false
   || benchmarkCalibration.data?.authority_effect !== "none"
+  || benchmarkCalibration.data?.by_hard_dimension?.factual_accuracy?.exact_agreement !== 1
+  || benchmarkCalibration.data?.by_quality_dimension?.voice_fit?.mean_absolute_difference !== 0
 ) throw new Error("installed package did not calibrate independent content-design reviews");
 const benchmarkReviewWorkbench = await startPackedServer(installedEntry, [
   "benchmark", "content-design", "--packet", benchmarkPacketPath,
