@@ -103,9 +103,14 @@ test("scores exact agreement and reports every required slice", () => {
       quality_dimension_scores: record.human_gold.quality_dimension_scores,
   }));
   const report = scoreContentDesignPredictions(gold, predictions);
+  assert.equal(report.contract_version, "contentmd.content-design-evaluation-report/0.3.0");
   assert.equal(report.overall.disposition_exact_agreement, 1);
   assert.equal(report.overall.hard_dimension_accuracy, 1);
   assert.equal(report.overall.quality_score_mean_absolute_error, 0);
+  assert.equal(report.overall.quality_gold_score_count, 800);
+  assert.equal(report.overall.quality_prediction_score_count, 800);
+  assert.equal(report.overall.quality_comparable_score_count, 800);
+  assert.equal(report.overall.quality_prediction_coverage, 1);
   assert.equal(report.release_threshold_diagnostics.approved_pass_count, 100);
   assert.equal(report.release_threshold_diagnostics.false_rejection_count, 0);
   assert.equal(report.release_threshold_diagnostics.false_rejection_rate, 0);

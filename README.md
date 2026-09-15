@@ -164,6 +164,11 @@ quality-score distance, and per-ability disagreement. It preserves an explicit
 adjudication queue instead of averaging disagreements away. Reviewer agreement
 does not by itself prove tool accuracy or authorize a benchmark claim.
 
+Evaluation reports expose gold-score, evaluator-score, and comparable-score
+counts plus quality prediction coverage for every reported slice. A baseline
+cannot improve its apparent quality error by silently leaving dimensions
+unscored.
+
 Qualification fails closed for incomplete reviews, packet drift, missing
 evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or
 differently scoped governed reviewer-qualification replay. A role string alone

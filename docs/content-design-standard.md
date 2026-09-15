@@ -104,6 +104,8 @@ A content-design capability may be described as demonstrated only when:
   exact packet; a claimed role or independence attestation is insufficient;
 - results are reported by ability, risk, surface, and locale—not only as one
   aggregate score;
+- quality-score coverage and missing evaluator judgments remain visible beside
+  quality error for every reported slice;
 - critical false acceptance, abstention recall, escalation recall, positive
   false rejection, and the complete disposition confusion matrix remain visible;
 - the exact fixtures, rubric, implementation, and result digests are

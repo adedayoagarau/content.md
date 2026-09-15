@@ -109,7 +109,7 @@ export interface QualifiedContentDesignGoldSet {
 }
 
 export interface ContentDesignEvaluationReport {
-  contract_version: "contentmd.content-design-evaluation-report/0.2.0";
+  contract_version: "contentmd.content-design-evaluation-report/0.3.0";
   gold_set_digest: string;
   packet_digest: string;
   prediction_set_digest: string;
@@ -190,6 +190,10 @@ interface ContentDesignMetrics {
   count: number;
   disposition_exact_agreement: number | null;
   hard_dimension_accuracy: number | null;
+  quality_gold_score_count: number;
+  quality_prediction_score_count: number;
+  quality_comparable_score_count: number;
+  quality_prediction_coverage: number | null;
   quality_score_mean_absolute_error: number | null;
 }
 
@@ -667,12 +671,18 @@ function metrics(records: JoinedRecord[]): ContentDesignMetrics {
   const dispositionCorrect = records.filter(({ gold, prediction }) => gold.disposition === prediction.disposition).length;
   const hardPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.hard_dimensions.map((dimension) => [gold.hard_dimension_results[dimension], prediction.hard_dimension_results[dimension]] as const));
   const hardComparable = hardPairs.filter(([goldValue, predictedValue]) => goldValue !== "unknown" && predictedValue !== undefined);
-  const qualityPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.map((dimension) => [gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores[dimension]] as const))
-    .filter((pair): pair is readonly [number, number] => typeof pair[0] === "number" && typeof pair[1] === "number");
+  const qualityPairsAll = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.map((dimension) => [gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores[dimension]] as const));
+  const qualityGoldCount = qualityPairsAll.filter(([goldValue]) => typeof goldValue === "number").length;
+  const qualityPredictionCount = qualityPairsAll.filter(([, predictedValue]) => typeof predictedValue === "number").length;
+  const qualityPairs = qualityPairsAll.filter((pair): pair is readonly [number, number] => typeof pair[0] === "number" && typeof pair[1] === "number");
   return {
     count: records.length,
     disposition_exact_agreement: records.length === 0 ? null : dispositionCorrect / records.length,
     hard_dimension_accuracy: hardComparable.length === 0 ? null : hardComparable.filter(([goldValue, predictedValue]) => goldValue === predictedValue).length / hardComparable.length,
+    quality_gold_score_count: qualityGoldCount,
+    quality_prediction_score_count: qualityPredictionCount,
+    quality_comparable_score_count: qualityPairs.length,
+    quality_prediction_coverage: ratio(qualityPairs.length, qualityGoldCount),
     quality_score_mean_absolute_error: qualityPairs.length === 0 ? null : qualityPairs.reduce((sum, [goldValue, predictedValue]) => sum + Math.abs(goldValue - predictedValue), 0) / qualityPairs.length,
   };
 }
@@ -731,7 +741,7 @@ export function scoreContentDesignBenchmark(goldValue: unknown, predictionValue:
     [...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metrics(joined.filter(({ unit }) => field(unit) === key))]),
   );
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.2.0" as const,
+    contract_version: "contentmd.content-design-evaluation-report/0.3.0" as const,
     gold_set_digest: gold.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,

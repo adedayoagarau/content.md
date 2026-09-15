@@ -258,12 +258,18 @@ function metric(records) {
   const hardPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.hard_dimensions.map((dimension) => [gold.hard_dimension_results[dimension], prediction.hard_dimension_results?.[dimension]]));
   const hardComparable = hardPairs.filter(([goldValue, predictedValue]) => goldValue !== "unknown" && predictedValue !== undefined);
   const hardCorrect = hardComparable.filter(([goldValue, predictedValue]) => goldValue === predictedValue).length;
-  const qualityPairs = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.map((dimension) => [gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores?.[dimension]]))
-    .filter(([goldValue, predictedValue]) => typeof goldValue === "number" && typeof predictedValue === "number");
+  const qualityPairsAll = records.flatMap(({ unit, gold, prediction }) => unit.rubric.quality_dimensions.map((dimension) => [gold.quality_dimension_scores[dimension], prediction.quality_dimension_scores?.[dimension]]));
+  const qualityGoldCount = qualityPairsAll.filter(([goldValue]) => typeof goldValue === "number").length;
+  const qualityPredictionCount = qualityPairsAll.filter(([, predictedValue]) => typeof predictedValue === "number").length;
+  const qualityPairs = qualityPairsAll.filter(([goldValue, predictedValue]) => typeof goldValue === "number" && typeof predictedValue === "number");
   return {
     count: records.length,
     disposition_exact_agreement: records.length === 0 ? null : dispositionCorrect / records.length,
     hard_dimension_accuracy: hardComparable.length === 0 ? null : hardCorrect / hardComparable.length,
+    quality_gold_score_count: qualityGoldCount,
+    quality_prediction_score_count: qualityPredictionCount,
+    quality_comparable_score_count: qualityPairs.length,
+    quality_prediction_coverage: ratio(qualityPairs.length, qualityGoldCount),
     quality_score_mean_absolute_error: qualityPairs.length === 0 ? null : qualityPairs.reduce((sum, [goldValue, predictedValue]) => sum + Math.abs(goldValue - predictedValue), 0) / qualityPairs.length,
   };
 }
@@ -320,7 +326,7 @@ export function scoreContentDesignPredictions(goldSet, predictions) {
   });
   const slice = (field) => Object.fromEntries([...new Set(joined.map(({ unit }) => field(unit)))].sort().map((key) => [key, metric(joined.filter(({ unit }) => field(unit) === key))]));
   const preimage = {
-    contract_version: "contentmd.content-design-evaluation-report/0.2.0",
+    contract_version: "contentmd.content-design-evaluation-report/0.3.0",
     gold_set_digest: goldSet.gold_set_digest,
     packet_digest: predictions.packet_digest,
     prediction_set_digest: predictions.prediction_set_digest,

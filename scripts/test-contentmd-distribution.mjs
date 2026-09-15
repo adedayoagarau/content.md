@@ -195,6 +195,17 @@ run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet"
   "--submission", benchmarkReviewAPath, "--gold-out", benchmarkGoldAPath, "--json"], consumer);
 run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
   "--submission", benchmarkReviewBPath, "--gold-out", benchmarkGoldBPath, "--json"], consumer);
+const benchmarkEvaluationPath = path.join(scratch, "content-design-evaluation.json");
+const benchmarkEvaluation = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
+  "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--predictions", benchmarkPredictionsPath,
+  "--report-out", benchmarkEvaluationPath, "--json"], consumer));
+if (
+  benchmarkEvaluation.command_id !== "benchmark.content-design.score"
+  || benchmarkEvaluation.data?.contract_version !== "contentmd.content-design-evaluation-report/0.3.0"
+  || benchmarkEvaluation.data?.overall?.quality_gold_score_count !== 800
+  || benchmarkEvaluation.data?.overall?.quality_comparable_score_count >= 800
+  || !(benchmarkEvaluation.data?.overall?.quality_prediction_coverage < 1)
+) throw new Error("installed package did not expose missing quality-score coverage");
 const benchmarkCalibration = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
   "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--compare-gold", benchmarkGoldBPath,
   "--report-out", benchmarkCalibrationPath, "--json"], consumer));
@@ -385,6 +396,7 @@ console.log(JSON.stringify({
   content_design_predictions_completed: true,
   content_design_review_template_completed: true,
   content_design_qualification_request_completed: true,
+  content_design_quality_coverage_reported: true,
   content_design_reviewer_calibration_completed: true,
   content_design_review_workbench_completed: true,
   packed_workbench_completed: true,
