@@ -135,6 +135,13 @@ only. Reviewers must receive isolated copies of the packet and
 while the selection manifest remains operator-only until both submissions are
 frozen.
 
+When both submissions return, the create-only comparison command documented in
+the [pilot runbook](../tests/fixtures/content-design-disagreement-pilot/README.md)
+validates exact packet binding, distinct identities, completeness, and any
+steward-issued qualification bundles. It retains every material difference in
+an adjudication queue and keeps the result ineligible for human-gold,
+effectiveness, retrieval, and training claims.
+
 ## Decision
 
 These outputs can guide rubric repair, but they must not be promoted to gold or

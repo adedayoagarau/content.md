@@ -54,3 +54,31 @@ review records.
 Two qualified content designers must review independently. Their submissions
 remain candidate calibration evidence until identity, scope, packet digest,
 completeness, and independence are verified and disagreements are adjudicated.
+
+## When both reviews return
+
+Preserve each original submission unchanged. The operator compares them with:
+
+```bash
+node scripts/compare-content-design-disagreement-pilot.mjs \
+  --packet /operator-copy/review-packet.json \
+  --reviewer-a /returned/reviewer-a-submission.json \
+  --reviewer-b /returned/reviewer-b-submission.json \
+  --out /operator-only/reviewer-comparison.json
+```
+
+The comparator verifies the exact packet digest, response order and coverage,
+distinct reviewer identities, review timestamps, independence attestations,
+hard-result enums, required quality scores, rationales, invariants, revisions,
+and evidence references. It records byte digests for both original submissions
+and refuses to overwrite an existing comparison.
+
+A reviewer role string is not qualification. When a steward-issued bundle is
+present, the comparator verifies the reviewer identity, content-design review
+objective, benchmark scope, and exact packet scope. Without valid bundles, the
+comparison remains `structurally_complete_qualification_unverified`. With both
+bundles it becomes `qualified_submissions_pending_adjudication`—still not gold.
+
+Every disposition, hard-dimension, or quality-score difference remains in the
+explicit adjudication queue. The comparator never averages, resolves, promotes,
+or trains on reviewer judgments.
