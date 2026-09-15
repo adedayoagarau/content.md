@@ -10,6 +10,7 @@ import { validateReviewSample } from "./prepare-content-design-review-sample.mjs
 const root = fileURLToPath(new URL("../", import.meta.url));
 const defaultPacket = path.join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json");
 const defaultOutput = path.join(root, "docs/tests/fixtures/content-design-scenarios/contentmd-baseline-predictions.json");
+const RECOVERY_REQUIRED_SITUATIONS = new Set(["payment_unknown", "subscription_renewal", "permission_request", "validation_error", "service_interruption", "automated_assistant"]);
 
 function digest(value) {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -35,15 +36,15 @@ function predictUnit(unit) {
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
   const materialEvidenceMissing = unit.context.evidence?.material_fact_status === "missing";
   const authorityUnresolved = /\b(?:approved|authorized|guaranteed)\b/iu.test(text);
-  const paymentRecovery = unit.context.situation !== "payment_unknown"
+  const recovery = !RECOVERY_REQUIRED_SITUATIONS.has(unit.context.situation)
     ? "not_applicable"
-    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(combinedText) ? "pass" : "fail";
+    : lower.includes(unit.context.action_expression.toLocaleLowerCase("en-US")) ? "pass" : "fail";
   const hard = {
     factual_accuracy: materialEvidenceMissing ? "unknown" : falseCertainty ? "fail" : "pass",
     state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
     semantic_fidelity: vague || !stateRepresented || !consequenceRepresented ? "fail" : "pass",
     agency: pressure ? "fail" : "pass",
-    recovery: paymentRecovery,
+    recovery,
     authority_boundary: authorityUnresolved ? "unknown" : "pass",
   };
   const quality = {
@@ -87,7 +88,7 @@ function predictUnit(unit) {
     rationale_codes: rationaleCodes.length === 0
       ? disposition === "pass" ? ["hard_checks_passed"] : ["hard_checks_passed_preference_unresolved"]
       : rationaleCodes,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0",
     authority_effect: "none",
   };
 }
@@ -98,7 +99,7 @@ export function predictContentDesignPacket(packet) {
   const preimage = {
     contract_version: "contentmd.content-design-predictions/0.3.0",
     packet_digest: packet.packet_digest,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0",
     prediction_count: predictions.length,
     predictions,
     quality_dimension_coverage: Object.fromEntries([...new Set(predictions.flatMap((prediction) => Object.keys(prediction.quality_dimension_scores)))].sort().map((dimension) => {

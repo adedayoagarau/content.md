@@ -65,7 +65,9 @@ try {
     }
   }
   if (Object.keys(predictions.hard_dimension_result_distribution ?? {}).length !== 6
-    || predictions.hard_dimension_result_distribution?.recovery?.not_applicable !== 9_000
+    || predictions.hard_dimension_result_distribution?.recovery?.pass !== 5_400
+    || predictions.hard_dimension_result_distribution?.recovery?.fail !== 600
+    || predictions.hard_dimension_result_distribution?.recovery?.not_applicable !== 4_000
     || predictions.hard_dimension_result_distribution?.authority_boundary?.unknown !== 1_000
     || predictions.hard_dimension_result_distribution?.authority_boundary?.pass !== 9_000) fail("prediction_hard_distribution");
   if (new Set(scenarios.map((scenario) => scenario.scenario_digest)).size !== 10_000) fail("scenario_digest_identity");

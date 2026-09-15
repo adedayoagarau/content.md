@@ -63,7 +63,7 @@ function validatePredictionSet(predictions, packetDigest, units) {
   if (predictions === null || typeof predictions !== "object"
     || predictions.contract_version !== "contentmd.content-design-predictions/0.3.0"
     || predictions.packet_digest !== packetDigest
-    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
+    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.3.0"
     || predictions.evaluation_status !== "unscored_pending_qualified_gold"
     || predictions.label_access !== "blind_packet_only"
     || predictions.authority_effect !== "none"

@@ -1,7 +1,7 @@
 {
   "contract_version": "contentmd.content-design-predictions/0.3.0",
   "packet_digest": "7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7",
-  "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+  "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
   "prediction_count": 100,
   "predictions": [
     {
@@ -12,7 +12,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -30,7 +30,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -57,7 +57,7 @@
       "rationale_codes": [
         "hard_checks_passed"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -85,7 +85,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -115,7 +115,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -143,7 +143,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -154,7 +154,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -170,7 +170,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -181,7 +181,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
@@ -198,7 +198,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -209,7 +209,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "fail",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -227,7 +227,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -257,7 +257,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -268,7 +268,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -284,7 +284,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -313,7 +313,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -340,7 +340,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -368,7 +368,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -398,7 +398,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -409,7 +409,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -425,7 +425,7 @@
       "rationale_codes": [
         "consequence_not_represented"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -436,7 +436,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -452,7 +452,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -463,7 +463,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
@@ -480,7 +480,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -509,7 +509,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -520,7 +520,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "fail",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -539,7 +539,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -550,7 +550,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -566,7 +566,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -595,7 +595,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -622,7 +622,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -650,7 +650,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -661,7 +661,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -680,7 +680,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -691,7 +691,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -708,7 +708,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -719,7 +719,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -735,7 +735,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -762,7 +762,7 @@
       "rationale_codes": [
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -773,7 +773,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "fail",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -791,7 +791,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -802,7 +802,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "fail",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -821,7 +821,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -848,7 +848,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -876,7 +876,7 @@
         "state_not_represented",
         "user_blame"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -903,7 +903,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -914,7 +914,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -931,7 +931,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -942,7 +942,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -961,7 +961,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -972,7 +972,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -989,7 +989,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1016,7 +1016,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1027,7 +1027,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
@@ -1044,7 +1044,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1055,7 +1055,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "fail",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1073,7 +1073,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1102,7 +1102,7 @@
         "state_not_represented",
         "consequence_not_represented"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1129,7 +1129,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1158,7 +1158,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1169,7 +1169,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1185,7 +1185,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1196,7 +1196,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1213,7 +1213,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1224,7 +1224,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1243,7 +1243,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1271,7 +1271,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1282,7 +1282,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1298,7 +1298,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1309,7 +1309,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
@@ -1326,7 +1326,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1355,7 +1355,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1385,7 +1385,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1412,7 +1412,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1423,7 +1423,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1441,7 +1441,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1452,7 +1452,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1468,7 +1468,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1479,7 +1479,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1496,7 +1496,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1525,7 +1525,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1536,7 +1536,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1553,7 +1553,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1564,7 +1564,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1580,7 +1580,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1608,7 +1608,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1636,7 +1636,7 @@
         "state_not_represented",
         "unsupported_urgency_or_pressure"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1666,7 +1666,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1693,7 +1693,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1704,7 +1704,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1722,7 +1722,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1733,7 +1733,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1749,7 +1749,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1777,7 +1777,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1788,7 +1788,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1807,7 +1807,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1818,7 +1818,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1835,7 +1835,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1862,7 +1862,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1890,7 +1890,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1919,7 +1919,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1949,7 +1949,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1960,7 +1960,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -1976,7 +1976,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -1987,7 +1987,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2005,7 +2005,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2032,7 +2032,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2043,7 +2043,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2060,7 +2060,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2071,7 +2071,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2090,7 +2090,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2118,7 +2118,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2145,7 +2145,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2173,7 +2173,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2202,7 +2202,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2213,7 +2213,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "fail",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2232,7 +2232,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2243,7 +2243,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2259,7 +2259,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2288,7 +2288,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2299,7 +2299,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2315,7 +2315,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2326,7 +2326,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2343,7 +2343,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2373,7 +2373,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2401,7 +2401,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2428,7 +2428,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2455,7 +2455,7 @@
       "rationale_codes": [
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2466,7 +2466,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "fail",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2484,7 +2484,7 @@
         "unsupported_urgency_or_pressure",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2495,7 +2495,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "fail",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2514,7 +2514,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2525,7 +2525,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2541,7 +2541,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2552,7 +2552,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2570,7 +2570,7 @@
         "user_blame",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2581,7 +2581,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2597,7 +2597,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2625,7 +2625,7 @@
         "material_evidence_missing",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2654,7 +2654,7 @@
         "state_not_represented",
         "consequence_not_represented"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2682,7 +2682,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2709,7 +2709,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2720,7 +2720,7 @@
         "state_accuracy": "pass",
         "semantic_fidelity": "pass",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "unknown"
       },
       "quality_dimension_scores": {
@@ -2737,7 +2737,7 @@
         "in_locale_review_required",
         "authority_claim_requires_verification"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2748,7 +2748,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "fail",
-        "recovery": "not_applicable",
+        "recovery": "pass",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2765,7 +2765,7 @@
         "state_not_represented",
         "unsupported_urgency_or_pressure"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2776,7 +2776,7 @@
         "state_accuracy": "fail",
         "semantic_fidelity": "fail",
         "agency": "pass",
-        "recovery": "not_applicable",
+        "recovery": "fail",
         "authority_boundary": "pass"
       },
       "quality_dimension_scores": {
@@ -2795,7 +2795,7 @@
         "consequence_not_represented",
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     },
     {
@@ -2822,7 +2822,7 @@
       "rationale_codes": [
         "in_locale_review_required"
       ],
-      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
+      "evaluator_version": "contentmd.deterministic-content-design-baseline/0.3.0",
       "authority_effect": "none"
     }
   ],
@@ -2892,10 +2892,10 @@
     },
     "recovery": {
       "opportunity_count": 100,
-      "pass": 9,
-      "fail": 1,
+      "pass": 54,
+      "fail": 6,
       "unknown": 0,
-      "not_applicable": 90
+      "not_applicable": 40
     },
     "semantic_fidelity": {
       "opportunity_count": 100,
@@ -2915,5 +2915,5 @@
   "evaluation_status": "unscored_pending_qualified_gold",
   "label_access": "blind_packet_only",
   "authority_effect": "none",
-  "prediction_set_digest": "ee75148dfae333ac6c95f22d4aa450bd037f7f719a880c04d1d29e77e5943ab4"
+  "prediction_set_digest": "5cc50e41781e5db68939a0a5fae08d472513393f7e50e4096fc9cb1117dfa3a8"
 }

@@ -28,13 +28,13 @@ function predictionSet(packet, records, predictionFor) {
     work_unit_id: record.work_unit_id,
     ...predictionFor(record),
     rationale_codes: ["test_fixture_judgment"],
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0",
     authority_effect: "none",
   }));
   const preimage = {
     contract_version: "contentmd.content-design-predictions/0.3.0",
     packet_digest: packet.packet_digest,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0",
     prediction_count: predictions.length,
     predictions,
     quality_dimension_coverage: Object.fromEntries([...new Set(predictions.flatMap((prediction) => Object.keys(prediction.quality_dimension_scores)))].sort().map((dimension) => {

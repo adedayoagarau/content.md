@@ -49,14 +49,14 @@ It does not duplicate the bulk generated records in the repository.
 | `pass` | 200 |
 | Accessibility-readiness score coverage | 1,000/10,000 (10%) |
 | Every other quality-dimension score coverage | 10,000/10,000 (100%) |
-| Recovery results | 900 pass; 100 fail; 9,000 not applicable |
+| Recovery results | 5,400 pass; 600 fail; 4,000 not applicable |
 | Authority-boundary results | 9,000 pass; 1,000 unknown |
 
 Packet digest:
 `2edd2fce34431e75c574b7ad975b5906e9afb58657b36a42dc8c2ea55a0c718c`
 
 Prediction-set digest:
-`b711f3d2fa9fd114fe94e0aac3b74c6876c9dd8dfd3bf362da9b3a87a0475ec9`
+`d83f80e4661adabb9d31ebc193e66c8ad048a3baab093f24509906392872d5dc`
 
 The prediction set reports:
 
@@ -71,7 +71,8 @@ readiness, voice fit, tone fit, and economy are scored for all 10,000 records.
 Coverage is not accuracy.
 
 Every hard dimension also reports pass, fail, unknown, and not-applicable
-counts. Recovery is not applicable in 9,000 matrix records. The matrix now
+counts. Recovery is applicable in 6,000 matrix records and not applicable in
+4,000. The matrix now
 contains 1,000 explicit unsupported-authority controls; the evaluator returns
 `unknown` and routes those records to escalation rather than treating them as
 preference questions. This demonstrates control-path execution, not judgment

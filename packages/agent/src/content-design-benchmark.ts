@@ -236,14 +236,14 @@ interface ContentDesignPrediction {
   hard_dimension_results: Record<string, HardResult>;
   quality_dimension_scores: Record<string, number | null>;
   rationale_codes: string[];
-  evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0";
+  evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0";
   authority_effect: "none";
 }
 
 export interface ContentDesignPredictionSet {
   contract_version: "contentmd.content-design-predictions/0.3.0";
   packet_digest: string;
-  evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0";
+  evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0";
   prediction_count: number;
   predictions: ContentDesignPrediction[];
   quality_dimension_coverage: Record<string, { prediction_count: number; opportunity_count: number; coverage: number }>;
@@ -283,6 +283,7 @@ function digest(value: unknown): string {
 }
 
 const BLINDED_FIELDS = ["candidate.variant", "candidate.voice", "candidate.tone", "candidate.injected_defect", "evaluation_control", "provisional_expectation"];
+const RECOVERY_REQUIRED_SITUATIONS = new Set(["payment_unknown", "subscription_renewal", "permission_request", "validation_error", "service_interruption", "automated_assistant"]);
 
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -366,9 +367,9 @@ function predict(unit: ReviewWorkUnit): ContentDesignPrediction {
     && unit.candidate.localization_status === "source_language_candidate_requires_localization";
   const materialEvidenceMissing = unit.context.evidence?.material_fact_status === "missing";
   const authorityUnresolved = /\b(?:approved|authorized|guaranteed)\b/iu.test(text);
-  const recovery: HardResult = unit.context.situation !== "payment_unknown"
+  const recovery: HardResult = !RECOVERY_REQUIRED_SITUATIONS.has(unit.context.situation)
     ? "not_applicable"
-    : /\b(?:check|verify)\b.*\b(?:payment|status|order)\b/iu.test(combinedText) ? "pass" : "fail";
+    : lower.includes(unit.context.action_expression.toLocaleLowerCase("en-US")) ? "pass" : "fail";
   const hard: Record<string, HardResult> = {
     factual_accuracy: materialEvidenceMissing ? "unknown" : falseCertainty ? "fail" : "pass",
     state_accuracy: falseCertainty || vague || !stateRepresented ? "fail" : "pass",
@@ -417,7 +418,7 @@ function predict(unit: ReviewWorkUnit): ContentDesignPrediction {
     rationale_codes: rationaleCodes.length === 0
       ? disposition === "pass" ? ["hard_checks_passed"] : ["hard_checks_passed_preference_unresolved"]
       : rationaleCodes,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0",
     authority_effect: "none",
   };
 }
@@ -451,7 +452,7 @@ export function predictContentDesignBenchmark(packetValue: unknown): ContentDesi
   const preimage = {
     contract_version: "contentmd.content-design-predictions/0.3.0" as const,
     packet_digest: packet.packet_digest,
-    evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0" as const,
+    evaluator_version: "contentmd.deterministic-content-design-baseline/0.3.0" as const,
     prediction_count: predictions.length,
     predictions,
     quality_dimension_coverage: predictionQualityCoverage(predictions),
@@ -554,7 +555,7 @@ function validatePredictionSet(value: unknown, packetDigest: string, units: Qual
   const predictions = value as unknown as ContentDesignPredictionSet;
   if (predictions.contract_version !== "contentmd.content-design-predictions/0.3.0"
     || predictions.packet_digest !== packetDigest
-    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
+    || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.3.0"
     || predictions.evaluation_status !== "unscored_pending_qualified_gold"
     || predictions.label_access !== "blind_packet_only"
     || predictions.authority_effect !== "none"
