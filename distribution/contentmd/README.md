@@ -154,7 +154,10 @@ does not by itself prove tool accuracy or authorize a benchmark claim.
 Qualification fails closed for incomplete reviews, packet drift, missing
 evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or
 differently scoped governed reviewer-qualification replay. A role string alone
-cannot create gold. Qualified records are eligible for this benchmark only;
+cannot create gold. The repository intentionally does not self-issue reviewer
+qualification: a program steward with the required policy, grant, approval,
+and control evidence must supply the packet-scoped bundle. Qualified records
+are eligible for this benchmark only;
 they do not become retrieval or training data.
 
 The packaged baseline has been replayed across all 10,000 synthetic scenarios.

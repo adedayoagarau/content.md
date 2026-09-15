@@ -42,6 +42,9 @@ describe("content-design review workbench", () => {
       expect(client).toContain("packetBoundProgress");
       expect(client).toContain("contentmd-review-progress.json");
       expect(client).toContain("Progress file rejected: it does not match this review packet");
+      expect(client).toContain("steward-issued qualification required before benchmark gold");
+      expect(client).toContain("Self-attestation does not create one");
+      expect(client).toContain("qualification-help");
       expect(client).toContain("rfc3339");
       expect(client).toContain("qualification_bundle");
       expect(page).toContain("Export completed review");

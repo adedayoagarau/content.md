@@ -48,6 +48,10 @@ reviewer-qualification bundle whose replay binds the reviewer, content-design
 role, benchmark-review objective, and exact packet scope. A role string and
 self-attestation alone fail closed. Qualified output remains benchmark-only,
 with retrieval and training eligibility set to `never`.
+The public CLI does not self-issue reviewer qualifications. Issuance belongs to
+an external program steward and requires a current policy, capability grant,
+human approval, control evidence, and an authorization replay bound to the
+exact packet scope.
 Calibration requires two valid gold sets for the exact same packet and rejects
 reviewer reuse, record drift, mismatched coverage, or digest-invalid files. It reports
 disposition and hard-dimension agreement, quality-score distance, per-ability

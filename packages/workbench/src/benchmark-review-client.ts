@@ -52,8 +52,11 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
   };
   const renderStatus = () => {
     const complete = submission.responses.filter(completeResponse).length;
-    const reviewerReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested && submission.reviewer.qualification_bundle && typeof submission.reviewer.qualification_bundle === "object";
-    byId("completion").textContent = complete + " of " + submission.responses.length + " reviews complete";
+    const identityReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested;
+    const qualificationReady = submission.reviewer.qualification_bundle && typeof submission.reviewer.qualification_bundle === "object";
+    const reviewerReady = identityReady && qualificationReady;
+    byId("completion").textContent = complete === submission.responses.length && !qualificationReady ? complete + " reviews complete · steward-issued qualification required before benchmark gold" : complete + " of " + submission.responses.length + " reviews complete";
+    byId("qualification-help").textContent = qualificationReady ? "Qualification bundle added. It will be verified when this review is submitted for gold qualification." : "Your program steward must supply a current, packet-scoped qualification. Self-attestation does not create one.";
     byId("item-status").textContent = completeResponse(submission.responses[index]) ? "Current review complete" : "Current review incomplete";
     byId("reviewer-id").setAttribute("aria-invalid", String(!submission.reviewer.reviewer_id?.trim()));
     byId("reviewed-at").setAttribute("aria-invalid", String(!rfc3339(submission.reviewer.reviewed_at)));
@@ -63,6 +66,7 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
   const reviewerInput = (id, key) => byId(id).addEventListener("input", (event) => { submission.reviewer[key] = event.target.type === "checkbox" ? event.target.checked : event.target.value; save(); renderStatus(); });
   fetch("/review-data.json").then((response) => response.json()).then((loaded) => {
     data = loaded; submission = data.template;
+    const qualificationHelp = document.createElement("span"); qualificationHelp.id = "qualification-help"; qualificationHelp.className = "status"; qualificationHelp.setAttribute("role", "status"); byId("qualification-json").after(qualificationHelp);
     const saved = localStorage.getItem("contentmd-review:" + data.packet.packet_digest);
     if (saved) { try { const parsed = JSON.parse(saved); submission = parsed.submission; index = parsed.index || 0; } catch {} }
     byId("reviewer-id").value = submission.reviewer.reviewer_id || ""; byId("reviewed-at").value = submission.reviewer.reviewed_at || ""; byId("attest").checked = submission.reviewer.independent_review_attested; byId("qualification-json").value = submission.reviewer.qualification_bundle ? JSON.stringify(submission.reviewer.qualification_bundle, null, 2) : "";
