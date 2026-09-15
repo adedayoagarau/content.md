@@ -79,7 +79,12 @@ substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-tarball bytes: 2145768
+package content digest: 0f28dc7734e760b4767154f3739fe4fee096daec4af2975c92d029540820fa03
+LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
+README.md sha256: 0c4768171376453b0c16a61a15d3e6f9daaf9a1f09fa6c9bcec546b55baaa6b1
+dist/contentmd.cjs sha256: 205e3fd3a59414c2e81a1a2ada4891d74c43401c23e7a1f59b69e4f1cd4a44af
+package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
+observed tarball bytes: 2145766
 unpacked bytes: 13143945
 file count: 4
 qualified synthetic content items: 1
@@ -97,6 +102,12 @@ content-design sample extraction, blind prediction, reviewer-blank template
 creation, two-reviewer calibration, and review-workbench rendering with
 generator labels absent. Calibration reports remain non-authorizing and retain
 disagreements for adjudication.
+
+Before packing, the verifier rebuilt the distribution twice and required
+byte-identical SHA-256 values for all four shipped files. The canonical
+package-content digest above is the reproducibility identity; compressed
+tarball size is observational because gzip container bytes may vary while the
+unpacked package remains identical.
 
 The release dry-run admitted exactly:
 

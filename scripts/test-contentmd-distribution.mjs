@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -23,6 +24,18 @@ function run(command, args, cwd) {
     throw new Error(`${command} ${args.join(" ")} failed\n${result.stdout}\n${result.stderr}`);
   }
   return result.stdout;
+}
+
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+const packageFiles = ["LICENSE", "README.md", "dist/contentmd.cjs", "package.json"];
+async function packageFileDigests() {
+  return Object.fromEntries(await Promise.all(packageFiles.map(async (file) => [
+    file,
+    sha256(await readFile(path.join(distribution, file))),
+  ])));
 }
 
 async function startPackedServer(entry, args, cwd, label) {
@@ -62,6 +75,13 @@ async function startPackedServer(entry, args, cwd, label) {
 }
 
 run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")], root);
+const firstBuildDigests = await packageFileDigests();
+run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")], root);
+const package_file_sha256 = await packageFileDigests();
+if (JSON.stringify(package_file_sha256) !== JSON.stringify(firstBuildDigests)) {
+  throw new Error("distribution build is not byte-reproducible");
+}
+const package_content_digest = sha256(JSON.stringify(package_file_sha256));
 const packOutput = JSON.parse(run("npm", ["pack", distribution, "--json", "--pack-destination", scratch], root));
 const packed = packOutput[0];
 if (packed.name !== "contentmd" || packed.version !== "0.1.0") throw new Error("unexpected package identity");
@@ -393,6 +413,8 @@ try {
 
 console.log(JSON.stringify({
   package: `${packed.name}@${packed.version}`,
+  package_content_digest,
+  package_file_sha256,
   tarball_size: packed.size,
   unpacked_size: packed.unpackedSize,
   file_count: packed.entryCount,

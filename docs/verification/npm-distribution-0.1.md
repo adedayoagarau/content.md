@@ -44,8 +44,12 @@ Run the proof with the supported Node 24 runtime:
 pnpm test:distribution
 ```
 
-The verifier reports the exact current tarball size and file count on each run;
-the package has no runtime package dependencies.
+The verifier builds the distribution twice and requires SHA-256 equality for
+every shipped file before packing. It reports those file digests, a canonical
+package-content digest, the observed compressed and unpacked sizes, and the file
+count on each run. The content digest—not gzip byte count—is the reproducibility
+identity because archive-container compression may vary without changing any
+shipped file. The package has no runtime package dependencies.
 
 `pnpm verify:release` separately verifies the package identity, exact
 `v<version>` tag expectation, supported npm CLI, repository URL, public access,
