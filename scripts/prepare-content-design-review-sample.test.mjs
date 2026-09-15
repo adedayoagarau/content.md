@@ -6,9 +6,11 @@ import { generateScenarios } from "./generate-content-design-evaluation-scenario
 import {
   prepareCalibrationCohort,
   prepareFullBenchmarkPacket,
+  prepareHeldOutReservation,
   prepareReviewSample,
   validateBlindPacket,
   validateCalibrationCohort,
+  validateHeldOutReservation,
   validateReviewSample,
 } from "./prepare-content-design-review-sample.mjs";
 
@@ -88,4 +90,29 @@ test("keeps the committed 500-item calibration cohort in generator parity", asyn
   ));
   assert.deepEqual(committed, prepareCalibrationCohort(generateScenarios()));
   assert.equal(validateCalibrationCohort(committed), committed);
+});
+
+test("reserves a disjoint unopened 500-item evaluation cohort", async () => {
+  const scenarios = generateScenarios();
+  const calibration = prepareCalibrationCohort(scenarios);
+  const reservation = prepareHeldOutReservation(scenarios);
+  assert.equal(validateHeldOutReservation(reservation), reservation);
+  assert.equal(new Set(reservation.scenario_refs.map((ref) => ref.scenario_id)).size, 500);
+  const calibrationIds = new Set(calibration.review_work_units.map((unit) => unit.scenario_ref.scenario_id));
+  assert.equal(reservation.scenario_refs.some((ref) => calibrationIds.has(ref.scenario_id)), false);
+  for (const ability of new Set(reservation.scenario_refs.map((ref) => ref.ability_id))) {
+    const refs = reservation.scenario_refs.filter((ref) => ref.ability_id === ability);
+    assert.equal(refs.length, 50);
+    assert.equal(new Set(refs.map((ref) => ref.candidate_variant_slot)).size, 10);
+    assert.equal(new Set(refs.map((ref) => ref.reserved_context_slot)).size, 5);
+  }
+  const committed = JSON.parse(await readFile(
+    "docs/tests/fixtures/content-design-scenarios/held-out-reservation-500.json",
+    "utf8",
+  ));
+  assert.deepEqual(committed, reservation);
+  const exposed = structuredClone(reservation);
+  exposed.scenario_refs[0].candidate_text = "hidden evaluation content";
+  exposed.reservation_digest = "0".repeat(64);
+  assert.throws(() => validateHeldOutReservation(exposed), /envelope|scenario_ref|digest/);
 });

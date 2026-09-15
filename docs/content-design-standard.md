@@ -143,6 +143,11 @@ surfaces, and target locales within every ability. Use it for independent human
 calibration only after the 100-item workflow packet is operational. Keep final
 effectiveness measurement on a separately frozen held-out set; reviewer
 agreement and repeated exposure to the calibration cohort are not test results.
+The separately committed 500-item held-out reservation contains only immutable
+scenario references. It is disjoint from calibration and remains
+`frozen_unopened` until calibration is complete and evaluation is authorized.
+The remaining 9,000 scenarios are reserve coverage, not automatically a test
+set or human gold.
 
 The packaged deterministic baseline has processed the complete blinded matrix;
 the reproducible result is recorded in the

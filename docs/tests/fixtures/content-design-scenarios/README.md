@@ -71,6 +71,18 @@ training. The 100-item packet is the lower-cost workflow check; the 500-item
 cohort is the stronger human-calibration instrument, not a substitute for a
 separate held-out evaluation set.
 
+Reserve the disjoint 500-item evaluation cohort before review begins:
+
+```bash
+npm run reserve:content-design-evaluation
+```
+
+`held-out-reservation-500.json` stores only scenario IDs, scenario digests, and
+sampling cells. It deliberately does not materialize reviewer content. Its
+digest is `ab7c8fb458180f7cfbbf2086407fd71d6e8d0f4c321f7c0ce52f0d5bf560e38d`.
+The reservation is disjoint from the 500 calibration items and cannot be
+materialized until calibration is frozen and evaluation is authorized.
+
 Use `createReviewSubmissionTemplate()` from
 `scripts/qualify-content-design-review.mjs` to create a separate response file.
 The packet itself remains immutable. Qualification requires every response, a

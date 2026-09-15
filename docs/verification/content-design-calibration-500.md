@@ -48,3 +48,10 @@ preserved, compared, and adjudicated without rewriting either review. A
 separate frozen held-out set is required for effectiveness measurement after
 calibration. Reviewer agreement alone is not evaluator accuracy, product
 quality, or evidence that fine-tuning is warranted.
+
+The disjoint evaluation reservation is
+`docs/tests/fixtures/content-design-scenarios/held-out-reservation-500.json`,
+with digest
+`ab7c8fb458180f7cfbbf2086407fd71d6e8d0f4c321f7c0ce52f0d5bf560e38d`.
+It contains references rather than reviewer content and remains
+`frozen_unopened` until the calibration packet and evaluator are frozen.

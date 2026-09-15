@@ -87,9 +87,17 @@ export function prepareReviewSample(scenarios) {
 }
 
 export function prepareCalibrationCohort(scenarios) {
+  return packetFor(selectCohortScenarios(scenarios, 0).map(({ scenario, ability, variantIndex, cohortSlot }) => workUnitFor(scenario, {
+    ability_id: ability,
+    candidate_variant_slot: variantIndex + 1,
+    calibration_context_slot: cohortSlot + 1,
+  })), "deterministic_stratified_ability_by_candidate_variant_five_contexts");
+}
+
+function selectCohortScenarios(scenarios, startSlot) {
   const abilities = sortedUnique(scenarios.map((scenario) => scenario.ability.id));
   const variants = sortedUnique(scenarios.map((scenario) => scenario.candidate.variant));
-  const workUnits = [];
+  const selected = [];
   for (const [abilityIndex, ability] of abilities.entries()) {
     for (const [variantIndex, variant] of variants.entries()) {
       const candidates = scenarios
@@ -98,18 +106,37 @@ export function prepareCalibrationCohort(scenarios) {
       if (candidates.length !== 100) {
         throw new Error(`content_design_calibration_missing:${ability}:${variant}`);
       }
-      for (let cohortSlot = 0; cohortSlot < 5; cohortSlot += 1) {
+      for (let cohortSlot = startSlot; cohortSlot < startSlot + 5; cohortSlot += 1) {
         const matrixIndex = (cohortSlot * 21 + abilityIndex * 7 + variantIndex * 3) % candidates.length;
         const scenario = candidates[matrixIndex];
-        workUnits.push(workUnitFor(scenario, {
-          ability_id: ability,
-          candidate_variant_slot: variantIndex + 1,
-          calibration_context_slot: cohortSlot + 1,
-        }));
+        selected.push({ scenario, ability, variantIndex, cohortSlot });
       }
     }
   }
-  return packetFor(workUnits, "deterministic_stratified_ability_by_candidate_variant_five_contexts");
+  return selected;
+}
+
+export function prepareHeldOutReservation(scenarios) {
+  const scenarioRefs = selectCohortScenarios(scenarios, 5).map(({ scenario, ability, variantIndex, cohortSlot }) => ({
+    scenario_id: scenario.scenario_id,
+    scenario_digest: scenario.scenario_digest,
+    ability_id: ability,
+    candidate_variant_slot: variantIndex + 1,
+    reserved_context_slot: cohortSlot - 4,
+  }));
+  const preimage = {
+    contract_version: "contentmd.content-design-held-out-reservation/0.1.0",
+    source_matrix_count: scenarios.length,
+    reserved_count: scenarioRefs.length,
+    selection_method: "disjoint_stratified_ability_by_candidate_variant_five_contexts",
+    scenario_refs: scenarioRefs,
+    reservation_state: "frozen_unopened",
+    materialization_gate: "calibration_frozen_and_evaluation_authorized",
+    authority_effect: "none",
+    retrieval_eligibility: "never",
+    training_eligibility: "never",
+  };
+  return { ...preimage, reservation_digest: digest(preimage) };
 }
 
 export function prepareFullBenchmarkPacket(scenarios) {
@@ -169,25 +196,69 @@ export function validateCalibrationCohort(packet) {
   return packet;
 }
 
+export function validateHeldOutReservation(reservation) {
+  const expectedKeys = ["authority_effect", "contract_version", "materialization_gate", "reservation_digest", "reservation_state", "reserved_count", "retrieval_eligibility", "scenario_refs", "selection_method", "source_matrix_count", "training_eligibility"].sort();
+  if (reservation === null || typeof reservation !== "object" || Array.isArray(reservation)
+    || Object.keys(reservation).sort().join("\0") !== expectedKeys.join("\0")
+    || reservation.contract_version !== "contentmd.content-design-held-out-reservation/0.1.0"
+    || reservation.source_matrix_count !== 10_000
+    || reservation.reserved_count !== 500
+    || reservation.scenario_refs.length !== 500
+    || reservation.reservation_state !== "frozen_unopened"
+    || reservation.materialization_gate !== "calibration_frozen_and_evaluation_authorized"
+    || reservation.authority_effect !== "none"
+    || reservation.retrieval_eligibility !== "never"
+    || reservation.training_eligibility !== "never") {
+    throw new Error("content_design_held_out_reservation_invalid:envelope");
+  }
+  const { reservation_digest: reservationDigest, ...preimage } = reservation;
+  if (reservationDigest !== digest(preimage)) throw new Error("content_design_held_out_reservation_invalid:digest");
+  if (new Set(reservation.scenario_refs.map((ref) => ref.scenario_id)).size !== 500) {
+    throw new Error("content_design_held_out_reservation_invalid:duplicate_scenario");
+  }
+  const expectedRefKeys = ["ability_id", "candidate_variant_slot", "reserved_context_slot", "scenario_digest", "scenario_id"].sort().join("\0");
+  for (const ref of reservation.scenario_refs) {
+    if (ref === null || typeof ref !== "object" || Array.isArray(ref)
+      || Object.keys(ref).sort().join("\0") !== expectedRefKeys
+      || !/^cdes-\d{5}$/u.test(ref.scenario_id)
+      || !/^[0-9a-f]{64}$/u.test(ref.scenario_digest)
+      || typeof ref.ability_id !== "string" || ref.ability_id === ""
+      || !Number.isSafeInteger(ref.candidate_variant_slot) || ref.candidate_variant_slot < 1 || ref.candidate_variant_slot > 10
+      || !Number.isSafeInteger(ref.reserved_context_slot) || ref.reserved_context_slot < 1 || ref.reserved_context_slot > 5) {
+      throw new Error("content_design_held_out_reservation_invalid:scenario_ref");
+    }
+  }
+  return reservation;
+}
+
 async function main() {
   const inputIndex = process.argv.indexOf("--input");
   const outputIndex = process.argv.indexOf("--out");
   const calibrationOutputIndex = process.argv.indexOf("--calibration-out");
+  const reservationOutputIndex = process.argv.indexOf("--reservation-out");
   const input = inputIndex >= 0 ? process.argv[inputIndex + 1] : defaultInput;
-  if (outputIndex >= 0 && calibrationOutputIndex >= 0) {
-    throw new Error("content_design_review_packet_invalid:choose_out_or_calibration_out");
+  if ([outputIndex, calibrationOutputIndex, reservationOutputIndex].filter((index) => index >= 0).length > 1) {
+    throw new Error("content_design_review_packet_invalid:choose_one_output");
   }
   const calibration = calibrationOutputIndex >= 0;
-  const output = calibration
-    ? process.argv[calibrationOutputIndex + 1]
+  const reservation = reservationOutputIndex >= 0;
+  const output = reservation
+    ? process.argv[reservationOutputIndex + 1]
+    : calibration ? process.argv[calibrationOutputIndex + 1]
     : outputIndex >= 0 ? process.argv[outputIndex + 1] : defaultOutput;
   if (input === undefined || output === undefined) throw new Error("content_design_review_packet_invalid:arguments");
   const scenarios = (await readFile(input, "utf8")).trim().split("\n").map((line) => JSON.parse(line));
-  const packet = calibration
+  const packet = reservation
+    ? validateHeldOutReservation(prepareHeldOutReservation(scenarios))
+    : calibration
     ? validateCalibrationCohort(prepareCalibrationCohort(scenarios))
     : validateReviewSample(prepareReviewSample(scenarios));
   await writeFile(output, `${JSON.stringify(packet, null, 2)}\n`);
-  console.log(JSON.stringify({ output, sample_count: packet.sample_count, packet_digest: packet.packet_digest }, null, 2));
+  console.log(JSON.stringify({
+    output,
+    record_count: packet.sample_count ?? packet.reserved_count,
+    record_digest: packet.packet_digest ?? packet.reservation_digest,
+  }, null, 2));
 }
 
 if (process.argv[1] !== undefined && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
