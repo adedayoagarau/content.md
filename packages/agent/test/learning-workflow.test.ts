@@ -726,12 +726,19 @@ describe("governed recursive learning workflow", () => {
       project_id: PROJECT_ID,
       permitted_data_classes: [DATA_CLASS],
     });
+    let reads = 0;
+    const trappedRequest = new Proxy({}, {
+      get() {
+        reads += 1;
+        throw new Error("training input read before workflow preflight");
+      },
+    });
     try {
       await expect(runLearningTrainingPhase({
         authority: await phaseAuthority(events, "operation.task7.train-too-early", null),
-        request: task6PassingSealedReplayFixture()
-          .replay.model_dependencies.training_request,
+        request: trappedRequest as never,
       })).rejects.toThrow("learning_workflow_prerequisite_missing:train:dataset");
+      expect(reads).toBe(0);
     } finally {
       await events.close();
     }
