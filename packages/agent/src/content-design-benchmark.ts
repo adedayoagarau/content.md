@@ -157,6 +157,18 @@ export interface ContentDesignCalibrationReport {
   report_digest: string;
 }
 
+export interface ContentDesignReviewerQualificationRequest {
+  contract_version: "contentmd.content-design-reviewer-qualification-request/0.1.0";
+  packet_ref: { packet_digest: string; sample_count: number };
+  reviewer_id: string;
+  requested_role: "qualified_content_designer";
+  requested_objective: "content_design_benchmark_review";
+  requested_resource_scopes: ["content-design-benchmark", string];
+  request_state: "awaiting_external_program_steward";
+  authority_effect: "none";
+  request_digest: string;
+}
+
 interface ReleaseThresholdDiagnostics {
   critical_safety_count: number;
   critical_false_acceptance_count: number;
@@ -421,6 +433,24 @@ export function createContentDesignReviewSubmissionTemplate(packetValue: unknown
     submission_state: "incomplete",
     authority_effect: "none",
   };
+}
+
+export function createContentDesignReviewerQualificationRequest(packetValue: unknown, reviewerIdValue: string): ContentDesignReviewerQualificationRequest {
+  const packet = validatePacket(packetValue);
+  const reviewerId = reviewerIdValue.trim();
+  if (reviewerId.length === 0 || reviewerId.length > 200) incomplete("reviewer_qualification_request_id");
+  const packetScope = `content-design-benchmark-packet:${packet.packet_digest}`;
+  const preimage = {
+    contract_version: "contentmd.content-design-reviewer-qualification-request/0.1.0" as const,
+    packet_ref: { packet_digest: packet.packet_digest, sample_count: packet.sample_count },
+    reviewer_id: reviewerId,
+    requested_role: "qualified_content_designer" as const,
+    requested_objective: "content_design_benchmark_review" as const,
+    requested_resource_scopes: ["content-design-benchmark", packetScope] as ["content-design-benchmark", string],
+    request_state: "awaiting_external_program_steward" as const,
+    authority_effect: "none" as const,
+  };
+  return { ...preimage, request_digest: digest(preimage) };
 }
 
 function verifyBenchmarkReviewer(
@@ -825,6 +855,13 @@ export async function writeBuiltinContentDesignReviewPacket(outputPath: string):
 export async function createLocalContentDesignReviewSubmissionTemplate(inputPath: string, outputPath: string): Promise<ContentDesignReviewSubmissionTemplate> {
   const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
   const result = createContentDesignReviewSubmissionTemplate(packet);
+  await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
+  return result;
+}
+
+export async function createLocalContentDesignReviewerQualificationRequest(inputPath: string, reviewerId: string, outputPath: string): Promise<ContentDesignReviewerQualificationRequest> {
+  const packet = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
+  const result = createContentDesignReviewerQualificationRequest(packet, reviewerId);
   await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, { flag: "wx" });
   return result;
 }

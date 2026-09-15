@@ -46,6 +46,20 @@ describe("contentmd benchmark content-design", () => {
     expect(result.authority_effect).toBe("none");
   });
 
+  it("creates a digest-bound reviewer qualification request without granting authority", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-qualification-request-cli-"));
+    temporary.push(directory);
+    const output = join(directory, "qualification-request.json");
+    await buildProgram().parseAsync(["node", "contentmd", "benchmark", "content-design", "--packet", packet, "--reviewer-id", "reviewer.example", "--qualification-request-out", output]);
+    const result = JSON.parse(await readFile(output, "utf8"));
+    expect(result).toMatchObject({
+      reviewer_id: "reviewer.example",
+      request_state: "awaiting_external_program_steward",
+      authority_effect: "none",
+    });
+    expect(result.requested_resource_scopes[1]).toBe(`content-design-benchmark-packet:${result.packet_ref.packet_digest}`);
+  });
+
   it("qualifies completed review and scores packet-bound predictions", async () => {
     const directory = await mkdtemp(join(tmpdir(), "contentmd-benchmark-loop-cli-"));
     temporary.push(directory);

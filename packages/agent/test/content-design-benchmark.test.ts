@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
   compareContentDesignGoldSets,
+  createContentDesignReviewerQualificationRequest,
+  createLocalContentDesignReviewerQualificationRequest,
   createContentDesignReviewSubmissionTemplate,
   predictContentDesignBenchmark,
   predictLocalContentDesignBenchmark,
@@ -56,6 +58,33 @@ describe("content-design benchmark", () => {
     const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
     const expected = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-submission-template.json"), "utf8"));
     expect(createContentDesignReviewSubmissionTemplate(packet)).toEqual(expected);
+  });
+
+  it("creates a packet-scoped non-authoritative reviewer qualification request", async () => {
+    const packet = JSON.parse(await readFile(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8"));
+    const request = createContentDesignReviewerQualificationRequest(packet, " reviewer.example ");
+    expect(request).toMatchObject({
+      reviewer_id: "reviewer.example",
+      requested_role: "qualified_content_designer",
+      requested_objective: "content_design_benchmark_review",
+      request_state: "awaiting_external_program_steward",
+      authority_effect: "none",
+    });
+    expect(request.requested_resource_scopes).toEqual([
+      "content-design-benchmark",
+      `content-design-benchmark-packet:${packet.packet_digest}`,
+    ]);
+    expect(request.request_digest).toMatch(/^[0-9a-f]{64}$/);
+    expect(() => createContentDesignReviewerQualificationRequest(packet, " ")).toThrow(/reviewer_qualification_request_id/);
+
+    const directory = await mkdtemp(join(tmpdir(), "contentmd-qualification-request-"));
+    const output = join(directory, "request.json");
+    try {
+      await createLocalContentDesignReviewerQualificationRequest(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "reviewer.example", output);
+      await expect(createLocalContentDesignReviewerQualificationRequest(join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "reviewer.example", output)).rejects.toThrow(/EEXIST/);
+    } finally {
+      await rm(directory, { recursive: true, force: true });
+    }
   });
 
   it("refuses to overwrite an existing prediction file", async () => {

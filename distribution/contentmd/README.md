@@ -106,6 +106,19 @@ npx contentmd benchmark content-design \
   --review-template reviewer-response.json
 ```
 
+Create the exact non-authoritative handoff an authorized program steward needs
+to issue this reviewer's packet-scoped qualification:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --reviewer-id reviewer.example \
+  --qualification-request-out reviewer-qualification-request.json
+```
+
+The request is create-only and digest-bound. It grants no role or authority;
+the steward must resolve reviewer identity and return a valid issuance bundle.
+
 Or complete the same blinded review one scenario at a time in the loopback-only
 review workbench:
 

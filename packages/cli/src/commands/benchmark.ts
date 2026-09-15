@@ -1,5 +1,6 @@
 import {
   compareLocalContentDesignGoldSets,
+  createLocalContentDesignReviewerQualificationRequest,
   createLocalContentDesignReviewSubmissionTemplate,
   predictLocalContentDesignBenchmark,
   qualifyLocalContentDesignReview,
@@ -24,6 +25,8 @@ export function registerBenchmark(program: Command): void {
     .option("--sample-out <path>", "write the built-in blinded 100-scenario sample to a new file")
     .option("--out <path>", "new output file; refuses to overwrite")
     .option("--review-template <path>", "create a new independent-review response template")
+    .option("--reviewer-id <id>", "reviewer identity requested for packet-scoped qualification")
+    .option("--qualification-request-out <path>", "create a non-authoritative steward handoff request")
     .option("--submission <path>", "completed independent-review response file")
     .option("--gold-out <path>", "new qualified benchmark-gold output file")
     .option("--gold <path>", "qualified benchmark-gold file")
@@ -34,11 +37,12 @@ export function registerBenchmark(program: Command): void {
     .option("--host <host>", "loopback host", "127.0.0.1")
     .option("--port <port>", "review workbench port", port, 4179)
     .option("--json", "emit the stable JSON envelope")
-    .action(async (options: { packet?: string; sampleOut?: string; out?: string; reviewTemplate?: string; submission?: string; goldOut?: string; gold?: string; compareGold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
+    .action(async (options: { packet?: string; sampleOut?: string; out?: string; reviewTemplate?: string; reviewerId?: string; qualificationRequestOut?: string; submission?: string; goldOut?: string; gold?: string; compareGold?: string; predictions?: string; reportOut?: string; reviewWorkbench?: boolean; host: string; port: number; json?: boolean }) => runCommand(options, async () => {
       if (options.sampleOut !== undefined) {
         if (options.packet !== undefined || options.out !== undefined || options.reviewTemplate !== undefined
           || options.submission !== undefined || options.goldOut !== undefined || options.gold !== undefined
-          || options.compareGold !== undefined || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true) {
+          || options.compareGold !== undefined || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true
+          || options.reviewerId !== undefined || options.qualificationRequestOut !== undefined) {
           throw new Error("content_design_benchmark_invalid:sample_out_is_standalone");
         }
         const packet = await writeBuiltinContentDesignReviewPacket(options.sampleOut);
@@ -52,6 +56,22 @@ export function registerBenchmark(program: Command): void {
       }
       if (options.packet === undefined) throw new Error("content_design_benchmark_invalid:packet_required");
       const packetPath = options.packet;
+      if (options.reviewerId !== undefined || options.qualificationRequestOut !== undefined) {
+        if (options.reviewerId === undefined || options.qualificationRequestOut === undefined) throw new Error("content_design_benchmark_invalid:reviewer_id_and_qualification_request_out_required");
+        if (options.out !== undefined || options.reviewTemplate !== undefined || options.submission !== undefined
+          || options.goldOut !== undefined || options.gold !== undefined || options.compareGold !== undefined
+          || options.predictions !== undefined || options.reportOut !== undefined || options.reviewWorkbench === true) {
+          throw new Error("content_design_benchmark_invalid:qualification_request_is_standalone");
+        }
+        const request = await createLocalContentDesignReviewerQualificationRequest(packetPath, options.reviewerId, options.qualificationRequestOut);
+        return {
+          command_id: "benchmark.content-design.qualification-request",
+          record_refs: [request.packet_ref.packet_digest, request.request_digest],
+          warnings: ["This request grants no reviewer qualification or authority."],
+          next_actions: ["Send the request to an authorized program steward; only a verified packet-scoped issuance bundle can qualify review as benchmark gold."],
+          data: { ...request, output: options.qualificationRequestOut, write_effect: "create_only" },
+        };
+      }
       if (options.reviewWorkbench === true) {
         const server = await startContentDesignReviewWorkbench({ packet: packetPath, host: options.host, port: options.port });
         return {

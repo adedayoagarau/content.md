@@ -157,6 +157,18 @@ if (
   || benchmarkReviewTemplate.reviewer?.independent_review_attested !== false
   || benchmarkReviewTemplate.reviewer?.qualification_bundle !== null
 ) throw new Error("installed package did not create a reviewer-blank content-design template");
+const benchmarkQualificationRequestPath = path.join(scratch, "content-design-reviewer-qualification-request.json");
+const benchmarkQualificationRequest = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--reviewer-id", "reviewer.distribution", "--qualification-request-out", benchmarkQualificationRequestPath, "--json",
+], consumer));
+const benchmarkQualificationRequestFile = JSON.parse(await readFile(benchmarkQualificationRequestPath, "utf8"));
+if (
+  benchmarkQualificationRequest.command_id !== "benchmark.content-design.qualification-request"
+  || benchmarkQualificationRequestFile.request_state !== "awaiting_external_program_steward"
+  || benchmarkQualificationRequestFile.authority_effect !== "none"
+  || benchmarkQualificationRequestFile.requested_resource_scopes?.[1] !== `content-design-benchmark-packet:${benchmarkPacket.packet_digest}`
+) throw new Error("installed package did not create a packet-scoped reviewer qualification request");
 const completeBenchmarkReview = (reviewerId) => {
   const completed = structuredClone(benchmarkReviewTemplate);
   completed.reviewer = governedContentDesignReviewerFixture(completed.packet_ref.packet_digest, { reviewerId });
@@ -372,6 +384,7 @@ console.log(JSON.stringify({
   content_design_packet_digest: benchmarkPacket.packet_digest,
   content_design_predictions_completed: true,
   content_design_review_template_completed: true,
+  content_design_qualification_request_completed: true,
   content_design_reviewer_calibration_completed: true,
   content_design_review_workbench_completed: true,
   packed_workbench_completed: true,

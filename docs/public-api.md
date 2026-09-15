@@ -34,6 +34,8 @@ supports seven bounded operations:
 - create-only extraction of the bundled packet with `--sample-out`, without requiring a repository checkout;
 - default prediction with optional `--out`;
 - independent response-template creation with `--review-template`;
+- create-only, non-authoritative steward handoff with `--reviewer-id` and
+  `--qualification-request-out`;
 - a loopback-only one-scenario-at-a-time review desk with `--review-workbench`;
 - completed-review qualification with `--submission` and `--gold-out`;
 - independent-review calibration with `--gold`, `--compare-gold`, and
@@ -70,6 +72,8 @@ The JSON contracts exposed by this command are:
 - prediction set `contentmd.content-design-predictions/0.1.0`, produced by
   evaluator `contentmd.deterministic-content-design-baseline/0.2.0`;
 - review submission and qualified gold set `0.2.0`;
+- reviewer qualification request
+  `contentmd.content-design-reviewer-qualification-request/0.1.0`;
 - calibration report `contentmd.content-design-calibration-report/0.1.0`;
 - evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
 
