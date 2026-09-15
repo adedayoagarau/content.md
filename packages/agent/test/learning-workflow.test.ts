@@ -22,10 +22,7 @@ import {
   preferenceFixture,
   qualificationFixture,
 } from "../../learning/test/task2-fixtures.js";
-import {
-  task5DatasetReplayFixture,
-  task5FeatureMatrixFixture,
-} from "../../learning/test/task5-fixtures.js";
+import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
 import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import {
   runLearningDatasetPhase,
@@ -271,7 +268,12 @@ describe("governed recursive learning workflow", () => {
         ],
       });
 
-      const datasetReplay = task5DatasetReplayFixture();
+      // Construct the sealed Task 6 source once. Its replay already contains the
+      // exact Task 5 dataset and training request used by every later phase.
+      // Rebuilding these cryptographically verified fixtures independently is
+      // equivalent data but multiplies the release-gate cost substantially.
+      const evaluationSource = task6PassingSealedReplayFixture();
+      const datasetReplay = evaluationSource.replay.dataset_replay;
       const dataset = await runLearningDatasetPhase({
         authority: await phaseAuthority(
           events,
@@ -292,8 +294,7 @@ describe("governed recursive learning workflow", () => {
         { name: "submitted_examples", value: 120 },
       ]);
 
-      const request = task6PassingSealedReplayFixture()
-        .replay.model_dependencies.training_request;
+      const request = evaluationSource.replay.model_dependencies.training_request;
       const training = await runLearningTrainingPhase({
         authority: await phaseAuthority(
           events,
@@ -315,7 +316,6 @@ describe("governed recursive learning workflow", () => {
         training.data.state === "trained" ? training.data.model_record.record_id : "",
       ]);
 
-      const evaluationSource = task6PassingSealedReplayFixture();
       const vault = createEvaluationSimulatorVault({
         record_mode: "development_fixture",
         vault_id: "vault.task7.learning-evaluation",
@@ -625,7 +625,11 @@ describe("governed recursive learning workflow", () => {
     } finally {
       await events.close();
     }
-  }, 1_500_000);
+  // This exhaustive replay takes about 21 minutes on the admitted Darwin/arm64
+  // runtime and longer on the admitted shared Linux/x64 CI runner. Keep a
+  // finite phase-specific ceiling with enough cross-runtime headroom; the
+  // workflow job retains its independent six-hour upper bound.
+  }, 3_600_000);
 
   it("reports durable workflow status without inferring any completed phase", async () => {
     const root = await projectRoot();
