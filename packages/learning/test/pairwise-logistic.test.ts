@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
+import { endianness } from "node:os";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { SCHEMA_IDS, validateRecord } from "@contentmd/schemas";
 import { buildLearningDataset } from "../src/dataset.js";
@@ -67,12 +68,12 @@ function admittedRuntimeProfile() {
   const identity = {
     contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
     node_version: "24.14.0" as const,
-    v8_version: "13.6.233.17-node.41",
-    icu_version: "78.2",
-    unicode_version: "17.0",
-    platform: "darwin",
-    architecture: "arm64",
-    endianness: "LE" as const,
+    v8_version: process.versions.v8,
+    icu_version: process.versions.icu!,
+    unicode_version: process.versions.unicode!,
+    platform: process.platform,
+    architecture: process.arch,
+    endianness: endianness(),
   };
   return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
 }

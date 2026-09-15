@@ -19,6 +19,7 @@
     "lint": "node scripts/check-package-boundaries.mjs && tsc -b tsconfig.json --pretty false",
     "verify:foundation": "node scripts/verify-foundation.mjs",
     "generate:learning-fixtures": "node --import tsx scripts/generate-learning-fixtures.mts",
+    "generate:learning-code-manifests": "node scripts/generate-learning-code-manifests.mjs",
     "verify:learning": "node scripts/verify-learning.mjs",
     "verify:runtime": "node scripts/verify-portable-runtime.mjs",
     "verify:repository-intelligence": "node scripts/verify-repository-intelligence.mjs",

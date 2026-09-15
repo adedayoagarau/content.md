@@ -6,7 +6,7 @@ import {
 } from "@contentmd/agent";
 import { startWorkbench } from "@contentmd/workbench";
 import type { Command } from "commander";
-import { runCommand, withRoot, type RootOptions } from "./shared.js";
+import { runCommand, type RootOptions } from "./shared.js";
 
 function port(value: string): number {
   const parsed = Number(value);
@@ -17,7 +17,9 @@ function port(value: string): number {
 }
 
 export function registerServe(program: Command): void {
-  withRoot(program.command("serve").description("start the read-only local content workbench"))
+  program.command("serve").description("start the read-only local content workbench")
+    .option("--root <path>", "project root", process.cwd())
+    .option("--json", "emit the stable JSON envelope")
     .option("--host <host>", "loopback host", "127.0.0.1")
     .option("--port <port>", "local port", port, 4178)
     .option("--workspace <path>", "serve one declared monorepo workspace")
