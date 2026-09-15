@@ -6,7 +6,7 @@ the reviewed release commit before publication; not published.
 This record covers the repository-native `contentmd@0.1.0` CLI and local
 workbench as locally verified on 2026-09-15 under Node `24.14.0` on `darwin` /
 `arm64`. The latest source checkpoint directly exercised by the packed journey
-and release dry-run is `a3dbcd21697d3218a023bf972f76259a6b0b3647`.
+and release dry-run is `982f7fcab1b6dccecf06a8e0d0e70996cbc8aae1`.
 The exhaustive eight-phase learning workflow also passed after eliminating
 duplicate construction of the same cryptographically verified replay fixture;
 the workflow itself, authority handoffs, replay checks, and assertions remain
@@ -48,7 +48,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete historical 10,000-scenario execution and coverage gates, packed journey including packet-bound scoring and two-reviewer comparison, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
-| Current packed checkpoint | commit `a3dbcd2`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
+| Current packed checkpoint | commit `982f7fc`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
 | Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
 | Current governed-learning checkpoint | current product files; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
@@ -173,7 +173,7 @@ and do not overlap it with packaging or another learning verifier.
 
 ## Remaining external gates
 
-The latest directly exercised source checkpoint is `a3dbcd2`; this
+The latest directly exercised source checkpoint is `982f7fc`; this
 evidence-only documentation update does not alter the packaged implementation.
 Unrelated local public-product research remains outside both commits.
 Pull-request verification must still complete for the final documented
