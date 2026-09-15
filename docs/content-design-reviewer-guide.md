@@ -3,6 +3,10 @@
 Status: reviewer runbook for the candidate benchmark; completing this process
 does not grant product, publication, policy, retrieval, or training authority.
 
+Current scope: evaluate the supplied English-language expression only. Ignore
+target locale, translation status, direction, and presumed in-market adequacy.
+Do not score locale readiness. This review makes no localization claim.
+
 Use this guide to review the blinded `content.md` content-design benchmark. You
 do not need to understand the repository or inspect its source code. Do not open
 the scenario generator, hidden labels, baseline predictions, another reviewer's
@@ -27,7 +31,7 @@ Read the complete context before judging the wording. Evaluate in this order:
 2. Truth and product-state accuracy.
 3. Action, consequence, and recovery.
 4. Semantic completeness.
-5. Accessibility and locale readiness.
+5. Accessibility readiness.
 6. Comprehension and structure.
 7. Voice, tone, and economy.
 
