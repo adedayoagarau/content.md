@@ -115,7 +115,8 @@ npx contentmd benchmark content-design \
   --review-workbench
 ```
 
-Progress stays in that browser until the reviewer exports the completed JSON
+Progress is saved in that browser, and the reviewer can export and later import
+a packet-bound incomplete backup before exporting the completed JSON
 submission. The workbench never displays generator labels.
 
 After an independent qualified content designer completes every response and
@@ -165,7 +166,9 @@ Repository contributors have a larger, separately governed evaluation path.
 `pnpm prepare:content-design-calibration` reproduces a blinded 500-item
 calibration cohort. After `pnpm build`, run
 `pnpm review:content-design-calibration` to complete it in the same resumable,
-loopback-only workbench. Decisive judgments require every quality dimension;
+loopback-only workbench. Reviewers can export an incomplete, packet-bound
+progress file and import it later; incomplete progress has no authority and
+cannot qualify as gold. Decisive judgments require every quality dimension;
 abstentions and escalations preserve intentionally unscored dimensions.
 `pnpm reserve:content-design-evaluation` reproduces a
 disjoint 500-item reference-only reservation that stays `frozen_unopened`

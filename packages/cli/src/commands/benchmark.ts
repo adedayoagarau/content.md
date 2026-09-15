@@ -57,7 +57,7 @@ export function registerBenchmark(program: Command): void {
         return {
           command_id: "benchmark.content-design.review-workbench",
           record_refs: [],
-          warnings: ["Review progress is stored only in this browser until you export a completed response file."],
+          warnings: ["Review progress is stored in this browser; export a packet-bound progress file for backup or transfer."],
           next_actions: [`Open ${server.url}`],
           data: { url: server.url, write_effect: "none", authority_effect: "none" },
         };
