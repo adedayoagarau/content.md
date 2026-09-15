@@ -92,11 +92,16 @@ export function predictContentDesignPacket(packet) {
   validateReviewSample(packet);
   const predictions = packet.review_work_units.map(predictUnit);
   const preimage = {
-    contract_version: "contentmd.content-design-predictions/0.1.0",
+    contract_version: "contentmd.content-design-predictions/0.2.0",
     packet_digest: packet.packet_digest,
     evaluator_version: "contentmd.deterministic-content-design-baseline/0.2.0",
     prediction_count: predictions.length,
     predictions,
+    quality_dimension_coverage: Object.fromEntries([...new Set(predictions.flatMap((prediction) => Object.keys(prediction.quality_dimension_scores)))].sort().map((dimension) => {
+      const opportunityCount = predictions.filter((prediction) => Object.hasOwn(prediction.quality_dimension_scores, dimension)).length;
+      const predictionCount = predictions.filter((prediction) => typeof prediction.quality_dimension_scores[dimension] === "number").length;
+      return [dimension, { prediction_count: predictionCount, opportunity_count: opportunityCount, coverage: opportunityCount === 0 ? 0 : predictionCount / opportunityCount }];
+    })),
     evaluation_status: "unscored_pending_qualified_gold",
     label_access: "blind_packet_only",
     authority_effect: "none",

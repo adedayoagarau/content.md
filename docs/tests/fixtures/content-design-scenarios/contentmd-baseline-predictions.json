@@ -1,5 +1,5 @@
 {
-  "contract_version": "contentmd.content-design-predictions/0.1.0",
+  "contract_version": "contentmd.content-design-predictions/0.2.0",
   "packet_digest": "99810c8924715b8e10aa04e3f49e3e804b59e4154c538f4a2da15c825f4a3d2b",
   "evaluator_version": "contentmd.deterministic-content-design-baseline/0.2.0",
   "prediction_count": 100,
@@ -2818,8 +2818,50 @@
       "authority_effect": "none"
     }
   ],
+  "quality_dimension_coverage": {
+    "accessibility_readiness": {
+      "prediction_count": 10,
+      "opportunity_count": 100,
+      "coverage": 0.1
+    },
+    "clarity": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "economy": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "hierarchy": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "locale_readiness": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "specificity": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "tone_fit": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    },
+    "voice_fit": {
+      "prediction_count": 100,
+      "opportunity_count": 100,
+      "coverage": 1
+    }
+  },
   "evaluation_status": "unscored_pending_qualified_gold",
   "label_access": "blind_packet_only",
   "authority_effect": "none",
-  "prediction_set_digest": "7b23add126be8d630c7a84ee64e0e54eea99e22835e8e751b04c4af061173c03"
+  "prediction_set_digest": "ae2567d983474f1bd814741ceb9d5a14fd873cba87d5cf2e3640c14f80c351fe"
 }

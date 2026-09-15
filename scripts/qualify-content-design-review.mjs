@@ -38,9 +38,17 @@ function stringArray(value) {
   return Array.isArray(value) && value.length > 0 && new Set(value).size === value.length && value.every(nonempty);
 }
 
+function predictionQualityCoverage(predictions) {
+  return Object.fromEntries([...new Set(predictions.flatMap((prediction) => Object.keys(prediction.quality_dimension_scores)))].sort().map((dimension) => {
+    const opportunityCount = predictions.filter((prediction) => Object.hasOwn(prediction.quality_dimension_scores, dimension)).length;
+    const predictionCount = predictions.filter((prediction) => typeof prediction.quality_dimension_scores[dimension] === "number").length;
+    return [dimension, { prediction_count: predictionCount, opportunity_count: opportunityCount, coverage: opportunityCount === 0 ? 0 : predictionCount / opportunityCount }];
+  }));
+}
+
 function validatePredictionSet(predictions, packetDigest, units) {
   if (predictions === null || typeof predictions !== "object"
-    || predictions.contract_version !== "contentmd.content-design-predictions/0.1.0"
+    || predictions.contract_version !== "contentmd.content-design-predictions/0.2.0"
     || predictions.packet_digest !== packetDigest
     || predictions.evaluator_version !== "contentmd.deterministic-content-design-baseline/0.2.0"
     || predictions.evaluation_status !== "unscored_pending_qualified_gold"
@@ -72,6 +80,7 @@ function validatePredictionSet(predictions, packetDigest, units) {
       invalid(`prediction_pass_unresolved:${prediction.work_unit_id}`);
     }
   }
+  if (JSON.stringify(predictions.quality_dimension_coverage) !== JSON.stringify(predictionQualityCoverage(predictions.predictions))) invalid("prediction_quality_coverage");
   return predictions;
 }
 

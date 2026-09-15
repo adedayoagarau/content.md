@@ -47,18 +47,26 @@ It does not duplicate the bulk generated records in the repository.
 | `escalate` | 3,600 |
 | `human_preference_review` | 200 |
 | `pass` | 200 |
+| Accessibility-readiness score coverage | 1,000/10,000 (10%) |
+| Every other quality-dimension score coverage | 10,000/10,000 (100%) |
 
 Packet digest:
 `d3c8eac0c55eb51d75794fc07bc369780ed890ee5a222acac74009fef05dcc2f`
 
 Prediction-set digest:
-`66e2a5f45e012d5ccf7811992de1c16bb09f4f83030e6122d133775bf31aa56c`
+`ecae038f278e903d988600ebb195226c8169d42f47277d8db2e9dbb651c2a063`
 
 The prediction set reports:
 
 - `evaluation_status: unscored_pending_qualified_gold`
 - `label_access: blind_packet_only`
 - `authority_effect: none`
+
+It also reports score coverage before human labels exist. Accessibility
+readiness is scored only for the 1,000 screen-reader-status scenarios, so its
+10% matrix coverage is explicit; clarity, specificity, hierarchy, locale
+readiness, voice fit, tone fit, and economy are scored for all 10,000 records.
+Coverage is not accuracy.
 
 ## Interpretation
 

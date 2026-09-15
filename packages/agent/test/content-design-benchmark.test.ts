@@ -35,6 +35,8 @@ describe("content-design benchmark", () => {
     expect(result.prediction_count).toBe(100);
     expect(result.evaluation_status).toBe("unscored_pending_qualified_gold");
     expect(result.label_access).toBe("blind_packet_only");
+    expect(result.quality_dimension_coverage.accessibility_readiness.coverage).toBeLessThan(1);
+    expect(result.quality_dimension_coverage.clarity.coverage).toBe(1);
     expect(result.predictions.some((prediction) => prediction.disposition === "pass")).toBe(true);
     expect(result.predictions.some((prediction) => prediction.disposition === "abstain")).toBe(true);
     for (const prediction of result.predictions.filter((candidate) => candidate.disposition === "pass")) {

@@ -96,7 +96,9 @@ npx contentmd benchmark content-design \
 
 The command refuses to overwrite its output and reports predictions as
 `unscored_pending_qualified_gold`. It does not read generator labels, create
-gold, or make the results eligible for learning.
+gold, or make the results eligible for learning. The prediction file reports
+its score coverage for every quality dimension, so missing judgments remain
+visible before human gold exists.
 
 Create the separate response template for an independent reviewer:
 
