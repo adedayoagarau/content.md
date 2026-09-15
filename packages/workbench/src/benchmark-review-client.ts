@@ -43,7 +43,11 @@ export const BENCHMARK_REVIEW_CLIENT = `(() => {
     byId("next").disabled = index === data.packet.sample_count - 1;
     renderStatus();
   };
-  const completeResponse = (response) => response.disposition && Object.values(response.hard_dimension_results).every(Boolean) && typeof response.rationale === "string" && response.rationale.length >= 20 && response.acceptable_meaning_invariants?.length > 0 && response.review_evidence_refs?.length > 0 && (response.disposition !== "revise" || response.recommended_revision);
+  const completeResponse = (response) => {
+    const decisive = response.disposition && response.disposition !== "abstain" && response.disposition !== "escalate";
+    const qualityComplete = !decisive || Object.values(response.quality_dimension_scores).every((score) => Number.isInteger(score) && score >= 1 && score <= 5);
+    return response.disposition && Object.values(response.hard_dimension_results).every(Boolean) && qualityComplete && typeof response.rationale === "string" && response.rationale.length >= 20 && response.acceptable_meaning_invariants?.length > 0 && response.review_evidence_refs?.length > 0 && (response.disposition !== "revise" || response.recommended_revision);
+  };
   const renderStatus = () => {
     const complete = submission.responses.filter(completeResponse).length;
     const reviewerReady = typeof submission.reviewer.reviewer_id === "string" && submission.reviewer.reviewer_id.trim().length > 0 && rfc3339(submission.reviewer.reviewed_at) && submission.reviewer.independent_review_attested && submission.reviewer.qualification_bundle && typeof submission.reviewer.qualification_bundle === "object";

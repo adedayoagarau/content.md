@@ -517,6 +517,9 @@ function validateCompletedResponse(unit: ReviewWorkUnit, value: unknown): assert
   for (const dimension of unit.rubric.quality_dimensions) {
     const score = response.quality_dimension_scores[dimension];
     if (score === undefined || score !== null && (!Number.isInteger(score) || score < 1 || score > 5)) incomplete(`${unit.work_unit_id}:quality:${dimension}`);
+    if (response.disposition !== "abstain" && response.disposition !== "escalate" && score === null) {
+      incomplete(`${unit.work_unit_id}:quality:${dimension}`);
+    }
   }
   if (typeof response.rationale !== "string" || response.rationale.trim().length < 20) incomplete(`${unit.work_unit_id}:rationale`);
   if (!Array.isArray(response.acceptable_meaning_invariants) || response.acceptable_meaning_invariants.length === 0

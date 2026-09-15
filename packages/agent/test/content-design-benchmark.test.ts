@@ -111,6 +111,18 @@ describe("content-design benchmark", () => {
     expect(report.disposition_confusion.human_preference_review.human_preference_review).toBeGreaterThan(0);
     expect(report.authority_effect).toBe("none");
 
+    const missingDecisiveScore = structuredClone(submission);
+    missingDecisiveScore.responses[0].quality_dimension_scores.clarity = null;
+    expect(() => qualifyContentDesignReview(packet, missingDecisiveScore))
+      .toThrow(/quality:clarity/);
+
+    const abstainedWithoutScores = structuredClone(submission);
+    abstainedWithoutScores.responses[0].disposition = "abstain";
+    abstainedWithoutScores.responses[0].quality_dimension_scores = Object.fromEntries(
+      Object.keys(abstainedWithoutScores.responses[0].quality_dimension_scores).map((dimension) => [dimension, null]),
+    );
+    expect(qualifyContentDesignReview(packet, abstainedWithoutScores).qualified_count).toBe(100);
+
     const alteredGold = structuredClone(gold) as unknown as Record<string, unknown> & { records: Array<Record<string, unknown>> };
     alteredGold.records[0].benchmark_eligibility = false;
     expect(() => scoreContentDesignBenchmark(alteredGold, predictContentDesignBenchmark(packet)))

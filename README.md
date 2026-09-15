@@ -163,7 +163,11 @@ accuracy, which requires qualified human review.
 
 Repository contributors have a larger, separately governed evaluation path.
 `pnpm prepare:content-design-calibration` reproduces a blinded 500-item
-calibration cohort. `pnpm reserve:content-design-evaluation` reproduces a
+calibration cohort. After `pnpm build`, run
+`pnpm review:content-design-calibration` to complete it in the same resumable,
+loopback-only workbench. Decisive judgments require every quality dimension;
+abstentions and escalations preserve intentionally unscored dimensions.
+`pnpm reserve:content-design-evaluation` reproduces a
 disjoint 500-item reference-only reservation that stays `frozen_unopened`
 until calibration and the evaluator are frozen. The remaining 9,000 scenarios
 are reserve coverage, not automatic gold or a test set. These repository

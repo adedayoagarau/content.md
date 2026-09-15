@@ -5,6 +5,7 @@ import { startContentDesignReviewWorkbench } from "@contentmd/workbench";
 
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const packet = join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json");
+const calibrationPacket = join(root, "docs/tests/fixtures/content-design-scenarios/calibration-cohort-500.json");
 
 describe("content-design review workbench", () => {
   it("serves a blinded, loopback-only review experience", async () => {
@@ -34,10 +35,24 @@ describe("content-design review workbench", () => {
       expect(client).toContain("unit.context.voice_profile");
       expect(client).not.toContain("unit.candidate.voice");
       expect(client).toContain("Current review incomplete");
+      expect(client).toContain("qualityComplete");
       expect(client).toContain("rfc3339");
       expect(client).toContain("qualification_bundle");
       expect(page).toContain("Export completed review");
       expect(client).toContain("contentmd-review-submission.json");
+    } finally {
+      await server.close();
+    }
+  });
+
+  it("serves the repository calibration cohort without changing its authority", async () => {
+    const server = await startContentDesignReviewWorkbench({ packet: calibrationPacket, port: 0 });
+    try {
+      const data = await fetch(`${server.url}review-data.json`).then((response) => response.json());
+      expect(data.packet.sample_count).toBe(500);
+      expect(data.packet.authority_effect).toBe("none");
+      expect(data.template.responses).toHaveLength(500);
+      expect(data.template.authority_effect).toBe("none");
     } finally {
       await server.close();
     }
