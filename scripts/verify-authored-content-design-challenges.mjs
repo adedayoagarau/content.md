@@ -24,7 +24,6 @@ const evaluationOrder = [
   "voice_tone_and_economy",
 ];
 
-const candidateFields = ["headline", "body", "primary_button", "secondary_button"];
 const qualityDimensions = ["clarity", "specificity", "hierarchy", "voice_fit", "tone_fit", "economy"];
 const hardDimensions = [
   "evidence_and_authority",
@@ -83,7 +82,7 @@ async function exists(file) {
 
 function validateScenario(scenario, challenge) {
   if (!record(scenario)
-    || scenario.contract_version !== "contentmd.authored-content-design-challenge/0.1.0"
+    || scenario.contract_version !== "contentmd.authored-content-design-challenge/0.2.0"
     || scenario.scenario_id !== `content-design.challenge.${challenge}`
     || scenario.status !== "authored_synthetic_unreviewed"
     || scenario.language_scope !== "English") fail(challenge, "identity_or_language_scope");
@@ -99,17 +98,27 @@ function validateScenario(scenario, challenge) {
     || !stringArray(scenario.product_state.known_facts)
     || !stringArray(scenario.product_state.forbidden_claims)
     || !nonEmpty(scenario.challenge)) fail(challenge, "context_or_facts");
-  if (!record(scenario.current_content)) fail(challenge, "current_content");
+  if (!record(scenario.required_output)
+    || !stringArray(scenario.required_output.candidate_fields)
+    || !stringArray(scenario.required_output.rationale_requirements)
+    || !sameStrings(scenario.evaluation_order, evaluationOrder)) fail(challenge, "output_or_evaluation_contract");
+  const candidateFields = scenario.required_output.candidate_fields;
+  if (!record(scenario.current_content)
+    || !sameStrings(Object.keys(scenario.current_content).sort(), [...candidateFields].sort())) fail(challenge, "current_content");
   for (const field of candidateFields) {
     const value = scenario.current_content[field];
     if (value !== null && !nonEmpty(value)) fail(challenge, `current_content:${field}`);
   }
   if (!record(scenario.constraints)
-    || scenario.constraints.button_count !== 2
+    || !record(scenario.constraints.fields)
+    || !sameStrings(Object.keys(scenario.constraints.fields).sort(), [...candidateFields].sort())
     || !nonEmpty(scenario.constraints.character_counting_rule)) fail(challenge, "constraints");
   for (const field of candidateFields) {
-    const limit = scenario.constraints[`${field}_max_characters`];
-    if (!Number.isSafeInteger(limit) || limit < 1) fail(challenge, `constraint:${field}`);
+    const constraint = scenario.constraints.fields[field];
+    if (!record(constraint)
+      || typeof constraint.required !== "boolean"
+      || !Number.isSafeInteger(constraint.max_characters)
+      || constraint.max_characters < 1) fail(challenge, `constraint:${field}`);
   }
   if (!record(scenario.interaction_contract)
     || !Object.values(scenario.interaction_contract).every(nonEmpty)
@@ -117,10 +126,6 @@ function validateScenario(scenario, challenge) {
     || !stringArray(scenario.expression_direction.intended_voice)
     || !stringArray(scenario.expression_direction.situational_tone)
     || !stringArray(scenario.expression_direction.avoid)) fail(challenge, "interaction_or_expression");
-  if (!record(scenario.required_output)
-    || !sameStrings(scenario.required_output.candidate_fields, candidateFields)
-    || !stringArray(scenario.required_output.rationale_requirements)
-    || !sameStrings(scenario.evaluation_order, evaluationOrder)) fail(challenge, "output_or_evaluation_contract");
   if (!record(scenario.governance)
     || scenario.governance.review_state !== "unreviewed"
     || scenario.governance.authority_effect !== "none"
@@ -128,6 +133,7 @@ function validateScenario(scenario, challenge) {
     || scenario.governance.training_eligibility !== "never"
     || scenario.governance.benchmark_eligibility !== false
     || scenario.governance.effectiveness_claim_eligibility !== false) fail(challenge, "governance");
+  return candidateFields;
 }
 
 function validateContentmdReplay(request, receivedReview, receivedBrief, challenge) {
@@ -146,6 +152,7 @@ function validateContentmdReplay(request, receivedReview, receivedBrief, challen
 }
 
 function validateCandidate(candidate, scenario, request, challenge) {
+  const candidateFields = scenario.required_output.candidate_fields;
   if (!record(candidate)
     || candidate.contract_version !== "contentmd.authored-challenge-candidate/0.1.0"
     || candidate.scenario_id !== scenario.scenario_id
@@ -157,6 +164,8 @@ function validateCandidate(candidate, scenario, request, challenge) {
     || candidate.generator.run_id !== null && !nonEmpty(candidate.generator.run_id)
     || !record(candidate.candidate)
     || !record(candidate.character_counts)
+    || !sameStrings(Object.keys(candidate.candidate).sort(), [...candidateFields].sort())
+    || !sameStrings(Object.keys(candidate.character_counts).sort(), [...candidateFields].sort())
     || !record(candidate.rationale)
     || !record(candidate.self_check)
     || candidate.review_state !== "unreviewed"
@@ -164,9 +173,11 @@ function validateCandidate(candidate, scenario, request, challenge) {
   for (const field of candidateFields) {
     const text = candidate.candidate[field];
     const count = codePointCount(text ?? "");
-    if (!nonEmpty(text)
+    const constraint = scenario.constraints.fields[field];
+    if ((constraint.required && !nonEmpty(text))
+      || (!constraint.required && text !== null && !nonEmpty(text))
       || candidate.character_counts[field] !== count
-      || count > scenario.constraints[`${field}_max_characters`]) fail(challenge, `candidate_field:${field}`);
+      || count > constraint.max_characters) fail(challenge, `candidate_field:${field}`);
   }
   for (const field of ["state_accuracy", "actions", "hierarchy", "voice_and_tone", "economy"]) {
     if (!nonEmpty(candidate.rationale[field])) fail(challenge, `candidate_rationale:${field}`);
@@ -177,6 +188,13 @@ function validateCandidate(candidate, scenario, request, challenge) {
     || candidate.self_check.all_required_meanings_mapped !== true
     || candidate.self_check.forbidden_claims_absent !== true
     || !Array.isArray(candidate.meaning_map)) fail(challenge, "candidate_self_check");
+  for (const entry of candidate.meaning_map) {
+    if (!record(entry)
+      || !nonEmpty(entry.required_meaning)
+      || !stringArray(entry.expressed_in)
+      || entry.expressed_in.some((field) => !candidateFields.includes(field))
+      || !nonEmpty(entry.explanation)) fail(challenge, "candidate_meaning_map_entry");
+  }
   const mapped = new Set(candidate.meaning_map.map((entry) => entry?.required_meaning));
   if (request.preserve.some((meaning) => !mapped.has(meaning))) fail(challenge, "candidate_meaning_map");
   const expression = candidateFields.map((field) => candidate.candidate[field]).join(" ").toLowerCase();
@@ -186,6 +204,7 @@ function validateCandidate(candidate, scenario, request, challenge) {
 }
 
 function validateExternalReview(review, reviewer, scenario, packet, challenge) {
+  const candidateFields = scenario.required_output.candidate_fields;
   if (!record(review)
     || review.contract_version !== "contentmd.authored-challenge-independent-review/0.1.0"
     || review.scenario_id !== scenario.scenario_id

@@ -44,6 +44,44 @@ test("prepares two candidate-bound reviewer packets and refuses to overwrite the
   );
 });
 
+test("supports scenario-specific content fields instead of assuming a dialog", async (context) => {
+  const { temporary, root } = await fixture();
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const challenge = path.join(root, "001-interrupted-application-upload");
+  const scenarioFile = path.join(challenge, "scenario.json");
+  const candidateFile = path.join(challenge, "outputs/contentmd/candidate.json");
+  const scenario = JSON.parse(await readFile(scenarioFile, "utf8"));
+  const candidate = JSON.parse(await readFile(candidateFile, "utf8"));
+  scenario.current_content = {
+    subject: scenario.current_content.headline,
+    body: scenario.current_content.body,
+  };
+  scenario.constraints.fields = {
+    subject: { required: true, max_characters: 50 },
+    body: { required: true, max_characters: 140 },
+  };
+  scenario.required_output.candidate_fields = ["subject", "body"];
+  candidate.candidate = {
+    subject: candidate.candidate.headline,
+    body: `${candidate.candidate.body} Continue editing is also available.`,
+  };
+  candidate.character_counts = {
+    subject: [...candidate.candidate.subject].length,
+    body: [...candidate.candidate.body].length,
+  };
+  scenario.constraints.fields.body.max_characters = candidate.character_counts.body;
+  for (const entry of candidate.meaning_map) {
+    entry.expressed_in = entry.expressed_in.map((field) => field === "headline" ? "subject" : "body");
+    entry.expressed_in = [...new Set(entry.expressed_in)];
+  }
+  await writeFile(scenarioFile, `${JSON.stringify(scenario, null, 2)}\n`);
+  await writeFile(candidateFile, `${JSON.stringify(candidate, null, 2)}\n`);
+  await unlink(path.join(challenge, "outputs/claude/review-packet.json"));
+  await unlink(path.join(challenge, "outputs/cursor/review-packet.json"));
+  await prepareAuthoredChallengeReviews(challenge);
+  assert.equal((await verifyAuthoredContentDesignChallenges(root)).verification_status, "passed");
+});
+
 test("rejects a generated candidate that exceeds a field limit", async (context) => {
   const { temporary, root } = await fixture();
   context.after(() => rm(temporary, { recursive: true, force: true }));

@@ -1,5 +1,5 @@
 {
-  "contract_version": "contentmd.authored-content-design-challenge/0.1.0",
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
   "scenario_id": "content-design.challenge.001-interrupted-application-upload",
   "status": "authored_synthetic_unreviewed",
   "language_scope": "English",
@@ -41,11 +41,24 @@
   },
   "challenge": "Rewrite the dialog so the person understands what was saved, what was not uploaded, whether the application was submitted, and what they can safely do next.",
   "constraints": {
-    "headline_max_characters": 40,
-    "body_max_characters": 140,
-    "primary_button_max_characters": 20,
-    "secondary_button_max_characters": 20,
-    "button_count": 2,
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 140
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 20
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 20
+      }
+    },
     "character_counting_rule": "Count spaces and punctuation as characters."
   },
   "interaction_contract": {

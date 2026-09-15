@@ -42,6 +42,9 @@ Each numbered challenge is self-contained:
   publication, retrieval, training, or release authority.
 - The scenario author, tool under test, external reviewers, and human
   adjudicator remain distinguishable in every artifact.
+- Each scenario declares its own content fields and limits. Do not force
+  dialog fields onto emails, notifications, navigation, form errors, help
+  content, or other surfaces.
 
 The scenario/challenge/constraints structure is inspired by the public article
 [The Daily UX Writing Challenge, then and now](https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/).
