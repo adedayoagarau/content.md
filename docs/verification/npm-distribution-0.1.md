@@ -17,7 +17,7 @@ The verifier runs these operations in a fresh temporary consumer project:
 3. Install the generated tarball without lifecycle scripts.
 4. Execute the installed CLI help and confirm the core commands.
 5. Run the installed binary with no arguments and confirm the compact, preview-only regular-user scan.
-6. Run the locally installed package through `npx --no-install contentmd scan --summary` and verify raw and qualified counts remain separate.
+6. Run the locally installed package through `npx --offline -- contentmd scan --summary` and verify raw and qualified counts remain separate without registry access.
 7. Run `contentmd init --json` against a new React/TypeScript fixture.
 8. Confirm a digest-bound `ready_for_local_approval` preview is returned with
    the intentional governance exit code 20.

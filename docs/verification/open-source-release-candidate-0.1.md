@@ -5,19 +5,19 @@ the reviewed release commit before publication; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
 workbench as locally verified on 2026-09-15 under Node `24.14.0` on `darwin` /
-`arm64`. The current implementation checkpoint is
-`5575d8290ddf5824130e6bd5f3af7d7b58852a03`. At that commit, the packed
-regular-user journey and release dry-run passed. The exhaustive eight-phase
-learning workflow also passed after eliminating duplicate construction of the
-same cryptographically verified replay fixture; the workflow itself, authority
-handoffs, replay checks, and assertions remain complete. The foundation,
-governed-learning, content-design benchmark, distribution, security, and
-release gates had already passed locally against the same product files before
-that test-only consolidation. The authored English challenge verifier is now a
-separate mandatory workflow gate; its integrity checks pass for the three
-committed challenge folders, but external model reviews remain pending and do
-not establish effectiveness. This record does not represent the current pull
-request CI as passed until its complete run reaches a successful conclusion.
+`arm64`. The latest source checkpoint directly exercised by the packed journey
+and release dry-run is `a3dbcd21697d3218a023bf972f76259a6b0b3647`.
+The exhaustive eight-phase learning workflow also passed after eliminating
+duplicate construction of the same cryptographically verified replay fixture;
+the workflow itself, authority handoffs, replay checks, and assertions remain
+complete. The foundation, governed-learning, content-design benchmark,
+distribution, security, and release gates had already passed locally against
+the same product files before that test-only consolidation. The authored
+English challenge verifier is a separate mandatory workflow gate; its
+integrity checks pass for the four committed challenge folders, but external
+model reviews remain pending and do not establish effectiveness. This record
+does not represent the current pull request CI as passed until its complete run
+reaches a successful conclusion.
 Unrelated dirty public-product research remains outside this verification
 scope.
 It records a local release candidate, not an npm publication, production
@@ -47,7 +47,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, packed journey including packet-bound scoring and two-reviewer calibration, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
-| Current packed checkpoint | commit `5575d82`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
+| Current packed checkpoint | commit `a3dbcd2`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
 | Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
 | Current governed-learning checkpoint | current product files; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
@@ -60,6 +60,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Heavy learning workflows | pairwise replay, sealed evaluation, ranking, drift, binding, shadow, snapshot transfer, CLI lifecycle, and Task 6 golden replay passed in isolated exact-runtime runs |
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
+| Authored English challenges | 4/4 integrity checks passed; all four content.md candidates remain unreviewed and both external reviews remain pending |
 | Distribution journey | passed from the packed tarball |
 | Release dry-run | passed; no publish effect |
 | Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, distribution, and release-identity gates verified |
@@ -83,12 +84,12 @@ cross-runtime bound, not extra memory substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-package content digest: b7f815abbd43fabc629a2f060fa77b59d9cf02737b9ee4869108580ef913c345
+package content digest: 5abeff5834e82c126b7112ca3885fc2e2846a43b95bbf2c9a696be852e96fea5
 LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
 README.md sha256: 0c4768171376453b0c16a61a15d3e6f9daaf9a1f09fa6c9bcec546b55baaa6b1
-dist/contentmd.cjs sha256: f061d62b430b1eddb551d01719d15c5aca9d7ad36a837011aa20ce4424f42913
+dist/contentmd.cjs sha256: 039d3a8ebf55d6b8e2bd88930764e0eb7eba992628b35d1fc6bdddca5262d75c
 package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
-observed tarball bytes: 2145909
+observed tarball bytes: 2145907
 unpacked bytes: 13144281
 file count: 4
 qualified synthetic content items: 1
@@ -170,11 +171,11 @@ and do not overlap it with packaging or another learning verifier.
 
 ## Remaining external gates
 
-The implementation checkpoint is `5575d82`; this evidence-only documentation
-update does not alter that implementation. Unrelated local public-product
-research remains outside both commits. Pull-request verification must still
-complete for the final documented candidate. The remaining gates require
-external authority or evidence:
+The latest directly exercised source checkpoint is `a3dbcd2`; this
+evidence-only documentation update does not alter the packaged implementation.
+Unrelated local public-product research remains outside both commits.
+Pull-request verification must still complete for the final documented
+candidate. The remaining gates require external authority or evidence:
 
 1. Complete review of the final release commit. With explicit release authority,
    replace the stale local `v0.1.0` candidate tag from that reviewed commit and
