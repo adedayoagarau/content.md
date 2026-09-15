@@ -11,6 +11,8 @@ Rewrite the supplied recovery dialog. Return one JSON object using this shape:
   "generator": {
     "system": "content.md",
     "version": "<exact version>",
+    "execution_path": "repository_agent | live_provider",
+    "host_system": "<host model or provider>",
     "run_id": "<exact run identifier or null>"
   },
   "candidate": {
@@ -59,4 +61,6 @@ Requirements:
 - Make each button name the action it performs.
 - Keep every field within its declared character limit.
 - Treat the result as a proposal. Do not claim approval or effectiveness.
+- Distinguish the `content.md` system from the host model or provider that
+  generated the language.
 - Evaluate English expression only. Do not add or infer locale requirements.

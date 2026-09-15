@@ -151,6 +151,8 @@ function validateCandidate(candidate, scenario, request, challenge) {
     || !record(candidate.generator)
     || candidate.generator.system !== "content.md"
     || !nonEmpty(candidate.generator.version)
+    || !["repository_agent", "live_provider"].includes(candidate.generator.execution_path)
+    || !nonEmpty(candidate.generator.host_system)
     || candidate.generator.run_id !== null && !nonEmpty(candidate.generator.run_id)
     || !record(candidate.candidate)
     || !record(candidate.character_counts)

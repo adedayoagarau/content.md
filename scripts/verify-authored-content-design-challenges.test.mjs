@@ -21,10 +21,24 @@ test("verifies the committed English-only authored challenge", async () => {
   const report = await verifyAuthoredContentDesignChallenges(sourceRoot);
   assert.equal(report.verification_status, "passed");
   assert.equal(report.challenge_count, 1);
-  assert.equal(report.challenges[0].candidate_status, "pending");
+  assert.equal(report.challenges[0].candidate_status, "present_unreviewed");
   assert.equal(report.challenges[0].contentmd_diagnosis, "revise");
   assert.equal(report.challenges[0].contentmd_finding_count, 3);
   assert.equal(report.challenges[0].locale_evaluation, false);
+});
+
+test("rejects a generated candidate that exceeds a field limit", async (context) => {
+  const { temporary, root } = await fixture();
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const file = path.join(root, "001-interrupted-application-upload/outputs/contentmd/candidate.json");
+  const candidate = JSON.parse(await readFile(file, "utf8"));
+  candidate.candidate.headline = "This generated recovery headline is intentionally far too long";
+  candidate.character_counts.headline = [...candidate.candidate.headline].length;
+  await writeFile(file, `${JSON.stringify(candidate, null, 2)}\n`);
+  await assert.rejects(
+    verifyAuthoredContentDesignChallenges(root),
+    /authored_content_design_challenge_invalid:001-interrupted-application-upload:candidate_field:headline/u,
+  );
 });
 
 test("rejects a scenario that widens the language scope", async (context) => {
