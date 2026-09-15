@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -11,9 +12,9 @@ import {
   determineLearningEligibility,
   inspectShadowSimulation,
   qualifyFeedback,
-  verifySealedTestReplay,
   verifyPairwiseCandidate,
   type EvaluationRunResult,
+  type VerifiedSealedTestHandle,
 } from "@contentmd/learning";
 import { authorizedEventStoreFixture } from "../../runtime-local/test/runtime-test-fixtures.js";
 import {
@@ -44,6 +45,12 @@ const WORKFLOW_ID = "learning-workflow.task7.fixture";
 const STREAM_ID = `learning-workflow-stream.${PROJECT_ID}`;
 const DATA_CLASS = "learning-workflow-audit";
 const temporaryDirectories: string[] = [];
+// Replay verification is covered by the Task 6 golden suite; this fixture keeps
+// the audit-ordering test bounded to the authority boundary it asserts.
+const task6GoldenSealedTest = (JSON.parse(readFileSync(
+  new URL("../../../fixtures/learning-ranking/task6-simulator-golden.json", import.meta.url),
+  "utf8",
+)) as { sealed_test: VerifiedSealedTestHandle }).sealed_test;
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map((directory) => (
@@ -136,16 +143,12 @@ describe("governed recursive learning workflow", () => {
       permitted_data_classes: [DATA_CLASS],
     });
     try {
-      const source = task6PassingSealedReplayFixture();
       const vault = createEvaluationSimulatorVault({
         record_mode: "development_fixture",
         vault_id: "vault.task7.shadow-audit-mismatch",
         fault_rules: [],
       });
-      const sealedTest = verifySealedTestReplay(vault, {
-        record_mode: "development_fixture",
-        replay: source.replay,
-      });
+      const sealedTest = task6GoldenSealedTest;
       const priorPayload = {
         contract_version: "contentmd.learning-workflow-audit/0.1.0" as const,
         workflow_id: WORKFLOW_ID,
@@ -196,7 +199,7 @@ describe("governed recursive learning workflow", () => {
         vault,
         sealed_test: sealedTest,
         evaluation: forgedEvaluation,
-        start_at: source.replay.dataset_replay.build_input.evaluation_at,
+        start_at: "2026-08-25T19:00:00.000Z",
         earliest_end_at: "2026-09-03T19:00:00.000Z",
         proposed_end_at: "2026-09-04T19:00:00.000Z",
         input_selection_ref: sealedTest.test_population_ref,
