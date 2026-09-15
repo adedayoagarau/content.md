@@ -69,6 +69,20 @@ The JSON contracts exposed by this command are:
 - calibration report `contentmd.content-design-calibration-report/0.1.0`;
 - evaluation report `contentmd.content-design-evaluation-report/0.2.0`.
 
+### Repository-only evaluation fixtures
+
+The source repository additionally commits a blinded 500-item calibration
+cohort and a disjoint 500-item held-out reservation. They are reproducible with
+`pnpm prepare:content-design-calibration` and
+`pnpm reserve:content-design-evaluation`. The reservation contains only scenario
+IDs, digests, and sampling coordinates; it is not a reviewer packet and remains
+`frozen_unopened` until calibration and evaluator behavior are frozen.
+
+These commands, files, and their internal module exports are contributor
+interfaces, not stable `contentmd@0.1.0` npm APIs. Neither cohort contains human
+gold, and neither may enter retrieval or training. The remaining 9,000 scenarios
+provide reserve matrix coverage rather than automatic evaluation evidence.
+
 Packet and output digests are opaque content identities. The CLI independently
 checks required context, evidence, rubric, eligibility, state, label-blinding,
 and completed-review invariants before evaluation. For scoring and calibration,

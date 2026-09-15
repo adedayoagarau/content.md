@@ -161,6 +161,14 @@ See the [verification record](https://github.com/adedayoagarau/content.md/blob/m
 This demonstrates deterministic execution and coverage—not content-design
 accuracy, which requires qualified human review.
 
+Repository contributors have a larger, separately governed evaluation path.
+`pnpm prepare:content-design-calibration` reproduces a blinded 500-item
+calibration cohort. `pnpm reserve:content-design-evaluation` reproduces a
+disjoint 500-item reference-only reservation that stays `frozen_unopened`
+until calibration and the evaluator are frozen. The remaining 9,000 scenarios
+are reserve coverage, not automatic gold or a test set. These repository
+fixtures are not part of the published CLI contract or npm tarball.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command
