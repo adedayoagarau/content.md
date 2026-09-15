@@ -78,8 +78,15 @@ npx contentmd scan --improve 1        # see its missing facts and acceptance cri
 npx contentmd serve                   # open the local interactive proofing desk
 ```
 
-First, create the bundled immutable blinded 100-scenario review packet. This
-works from the published package and refuses to overwrite an existing file:
+The package retains a historical, locale-bearing 100-scenario packet so its
+deterministic evaluator, reviewer handoff, qualification checks, and comparison
+workflow remain reproducible. The full source matrix was later exposed to
+external models, so this packet is not a current formal English calibration
+set, held-out test, or source of effectiveness evidence. Reviewers must judge
+the supplied English expression only and ignore target-locale metadata.
+
+Create a copy of that immutable diagnostic packet. This works from the
+published package and refuses to overwrite an existing file:
 
 ```bash
 npx contentmd benchmark content-design \
@@ -155,8 +162,8 @@ npx contentmd benchmark content-design \
   --report-out evaluation-report.json
 ```
 
-Before treating either review as calibration evidence, qualify a second review
-from a different governed reviewer and compare the two immutable gold files:
+To exercise the disagreement and adjudication path, qualify a second review
+from a different governed reviewer and compare the two immutable files:
 
 ```bash
 npx contentmd benchmark content-design \
@@ -170,7 +177,10 @@ The calibration report measures disposition agreement, per-ability
 disagreement, and agreement or distance separately for every hard and quality
 dimension. It preserves an explicit adjudication queue instead of averaging
 disagreements away. Reviewer agreement does not by itself prove tool accuracy
-or authorize a benchmark claim.
+or authorize a benchmark claim. Because this packaged packet comes from the
+exposed historical matrix, its comparison report is workflow and rule-diagnostic
+evidence only; it cannot establish the current English content-design
+capability or serve as an independent held-out result.
 
 Evaluation reports expose gold-score, evaluator-score, and comparable-score
 counts plus quality prediction coverage for every reported slice and each
@@ -195,19 +205,18 @@ See the [verification record](https://github.com/adedayoagarau/content.md/blob/m
 This demonstrates deterministic execution and coverage—not content-design
 accuracy, which requires qualified human review.
 
-Repository contributors have a larger, separately governed evaluation path.
-`pnpm prepare:content-design-calibration` reproduces a blinded 500-item
-calibration cohort. After `pnpm build`, run
-`pnpm review:content-design-calibration` to complete it in the same resumable,
-loopback-only workbench. Reviewers can export an incomplete, packet-bound
-progress file and import it later; incomplete progress has no authority and
-cannot qualify as gold. Decisive judgments require every quality dimension;
-abstentions and escalations preserve intentionally unscored dimensions.
-`pnpm reserve:content-design-evaluation` reproduces a
-disjoint 500-item reference-only reservation that stays `frozen_unopened`
-until calibration and the evaluator are frozen. The remaining 9,000 scenarios
-are reserve coverage, not automatic gold or a test set. These repository
-fixtures are not part of the published CLI contract or npm tarball.
+Repository contributors can reproduce the historical 500-item calibration
+cohort and disjoint 500-item reservation with
+`pnpm prepare:content-design-calibration` and
+`pnpm reserve:content-design-evaluation`. Those artifacts are retained for
+regression and protocol inspection only: the entire source matrix was exposed
+to external models, and its locale-bearing design does not satisfy the current
+English-only standard. They are not a current calibration set, held-out test,
+automatic gold, retrieval input, or training input. A future formal benchmark
+must use newly authored English-only cases, freeze the held-out set before any
+review or evaluator change, and obtain independent qualified human judgments.
+These repository fixtures are not part of the published CLI contract or npm
+tarball.
 
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet

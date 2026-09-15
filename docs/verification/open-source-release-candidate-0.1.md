@@ -32,11 +32,12 @@ deployment, organizational approval, or claim of general writing effectiveness.
   preview, digest-bound apply, and undo.
 - Local adoption covers preview, explicit digest-bound initialization, doctor,
   and bounded uninstall preview.
-- The packed content-design benchmark covers extraction of the blinded
-  100-scenario sample, packet-bound prediction, reviewer-blank template
+- The packed historical content-design diagnostic covers extraction of the
+  blinded 100-scenario sample, packet-bound prediction, reviewer-blank template
   creation, a non-authoritative packet-scoped steward handoff, two-reviewer
-  calibration with an explicit disagreement queue, and the loopback-only
-  independent-review workbench.
+  comparison with an explicit disagreement queue, and the loopback-only
+  independent-review workbench. The exposed locale-bearing packet is not the
+  current formal English calibration or held-out benchmark.
 - Research candidates and the public-product corpus are excluded from the npm
   tarball and remain separately governed evidence assets.
 
@@ -45,7 +46,7 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Gate | Outcome |
 | --- | --- |
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
-| Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete 10,000-scenario benchmark with cross-dimensional coverage gates, packed journey including packet-bound scoring and two-reviewer calibration, package security, lint, and foundation verification passed |
+| Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete historical 10,000-scenario execution and coverage gates, packed journey including packet-bound scoring and two-reviewer comparison, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
 | Current packed checkpoint | commit `a3dbcd2`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
 | Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
@@ -84,13 +85,13 @@ cross-runtime bound, not extra memory substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-package content digest: 5abeff5834e82c126b7112ca3885fc2e2846a43b95bbf2c9a696be852e96fea5
+package content digest: 64d7dc8784a81fa11a4ab446c5a9e28c31aee54355f2ab0ce1cf6b059a7896ac
 LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
-README.md sha256: 0c4768171376453b0c16a61a15d3e6f9daaf9a1f09fa6c9bcec546b55baaa6b1
+README.md sha256: 7e0c6f854f2e660981b2a6c4a1544263bd74c9381750045e3de1e668044ec081
 dist/contentmd.cjs sha256: 039d3a8ebf55d6b8e2bd88930764e0eb7eba992628b35d1fc6bdddca5262d75c
 package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
-observed tarball bytes: 2145907
-unpacked bytes: 13144281
+observed tarball bytes: 2146096
+unpacked bytes: 13144839
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -104,9 +105,10 @@ evaluation, regular-user patch apply and undo, fresh digest-bound adoption,
 bounded uninstall preview, npm uninstall, source-fixture preservation, and
 `authority_effect: none` for scanning. It also demonstrated installed-package
 content-design sample extraction, blind prediction, reviewer-blank template
-creation, two-reviewer calibration, and review-workbench rendering with
+creation, two-reviewer diagnostic comparison, and review-workbench rendering with
 generator labels absent. Calibration reports remain non-authorizing and retain
-disagreements for adjudication.
+disagreements for adjudication; because the packet is exposed and locale-bearing,
+they cannot establish the current English content-design capability.
 
 Before packing, the verifier rebuilt the distribution twice and required
 byte-identical SHA-256 values for all four shipped files. The canonical

@@ -1,16 +1,21 @@
 # Independent content-design review guide
 
-Status: reviewer runbook for the candidate benchmark; completing this process
-does not grant product, publication, policy, retrieval, or training authority.
+Status: reviewer runbook for the historical diagnostic packet; completing this
+process does not grant product, publication, policy, retrieval, training, or
+effectiveness-claim authority.
 
 Current scope: evaluate the supplied English-language expression only. Ignore
 target locale, translation status, direction, and presumed in-market adequacy.
 Do not score locale readiness. This review makes no localization claim.
 
-Use this guide to review the blinded `content.md` content-design benchmark. You
-do not need to understand the repository or inspect its source code. Do not open
-the scenario generator, hidden labels, baseline predictions, another reviewer's
-answers, or the held-out reservation before submitting your independent review.
+Use this guide to review the blinded `content.md` diagnostic packet. The source
+matrix was exposed to external models and includes locale-bearing protocol
+fields, so this review can test workflow mechanics and reveal rule disagreements
+but cannot become the current formal English-only calibration or held-out
+effectiveness benchmark. You do not need to understand the repository or inspect
+its source code. Do not open the scenario generator, hidden labels, baseline
+predictions, or another reviewer's answers before submitting your independent
+review.
 
 ## People and responsibilities
 
@@ -119,8 +124,12 @@ set, the evaluation reports, and the calibration report. Preserve the explicit
 adjudication queue. If the packet digest, reviewer identity, qualification scope,
 or source files differ, stop rather than merging the records.
 
-The result may support a bounded benchmark statement only after the applicable
-release thresholds in the [content-design standard](content-design-standard.md)
-are met. It does not make synthetic scenarios approved product evidence and
-does not make any record eligible for retrieval, ranking, fine-tuning, release,
-or publication.
+The result may support statements about the bounded review, qualification, and
+comparison mechanics that were directly exercised. It cannot support a current
+content-design effectiveness statement because the source matrix is exposed and
+does not meet the current English-only benchmark design. A future formal result
+requires newly authored calibration and held-out cases frozen before review and
+evaluator improvement, as defined by the
+[content-design standard](content-design-standard.md). This review does not make
+synthetic scenarios approved product evidence or make any record eligible for
+retrieval, ranking, fine-tuning, release, or publication.

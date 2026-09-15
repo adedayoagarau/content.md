@@ -27,12 +27,14 @@ The verifier runs these operations in a fresh temporary consumer project:
     its immutable digest and absence of generator labels.
 12. Produce packet-bound unscored predictions and a reviewer-blank response template.
 13. Qualify two distinct governed-reviewer fixtures and compare them through
-    the installed CLI, confirming agreement remains non-authorizing and any
-    disagreement would require adjudication.
+    the installed CLI, confirming diagnostic agreement remains non-authorizing
+    and any disagreement would require adjudication.
 14. Start the packed content-design review workbench and verify its rendered
     review shell and blinded data endpoint. The shell exposes user goal, state,
-    action, consequence, risk, evidence status, locale, intended voice, and
-    situational tone; it never displays generator-assigned candidate style.
+    action, consequence, risk, evidence status, historical target-locale
+    metadata, intended voice, and situational tone; reviewers are instructed to
+    judge English expression only, and the shell never displays
+    generator-assigned candidate style.
     Export remains disabled until every response, reviewer identity, strict
     RFC 3339 timestamp, and independence attestation is complete.
 15. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
