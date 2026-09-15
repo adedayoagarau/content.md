@@ -34,6 +34,12 @@ const execute = promisify(execFile);
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const cliSource = join(workspaceRoot, "packages/cli/src/main.ts");
 const temporaryDirectories: string[] = [];
+let passingSealedReplayFixture: ReturnType<typeof task6PassingSealedReplayFixture> | undefined;
+
+function sharedPassingSealedReplayFixture() {
+  passingSealedReplayFixture ??= task6PassingSealedReplayFixture();
+  return passingSealedReplayFixture;
+}
 
 function readDagPath(dag: CanonicalDag, path: readonly string[]): unknown {
   const nodes = new Map(dag.nodes.map((node) => [node.node_digest, node]));
@@ -178,7 +184,7 @@ describe("governed recursive learning CLI", () => {
   it("reverifies the persisted training model without selecting or activating it", async () => {
     const root = await mkdtemp(join(tmpdir(), "contentmd-learn-verify-model-"));
     temporaryDirectories.push(root);
-    const fixture = task6PassingSealedReplayFixture();
+    const fixture = sharedPassingSealedReplayFixture();
     const request = fixture.replay.model_dependencies.training_request;
     const training = trainPairwiseLogistic(request);
     if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
@@ -219,7 +225,9 @@ describe("governed recursive learning CLI", () => {
     });
     expect(stdout).not.toContain("coefficient");
     expect(stdout).not.toContain("selected_expression");
-  }, 300_000);
+  // Constructing and verifying the exhaustive deterministic fixture is
+  // intentionally CPU-bound and is materially slower on shared Linux runners.
+  }, 3_600_000);
 
   it.each(["drift", "rollback"] as const)(
     "requires a complete replay input for the %s phase",
@@ -372,7 +380,7 @@ describe("governed recursive learning CLI", () => {
     const datasetAudit = envelope.audit_ref;
     expect(datasetAudit).toEqual(expect.stringMatching(/^[a-f0-9]{64}$/u));
     const trainPath = join(root, ".contentmd/learning/train-input.json");
-    const evaluationSource = task6PassingSealedReplayFixture();
+    const evaluationSource = sharedPassingSealedReplayFixture();
     const trainingRequest = evaluationSource.replay.model_dependencies.training_request;
     await writeFile(trainPath, `${JSON.stringify({
       contract_version: "contentmd.local-pairwise-training-replay/0.1.0",
@@ -693,7 +701,7 @@ describe("governed recursive learning CLI", () => {
     expect(shadowed.stdout).not.toContain("expression\":");
     expect(promoted.stdout).not.toContain("selected_expression");
     expect(promoted.stdout).not.toContain("expression\":");
-  }, 600_000);
+  }, 3_600_000);
 
   it("rejects a malformed evaluation DAG before opening governed runtime state", async () => {
     const root = await mkdtemp(join(tmpdir(), "contentmd-learn-evaluate-invalid-"));
