@@ -1,0 +1,71 @@
+{
+  "contract_version": "contentmd.authored-challenge-candidate/0.1.0",
+  "scenario_id": "content-design.challenge.003-optional-photo-permission",
+  "generator": {
+    "system": "content.md",
+    "version": "0.1.0",
+    "execution_path": "repository_agent",
+    "host_system": "Codex",
+    "run_id": null
+  },
+  "candidate": {
+    "headline": "Add a receipt from Photos",
+    "body": "Only the photo you choose is added to this draft; it isn’t submitted yet. You can take a photo or enter details manually. Change access later in Settings.",
+    "primary_button": "Choose a photo",
+    "secondary_button": "Other options"
+  },
+  "character_counts": {
+    "headline": 25,
+    "body": 154,
+    "primary_button": 14,
+    "secondary_button": 13
+  },
+  "meaning_map": [
+    {
+      "required_meaning": "The application receives only the photo the person selects.",
+      "expressed_in": [
+        "body",
+        "primary_button"
+      ],
+      "explanation": "The body limits the effect to the chosen photo, and the action names choosing rather than broad access."
+    },
+    {
+      "required_meaning": "The chosen photo is added to the current expense draft and does not submit the expense.",
+      "expressed_in": [
+        "headline",
+        "body"
+      ],
+      "explanation": "The body explicitly identifies the destination as a draft and says that the choice does not submit it."
+    },
+    {
+      "required_meaning": "The person can take a new photo or enter receipt details manually instead.",
+      "expressed_in": [
+        "body",
+        "secondary_button"
+      ],
+      "explanation": "The body names both alternatives, and the secondary action opens them."
+    },
+    {
+      "required_meaning": "The person can change photo access later in Settings.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The final sentence preserves the later access-control path."
+    }
+  ],
+  "rationale": {
+    "state_accuracy": "The message describes adding one selected photo to the current draft and explicitly says that choosing it does not submit the draft.",
+    "actions": "Choose a photo names the operating-system picker action. Other options truthfully opens the camera and manual-entry paths.",
+    "hierarchy": "The headline establishes the task, the body explains the data boundary and alternatives, and the controls present the two available paths.",
+    "voice_and_tone": "The wording is calm, transparent, and non-coercive. It removes feature promotion, false necessity, and guilt.",
+    "economy": "The four fields preserve purpose, selected-photo scope, alternatives, and later Settings access within their limits."
+  },
+  "unresolved_questions": [],
+  "self_check": {
+    "all_constraints_met": true,
+    "all_required_meanings_mapped": true,
+    "forbidden_claims_absent": true
+  },
+  "review_state": "unreviewed",
+  "authority_effect": "none"
+}

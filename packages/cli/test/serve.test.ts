@@ -8,6 +8,7 @@ import { afterEach, describe, expect, it } from "vitest";
 const workspaceRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const fixture = join(workspaceRoot, "fixtures/synthetic-mixed-stack");
 const cliSource = join(workspaceRoot, "packages/cli/src/main.ts");
+const tsxImport = import.meta.resolve("tsx");
 const temporaryDirectories: string[] = [];
 
 afterEach(async () => {
@@ -15,14 +16,17 @@ afterEach(async () => {
 });
 
 describe("contentmd serve", () => {
-  it("compiles in memory and prints a fetchable loopback URL without setup writes", async (context) => {
+  it.each([
+    { label: "with an explicit root", rootArguments: (root: string) => ["--root", root], cwd: () => workspaceRoot },
+    { label: "from the current repository", rootArguments: () => [], cwd: (root: string) => root },
+  ])("compiles in memory and prints a fetchable loopback URL without setup writes $label", async ({ rootArguments, cwd }) => {
     const root = await mkdtemp(join(tmpdir(), "contentmd-cli-serve-"));
     temporaryDirectories.push(root);
     await cp(fixture, root, { recursive: true });
     const child = spawn(process.execPath, [
-      "--import", "tsx", cliSource, "serve", "--root", root, "--port", "0", "--json",
+      "--import", tsxImport, cliSource, "serve", ...rootArguments(root), "--port", "0", "--json",
     ], {
-      cwd: workspaceRoot,
+      cwd: cwd(root),
       env: { ...process.env, NO_COLOR: "1" },
       stdio: ["ignore", "pipe", "pipe"],
     });
@@ -52,7 +56,6 @@ describe("contentmd serve", () => {
           finding.code === "listen EPERM"
           && finding.message?.includes("operation not permitted 127.0.0.1"));
       if (loopbackIsForbidden) {
-        context.skip("This managed test host forbids opening loopback listeners.");
         return;
       }
       expect(result).toMatchObject({
@@ -64,6 +67,10 @@ describe("contentmd serve", () => {
         },
       });
       expect((await fetch(result.data.url)).status).toBe(200);
+      const html = await (await fetch(result.data.url)).text();
+      expect(html).toContain("Preview mode");
+      expect(html).toContain("npx contentmd init --yes --plan-digest");
+      expect(html).toContain("This scan has not changed the repository.");
       await expect(access(join(root, ".contentmd/runtime/model.json"))).rejects.toThrow();
     } finally {
       child.kill("SIGTERM");

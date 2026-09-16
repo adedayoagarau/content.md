@@ -1,0 +1,83 @@
+{
+  "contract_version": "contentmd.authored-challenge-candidate/0.1.0",
+  "scenario_id": "content-design.challenge.004-sign-in-email-change-confirmation",
+  "generator": {
+    "system": "content.md",
+    "version": "0.1.0",
+    "execution_path": "repository_agent",
+    "host_system": "Codex",
+    "run_id": null
+  },
+  "candidate": {
+    "headline": "Sign-in email updated",
+    "body": "Codes and order updates now go to your new email. You're still signed in. We notified your previous email. Didn't do this? Sign out all sessions and recover.",
+    "primary_button": "Back to settings",
+    "secondary_button": "Sign out and recover"
+  },
+  "character_counts": {
+    "headline": 21,
+    "body": 157,
+    "primary_button": 16,
+    "secondary_button": 20
+  },
+  "meaning_map": [
+    {
+      "required_meaning": "The sign-in email was changed successfully.",
+      "expressed_in": [
+        "headline"
+      ],
+      "explanation": "The headline confirms the completed change without celebratory language or a general account-status claim."
+    },
+    {
+      "required_meaning": "Future sign-in verification codes and order updates go to the new email.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The opening sentence names both communication types and their new destination."
+    },
+    {
+      "required_meaning": "The current session remains signed in.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The second sentence states the current session effect directly."
+    },
+    {
+      "required_meaning": "A security notice was sent to the previous email.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The third sentence confirms the notification evidence and its destination."
+    },
+    {
+      "required_meaning": "The security-recovery action signs out every current session and starts account recovery.",
+      "expressed_in": [
+        "body",
+        "secondary_button"
+      ],
+      "explanation": "The closing question establishes when to use recovery and states that all sessions are signed out, while the action label names sign-out and recovery."
+    },
+    {
+      "required_meaning": "The person can return to account settings without starting recovery.",
+      "expressed_in": [
+        "primary_button"
+      ],
+      "explanation": "The primary action names its destination and remains distinct from the security path."
+    }
+  ],
+  "rationale": {
+    "state_accuracy": "The candidate confirms that the sign-in email changed, identifies where future account communications go, and states that the current session remains active.",
+    "actions": "Back to settings names the routine destination. Sign out and recover discloses both material effects of the security action within the field limit.",
+    "hierarchy": "The headline confirms the completed change. The body moves from downstream effects to notification evidence and then to the unauthorized-change recovery path.",
+    "voice_and_tone": "The wording is plain, calm, and security-aware. It removes celebration, alarmism, blame, and unsupported reassurance.",
+    "economy": "The fields preserve the completed state, communication destinations, current-session state, notice, and both actions within their limits."
+  },
+  "unresolved_questions": [],
+  "self_check": {
+    "all_constraints_met": true,
+    "all_required_meanings_mapped": true,
+    "forbidden_claims_absent": true
+  },
+  "review_state": "unreviewed",
+  "authority_effect": "none"
+}

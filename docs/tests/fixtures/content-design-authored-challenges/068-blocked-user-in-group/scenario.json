@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.068-blocked-user-in-group",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "social_community",
+    "state_type": "boundary_conflict",
+    "risk_level": "high",
+    "surface_family": "banner",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A group messaging service",
+    "person": "A person using a group messaging service",
+    "journey_stage": "Blocked person joined a shared group",
+    "surface": "In-product banner",
+    "user_goal": "Adjust group controls or leave if shared visibility is not acceptable."
+  },
+  "product_state": {
+    "preceding_state": "A person previously blocked by the user was added to a shared project group by an administrator.",
+    "current_state": "The blocked person cannot send direct messages. Both people can see messages posted in the shared group.",
+    "known_facts": [
+      "The blocked person cannot send direct messages.",
+      "Both people can see messages posted in the shared group.",
+      "The blocker is not notified when the blocked person posts.",
+      "Leaving the group removes access to future group messages but not prior messages."
+    ],
+    "forbidden_claims": [
+      "Blocking hides all shared-group messages.",
+      "The administrator overrode the block.",
+      "Leaving deletes prior messages."
+    ]
+  },
+  "current_content": {
+    "heading": "Heads up!",
+    "body": "Review the latest information and continue.",
+    "action": "Learn more"
+  },
+  "challenge": "Rewrite the in-product banner so the person can understand blocked person joined a shared group, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "action": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review group visibility and notification controls.",
+    "secondary_action": "Leave the shared group.",
+    "consequence_to_preserve": "The block does not prevent mutual visibility inside the shared group.",
+    "recovery_to_preserve": "Adjust group controls or leave if shared visibility is not acceptable."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "explicit",
+      "safety-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "action"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.010-recovery-code-consumed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "account_security",
+    "state_type": "success_with_follow_up",
+    "risk_level": "high",
+    "surface_family": "confirmation",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A developer account",
+    "person": "A person using a developer account",
+    "journey_stage": "Recovery code used successfully",
+    "surface": "In-product confirmation",
+    "user_goal": "Review the remaining codes or generate a replacement set in Security settings."
+  },
+  "product_state": {
+    "preceding_state": "The person used one of eight single-use recovery codes to sign in.",
+    "current_state": "The sign-in succeeded. The used recovery code cannot be used again.",
+    "known_facts": [
+      "The sign-in succeeded.",
+      "The used recovery code cannot be used again.",
+      "Seven recovery codes remain.",
+      "A new set can be generated in Security settings."
+    ],
+    "forbidden_claims": [
+      "All recovery codes expired.",
+      "The password was changed.",
+      "Generating new codes preserves the old set."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "Your changes were saved.",
+    "primary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product confirmation so the person can understand recovery code used successfully, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open Security settings to review or replace recovery codes.",
+    "secondary_action": "Return to the account dashboard.",
+    "consequence_to_preserve": "One recovery code has been consumed and seven remain.",
+    "recovery_to_preserve": "Review the remaining codes or generate a replacement set in Security settings."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "matter-of-fact",
+      "reassuring",
+      "security-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

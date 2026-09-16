@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { endianness, tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { canonicalJson, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
 import {
@@ -38,12 +38,12 @@ function runtimeProfile() {
   const identity = {
     contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
     node_version: "24.14.0" as const,
-    v8_version: "13.6.233.17-node.41",
-    icu_version: "78.2",
-    unicode_version: "17.0",
-    platform: "darwin",
-    architecture: "arm64",
-    endianness: "LE" as const,
+    v8_version: process.versions.v8,
+    icu_version: process.versions.icu!,
+    unicode_version: process.versions.unicode!,
+    platform: process.platform,
+    architecture: process.arch,
+    endianness: endianness(),
   };
   return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
 }

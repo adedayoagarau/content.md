@@ -15,7 +15,11 @@ import {
   type ReviewedIdeCandidate,
 } from "@contentmd/agent";
 import { WORKBENCH_CLIENT_MODULE } from "./client.js";
-import { projectWorkbenchModel, renderWorkbench } from "./render.js";
+import {
+  projectWorkbenchModel,
+  renderWorkbench,
+  type WorkbenchAdoptionState,
+} from "./render.js";
 import { WEBMCP_MODULE } from "./webmcp.js";
 
 const MODEL_PATH = ".contentmd/runtime/model.json";
@@ -25,6 +29,7 @@ const CSP = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-
 export interface StartWorkbenchOptions {
   root: string;
   model?: ProjectModelResult;
+  adoption?: WorkbenchAdoptionState;
   host?: string;
   port?: number;
 }
@@ -121,7 +126,7 @@ export async function startWorkbench(options: StartWorkbenchOptions): Promise<Wo
     options.model === undefined ? requiredModel(options.root) : Promise.resolve(options.model),
     optionalReview(options.root),
   ]);
-  const html = renderWorkbench(model, review);
+  const html = renderWorkbench(model, review, options.adoption ?? null);
   const modelJson = canonicalJson(projectWorkbenchModel(model));
   const taskJson = canonicalJson(review);
   const findings = rankContentReviewFindings(model.content_inventory.units, 10);

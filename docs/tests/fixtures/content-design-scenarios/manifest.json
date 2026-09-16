@@ -1,0 +1,74 @@
+{
+  "contract_version": "contentmd.content-design-evaluation-manifest/0.2.0",
+  "generated_count": 10000,
+  "qualification_status": "synthetic_candidates_not_gold_or_training_eligible",
+  "distributions": {
+    "ability": {
+      "accessibility": 1000,
+      "agency_trust": 1000,
+      "context_framing": 1000,
+      "controls_forms": 1000,
+      "interaction_state": 1000,
+      "localization": 1000,
+      "recovery": 1000,
+      "semantic_fidelity": 1000,
+      "structure_navigation": 1000,
+      "voice_tone": 1000
+    },
+    "situation": {
+      "automated_assistant": 1000,
+      "destructive_delete": 1000,
+      "empty_state": 1000,
+      "navigation_destination": 1000,
+      "payment_unknown": 1000,
+      "permission_request": 1000,
+      "service_interruption": 1000,
+      "subscription_renewal": 1000,
+      "successful_update": 1000,
+      "validation_error": 1000
+    },
+    "surface": {
+      "banner": 1000,
+      "button": 1000,
+      "chat": 1000,
+      "dialog": 1000,
+      "email": 1000,
+      "empty_state": 1000,
+      "form_error": 1000,
+      "help_article": 1000,
+      "notification": 1000,
+      "screen_reader_status": 1000
+    },
+    "target_locale": {
+      "ar-SA": 1000,
+      "de-DE": 1000,
+      "en-GB": 1000,
+      "en-IN": 1000,
+      "en-US": 1000,
+      "es-US": 1000,
+      "fr-FR": 1000,
+      "he-IL": 1000,
+      "ja-JP": 1000,
+      "pt-BR": 1000
+    },
+    "candidate_variant": {
+      "blameful": 1000,
+      "concise_calm": 1000,
+      "evidence_gap": 1000,
+      "false_certainty": 1000,
+      "missing_consequence": 1000,
+      "plain_direct": 1000,
+      "unsupported_authority": 1000,
+      "urgent_pressure": 1000,
+      "vague_action": 1000,
+      "warm_supportive": 1000
+    },
+    "control_class": {
+      "clear_failure": 6000,
+      "near_miss": 1000,
+      "positive_control": 2000,
+      "underspecified": 1000
+    }
+  },
+  "scenario_set_digest": "62601ebb273bda35a5810b7c5f61e46eff477e1c9b1b3eb1c5de443a3639913d"
+}

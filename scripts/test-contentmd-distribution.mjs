@@ -1,21 +1,24 @@
 #!/usr/bin/env node
 
 import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
+import { governedContentDesignReviewerFixture } from "./content-design-reviewer-fixture.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const scratch = await mkdtemp(path.join(tmpdir(), "contentmd-distribution-"));
 const npmCache = path.join(scratch, "npm-cache");
+const toolchainPath = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ""}`;
 
 function run(command, args, cwd) {
   const result = spawnSync(command, args, {
     cwd,
     encoding: "utf8",
-    env: { ...process.env, NPM_CONFIG_CACHE: npmCache },
+    env: { ...process.env, PATH: toolchainPath, NPM_CONFIG_CACHE: npmCache },
   });
   if (result.status !== 0) {
     throw new Error(`${command} ${args.join(" ")} failed\n${result.stdout}\n${result.stderr}`);
@@ -23,7 +26,62 @@ function run(command, args, cwd) {
   return result.stdout;
 }
 
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+const packageFiles = ["LICENSE", "README.md", "dist/contentmd.cjs", "package.json"];
+async function packageFileDigests() {
+  return Object.fromEntries(await Promise.all(packageFiles.map(async (file) => [
+    file,
+    sha256(await readFile(path.join(distribution, file))),
+  ])));
+}
+
+async function startPackedServer(entry, args, cwd, label) {
+  const child = spawn(process.execPath, [entry, ...args], {
+    cwd,
+    encoding: "utf8",
+    env: { ...process.env, PATH: toolchainPath },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  const result = await new Promise((resolve, reject) => {
+    let stdout = "";
+    let stderr = "";
+    const timeout = setTimeout(() => reject(new Error(`packed ${label} timeout\n${stderr}`)), 10_000);
+    child.stdout.on("data", (chunk) => {
+      stdout += String(chunk);
+      try {
+        const parsed = JSON.parse(stdout);
+        clearTimeout(timeout);
+        resolve(parsed);
+      } catch {
+        // The canonical JSON envelope may arrive in more than one chunk.
+      }
+    });
+    child.stderr.on("data", (chunk) => { stderr += String(chunk); });
+    child.once("error", (error) => {
+      clearTimeout(timeout);
+      reject(error);
+    });
+    child.once("exit", (code) => {
+      if (code !== null && code !== 0) {
+        clearTimeout(timeout);
+        reject(new Error(`packed ${label} exited ${code}\n${stdout}\n${stderr}`));
+      }
+    });
+  });
+  return { child, result };
+}
+
 run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")], root);
+const firstBuildDigests = await packageFileDigests();
+run(process.execPath, [path.join(root, "scripts/build-contentmd-distribution.mjs")], root);
+const package_file_sha256 = await packageFileDigests();
+if (JSON.stringify(package_file_sha256) !== JSON.stringify(firstBuildDigests)) {
+  throw new Error("distribution build is not byte-reproducible");
+}
+const package_content_digest = sha256(JSON.stringify(package_file_sha256));
 const packOutput = JSON.parse(run("npm", ["pack", distribution, "--json", "--pack-destination", scratch], root));
 const packed = packOutput[0];
 if (packed.name !== "contentmd" || packed.version !== "0.1.0") throw new Error("unexpected package identity");
@@ -58,6 +116,7 @@ await writeFile(path.join(fixture, "src/App.tsx"), fixtureSource);
 const previewResult = spawnSync(process.execPath, [installedEntry, "init", "--root", fixture, "--json"], {
   cwd: consumer,
   encoding: "utf8",
+  env: { ...process.env, PATH: toolchainPath },
 });
 if (previewResult.status !== 20) {
   throw new Error(`init preview returned ${previewResult.status}\n${previewResult.stdout}\n${previewResult.stderr}`);
@@ -83,6 +142,157 @@ if (
   npxResult.command_id !== "scan.summary" || npxResult.data?.write_effect !== "none"
   || npxResult.data?.occurrence_count !== 1 || npxResult.data?.qualified_count !== 1
 ) throw new Error("local npx journey did not return the compact qualified-content summary");
+const benchmarkPacketPath = path.join(scratch, "review-sample-100.json");
+const benchmarkSample = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--sample-out", benchmarkPacketPath, "--json",
+], consumer));
+const benchmarkPacket = JSON.parse(await readFile(benchmarkPacketPath, "utf8"));
+if (
+  benchmarkSample.command_id !== "benchmark.content-design.sample"
+  || benchmarkPacket.sample_count !== 100
+  || benchmarkPacket.packet_digest !== "7ad0e6b6625861830f532ce87bad57034fabf8b1c6049bbc6182ca6e2f9294f7"
+  || JSON.stringify(benchmarkPacket).includes("generator_label")
+) throw new Error("installed package did not create the expected blinded content-design packet");
+const benchmarkPredictionsPath = path.join(scratch, "contentmd-predictions.json");
+const benchmarkPredictions = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--out", benchmarkPredictionsPath, "--json",
+], consumer));
+if (
+  benchmarkPredictions.command_id !== "benchmark.content-design"
+  || benchmarkPredictions.data?.prediction_count !== 100
+  || benchmarkPredictions.data?.evaluation_status !== "unscored_pending_qualified_gold"
+  || benchmarkPredictions.data?.label_access !== "blind_packet_only"
+  || !(benchmarkPredictions.data?.quality_dimension_coverage?.accessibility_readiness?.coverage < 1)
+  || benchmarkPredictions.data?.quality_dimension_coverage?.clarity?.coverage !== 1
+  || benchmarkPredictions.data?.hard_dimension_result_distribution?.recovery?.opportunity_count !== 100
+  || !(benchmarkPredictions.data?.hard_dimension_result_distribution?.recovery?.not_applicable > 0)
+) throw new Error("installed package did not produce blind packet-bound predictions");
+const benchmarkReviewPath = path.join(scratch, "content-design-review.json");
+const benchmarkReview = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--review-template", benchmarkReviewPath, "--json",
+], consumer));
+const benchmarkReviewTemplate = JSON.parse(await readFile(benchmarkReviewPath, "utf8"));
+if (
+  benchmarkReview.command_id !== "benchmark.content-design.review-template"
+  || benchmarkReviewTemplate.responses?.length !== 100
+  || benchmarkReviewTemplate.submission_state !== "incomplete"
+  || benchmarkReviewTemplate.reviewer?.independent_review_attested !== false
+  || benchmarkReviewTemplate.reviewer?.qualification_bundle !== null
+) throw new Error("installed package did not create a reviewer-blank content-design template");
+const benchmarkQualificationRequestPath = path.join(scratch, "content-design-reviewer-qualification-request.json");
+const benchmarkQualificationRequest = JSON.parse(run(process.execPath, [
+  installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--reviewer-id", "reviewer.distribution", "--qualification-request-out", benchmarkQualificationRequestPath, "--json",
+], consumer));
+const benchmarkQualificationRequestFile = JSON.parse(await readFile(benchmarkQualificationRequestPath, "utf8"));
+if (
+  benchmarkQualificationRequest.command_id !== "benchmark.content-design.qualification-request"
+  || benchmarkQualificationRequestFile.request_state !== "awaiting_external_program_steward"
+  || benchmarkQualificationRequestFile.authority_effect !== "none"
+  || benchmarkQualificationRequestFile.requested_resource_scopes?.[1] !== `content-design-benchmark-packet:${benchmarkPacket.packet_digest}`
+) throw new Error("installed package did not create a packet-scoped reviewer qualification request");
+const completeBenchmarkReview = (reviewerId) => {
+  const completed = structuredClone(benchmarkReviewTemplate);
+  completed.reviewer = governedContentDesignReviewerFixture(completed.packet_ref.packet_digest, { reviewerId });
+  completed.submission_state = "complete";
+  for (const response of completed.responses) {
+    response.disposition = "human_preference_review";
+    response.hard_dimension_results = Object.fromEntries(Object.keys(response.hard_dimension_results).map((dimension) => [dimension, "pass"]));
+    response.quality_dimension_scores = Object.fromEntries(Object.keys(response.quality_dimension_scores).map((dimension) => [dimension, 3]));
+    response.rationale = "Independent distribution fixture records a complete meaning-based judgment.";
+    response.acceptable_meaning_invariants = ["Preserve the supported product state"];
+    response.recommended_revision = null;
+    response.review_evidence_refs = [`review.distribution.${reviewerId}`];
+  }
+  return completed;
+};
+const benchmarkReviewAPath = path.join(scratch, "content-design-review-a.json");
+const benchmarkReviewBPath = path.join(scratch, "content-design-review-b.json");
+const benchmarkGoldAPath = path.join(scratch, "content-design-gold-a.json");
+const benchmarkGoldBPath = path.join(scratch, "content-design-gold-b.json");
+const benchmarkCalibrationPath = path.join(scratch, "content-design-calibration.json");
+await writeFile(benchmarkReviewAPath, JSON.stringify(completeBenchmarkReview("reviewer.distribution.a")));
+await writeFile(benchmarkReviewBPath, JSON.stringify(completeBenchmarkReview("reviewer.distribution.b")));
+run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--submission", benchmarkReviewAPath, "--gold-out", benchmarkGoldAPath, "--json"], consumer);
+run(process.execPath, [installedEntry, "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--submission", benchmarkReviewBPath, "--gold-out", benchmarkGoldBPath, "--json"], consumer);
+const benchmarkEvaluationPath = path.join(scratch, "content-design-evaluation.json");
+const benchmarkEvaluation = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
+  "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--predictions", benchmarkPredictionsPath,
+  "--report-out", benchmarkEvaluationPath, "--json"], consumer));
+if (
+  benchmarkEvaluation.command_id !== "benchmark.content-design.score"
+  || benchmarkEvaluation.data?.contract_version !== "contentmd.content-design-evaluation-report/0.5.0"
+  || benchmarkEvaluation.data?.overall?.quality_gold_score_count !== 800
+  || benchmarkEvaluation.data?.overall?.quality_comparable_score_count >= 800
+  || !(benchmarkEvaluation.data?.overall?.quality_prediction_coverage < 1)
+  || !(benchmarkEvaluation.data?.by_quality_dimension?.accessibility_readiness?.prediction_coverage < 1)
+  || benchmarkEvaluation.data?.by_quality_dimension?.clarity?.prediction_coverage !== 1
+  || benchmarkEvaluation.data?.by_hard_dimension?.factual_accuracy?.comparison_coverage !== 1
+  || benchmarkEvaluation.data?.by_hard_dimension?.recovery?.prediction_result_count !== 100
+) throw new Error("installed package did not expose dimension-level evaluation coverage");
+const benchmarkCalibration = JSON.parse(run(process.execPath, [installedEntry, "benchmark", "content-design",
+  "--packet", benchmarkPacketPath, "--gold", benchmarkGoldAPath, "--compare-gold", benchmarkGoldBPath,
+  "--report-out", benchmarkCalibrationPath, "--json"], consumer));
+if (
+  benchmarkCalibration.command_id !== "benchmark.content-design.calibrate"
+  || benchmarkCalibration.data?.contract_version !== "contentmd.content-design-calibration-report/0.2.0"
+  || benchmarkCalibration.data?.record_count !== 100
+  || benchmarkCalibration.data?.disposition_exact_agreement !== 1
+  || benchmarkCalibration.data?.adjudication_required !== false
+  || benchmarkCalibration.data?.benchmark_claim_eligibility !== false
+  || benchmarkCalibration.data?.authority_effect !== "none"
+  || benchmarkCalibration.data?.by_hard_dimension?.factual_accuracy?.exact_agreement !== 1
+  || benchmarkCalibration.data?.by_quality_dimension?.voice_fit?.mean_absolute_difference !== 0
+) throw new Error("installed package did not calibrate independent content-design reviews");
+const benchmarkReviewWorkbench = await startPackedServer(installedEntry, [
+  "benchmark", "content-design", "--packet", benchmarkPacketPath,
+  "--review-workbench", "--port", "0", "--json",
+], consumer, "content-design review workbench");
+try {
+  const response = await fetch(benchmarkReviewWorkbench.result.data.url);
+  const html = await response.text();
+  const reviewDataResponse = await fetch(new URL("review-data.json", benchmarkReviewWorkbench.result.data.url));
+  const reviewDataText = await reviewDataResponse.text();
+  const reviewData = JSON.parse(reviewDataText);
+  if (
+    response.status !== 200 || !html.includes("Judge the meaning, not the generator")
+    || !html.includes("<dt>State</dt>") || !html.includes("Export completed review")
+    || !html.includes("Governed reviewer qualification bundle")
+    || reviewDataResponse.status !== 200 || reviewData.packet?.sample_count !== 100
+    || reviewDataText.includes("generator_label")
+  ) throw new Error("packed content-design review workbench did not render the blinded review flow");
+} finally {
+  benchmarkReviewWorkbench.child.kill("SIGTERM");
+  if (benchmarkReviewWorkbench.child.exitCode === null) {
+    await new Promise((resolve) => benchmarkReviewWorkbench.child.once("exit", resolve));
+  }
+}
+const packedWorkbench = await startPackedServer(installedEntry, [
+  "serve", "--root", fixture, "--port", "0", "--json",
+], consumer, "workbench");
+try {
+  if (packedWorkbench.result.command_id !== "serve" || packedWorkbench.result.data?.write_effect !== "none") {
+    throw new Error("packed workbench did not start with a non-mutating result");
+  }
+  const workbenchResponse = await fetch(packedWorkbench.result.data.url);
+  const workbenchHtml = await workbenchResponse.text();
+  if (
+    workbenchResponse.status !== 200
+    || !workbenchHtml.includes("Improve the highest-priority content issue")
+    || !workbenchHtml.includes("Preview mode")
+    || !workbenchHtml.includes("npx contentmd init --yes --plan-digest")
+    || !workbenchHtml.includes('class="improvement-form"')
+  ) throw new Error("packed workbench did not render the first-run product flow");
+} finally {
+  packedWorkbench.child.kill("SIGTERM");
+  if (packedWorkbench.child.exitCode === null) {
+    await new Promise((resolve) => packedWorkbench.child.once("exit", resolve));
+  }
+}
 const improvement = JSON.parse(run(process.execPath, [
   installedEntry, "scan", "--root", fixture, "--improve", "1", "--json",
 ], consumer));
@@ -140,6 +350,53 @@ if (
   || reviewEvaluation.data?.review_evaluation?.evaluation?.exact_disposition_accuracy !== 1
   || reviewEvaluation.data?.review_evaluation?.authority_effect !== "none"
 ) throw new Error("installed package did not evaluate the completed qualification packet");
+const freshAdoptionPreviewResult = spawnSync(process.execPath, [
+  installedEntry, "init", "--root", fixture, "--json",
+], {
+  cwd: consumer,
+  encoding: "utf8",
+  env: { ...process.env, PATH: toolchainPath },
+});
+if (freshAdoptionPreviewResult.status !== 20) {
+  throw new Error(`fresh adoption preview returned ${freshAdoptionPreviewResult.status}\n${freshAdoptionPreviewResult.stdout}\n${freshAdoptionPreviewResult.stderr}`);
+}
+const freshAdoptionPreview = JSON.parse(freshAdoptionPreviewResult.stdout);
+const freshPlanDigest = freshAdoptionPreview.data?.adoption?.plan_digest;
+if (typeof freshPlanDigest !== "string") throw new Error("fresh adoption plan digest missing");
+const adopted = JSON.parse(run(process.execPath, [
+  installedEntry, "init", "--root", fixture, "--yes", "--plan-digest", freshPlanDigest, "--json",
+], consumer));
+if (
+  adopted.command_id !== "init.apply"
+  || adopted.data?.plan_digest !== freshPlanDigest
+  || !adopted.data?.created_paths?.includes("CONTENT.md")
+  || !adopted.data?.created_paths?.includes(".contentmd/manifest.json")
+) throw new Error("installed package did not apply the exact approved adoption plan");
+for (const relativePath of [
+  "CONTENT.md",
+  ".contentmd/manifest.json",
+  ".contentmd/governance/starter-policy.yaml",
+  ".contentmd/records/repository-model.json",
+]) {
+  await readFile(path.join(fixture, relativePath), "utf8");
+}
+if ((await readFile(path.join(fixture, "src/App.tsx"), "utf8")) !== fixtureSource) {
+  throw new Error("repository adoption changed product source");
+}
+const doctor = JSON.parse(run(process.execPath, [
+  installedEntry, "doctor", "--root", fixture, "--json",
+], consumer));
+if (doctor.command_id !== "doctor" || doctor.data?.overall_status === "not_adopted") {
+  throw new Error("adopted fixture still reports not adopted");
+}
+const uninstallPreview = JSON.parse(run(process.execPath, [
+  installedEntry, "uninstall", "--root", fixture, "--preview", "--json",
+], consumer));
+if (
+  uninstallPreview.command_id !== "uninstall.preview"
+  || !uninstallPreview.data?.owned_files?.includes("CONTENT.md")
+  || JSON.stringify(uninstallPreview.data).includes("src/App.tsx")
+) throw new Error("installed package did not produce a bounded uninstall preview");
 try {
   await readFile(path.join(fixture, ".contentmd/runtime/discovery.json"), "utf8");
   throw new Error("regular-user scan unexpectedly persisted discovery state");
@@ -156,6 +413,8 @@ try {
 
 console.log(JSON.stringify({
   package: `${packed.name}@${packed.version}`,
+  package_content_digest,
+  package_file_sha256,
   tarball_size: packed.size,
   unpacked_size: packed.unpackedSize,
   file_count: packed.entryCount,
@@ -165,10 +424,22 @@ console.log(JSON.stringify({
   fixture_mutated: false,
   bare_scan_completed: true,
   local_npx_scan_completed: true,
+  content_design_sample_count: benchmarkPacket.sample_count,
+  content_design_packet_digest: benchmarkPacket.packet_digest,
+  content_design_predictions_completed: true,
+  content_design_review_template_completed: true,
+  content_design_qualification_request_completed: true,
+  content_design_quality_coverage_reported: true,
+  content_design_reviewer_calibration_completed: true,
+  content_design_review_workbench_completed: true,
+  packed_workbench_completed: true,
   qualification_review_sample_completed: true,
   qualification_review_evaluation_completed: true,
   regular_user_patch_applied: true,
   regular_user_patch_undone: true,
+  exact_adoption_applied: true,
+  adopted_doctor_status: doctor.data.overall_status,
+  bounded_uninstall_preview_completed: true,
   scan_write_effect: npxResult.data.write_effect,
   qualified_content_count: npxResult.data.qualified_count,
   clean_uninstall_verified: true,

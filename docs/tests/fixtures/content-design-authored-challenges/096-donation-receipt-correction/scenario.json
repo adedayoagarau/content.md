@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.096-donation-receipt-correction",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "nonprofit_volunteering",
+    "state_type": "record_correction",
+    "risk_level": "medium",
+    "surface_family": "form",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A nonprofit donation portal",
+    "person": "A person using a nonprofit donation portal",
+    "journey_stage": "Donation receipt needs correction",
+    "surface": "Form label, guidance, and validation",
+    "user_goal": "Request a correction and use the replacement after review."
+  },
+  "product_state": {
+    "preceding_state": "A donor noticed that the legal name on a tax receipt is misspelled.",
+    "current_state": "The donation was processed successfully. The receipt name can be corrected.",
+    "known_facts": [
+      "The donation was processed successfully.",
+      "The receipt name can be corrected.",
+      "Changing the receipt does not change the payment card name.",
+      "A replacement receipt will be emailed after review."
+    ],
+    "forbidden_claims": [
+      "The donation failed.",
+      "The original receipt remains valid after replacement.",
+      "The correction changes tax eligibility."
+    ]
+  },
+  "current_content": {
+    "field_label": "Details",
+    "helper_text": "Enter the requested information.",
+    "error_message": "This doesn't look right."
+  },
+  "challenge": "Rewrite the form label, guidance, and validation so the person can understand donation receipt needs correction, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "field_label": {
+        "required": true,
+        "max_characters": 40
+      },
+      "helper_text": {
+        "required": true,
+        "max_characters": 140
+      },
+      "error_message": {
+        "required": true,
+        "max_characters": 140
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Submit the corrected legal name for review.",
+    "secondary_action": "Download the current receipt without requesting a change.",
+    "consequence_to_preserve": "The current receipt may not match the donor's legal records.",
+    "recovery_to_preserve": "Request a correction and use the replacement after review."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "respectful",
+      "precise",
+      "non-promissory"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "field_label",
+      "helper_text",
+      "error_message"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

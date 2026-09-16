@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.015-trial-ending-reminder",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "payments_billing",
+    "state_type": "change_notice",
+    "risk_level": "high",
+    "surface_family": "push",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A language-learning subscription",
+    "person": "A person using a language-learning subscription",
+    "journey_stage": "Free trial ending reminder",
+    "surface": "Mobile push notification",
+    "user_goal": "Cancel in subscription settings before September 17 at 11:59 PM to avoid the charge."
+  },
+  "product_state": {
+    "preceding_state": "A seven-day trial will convert to a paid monthly plan tomorrow.",
+    "current_state": "The trial ends September 17 at 11:59 PM. The monthly price is $14.99.",
+    "known_facts": [
+      "The trial ends September 17 at 11:59 PM.",
+      "The monthly price is $14.99.",
+      "The saved card will be charged when the trial ends.",
+      "Canceling before the deadline preserves access until the trial ends."
+    ],
+    "forbidden_claims": [
+      "The person is charged today.",
+      "Canceling ends access immediately.",
+      "The first paid month is free."
+    ]
+  },
+  "current_content": {
+    "title": "An update",
+    "body": "Open the app for more information."
+  },
+  "challenge": "Rewrite the mobile push notification so the person can understand free trial ending reminder, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "title": {
+        "required": true,
+        "max_characters": 45
+      },
+      "body": {
+        "required": true,
+        "max_characters": 120
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open subscription settings.",
+    "secondary_action": "Dismiss the notification without changing the subscription.",
+    "consequence_to_preserve": "No action results in a $14.99 charge when the trial converts.",
+    "recovery_to_preserve": "Cancel in subscription settings before September 17 at 11:59 PM to avoid the charge."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "timely",
+      "transparent",
+      "non-promotional"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "title",
+      "body"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

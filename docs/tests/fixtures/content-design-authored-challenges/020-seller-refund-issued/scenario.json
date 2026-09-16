@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.020-seller-refund-issued",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "commerce_delivery",
+    "state_type": "refund_pending",
+    "risk_level": "high",
+    "surface_family": "confirmation",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A peer-to-peer marketplace",
+    "person": "A person using a peer-to-peer marketplace",
+    "journey_stage": "Marketplace seller refund issued",
+    "surface": "In-product confirmation",
+    "user_goal": "Check the original card after five business days and contact support if the credit is absent."
+  },
+  "product_state": {
+    "preceding_state": "A seller approved a full refund after an item was not shipped.",
+    "current_state": "The refund amount is $82.40. The marketplace sent the refund to the original card today.",
+    "known_facts": [
+      "The refund amount is $82.40.",
+      "The marketplace sent the refund to the original card today.",
+      "The bank may take three to five business days to post it.",
+      "The canceled order cannot be reopened."
+    ],
+    "forbidden_claims": [
+      "The money is already visible in the bank account.",
+      "The refund can be redirected to another card.",
+      "The order can still be shipped."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "Your changes were saved.",
+    "primary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product confirmation so the person can understand marketplace seller refund issued, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View refund details.",
+    "secondary_action": "Return to purchase history.",
+    "consequence_to_preserve": "The marketplace completed its refund action, but bank posting remains pending.",
+    "recovery_to_preserve": "Check the original card after five business days and contact support if the credit is absent."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "reassuring",
+      "precise",
+      "non-promissory"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

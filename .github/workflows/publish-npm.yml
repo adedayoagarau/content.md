@@ -15,15 +15,15 @@ jobs:
     environment: npm-production
     steps:
       - name: Check out the released commit
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ github.event.release.tag_name }}
           persist-credentials: false
 
       - name: Use Node 24
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          node-version: "24.20.0"
+          node-version-file: ".node-version"
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
 
@@ -33,14 +33,32 @@ jobs:
       - name: Install exact dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build the workspace from source
+        run: pnpm build
+
       - name: Verify repository test suite
         run: pnpm test
 
       - name: Verify types and package boundaries
         run: pnpm lint
 
+      - name: Verify independent foundation
+        run: pnpm verify:foundation
+
+      - name: Verify governed learning fixtures
+        run: pnpm verify:learning
+
+      - name: Verify the complete content-design benchmark
+        run: pnpm verify:content-design-benchmark
+
+      - name: Verify authored English content-design challenges
+        run: pnpm verify:content-design-challenges
+
       - name: Verify clean installation and regular-user journeys
         run: pnpm test:distribution
+
+      - name: Verify package and local-workbench security boundaries
+        run: pnpm verify:security
 
       - name: Verify release identity and tarball contents
         env:

@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -11,9 +12,9 @@ import {
   determineLearningEligibility,
   inspectShadowSimulation,
   qualifyFeedback,
-  verifySealedTestReplay,
   verifyPairwiseCandidate,
   type EvaluationRunResult,
+  type VerifiedSealedTestHandle,
 } from "@contentmd/learning";
 import { authorizedEventStoreFixture } from "../../runtime-local/test/runtime-test-fixtures.js";
 import {
@@ -21,10 +22,7 @@ import {
   preferenceFixture,
   qualificationFixture,
 } from "../../learning/test/task2-fixtures.js";
-import {
-  task5DatasetReplayFixture,
-  task5FeatureMatrixFixture,
-} from "../../learning/test/task5-fixtures.js";
+import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
 import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import {
   runLearningDatasetPhase,
@@ -44,6 +42,12 @@ const WORKFLOW_ID = "learning-workflow.task7.fixture";
 const STREAM_ID = `learning-workflow-stream.${PROJECT_ID}`;
 const DATA_CLASS = "learning-workflow-audit";
 const temporaryDirectories: string[] = [];
+// Replay verification is covered by the Task 6 golden suite; this fixture keeps
+// the audit-ordering test bounded to the authority boundary it asserts.
+const task6GoldenSealedTest = (JSON.parse(readFileSync(
+  new URL("../../../fixtures/learning-ranking/task6-simulator-golden.json", import.meta.url),
+  "utf8",
+)) as { sealed_test: VerifiedSealedTestHandle }).sealed_test;
 
 afterEach(async () => {
   await Promise.all(temporaryDirectories.splice(0).map((directory) => (
@@ -136,16 +140,12 @@ describe("governed recursive learning workflow", () => {
       permitted_data_classes: [DATA_CLASS],
     });
     try {
-      const source = task6PassingSealedReplayFixture();
       const vault = createEvaluationSimulatorVault({
         record_mode: "development_fixture",
         vault_id: "vault.task7.shadow-audit-mismatch",
         fault_rules: [],
       });
-      const sealedTest = verifySealedTestReplay(vault, {
-        record_mode: "development_fixture",
-        replay: source.replay,
-      });
+      const sealedTest = task6GoldenSealedTest;
       const priorPayload = {
         contract_version: "contentmd.learning-workflow-audit/0.1.0" as const,
         workflow_id: WORKFLOW_ID,
@@ -196,7 +196,7 @@ describe("governed recursive learning workflow", () => {
         vault,
         sealed_test: sealedTest,
         evaluation: forgedEvaluation,
-        start_at: source.replay.dataset_replay.build_input.evaluation_at,
+        start_at: "2026-08-25T19:00:00.000Z",
         earliest_end_at: "2026-09-03T19:00:00.000Z",
         proposed_end_at: "2026-09-04T19:00:00.000Z",
         input_selection_ref: sealedTest.test_population_ref,
@@ -268,7 +268,12 @@ describe("governed recursive learning workflow", () => {
         ],
       });
 
-      const datasetReplay = task5DatasetReplayFixture();
+      // Construct the sealed Task 6 source once. Its replay already contains the
+      // exact Task 5 dataset and training request used by every later phase.
+      // Rebuilding these cryptographically verified fixtures independently is
+      // equivalent data but multiplies the release-gate cost substantially.
+      const evaluationSource = task6PassingSealedReplayFixture();
+      const datasetReplay = evaluationSource.replay.dataset_replay;
       const dataset = await runLearningDatasetPhase({
         authority: await phaseAuthority(
           events,
@@ -289,8 +294,7 @@ describe("governed recursive learning workflow", () => {
         { name: "submitted_examples", value: 120 },
       ]);
 
-      const request = task6PassingSealedReplayFixture()
-        .replay.model_dependencies.training_request;
+      const request = evaluationSource.replay.model_dependencies.training_request;
       const training = await runLearningTrainingPhase({
         authority: await phaseAuthority(
           events,
@@ -312,7 +316,6 @@ describe("governed recursive learning workflow", () => {
         training.data.state === "trained" ? training.data.model_record.record_id : "",
       ]);
 
-      const evaluationSource = task6PassingSealedReplayFixture();
       const vault = createEvaluationSimulatorVault({
         record_mode: "development_fixture",
         vault_id: "vault.task7.learning-evaluation",
@@ -622,7 +625,11 @@ describe("governed recursive learning workflow", () => {
     } finally {
       await events.close();
     }
-  }, 1_200_000);
+  // This exhaustive replay takes about 21 minutes on the admitted Darwin/arm64
+  // runtime and longer on the admitted shared Linux/x64 CI runner. Keep a
+  // finite phase-specific ceiling with enough cross-runtime headroom; the
+  // workflow job retains its independent six-hour upper bound.
+  }, 3_600_000);
 
   it("reports durable workflow status without inferring any completed phase", async () => {
     const root = await projectRoot();
@@ -723,12 +730,19 @@ describe("governed recursive learning workflow", () => {
       project_id: PROJECT_ID,
       permitted_data_classes: [DATA_CLASS],
     });
+    let reads = 0;
+    const trappedRequest = new Proxy({}, {
+      get() {
+        reads += 1;
+        throw new Error("training input read before workflow preflight");
+      },
+    });
     try {
       await expect(runLearningTrainingPhase({
         authority: await phaseAuthority(events, "operation.task7.train-too-early", null),
-        request: task6PassingSealedReplayFixture()
-          .replay.model_dependencies.training_request,
+        request: trappedRequest as never,
       })).rejects.toThrow("learning_workflow_prerequisite_missing:train:dataset");
+      expect(reads).toBe(0);
     } finally {
       await events.close();
     }

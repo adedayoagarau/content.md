@@ -21,8 +21,12 @@ function sha256CanonicalAdapter(value) {
   return createHash("sha256").update(canonical).digest("hex");
 }
 
-function splitExactLines(bytes, location) {
-  if (bytes.length === 0 || bytes.at(-1) !== 0x0a) throw new Error(`${location}: JSONL must be nonempty and LF-terminated`);
+function splitExactLines(bytes, location, { allowEmpty = false } = {}) {
+  if (bytes.length === 0) {
+    if (allowEmpty) return [];
+    throw new Error(`${location}: JSONL must be nonempty and LF-terminated`);
+  }
+  if (bytes.at(-1) !== 0x0a) throw new Error(`${location}: JSONL must be LF-terminated`);
   const lines = [];
   let start = 0;
   for (let index = 0; index < bytes.length; index += 1) {
@@ -66,6 +70,47 @@ function normalizeAsOf(asOf) {
     : asOf;
 }
 
+function addBatchRef(target, value) {
+  if (value !== null && typeof value === "object"
+    && typeof value.batch_id === "string"
+    && /^\d{4}-\d{2}-\d{2}-batch-\d+$/u.test(value.batch_id)) {
+    target.add(value.batch_id);
+  }
+}
+
+export function governedBatchNames({ baseline, dispositionSets, dispositionEvents }) {
+  const names = new Set();
+  for (const entry of baseline?.entries ?? []) {
+    if (typeof entry?.path !== "string") continue;
+    const [batchName] = entry.path.split("/");
+    if (/^\d{4}-\d{2}-\d{2}-batch-\d+$/u.test(batchName)) names.add(batchName);
+  }
+  for (const record of [...dispositionSets, ...dispositionEvents]) {
+    for (const transition of record.proposed_transitions ?? [record]) {
+      addBatchRef(names, transition.subject_ref);
+      for (const replacement of transition.replacement_refs ?? []) addBatchRef(names, replacement);
+    }
+  }
+  return [...names].sort();
+}
+
+function verifyGovernedBatchRegistry(value, asOf) {
+  if (value === null) return null;
+  const { registry_digest: registryDigest, ...preimage } = value;
+  if (value.contract_version !== "contentmd.public-product-governed-batch-registry/0.1.0"
+    || value.as_of !== asOf
+    || value.authority_effect !== "none"
+    || !Array.isArray(value.batch_names)
+    || value.batch_names.length === 0
+    || value.batch_names.some((name) => typeof name !== "string" || !/^\d{4}-\d{2}-\d{2}-batch-\d+$/u.test(name))
+    || new Set(value.batch_names).size !== value.batch_names.length
+    || value.batch_names.join("\0") !== [...value.batch_names].sort().join("\0")
+    || registryDigest !== createHash("sha256").update(JSON.stringify(preimage)).digest("hex")) {
+    throw new Error("public_product_governed_batch_registry_invalid");
+  }
+  return value.batch_names;
+}
+
 export async function readPublicProductCorpusV2Input({
   root,
   asOf,
@@ -73,11 +118,23 @@ export async function readPublicProductCorpusV2Input({
   verificationMode = "official",
 }) {
   const normalizedAsOf = normalizeAsOf(asOf);
+  const [baseline, dispositionSets, dispositionEvents, governedRegistry] = await Promise.all([
+    readOptionalJson(path.join(root, "immutable-batch-baseline.json"), null),
+    readOptionalJsonl(path.join(root, "evidence-disposition-sets.jsonl")),
+    readOptionalJsonl(path.join(root, "evidence-dispositions.jsonl")),
+    readOptionalJson(path.join(root, "governed-batch-registry.json"), null),
+  ]);
   const entries = await readdir(root, { withFileTypes: true });
-  const batchNames = entries
+  const discoveredBatchNames = entries
     .filter((entry) => entry.isDirectory() && /^\d{4}-\d{2}-\d{2}-batch-\d+$/u.test(entry.name))
     .map((entry) => entry.name)
     .sort();
+  const registeredBatchNames = verifyGovernedBatchRegistry(governedRegistry, normalizedAsOf)
+    ?? governedBatchNames({ baseline, dispositionSets, dispositionEvents });
+  const registeredBatchSet = new Set(registeredBatchNames);
+  const batchNames = verificationMode === "official" && registeredBatchSet.size > 0
+    ? discoveredBatchNames.filter((batchName) => registeredBatchSet.has(batchName))
+    : discoveredBatchNames;
   const batches = [];
   for (const batchId of batchNames) {
     const batchRoot = path.join(root, batchId);
@@ -85,8 +142,8 @@ export async function readPublicProductCorpusV2Input({
     const observationBytes = await readFile(path.join(batchRoot, "observations.jsonl"));
     batches.push({
       batch_id: batchId,
-      source_lines: splitExactLines(sourceBytes, `${batchId}/sources.jsonl`),
-      observation_lines: splitExactLines(observationBytes, `${batchId}/observations.jsonl`),
+      source_lines: splitExactLines(sourceBytes, `${batchId}/sources.jsonl`, { allowEmpty: true }),
+      observation_lines: splitExactLines(observationBytes, `${batchId}/observations.jsonl`, { allowEmpty: true }),
     });
   }
   const governance = await readOptionalJson(
@@ -97,8 +154,8 @@ export async function readPublicProductCorpusV2Input({
     batches,
     industry_taxonomy_bytes: await readFile(path.join(root, "industry-taxonomy.json")),
     taxonomy: await readOptionalJson(path.join(root, "experience-taxonomy.json"), null),
-    disposition_sets: await readOptionalJsonl(path.join(root, "evidence-disposition-sets.jsonl")),
-    disposition_events: await readOptionalJsonl(path.join(root, "evidence-dispositions.jsonl")),
+    disposition_sets: dispositionSets,
+    disposition_events: dispositionEvents,
     review_governance: governance,
     as_of: normalizedAsOf,
     targets: {

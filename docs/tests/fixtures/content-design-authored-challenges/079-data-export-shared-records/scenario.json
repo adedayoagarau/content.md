@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.079-data-export-shared-records",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "privacy_permissions",
+    "state_type": "privacy_warning",
+    "risk_level": "high",
+    "surface_family": "banner",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A collaborative health journal",
+    "person": "A person using a collaborative health journal",
+    "journey_stage": "Data export includes shared records",
+    "surface": "In-product banner",
+    "user_goal": "Review the included records and choose the appropriate scope before downloading."
+  },
+  "product_state": {
+    "preceding_state": "A person is preparing an export that includes entries co-authored with a caregiver.",
+    "current_state": "The export includes the person's entries and comments they can currently view. Some comments contain the caregiver's name.",
+    "known_facts": [
+      "The export includes the person's entries and comments they can currently view.",
+      "Some comments contain the caregiver's name.",
+      "The export is stored unencrypted in the device's Downloads folder.",
+      "The person can exclude shared comments before export."
+    ],
+    "forbidden_claims": [
+      "The export contains only the person's words.",
+      "The downloaded file is encrypted.",
+      "The caregiver is notified automatically."
+    ]
+  },
+  "current_content": {
+    "heading": "Heads up!",
+    "body": "Review the latest information and continue.",
+    "action": "Learn more"
+  },
+  "challenge": "Rewrite the in-product banner so the person can understand data export includes shared records, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "action": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review and exclude shared comments before export.",
+    "secondary_action": "Export all currently visible records.",
+    "consequence_to_preserve": "The downloaded file may expose another person's information.",
+    "recovery_to_preserve": "Review the included records and choose the appropriate scope before downloading."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "privacy-aware",
+      "non-alarming"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "action"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

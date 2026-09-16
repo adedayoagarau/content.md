@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.014-tip-change-after-delivery",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "payments_billing",
+    "state_type": "time_bounded_choice",
+    "risk_level": "medium",
+    "surface_family": "banner",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A food delivery application",
+    "person": "A person using a food delivery application",
+    "journey_stage": "Tip change after delivery",
+    "surface": "In-product banner",
+    "user_goal": "Edit and confirm the amount before the change window closes."
+  },
+  "product_state": {
+    "preceding_state": "The person wants to change a courier tip after the order was delivered.",
+    "current_state": "The current tip is $6. The tip can be changed until 9:30 PM today.",
+    "known_facts": [
+      "The current tip is $6.",
+      "The tip can be changed until 9:30 PM today.",
+      "The courier sees the final amount after the change window closes.",
+      "Reducing the tip requires confirmation."
+    ],
+    "forbidden_claims": [
+      "The tip is already final.",
+      "The courier has already received the current amount.",
+      "Changing the tip changes the order total immediately without confirmation."
+    ]
+  },
+  "current_content": {
+    "heading": "Heads up!",
+    "body": "Review the latest information and continue.",
+    "action": "Learn more"
+  },
+  "challenge": "Rewrite the in-product banner so the person can understand tip change after delivery, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "action": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open the tip editor.",
+    "secondary_action": "Keep the current $6 tip.",
+    "consequence_to_preserve": "The selected tip remains changeable only until 9:30 PM.",
+    "recovery_to_preserve": "Edit and confirm the amount before the change window closes."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "neutral",
+      "clear",
+      "non-pressuring"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "action"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

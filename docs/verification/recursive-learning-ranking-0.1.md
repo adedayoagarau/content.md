@@ -42,10 +42,17 @@ The complete verification is intentionally expensive: full Task 4 replay is exha
 | `fixtures/learning-ranking/preferences.jsonl` | `a4d36aaf02bac56ae319b1a7c30416da8783fcb279b1c35b3a08bfb7a64bcd59` |
 | `fixtures/learning-ranking/leakage-groups.jsonl` | `abc8d5db87f2e4446185ee189f07e48b36cd272ae7c9520292bab23d4e4aefa6` |
 | `fixtures/learning-ranking/dataset-manifest.json` | `8001c9a40cd0e24bcccac490585d6b60c5447f7a315ca8b3ee6ed52d0ac498be` |
-| `fixtures/learning-ranking/feature-profile.json` | `f39a5514eaa0e2006dc506808a84494b39e2aba864994c94370cefbe7e7ae38d` |
-| `fixtures/learning-ranking/shadow-plan.json` | `8b05ac63dc66c0e074ed161326fbc11eebf9468ee837d8b6660c29afdef76c3e` |
-| `fixtures/learning-ranking/golden-model.json` | `81fe9e4982c39cec8dd31a3e676bbee89fc71010530d87e486f64d0dbde96483` |
-| `fixtures/learning-ranking/task6-simulator-golden.json` | `6049094accbdb4c7291f717a9889eb43237dd596355db952bbca56ce80c96cdc` |
+| `fixtures/learning-ranking/feature-profile.json` | `1f6da141f7c7f3e44a9d1e8bb3924c627000d018e878d34203b0a46131e4305f` |
+| `fixtures/learning-ranking/shadow-plan.json` | `40ed9c93f7b9d355647d65d58d3358ff18284b883b5c28511ca80cb396310f4c` |
+| `fixtures/learning-ranking/golden-model.json` | `5034fd018bfea6c562eee0de455c47a2a93cff51b393464cb81ce271cd5dcb2c` |
+| `fixtures/learning-ranking/task6-simulator-golden.json` | `db70c6f0e63c9a36dd0ed1bf07ae30962982ac50e68f4d0a763a0c8f04509754` |
+
+These identities were requalified on 2026-09-14 after the root package
+manifest gained content-design benchmark and isolated release-test scripts and
+its Task 4 resolution pin was refreshed. Exact-runtime comparison confirmed
+unchanged feature definitions, dataset and preference bytes, learned
+coefficient bits, prediction expectations, and Task 6 terminal outcomes; the
+new feature-profile lock binds the changed upstream manifest identity.
 
 ## Boundary
 

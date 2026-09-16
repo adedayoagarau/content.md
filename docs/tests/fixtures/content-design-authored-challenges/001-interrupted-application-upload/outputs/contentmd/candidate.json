@@ -1,0 +1,77 @@
+{
+  "contract_version": "contentmd.authored-challenge-candidate/0.1.0",
+  "scenario_id": "content-design.challenge.001-interrupted-application-upload",
+  "generator": {
+    "system": "content.md",
+    "version": "0.1.0",
+    "execution_path": "repository_agent",
+    "host_system": "Codex",
+    "run_id": null
+  },
+  "candidate": {
+    "headline": "Your answers were saved",
+    "body": "Saved at 10:42 AM. Your file wasn’t uploaded, and your application wasn’t submitted. Add the file again before you submit.",
+    "primary_button": "Add file again",
+    "secondary_button": "Continue editing"
+  },
+  "character_counts": {
+    "headline": 23,
+    "body": 122,
+    "primary_button": 14,
+    "secondary_button": 16
+  },
+  "meaning_map": [
+    {
+      "required_meaning": "The application was not submitted.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The body states the submission status directly."
+    },
+    {
+      "required_meaning": "The attachment must be selected again before submission.",
+      "expressed_in": [
+        "body",
+        "primary_button"
+      ],
+      "explanation": "The body explains when the file is needed, and the primary action opens the recovery path."
+    },
+    {
+      "required_meaning": "The attachment was not uploaded.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The body identifies the specific part of the application that was not saved."
+    },
+    {
+      "required_meaning": "The person can continue editing without attaching the file immediately.",
+      "expressed_in": [
+        "secondary_button"
+      ],
+      "explanation": "The secondary action returns the person to the saved application without implying the file must be added immediately."
+    },
+    {
+      "required_meaning": "The text answers were saved at 10:42 AM.",
+      "expressed_in": [
+        "headline",
+        "body"
+      ],
+      "explanation": "The headline confirms the saved object, and the body gives the recorded save time."
+    }
+  ],
+  "rationale": {
+    "state_accuracy": "The copy separates the saved answers from the file that was not uploaded and explicitly says the application was not submitted.",
+    "actions": "Add file again names the file-picker action. Continue editing accurately describes returning to the saved application.",
+    "hierarchy": "The headline leads with the recovered work. The body then presents the exception, its consequence, and the recovery instruction.",
+    "voice_and_tone": "The wording is calm, direct, and non-blaming. It avoids celebration, vague reassurance, and an unnecessary apology.",
+    "economy": "Each field stays within its limit while retaining the save time, missing upload, submission state, and both available actions."
+  },
+  "unresolved_questions": [],
+  "self_check": {
+    "all_constraints_met": true,
+    "all_required_meanings_mapped": true,
+    "forbidden_claims_absent": true
+  },
+  "review_state": "unreviewed",
+  "authority_effect": "none"
+}

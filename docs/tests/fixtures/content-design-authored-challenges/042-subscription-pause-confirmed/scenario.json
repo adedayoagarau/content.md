@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.042-subscription-pause-confirmed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "media_subscriptions",
+    "state_type": "success_with_consequence",
+    "risk_level": "high",
+    "surface_family": "confirmation",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A music subscription service",
+    "person": "A person using a music subscription service",
+    "journey_stage": "Subscription pause confirmation",
+    "surface": "In-product confirmation",
+    "user_goal": "Review the pause or cancel before resumption if continued billing is not wanted."
+  },
+  "product_state": {
+    "preceding_state": "The subscriber paused a monthly plan for two billing cycles.",
+    "current_state": "No charge will occur on October 2 or November 2. Offline downloads stop working when the current period ends September 30.",
+    "known_facts": [
+      "No charge will occur on October 2 or November 2.",
+      "Offline downloads stop working when the current period ends September 30.",
+      "Playlists remain saved.",
+      "Billing resumes automatically on December 2 unless canceled."
+    ],
+    "forbidden_claims": [
+      "The subscription was canceled.",
+      "Offline downloads remain playable during the pause.",
+      "Billing will not resume automatically."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "Your changes were saved.",
+    "primary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product confirmation so the person can understand subscription pause confirmation, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View pause and resume details.",
+    "secondary_action": "Cancel the subscription before automatic resumption.",
+    "consequence_to_preserve": "Access changes after September 30 and billing resumes December 2.",
+    "recovery_to_preserve": "Review the pause or cancel before resumption if continued billing is not wanted."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "transparent",
+      "non-promotional"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

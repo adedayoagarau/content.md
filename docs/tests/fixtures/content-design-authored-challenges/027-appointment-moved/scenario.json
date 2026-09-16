@@ -1,0 +1,108 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.027-appointment-moved",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "health_wellbeing",
+    "state_type": "schedule_change",
+    "risk_level": "high",
+    "surface_family": "sms",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A clinic scheduling service",
+    "person": "A person using a clinic scheduling service",
+    "journey_stage": "Clinic appointment moved",
+    "surface": "Transactional SMS",
+    "user_goal": "Accept the reserved time or choose another available option."
+  },
+  "product_state": {
+    "preceding_state": "A clinician became unavailable and the appointment was moved to a later time on the same day.",
+    "current_state": "The original 9:00 AM appointment is canceled. A 2:30 PM appointment is reserved for the same day.",
+    "known_facts": [
+      "The original 9:00 AM appointment is canceled.",
+      "A 2:30 PM appointment is reserved for the same day.",
+      "The visit format remains in person.",
+      "The person can accept, choose another time, or cancel without a fee."
+    ],
+    "forbidden_claims": [
+      "The new time is already accepted.",
+      "The visit changed to video.",
+      "Canceling incurs a fee."
+    ]
+  },
+  "current_content": {
+    "message": "There's an update. Open the app for more information."
+  },
+  "challenge": "Rewrite the transactional sms so the person can understand clinic appointment moved, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "message": {
+        "required": true,
+        "max_characters": 240
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open the reserved 2:30 PM appointment and accept it.",
+    "secondary_action": "Open scheduling options for another time or cancellation.",
+    "consequence_to_preserve": "The original appointment will not occur.",
+    "recovery_to_preserve": "Accept the reserved time or choose another available option."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "apologetic",
+      "clear",
+      "non-pressuring"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "message"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

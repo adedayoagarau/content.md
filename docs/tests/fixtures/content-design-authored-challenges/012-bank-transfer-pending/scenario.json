@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.012-bank-transfer-pending",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "payments_billing",
+    "state_type": "pending",
+    "risk_level": "high",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A small-business banking application",
+    "person": "A person using a small-business banking application",
+    "journey_stage": "Bank transfer still pending",
+    "surface": "In-product status card",
+    "user_goal": "Check the final status before attempting another transfer."
+  },
+  "product_state": {
+    "preceding_state": "A scheduled supplier transfer has left the account but has not reached the recipient.",
+    "current_state": "The transfer was submitted at 2:05 PM. The amount is no longer available in the account balance.",
+    "known_facts": [
+      "The transfer was submitted at 2:05 PM.",
+      "The amount is no longer available in the account balance.",
+      "The recipient has not confirmed receipt.",
+      "The bank will post a final status by the end of the next business day."
+    ],
+    "forbidden_claims": [
+      "The recipient received the money.",
+      "The transfer failed.",
+      "Sending another transfer is safe."
+    ]
+  },
+  "current_content": {
+    "heading": "Still working",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand bank transfer still pending, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View transfer details and the latest status.",
+    "secondary_action": "Contact support after the stated review time.",
+    "consequence_to_preserve": "The payment outcome is still pending and the funds are reserved.",
+    "recovery_to_preserve": "Check the final status before attempting another transfer."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "specific",
+      "non-speculative"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

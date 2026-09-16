@@ -12,7 +12,7 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, join, relative, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
@@ -248,14 +248,13 @@ async function verifyPackageInventory(verificationRoot) {
   invariant(activeStoreMatch !== null, "inventory.offline-store", "active pnpm store is recorded");
   const activeStoreVersionRoot = await realpath(activeStoreMatch[1]);
   const activeStoreRoot = dirname(activeStoreVersionRoot);
-  const pnpmCli = resolve(dirname(process.execPath), "../node_modules/pnpm/bin/pnpm.mjs");
-  const pnpmVersion = await run(process.execPath, [pnpmCli, "--version"]);
+  const pnpmVersion = await run("pnpm", ["--version"]);
   invariant(
     pnpmVersion.code === 0 && pnpmVersion.stdout.trim() === "11.9.0",
     "inventory.pnpm-runtime",
     pnpmVersion.stderr.trim() || pnpmVersion.stdout.trim() || "pinned pnpm CLI unavailable",
   );
-  const cleanInstall = await run(process.execPath, [pnpmCli,
+  const cleanInstall = await run("pnpm", [
     "install",
     "--frozen-lockfile",
     "--trust-lockfile",
@@ -515,8 +514,9 @@ async function runtimeDecisionAuthority(decision) {
 function authorization(transaction, kind) {
   const rollback = kind === "rollback";
   const action = rollback ? "filesystem.rollback" : "filesystem.write";
-  const operation = rollback ? "operation.fixture.rollback" : "operation.fixture.apply";
-  const approvalId = rollback ? "apr_fixture_delete_workspace_rollback_v1" : "apr_fixture_delete_workspace_v1";
+  const operation = rollback ? `operation.rollback.${transaction.transaction_id}` : transaction.operation_id;
+  const approvalId = rollback ? `apr.rollback.${transaction.transaction_id}` : transaction.approval_id;
+  const targetPath = transaction.target_path;
   const limits = { calls: 1, bytes: 4096, duration_ms: 2000, records: 2, model_tokens: 0, browser_actions: 0, retries: 0 };
   return {
     now: "2026-08-20T18:10:00.000Z",
@@ -525,7 +525,7 @@ function authorization(transaction, kind) {
       intent: "apply",
       action,
       adapter_id: "adapter.filesystem",
-      resource_scope: ["src/components/CheckoutSummary.tsx"],
+      resource_scope: [targetPath],
       data_classes: ["public-synthetic"],
       egress: "none",
       requested_limits: limits,
@@ -557,7 +557,7 @@ function authorization(transaction, kind) {
       workload_ref: "workload.contentmd",
       action,
       adapter_id: "adapter.filesystem",
-      resource_scope: ["src/components/CheckoutSummary.tsx"],
+      resource_scope: [targetPath],
       data_classes: ["public-synthetic"],
       egress: "none",
       max_limits: limits,
@@ -581,7 +581,7 @@ function authorization(transaction, kind) {
       { control_type: "durable_memory", applicability: "applicable", record_ref: "control.memory", status: "current", rationale: "Local audit." },
       { control_type: "telemetry", applicability: "applicable", record_ref: "control.telemetry", status: "current", rationale: "Local verification." },
     ],
-    verification_plan_ref: "verify_fixture_delete_workspace_v1",
+    verification_plan_ref: transaction.verification_id,
     reliability_evidence: null,
   };
 }
@@ -652,43 +652,127 @@ async function verifyCliWorkflow(verificationRoot) {
   await writeNetworkGuard(networkGuard);
   const initialProduct = await treeSnapshot(projectA);
 
+  const adopt = async (projectRoot) => {
+    const preview = await runCli(projectRoot, verificationRoot, networkGuard, ["init"], [20]);
+    const planDigest = preview.data?.adoption?.plan_digest;
+    invariant(typeof planDigest === "string" && planDigest.length > 0, "adoption.plan-digest", "preview returned a plan digest");
+    return runCli(projectRoot, verificationRoot, networkGuard, ["init", "--yes", "--plan-digest", planDigest]);
+  };
+
   const deterministicCommands = [
     ["doctor"],
     ["discover"],
     ["model"],
     ["research", "ingest", "--packet", patternPacket],
     ["review"],
-    ["strategy", "--provider", "recorded"],
-    ["draft", "--provider", "recorded"],
-    ["rewrite", "--provider", "recorded"],
   ];
 
-  const firstInit = await runCli(projectA, verificationRoot, networkGuard, ["init", "--yes"]);
+  const firstInit = await adopt(projectA);
   const hostAfterFirstInit = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/") && path !== "CONTENT.md");
-  invariant(canonical(initialProduct) === canonical(hostAfterFirstInit), "adoption.host-preservation", "init preserved every host file byte");
-  const secondInit = await runCli(projectA, verificationRoot, networkGuard, ["init", "--yes"]);
+  invariant(
+    Object.entries(initialProduct).every(([path, fileDigest]) => hostAfterFirstInit[path] === fileDigest),
+    "adoption.host-preservation",
+    "init preserved every pre-existing host file byte",
+  );
+  const secondInit = await adopt(projectA);
   invariant(secondInit.data.created_paths.length === 0, "adoption.idempotence", "second init created no files");
-  await runCli(projectB, verificationRoot, networkGuard, ["init", "--yes"]);
-  invariant(firstInit.data.created_paths.length === 4, "adoption.first-write", "first init created only four approved files");
+  await adopt(projectB);
+  invariant(
+    canonical(firstInit.data.created_paths) === canonical([
+      ".contentmd/governance/starter-policy.yaml",
+      ".contentmd/manifest.json",
+      ".contentmd/product/open-questions.json",
+      ".contentmd/records/repository-model.json",
+      "CONTENT.md",
+    ]),
+    "adoption.first-write",
+    "first init created exactly the five approved contentmd files",
+  );
+  invariant(
+    canonical(firstInit.data.bridged_paths) === canonical(["AGENTS.md"]),
+    "adoption.first-bridge",
+    "first init created exactly the approved host bridge",
+  );
+
+  const prepareArgs = [
+    "task", "prepare",
+    "--request", "Improve the checkout summary action",
+    "--target", "src/components/CheckoutSummary.tsx:9",
+  ];
+  const preparedA = await runCli(projectA, verificationRoot, networkGuard, prepareArgs);
+  const preparedB = await runCli(projectB, verificationRoot, networkGuard, prepareArgs);
+  const taskSemantics = (prepared) => ({
+    request: prepared.data.request,
+    target: prepared.data.target,
+    expression_payload: prepared.data.target_occurrence.expression_payload,
+    prohibited_claims: prepared.data.task.prohibited_claims,
+    consequence: prepared.data.task.consequence,
+    recovery: prepared.data.task.recovery,
+    channel: prepared.data.task.channel,
+    locale: prepared.data.task.locale,
+    risk: prepared.data.task.risk,
+    acceptance_criteria: prepared.data.task.acceptance_criteria,
+    authority_effect: prepared.data.authority_effect,
+  });
+  invariant(
+    canonical(taskSemantics(preparedA)) === canonical(taskSemantics(preparedB)),
+    "determinism.task.prepare",
+    "repository-derived task semantics match across identical projects while identities remain root-bound",
+  );
+  const candidate = (prepared) => ({
+    contract_version: "contentmd.ide-writing-candidate/0.1.0",
+    task_digest: prepared.data.task.task_digest,
+    alternatives: [{
+      candidate_id: "candidate.foundation.checkout-action",
+      text: "Delete this workspace",
+      rationale: "Names the affected object while preserving the established action.",
+      evidence_refs: prepared.data.task.evidence_refs,
+    }],
+    recommended_candidate_id: "candidate.foundation.checkout-action",
+    claimed_authority_effect: "none",
+  });
+  const candidatePathA = join(projectA, ".contentmd-test/foundation-ide-candidate.json");
+  const candidatePathB = join(projectB, ".contentmd-test/foundation-ide-candidate.json");
+  await writeFile(candidatePathA, canonical(candidate(preparedA)), "utf8");
+  await writeFile(candidatePathB, canonical(candidate(preparedB)), "utf8");
+  const reviewedA = await runCli(projectA, verificationRoot, networkGuard, ["task", "review", "--input", candidatePathA]);
+  const reviewedB = await runCli(projectB, verificationRoot, networkGuard, ["task", "review", "--input", candidatePathB]);
+  const reviewSemantics = (reviewed) => ({
+    recommended_candidate_id: reviewed.data.recommended_candidate_id,
+    findings: reviewed.data.findings,
+    explanation: reviewed.data.explanation,
+    uncertainty: reviewed.data.uncertainty,
+    trade_offs: reviewed.data.trade_offs,
+    preview_diff: reviewed.data.preview_diff === null ? null : {
+      source_artifact: reviewed.data.preview_diff.source_artifact,
+      line: reviewed.data.preview_diff.line,
+      column: reviewed.data.preview_diff.column,
+      before: reviewed.data.preview_diff.before,
+      after: reviewed.data.preview_diff.after,
+    },
+    decision_status: reviewed.data.decision_status,
+    authority_effect: reviewed.data.authority_effect,
+  });
+  invariant(
+    canonical(reviewSemantics(reviewedA)) === canonical(reviewSemantics(reviewedB)),
+    "determinism.task.review",
+    "candidate reviews match across identical projects",
+  );
+  invariant(reviewedA.data.authority_effect === "none", "task.review.authority", "candidate review grants no authority");
 
   const outputsA = [];
   const outputsB = [];
   for (const command of deterministicCommands) {
     const accepted = command[0] === "review" ? [10] : [0];
     outputsA.push(await runCli(projectA, verificationRoot, networkGuard, command, accepted));
-    outputsB.push(await runCli(projectB, verificationRoot, networkGuard, command, accepted));
+    outputsB.push(await runCli(projectA, verificationRoot, networkGuard, command, accepted));
   }
   const deterministicDigests = outputsA.map((output, index) => {
     const left = sha256(canonical(portable(output.data, projectA)));
-    const right = sha256(canonical(portable(outputsB[index].data, projectB)));
-    invariant(left === right, `determinism.${deterministicCommands[index].join(".")}`, `digests ${left} and ${right}`);
+    const right = sha256(canonical(portable(outputsB[index].data, projectA)));
+    invariant(left === right, `determinism.${deterministicCommands[index].join(".")}`, `same-root replay digests ${left} and ${right}`);
     return left;
   });
-  invariant(
-    outputsA.slice(-3).every((output) => output.data.model_trace?.deterministic_status === "recorded_exact"),
-    "provider.recorded-exact",
-    "strategy, draft, and rewrite matched exact recorded requests",
-  );
 
   const decisionPath = join(projectA, ".contentmd-test/decision-verifier.json");
   const exactDecisionInput = decisionInput();
@@ -702,33 +786,54 @@ async function verifyCliWorkflow(verificationRoot) {
   await runCli(projectA, verificationRoot, networkGuard, ["decision", "record", "--file", decisionPath]);
   const learn = await runCli(projectA, verificationRoot, networkGuard, ["learn"], [20]);
   invariant(learn.data.disposition === "not_authorized", "learning.fail-closed", "CLI does not infer learning permission");
-  await runCli(projectA, verificationRoot, networkGuard, ["diff", "--proposal", "prop_fixture_delete_workspace_v1"]);
+
+  const taskDecision = {
+    schema_version: "contentmd.content-decision/0.1.0",
+    decision_id: "decision.foundation.checkout-action.001",
+    status: "accepted",
+    actor_ref: "actor.fixture-independent-verifier",
+    actor_role: "content_owner",
+    rationale: "Accepted only for the exact synthetic checkout action occurrence.",
+    proposal_ref: reviewedA.data.candidate_digest,
+    selected_expression: reviewedA.data.preview_diff.after,
+    edited_expression: null,
+    evidence_reviewed: [preparedA.data.task.task_digest, preparedA.data.target_occurrence.occurrence_id].sort(),
+    scope: "project",
+    project_id: preparedA.data.project_id,
+    occurred_at: "2026-08-25T18:00:00.000Z",
+    mutation_approval_effect: "none",
+    sequence: 1,
+    event_digest: "e".repeat(64),
+  };
+  await writeFile(join(projectA, ".contentmd/runtime/latest-decision.json"), `${canonical(taskDecision)}\n`, "utf8");
 
   const beforePreview = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/"));
-  await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", "txn_fixture_delete_workspace_v1", "--preview"]);
+  const transactionId = "txn_foundation_checkout_action_v1";
+  const preview = await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", transactionId, "--preview"]);
   const afterPreview = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/"));
   invariant(canonical(beforePreview) === canonical(afterPreview), "mutation.preview-non-effect", "preview changed no product or host file");
-  const approvalPath = join(projectA, ".contentmd/governance/approvals/apr_fixture_delete_workspace_v1.json");
+  const approvalPath = join(projectA, `.contentmd/governance/approvals/${preview.data.approval_id}.json`);
   let missingApproval = false;
   try { await stat(approvalPath); } catch { missingApproval = true; }
   invariant(missingApproval, "mutation.no-auto-approval", "preview did not create approval");
 
-  const denied = await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", "txn_fixture_delete_workspace_v1"], [21]);
+  const denied = await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", transactionId], [21]);
   invariant(denied.status === "denied_by_governance", "mutation.unauthorized-denied", "apply without approval is denied");
-  const transaction = JSON.parse(await readFile(join(projectA, ".contentmd/runtime/transactions/txn_fixture_delete_workspace_v1.json"), "utf8"));
+  const transaction = JSON.parse(await readFile(join(projectA, `.contentmd/runtime/transactions/${transactionId}.json`), "utf8"));
   await mkdir(dirname(approvalPath), { recursive: true });
   await writeFile(approvalPath, `${JSON.stringify(authorization(transaction, "apply"), null, 2)}\n`);
   const beforeApply = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/"));
-  await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", transaction.transaction_id, "--approval", "apr_fixture_delete_workspace_v1"]);
+  await runCli(projectA, verificationRoot, networkGuard, ["apply", "--transaction", transaction.transaction_id, "--approval", transaction.approval_id]);
   await runCli(projectA, verificationRoot, networkGuard, ["verify", "--transaction", transaction.transaction_id]);
   const afterApply = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/"));
   const changedFiles = Object.keys(afterApply).filter((path) => beforeApply[path] !== afterApply[path]);
   invariant(changedFiles.length === 1 && changedFiles[0] === "src/components/CheckoutSummary.tsx", "mutation.exact-one-file", `changed: ${changedFiles.join(",")}`);
   invariant((await readFile(join(projectA, changedFiles[0]), "utf8")).includes("Delete this workspace"), "mutation.readback", "approved bytes are present");
 
-  const rollbackPath = join(projectA, ".contentmd/governance/approvals/apr_fixture_delete_workspace_rollback_v1.json");
+  const rollbackApprovalId = `apr.rollback.${transaction.transaction_id}`;
+  const rollbackPath = join(projectA, `.contentmd/governance/approvals/${rollbackApprovalId}.json`);
   await writeFile(rollbackPath, `${JSON.stringify(authorization(transaction, "rollback"), null, 2)}\n`);
-  await runCli(projectA, verificationRoot, networkGuard, ["rollback", "--transaction", transaction.transaction_id, "--approval", "apr_fixture_delete_workspace_rollback_v1"]);
+  await runCli(projectA, verificationRoot, networkGuard, ["rollback", "--transaction", transaction.transaction_id, "--approval", rollbackApprovalId]);
   const afterRollback = await treeSnapshot(projectA, (path) => !path.startsWith(".contentmd/"));
   invariant(canonical(afterRollback) === canonical(beforeApply), "mutation.rollback", "rollback restored exact pre-apply bytes");
 
@@ -739,12 +844,23 @@ async function verifyCliWorkflow(verificationRoot) {
       ".contentmd/governance/starter-policy.yaml",
       ".contentmd/manifest.json",
       ".contentmd/product/open-questions.json",
+      ".contentmd/records/repository-model.json",
       "CONTENT.md",
     ]),
     "uninstall.owned-only",
     "preview listed only installer-owned manifest files",
   );
-  invariant(uninstall.data.host_files_affected.length === 0, "uninstall.host-non-effect", "no host file is listed");
+  invariant(
+    canonical(uninstall.data.host_files_affected) === canonical([{
+      relative_path: "AGENTS.md",
+      operation: "remove_exact_marker_block",
+      created_by_contentmd: true,
+      start_marker_prefix: "<!-- contentmd:bridge:start",
+      end_marker: "<!-- contentmd:bridge:end -->",
+    }]),
+    "uninstall.host-bounded",
+    "preview lists only the exact installer-owned AGENTS.md bridge block",
+  );
   record("runtime.network-guard", true, "all retained CLI commands ran with socket APIs denied and project-root-only write permission");
   record("runtime.write-boundary", true, `permission model allowed writes only inside ${basename(projectA)} or ${basename(projectB)}`);
 

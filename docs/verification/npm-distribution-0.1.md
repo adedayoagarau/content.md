@@ -17,14 +17,28 @@ The verifier runs these operations in a fresh temporary consumer project:
 3. Install the generated tarball without lifecycle scripts.
 4. Execute the installed CLI help and confirm the core commands.
 5. Run the installed binary with no arguments and confirm the compact, preview-only regular-user scan.
-6. Run the locally installed package through `npx --no-install contentmd scan --summary` and verify raw and qualified counts remain separate.
+6. Run the locally installed package through `npx --offline -- contentmd scan --summary` and verify raw and qualified counts remain separate without registry access.
 7. Run `contentmd init --json` against a new React/TypeScript fixture.
 8. Confirm a digest-bound `ready_for_local_approval` preview is returned with
    the intentional governance exit code 20.
 9. Confirm neither scan nor init preview changes the target repository or persists discovery state.
 10. Create and evaluate a source-bound qualification-review packet.
-11. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
-12. Uninstall the package and confirm its installed entry is removed.
+11. Extract the bundled blinded 100-scenario content-design packet and verify
+    its immutable digest and absence of generator labels.
+12. Produce packet-bound unscored predictions and a reviewer-blank response template.
+13. Qualify two distinct governed-reviewer fixtures and compare them through
+    the installed CLI, confirming diagnostic agreement remains non-authorizing
+    and any disagreement would require adjudication.
+14. Start the packed content-design review workbench and verify its rendered
+    review shell and blinded data endpoint. The shell exposes user goal, state,
+    action, consequence, risk, evidence status, historical target-locale
+    metadata, intended voice, and situational tone; reviewers are instructed to
+    judge English expression only, and the shell never displays
+    generator-assigned candidate style.
+    Export remains disabled until every response, reviewer identity, strict
+    RFC 3339 timestamp, and independence attestation is complete.
+15. Preview, explicitly apply, readback-verify, undo, and byte-verify one regular-user source change.
+16. Uninstall the package and confirm its installed entry is removed.
 
 Run the proof with the supported Node 24 runtime:
 
@@ -32,13 +46,17 @@ Run the proof with the supported Node 24 runtime:
 pnpm test:distribution
 ```
 
-The verifier reports the exact current tarball size and file count on each run;
-the package has no runtime package dependencies.
+The verifier builds the distribution twice and requires SHA-256 equality for
+every shipped file before packing. It reports those file digests, a canonical
+package-content digest, the observed compressed and unpacked sizes, and the file
+count on each run. The content digest—not gzip byte count—is the reproducibility
+identity because archive-container compression may vary without changing any
+shipped file. The package has no runtime package dependencies.
 
 `pnpm verify:release` separately verifies the package identity, exact
 `v<version>` tag expectation, supported npm CLI, repository URL, public access,
-Node engine, executable, and the exact four-file `npm publish --dry-run`
-payload. It never publishes.
+Node engine, executable, exact tag-to-checked-out-commit binding, and the exact
+four-file `npm publish --dry-run` payload. It never publishes.
 
 ## Not yet proven
 
@@ -64,11 +82,12 @@ tests, 91 research tests, and all 69 native tests. Typecheck, lint, all 18 packa
 boundaries, clean-install distribution testing, and the release dry run pass.
 Four live-listener tests skip only when the managed host returns the exact
 `listen EPERM` loopback prohibition; they remain mandatory on normal hosts and
-CI. The sealed pairwise learning and Task 6 goldens remain bound to the exact
-Node 24.14.0/V8/ICU runtime-profile digests, while this host provides Node
-24.19.0 and 25.5.0. Those exact-runtime goldens therefore remain unproven here
-and the publish workflow must stay fail-closed until CI supplies the sealed
-runtime or the governed release profiles are deliberately requalified.
+CI. The sealed pairwise learning and Task 6 goldens remain bound to exact Node
+24.14.0/V8/ICU/Unicode runtime-profile digests. On 2026-09-14, an isolated
+temporary Node 24.14.0 and pnpm 11.9.0 toolchain reproduced the learning
+fixtures and locks, passed the governed learning verifier, passed 613 affected
+Task 4 tests, and passed all 1,118 foundation checks. This does not authorize a
+learning promotion or official attempt.
 
 The npm registry returned no public `contentmd` package on 2026-08-27, but name
 availability is not reserved until an authenticated publish succeeds.
@@ -77,10 +96,14 @@ availability is not reserved until an authenticated publish succeeds.
 
 The repository now includes `.github/workflows/publish-npm.yml`. A published
 GitHub release invokes a GitHub-hosted Node 24 job with only `contents: read` and
-`id-token: write`, installs pinned pnpm 11.9.0, runs the complete test, lint,
-distribution, and release-verification gates, then calls `npm publish` from the
-four-file distribution directory. The `npm-production` GitHub environment is
-intentional so repository owners can require a human deployment approval.
+`id-token: write`, uses immutable commit pins for every third-party action,
+installs pinned pnpm 11.9.0, and runs the complete test, lint, foundation,
+governed-learning, content-design benchmark, authored English challenge
+integrity, package-security, distribution, and release-verification gates. Only
+then does it call `npm publish` from the four-file distribution directory. The
+release verifier rejects mutable action references or any missing required
+gate. The `npm-production` GitHub environment is intentional so repository
+owners can require a human deployment approval.
 
 The first publication is a distinct bootstrap step because npm trusted
 publishing is configured from an existing package's settings. For 0.1.0:

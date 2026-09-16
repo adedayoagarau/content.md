@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.038-workspace-access-denied",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "work_collaboration",
+    "state_type": "permission_denied",
+    "risk_level": "medium",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A project management platform",
+    "person": "A person using a project management platform",
+    "journey_stage": "Workspace access request denied",
+    "surface": "Transactional email",
+    "user_goal": "Ask the project owner for guidance or send a better-supported request."
+  },
+  "product_state": {
+    "preceding_state": "A workspace administrator denied a contractor's request to join a private project.",
+    "current_state": "The request was denied. No project content was shared.",
+    "known_facts": [
+      "The request was denied.",
+      "No project content was shared.",
+      "The administrator did not provide a reason.",
+      "The requester can contact the project owner or submit a new request with context."
+    ],
+    "forbidden_claims": [
+      "The requester violated a policy.",
+      "The project was deleted.",
+      "A new request will be approved."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "Something went wrong",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand workspace access request denied, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Contact the named project owner.",
+    "secondary_action": "Submit a new access request with additional context.",
+    "consequence_to_preserve": "The requester cannot open the private project.",
+    "recovery_to_preserve": "Ask the project owner for guidance or send a better-supported request."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "neutral",
+      "respectful",
+      "non-speculative"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

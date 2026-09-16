@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.058-direct-deposit-account-changed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "banking_savings",
+    "state_type": "security_confirmation",
+    "risk_level": "critical",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An employer payroll portal",
+    "person": "A person using an employer payroll portal",
+    "journey_stage": "Direct deposit account changed",
+    "surface": "Transactional email",
+    "user_goal": "Verify both effective dates and report the change immediately if it was unauthorized."
+  },
+  "product_state": {
+    "preceding_state": "The employee changed the bank account used for future direct deposits.",
+    "current_state": "The new account applies to payrolls processed after September 20. The next paycheck on September 19 still goes to the previous account.",
+    "known_facts": [
+      "The new account applies to payrolls processed after September 20.",
+      "The next paycheck on September 19 still goes to the previous account.",
+      "A notice was sent to the previous email address.",
+      "An unauthorized change can be reported to payroll and the account can be locked."
+    ],
+    "forbidden_claims": [
+      "The September 19 paycheck goes to the new account.",
+      "The previous account was closed.",
+      "The change proves the account is secure."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "You're all set!",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand direct deposit account changed, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review the new direct-deposit details.",
+    "secondary_action": "Report an unauthorized change and lock payroll changes.",
+    "consequence_to_preserve": "One upcoming paycheck still uses the previous account.",
+    "recovery_to_preserve": "Verify both effective dates and report the change immediately if it was unauthorized."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "precise",
+      "security-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

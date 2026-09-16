@@ -1,0 +1,135 @@
+# Content-design evaluation scenarios
+
+Run:
+
+```bash
+node scripts/generate-content-design-evaluation-scenarios.mjs
+```
+
+The generator creates exactly 10,000 deterministic scenarios across ten
+abilities, situations, surfaces, locales, and candidate variants. The set tests
+voice and tone in the same evaluation order as factual accuracy, product state,
+action, consequence, recovery, semantic fidelity, accessibility, localization,
+structure, and governance.
+
+Each ability has all four controls required by the content-design standard:
+positive controls, clear failures, underspecified evidence cases, and semantic
+near-misses. Locale-routing can supersede an otherwise valid or preference-level
+candidate, while missing material evidence is evaluated before expression.
+Candidate style labels are also removed from review packets. Reviewers receive
+the intended contextual voice profile and situational tone, not the generator's
+description of how the candidate sounds.
+
+The current matrix contains 220 unique visible candidate strings and 270 unique
+candidate-plus-supporting-context expressions. Reuse across ability and locale
+slices is intentional: it tests whether the same words receive different
+judgments when context changes. The diversity tests prevent a future generator
+from collapsing the suite back into a handful of repeated phrases.
+
+These records are project-authored synthetic evaluation candidates. Generator
+labels are hypotheses used to exercise the evaluation pipeline; they are not
+human gold labels, observed product evidence, approved retrieval material, or
+training-eligible examples. Human review must populate `human_gold` through a
+separate governed qualification workflow rather than editing generated files.
+
+## Qualification path
+
+1. Select a stratified sample by ability, risk, surface, locale, and candidate
+   variant.
+2. Give the scenario to an independent content-design reviewer without showing
+   the generator label.
+3. Record the disposition, failed or satisfied dimensions, rationale, acceptable
+   invariants, reviewer role, and review evidence in a separate append-only
+   record.
+4. Adjudicate disagreements without replacing either original review.
+5. Admit only qualified records to a versioned gold set.
+6. Keep held-out scenarios isolated from retrieval and learning evaluation.
+
+Create the deterministic 100-scenario blind review packet with:
+
+```bash
+npm run prepare:content-design-review
+```
+
+The packet includes one scenario for every ability-by-candidate-variant cell.
+It omits injected defects and provisional generator expectations. Reviewers
+should work only from the packet, not from `scenarios.jsonl`.
+
+After the 100-item smoke calibration is operational, create the deterministic
+500-item calibration cohort with:
+
+```bash
+npm run prepare:content-design-calibration
+```
+
+This cohort includes five distinct contexts for every
+ability-by-candidate-variant cell. Within each ability it covers all ten
+situations, surfaces, and target locales. Its committed packet digest is
+`b5028d9c6b16442b369cd98a9c9905dd457555f3bf03791e70aaa2a900fa2b74`.
+It remains blinded, synthetic, unreviewed, and ineligible for retrieval or
+training. The 100-item packet is the lower-cost workflow check; the 500-item
+cohort is the stronger human-calibration instrument, not a substitute for a
+separate held-out evaluation set.
+
+Reserve the disjoint 500-item evaluation cohort before review begins:
+
+```bash
+npm run reserve:content-design-evaluation
+```
+
+`held-out-reservation-500.json` stores only scenario IDs, scenario digests, and
+sampling cells. It deliberately does not materialize reviewer content. Its
+digest is `a1750713305bc8d6f8a53924489fcf554da27a93a6681eff3dded6d44f776b11`.
+The reservation is disjoint from the 500 calibration items and cannot be
+materialized until calibration is frozen and evaluation is authorized.
+
+Use `createReviewSubmissionTemplate()` from
+`scripts/qualify-content-design-review.mjs` to create a separate response file.
+The packet itself remains immutable. Qualification requires every response, a
+qualified-content-designer role, an independence attestation, evidence refs,
+hard-dimension judgments, a meaning-based rationale, and a current governed
+qualification bundle scoped to the exact packet and benchmark-review objective.
+A role string alone is rejected. Qualified records are benchmark-eligible only;
+retrieval and training remain disabled. The same
+module scores bound tool predictions overall and by ability, risk, surface,
+locale, intended voice, and situational tone. It also preserves the complete
+disposition confusion matrix plus critical false-acceptance, abstention,
+escalation, and positive-control rejection diagnostics. These metrics never
+grant benchmark, release, or publication authority.
+
+Create two independently qualified gold files, then compare them before using
+either as calibration evidence:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold reviewer-a-gold.json \
+  --compare-gold reviewer-b-gold.json \
+  --report-out reviewer-calibration.json \
+  --json
+```
+
+The calibration report rejects the same reviewer, mismatched packets, changed
+scenario context, or tampered gold. It reports disposition agreement,
+hard-dimension agreement, quality-score distance, per-ability disagreement,
+and an explicit adjudication queue. Agreement remains measurement evidence,
+not benchmark, release, retrieval, training, or publication authority.
+
+```bash
+node scripts/qualify-content-design-review.mjs \
+  --template \
+  --packet docs/tests/fixtures/content-design-scenarios/review-sample-100.json \
+  --out review-submission.json
+```
+
+Generate the deterministic `content.md` baseline predictions from the blind
+packet before opening any completed human review:
+
+```bash
+npm run predict:content-design-scenarios
+```
+
+Predictions are bound to the packet digest and report
+`unscored_pending_qualified_gold`. The baseline uses only explicit text and
+scenario context checks; null or unknown dimensions remain visible instead of
+being converted into invented confidence.

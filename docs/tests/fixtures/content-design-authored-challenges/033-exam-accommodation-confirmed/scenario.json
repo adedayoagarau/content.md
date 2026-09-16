@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.033-exam-accommodation-confirmed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "education_applications",
+    "state_type": "success_with_details",
+    "risk_level": "high",
+    "surface_family": "confirmation",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An online exam platform",
+    "person": "A person using an online exam platform",
+    "journey_stage": "Exam accommodation confirmed",
+    "surface": "In-product confirmation",
+    "user_goal": "Review the duration and report any mismatch before starting."
+  },
+  "product_state": {
+    "preceding_state": "An approved extra-time accommodation was applied to an upcoming exam.",
+    "current_state": "The exam duration changed from 90 to 135 minutes. The exam date and start window are unchanged.",
+    "known_facts": [
+      "The exam duration changed from 90 to 135 minutes.",
+      "The exam date and start window are unchanged.",
+      "The instructor can see that an accommodation was applied but not its medical basis.",
+      "The student can report a mismatch before starting the exam."
+    ],
+    "forbidden_claims": [
+      "The exam date changed.",
+      "The instructor can see medical documentation.",
+      "Starting the exam is required now."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "Your changes were saved.",
+    "primary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product confirmation so the person can understand exam accommodation confirmed, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the updated exam details.",
+    "secondary_action": "Report an accommodation mismatch before the exam.",
+    "consequence_to_preserve": "The approved duration is now 135 minutes while other scheduling details remain unchanged.",
+    "recovery_to_preserve": "Review the duration and report any mismatch before starting."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "affirming",
+      "specific",
+      "privacy-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.034-scholarship-reference-missing",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "education_applications",
+    "state_type": "blocked_dependency",
+    "risk_level": "high",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A scholarship application service",
+    "person": "A person using a scholarship application service",
+    "journey_stage": "Scholarship reference still missing",
+    "surface": "In-product status card",
+    "user_goal": "Follow up with the current reference or replace them before the deadline."
+  },
+  "product_state": {
+    "preceding_state": "The applicant completed their sections, but a requested reference has not submitted a letter.",
+    "current_state": "The applicant sections are complete. The reference letter is missing.",
+    "known_facts": [
+      "The applicant sections are complete.",
+      "The reference letter is missing.",
+      "The deadline is September 25 at 5:00 PM.",
+      "The applicant can resend the request or invite a different reference."
+    ],
+    "forbidden_claims": [
+      "The application was submitted.",
+      "The reference declined.",
+      "Resending changes the deadline."
+    ]
+  },
+  "current_content": {
+    "heading": "Something went wrong",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand scholarship reference still missing, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Resend the request to the current reference.",
+    "secondary_action": "Invite a different reference.",
+    "consequence_to_preserve": "The application cannot be submitted until a reference letter arrives.",
+    "recovery_to_preserve": "Follow up with the current reference or replace them before the deadline."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "supportive",
+      "non-accusatory"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}
