@@ -119,6 +119,10 @@ function validateScenario(scenario, challenge) {
       || typeof constraint.required !== "boolean"
       || !Number.isSafeInteger(constraint.max_characters)
       || constraint.max_characters < 1) fail(challenge, `constraint:${field}`);
+    const current = scenario.current_content[field];
+    if (current !== null && codePointCount(current) > constraint.max_characters) {
+      fail(challenge, `current_content_limit:${field}`);
+    }
   }
   if (!record(scenario.interaction_contract)
     || !Object.values(scenario.interaction_contract).every(nonEmpty)
@@ -133,6 +137,18 @@ function validateScenario(scenario, challenge) {
     || scenario.governance.training_eligibility !== "never"
     || scenario.governance.benchmark_eligibility !== false
     || scenario.governance.effectiveness_claim_eligibility !== false) fail(challenge, "governance");
+  if (scenario.coverage !== undefined) {
+    if (!record(scenario.coverage)
+      || !nonEmpty(scenario.coverage.domain)
+      || !nonEmpty(scenario.coverage.state_type)
+      || !["low", "medium", "high", "critical"].includes(scenario.coverage.risk_level)
+      || !nonEmpty(scenario.coverage.surface_family)
+      || scenario.coverage.corpus_role !== "authored_scenario_awaiting_contentmd") {
+      fail(challenge, "coverage");
+    }
+  } else if (Number.parseInt(challenge.slice(0, 3), 10) >= 6) {
+    fail(challenge, "coverage_missing");
+  }
   return candidateFields;
 }
 
@@ -242,12 +258,6 @@ async function verifyChallenge(root, challenge) {
     "scenario.json",
     "prompts/contentmd-rewrite.md",
     "prompts/independent-review.md",
-    "outputs/contentmd/README.md",
-    "outputs/contentmd/review-request.json",
-    "outputs/contentmd/review.json",
-    "outputs/contentmd/repair-brief.json",
-    "outputs/claude/README.md",
-    "outputs/cursor/README.md",
   ];
   for (const file of requiredFiles) {
     if (!await exists(path.join(directory, file))) fail(challenge, `missing:${file}`);
@@ -255,13 +265,31 @@ async function verifyChallenge(root, challenge) {
 
   const scenario = await readJson(path.join(directory, "scenario.json"), challenge);
   validateScenario(scenario, challenge);
-  const request = await readJson(path.join(directory, "outputs/contentmd/review-request.json"), challenge);
-  const review = await readJson(path.join(directory, "outputs/contentmd/review.json"), challenge);
-  const repairBrief = await readJson(path.join(directory, "outputs/contentmd/repair-brief.json"), challenge);
-  const replay = validateContentmdReplay(request, review, repairBrief, challenge);
+
+  const requestPath = path.join(directory, "outputs/contentmd/review-request.json");
+  const reviewPath = path.join(directory, "outputs/contentmd/review.json");
+  const repairBriefPath = path.join(directory, "outputs/contentmd/repair-brief.json");
+  const diagnosisPresence = await Promise.all([
+    exists(requestPath),
+    exists(reviewPath),
+    exists(repairBriefPath),
+  ]);
+  if (diagnosisPresence.some(Boolean) && !diagnosisPresence.every(Boolean)) {
+    fail(challenge, "partial_contentmd_diagnosis");
+  }
+  const diagnosisPresent = diagnosisPresence.every(Boolean);
+  let request = null;
+  let replay = null;
+  if (diagnosisPresent) {
+    request = await readJson(requestPath, challenge);
+    const review = await readJson(reviewPath, challenge);
+    const repairBrief = await readJson(repairBriefPath, challenge);
+    replay = validateContentmdReplay(request, review, repairBrief, challenge);
+  }
 
   const candidatePath = path.join(directory, "outputs/contentmd/candidate.json");
   const candidatePresent = await exists(candidatePath);
+  if (candidatePresent && !diagnosisPresent) fail(challenge, "candidate_without_diagnosis");
   const candidate = candidatePresent ? await readJson(candidatePath, challenge) : null;
   if (candidate !== null) validateCandidate(candidate, scenario, request, challenge);
 
@@ -297,9 +325,10 @@ async function verifyChallenge(root, challenge) {
   return {
     scenario_id: scenario.scenario_id,
     language_scope: scenario.language_scope,
-    contentmd_diagnosis: replay.report.recommended_disposition,
-    contentmd_finding_count: replay.report.findings.length,
+    contentmd_diagnosis: replay?.report.recommended_disposition ?? "not_run",
+    contentmd_finding_count: replay?.report.findings.length ?? 0,
     candidate_status: candidatePresent ? "present_unreviewed" : "pending",
+    pipeline_stage: candidatePresent ? "awaiting_external_review" : "awaiting_contentmd",
     external_reviews: reviewerStatus,
     locale_evaluation: false,
     authority_effect: "none",
@@ -315,9 +344,12 @@ export async function verifyAuthoredContentDesignChallenges(root = defaultRoot) 
   if (challenges.length === 0) fail("root", "no_challenges");
   const results = [];
   for (const challenge of challenges) results.push(await verifyChallenge(root, challenge));
+  const contentmdCompletedCount = results.filter((result) => result.candidate_status === "present_unreviewed").length;
   return {
     contract_version: "contentmd.authored-content-design-challenge-verification/0.1.0",
     challenge_count: results.length,
+    contentmd_completed_count: contentmdCompletedCount,
+    contentmd_pending_count: results.length - contentmdCompletedCount,
     challenges: results,
     language_scope: "English",
     external_model_reviews_are_human_gold: false,

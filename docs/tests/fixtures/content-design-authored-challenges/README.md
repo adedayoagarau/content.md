@@ -4,7 +4,9 @@ This track evaluates whether `content.md` can improve realistic English product
 content and explain its reasoning. It is separate from the historical generated
 10,000-scenario matrix.
 
-Each numbered challenge is self-contained:
+Each numbered challenge is self-contained. A newly authored scenario starts
+with the source and prompt files; generated outputs appear only after
+`content.md` has run:
 
 ```text
 <challenge>/
@@ -13,10 +15,10 @@ Each numbered challenge is self-contained:
   prompts/
     contentmd-rewrite.md
     independent-review.md
-  outputs/
-    contentmd/
-    claude/
-    cursor/
+  outputs/                 # absent while awaiting content.md
+    contentmd/             # diagnosis, candidate, and rationale
+    claude/                # sealed reviewer packet and response
+    cursor/                # sealed reviewer packet and response
 ```
 
 ## Workflow
@@ -31,6 +33,11 @@ Each numbered challenge is self-contained:
 4. A qualified content designer compares the reviews, records disagreements,
    and decides whether the scenario and rubric are useful. Model agreement is
    not human gold and does not establish product effectiveness.
+
+The repository currently contains 100 frozen scenarios. Five have reached the
+unreviewed-candidate stage; 95 remain intentionally frozen at the authored
+scenario stage. A partial diagnosis, a candidate without its replayable
+diagnosis, or a reviewer packet without a frozen candidate fails verification.
 
 ## Current scope
 

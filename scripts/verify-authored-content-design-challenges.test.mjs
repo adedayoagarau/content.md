@@ -1,4 +1,4 @@
-import { cp, mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -21,7 +21,9 @@ async function fixture() {
 test("verifies the committed English-only authored challenges", async () => {
   const report = await verifyAuthoredContentDesignChallenges(sourceRoot);
   assert.equal(report.verification_status, "passed");
-  assert.equal(report.challenge_count, 5);
+  assert.equal(report.challenge_count, 100);
+  assert.equal(report.contentmd_completed_count, 5);
+  assert.equal(report.contentmd_pending_count, 95);
   const interruptedUpload = report.challenges.find((challenge) =>
     challenge.scenario_id === "content-design.challenge.001-interrupted-application-upload");
   const priceChange = report.challenges.find((challenge) =>
@@ -32,6 +34,8 @@ test("verifies the committed English-only authored challenges", async () => {
     challenge.scenario_id === "content-design.challenge.004-sign-in-email-change-confirmation");
   const flightCancellation = report.challenges.find((challenge) =>
     challenge.scenario_id === "content-design.challenge.005-flight-cancellation-rebooking");
+  const reliefDuplicate = report.challenges.find((challenge) =>
+    challenge.scenario_id === "content-design.challenge.100-relief-application-duplicate");
   assert.equal(interruptedUpload?.candidate_status, "present_unreviewed");
   assert.equal(interruptedUpload?.contentmd_diagnosis, "revise");
   assert.equal(interruptedUpload?.contentmd_finding_count, 3);
@@ -52,6 +56,23 @@ test("verifies the committed English-only authored challenges", async () => {
   assert.equal(flightCancellation?.contentmd_diagnosis, "revise");
   assert.equal(flightCancellation?.contentmd_finding_count, 4);
   assert.equal(flightCancellation?.locale_evaluation, false);
+  assert.equal(reliefDuplicate?.contentmd_diagnosis, "not_run");
+  assert.equal(reliefDuplicate?.contentmd_finding_count, 0);
+  assert.equal(reliefDuplicate?.candidate_status, "pending");
+  assert.equal(reliefDuplicate?.pipeline_stage, "awaiting_contentmd");
+  assert.equal(reliefDuplicate?.locale_evaluation, false);
+});
+
+test("rejects a partial content.md diagnosis in an authored-only scenario", async (context) => {
+  const { temporary, root } = await fixture();
+  context.after(() => rm(temporary, { recursive: true, force: true }));
+  const output = path.join(root, "006-passkey-unavailable-new-phone/outputs/contentmd");
+  await mkdir(output, { recursive: true });
+  await writeFile(path.join(output, "review-request.json"), "{}\n", "utf8");
+  await assert.rejects(
+    verifyAuthoredContentDesignChallenges(root),
+    /authored_content_design_challenge_invalid:006-passkey-unavailable-new-phone:partial_contentmd_diagnosis/u,
+  );
 });
 
 test("prepares two candidate-bound reviewer packets and refuses to overwrite them", async (context) => {

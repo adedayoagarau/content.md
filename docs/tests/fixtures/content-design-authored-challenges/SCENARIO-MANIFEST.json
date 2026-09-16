@@ -1,0 +1,1014 @@
+{
+  "contract_version": "contentmd.authored-scenario-bank-manifest/0.1.0",
+  "scenario_count": 100,
+  "contentmd_completed_count": 5,
+  "contentmd_pending_count": 95,
+  "language_scope": "English",
+  "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+  "source_expression_copied": false,
+  "scenarios": [
+    {
+      "id": 1,
+      "folder": "001-interrupted-application-upload",
+      "title": "Interrupted application upload",
+      "domain": "education_applications",
+      "state_type": "interrupted_upload",
+      "risk_level": "medium",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_external_review"
+    },
+    {
+      "id": 2,
+      "folder": "002-subscription-price-change-email",
+      "title": "Subscription price change email",
+      "domain": "payments_billing",
+      "state_type": "change_notice",
+      "risk_level": "high",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_external_review"
+    },
+    {
+      "id": 3,
+      "folder": "003-optional-photo-permission",
+      "title": "Optional photo permission",
+      "domain": "privacy_permissions",
+      "state_type": "permission_choice",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_external_review"
+    },
+    {
+      "id": 4,
+      "folder": "004-sign-in-email-change-confirmation",
+      "title": "Sign-in email change confirmation",
+      "domain": "account_security",
+      "state_type": "security_confirmation",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_external_review"
+    },
+    {
+      "id": 5,
+      "folder": "005-flight-cancellation-rebooking",
+      "title": "Flight cancellation rebooking",
+      "domain": "travel_mobility",
+      "state_type": "service_cancellation",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_external_review"
+    },
+    {
+      "id": 6,
+      "folder": "006-passkey-unavailable-new-phone",
+      "title": "Passkey unavailable after phone replacement",
+      "domain": "account_security",
+      "state_type": "blocked_recovery",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 7,
+      "folder": "007-suspicious-sign-in-check",
+      "title": "Suspicious sign-in confirmation",
+      "domain": "account_security",
+      "state_type": "verification_required",
+      "risk_level": "critical",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 8,
+      "folder": "008-username-reserved",
+      "title": "Requested username is reserved",
+      "domain": "account_security",
+      "state_type": "form_error",
+      "risk_level": "medium",
+      "surface_family": "inline",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 9,
+      "folder": "009-shared-profile-owner-removal",
+      "title": "Removing the owner of a shared profile",
+      "domain": "account_security",
+      "state_type": "destructive_confirmation",
+      "risk_level": "critical",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 10,
+      "folder": "010-recovery-code-consumed",
+      "title": "Recovery code used successfully",
+      "domain": "account_security",
+      "state_type": "success_with_follow_up",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 11,
+      "folder": "011-duplicate-card-charge-unknown",
+      "title": "Possible duplicate card charge",
+      "domain": "payments_billing",
+      "state_type": "unknown_outcome",
+      "risk_level": "critical",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 12,
+      "folder": "012-bank-transfer-pending",
+      "title": "Bank transfer still pending",
+      "domain": "payments_billing",
+      "state_type": "pending",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 13,
+      "folder": "013-invoice-autopay-failed",
+      "title": "Invoice autopay failed",
+      "domain": "payments_billing",
+      "state_type": "recoverable_error",
+      "risk_level": "high",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 14,
+      "folder": "014-tip-change-after-delivery",
+      "title": "Tip change after delivery",
+      "domain": "payments_billing",
+      "state_type": "time_bounded_choice",
+      "risk_level": "medium",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 15,
+      "folder": "015-trial-ending-reminder",
+      "title": "Free trial ending reminder",
+      "domain": "payments_billing",
+      "state_type": "change_notice",
+      "risk_level": "high",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 16,
+      "folder": "016-grocery-substitution-approval",
+      "title": "Grocery substitution needs approval",
+      "domain": "commerce_delivery",
+      "state_type": "time_bounded_choice",
+      "risk_level": "medium",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 17,
+      "folder": "017-package-delivered-locker",
+      "title": "Package delivered to a locker",
+      "domain": "commerce_delivery",
+      "state_type": "success_with_instructions",
+      "risk_level": "medium",
+      "surface_family": "sms",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 18,
+      "folder": "018-return-window-ending",
+      "title": "Return window ending",
+      "domain": "commerce_delivery",
+      "state_type": "deadline_notice",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 19,
+      "folder": "019-partial-order-canceled",
+      "title": "Part of an order was canceled",
+      "domain": "commerce_delivery",
+      "state_type": "partial_success",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 20,
+      "folder": "020-seller-refund-issued",
+      "title": "Marketplace seller refund issued",
+      "domain": "commerce_delivery",
+      "state_type": "refund_pending",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 21,
+      "folder": "021-train-platform-change",
+      "title": "Train platform changed",
+      "domain": "travel_mobility",
+      "state_type": "service_change",
+      "risk_level": "high",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 22,
+      "folder": "022-ride-pickup-moved",
+      "title": "Ride pickup point moved",
+      "domain": "travel_mobility",
+      "state_type": "location_change",
+      "risk_level": "medium",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 23,
+      "folder": "023-hotel-overbooking-alternative",
+      "title": "Hotel overbooking alternative",
+      "domain": "travel_mobility",
+      "state_type": "material_choice",
+      "risk_level": "critical",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 24,
+      "folder": "024-rental-car-unavailable",
+      "title": "Reserved rental car unavailable",
+      "domain": "travel_mobility",
+      "state_type": "recoverable_error",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 25,
+      "folder": "025-visa-document-rejected",
+      "title": "Travel document upload rejected",
+      "domain": "travel_mobility",
+      "state_type": "form_error",
+      "risk_level": "high",
+      "surface_family": "inline",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 26,
+      "folder": "026-lab-result-delayed",
+      "title": "Lab result delayed",
+      "domain": "health_wellbeing",
+      "state_type": "pending",
+      "risk_level": "critical",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 27,
+      "folder": "027-appointment-moved",
+      "title": "Clinic appointment moved",
+      "domain": "health_wellbeing",
+      "state_type": "schedule_change",
+      "risk_level": "high",
+      "surface_family": "sms",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 28,
+      "folder": "028-refill-too-soon",
+      "title": "Medication refill requested too soon",
+      "domain": "health_wellbeing",
+      "state_type": "policy_block",
+      "risk_level": "critical",
+      "surface_family": "inline",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 29,
+      "folder": "029-fitness-sync-pending",
+      "title": "Fitness activity still syncing",
+      "domain": "health_wellbeing",
+      "state_type": "pending",
+      "risk_level": "low",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 30,
+      "folder": "030-therapy-session-privacy",
+      "title": "Therapy session privacy reminder",
+      "domain": "health_wellbeing",
+      "state_type": "privacy_notice",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 31,
+      "folder": "031-course-waitlist-seat",
+      "title": "Course waitlist seat offered",
+      "domain": "education_applications",
+      "state_type": "time_bounded_choice",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 32,
+      "folder": "032-assignment-upload-incomplete",
+      "title": "Assignment upload incomplete",
+      "domain": "education_applications",
+      "state_type": "interrupted_upload",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 33,
+      "folder": "033-exam-accommodation-confirmed",
+      "title": "Exam accommodation confirmed",
+      "domain": "education_applications",
+      "state_type": "success_with_details",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 34,
+      "folder": "034-scholarship-reference-missing",
+      "title": "Scholarship reference still missing",
+      "domain": "education_applications",
+      "state_type": "blocked_dependency",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 35,
+      "folder": "035-child-account-consent",
+      "title": "Parental consent required for a child account",
+      "domain": "education_applications",
+      "state_type": "consent_required",
+      "risk_level": "critical",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 36,
+      "folder": "036-document-edit-conflict",
+      "title": "Document edit conflict",
+      "domain": "work_collaboration",
+      "state_type": "conflict",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 37,
+      "folder": "037-meeting-recording-not-saved",
+      "title": "Meeting recording was not saved",
+      "domain": "work_collaboration",
+      "state_type": "irrecoverable_failure",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 38,
+      "folder": "038-workspace-access-denied",
+      "title": "Workspace access request denied",
+      "domain": "work_collaboration",
+      "state_type": "permission_denied",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 39,
+      "folder": "039-task-reassigned",
+      "title": "Task reassigned with unfinished work",
+      "domain": "work_collaboration",
+      "state_type": "ownership_change",
+      "risk_level": "medium",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 40,
+      "folder": "040-workspace-export-ready",
+      "title": "Workspace export ready",
+      "domain": "work_collaboration",
+      "state_type": "success_with_expiry",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 41,
+      "folder": "041-episode-download-expired",
+      "title": "Downloaded episode expired",
+      "domain": "media_subscriptions",
+      "state_type": "content_unavailable",
+      "risk_level": "low",
+      "surface_family": "empty",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 42,
+      "folder": "042-subscription-pause-confirmed",
+      "title": "Subscription pause confirmation",
+      "domain": "media_subscriptions",
+      "state_type": "success_with_consequence",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 43,
+      "folder": "043-parental-pin-locked",
+      "title": "Parental controls PIN temporarily locked",
+      "domain": "media_subscriptions",
+      "state_type": "temporary_lock",
+      "risk_level": "medium",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 44,
+      "folder": "044-saved-video-removed",
+      "title": "Saved video no longer available",
+      "domain": "media_subscriptions",
+      "state_type": "content_removed",
+      "risk_level": "low",
+      "surface_family": "empty",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 45,
+      "folder": "045-newsletter-frequency-change",
+      "title": "Newsletter frequency change",
+      "domain": "media_subscriptions",
+      "state_type": "preference_change",
+      "risk_level": "low",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 46,
+      "folder": "046-power-restoration-estimate",
+      "title": "Power restoration estimate changed",
+      "domain": "home_utilities",
+      "state_type": "service_disruption",
+      "risk_level": "high",
+      "surface_family": "sms",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 47,
+      "folder": "047-smart-lock-battery-critical",
+      "title": "Smart lock battery critically low",
+      "domain": "home_utilities",
+      "state_type": "preventive_warning",
+      "risk_level": "high",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 48,
+      "folder": "048-internet-install-delayed",
+      "title": "Home internet installation delayed",
+      "domain": "home_utilities",
+      "state_type": "schedule_change",
+      "risk_level": "high",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 49,
+      "folder": "049-water-usage-spike",
+      "title": "Unusual water usage detected",
+      "domain": "home_utilities",
+      "state_type": "anomaly_alert",
+      "risk_level": "high",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 50,
+      "folder": "050-appliance-warranty-ending",
+      "title": "Appliance warranty ending",
+      "domain": "home_utilities",
+      "state_type": "deadline_notice",
+      "risk_level": "low",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 51,
+      "folder": "051-parking-permit-returned",
+      "title": "Parking permit application returned",
+      "domain": "government_civic",
+      "state_type": "application_returned",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 52,
+      "folder": "052-tax-payment-pending",
+      "title": "Tax payment confirmation pending",
+      "domain": "government_civic",
+      "state_type": "unknown_outcome",
+      "risk_level": "critical",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 53,
+      "folder": "053-library-hold-ready",
+      "title": "Library hold ready for pickup",
+      "domain": "government_civic",
+      "state_type": "success_with_deadline",
+      "risk_level": "low",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 54,
+      "folder": "054-voter-address-mismatch",
+      "title": "Voter registration address mismatch",
+      "domain": "government_civic",
+      "state_type": "verification_required",
+      "risk_level": "critical",
+      "surface_family": "form",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 55,
+      "folder": "055-service-request-closed",
+      "title": "City service request closed without a fix",
+      "domain": "government_civic",
+      "state_type": "closure_without_resolution",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 56,
+      "folder": "056-savings-goal-paused",
+      "title": "Savings goal paused",
+      "domain": "banking_savings",
+      "state_type": "success_with_consequence",
+      "risk_level": "medium",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 57,
+      "folder": "057-atm-cash-not-dispensed",
+      "title": "ATM cash not dispensed but debit pending",
+      "domain": "banking_savings",
+      "state_type": "unknown_outcome",
+      "risk_level": "critical",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 58,
+      "folder": "058-direct-deposit-account-changed",
+      "title": "Direct deposit account changed",
+      "domain": "banking_savings",
+      "state_type": "security_confirmation",
+      "risk_level": "critical",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 59,
+      "folder": "059-overdraft-alert-threshold",
+      "title": "Overdraft alert threshold changed",
+      "domain": "banking_savings",
+      "state_type": "preference_change",
+      "risk_level": "medium",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 60,
+      "folder": "060-card-freeze-confirmed",
+      "title": "Card freeze confirmation",
+      "domain": "banking_savings",
+      "state_type": "temporary_control",
+      "risk_level": "high",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 61,
+      "folder": "061-claim-document-unreadable",
+      "title": "Insurance claim document unreadable",
+      "domain": "insurance_claims",
+      "state_type": "form_error",
+      "risk_level": "high",
+      "surface_family": "inline",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 62,
+      "folder": "062-renewal-deductible-change",
+      "title": "Insurance renewal deductible change",
+      "domain": "insurance_claims",
+      "state_type": "change_notice",
+      "risk_level": "critical",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 63,
+      "folder": "063-roadside-eta-unknown",
+      "title": "Roadside assistance arrival time unknown",
+      "domain": "insurance_claims",
+      "state_type": "uncertain_wait",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 64,
+      "folder": "064-pet-preauthorization-pending",
+      "title": "Pet treatment preauthorization pending",
+      "domain": "insurance_claims",
+      "state_type": "pending",
+      "risk_level": "critical",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 65,
+      "folder": "065-home-inspection-rescheduled",
+      "title": "Home claim inspection rescheduled",
+      "domain": "insurance_claims",
+      "state_type": "schedule_change",
+      "risk_level": "high",
+      "surface_family": "sms",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 66,
+      "folder": "066-group-post-removed",
+      "title": "Group post removed by a moderator",
+      "domain": "social_community",
+      "state_type": "moderation_action",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 67,
+      "folder": "067-event-invite-visibility",
+      "title": "Event invite visibility choice",
+      "domain": "social_community",
+      "state_type": "privacy_choice",
+      "risk_level": "medium",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 68,
+      "folder": "068-blocked-user-in-group",
+      "title": "Blocked person joined a shared group",
+      "domain": "social_community",
+      "state_type": "boundary_conflict",
+      "risk_level": "high",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 69,
+      "folder": "069-fundraiser-payout-pending",
+      "title": "Fundraiser goal met but payout pending",
+      "domain": "social_community",
+      "state_type": "success_with_pending_funds",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 70,
+      "folder": "070-community-report-outcome",
+      "title": "Community report outcome unavailable",
+      "domain": "social_community",
+      "state_type": "privacy_limited_outcome",
+      "risk_level": "medium",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 71,
+      "folder": "071-ai-draft-missing-source",
+      "title": "AI draft contains an unsupported claim",
+      "domain": "ai_automation",
+      "state_type": "evidence_gap",
+      "risk_level": "high",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 72,
+      "folder": "072-automation-permission-revoked",
+      "title": "Automation paused after permission was revoked",
+      "domain": "ai_automation",
+      "state_type": "permission_loss",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 73,
+      "folder": "073-ai-summary-uncertain-names",
+      "title": "AI meeting summary has uncertain speaker names",
+      "domain": "ai_automation",
+      "state_type": "uncertainty",
+      "risk_level": "medium",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 74,
+      "folder": "074-scheduled-agent-action-failed",
+      "title": "Scheduled assistant action failed",
+      "domain": "ai_automation",
+      "state_type": "recoverable_error",
+      "risk_level": "high",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 75,
+      "folder": "075-generated-image-public-share",
+      "title": "Generated image public-sharing warning",
+      "domain": "ai_automation",
+      "state_type": "publication_choice",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 76,
+      "folder": "076-contacts-partial-access",
+      "title": "Partial contacts access",
+      "domain": "privacy_permissions",
+      "state_type": "permission_choice",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 77,
+      "folder": "077-microphone-retention-consent",
+      "title": "Microphone recording retention choice",
+      "domain": "privacy_permissions",
+      "state_type": "consent_required",
+      "risk_level": "critical",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 78,
+      "folder": "078-location-sharing-expired",
+      "title": "Temporary location sharing expired",
+      "domain": "privacy_permissions",
+      "state_type": "expiry",
+      "risk_level": "medium",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 79,
+      "folder": "079-data-export-shared-records",
+      "title": "Data export includes shared records",
+      "domain": "privacy_permissions",
+      "state_type": "privacy_warning",
+      "risk_level": "high",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 80,
+      "folder": "080-ad-opt-out-processing",
+      "title": "Personalized ads opt-out processing",
+      "domain": "privacy_permissions",
+      "state_type": "pending_preference",
+      "risk_level": "medium",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 81,
+      "folder": "081-unlabeled-checkout-control",
+      "title": "Checkout control needs an accessible label",
+      "domain": "accessibility_assistive",
+      "state_type": "accessibility_blocker",
+      "risk_level": "high",
+      "surface_family": "banner",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 82,
+      "folder": "082-captions-processing",
+      "title": "Captions still processing",
+      "domain": "accessibility_assistive",
+      "state_type": "pending",
+      "risk_level": "medium",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 83,
+      "folder": "083-chart-text-alternative",
+      "title": "Chart needs a text alternative",
+      "domain": "accessibility_assistive",
+      "state_type": "accessibility_guidance",
+      "risk_level": "medium",
+      "surface_family": "form",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 84,
+      "folder": "084-voice-input-confirmation",
+      "title": "Voice input needs confirmation",
+      "domain": "accessibility_assistive",
+      "state_type": "ambiguous_input",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 85,
+      "folder": "085-reduced-motion-confirmed",
+      "title": "Reduced motion preference confirmed",
+      "domain": "accessibility_assistive",
+      "state_type": "preference_change",
+      "risk_level": "low",
+      "surface_family": "confirmation",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 86,
+      "folder": "086-inventory-sync-conflict",
+      "title": "Inventory count sync conflict",
+      "domain": "logistics_inventory",
+      "state_type": "conflict",
+      "risk_level": "high",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 87,
+      "folder": "087-delivery-stop-skipped",
+      "title": "Delivery route stop skipped",
+      "domain": "logistics_inventory",
+      "state_type": "service_failure",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 88,
+      "folder": "088-warehouse-item-damaged",
+      "title": "Warehouse pick item damaged",
+      "domain": "logistics_inventory",
+      "state_type": "exception",
+      "risk_level": "medium",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 89,
+      "folder": "089-courier-reassigned",
+      "title": "Order courier reassigned",
+      "domain": "logistics_inventory",
+      "state_type": "service_change",
+      "risk_level": "low",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 90,
+      "folder": "090-bulk-import-duplicates",
+      "title": "Bulk import found duplicate records",
+      "domain": "logistics_inventory",
+      "state_type": "data_quality_review",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 91,
+      "folder": "091-concert-rescheduled",
+      "title": "Concert rescheduled",
+      "domain": "events_bookings",
+      "state_type": "schedule_change",
+      "risk_level": "high",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 92,
+      "folder": "092-reservation-table-change",
+      "title": "Restaurant reservation table changed",
+      "domain": "events_bookings",
+      "state_type": "material_change",
+      "risk_level": "medium",
+      "surface_family": "sms",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 93,
+      "folder": "093-ticket-transfer-pending",
+      "title": "Sports ticket transfer pending",
+      "domain": "events_bookings",
+      "state_type": "pending_recipient_action",
+      "risk_level": "medium",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 94,
+      "folder": "094-museum-entry-sold-out",
+      "title": "Museum entry time sold out",
+      "domain": "events_bookings",
+      "state_type": "availability_error",
+      "risk_level": "low",
+      "surface_family": "inline",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 95,
+      "folder": "095-class-cancellation-waitlist",
+      "title": "Canceled class offers a waitlist alternative",
+      "domain": "events_bookings",
+      "state_type": "service_cancellation",
+      "risk_level": "medium",
+      "surface_family": "push",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 96,
+      "folder": "096-donation-receipt-correction",
+      "title": "Donation receipt needs correction",
+      "domain": "nonprofit_volunteering",
+      "state_type": "record_correction",
+      "risk_level": "medium",
+      "surface_family": "form",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 97,
+      "folder": "097-volunteer-shift-canceled",
+      "title": "Volunteer shift canceled",
+      "domain": "nonprofit_volunteering",
+      "state_type": "schedule_change",
+      "risk_level": "medium",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 98,
+      "folder": "098-food-pantry-documents-missing",
+      "title": "Food pantry eligibility documents missing",
+      "domain": "nonprofit_volunteering",
+      "state_type": "blocked_dependency",
+      "risk_level": "high",
+      "surface_family": "status",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 99,
+      "folder": "099-grant-partial-award",
+      "title": "Community grant partially awarded",
+      "domain": "nonprofit_volunteering",
+      "state_type": "partial_success",
+      "risk_level": "high",
+      "surface_family": "email",
+      "pipeline_stage": "awaiting_contentmd"
+    },
+    {
+      "id": 100,
+      "folder": "100-relief-application-duplicate",
+      "title": "Possible duplicate relief application",
+      "domain": "nonprofit_volunteering",
+      "state_type": "duplicate_detected",
+      "risk_level": "critical",
+      "surface_family": "dialog",
+      "pipeline_stage": "awaiting_contentmd"
+    }
+  ],
+  "human_gold_eligibility": false,
+  "effectiveness_claim_eligibility": false,
+  "authority_effect": "none"
+}

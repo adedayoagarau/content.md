@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.061-claim-document-unreadable",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "insurance_claims",
+    "state_type": "form_error",
+    "risk_level": "high",
+    "surface_family": "inline",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An auto insurance claim portal",
+    "person": "A person using an auto insurance claim portal",
+    "journey_stage": "Insurance claim document unreadable",
+    "surface": "Inline error and recovery control",
+    "user_goal": "Upload a readable document, then wait for claim review."
+  },
+  "product_state": {
+    "preceding_state": "A repair estimate upload was rejected because the photographed total is blurred.",
+    "current_state": "The claim remains open. The estimate was not accepted.",
+    "known_facts": [
+      "The claim remains open.",
+      "The estimate was not accepted.",
+      "The shop name, itemized repairs, and total must be readable.",
+      "Replacing the document does not approve or settle the claim."
+    ],
+    "forbidden_claims": [
+      "The claim was denied.",
+      "The repair shop is invalid.",
+      "A clearer upload guarantees payment."
+    ]
+  },
+  "current_content": {
+    "error_message": "Something went wrong. Try again.",
+    "recovery_link": "Continue"
+  },
+  "challenge": "Rewrite the inline error and recovery control so the person can understand insurance claim document unreadable, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "error_message": {
+        "required": true,
+        "max_characters": 140
+      },
+      "recovery_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Upload a clearer estimate.",
+    "secondary_action": "Return to the open claim without replacing it now.",
+    "consequence_to_preserve": "Review cannot continue with the unreadable estimate.",
+    "recovery_to_preserve": "Upload a readable document, then wait for claim review."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "neutral",
+      "specific",
+      "non-accusatory"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "error_message",
+      "recovery_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

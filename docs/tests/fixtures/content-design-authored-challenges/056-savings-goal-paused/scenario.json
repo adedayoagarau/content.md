@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.056-savings-goal-paused",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "banking_savings",
+    "state_type": "success_with_consequence",
+    "risk_level": "medium",
+    "surface_family": "confirmation",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A personal finance application",
+    "person": "A person using a personal finance application",
+    "journey_stage": "Savings goal paused",
+    "surface": "In-product confirmation",
+    "user_goal": "Set a resume date later if automatic saving should continue."
+  },
+  "product_state": {
+    "preceding_state": "The person paused automatic transfers to a vacation savings goal.",
+    "current_state": "Weekly transfers stop immediately. The existing savings balance stays in the account.",
+    "known_facts": [
+      "Weekly transfers stop immediately.",
+      "The existing savings balance stays in the account.",
+      "The next scheduled transfer was September 18.",
+      "Transfers do not resume until the person chooses a new date."
+    ],
+    "forbidden_claims": [
+      "The savings balance was withdrawn.",
+      "The goal was deleted.",
+      "Transfers resume automatically next week."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "Your changes were saved.",
+    "primary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product confirmation so the person can understand savings goal paused, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the paused goal and choose a resume date.",
+    "secondary_action": "Return to the savings dashboard.",
+    "consequence_to_preserve": "No more automatic transfers occur while the goal is paused.",
+    "recovery_to_preserve": "Set a resume date later if automatic saving should continue."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "reassuring",
+      "financially transparent"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

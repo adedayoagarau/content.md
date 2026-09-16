@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.081-unlabeled-checkout-control",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "accessibility_assistive",
+    "state_type": "accessibility_blocker",
+    "risk_level": "high",
+    "surface_family": "banner",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An online ticket checkout",
+    "person": "A person using an online ticket checkout",
+    "journey_stage": "Checkout control needs an accessible label",
+    "surface": "In-product banner",
+    "user_goal": "Name the action and resulting total change before payment."
+  },
+  "product_state": {
+    "preceding_state": "An icon-only control removes an applied discount, but assistive technology announces only 'button'.",
+    "current_state": "The control removes the student discount. Removing the discount increases the total by $12.",
+    "known_facts": [
+      "The control removes the student discount.",
+      "Removing the discount increases the total by $12.",
+      "The discount can be added again before payment.",
+      "No purchase occurs when the control is activated."
+    ],
+    "forbidden_claims": [
+      "The control deletes the ticket.",
+      "The total is unchanged.",
+      "The icon alone provides an accessible name."
+    ]
+  },
+  "current_content": {
+    "heading": "Something went wrong",
+    "body": "Review the latest information and continue.",
+    "action": "Learn more"
+  },
+  "challenge": "Rewrite the in-product banner so the person can understand checkout control needs an accessible label, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "action": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Provide a control label that names the discount and removal effect.",
+    "secondary_action": "Keep the discount applied.",
+    "consequence_to_preserve": "An unlabeled control hides a material price change from screen-reader users.",
+    "recovery_to_preserve": "Name the action and resulting total change before payment."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "plain",
+      "specific",
+      "accessibility-first"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "action"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

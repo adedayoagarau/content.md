@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.067-event-invite-visibility",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "social_community",
+    "state_type": "privacy_choice",
+    "risk_level": "medium",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A social event application",
+    "person": "A person using a social event application",
+    "journey_stage": "Event invite visibility choice",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Keep the event private or proceed after understanding the disclosed visibility."
+  },
+  "product_state": {
+    "preceding_state": "An organizer is about to change a private event to visible by link.",
+    "current_state": "Anyone with the link can view the event name, date, location, and guest list. Only invited guests can post.",
+    "known_facts": [
+      "Anyone with the link can view the event name, date, location, and guest list.",
+      "Only invited guests can post.",
+      "Existing guests are not notified about the visibility change.",
+      "The organizer can switch back to private later, but shared links may already exist."
+    ],
+    "forbidden_claims": [
+      "The event becomes searchable by everyone.",
+      "Link holders can post.",
+      "Returning to private recalls previously shared information."
+    ]
+  },
+  "current_content": {
+    "headline": "Heads up!",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand event invite visibility choice, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Change the event to visible by link.",
+    "secondary_action": "Keep the event private.",
+    "consequence_to_preserve": "Sharing the link exposes event details and the guest list beyond invited people.",
+    "recovery_to_preserve": "Keep the event private or proceed after understanding the disclosed visibility."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "privacy-aware",
+      "non-pressuring"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

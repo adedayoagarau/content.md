@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.019-partial-order-canceled",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "commerce_delivery",
+    "state_type": "partial_success",
+    "risk_level": "high",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An electronics retailer",
+    "person": "A person using an electronics retailer",
+    "journey_stage": "Part of an order was canceled",
+    "surface": "In-product status card",
+    "user_goal": "Choose another monitor separately if one is still needed."
+  },
+  "product_state": {
+    "preceding_state": "One item in a three-item order was canceled after inventory verification.",
+    "current_state": "The laptop and charger will ship tomorrow. The monitor was canceled.",
+    "known_facts": [
+      "The laptop and charger will ship tomorrow.",
+      "The monitor was canceled.",
+      "The monitor charge was voided before settlement.",
+      "The promotional bundle discount remains on the shipped items."
+    ],
+    "forbidden_claims": [
+      "The entire order was canceled.",
+      "A monitor refund was issued after a completed charge.",
+      "The bundle discount was removed."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand part of an order was canceled, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the two items that will ship.",
+    "secondary_action": "Search for another monitor.",
+    "consequence_to_preserve": "The order continues without the monitor and no settled monitor charge exists.",
+    "recovery_to_preserve": "Choose another monitor separately if one is still needed."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "matter-of-fact",
+      "specific",
+      "helpful"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

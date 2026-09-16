@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.044-saved-video-removed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "media_subscriptions",
+    "state_type": "content_removed",
+    "risk_level": "low",
+    "surface_family": "empty",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A learning video library",
+    "person": "A person using a learning video library",
+    "journey_stage": "Saved video no longer available",
+    "surface": "Unavailable or empty state",
+    "user_goal": "Use a related tutorial and retain any personal notes."
+  },
+  "product_state": {
+    "preceding_state": "A saved tutorial was removed by its publisher.",
+    "current_state": "The saved tutorial is no longer available. The removal does not affect other saved videos.",
+    "known_facts": [
+      "The saved tutorial is no longer available.",
+      "The removal does not affect other saved videos.",
+      "Two tutorials cover the same skill level.",
+      "Notes attached to the removed video remain downloadable."
+    ],
+    "forbidden_claims": [
+      "The subscription ended.",
+      "All saved videos were removed.",
+      "The publisher will restore the tutorial."
+    ]
+  },
+  "current_content": {
+    "heading": "Nothing here",
+    "body": "This item isn't available.",
+    "primary_button": "Go back"
+  },
+  "challenge": "Rewrite the unavailable or empty state so the person can understand saved video no longer available, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the two related tutorials.",
+    "secondary_action": "Download notes from the unavailable video.",
+    "consequence_to_preserve": "The original video cannot be watched.",
+    "recovery_to_preserve": "Use a related tutorial and retain any personal notes."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "matter-of-fact",
+      "helpful",
+      "non-blaming"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.047-smart-lock-battery-critical",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "home_utilities",
+    "state_type": "preventive_warning",
+    "risk_level": "high",
+    "surface_family": "push",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A smart-home application",
+    "person": "A person using a smart-home application",
+    "journey_stage": "Smart lock battery critically low",
+    "surface": "Mobile push notification",
+    "user_goal": "Carry the physical key and replace the batteries promptly."
+  },
+  "product_state": {
+    "preceding_state": "A front-door lock reported a battery level too low for reliable remote unlocking.",
+    "current_state": "The lock battery is at 4%. The physical key still works.",
+    "known_facts": [
+      "The lock battery is at 4%.",
+      "The physical key still works.",
+      "Remote unlocking may stop without warning.",
+      "Replacing four AA batteries preserves access codes."
+    ],
+    "forbidden_claims": [
+      "The door is unlocked.",
+      "Remote access has already failed.",
+      "Replacing batteries deletes access codes."
+    ]
+  },
+  "current_content": {
+    "title": "Heads up!",
+    "body": "Open the app for more information."
+  },
+  "challenge": "Rewrite the mobile push notification so the person can understand smart lock battery critically low, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "title": {
+        "required": true,
+        "max_characters": 45
+      },
+      "body": {
+        "required": true,
+        "max_characters": 120
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open battery replacement instructions.",
+    "secondary_action": "Dismiss the alert while keeping the warning active.",
+    "consequence_to_preserve": "Remote unlocking may become unavailable soon.",
+    "recovery_to_preserve": "Carry the physical key and replace the batteries promptly."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "urgent",
+      "practical",
+      "non-alarming"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "title",
+      "body"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

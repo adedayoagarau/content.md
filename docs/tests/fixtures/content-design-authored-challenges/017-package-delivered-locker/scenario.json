@@ -1,0 +1,108 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.017-package-delivered-locker",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "commerce_delivery",
+    "state_type": "success_with_instructions",
+    "risk_level": "medium",
+    "surface_family": "sms",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A parcel delivery service",
+    "person": "A person using a parcel delivery service",
+    "journey_stage": "Package delivered to a locker",
+    "surface": "Transactional SMS",
+    "user_goal": "Use the private code during building access hours or request a replacement code."
+  },
+  "product_state": {
+    "preceding_state": "A package that required a secure handoff was placed in the building's parcel locker.",
+    "current_state": "The package is in locker 18. The pickup code is valid until September 20.",
+    "known_facts": [
+      "The package is in locker 18.",
+      "The pickup code is valid until September 20.",
+      "The locker is accessible from 6 AM to 11 PM.",
+      "A replacement code can be requested after identity verification."
+    ],
+    "forbidden_claims": [
+      "The package was handed to the recipient.",
+      "The code can be shared safely.",
+      "The locker is open at all times."
+    ]
+  },
+  "current_content": {
+    "message": "There's an update. Open the app for more information."
+  },
+  "challenge": "Rewrite the transactional sms so the person can understand package delivered to a locker, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "message": {
+        "required": true,
+        "max_characters": 240
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open secure pickup instructions.",
+    "secondary_action": "Request a replacement code after verification.",
+    "consequence_to_preserve": "The package must be collected before the code expires.",
+    "recovery_to_preserve": "Use the private code during building access hours or request a replacement code."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "concise",
+      "practical",
+      "security-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "message"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

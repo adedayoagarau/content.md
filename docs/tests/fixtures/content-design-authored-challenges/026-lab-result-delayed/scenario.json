@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.026-lab-result-delayed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "health_wellbeing",
+    "state_type": "pending",
+    "risk_level": "critical",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A patient portal",
+    "person": "A person using a patient portal",
+    "journey_stage": "Lab result delayed",
+    "surface": "In-product status card",
+    "user_goal": "Wait for the updated estimate, then contact the clinic if the result remains unavailable."
+  },
+  "product_state": {
+    "preceding_state": "A routine lab result expected today has not completed processing.",
+    "current_state": "The sample was received by the laboratory. No result is available yet.",
+    "known_facts": [
+      "The sample was received by the laboratory.",
+      "No result is available yet.",
+      "The new estimated completion date is September 18.",
+      "A clinician has not reviewed a result because none exists yet."
+    ],
+    "forbidden_claims": [
+      "The result is abnormal.",
+      "The sample was lost.",
+      "A clinician is withholding the result."
+    ]
+  },
+  "current_content": {
+    "heading": "Still working",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand lab result delayed, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the latest processing status.",
+    "secondary_action": "Contact the clinic if no result appears after September 18.",
+    "consequence_to_preserve": "The medical result is unknown until processing completes.",
+    "recovery_to_preserve": "Wait for the updated estimate, then contact the clinic if the result remains unavailable."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "precise",
+      "non-speculative"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.055-service-request-closed",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "government_civic",
+    "state_type": "closure_without_resolution",
+    "risk_level": "high",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A city service request application",
+    "person": "A person using a city service request application",
+    "journey_stage": "City service request closed without a fix",
+    "surface": "In-product status card",
+    "user_goal": "Review the closure reason and escalate if the accessibility impact remains unresolved."
+  },
+  "product_state": {
+    "preceding_state": "A report about a broken curb ramp was closed after inspection, but no repair was made.",
+    "current_state": "An inspector visited the location. The request was closed as a capital-project issue.",
+    "known_facts": [
+      "An inspector visited the location.",
+      "The request was closed as a capital-project issue.",
+      "No repair date is scheduled.",
+      "The person can view the inspection note or submit an accessibility escalation."
+    ],
+    "forbidden_claims": [
+      "The curb ramp was repaired.",
+      "A repair date is confirmed.",
+      "Submitting an escalation guarantees approval."
+    ]
+  },
+  "current_content": {
+    "heading": "Heads up!",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand city service request closed without a fix, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the inspection note and project classification.",
+    "secondary_action": "Submit an accessibility escalation with additional evidence.",
+    "consequence_to_preserve": "The reported barrier remains and has no scheduled repair.",
+    "recovery_to_preserve": "Review the closure reason and escalate if the accessibility impact remains unresolved."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "respectful",
+      "transparent",
+      "actionable"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

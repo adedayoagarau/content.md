@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.031-course-waitlist-seat",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "education_applications",
+    "state_type": "time_bounded_choice",
+    "risk_level": "medium",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A university registration portal",
+    "person": "A person using a university registration portal",
+    "journey_stage": "Course waitlist seat offered",
+    "surface": "Transactional email",
+    "user_goal": "Choose before the reservation deadline after reviewing the conflicting class."
+  },
+  "product_state": {
+    "preceding_state": "A seat opened in a full course and was offered to the first person on the waitlist.",
+    "current_state": "The seat is reserved until September 17 at noon. Accepting adds the course to the schedule.",
+    "known_facts": [
+      "The seat is reserved until September 17 at noon.",
+      "Accepting adds the course to the schedule.",
+      "The course overlaps another registered class.",
+      "Declining keeps the existing schedule and removes the person from this waitlist."
+    ],
+    "forbidden_claims": [
+      "The person is already enrolled.",
+      "The schedule has no conflict.",
+      "Ignoring the offer preserves the waitlist position."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "Heads up!",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand course waitlist seat offered, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review the conflict and accept the offered seat.",
+    "secondary_action": "Decline the seat and keep the current schedule.",
+    "consequence_to_preserve": "Accepting creates a schedule conflict; no response releases the seat.",
+    "recovery_to_preserve": "Choose before the reservation deadline after reviewing the conflicting class."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "timely",
+      "specific",
+      "choice-preserving"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}
