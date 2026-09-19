@@ -19,7 +19,6 @@ import {
 import type { ContentDraftProposal } from "@contentmd/writer";
 import { describe, expect, it } from "vitest";
 import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
-import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import { selectGovernedDraftAlternative } from "../src/draft-selection.js";
 import * as localRuntime from "../src/local-runtime.js";
 
@@ -48,7 +47,7 @@ function runtimeProfile() {
   return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
 }
 
-function rankingFixture() {
+function createRankingFixture() {
   const fixture = task5FeatureMatrixFixture();
   const dataset = verifyLearningDatasetForTraining({
     record_mode: "development_fixture",
@@ -93,6 +92,13 @@ function rankingFixture() {
     row.candidate_b.vectorization_input.candidate.payload.expression,
   ] as const;
   return { model, candidates, candidateReplays, expressions, request, training };
+}
+
+let cachedRankingFixture: ReturnType<typeof createRankingFixture> | undefined;
+
+function rankingFixture(): ReturnType<typeof createRankingFixture> {
+  cachedRankingFixture ??= createRankingFixture();
+  return cachedRankingFixture;
 }
 
 function objectRef(label: string): Task6ObjectRef {
@@ -166,10 +172,7 @@ function candidateProjection(
 }
 
 function localTrainingArtifactFixture() {
-  const source = task6PassingSealedReplayFixture();
-  const request = source.replay.model_dependencies.training_request;
-  const training = trainPairwiseLogistic(request);
-  if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
+  const { request, training } = rankingFixture();
   const trainingReplay = {
     contract_version: "contentmd.local-pairwise-training-replay/0.1.0" as const,
     record_mode: request.record_mode,
