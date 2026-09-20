@@ -54,6 +54,9 @@ jobs:
       - name: Verify authored English content-design challenges
         run: pnpm verify:content-design-challenges
 
+      - name: Verify coding-agent host acceptance protocol
+        run: pnpm verify:host-agents
+
       - name: Verify clean installation and regular-user journeys
         run: pnpm test:distribution
 

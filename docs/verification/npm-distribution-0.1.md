@@ -66,6 +66,8 @@ four-file `npm publish --dry-run` payload. It never publishes.
 - Windows execution and path behavior
 - Node versions outside the declared Node 24 range
 - hosted workbench deployment or public connectors
+- end-to-end operation by a real Codex or Claude Code host; the separate
+  host-agent protocol is verified, but no live bundle is certified yet
 - production authority for mutation, release, or publication
 
 The first complete `pnpm test` release-gate run on 2026-08-27 exposed three

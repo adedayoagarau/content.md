@@ -24,6 +24,7 @@ for (const requiredFile of [
   "docs/tests/fixtures/content-design-disagreement-pilot/REVIEWER-PROMPT.md",
   "docs/verification/content-design-benchmark-10000.md",
   "docs/verification/content-design-external-model-audit-10000.md",
+  "docs/verification/host-agent-acceptance-0.1.md",
   "docs/verification/open-source-security-0.1.md",
 ]) {
   const contents = await readFile(path.join(root, requiredFile), "utf8");
@@ -62,6 +63,7 @@ const requiredPublishGates = [
   "pnpm verify:learning",
   "pnpm verify:content-design-benchmark",
   "pnpm verify:content-design-challenges",
+  "pnpm verify:host-agents",
   "pnpm test:distribution",
   "pnpm verify:security",
   "pnpm verify:release",

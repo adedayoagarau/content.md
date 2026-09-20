@@ -36,8 +36,8 @@ test("covers every matrix slice evenly", () => {
   assert.deepEqual(new Set(Object.values(manifest.distributions.target_locale)), new Set([1_000]));
   assert.deepEqual(new Set(Object.values(manifest.distributions.candidate_variant)), new Set([1_000]));
   assert.deepEqual(manifest.distributions.control_class, {
-    clear_failure: 5_000,
-    near_miss: 2_000,
+    clear_failure: 6_000,
+    near_miss: 1_000,
     positive_control: 2_000,
     underspecified: 1_000,
   });

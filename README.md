@@ -286,6 +286,26 @@ Removal deletes only the single well-formed managed marker block. It fails
 closed for missing, duplicate, or malformed markers and preserves host-authored
 content outside the block.
 
+### Coding-agent host acceptance
+
+Repository bridges and returned review files do not prove that a coding agent
+can operate the packaged CLI. `content.md` therefore keeps real Codex and
+Claude Code acceptance as a separate, evidence-bound check. The deterministic
+release gate verifies the protocol and its fail-closed bundle verifier without
+using an account, network access, or model budget:
+
+```bash
+pnpm verify:host-agents
+```
+
+That command does **not** certify either host. A compatibility claim requires
+an explicit live run against the exact packed tarball, three recorded
+preview-only commands, a zero exit status, and byte-identical repository
+snapshots. Live runs use existing host authentication, may consume paid model
+usage, and are never started by CI or package installation. See the
+[host-agent acceptance record](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/host-agent-acceptance-0.1.md)
+for the opt-in commands and current certification matrix.
+
 Give the bounded model packet to the intelligent model already available in the IDE, then ingest its cited structured response with `model ingest`. For a specific content issue, prepare a source-bound task, let the IDE model return structured alternatives, and review them before any decision or edit:
 
 ```bash

@@ -35,6 +35,8 @@
     "verify:content-design-benchmark": "node scripts/verify-content-design-benchmark.mjs",
     "verify:content-design-challenges": "node scripts/verify-authored-content-design-challenges.mjs",
     "analyze:content-design-external-audit": "node scripts/analyze-content-design-external-audit.mjs",
+    "verify:host-agents": "node scripts/verify-host-agent-acceptance.mjs",
+    "acceptance:host-agent": "node scripts/run-host-agent-acceptance.mjs",
     "verify:security": "node scripts/verify-contentmd-security.mjs",
     "build:distribution": "node scripts/build-contentmd-distribution.mjs",
     "test:distribution": "node scripts/test-contentmd-distribution.mjs",

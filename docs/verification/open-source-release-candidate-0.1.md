@@ -49,12 +49,13 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete historical 10,000-scenario execution and coverage gates, packed journey including packet-bound scoring and two-reviewer comparison, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
 | Current packed checkpoint | commit `982f7fc`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
+| Current host-agent candidate | current product files; protocol verifier passed for Codex and Claude Code, both non-live preparations independently produced tarball SHA-256 `1c72cc42f02dbcf2856ac68496d68ba4c206f7fc27278769e1c5fb9ad673fbb1`, and both stopped at governance code `20`; no live compatibility claim is eligible |
 | Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
 | Current governed-learning checkpoint | current product files; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
-| Current Task 4 resolution witness | root `package.json` digest `0fdacb3da8967997ee2a3b88cea8e93ca5106fffd3fd849c5e421da3e5b0e461`; 139/139 retrieval and 474/474 feature/baseline checks passed after adding the challenge and external-audit operator commands |
+| Current Task 4 resolution witness | root `package.json` digest `e52688990bed0179719cce9a1089cbdb7cf04d45e14a3a952055539de1b98c7f`; 139/139 retrieval and 474/474 feature/baseline checks passed under supported package runtime Node `24.19.0` after adding the host-agent acceptance commands; exact development-runtime CI remains pending |
 | TypeScript project build | passed |
 | Learning complement | 19 files; 1,470 tests passed |
 | Non-learning complement | 28 files; 1,280 tests passed |
@@ -62,9 +63,9 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
 | Authored English scenarios | 100/100 scenario integrity checks passed; five content.md candidates remain unreviewed with both external reviews pending, and 95 scenarios remain frozen before content.md generation |
-| Distribution journey | passed from the packed tarball |
+| Distribution journey | passed from the packed tarball under supported package runtime Node `24.19.0`, including both loopback workbenches, apply, undo, adoption, diagnosis, uninstall preview, and clean package removal |
 | Release dry-run | passed; no publish effect |
-| Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, distribution, and release-identity gates verified |
+| Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, host-agent protocol, distribution, security, and release-identity gates verified |
 | Pull-request verification | least-privilege CI runs the same complete non-publishing gate chain on pull requests and `main` pushes |
 | Generated README parity | passed |
 | Git whitespace check | passed |
@@ -85,13 +86,13 @@ cross-runtime bound, not extra memory substituted for correctness.
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-package content digest: 64d7dc8784a81fa11a4ab446c5a9e28c31aee54355f2ab0ce1cf6b059a7896ac
+package content digest: dafed60c63de6107c50cbd2a0cd85b2d30f81109400d82b481096a1aecc447ef
 LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
-README.md sha256: 7e0c6f854f2e660981b2a6c4a1544263bd74c9381750045e3de1e668044ec081
-dist/contentmd.cjs sha256: 039d3a8ebf55d6b8e2bd88930764e0eb7eba992628b35d1fc6bdddca5262d75c
+README.md sha256: 22e123d699196e028a57f57bd8d944127108b28299f286073295f40f38e15fdc
+dist/contentmd.cjs sha256: 5b358b3e2036287f1760523cbd99efca779ff97e3cf10bc03899902c9257a76e
 package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
-observed tarball bytes: 2146096
-unpacked bytes: 13144839
+observed tarball bytes: 2146418
+unpacked bytes: 13145830
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
