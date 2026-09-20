@@ -1,7 +1,7 @@
 ---
 title: Research index
 status: active
-updated: 2026-08-20
+updated: 2026-09-19
 ---
 
 # Research index
@@ -11,6 +11,7 @@ updated: 2026-08-20
 - [Foundational findings](08-synthesis/foundational-findings.md) — the current cross-workstream answer and product implications
 - [Candidate content-decision system model](08-synthesis/candidate-system-model.md) — testable ontology, orthogonal evidence dimensions, independent decision/delivery states, control records, and compiler boundary
 - [Research gap register](08-synthesis/research-gap-register.md) — what still requires practitioners, specialists, fixtures, and market evidence
+- [Deterministic UX-writing use-case research](08-synthesis/deterministic-ux-writing-usecase-research-2026-09-19.md) — English-only, evidence-linked coordinate taxonomy; 17 independent axes, critical near-neighbor distinctions, explicit abstention boundaries, and a 39-route development registry
 
 ## Method and research governance
 
