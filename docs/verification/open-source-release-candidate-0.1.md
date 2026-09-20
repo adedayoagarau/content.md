@@ -4,20 +4,19 @@ Status: `verified_local_release_candidate`; release tag must be recreated from
 the reviewed release commit before publication; not published.
 
 This record covers the repository-native `contentmd@0.1.0` CLI and local
-workbench as locally verified on 2026-09-15 under Node `24.14.0` on `darwin` /
+workbench as locally verified on 2026-09-19 under Node `24.14.0` on `darwin` /
 `arm64`. The latest source checkpoint directly exercised by the packed journey
-and release dry-run is `982f7fcab1b6dccecf06a8e0d0e70996cbc8aae1`.
-The exhaustive eight-phase learning workflow also passed after eliminating
-duplicate construction of the same cryptographically verified replay fixture;
-the workflow itself, authority handoffs, replay checks, and assertions remain
-complete. The foundation, governed-learning, content-design benchmark,
-distribution, security, and release gates had already passed locally against
-the same product files before that test-only consolidation. The authored
-English challenge verifier is a separate mandatory workflow gate; its
-integrity checks pass for the four committed challenge folders, but external
-model reviews remain pending and do not establish effectiveness. This record
-does not represent the current pull request CI as passed until its complete run
-reaches a successful conclusion.
+and release dry-run is `fd8221485fa5029f80d7d8d9720b98c7b81c203a`.
+The exact-runtime release suite passed after persisted-model verification was
+changed from two independent training replays to one full replay whose complete
+canonical training result must match the persisted artifact before that same
+replay is authenticated. No replay assertion, authority handoff, digest check,
+or lifecycle phase was removed. The authored English challenge verifier is a
+separate mandatory workflow gate; all 100 folders pass integrity verification,
+five content.md candidates remain unreviewed, and 95 scenarios remain frozen
+before content.md generation. External model reviews remain pending and do not
+establish effectiveness. This record does not represent the current pull
+request CI as passed until its complete run reaches a successful conclusion.
 Unrelated dirty public-product research remains outside this verification
 scope.
 It records a local release candidate, not an npm publication, production
@@ -48,22 +47,24 @@ deployment, organizational approval, or claim of general writing effectiveness.
 | Development runtime | Exact Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`; passed |
 | Clean committed checkout | commit `5fa0acb`; frozen offline install reused 78/78 packages with zero downloads; source build, 92/92 committed native tests, complete historical 10,000-scenario execution and coverage gates, packed journey including packet-bound scoring and two-reviewer comparison, package security, lint, and foundation verification passed |
 | Recovery evaluator checkpoint | commit `4bc2849`; complete 10,000-scenario benchmark, focused agent and CLI tests, reviewer-qualification tests, and TypeScript build passed |
-| Current packed checkpoint | commit `982f7fc`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
-| Current host-agent candidate | current product files; protocol verifier passed for Codex and Claude Code, both non-live preparations independently produced tarball SHA-256 `1c72cc42f02dbcf2856ac68496d68ba4c206f7fc27278769e1c5fb9ad673fbb1`, and both stopped at governance code `20`; no live compatibility claim is eligible |
+| Current packed checkpoint | commit `fd82214`; four-file tarball journey and exact-commit release dry-run passed under Node `24.14.0` |
+| Current host-agent candidate | current product files; protocol verifier passed for Codex and Claude Code and requires scan, inspect, and improve evidence plus a non-mutation witness; no live compatibility claim is eligible without a verified live bundle |
 | Current foundation checkpoint | current product files; exact Node `24.14.0` and pnpm `11.9.0`; 1,118/1,118 checks passed; frozen offline install reused 78/78 packages with zero downloads |
 | Current governed-learning checkpoint | current product files; all three fixture generators reproduced the committed profile, pairwise model, shadow plan, and Task 6 lifecycle; verifier passed with 120 development-fixture preferences, disjoint train/validation/test groups, no shadow influence, no official attempt, and `authority_effect: none`; affected retrieval and feature tests passed 376/376 |
 | Foundation verifier | 1,118/1,118 checks passed with pnpm `11.9.0` and an offline clean install |
 | Governed learning verifier | passed; all three generators reproduced current fixtures; official attempt not started |
 | Affected Task 4 complement | 613/613 tests passed across retrieval, features, and deterministic baseline |
-| Current Task 4 resolution witness | root `package.json` digest `e52688990bed0179719cce9a1089cbdb7cf04d45e14a3a952055539de1b98c7f`; 139/139 retrieval and 474/474 feature/baseline checks passed under supported package runtime Node `24.19.0` after adding the host-agent acceptance commands; exact development-runtime CI remains pending |
+| Current Task 4 resolution witness | root `package.json` digest `e52688990bed0179719cce9a1089cbdb7cf04d45e14a3a952055539de1b98c7f`; 139/139 retrieval and 474/474 feature/baseline checks passed under exact Node `24.14.0` |
 | TypeScript project build | passed |
+| Bounded Vitest release gate | all 84/84 isolated or package-grouped runs passed; the loopback workbench group passed with local socket permission |
+| Native Node tests | 126/126 passed |
 | Learning complement | 19 files; 1,470 tests passed |
 | Non-learning complement | 28 files; 1,280 tests passed |
-| Heavy learning workflows | pairwise replay, sealed evaluation, ranking, drift, binding, shadow, snapshot transfer, CLI lifecycle, and Task 6 golden replay passed in isolated exact-runtime runs |
+| Heavy learning workflows | pairwise replay, sealed evaluation, ranking, drift, binding, shadow, snapshot transfer, CLI lifecycle, and Task 6 golden replay passed in isolated exact-runtime runs; the two-process Task 6 golden completed in 46 minutes 33 seconds |
 | Shadow fault isolation | main file 6/6 passed; terminal fault file 1/1 passed |
 | Package security verifier | 27/27 deterministic package, credential-pattern, loopback, origin, request-boundary, CSP, and reporting-policy checks passed |
 | Authored English scenarios | 100/100 scenario integrity checks passed; five content.md candidates remain unreviewed with both external reviews pending, and 95 scenarios remain frozen before content.md generation |
-| Distribution journey | passed from the packed tarball under supported package runtime Node `24.19.0`, including both loopback workbenches, apply, undo, adoption, diagnosis, uninstall preview, and clean package removal |
+| Distribution journey | passed from the packed tarball under exact Node `24.14.0`, including both loopback workbenches, apply, undo, adoption, diagnosis, uninstall preview, and clean package removal |
 | Release dry-run | passed; no publish effect |
 | Publish workflow supply chain | immutable action revisions and mandatory source build, test, lint, foundation, learning, complete content-design benchmark, authored English challenge integrity, host-agent protocol, distribution, security, and release-identity gates verified |
 | Pull-request verification | least-privilege CI runs the same complete non-publishing gate chain on pull requests and `main` pushes |
@@ -75,24 +76,27 @@ Vitest processes after a monolithic run exposed test-only retention of complete
 sealed replay graphs. Lighter tests share one fresh process per package. The
 eight-phase learning journey is additionally isolated from the other tests in
 its source file and has a one-hour phase-specific ceiling beneath the workflow
-job's independent six-hour ceiling. After duplicate replay-fixture construction
-was removed, its observed exact-runtime cost was 21 minutes 18 seconds on
-Darwin/arm64. No phase, test, or assertion is removed, and the heap limit
-remains unchanged. This is bounded process isolation and a measured
-cross-runtime bound, not extra memory substituted for correctness.
+job's independent six-hour ceiling. After duplicate persisted-model replay was
+removed, the isolated eight-phase workflow completed in 21 minutes 4 seconds
+and the complete CLI learning file completed in 15 minutes 47 seconds on
+Darwin/arm64. Model binding completed in 24 minutes 59 seconds and drift in 22
+minutes; their limits now include measured Node `24.14.0` margin. No phase,
+test, or assertion is removed, and the heap limit remains unchanged. This is
+bounded process isolation and measured runtime accommodation, not extra memory
+or weaker evidence substituted for correctness.
 
 ## Packed artifact
 
 The distribution journey verified `contentmd@0.1.0` with these observed values:
 
 ```text
-package content digest: dafed60c63de6107c50cbd2a0cd85b2d30f81109400d82b481096a1aecc447ef
+package content digest: 3596ba3e8b1f882928fddad09ac2d627123800b44a1a90ad9d39bfd03a0ea544
 LICENSE sha256: bed00720d421033f802d0d69ff19987f174ca760c4f072002542bae11c832d7f
 README.md sha256: 22e123d699196e028a57f57bd8d944127108b28299f286073295f40f38e15fdc
-dist/contentmd.cjs sha256: 5b358b3e2036287f1760523cbd99efca779ff97e3cf10bc03899902c9257a76e
+dist/contentmd.cjs sha256: 59adbe339b3cb0477b90aa0cc93133c22a04c3313bad7341a15d01651c7a4068
 package.json sha256: 16d21c2e68e232d069f857c78ff7bb912f9e6fccccc65cb1d639b74cdb3bea17
-observed tarball bytes: 2146418
-unpacked bytes: 13145830
+observed tarball bytes: 2146432
+unpacked bytes: 13146264
 file count: 4
 qualified synthetic content items: 1
 blinded content-design sample: 100
@@ -174,7 +178,7 @@ and do not overlap it with packaging or another learning verifier.
 
 ## Remaining external gates
 
-The latest directly exercised source checkpoint is `982f7fc`; this
+The latest directly exercised source checkpoint is `fd82214`; this
 evidence-only documentation update does not alter the packaged implementation.
 Unrelated local public-product research remains outside both commits.
 Pull-request verification must still complete for the final documented
