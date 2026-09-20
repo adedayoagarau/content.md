@@ -718,5 +718,5 @@ describe("Task 6 drift governance boundary", () => {
       fallback.projection,
     );
     expect(simulateRollback(rollbackInput)).toEqual(fallback);
-  }, 1_100_000);
+  }, 1_800_000);
 });

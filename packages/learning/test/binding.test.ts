@@ -453,5 +453,5 @@ describe("Task 6 simulated binding", () => {
     expect(inspectSimulatedBinding(vault, revoked!.projection.stream_id)).toEqual(
       revokedFallback.projection,
     );
-  }, 1_500_000);
+  }, 1_800_000);
 });

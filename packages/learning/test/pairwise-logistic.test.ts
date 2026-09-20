@@ -13,6 +13,7 @@ import {
   verifyLearningDatasetForTraining,
   verifyPairwiseCandidate,
   verifyPairwiseFeatureMatrix,
+  verifyPairwiseTrainingResult,
   verifyRankingModel,
 } from "../src/pairwise-logistic.js";
 import {
@@ -89,6 +90,7 @@ describe("Task 5 code and runtime admission", () => {
       verifyPairwiseCandidate: expect.any(Function),
       verifyPairwiseCodeManifest: expect.any(Function),
       verifyPairwiseFeatureMatrix: expect.any(Function),
+      verifyPairwiseTrainingResult: expect.any(Function),
       verifyRankingModel: expect.any(Function),
     });
   });
@@ -438,7 +440,7 @@ describe("Task 5 replay handoff", () => {
       result.statistics_record,
     )).toEqual({ valid: true, errors: [] });
 
-    const verifiedModel = verifyRankingModel(result.model_record, {
+    const verifiedModel = verifyPairwiseTrainingResult(result, {
       training_request: {
         contract_version: "contentmd.pairwise-training-request/0.1.0",
         record_mode: "development_fixture",

@@ -15,7 +15,6 @@ import {
   determineLearningEligibility,
   exportEvaluationSimulatorSnapshot,
   qualifyFeedback,
-  trainPairwiseLogistic,
 } from "../../learning/src/index.js";
 import {
   eligibilityFixture,
@@ -186,8 +185,7 @@ describe("governed recursive learning CLI", () => {
     temporaryDirectories.push(root);
     const fixture = sharedPassingSealedReplayFixture();
     const request = fixture.replay.model_dependencies.training_request;
-    const training = trainPairwiseLogistic(request);
-    if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
+    const training = fixture.training;
     const artifact = encodeCanonicalDag({
       contract_version: "contentmd.local-learning-training-artifact/0.1.0" as const,
       training_replay: {

@@ -1535,62 +1535,99 @@ export function trainPairwiseLogistic(
   return immutableResult as PairwiseTrainingResult;
 }
 
+function verifyRankingModelReplay(
+  record: RankingModelRecord,
+  dependencies: RankingModelDependencies,
+  replay: PairwiseTrainingResult,
+): VerifiedRankingModel {
+  if (replay.state === "invalid") fail("ranking_model_invalid");
+  if (!canonicalEqual(record, replay.model_record)) fail("ranking_model_invalid");
+  if (replay.state === "nonconverged") fail("ranking_model_quarantined");
+  const modelRef = recordRef(replay.model_record);
+  const trainingStatisticsRef = statisticsRef(replay.statistics_record);
+  if (!refsEqual(record.payload.training_statistics_ref, trainingStatisticsRef)) {
+    fail("ranking_model_invalid");
+  }
+  const deterministicReplayDigest = sha256Canonical({
+    contract_version: "contentmd.ranking-model-deterministic-replay/0.1.0",
+    training_input_digest: replay.model_record.payload.input_digest,
+    statistics_record: replay.statistics_record,
+    model_record: replay.model_record,
+  });
+  const verificationDigest = sha256Canonical({
+    contract_version: "contentmd.verified-ranking-model/0.1.0",
+    model_ref: modelRef,
+    training_input_digest: replay.model_record.payload.input_digest,
+    statistics_ref: trainingStatisticsRef,
+    coefficient_set_digest: replay.statistics_record.payload.coefficient_set_digest,
+    code_verification_digest: dependencies.training_request.code_manifest.verification_digest,
+    runtime_verification_digest: dependencies.training_request.runtime_profile.verification_digest,
+    deterministic_replay_digest: deterministicReplayDigest,
+  });
+  const authenticatedTrainingRequest = Object.freeze({
+    contract_version: dependencies.training_request.contract_version,
+    record_mode: dependencies.training_request.record_mode,
+    purpose: dependencies.training_request.purpose,
+    dataset: dependencies.training_request.dataset,
+    feature_matrix: dependencies.training_request.feature_matrix,
+    code_manifest: dependencies.training_request.code_manifest,
+    runtime_profile: dependencies.training_request.runtime_profile,
+  });
+  const verified = Object.freeze({
+    record: replay.model_record,
+    training_request: authenticatedTrainingRequest,
+    feature_order: TASK4_FEATURE_ORDER,
+    standardization: replay.model_record.payload.standardization,
+    coefficient_bits: replay.model_record.payload.coefficient_bits,
+    verification_digest: verificationDigest,
+  }) as VerifiedRankingModel;
+  verifiedModels.add(verified);
+  return verified;
+}
+
+function assertRankingModelDependencies(
+  dependencies: RankingModelDependencies,
+): void {
+  if (dependencies === null || typeof dependencies !== "object" || Array.isArray(dependencies)) {
+    fail("ranking_input_shape_invalid");
+  }
+  exactDataKeys(dependencies as unknown as Record<string, unknown>, ["training_request"]);
+}
+
+function rankingModelVerificationFailure(error: unknown): never {
+  if (error instanceof PairwiseRankingError) throw error;
+  return fail("ranking_model_invalid");
+}
+
 export function verifyRankingModel(
   record: RankingModelRecord,
   dependencies: RankingModelDependencies,
 ): VerifiedRankingModel {
   try {
-    if (dependencies === null || typeof dependencies !== "object" || Array.isArray(dependencies)) {
-      fail("ranking_input_shape_invalid");
-    }
-    exactDataKeys(dependencies as unknown as Record<string, unknown>, ["training_request"]);
+    assertRankingModelDependencies(dependencies);
+    return verifyRankingModelReplay(
+      record,
+      dependencies,
+      trainPairwiseLogistic(dependencies.training_request),
+    );
+  } catch (error) {
+    return rankingModelVerificationFailure(error);
+  }
+}
+
+export function verifyPairwiseTrainingResult(
+  result: PairwiseTrainingResult,
+  dependencies: RankingModelDependencies,
+): VerifiedRankingModel {
+  try {
+    assertRankingModelDependencies(dependencies);
     const replay = trainPairwiseLogistic(dependencies.training_request);
-    if (replay.state === "invalid") fail("ranking_model_invalid");
-    if (!canonicalEqual(record, replay.model_record)) fail("ranking_model_invalid");
-    if (replay.state === "nonconverged") fail("ranking_model_quarantined");
-    const modelRef = recordRef(replay.model_record);
-    const trainingStatisticsRef = statisticsRef(replay.statistics_record);
-    if (!refsEqual(record.payload.training_statistics_ref, trainingStatisticsRef)) {
+    if (!canonicalEqual(result, replay) || replay.state === "invalid") {
       fail("ranking_model_invalid");
     }
-    const deterministicReplayDigest = sha256Canonical({
-      contract_version: "contentmd.ranking-model-deterministic-replay/0.1.0",
-      training_input_digest: replay.model_record.payload.input_digest,
-      statistics_record: replay.statistics_record,
-      model_record: replay.model_record,
-    });
-    const verificationDigest = sha256Canonical({
-      contract_version: "contentmd.verified-ranking-model/0.1.0",
-      model_ref: modelRef,
-      training_input_digest: replay.model_record.payload.input_digest,
-      statistics_ref: trainingStatisticsRef,
-      coefficient_set_digest: replay.statistics_record.payload.coefficient_set_digest,
-      code_verification_digest: dependencies.training_request.code_manifest.verification_digest,
-      runtime_verification_digest: dependencies.training_request.runtime_profile.verification_digest,
-      deterministic_replay_digest: deterministicReplayDigest,
-    });
-    const authenticatedTrainingRequest = Object.freeze({
-      contract_version: dependencies.training_request.contract_version,
-      record_mode: dependencies.training_request.record_mode,
-      purpose: dependencies.training_request.purpose,
-      dataset: dependencies.training_request.dataset,
-      feature_matrix: dependencies.training_request.feature_matrix,
-      code_manifest: dependencies.training_request.code_manifest,
-      runtime_profile: dependencies.training_request.runtime_profile,
-    });
-    const verified = Object.freeze({
-      record: replay.model_record,
-      training_request: authenticatedTrainingRequest,
-      feature_order: TASK4_FEATURE_ORDER,
-      standardization: replay.model_record.payload.standardization,
-      coefficient_bits: replay.model_record.payload.coefficient_bits,
-      verification_digest: verificationDigest,
-    }) as VerifiedRankingModel;
-    verifiedModels.add(verified);
-    return verified;
+    return verifyRankingModelReplay(replay.model_record, dependencies, replay);
   } catch (error) {
-    if (error instanceof PairwiseRankingError) throw error;
-    return fail("ranking_model_invalid");
+    return rankingModelVerificationFailure(error);
   }
 }
 

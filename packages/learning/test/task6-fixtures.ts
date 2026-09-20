@@ -415,6 +415,7 @@ function createTask6SealedReplayFixture(mode: Task6FixtureMode) {
     openedAt: OPENED_AT,
     driftPairs: JSON.parse(canonicalJson(drift_pairs)) as typeof drift_pairs,
     shadowPairs: JSON.parse(canonicalJson(shadow_pairs)) as typeof shadow_pairs,
+    training: trained,
     replay: {
       contract_version: "contentmd.sealed-test-replay/0.1.0" as const,
       dataset_replay: sealed.datasetReplay,

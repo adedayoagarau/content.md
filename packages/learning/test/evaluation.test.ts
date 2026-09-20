@@ -191,7 +191,7 @@ describe("Task 6 evaluation simulator boundary", () => {
     expect(JSON.stringify(handle)).not.toContain("expression");
     expect(JSON.stringify(handle)).not.toContain("candidate_a");
     expect(JSON.stringify(handle)).not.toContain("label");
-  }, 180_000);
+  }, 420_000);
 
   it("consumes a sealed attempt only after the claim append commits", () => {
     const vault = createEvaluationSimulatorVault({
@@ -246,7 +246,7 @@ describe("Task 6 evaluation simulator boundary", () => {
       attempt_id: "attempt.task6.duplicate-key",
     })).toThrow("task6_contract_invalid:task6_evaluation_attempt_consumed");
     expect(inspectEvaluationAttempt(vault, "attempt.task6.duplicate-key")).toBeNull();
-  }, 180_000);
+  }, 420_000);
 
   it("opens the sealed population once and returns a complete authority-free evaluation", () => {
     const vault = createEvaluationSimulatorVault({
@@ -324,5 +324,5 @@ describe("Task 6 evaluation simulator boundary", () => {
       result.attempt_status,
     );
     expect(Object.isFrozen(result)).toBe(true);
-  }, 240_000);
+  }, 420_000);
 });

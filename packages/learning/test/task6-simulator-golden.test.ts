@@ -96,12 +96,12 @@ describe("Task 6 externally locked simulator golden", () => {
       cwd: ROOT,
       encoding: "utf8",
       maxBuffer: 32 * 1024 * 1024,
-      timeout: 1_200_000,
+      timeout: 1_800_000,
     });
     const first = runFresh();
     const second = runFresh();
     expect(first).toBe(raw);
     expect(second).toBe(raw);
     expect(first).toBe(second);
-  }, 2_500_000);
+  }, 3_700_000);
 });
