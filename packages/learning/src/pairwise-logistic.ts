@@ -294,6 +294,7 @@ export interface VerifiedRankingModel {
 
 const verifiedDatasets = new WeakSet<object>();
 const verifiedCandidates = new WeakSet<object>();
+const reauthenticatedCandidates = new WeakMap<object, VerifiedPairwiseCandidate>();
 const verifiedMatrices = new WeakSet<object>();
 const verifiedCodeManifests = new WeakSet<object>();
 const verifiedRuntimes = new WeakSet<object>();
@@ -907,11 +908,35 @@ export function verifyPairwiseFeatureMatrix(
   const typedProfile = profileReplay as unknown as PairwiseFeatureProfileReplay;
   const profile = task5RunTask4(() => createFeatureProfile(typedProfile.profile_input));
   if (!canonicalEqual(profile, typedProfile.expected_profile)) fail("ranking_feature_profile_mismatch");
+  type ReplayedCandidate = ReturnType<typeof replayCandidateVector>;
+  const replayCache = new Map<string, Task5Captured<ReplayedCandidate>>();
+  const replayCandidateOnce = (
+    slot: number,
+    candidateReplay: PairwiseCandidateVectorReplay,
+  ): Task5Captured<ReplayedCandidate> => {
+    let replayDigest: string;
+    try {
+      replayDigest = sha256Canonical(candidateReplay);
+    } catch {
+      return {
+        ok: false,
+        failure: { code: "ranking_input_shape_invalid", slot },
+      };
+    }
+    const cached = replayCache.get(replayDigest);
+    if (cached !== undefined) {
+      return cached.ok
+        ? cached
+        : { ok: false, failure: { code: cached.failure.code, slot } };
+    }
+    const captured = task5Capture(slot, () =>
+      replayCandidateVector(typedProfile, profile, candidateReplay));
+    replayCache.set(replayDigest, captured);
+    return captured;
+  };
   const candidateReplays = typedReplay.rows.map((row, rowIndex) => ({
-    candidate_a: task5Capture(rowIndex * 2, () =>
-      replayCandidateVector(typedProfile, profile, row.candidate_a)),
-    candidate_b: task5Capture(rowIndex * 2 + 1, () =>
-      replayCandidateVector(typedProfile, profile, row.candidate_b)),
+    candidate_a: replayCandidateOnce(rowIndex * 2, row.candidate_a),
+    candidate_b: replayCandidateOnce(rowIndex * 2 + 1, row.candidate_b),
   }));
   task5ThrowEarliest(candidateReplays.flatMap(({ candidate_a, candidate_b }) => [
     ...(candidate_a.ok ? [] : [candidate_a.failure]),
@@ -1642,7 +1667,10 @@ export function task5ReauthenticatePairwiseCandidate(
   candidate: VerifiedPairwiseCandidate,
 ): VerifiedPairwiseCandidate {
   if (!verifiedCandidates.has(candidate)) fail("ranking_candidate_ineligible");
+  const cached = reauthenticatedCandidates.get(candidate);
+  if (cached !== undefined) return cached;
   const replayed = verifyPairwiseCandidate(candidate.verification_input);
   if (!canonicalEqual(replayed, candidate)) fail("ranking_reference_invalid");
+  reauthenticatedCandidates.set(candidate, replayed);
   return replayed;
 }

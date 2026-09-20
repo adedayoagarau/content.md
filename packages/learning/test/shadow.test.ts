@@ -18,7 +18,10 @@ import {
   type Task6ObjectRef,
   type SimulatorFaultRule,
 } from "../src/index.js";
-import { task6SealedReplayFixture } from "./task6-fixtures.js";
+import {
+  freezeTask6FixtureValue,
+  task6SealedReplayFixture,
+} from "./task6-fixtures.js";
 
 function auxiliaryRef(prefix: string, schemaId: string, digest: string): Task6ObjectRef {
   return {
@@ -368,7 +371,9 @@ describe("Task 6 no-influence shadow", () => {
         replay: pair.candidate_b,
       }),
     ] as const;
-    let expectedBuildResult: any = buildLearningDataset(source.replay.dataset_replay.build_input);
+    let expectedBuildResult: any = freezeTask6FixtureValue(
+      buildLearningDataset(source.replay.dataset_replay.build_input),
+    );
     let observationInput: any = {
       record_mode: "development_fixture",
       vault,

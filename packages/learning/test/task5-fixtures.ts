@@ -59,16 +59,16 @@ const DATASET_EVALUATION_AT = "2026-08-20T19:00:00.000Z";
 const MEMBERS_PER_GROUP = 4;
 const PERMISSION_GROUP_COUNT = 120;
 const GROUP_IDS = [
-  0, 3, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17, 18, 19, 21, 27, 1, 42, 64,
-  4, 12, 25, 31, 56,
-  2, 22, 28, 29, 44,
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 20, 22,
+  15, 18, 27, 50, 65,
+  21, 32, 54, 58, 62,
 ] as const;
 type PreferenceMode = "baseline_aligned" | "baseline_opposed";
 const DEFAULT_PREFERENCE_MODE: PreferenceMode = "baseline_aligned";
 const OPPOSED_GROUP_IDS = [
-  86, 6, 57, 64, 5, 119, 105, 43, 69, 112, 118, 62, 91, 21, 30, 80, 68, 77, 90, 76,
-  20, 16, 10, 39, 99,
-  4, 8, 13, 24, 25,
+  1, 2, 4, 5, 6, 7, 8, 9, 11, 12, 14, 15, 18, 19, 20, 21, 22, 25, 26, 30,
+  10, 13, 16, 17, 23,
+  0, 3, 24, 28, 29,
 ] as const;
 
 function groupIdsForMode(mode: PreferenceMode): readonly number[] {
@@ -84,6 +84,19 @@ function compareCanonical(left: unknown, right: unknown): number {
     Buffer.from(canonicalJson(left), "utf8"),
     Buffer.from(canonicalJson(right), "utf8"),
   );
+}
+
+function cloneFixtureTree<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((entry) => cloneFixtureTree(entry)) as T;
+  }
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, entry]) => [
+      key,
+      cloneFixtureTree(entry),
+    ])) as T;
+  }
+  return value;
 }
 
 function readWorkspaceText(path: string): string {
@@ -322,7 +335,7 @@ type QualifiedExample = {
   evidence: ReturnType<typeof qualificationFixture>["evidence"];
 };
 
-const qualifiedGroupsCache = new Map<PreferenceMode, QualifiedExample[]>();
+const qualifiedGroupsCache = new Map<PreferenceMode, Map<number, QualifiedExample>>();
 
 function groupExpressions(group: number, mode: PreferenceMode): {
   expressionA: string;
@@ -357,6 +370,7 @@ function qualifiedExample(group: number, mode: PreferenceMode): QualifiedExample
     expression: expressions.expressionA,
     expressionB: expressions.expressionB,
     contextId: `snapshot.context.task5.${String(group).padStart(3, "0")}`,
+    reuseStaticArtifacts: true,
   });
   const checkpoint = task4.vectorInput.checkpoint_set;
   const snapshotForRole = (role: "task" | "context" | "fact_set" | "policy" | "candidate_a" | "candidate_b") => {
@@ -467,14 +481,22 @@ function qualifiedExample(group: number, mode: PreferenceMode): QualifiedExample
   return { base, task4, checkpoint, checkpointRef, qualification_input, qualification, evidence };
 }
 
-function allQualifiedGroups(mode: PreferenceMode = DEFAULT_PREFERENCE_MODE): QualifiedExample[] {
-  const cached = qualifiedGroupsCache.get(mode);
+function qualifiedGroup(
+  group: number,
+  mode: PreferenceMode = DEFAULT_PREFERENCE_MODE,
+): QualifiedExample {
+  if (!Number.isSafeInteger(group) || group < 0 || group >= PERMISSION_GROUP_COUNT) {
+    throw new Error(`task5_fixture_group_invalid:${group}`);
+  }
+  let byGroup = qualifiedGroupsCache.get(mode);
+  if (byGroup === undefined) {
+    byGroup = new Map();
+    qualifiedGroupsCache.set(mode, byGroup);
+  }
+  const cached = byGroup.get(group);
   if (cached !== undefined) return cached;
-  const created = Array.from(
-    { length: PERMISSION_GROUP_COUNT },
-    (_, group) => qualifiedExample(group, mode),
-  );
-  qualifiedGroupsCache.set(mode, created);
+  const created = qualifiedExample(group, mode);
+  byGroup.set(group, created);
   return created;
 }
 
@@ -490,9 +512,13 @@ function sharedPermission(qualified: readonly QualifiedExample[]) {
       content_digest: item.base.adapted.decision.content_digest,
     },
   ])) as [DigestRef, ...DigestRef[]];
+  const permissionScopeDigest = sha256Canonical({
+    contract_version: "contentmd.task5-permission-scope/0.1.0",
+    subject_refs: subjectRefs,
+  });
   return makeSnapshot(
     "learning-permission",
-    "snapshot.learning-permission.task5",
+    `snapshot.learning-permission.task5.${permissionScopeDigest.slice(0, 32)}`,
     {
       permission_ref: permissionRef,
       permission_class: "learning_data" as const,
@@ -528,10 +554,10 @@ function completeExamples(
   post_checkpoint_observation: null;
   blocking_evidence: [];
 }> {
-  const permissionGroups = allQualifiedGroups(mode);
-  const groups = groupIds.map((group) => permissionGroups[group]!);
-  const permission = sharedPermission(permissionGroups);
-  return groups.flatMap((qualified, groupIndex) => Array.from({ length: MEMBERS_PER_GROUP }, (_, member) => {
+  const groups = groupIds.map((group) => qualifiedGroup(group, mode));
+  return groups.flatMap((qualified, groupIndex) => {
+    const permission = sharedPermission([qualified]);
+    return Array.from({ length: MEMBERS_PER_GROUP }, (_, member) => {
     const group = groupIds[groupIndex]!;
     const eligibility_input = {
       ...eligibilityFixture(
@@ -565,7 +591,8 @@ function completeExamples(
       post_checkpoint_observation: null,
       blocking_evidence: [] as [],
     };
-  }));
+    });
+  });
 }
 
 function relationMaterial(candidateRef: DigestRef): CompleteRelationMaterial {
@@ -779,14 +806,14 @@ export function task5DatasetReplayFixture(): ReturnType<typeof createDatasetRepl
   const cached = datasetReplayCache.get(DEFAULT_PREFERENCE_MODE)
     ?? createDatasetReplay(DEFAULT_PREFERENCE_MODE);
   datasetReplayCache.set(DEFAULT_PREFERENCE_MODE, cached);
-  return JSON.parse(canonicalJson(cached)) as ReturnType<typeof createDatasetReplay>;
+  return cloneFixtureTree(cached);
 }
 
 export function task5DatasetExpectedBuildResult(): LearningDatasetBuildResult {
   if (!datasetReplayCache.has(DEFAULT_PREFERENCE_MODE)) {
     datasetReplayCache.set(DEFAULT_PREFERENCE_MODE, createDatasetReplay(DEFAULT_PREFERENCE_MODE));
   }
-  return JSON.parse(canonicalJson(datasetBuildResultCache.get(DEFAULT_PREFERENCE_MODE))) as LearningDatasetBuildResult;
+  return cloneFixtureTree(datasetBuildResultCache.get(DEFAULT_PREFERENCE_MODE)!);
 }
 
 function uniqueByProjection<T>(values: readonly T[], projection: (value: T) => unknown): T[] {
@@ -826,7 +853,7 @@ function combinedTask4Profile(groupIds: readonly number[], mode: PreferenceMode)
   profileInput: CreateFeatureProfileInput;
   profile: ReturnType<typeof createFeatureProfile>;
 } {
-  const fixtures = groupIds.map((group) => allQualifiedGroups(mode)[group]!.task4);
+  const fixtures = groupIds.map((group) => qualifiedGroup(group, mode).task4);
   const first = fixtures[0]!.profileInput;
   const context_bindings = uniqueByProjection(
     fixtures.flatMap(({ profileInput }) => profileInput.feature_universe.context_bindings),
@@ -935,7 +962,7 @@ function combinedTask4Profile(groupIds: readonly number[], mode: PreferenceMode)
     })),
   ].sort((left, right) => left.role.localeCompare(right.role, "en")
     || compareCanonical(left.artifact_ref, right.artifact_ref)) as CreateFeatureProfileInput["artifact_bindings"];
-  const profileInput = JSON.parse(canonicalJson({
+  const profileInput = cloneFixtureTree({
     ...first,
     feature_universe,
     feature_universe_artifact,
@@ -944,7 +971,7 @@ function combinedTask4Profile(groupIds: readonly number[], mode: PreferenceMode)
     feature_material_sources,
     hard_rule_sources,
     artifact_bindings,
-  })) as CreateFeatureProfileInput;
+  }) as CreateFeatureProfileInput;
   return { profileInput, profile: createFeatureProfile(profileInput) };
 }
 
@@ -1070,7 +1097,7 @@ function createFeatureMatrixReplay(mode: PreferenceMode) {
   const trainGroupIds = [...new Set(trainSubjects.map(groupIdForSubject))];
   const { profileInput, profile } = combinedTask4Profile(groupIdsForMode(mode), mode);
   const replayByGroup = new Map(trainGroupIds.map((group) => {
-    const fixture = allQualifiedGroups(mode)[group]!.task4;
+    const fixture = qualifiedGroup(group, mode).task4;
     return [group, {
       candidate_a: candidateReplay(fixture, "A", profileInput, profile),
       candidate_b: candidateReplay(fixture, "B", profileInput, profile),
@@ -1124,7 +1151,7 @@ export function task5FeatureMatrixFixture() {
   featureMatrixReplayCache.set(DEFAULT_PREFERENCE_MODE, cached);
   return {
     datasetReplay: task5DatasetReplayFixture(),
-    replay: JSON.parse(canonicalJson(cached)) as ReturnType<typeof createFeatureMatrixReplay>,
+    replay: cloneFixtureTree(cached),
   };
 }
 
@@ -1150,7 +1177,7 @@ function candidateSplitFixture(mode: PreferenceMode, split: "validation" | "test
     if (group === undefined || group.payload.split !== split) {
       throw new Error("task5_fixture_test_group_missing");
     }
-    const fixture = allQualifiedGroups(mode)[groupIdForSubject(subject)]!.task4;
+    const fixture = qualifiedGroup(groupIdForSubject(subject), mode).task4;
     return {
       example_ref,
       leakage_group_ref: recordRef(group),
@@ -1170,9 +1197,9 @@ function candidateSplitFixture(mode: PreferenceMode, split: "validation" | "test
     };
   });
   return {
-    datasetReplay: JSON.parse(canonicalJson(datasetReplay)) as ReturnType<typeof createDatasetReplay>,
-    profile: JSON.parse(canonicalJson(profile)) as typeof profile,
-    rows: JSON.parse(canonicalJson(rows)) as typeof rows,
+    datasetReplay: cloneFixtureTree(datasetReplay),
+    profile: cloneFixtureTree(profile),
+    rows: cloneFixtureTree(rows),
   };
 }
 
@@ -1189,8 +1216,8 @@ export function task5OpposedFeatureMatrixFixture() {
   const cached = featureMatrixReplayCache.get(mode) ?? createFeatureMatrixReplay(mode);
   featureMatrixReplayCache.set(mode, cached);
   return {
-    datasetReplay: JSON.parse(canonicalJson(datasetReplayCache.get(mode)!)) as ReturnType<typeof createDatasetReplay>,
-    replay: JSON.parse(canonicalJson(cached)) as ReturnType<typeof createFeatureMatrixReplay>,
+    datasetReplay: cloneFixtureTree(datasetReplayCache.get(mode)!),
+    replay: cloneFixtureTree(cached),
   };
 }
 

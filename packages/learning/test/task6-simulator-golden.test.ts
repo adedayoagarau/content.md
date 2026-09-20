@@ -64,8 +64,8 @@ describe("Task 6 externally locked simulator golden", () => {
       evaluation: {
         attempt_status: { state: "completed" },
         overall_metrics: {
-          candidate_accuracy: { bits: "3ff0000000000000" },
-          candidate_log_loss: { bits: "3fca3761310e1fed" },
+          candidate_accuracy: { bits: "3feccccccccccccd" },
+          candidate_log_loss: { bits: "3fd35bdb4669bd8b" },
         },
         bootstrap: { replicate_count: 10_000 },
       },

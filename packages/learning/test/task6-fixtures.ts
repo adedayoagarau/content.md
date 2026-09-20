@@ -149,6 +149,36 @@ function compareCanonical(left: unknown, right: unknown): number {
   );
 }
 
+function cloneFixtureTree<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((entry) => cloneFixtureTree(entry)) as T;
+  }
+  if (value !== null && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key, entry]) => [
+      key,
+      cloneFixtureTree(entry),
+    ])) as T;
+  }
+  return value;
+}
+
+function freezeFixtureGraph(value: unknown, seen = new Set<object>()): void {
+  if (value === null || typeof value !== "object" || seen.has(value)) return;
+  seen.add(value);
+  for (const key of Reflect.ownKeys(value)) {
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (descriptor !== undefined && "value" in descriptor) {
+      freezeFixtureGraph(descriptor.value, seen);
+    }
+  }
+  Object.freeze(value);
+}
+
+export function freezeTask6FixtureValue<T>(value: T): T {
+  freezeFixtureGraph(value);
+  return value;
+}
+
 type Task6FixtureMode = "baseline_aligned" | "baseline_opposed";
 const fixtureCache = new Map<Task6FixtureMode, ReturnType<typeof createTask6SealedReplayFixture>>();
 
@@ -411,10 +441,10 @@ function createTask6SealedReplayFixture(mode: Task6FixtureMode) {
     authority_effect: "none" as const,
   };
   const currentnessDigest = sha256Canonical(currentnessIdentity);
-  return {
+  const fixture = {
     openedAt: OPENED_AT,
-    driftPairs: JSON.parse(canonicalJson(drift_pairs)) as typeof drift_pairs,
-    shadowPairs: JSON.parse(canonicalJson(shadow_pairs)) as typeof shadow_pairs,
+    driftPairs: cloneFixtureTree(drift_pairs),
+    shadowPairs: cloneFixtureTree(shadow_pairs),
     training: trained,
     replay: {
       contract_version: "contentmd.sealed-test-replay/0.1.0" as const,
@@ -445,6 +475,8 @@ function createTask6SealedReplayFixture(mode: Task6FixtureMode) {
       evaluation_runtime_profile: task6RuntimeProfile(),
     },
   };
+  freezeFixtureGraph(fixture);
+  return fixture;
 }
 
 export function task6SealedReplayFixture() {

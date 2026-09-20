@@ -19,7 +19,10 @@ import {
   type Task6ObjectRef,
   type SimulatedRevocationWitness,
 } from "../src/index.js";
-import { task6PassingSealedReplayFixture } from "./task6-fixtures.js";
+import {
+  freezeTask6FixtureValue,
+  task6PassingSealedReplayFixture,
+} from "./task6-fixtures.js";
 
 function auxiliaryRef(prefix: string, schemaId: string, value: unknown): Task6ObjectRef {
   const digest = sha256Canonical(value);
@@ -128,7 +131,9 @@ describe("Task 6 simulated binding", () => {
       shadow_run_id: "shadow.run.task6.binding-positive",
       actor_ref: "actor.task6.shadow-start",
     });
-    const expectedBuildResult = buildLearningDataset(source.replay.dataset_replay.build_input);
+    const expectedBuildResult = freezeTask6FixtureValue(
+      buildLearningDataset(source.replay.dataset_replay.build_input),
+    );
     const candidatesByGroup = source.shadowPairs.map((pair) => [
       verifyPairwiseCandidate({
         record_mode: "development_fixture",

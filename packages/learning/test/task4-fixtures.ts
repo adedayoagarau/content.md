@@ -55,8 +55,14 @@ const RESOLUTION_PATHS = [
   "tsconfig.json",
 ] as const;
 
+const workspaceTextCache = new Map<string, string>();
+
 function bytes(path: string): string {
-  return readFileSync(new URL(`../../../${path}`, import.meta.url), "utf8");
+  const cached = workspaceTextCache.get(path);
+  if (cached !== undefined) return cached;
+  const value = readFileSync(new URL(`../../../${path}`, import.meta.url), "utf8");
+  workspaceTextCache.set(path, value);
+  return value;
 }
 
 function digestUtf8(value: string): string {
@@ -81,7 +87,22 @@ function storeArtifact(path: string, artifact_id: string) {
   return { ...witness, artifact_ref: { artifact_id, artifact_version: "0.1.0", artifact_digest: witness.raw_bytes_digest } };
 }
 
-function unicodeRuntime(): Task4UnicodeRuntime {
+function freezeFixtureGraph(value: unknown, seen = new Set<object>()): void {
+  if (value === null || typeof value !== "object" || seen.has(value)) return;
+  seen.add(value);
+  for (const key of Reflect.ownKeys(value)) {
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (descriptor !== undefined && "value" in descriptor) {
+      freezeFixtureGraph(descriptor.value, seen);
+    }
+  }
+  Object.freeze(value);
+}
+
+let unicodeRuntimeTemplate: Task4UnicodeRuntime | null = null;
+
+function sharedUnicodeRuntime(): Task4UnicodeRuntime {
+  if (unicodeRuntimeTemplate !== null) return unicodeRuntimeTemplate;
   const bundlePreimage = {
     contract_version: "contentmd.unicode-artifact-bundle/0.1.0" as const,
     source_lock: raw("fixtures/learning-ranking/unicode-17-source-lock.json"),
@@ -96,7 +117,13 @@ function unicodeRuntime(): Task4UnicodeRuntime {
   const unicode_bundle: UnicodeArtifactBundle = { ...bundlePreimage, bundle_digest: sha256Canonical(bundlePreimage) };
   const runtime_profile = storeArtifact("fixtures/learning-ranking/feature-source-runtime-profile.json", "contentmd.feature-source-runtime-profile");
   const preimage = { contract_version: "contentmd.task4-unicode-runtime/0.1.0" as const, unicode_bundle, runtime_profile };
-  return { ...preimage, runtime_digest: sha256Canonical(preimage) };
+  unicodeRuntimeTemplate = { ...preimage, runtime_digest: sha256Canonical(preimage) };
+  freezeFixtureGraph(unicodeRuntimeTemplate);
+  return unicodeRuntimeTemplate;
+}
+
+function unicodeRuntime(): Task4UnicodeRuntime {
+  return structuredClone(sharedUnicodeRuntime());
 }
 
 function runtimeSpecifiers(source: string): string[] {
@@ -122,7 +149,14 @@ function resolveRuntimePath(from: string, specifier: string): string | null {
   return posix.normalize(posix.join(posix.dirname(from), specifier)).replace(/\.js$/, ".ts");
 }
 
-function producer(producer_id: Task4ProducerArtifactWitness["producer_id"]): Task4ProducerArtifactWitness {
+const producerTemplateCache = new Map<
+  Task4ProducerArtifactWitness["producer_id"],
+  Task4ProducerArtifactWitness
+>();
+
+function createProducer(
+  producer_id: Task4ProducerArtifactWitness["producer_id"],
+): Task4ProducerArtifactWitness {
   const entry = {
     "retrieval-snapshot": "packages/learning/src/retrieval.ts",
     "feature-profile": "packages/learning/src/features.ts",
@@ -160,6 +194,19 @@ function producer(producer_id: Task4ProducerArtifactWitness["producer_id"]): Tas
     verification_mode: "development_fixture",
     verification_receipt: null,
   };
+}
+
+function producer(
+  producer_id: Task4ProducerArtifactWitness["producer_id"],
+  shareTemplate = false,
+): Task4ProducerArtifactWitness {
+  let template = producerTemplateCache.get(producer_id);
+  if (template === undefined) {
+    template = createProducer(producer_id);
+    freezeFixtureGraph(template);
+    producerTemplateCache.set(producer_id, template);
+  }
+  return shareTemplate ? template : structuredClone(template);
 }
 
 function buildVerifiedProducer(producer_id: Task4ProducerArtifactWitness["producer_id"]): Task4ProducerArtifactWitness {
@@ -479,8 +526,11 @@ export function task4Fixture(options: {
   actionMatchForms?: [string, ...string[]];
   candidateScopeViaExemplar?: boolean;
   exemplarSubjectMismatch?: boolean;
+  reuseStaticArtifacts?: boolean;
 } = {}): Task4Fixture {
-  const runtime = unicodeRuntime();
+  const runtime = options.reuseStaticArtifacts === true
+    ? sharedUnicodeRuntime()
+    : unicodeRuntime();
   const base = qualificationFixture(adaptContentDecisionEvent).input;
 
   const requiredMaterial = twoStage<FeatureMaterial, "material_id", "material_digest">(
@@ -819,7 +869,7 @@ export function task4Fixture(options: {
   const profileInput: CreateFeatureProfileInput = {
     record_mode: "development_fixture",
     project_id: PROJECT_ID,
-    producer: producer("feature-profile"),
+    producer: producer("feature-profile", options.reuseStaticArtifacts === true),
     unicode_runtime: runtime,
     feature_universe,
     feature_universe_artifact: universeRaw,
@@ -864,7 +914,7 @@ export function task4Fixture(options: {
   const eligibility_gate: CandidateEligibilityGate = { ...gateWithoutDigest, gate_digest: sha256Canonical(gateWithoutDigest) };
   const vectorInput: CandidateVectorizationInput = {
     record_mode: "development_fixture",
-    producer: producer("candidate-feature-vector"),
+    producer: producer("candidate-feature-vector", options.reuseStaticArtifacts === true),
     unicode_runtime: runtime,
     profile_input: profileInput,
     profile,

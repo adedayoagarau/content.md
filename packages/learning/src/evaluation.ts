@@ -1169,6 +1169,26 @@ export function task6InternalCommitShadowRuns(
   });
 }
 
+/**
+ * Append already detached, recursively immutable shadow runs while preserving
+ * structural sharing with the prior observation history.
+ */
+export function task6InternalCommitFrozenShadowRuns(
+  vault: EvaluationSimulatorVault,
+  operation: Extract<SimulatorOperation, "shadow_observation_append">,
+  shadowRuns: readonly unknown[],
+): void {
+  if (shadowRuns.some((run) => run === null || typeof run !== "object"
+    || !Object.isFrozen(run))) {
+    fail("task6_event_append_failed");
+  }
+  const state = vaultToken(vault);
+  const frozenRuns = Object.freeze([...shadowRuns]);
+  task6RunAppend(state, operation, () => {
+    state.serialized = { ...state.serialized, shadow_runs: frozenRuns };
+  });
+}
+
 function task6AttemptEventRef(
   eventKind: "evaluation_attempt_claimed" | "evaluation_test_opened",
   attemptId: string,
