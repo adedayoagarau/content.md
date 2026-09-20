@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { describe, expect, it } from "vitest";
+import { currentGoldenRuntimeProfileDigest } from "./golden-runtime.js";
 
 const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 const GOLDEN_PATH = fileURLToPath(new URL(
@@ -19,40 +20,45 @@ const RUNNER_PATH = fileURLToPath(new URL(
   import.meta.url,
 ));
 
+const raw = readFileSync(GOLDEN_PATH, "utf8");
+const parsed = JSON.parse(raw) as Record<string, unknown> & {
+  contract_version: string;
+  record_mode: string;
+  authority_effect: string;
+  fixture_semantic_digest: string;
+  runtime_profile_digest: string;
+  sealed_test: { handle_id: string };
+  evaluation: {
+    attempt_status: { state: string };
+    overall_metrics: {
+      candidate_accuracy: { bits: string };
+      candidate_log_loss: { bits: string };
+    };
+    bootstrap: { replicate_count: number };
+  };
+  shadow: {
+    result: {
+      completion_state: string;
+      observation_count: number;
+      leakage_group_count: number;
+      no_influence_verified: boolean;
+    };
+  };
+  promotion: { transition_kind: string; projection: { state: string } };
+  drift: { report: { payload: { window_state: string } } };
+  rollback: { transition_kind: string; projection: { state: string } };
+  fallback: { transition_kind: string; projection: { state: string } };
+};
+const runtimeMatches = parsed.runtime_profile_digest === currentGoldenRuntimeProfileDigest(
+  "contentmd.task6-runtime-profile/0.1.0",
+);
+
 describe("Task 6 externally locked simulator golden", () => {
-  it("reproduces the complete authority-free lifecycle in two fresh processes", () => {
-    const raw = readFileSync(GOLDEN_PATH, "utf8");
+  it("verifies the complete authority-free lifecycle and external byte lock", () => {
     const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");
     expect(readFileSync(LOCK_PATH, "utf8")).toBe(
       `${rawDigest}  fixtures/learning-ranking/task6-simulator-golden.json\n`,
     );
-    const parsed = JSON.parse(raw) as Record<string, unknown> & {
-      contract_version: string;
-      record_mode: string;
-      authority_effect: string;
-      fixture_semantic_digest: string;
-      sealed_test: { handle_id: string };
-      evaluation: {
-        attempt_status: { state: string };
-        overall_metrics: {
-          candidate_accuracy: { bits: string };
-          candidate_log_loss: { bits: string };
-        };
-        bootstrap: { replicate_count: number };
-      };
-      shadow: {
-        result: {
-          completion_state: string;
-          observation_count: number;
-          leakage_group_count: number;
-          no_influence_verified: boolean;
-        };
-      };
-      promotion: { transition_kind: string; projection: { state: string } };
-      drift: { report: { payload: { window_state: string } } };
-      rollback: { transition_kind: string; projection: { state: string } };
-      fallback: { transition_kind: string; projection: { state: string } };
-    };
     const { fixture_semantic_digest: semanticDigest, ...fixture } = parsed;
 
     expect(raw).toBe(canonicalJson(parsed));
@@ -86,22 +92,28 @@ describe("Task 6 externally locked simulator golden", () => {
       contract_version: "contentmd.task6-simulator-golden-preimage/0.1.0",
       fixture,
     }));
+  });
 
-    const runFresh = () => execFileSync(process.execPath, [
-      "--max-old-space-size=5120",
-      "--import",
-      "tsx",
-      RUNNER_PATH,
-    ], {
-      cwd: ROOT,
-      encoding: "utf8",
-      maxBuffer: 32 * 1024 * 1024,
-      timeout: 1_800_000,
-    });
-    const first = runFresh();
-    const second = runFresh();
-    expect(first).toBe(raw);
-    expect(second).toBe(raw);
-    expect(first).toBe(second);
-  }, 3_700_000);
+  it.skipIf(!runtimeMatches)(
+    "reproduces the lifecycle in two fresh matching-runtime processes",
+    () => {
+      const runFresh = () => execFileSync(process.execPath, [
+        "--max-old-space-size=5120",
+        "--import",
+        "tsx",
+        RUNNER_PATH,
+      ], {
+        cwd: ROOT,
+        encoding: "utf8",
+        maxBuffer: 32 * 1024 * 1024,
+        timeout: 1_800_000,
+      });
+      const first = runFresh();
+      const second = runFresh();
+      expect(first).toBe(raw);
+      expect(second).toBe(raw);
+      expect(first).toBe(second);
+    },
+    3_700_000,
+  );
 });
