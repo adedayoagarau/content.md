@@ -11,3 +11,7 @@ export * from "./ux-writing-rule-engine.js";
 export * from "./core-ux-writing-rule-packs.js";
 export * from "./ux-writing-review.js";
 export * from "./ux-writing-facts.js";
+export * from "./usecase-classifier.js";
+export * from "./ux-writing-coordinate.js";
+export * from "./ux-writing-taxonomy.js";
+export * from "./ux-writing-policy-routes.js";
