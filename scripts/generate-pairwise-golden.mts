@@ -3,17 +3,21 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson } from "../packages/core/src/index.ts";
 import { runPairwiseGolden } from "../packages/learning/test/pairwise-golden-runner.js";
+import { currentReleaseRuntimeTarget } from "../packages/learning/test/release-runtime-fixture.js";
 
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
+const { fixture_suffix: fixtureSuffix } = currentReleaseRuntimeTarget();
+const GOLDEN_NAME = `golden-model${fixtureSuffix}.json`;
+const LOCK_NAME = `golden-model${fixtureSuffix}.sha256`;
 const GOLDEN_PATH = fileURLToPath(new URL(
-  "../fixtures/learning-ranking/golden-model.json",
+  `../fixtures/learning-ranking/${GOLDEN_NAME}`,
   import.meta.url,
 ));
 const LOCK_PATH = fileURLToPath(new URL(
-  "../fixtures/learning-ranking/golden-model.sha256",
+  `../fixtures/learning-ranking/${LOCK_NAME}`,
   import.meta.url,
 ));
-const RELATIVE_GOLDEN_PATH = "fixtures/learning-ranking/golden-model.json";
+const RELATIVE_GOLDEN_PATH = `fixtures/learning-ranking/${GOLDEN_NAME}`;
 
 const raw = canonicalJson(runPairwiseGolden());
 const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");

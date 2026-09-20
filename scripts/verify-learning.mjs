@@ -96,6 +96,8 @@ const profile = readCanonicalJson("feature-profile.json");
 const shadowPlan = readCanonicalJson("shadow-plan.json");
 const golden = readCanonicalJson("golden-model.json");
 const task6 = readCanonicalJson("task6-simulator-golden.json");
+const linuxGolden = readCanonicalJson("golden-model.linux-x64.json");
+const linuxTask6 = readCanonicalJson("task6-simulator-golden.linux-x64.json");
 
 invariant(preferences.length === 120, "preference_count");
 invariant(groups.length === 30, "group_count");
@@ -163,6 +165,8 @@ invariant(shadowPlan.payload.plan_state === "ready" && shadowPlan.payload.author
 
 verifyLock("golden-model.json", "golden-model.sha256");
 verifyFixtureDigest(golden, "contentmd.pairwise-golden-model-preimage/0.1.0", "golden_fixture_digest");
+verifyLock("golden-model.linux-x64.json", "golden-model.linux-x64.sha256");
+verifyFixtureDigest(linuxGolden, "contentmd.pairwise-golden-model-preimage/0.1.0", "linux_golden_fixture_digest");
 verifyRecord(golden.expected_statistics_record, "contentmd.model-training-statistics-record");
 verifyRecord(golden.expected_model_record, "contentmd.ranking-model-record");
 invariant(golden.expected_model_record.payload.model_state === "trained", "model_trained");
@@ -174,6 +178,8 @@ invariant(golden.expected_model_record.payload.feature_profile_ref.content_diges
 
 verifyLock("task6-simulator-golden.json", "task6-simulator-golden.sha256");
 verifyFixtureDigest(task6, "contentmd.task6-simulator-golden-preimage/0.1.0", "task6_fixture_digest");
+verifyLock("task6-simulator-golden.linux-x64.json", "task6-simulator-golden.linux-x64.sha256");
+verifyFixtureDigest(linuxTask6, "contentmd.task6-simulator-golden-preimage/0.1.0", "linux_task6_fixture_digest");
 verifyRecord(task6.shadow.plan, "contentmd.shadow-evaluation-plan");
 invariant(canonical(task6.shadow.plan) === canonical(shadowPlan), "shadow_plan_projection");
 verifyResultDigest(task6.evaluation, "evaluation_result_digest");

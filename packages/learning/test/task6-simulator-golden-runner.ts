@@ -95,7 +95,7 @@ export function runTask6SimulatorGolden() {
   const source = task6PassingSealedReplayFixture();
   invariant(
     source.replay.evaluation_code_manifest.manifest_digest
-      === "402ebe4416fe442646b89d080170cb4210a3cc909fb971528cc9ea966e8d96b3",
+      === "72e6cb75e9d938bffac47163c6289e02090df43c2c452568326297c95eac63fe",
     "code_manifest_lock",
   );
   const vault = createEvaluationSimulatorVault({

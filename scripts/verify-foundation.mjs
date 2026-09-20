@@ -758,7 +758,7 @@ async function verifyCliWorkflow(verificationRoot) {
 
 async function main() {
   const startedAt = new Date().toISOString();
-  invariant(process.versions.node === "24.14.0", "runtime.node", `running Node ${process.versions.node}`);
+  invariant(process.versions.node === "24.20.0", "runtime.node", `running Node ${process.versions.node}`);
   const build = await run(process.execPath, [
     join(workspaceRoot, "node_modules/typescript/bin/tsc"),
     "-b",

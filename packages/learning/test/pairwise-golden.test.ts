@@ -4,14 +4,18 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { describe, expect, it } from "vitest";
+import { currentReleaseRuntimeTarget } from "./release-runtime-fixture.js";
 
 const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
+const { fixture_suffix: fixtureSuffix } = currentReleaseRuntimeTarget();
+const GOLDEN_NAME = `golden-model${fixtureSuffix}.json`;
+const LOCK_NAME = `golden-model${fixtureSuffix}.sha256`;
 const GOLDEN_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/golden-model.json",
+  `../../../fixtures/learning-ranking/${GOLDEN_NAME}`,
   import.meta.url,
 ));
 const LOCK_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/golden-model.sha256",
+  `../../../fixtures/learning-ranking/${LOCK_NAME}`,
   import.meta.url,
 ));
 const RUNNER_PATH = fileURLToPath(new URL("./pairwise-golden-runner.ts", import.meta.url));
@@ -21,7 +25,7 @@ describe("Task 5 externally locked golden", () => {
     const raw = readFileSync(GOLDEN_PATH, "utf8");
     const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");
     expect(readFileSync(LOCK_PATH, "utf8")).toBe(
-      `${rawDigest}  fixtures/learning-ranking/golden-model.json\n`,
+      `${rawDigest}  fixtures/learning-ranking/${GOLDEN_NAME}\n`,
     );
     const parsed = JSON.parse(raw) as Record<string, unknown> & {
       fixture_semantic_digest: string;

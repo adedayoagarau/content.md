@@ -18,4 +18,5 @@ export * from "./repository-interpretation.js";
 export * from "./regular-user-improvement.js";
 export * from "./runtime-workflow.js";
 export * from "./task-workflow.js";
+export * from "./usecase-workflow.js";
 export * from "./workspace-scope.js";
