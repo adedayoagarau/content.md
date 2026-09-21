@@ -3,7 +3,6 @@ import { task2IsRfc3339 } from "./feedback.js";
 import {
   Task6GovernanceError,
   task6InternalBaselineScore,
-  task6InternalCommitFrozenShadowRuns,
   task6InternalCommitShadowRuns,
   task6InternalReadShadowRuns,
   task6InternalRequireSealedReplay,
@@ -248,12 +247,6 @@ function modeGate(value: unknown, expectedKeys: readonly string[]): void {
   if (descriptor.value !== "development_fixture") fail("task6_input_shape_invalid");
 }
 
-const validatedFrozenGraphRoots = new WeakSet<object>();
-const validatedDriftDatasetBuilds = new WeakMap<
-  object,
-  WeakMap<object, LearningDatasetBuildResult>
->();
-
 function closedGraph(value: unknown, ancestors = new Set<object>()): void {
   if (value === null || typeof value === "string" || typeof value === "boolean") return;
   if (typeof value === "number") {
@@ -261,7 +254,6 @@ function closedGraph(value: unknown, ancestors = new Set<object>()): void {
     return;
   }
   if (typeof value !== "object" || ancestors.has(value)) fail("task6_input_shape_invalid");
-  if (validatedFrozenGraphRoots.has(value)) return;
   const prototype = Object.getPrototypeOf(value);
   if (Array.isArray(value)) {
     if (prototype !== Array.prototype || Object.keys(value).length !== value.length) {
@@ -285,19 +277,6 @@ function closedGraph(value: unknown, ancestors = new Set<object>()): void {
     closedGraph(descriptor.value, ancestors);
   }
   ancestors.delete(value);
-}
-
-function rememberValidatedFrozenGraph(value: unknown, seen = new Set<object>()): boolean {
-  if (value === null || typeof value !== "object" || seen.has(value)) return true;
-  if (!Object.isFrozen(value)) return false;
-  seen.add(value);
-  for (const key of Reflect.ownKeys(value)) {
-    const descriptor = Object.getOwnPropertyDescriptor(value, key);
-    if (descriptor === undefined || !("value" in descriptor)
-      || !rememberValidatedFrozenGraph(descriptor.value, seen)) return false;
-  }
-  validatedFrozenGraphRoots.add(value);
-  return true;
 }
 
 function freezeGraph(value: unknown, seen = new Set<object>()): void {
@@ -562,27 +541,14 @@ function validateOutcomeReplay(outcome: ShadowOutcomeReplay): {
   }
   assertObjectRef(outcome.pair.example_ref);
   assertObjectRef(outcome.pair.leakage_group_ref);
-  const buildInput = outcome.dataset.build_input;
-  const expectedBuildResult = outcome.dataset.expected_build_result;
-  const cachedByExpected = validatedDriftDatasetBuilds.get(buildInput as object);
-  let replayed = cachedByExpected?.get(expectedBuildResult as object);
-  if (replayed === undefined) {
-    try {
-      replayed = buildLearningDataset(buildInput);
-    } catch {
-      return fail("task6_replay_invalid");
-    }
-    if (canonicalJson(replayed) !== canonicalJson(expectedBuildResult)) {
-      fail("task6_replay_invalid");
-    }
-    if (rememberValidatedFrozenGraph(buildInput)
-      && rememberValidatedFrozenGraph(expectedBuildResult)) {
-      const byExpected = cachedByExpected ?? new WeakMap<object, LearningDatasetBuildResult>();
-      byExpected.set(expectedBuildResult as object, replayed);
-      if (cachedByExpected === undefined) {
-        validatedDriftDatasetBuilds.set(buildInput as object, byExpected);
-      }
-    }
+  let replayed: LearningDatasetBuildResult;
+  try {
+    replayed = buildLearningDataset(outcome.dataset.build_input);
+  } catch {
+    return fail("task6_replay_invalid");
+  }
+  if (canonicalJson(replayed) !== canonicalJson(outcome.dataset.expected_build_result)) {
+    fail("task6_replay_invalid");
   }
   const subjects = outcome.dataset.build_input.leakage_evidence.subjects.filter(({ example }) =>
     refsEqual(recordRef(example.preference), outcome.pair.example_ref));
@@ -1143,21 +1109,14 @@ export function observeShadowSimulation(
       shadow_output_digest: shadowOutputDigest,
       event_ref: shadowEventRef(event),
     });
-    const updated: StoredShadowRun = Object.freeze({
+    const updated: StoredShadowRun = immutable({
       ...stored,
-      events: Object.freeze([
-        ...stored.events,
-        event,
-      ]) as StoredShadowRun["events"],
-      observations: Object.freeze([...stored.observations, observation]),
+      events: [...stored.events, event],
+      observations: [...stored.observations, observation],
     });
     const nextRuns = storedShadowRuns(input.vault).map((run) =>
       run.shadow_run_id === stored.shadow_run_id ? updated : run);
-    task6InternalCommitFrozenShadowRuns(
-      input.vault,
-      "shadow_observation_append",
-      nextRuns,
-    );
+    task6InternalCommitShadowRuns(input.vault, "shadow_observation_append", nextRuns);
     const readback = findStoredShadowRun(input.vault, input.shadow_run_id)?.observations
       .find(({ observation_id }) => observation_id === input.observation_id);
     if (readback === undefined || readback.input_digest !== observationInputDigest) {

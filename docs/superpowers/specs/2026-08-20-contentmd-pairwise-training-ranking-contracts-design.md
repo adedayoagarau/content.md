@@ -210,7 +210,7 @@ interface CodeManifestEntry {
 
 interface PairwiseRuntimeProfile {
   contract_version: "contentmd.pairwise-runtime-profile/0.1.0";
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -594,7 +594,7 @@ Task 3 and Task 4 runtime files are not silently omitted from provenance: their 
 
 ### 7.4 Runtime profile
 
-`profile_digest` is SHA-256 over canonical JSON of every runtime-profile field except `profile_digest`. Its artifact ref is exactly `{artifact_id: "contentmd.pairwise-runtime-profile", artifact_version: "0.1.0", artifact_digest: profile_digest}`. Every Task 5 training, model verification, prediction, rank, and golden run requires Node `24.14.0` exactly and a runtime-profile digest present in `pairwise-release-profile.ts`; dataset, matrix, candidate, and code replay verifiers neither observe nor accept a Task 5 numeric-runtime input. The admitted profiles use Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`, and little-endian execution on either `darwin` / `arm64` or `linux` / `x64`. The externally locked golden fixture remains bound to its exact recorded profile. `admitPairwiseRuntime` compares every field with `process.versions`, `process.platform`, `process.arch`, and `os.endianness()` before returning its opaque token; adding a platform therefore requires an explicit release-profile digest rather than a family match. The workspace's broader `>=24.14.0 <25` engine range remains valid for non-ranker packages only; it does not admit an unlisted Task 5 training runtime.
+`profile_digest` is SHA-256 over canonical JSON of every runtime-profile field except `profile_digest`. Its artifact ref is exactly `{artifact_id: "contentmd.pairwise-runtime-profile", artifact_version: "0.1.0", artifact_digest: profile_digest}`. Every Task 5 training, model verification, prediction, rank, and golden run requires Node `24.20.0` exactly and a runtime-profile digest present in both the platform-specific externally locked golden fixture and `pairwise-release-profile.ts`; dataset, matrix, candidate, and code replay verifiers neither observe nor accept a Task 5 numeric-runtime input. The admitted profiles are (1) Node `24.20.0`, V8 `13.6.233.17-node.53`, ICU `78.3`, Unicode `17.0`, `darwin`, `arm64`, `LE`; and (2) the same Node/V8/ICU/Unicode tuple on `linux`, `x64`, `LE`. The superseded Node `24.14.0` profile is not admitted. `admitPairwiseRuntime` compares every field with `process.versions`, `process.platform`, `process.arch`, and `os.endianness()` before returning its opaque token. The workspace's broader `>=24.14.0 <25` engine range remains valid for non-ranker packages only; it does not admit a Task 5 training run.
 
 A new operating-system, architecture, V8, ICU, Unicode, Node patch, or endianness tuple is unsupported until a new runtime-profile artifact passes the complete golden in independent fresh processes and is added through a reviewed fixture version. Runtime mismatch fails; it never silently downgrades to a baseline or another profile.
 
@@ -985,7 +985,7 @@ All Task 5 public functions except `admitPairwiseRuntime` are synchronous and re
 
 ## 11. TDD and verification contract
 
-Task 5 uses Node `24.14.0` exactly. The minimum executable evidence is:
+Task 5 uses Node `24.20.0` exactly on each separately admitted platform tuple. The minimum executable evidence is:
 
 1. schema tests remove only `coefficient_bits.uniqueItems`, accept multiple identical positive-zero coefficient strings by position, retain the exact 16-hex pattern and array-length checks, and continue rejecting duplicate feature names/order;
 2. numeric tests cover big-endian known values, positive-zero canonicalization, negative-zero rejection, smallest subnormal preservation, malformed/non-finite bit rejection, both sigmoid/softplus branches, classic Kahan order sensitivity, and every intermediate finiteness check;
@@ -1014,4 +1014,4 @@ Task 5 is implementation-ready only when:
 8. invalid and nonconverged artifacts cannot rank or change state under the same model ID;
 9. browser and competitor material remains blocking-only and absent from admitted labels, vectors, fitting, scores, and ties;
 10. the runtime functions remain pure and offline, while bounded local manifest/lock gates are read-only; and
-11. the independently fixed external-lock golden and all retained repository gates pass under the one admitted runtime profile.
+11. the independently fixed platform-specific external-lock goldens and all retained repository gates pass under every admitted runtime profile.

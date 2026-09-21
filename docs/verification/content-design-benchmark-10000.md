@@ -1,8 +1,8 @@
 # Content-design benchmark 10,000-scenario verification
 
-Date: 2026-09-14  
+Date: 2026-09-14; reproduced 2026-09-21
 Status: passed  
-Runtime: Node 24
+Runtime: Node 24; current replay Node 24.20.0
 
 ## Claim tested
 
@@ -102,3 +102,7 @@ replay bound to the reviewer, `qualified_content_designer` role,
 string plus self-attestation is rejected. The replay verifies internal policy,
 grant, approval, scope, currency, and revocation consistency; external principal
 and issuer authentication remains the adopting project's responsibility.
+
+The current interpretation and the separate 200-case and authored-challenge
+denominators are recorded in the
+[content-design effectiveness baseline](content-design-effectiveness-baseline-0.1.md).

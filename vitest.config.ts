@@ -6,6 +6,6 @@ export default defineConfig({
     testTimeout: 15_000,
     maxWorkers: 1,
     maxConcurrency: 1,
-    execArgv: ["--max-old-space-size=5120"],
+    execArgv: ["--max-old-space-size=6144"],
   },
 });

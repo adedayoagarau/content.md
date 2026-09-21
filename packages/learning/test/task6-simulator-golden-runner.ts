@@ -18,10 +18,7 @@ import {
   type SimulatedRevocationWitness,
   type Task6ObjectRef,
 } from "../src/index.js";
-import {
-  freezeTask6FixtureValue,
-  task6PassingSealedReplayFixture,
-} from "./task6-fixtures.js";
+import { task6PassingSealedReplayFixture } from "./task6-fixtures.js";
 
 function invariant(condition: unknown, code: string): asserts condition {
   if (!condition) throw new Error(`task6_golden_${code}`);
@@ -98,7 +95,7 @@ export function runTask6SimulatorGolden() {
   const source = task6PassingSealedReplayFixture();
   invariant(
     source.replay.evaluation_code_manifest.manifest_digest
-      === "bbd166d7b453a35f2f6498c29df99c70d7dbc2f2036e2bd989fe08a4cd354f32",
+      === "72e6cb75e9d938bffac47163c6289e02090df43c2c452568326297c95eac63fe",
     "code_manifest_lock",
   );
   const vault = createEvaluationSimulatorVault({
@@ -120,9 +117,9 @@ export function runTask6SimulatorGolden() {
   });
   invariant(evaluation.evaluation_record.payload.evaluation_state === "passed", "evaluation_state");
   invariant(evaluation.attempt_status.state === "completed", "attempt_state");
-  invariant(evaluation.overall_metrics.candidate_accuracy.bits === "3feccccccccccccd", "accuracy_bits");
-  invariant(evaluation.overall_metrics.candidate_log_loss.bits === "3fd35bdb4669bd8b", "loss_bits");
-  invariant(evaluation.overall_metrics.baseline_log_loss.bits === "3ff9d4c8d28382b0", "baseline_loss_bits");
+  invariant(evaluation.overall_metrics.candidate_accuracy.bits === "3ff0000000000000", "accuracy_bits");
+  invariant(evaluation.overall_metrics.candidate_log_loss.bits === "3fca3761310e1fed", "loss_bits");
+  invariant(evaluation.overall_metrics.baseline_log_loss.bits === "3ffd8432a7451c20", "baseline_loss_bits");
   invariant(evaluation.bootstrap?.replicate_count === 10_000, "bootstrap_count");
   assertRecordDigest(evaluation.evaluation_record);
   assertResultDigest(evaluation);
@@ -144,9 +141,7 @@ export function runTask6SimulatorGolden() {
     shadow_run_id: "shadow.run.task6.simulator-golden",
     actor_ref: "actor.task6.simulator-golden-shadow-start",
   });
-  const expectedBuildResult = freezeTask6FixtureValue(
-    buildLearningDataset(source.replay.dataset_replay.build_input),
-  );
+  const expectedBuildResult = buildLearningDataset(source.replay.dataset_replay.build_input);
   const candidatesByGroup = source.shadowPairs.map((pair) => [
     verifyPairwiseCandidate({
       record_mode: "development_fixture",

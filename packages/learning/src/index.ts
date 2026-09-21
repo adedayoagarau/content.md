@@ -94,7 +94,6 @@ export {
   verifyPairwiseCandidate,
   verifyPairwiseCodeManifest,
   verifyPairwiseFeatureMatrix,
-  verifyPairwiseTrainingResult,
   verifyRankingModel,
 } from "./pairwise-logistic.js";
 export type {

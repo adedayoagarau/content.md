@@ -4,7 +4,8 @@ Status: `structurally_verified_exploratory_model_audit`; not qualified human
 gold and not evidence of `content.md` effectiveness.
 
 On 2026-09-15, the returned Claude and Cursor audit folders were validated
-against the current generated scenario matrix under Node `24.14.0`. The raw
+against the generated scenario matrix. The same packet and submission digests
+were reproduced again on 2026-09-21 under Node `24.20.0`. The raw
 model outputs remain outside the repository as separately retained evaluation
 evidence. They are not retrieval, ranking, training, or release inputs.
 
@@ -161,3 +162,6 @@ used to tune the evaluator. The next defensible sequence is:
 
 Fine-tuning remains unjustified until approved retrieval and deterministic
 improvements fail a predeclared target on qualified held-out evidence.
+
+The consolidated current-state interpretation is recorded in the
+[content-design effectiveness baseline](content-design-effectiveness-baseline-0.1.md).

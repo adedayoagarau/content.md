@@ -1,5 +1,4 @@
 import { readFileSync } from "node:fs";
-import { endianness } from "node:os";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import {
   admitPairwiseRuntime,
@@ -16,6 +15,10 @@ import {
   task5SealedTestCandidateFixture,
   task5ValidationCandidateFixture,
 } from "./task5-fixtures.js";
+import {
+  pairwiseRuntimeProfileInput,
+  task6RuntimeProfileInput,
+} from "./release-runtime-fixture.js";
 
 const OPENED_AT = "2026-08-20T20:00:00.000Z";
 
@@ -58,17 +61,7 @@ function task5CodeManifest() {
 }
 
 function task5Runtime() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: process.versions.v8,
-    icu_version: process.versions.icu!,
-    unicode_version: process.versions.unicode!,
-    platform: process.platform,
-    architecture: process.arch,
-    endianness: endianness(),
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 function task6CodeManifest() {
@@ -77,20 +70,6 @@ function task6CodeManifest() {
     import.meta.url,
   ), "utf8"));
   return { ...preimage, manifest_digest: sha256Canonical(preimage) };
-}
-
-function task6RuntimeProfile() {
-  const identity = {
-    contract_version: "contentmd.task6-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: process.versions.v8,
-    icu_version: process.versions.icu!,
-    unicode_version: process.versions.unicode!,
-    platform: process.platform,
-    architecture: process.arch,
-    endianness: endianness(),
-  };
-  return { ...identity, profile_digest: sha256Canonical(identity) };
 }
 
 function slice(
@@ -147,36 +126,6 @@ function compareCanonical(left: unknown, right: unknown): number {
     Buffer.from(canonicalJson(left), "utf8"),
     Buffer.from(canonicalJson(right), "utf8"),
   );
-}
-
-function cloneFixtureTree<T>(value: T): T {
-  if (Array.isArray(value)) {
-    return value.map((entry) => cloneFixtureTree(entry)) as T;
-  }
-  if (value !== null && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value).map(([key, entry]) => [
-      key,
-      cloneFixtureTree(entry),
-    ])) as T;
-  }
-  return value;
-}
-
-function freezeFixtureGraph(value: unknown, seen = new Set<object>()): void {
-  if (value === null || typeof value !== "object" || seen.has(value)) return;
-  seen.add(value);
-  for (const key of Reflect.ownKeys(value)) {
-    const descriptor = Object.getOwnPropertyDescriptor(value, key);
-    if (descriptor !== undefined && "value" in descriptor) {
-      freezeFixtureGraph(descriptor.value, seen);
-    }
-  }
-  Object.freeze(value);
-}
-
-export function freezeTask6FixtureValue<T>(value: T): T {
-  freezeFixtureGraph(value);
-  return value;
 }
 
 type Task6FixtureMode = "baseline_aligned" | "baseline_opposed";
@@ -441,11 +390,10 @@ function createTask6SealedReplayFixture(mode: Task6FixtureMode) {
     authority_effect: "none" as const,
   };
   const currentnessDigest = sha256Canonical(currentnessIdentity);
-  const fixture = {
+  return {
     openedAt: OPENED_AT,
-    driftPairs: cloneFixtureTree(drift_pairs),
-    shadowPairs: cloneFixtureTree(shadow_pairs),
-    training: trained,
+    driftPairs: JSON.parse(canonicalJson(drift_pairs)) as typeof drift_pairs,
+    shadowPairs: JSON.parse(canonicalJson(shadow_pairs)) as typeof shadow_pairs,
     replay: {
       contract_version: "contentmd.sealed-test-replay/0.1.0" as const,
       dataset_replay: sealed.datasetReplay,
@@ -472,11 +420,9 @@ function createTask6SealedReplayFixture(mode: Task6FixtureMode) {
         replay_digest,
       },
       evaluation_code_manifest: task6CodeManifest(),
-      evaluation_runtime_profile: task6RuntimeProfile(),
+      evaluation_runtime_profile: task6RuntimeProfileInput(),
     },
   };
-  freezeFixtureGraph(fixture);
-  return fixture;
 }
 
 export function task6SealedReplayFixture() {

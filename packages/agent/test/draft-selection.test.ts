@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { endianness, tmpdir } from "node:os";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { canonicalJson, encodeCanonicalDag, sha256Canonical } from "@contentmd/core";
 import {
@@ -19,6 +19,8 @@ import {
 import type { ContentDraftProposal } from "@contentmd/writer";
 import { describe, expect, it } from "vitest";
 import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
+import { pairwiseRuntimeProfileInput } from "../../learning/test/release-runtime-fixture.js";
+import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import { selectGovernedDraftAlternative } from "../src/draft-selection.js";
 import * as localRuntime from "../src/local-runtime.js";
 
@@ -34,17 +36,7 @@ function codeManifest() {
 }
 
 function runtimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: process.versions.v8,
-    icu_version: process.versions.icu!,
-    unicode_version: process.versions.unicode!,
-    platform: process.platform,
-    architecture: process.arch,
-    endianness: endianness(),
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 function createRankingFixture() {
@@ -172,7 +164,10 @@ function candidateProjection(
 }
 
 function localTrainingArtifactFixture() {
-  const { request, training } = rankingFixture();
+  const source = task6PassingSealedReplayFixture();
+  const request = source.replay.model_dependencies.training_request;
+  const training = trainPairwiseLogistic(request);
+  if (training.state !== "trained") throw new Error(`unexpected_training_state:${training.state}`);
   const trainingReplay = {
     contract_version: "contentmd.local-pairwise-training-replay/0.1.0" as const,
     record_mode: request.record_mode,

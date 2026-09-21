@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { endianness } from "node:os";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { SCHEMA_IDS, validateRecord } from "@contentmd/schemas";
 import { buildLearningDataset } from "../src/dataset.js";
@@ -13,7 +12,6 @@ import {
   verifyLearningDatasetForTraining,
   verifyPairwiseCandidate,
   verifyPairwiseFeatureMatrix,
-  verifyPairwiseTrainingResult,
   verifyRankingModel,
 } from "../src/pairwise-logistic.js";
 import {
@@ -26,6 +24,7 @@ import { task4Fixture } from "./task4-fixtures.js";
 import { predictPairwise, rankEligibleExpressions } from "../src/rank.js";
 import * as learningPackage from "../src/index.js";
 import { independentPairwiseFit, oracleBinary64 } from "./pairwise-oracle.js";
+import { pairwiseRuntimeProfileInput } from "./release-runtime-fixture.js";
 
 function rehashLeakageEvidence<T extends {
   contract_version: string;
@@ -66,17 +65,7 @@ function admittedCodeManifest() {
 }
 
 function admittedRuntimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: process.versions.v8,
-    icu_version: process.versions.icu!,
-    unicode_version: process.versions.unicode!,
-    platform: process.platform,
-    architecture: process.arch,
-    endianness: endianness(),
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 describe("Task 5 code and runtime admission", () => {
@@ -90,7 +79,6 @@ describe("Task 5 code and runtime admission", () => {
       verifyPairwiseCandidate: expect.any(Function),
       verifyPairwiseCodeManifest: expect.any(Function),
       verifyPairwiseFeatureMatrix: expect.any(Function),
-      verifyPairwiseTrainingResult: expect.any(Function),
       verifyRankingModel: expect.any(Function),
     });
   });
@@ -156,7 +144,7 @@ describe("Task 5 code and runtime admission", () => {
   it("rejects an unadmitted but self-consistent numeric runtime profile", () => {
     const identity = {
       contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-      node_version: "24.14.0" as const,
+      node_version: "24.20.0" as const,
       v8_version: "unadmitted-v8",
       icu_version: "78.2",
       unicode_version: "17.0",
@@ -440,7 +428,7 @@ describe("Task 5 replay handoff", () => {
       result.statistics_record,
     )).toEqual({ valid: true, errors: [] });
 
-    const verifiedModel = verifyPairwiseTrainingResult(result, {
+    const verifiedModel = verifyRankingModel(result.model_record, {
       training_request: {
         contract_version: "contentmd.pairwise-training-request/0.1.0",
         record_mode: "development_fixture",

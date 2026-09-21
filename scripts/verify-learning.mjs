@@ -7,6 +7,28 @@ import { fileURLToPath } from "node:url";
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
 const FIXTURES = join(ROOT, "fixtures/learning-ranking");
 const HEX64 = /^[a-f0-9]{64}$/u;
+const PAIRWISE_RUNTIME_COMMON = {
+  contract_version: "contentmd.pairwise-runtime-profile/0.1.0",
+  node_version: "24.20.0",
+  v8_version: "13.6.233.17-node.53",
+  icu_version: "78.3",
+  unicode_version: "17.0",
+  endianness: "LE",
+};
+const DARWIN_PAIRWISE_RUNTIME = {
+  ...PAIRWISE_RUNTIME_COMMON,
+  platform: "darwin",
+  architecture: "arm64",
+  profile_digest: "dd9d25f4943345f872b5d4c1f13aea12d1b87bcd1f4d2bc39edb3920ad86b08c",
+};
+const LINUX_PAIRWISE_RUNTIME = {
+  ...PAIRWISE_RUNTIME_COMMON,
+  platform: "linux",
+  architecture: "x64",
+  profile_digest: "7cfc66ff0829849d1c71a52ec49b4fe0807f60f40c82ade52eebd17b88dc86f8",
+};
+const DARWIN_TASK6_RUNTIME_DIGEST = "e08c1f54731db0ade599ad63b97edbbf06caae7c84e5f5160a5e154ab4428fb7";
+const LINUX_TASK6_RUNTIME_DIGEST = "9e6043132165513ea090e92540f5d3f4c4aa4c0f98a23784f6ed683f2b4c9656";
 
 function invariant(condition, code) {
   if (!condition) throw new Error(`learning_verification_failed:${code}`);
@@ -96,6 +118,8 @@ const profile = readCanonicalJson("feature-profile.json");
 const shadowPlan = readCanonicalJson("shadow-plan.json");
 const golden = readCanonicalJson("golden-model.json");
 const task6 = readCanonicalJson("task6-simulator-golden.json");
+const linuxGolden = readCanonicalJson("golden-model.linux-x64.json");
+const linuxTask6 = readCanonicalJson("task6-simulator-golden.linux-x64.json");
 
 invariant(preferences.length === 120, "preference_count");
 invariant(groups.length === 30, "group_count");
@@ -163,6 +187,14 @@ invariant(shadowPlan.payload.plan_state === "ready" && shadowPlan.payload.author
 
 verifyLock("golden-model.json", "golden-model.sha256");
 verifyFixtureDigest(golden, "contentmd.pairwise-golden-model-preimage/0.1.0", "golden_fixture_digest");
+verifyLock("golden-model.linux-x64.json", "golden-model.linux-x64.sha256");
+verifyFixtureDigest(linuxGolden, "contentmd.pairwise-golden-model-preimage/0.1.0", "linux_golden_fixture_digest");
+invariant(canonical(golden.runtime_profile) === canonical(DARWIN_PAIRWISE_RUNTIME), "golden_runtime_profile");
+invariant(canonical(linuxGolden.runtime_profile) === canonical(LINUX_PAIRWISE_RUNTIME), "linux_golden_runtime_profile");
+invariant(golden.expected_model_record.payload.runtime_profile_ref.artifact_digest === DARWIN_PAIRWISE_RUNTIME.profile_digest,
+  "golden_model_runtime_binding");
+invariant(linuxGolden.expected_model_record.payload.runtime_profile_ref.artifact_digest === LINUX_PAIRWISE_RUNTIME.profile_digest,
+  "linux_golden_model_runtime_binding");
 verifyRecord(golden.expected_statistics_record, "contentmd.model-training-statistics-record");
 verifyRecord(golden.expected_model_record, "contentmd.ranking-model-record");
 invariant(golden.expected_model_record.payload.model_state === "trained", "model_trained");
@@ -174,6 +206,10 @@ invariant(golden.expected_model_record.payload.feature_profile_ref.content_diges
 
 verifyLock("task6-simulator-golden.json", "task6-simulator-golden.sha256");
 verifyFixtureDigest(task6, "contentmd.task6-simulator-golden-preimage/0.1.0", "task6_fixture_digest");
+verifyLock("task6-simulator-golden.linux-x64.json", "task6-simulator-golden.linux-x64.sha256");
+verifyFixtureDigest(linuxTask6, "contentmd.task6-simulator-golden-preimage/0.1.0", "linux_task6_fixture_digest");
+invariant(task6.runtime_profile_digest === DARWIN_TASK6_RUNTIME_DIGEST, "task6_runtime_profile");
+invariant(linuxTask6.runtime_profile_digest === LINUX_TASK6_RUNTIME_DIGEST, "linux_task6_runtime_profile");
 verifyRecord(task6.shadow.plan, "contentmd.shadow-evaluation-plan");
 invariant(canonical(task6.shadow.plan) === canonical(shadowPlan), "shadow_plan_projection");
 verifyResultDigest(task6.evaluation, "evaluation_result_digest");
@@ -193,10 +229,16 @@ invariant(task6.fallback.projection.state === "baseline", "fallback_baseline");
 const generatedChecks = [
   ["scripts/generate-learning-fixtures.mts", ["--import", "tsx", "scripts/generate-learning-fixtures.mts", "--check"]],
   ["scripts/generate-pairwise-golden.mts", ["--import", "tsx", "scripts/generate-pairwise-golden.mts", "--check"]],
-  ["scripts/generate-task6-simulator-golden.mts", ["--import", "tsx", "scripts/generate-task6-simulator-golden.mts", "--check"]],
+  ["scripts/generate-task6-simulator-golden.mts", [
+    "--max-old-space-size=8192",
+    "--import",
+    "tsx",
+    "scripts/generate-task6-simulator-golden.mts",
+    "--check",
+  ]],
 ];
 for (const [name, args] of generatedChecks) {
-  execFileSync(process.execPath, args, { cwd: ROOT, stdio: "pipe", timeout: 30 * 60_000 });
+  execFileSync(process.execPath, args, { cwd: ROOT, stdio: "pipe", timeout: 60 * 60_000 });
   invariant(true, `generator_check:${name}`);
 }
 

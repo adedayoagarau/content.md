@@ -27,6 +27,7 @@ import { registerTask } from "./commands/task.js";
 import { registerVerify } from "./commands/verify.js";
 import { registerUninstall } from "./commands/uninstall.js";
 import { registerUndo } from "./commands/undo.js";
+import { registerUsecase } from "./commands/usecase.js";
 import { createCommandResult, emitCommandResult } from "./output.js";
 
 export function buildProgram(): Command {
@@ -47,6 +48,7 @@ export function buildProgram(): Command {
   registerModel(program);
   registerResearch(program);
   registerReview(program);
+  registerUsecase(program);
   registerRuntime(program);
   registerTask(program);
   registerServe(program);

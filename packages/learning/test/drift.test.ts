@@ -28,10 +28,7 @@ import {
   task6InternalIssueDriftWindowStatus,
   task6InternalSelectDriftWindow,
 } from "../src/drift.js";
-import {
-  freezeTask6FixtureValue,
-  task6PassingSealedReplayFixture,
-} from "./task6-fixtures.js";
+import { task6PassingSealedReplayFixture } from "./task6-fixtures.js";
 
 function auxiliaryRef(prefix: string, schemaId: string, value: unknown): Task6ObjectRef {
   const digest = sha256Canonical(value);
@@ -347,9 +344,7 @@ describe("Task 6 drift governance boundary", () => {
       shadow_run_id: "shadow.run.task6.drift-first-window",
       actor_ref: "actor.task6.drift-shadow-start",
     });
-    const expectedBuildResult = freezeTask6FixtureValue(
-      buildLearningDataset(source.replay.dataset_replay.build_input),
-    );
+    const expectedBuildResult = buildLearningDataset(source.replay.dataset_replay.build_input);
     const candidatesByGroup = source.shadowPairs.map((pair) => [
       verifyPairwiseCandidate({
         record_mode: "development_fixture",
@@ -723,5 +718,5 @@ describe("Task 6 drift governance boundary", () => {
       fallback.projection,
     );
     expect(simulateRollback(rollbackInput)).toEqual(fallback);
-  }, 1_800_000);
+  }, 1_100_000);
 });

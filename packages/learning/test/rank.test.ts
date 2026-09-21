@@ -1,5 +1,4 @@
 import { readFileSync } from "node:fs";
-import { endianness } from "node:os";
 import { describe, expect, it } from "vitest";
 import { sha256Canonical } from "@contentmd/core";
 import {
@@ -14,6 +13,7 @@ import {
   verifyRankingModel,
 } from "../src/index.js";
 import { task5FeatureMatrixFixture } from "./task5-fixtures.js";
+import { pairwiseRuntimeProfileInput } from "./release-runtime-fixture.js";
 
 function codeManifest() {
   const preimage = JSON.parse(readFileSync(new URL(
@@ -27,17 +27,7 @@ function codeManifest() {
 }
 
 function runtimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: process.versions.v8,
-    icu_version: process.versions.icu!,
-    unicode_version: process.versions.unicode!,
-    platform: process.platform,
-    architecture: process.arch,
-    endianness: endianness(),
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 function verifiedRankingFixture() {

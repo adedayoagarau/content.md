@@ -53,11 +53,12 @@ import {
   type Task6ObjectRef,
   type VerifyPairwiseCandidateInput,
   type VerifiedRankingModel,
+  trainPairwiseLogistic,
   verifyLearningDatasetForTraining,
   verifyPairwiseCodeManifest,
   verifyPairwiseFeatureMatrix,
   verifyPairwiseCandidate,
-  verifyPairwiseTrainingResult,
+  verifyRankingModel,
   verifySealedTestReplay,
 } from "@contentmd/learning";
 import { RecordedModelProvider } from "@contentmd/model-provider-sdk";
@@ -1042,9 +1043,14 @@ export async function loadLocalVerifiedTrainingModel(
 ): Promise<LocalVerifiedTrainingModel> {
   const { artifact, dag } = await readLocalLearningTrainingArtifact(root);
   const request = verifiedTrainingRequest(artifact.training_replay);
+  const replayed = trainPairwiseLogistic(request);
+  if (replayed.state !== "trained" || artifact.training.state !== "trained"
+    || canonicalJson(replayed) !== canonicalJson(artifact.training)) {
+    trainingArtifactFailure("training_replay");
+  }
   let model: VerifiedRankingModel;
   try {
-    model = verifyPairwiseTrainingResult(artifact.training, { training_request: request });
+    model = verifyRankingModel(artifact.training.model_record, { training_request: request });
   } catch {
     trainingArtifactFailure("model_verification");
   }

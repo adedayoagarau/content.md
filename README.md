@@ -29,6 +29,7 @@ grant approval, publication, policy, or release authority.
 
 The supported open-source surface is the `contentmd` CLI and local workbench.
 Read the [content-design standard](https://github.com/adedayoagarau/content.md/blob/main/docs/content-design-standard.md),
+[content-design effectiveness baseline](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/content-design-effectiveness-baseline-0.1.md),
 [public interface contract](https://github.com/adedayoagarau/content.md/blob/main/docs/public-api.md),
 [contribution guide](https://github.com/adedayoagarau/content.md/blob/main/CONTRIBUTING.md),
 [security policy](https://github.com/adedayoagarau/content.md/blob/main/SECURITY.md),
@@ -218,6 +219,23 @@ review or evaluator change, and obtain independent qualified human judgments.
 These repository fixtures are not part of the published CLI contract or npm
 tarball.
 
+Structured English UX-writing use cases can also be classified without adopting
+a project or writing runtime state. The benchmark evaluator reports provisional
+and qualified evidence separately and exits with governance code `20` while its
+human adjudication packet is incomplete:
+
+```bash
+contentmd usecase classify --input /absolute/path/to/usecase-request.json --json
+contentmd usecase evaluate \
+  --benchmark fixtures/ux-writing-usecases/benchmark-v0.1.jsonl \
+  --adjudications fixtures/ux-writing-usecases/adjudication-v0.1.jsonl \
+  --json
+```
+
+The bundled 200-case corpus is English-only, authored synthetic, authority-free,
+and pending qualified UX-content review. It is a deterministic regression bank,
+not human gold or production approval.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command
@@ -344,7 +362,7 @@ The verified portable local runtime exposes 12 focused interfaces for authorized
 
 ## Run the local foundation
 
-Requirements for repository development: Node.js `24.14.0` and `pnpm@11.9.0`.
+Requirements for repository development: Node.js `24.20.0` and `pnpm@11.9.0`.
 The published CLI supports the broader Node.js `>=24.14.0 <25` range. Exact-runtime
 learning fixtures are replayed under that same pinned profile and are never silently
 regenerated under another runtime.

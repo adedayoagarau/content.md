@@ -15,7 +15,7 @@ pnpm install --frozen-lockfile
 pnpm verify:toolchain
 ```
 
-The repository development runtime is Node 24.14.0. The published CLI supports
+The repository development runtime is Node 24.20.0. The published CLI supports
 Node `>=24.14.0 <25`; exact-runtime historical fixtures must not be silently
 regenerated under a different runtime.
 

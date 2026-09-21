@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const expectedNode = "24.14.0";
+const expectedNode = "24.20.0";
 const expectedPnpm = "11.9.0";
 const userAgent = process.env.npm_config_user_agent ?? "";
 const pnpmMatch = /(?:^|\s)pnpm\/([^\s]+)/u.exec(userAgent);

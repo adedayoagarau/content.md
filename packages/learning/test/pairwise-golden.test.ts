@@ -4,36 +4,34 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { describe, expect, it } from "vitest";
-import { currentGoldenRuntimeProfileDigest } from "./golden-runtime.js";
+import { currentReleaseRuntimeTarget } from "./release-runtime-fixture.js";
 
 const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
+const { fixture_suffix: fixtureSuffix } = currentReleaseRuntimeTarget();
+const GOLDEN_NAME = `golden-model${fixtureSuffix}.json`;
+const LOCK_NAME = `golden-model${fixtureSuffix}.sha256`;
 const GOLDEN_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/golden-model.json",
+  `../../../fixtures/learning-ranking/${GOLDEN_NAME}`,
   import.meta.url,
 ));
 const LOCK_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/golden-model.sha256",
+  `../../../fixtures/learning-ranking/${LOCK_NAME}`,
   import.meta.url,
 ));
 const RUNNER_PATH = fileURLToPath(new URL("./pairwise-golden-runner.ts", import.meta.url));
 
-const raw = readFileSync(GOLDEN_PATH, "utf8");
-const parsed = JSON.parse(raw) as Record<string, unknown> & {
-  fixture_semantic_digest: string;
-  prediction_cases: Array<{ case_id: string }>;
-  replay_commitment: { training_row_digests: string[] };
-  runtime_profile: { profile_digest: string };
-};
-const runtimeMatches = parsed.runtime_profile.profile_digest === currentGoldenRuntimeProfileDigest(
-  "contentmd.pairwise-runtime-profile/0.1.0",
-);
-
 describe("Task 5 externally locked golden", () => {
-  it("verifies the compact replay commitment and external byte lock", () => {
+  it("reproduces the compact replay commitment and outputs in two fresh processes", () => {
+    const raw = readFileSync(GOLDEN_PATH, "utf8");
     const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");
     expect(readFileSync(LOCK_PATH, "utf8")).toBe(
-      `${rawDigest}  fixtures/learning-ranking/golden-model.json\n`,
+      `${rawDigest}  fixtures/learning-ranking/${GOLDEN_NAME}\n`,
     );
+    const parsed = JSON.parse(raw) as Record<string, unknown> & {
+      fixture_semantic_digest: string;
+      prediction_cases: Array<{ case_id: string }>;
+      replay_commitment: { training_row_digests: string[] };
+    };
     const { fixture_semantic_digest: semanticDigest, ...fixture } = parsed;
     expect(raw).toBe(canonicalJson(parsed));
     expect(semanticDigest).toBe(sha256Canonical({
@@ -47,9 +45,7 @@ describe("Task 5 externally locked golden", () => {
       "greatest_absolute_score_delta",
     ]);
     expect(parsed.replay_commitment.training_row_digests).toHaveLength(80);
-  });
 
-  it.skipIf(!runtimeMatches)("reproduces outputs in two fresh matching-runtime processes", () => {
     const runFresh = () => execFileSync(process.execPath, [
       "--max-old-space-size=4096",
       "--import",

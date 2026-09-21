@@ -312,7 +312,7 @@ interface Task6ReleaseProfile {
 
 interface Task6RuntimeProfile {
   contract_version: "contentmd.task6-runtime-profile/0.1.0";
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -330,7 +330,7 @@ interface VerifiedTask6CodeManifest {
 }
 
 interface ObservedTask6RuntimeTuple {
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -1375,7 +1375,7 @@ Here `manifest` is the complete public `Task6CodeManifest`, including its alread
 
 The Task 6 code-manifest object ref is `{record_id: "task6_code_manifest." + first32(manifest_digest), schema_id: "contentmd.task6-code-manifest", schema_version: "0.1.0", content_digest: manifest_digest}`. This exact projection is used anywhere a Task 1 record needs code-manifest provenance.
 
-Task 6 runtime admission is identical in representation to Task 5. The admitted tuples use Node `24.14.0`, V8 `13.6.233.17-node.41`, ICU `78.2`, Unicode `17.0`, and little-endian execution on either `darwin` / `arm64` or `linux` / `x64`. The profile digest excludes itself and is `sha256Canonical({contract_version, node_version, v8_version, icu_version, unicode_version, platform, architecture, endianness})`. The artifact ref is `{artifact_id: "contentmd.task6-runtime-profile", artifact_version: "0.1.0", artifact_digest: profile_digest}`. `admitTask6Runtime()` alone observes the process tuple. `observed_runtime` contains exactly the seven tuple fields in `ObservedTask6RuntimeTuple`, copied after exact equality with the profile. The exact profile digest must occur exactly once in the release profile's admitted list, so admission does not generalize beyond the two named tuples. The returned verification identity is:
+Task 6 runtime admission is identical in representation and admitted tuple set to Task 5: Node `24.20.0`, V8 `13.6.233.17-node.53`, ICU `78.3`, Unicode `17.0`, with one `darwin`/`arm64`/`LE` profile and one `linux`/`x64`/`LE` profile. The superseded Node `24.14.0` profile is not admitted. The profile digest excludes itself and is `sha256Canonical({contract_version, node_version, v8_version, icu_version, unicode_version, platform, architecture, endianness})`. The artifact ref is `{artifact_id: "contentmd.task6-runtime-profile", artifact_version: "0.1.0", artifact_digest: profile_digest}`. `admitTask6Runtime()` alone observes the process tuple. `observed_runtime` contains exactly the seven tuple fields in `ObservedTask6RuntimeTuple`, copied after exact equality with the profile. The profile digest must occur exactly once in the release profile's admitted list. The returned verification identity is:
 
 ```text
 verification_digest = sha256Canonical({
@@ -1977,7 +1977,7 @@ Synchronous execution serializes calls only inside one JavaScript process and on
 
 ## 19. TDD and verification contract
 
-Implementation uses Node `24.14.0` exactly and test-first order. Minimum executable evidence is:
+Implementation uses Node `24.20.0` exactly on each separately admitted platform tuple and test-first order. Minimum executable evidence is:
 
 1. package-export parity proves every section 5 value/type is exported through `packages/learning/src/index.ts` and no private helper is exported;
 2. top-level official calls short-circuit before nested proxy/accessor traps for every mode-bearing function;
@@ -2023,4 +2023,4 @@ Task 6 is implementation-ready only when:
 6. simulated binding, drift suspension, revocation, rollback, and fallback use append-only two-phase CAS/readback without rewriting history;
 7. crash, append, readback, concurrency, currentness, and rollback failures remain fail-closed and inspectable;
 8. every official call stops before nested reads and no Task 1 authority-bearing lifecycle state is emitted; and
-9. the focused tests, external manifest/lock checks, full suite, typecheck, package boundaries, foundation verifier, and clean diff pass under the one admitted runtime.
+9. the focused tests, external manifest/lock checks, full suite, typecheck, package boundaries, foundation verifier, and clean diff pass under every admitted runtime profile.

@@ -519,9 +519,8 @@ function trainingSummary(result: PairwiseTrainingResult): AuditSummary {
 export async function runLearningTrainingPhase(
   input: RunLearningTrainingPhaseInput,
 ): Promise<LearningWorkflowPhaseResult<PairwiseTrainingResult>> {
-  const auditPreparation = await prepareAuditAppend(input.authority, "train");
   const result = trainPairwiseLogistic(input.request);
-  return appendAudit(input.authority, "train", result, trainingSummary(result), auditPreparation);
+  return appendAudit(input.authority, "train", result, trainingSummary(result));
 }
 
 export async function runLearningEvaluationPhase(
