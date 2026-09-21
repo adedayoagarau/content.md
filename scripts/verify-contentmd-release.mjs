@@ -105,7 +105,8 @@ if (!/^permissions:\r?\n  contents: read\s*$/mu.test(verificationWorkflow)
   || /^\s+[a-z-]+:\s*write\s*$/mu.test(verificationWorkflow)) fail("verification_workflow_permissions");
 
 const expectedTag = `v${manifest.version}`;
-const suppliedTag = process.env.CONTENTMD_RELEASE_TAG ?? process.env.GITHUB_REF_NAME;
+// The publication workflow opts into tag validation; generic GitHub refs also name branches and PR merges.
+const suppliedTag = process.env.CONTENTMD_RELEASE_TAG;
 if (suppliedTag !== undefined && suppliedTag !== expectedTag) fail(`tag_expected_${expectedTag}_received_${suppliedTag}`);
 const headCommit = run("git", ["rev-parse", "HEAD"]).trim();
 let releaseTagCommit = null;
