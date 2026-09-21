@@ -1,6 +1,5 @@
 import { sha256Canonical } from "@contentmd/core";
 import { readFileSync } from "node:fs";
-import { endianness } from "node:os";
 import { describe, expect, it } from "vitest";
 import {
   admitTask6Runtime,
@@ -15,6 +14,7 @@ import {
 import {
   task6SealedReplayFixture,
 } from "./task6-fixtures.js";
+import { task6RuntimeProfileInput } from "./release-runtime-fixture.js";
 
 describe("Task 6 evaluation simulator boundary", () => {
   it("verifies the exact release-owned Task 6 code manifest", () => {
@@ -40,20 +40,8 @@ describe("Task 6 evaluation simulator boundary", () => {
   });
 
   it("admits only the exact release-owned Task 6 runtime tuple", () => {
-    const identity = {
-      contract_version: "contentmd.task6-runtime-profile/0.1.0" as const,
-      node_version: "24.14.0" as const,
-      v8_version: process.versions.v8,
-      icu_version: process.versions.icu,
-      unicode_version: process.versions.unicode,
-      platform: process.platform,
-      architecture: process.arch,
-      endianness: endianness(),
-    };
-    const verified = admitTask6Runtime({
-      ...identity,
-      profile_digest: sha256Canonical(identity),
-    });
+    const identity = task6RuntimeProfileInput();
+    const verified = admitTask6Runtime(identity);
     expect(verified.observed_runtime).toEqual({
       node_version: identity.node_version,
       v8_version: identity.v8_version,

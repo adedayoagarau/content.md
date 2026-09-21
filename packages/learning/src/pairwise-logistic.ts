@@ -191,7 +191,7 @@ export interface PairwiseCodeManifest {
 
 export interface PairwiseRuntimeProfile {
   contract_version: "contentmd.pairwise-runtime-profile/0.1.0";
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -490,7 +490,7 @@ export function admitPairwiseRuntime(
       if (typeof field !== "string" || field.length === 0) fail("ranking_input_shape_invalid");
     }
     if (profile.contract_version !== "contentmd.pairwise-runtime-profile/0.1.0"
-      || profile.node_version !== "24.14.0"
+      || profile.node_version !== "24.20.0"
       || (profile.endianness !== "LE" && profile.endianness !== "BE")) {
       fail("ranking_runtime_profile_unsupported");
     }

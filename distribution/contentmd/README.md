@@ -58,6 +58,23 @@ npx contentmd scan --improve 1        # see its missing facts and acceptance cri
 npx contentmd serve                   # open the local interactive proofing desk
 ```
 
+Structured English UX-writing use cases can also be classified without adopting
+a project or writing runtime state. The benchmark evaluator reports provisional
+and qualified evidence separately and exits with governance code `20` while its
+human adjudication packet is incomplete:
+
+```bash
+contentmd usecase classify --input /absolute/path/to/usecase-request.json --json
+contentmd usecase evaluate \
+  --benchmark fixtures/ux-writing-usecases/benchmark-v0.1.jsonl \
+  --adjudications fixtures/ux-writing-usecases/adjudication-v0.1.jsonl \
+  --json
+```
+
+The bundled 200-case corpus is English-only, authored synthetic, authority-free,
+and pending qualified UX-content review. It is a deterministic regression bank,
+not human gold or production approval.
+
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
 does not claim anyone reviewed it: reviewer fields begin blank and the command

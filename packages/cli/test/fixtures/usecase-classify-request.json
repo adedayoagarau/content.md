@@ -1,0 +1,29 @@
+{
+  "input": {
+    "text": "A payment was submitted, but its outcome is not confirmed.",
+    "work_intent": "contextual microcopy",
+    "journey": "commitment",
+    "state": "processing",
+    "event_state": "unknown",
+    "message_purposes": ["set expectations", "enable recovery"],
+    "content_slot": "status",
+    "interaction_pattern": "transaction summary",
+    "action_family": "pay",
+    "channel": "web",
+    "attention_mode": "status",
+    "task_structure": "single step",
+    "state_cause": "unknown",
+    "content_scope": "component",
+    "reversibility": "unknown",
+    "conversation_state": "not applicable",
+    "locale": "en-US",
+    "risk": "high",
+    "action": "pay order",
+    "outcome": "unknown",
+    "has_recovery": true
+  },
+  "facts": {
+    "payment_object": "order",
+    "status_check_action": "Check your activity"
+  }
+}

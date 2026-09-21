@@ -13,6 +13,7 @@ import {
   verifyRankingModel,
 } from "../src/index.js";
 import { task5FeatureMatrixFixture } from "./task5-fixtures.js";
+import { pairwiseRuntimeProfileInput } from "./release-runtime-fixture.js";
 
 function codeManifest() {
   const preimage = JSON.parse(readFileSync(new URL(
@@ -26,17 +27,7 @@ function codeManifest() {
 }
 
 function runtimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: "13.6.233.17-node.41",
-    icu_version: "78.2",
-    unicode_version: "17.0",
-    platform: "darwin",
-    architecture: "arm64",
-    endianness: "LE" as const,
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 function verifiedRankingFixture() {

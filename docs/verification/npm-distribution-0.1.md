@@ -64,11 +64,11 @@ tests, 91 research tests, and all 69 native tests. Typecheck, lint, all 18 packa
 boundaries, clean-install distribution testing, and the release dry run pass.
 Four live-listener tests skip only when the managed host returns the exact
 `listen EPERM` loopback prohibition; they remain mandatory on normal hosts and
-CI. The sealed pairwise learning and Task 6 goldens remain bound to the exact
-Node 24.14.0/V8/ICU runtime-profile digests, while this host provides Node
-24.19.0 and 25.5.0. Those exact-runtime goldens therefore remain unproven here
-and the publish workflow must stay fail-closed until CI supplies the sealed
-runtime or the governed release profiles are deliberately requalified.
+CI. The sealed pairwise learning and Task 6 profiles have since been deliberately
+requalified to exact Node 24.20.0/V8/ICU/Unicode tuples for macOS arm64 and Linux
+x64. The broader `>=24.14.0 <25` package engine remains insufficient by itself;
+the publish workflow must still fail closed unless its live tuple is admitted and
+the matching platform-specific golden fixtures reproduce byte-for-byte.
 
 The npm registry returned no public `contentmd` package on 2026-08-27, but name
 availability is not reserved until an authenticated publish succeeds.

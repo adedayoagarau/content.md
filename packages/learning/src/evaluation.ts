@@ -395,7 +395,7 @@ export interface EvaluationRunResult {
 
 export interface Task6RuntimeProfile {
   contract_version: "contentmd.task6-runtime-profile/0.1.0";
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -406,7 +406,7 @@ export interface Task6RuntimeProfile {
 }
 
 export interface ObservedTask6RuntimeTuple {
-  node_version: "24.14.0";
+  node_version: "24.20.0";
   v8_version: string;
   icu_version: string;
   unicode_version: string;
@@ -699,7 +699,7 @@ export function admitTask6Runtime(profile: Task6RuntimeProfile): VerifiedTask6Ru
       "platform", "architecture", "endianness", "profile_digest",
     ]);
     if (profile.contract_version !== "contentmd.task6-runtime-profile/0.1.0"
-      || profile.node_version !== "24.14.0"
+      || profile.node_version !== "24.20.0"
       || typeof profile.v8_version !== "string" || profile.v8_version.length === 0
       || typeof profile.icu_version !== "string" || profile.icu_version.length === 0
       || typeof profile.unicode_version !== "string" || profile.unicode_version.length === 0
@@ -717,7 +717,7 @@ export function admitTask6Runtime(profile: Task6RuntimeProfile): VerifiedTask6Ru
       fail("task6_runtime_profile_unsupported");
     }
     const observed: ObservedTask6RuntimeTuple = {
-      node_version: process.versions.node as "24.14.0",
+      node_version: process.versions.node as "24.20.0",
       v8_version: process.versions.v8,
       icu_version: observedIcu,
       unicode_version: observedUnicode,

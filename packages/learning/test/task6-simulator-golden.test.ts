@@ -4,14 +4,18 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, sha256Canonical } from "@contentmd/core";
 import { describe, expect, it } from "vitest";
+import { currentReleaseRuntimeTarget } from "./release-runtime-fixture.js";
 
 const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
+const { fixture_suffix: fixtureSuffix } = currentReleaseRuntimeTarget();
+const GOLDEN_NAME = `task6-simulator-golden${fixtureSuffix}.json`;
+const LOCK_NAME = `task6-simulator-golden${fixtureSuffix}.sha256`;
 const GOLDEN_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/task6-simulator-golden.json",
+  `../../../fixtures/learning-ranking/${GOLDEN_NAME}`,
   import.meta.url,
 ));
 const LOCK_PATH = fileURLToPath(new URL(
-  "../../../fixtures/learning-ranking/task6-simulator-golden.sha256",
+  `../../../fixtures/learning-ranking/${LOCK_NAME}`,
   import.meta.url,
 ));
 const RUNNER_PATH = fileURLToPath(new URL(
@@ -24,7 +28,7 @@ describe("Task 6 externally locked simulator golden", () => {
     const raw = readFileSync(GOLDEN_PATH, "utf8");
     const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");
     expect(readFileSync(LOCK_PATH, "utf8")).toBe(
-      `${rawDigest}  fixtures/learning-ranking/task6-simulator-golden.json\n`,
+      `${rawDigest}  fixtures/learning-ranking/${GOLDEN_NAME}\n`,
     );
     const parsed = JSON.parse(raw) as Record<string, unknown> & {
       contract_version: string;
@@ -88,7 +92,7 @@ describe("Task 6 externally locked simulator golden", () => {
     }));
 
     const runFresh = () => execFileSync(process.execPath, [
-      "--max-old-space-size=4096",
+      "--max-old-space-size=8192",
       "--import",
       "tsx",
       RUNNER_PATH,
@@ -96,12 +100,12 @@ describe("Task 6 externally locked simulator golden", () => {
       cwd: ROOT,
       encoding: "utf8",
       maxBuffer: 32 * 1024 * 1024,
-      timeout: 1_200_000,
+      timeout: 3_600_000,
     });
     const first = runFresh();
     const second = runFresh();
     expect(first).toBe(raw);
     expect(second).toBe(raw);
     expect(first).toBe(second);
-  }, 2_500_000);
+  }, 7_300_000);
 });

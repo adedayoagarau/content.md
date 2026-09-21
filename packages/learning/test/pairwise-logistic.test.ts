@@ -24,6 +24,7 @@ import { task4Fixture } from "./task4-fixtures.js";
 import { predictPairwise, rankEligibleExpressions } from "../src/rank.js";
 import * as learningPackage from "../src/index.js";
 import { independentPairwiseFit, oracleBinary64 } from "./pairwise-oracle.js";
+import { pairwiseRuntimeProfileInput } from "./release-runtime-fixture.js";
 
 function rehashLeakageEvidence<T extends {
   contract_version: string;
@@ -64,17 +65,7 @@ function admittedCodeManifest() {
 }
 
 function admittedRuntimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: "13.6.233.17-node.41",
-    icu_version: "78.2",
-    unicode_version: "17.0",
-    platform: "darwin",
-    architecture: "arm64",
-    endianness: "LE" as const,
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 describe("Task 5 code and runtime admission", () => {
@@ -153,7 +144,7 @@ describe("Task 5 code and runtime admission", () => {
   it("rejects an unadmitted but self-consistent numeric runtime profile", () => {
     const identity = {
       contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-      node_version: "24.14.0" as const,
+      node_version: "24.20.0" as const,
       v8_version: "unadmitted-v8",
       icu_version: "78.2",
       unicode_version: "17.0",

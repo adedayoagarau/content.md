@@ -1,6 +1,6 @@
 # Deterministic use-case UX-writing system
 
-Status: English-only development contract, coordinate classifier `0.3.0`; policy resolver `0.2.0`
+Status: English-only development contract, coordinate classifier `0.3.0`; policy resolver `0.2.0`; benchmark `0.1.0`
 
 ## Purpose
 
@@ -58,6 +58,48 @@ Each built-in route declares evidence references, required axes, required facts,
 
 Official standards and design-system guidance are implementation precedents, not a substitute for product-specific research. Local experimental annotations remain hypotheses rather than gold labels.
 
+## Frozen use-case benchmark and adjudication
+
+`fixtures/ux-writing-usecases/benchmark-v0.1.jsonl` freezes 200 English authored-synthetic regression cases. It is broad by construction, not by an unsupported claim of completeness:
+
+| Case family | Count | Purpose |
+| --- | ---: | --- |
+| Canonical resolved route | 39 | One unique complete case for every built-in route |
+| English regional variant | 39 | The same route coverage with `en-GB` and alternate allowed route values where available |
+| Missing required fact | 39 | Required-fact abstention for every route |
+| Missing distinguishing axis | 39 | Classification-incomplete abstention for every route |
+| Critical near neighbor | 14 | Validation/eligibility, processing/step location, linear/flexible work, empty-state causes, alert/dialog attention, conversational repair states, and parameter/action confirmation |
+| Out of scope | 10 | Non-English locale and localization/translation requests |
+| Complete coordinate with no route | 10 | Fully classified but unsupported combinations |
+| Text-only non-evidence | 10 | Copy strings that must not become product-state evidence |
+
+The paired `adjudication-v0.1.jsonl` contains one record per case. Every record begins in `pending_qualified_review` with blank reviewer fields. `accepted`, `revised`, and `excluded` require a non-empty qualified reviewer ID, a canonical UTC ISO timestamp, and a rationale; revised cases also require a complete replacement expectation. Unknown states and malformed provenance fail closed. The generated bank is therefore a deterministic regression corpus, not human gold, production approval, or evidence of classifier validity.
+
+`ux-writing-benchmark.ts` reports each criterion separately: deterministic replay, language scope, axis values, resolution status/reason, route, candidate routes, missing axes, missing facts, and authority boundary. It preserves case-level evidence and separate provisional and qualified metrics. It deliberately emits no aggregate quality score. A fully green provisional replay still returns `hold_for_qualified_review` until the adjudication packet is complete.
+
+The manifest locks case and adjudication bytes, generator inputs, category counts, all 39 route IDs, English-only scope, and corpus exclusions. Good Microcopy material is explicitly excluded while it remains `awaiting_classifier`; it is not used as prompt, training, benchmark, or gold authority.
+
+Generate or verify the frozen bytes with:
+
+```bash
+node --import tsx scripts/generate-ux-writing-usecase-benchmark.mts
+node --import tsx scripts/generate-ux-writing-usecase-benchmark.mts --check
+```
+
+## Shadow CLI
+
+The CLI exposes the classifier and benchmark evaluator without adopting a repository or writing runtime state:
+
+```bash
+contentmd usecase classify --input usecase-request.json --json
+contentmd usecase evaluate \
+  --benchmark fixtures/ux-writing-usecases/benchmark-v0.1.jsonl \
+  --adjudications fixtures/ux-writing-usecases/adjudication-v0.1.jsonl \
+  --json
+```
+
+Classification returns `mode: "shadow"`, `authority_effect: "none"`, and `write_effect: "none"`. An abstention is a completed classification result, not an internal failure. Evaluation uses governance exit code `20` while qualified adjudication is pending, even when every provisional deterministic criterion passes.
+
 ## Safety and authority boundaries
 
 - Classification is deterministic and replayable from its serialized input.
@@ -70,8 +112,8 @@ Official standards and design-system guidance are implementation precedents, not
 
 ## Verification
 
-The primary implementation is in `packages/evaluation/src/ux-writing-coordinate.ts`, `packages/evaluation/src/ux-writing-taxonomy.ts`, and `packages/evaluation/src/ux-writing-policy-routes.ts`. The earlier flat API in `usecase-classifier.ts` remains compatibility-only.
+The primary implementation is in `packages/evaluation/src/ux-writing-coordinate.ts`, `packages/evaluation/src/ux-writing-taxonomy.ts`, `packages/evaluation/src/ux-writing-policy-routes.ts`, and `packages/evaluation/src/ux-writing-benchmark.ts`. The earlier flat API in `usecase-classifier.ts` remains compatibility-only.
 
-Focused tests cover deterministic replay, English scope enforcement, text/non-evidence separation, unknown labels, missing-fact and missing-axis abstention, route ambiguity, template ambiguity, source integrity, and critical near-neighbor pairs. This verifies contract behavior only. It does not demonstrate classifier completeness, human agreement, user comprehension, writing effectiveness, or production readiness.
+Focused tests cover deterministic replay, English scope enforcement, text/non-evidence separation, unknown labels, missing-fact and missing-axis abstention, route ambiguity, template ambiguity, source integrity, critical near-neighbor pairs, all 200 frozen cases, adjudication-state validation, criterion-level reporting, exact regeneration, CLI output, and the no-write shadow boundary. This verifies contract behavior only. It does not demonstrate classifier completeness, human agreement, user comprehension, writing effectiveness, or production readiness.
 
-Local verification on 2026-09-19 used Node.js `24.19.0`, which satisfies the workspace engine range `>=24.14.0 <25`. All 55 evaluation tests passed, and the 18-package boundary check and TypeScript build passed. The repository-wide test command separately reproduced the pre-existing fail-closed learning-golden boundary: Task 5 and Task 6 runtime admission remains sealed to Node.js `24.14.0` and rejects the Node.js `24.19.0` host. This feature does not alter or requalify those governed runtime profiles, and no full-suite pass is claimed.
+The sealed learning runtimes are requalified separately to exact Node.js `24.20.0` profiles for macOS arm64 and Linux x64. See `learning-runtime-requalification-24.20.0.md`; the broad workspace engine range alone is not release evidence.

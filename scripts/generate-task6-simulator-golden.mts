@@ -3,16 +3,20 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson } from "../packages/core/src/index.ts";
 import { runTask6SimulatorGolden } from "../packages/learning/test/task6-simulator-golden-runner.js";
+import { currentReleaseRuntimeTarget } from "../packages/learning/test/release-runtime-fixture.js";
 
+const { fixture_suffix: fixtureSuffix } = currentReleaseRuntimeTarget();
+const GOLDEN_NAME = `task6-simulator-golden${fixtureSuffix}.json`;
+const LOCK_NAME = `task6-simulator-golden${fixtureSuffix}.sha256`;
 const GOLDEN_PATH = fileURLToPath(new URL(
-  "../fixtures/learning-ranking/task6-simulator-golden.json",
+  `../fixtures/learning-ranking/${GOLDEN_NAME}`,
   import.meta.url,
 ));
 const LOCK_PATH = fileURLToPath(new URL(
-  "../fixtures/learning-ranking/task6-simulator-golden.sha256",
+  `../fixtures/learning-ranking/${LOCK_NAME}`,
   import.meta.url,
 ));
-const RELATIVE_GOLDEN_PATH = "fixtures/learning-ranking/task6-simulator-golden.json";
+const RELATIVE_GOLDEN_PATH = `fixtures/learning-ranking/${GOLDEN_NAME}`;
 
 const raw = canonicalJson(runTask6SimulatorGolden());
 const rawDigest = createHash("sha256").update(raw, "utf8").digest("hex");

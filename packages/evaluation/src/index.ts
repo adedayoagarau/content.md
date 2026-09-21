@@ -15,3 +15,4 @@ export * from "./usecase-classifier.js";
 export * from "./ux-writing-coordinate.js";
 export * from "./ux-writing-taxonomy.js";
 export * from "./ux-writing-policy-routes.js";
+export * from "./ux-writing-benchmark.js";
