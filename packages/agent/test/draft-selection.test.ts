@@ -19,6 +19,7 @@ import {
 import type { ContentDraftProposal } from "@contentmd/writer";
 import { describe, expect, it } from "vitest";
 import { task5FeatureMatrixFixture } from "../../learning/test/task5-fixtures.js";
+import { pairwiseRuntimeProfileInput } from "../../learning/test/release-runtime-fixture.js";
 import { task6PassingSealedReplayFixture } from "../../learning/test/task6-fixtures.js";
 import { selectGovernedDraftAlternative } from "../src/draft-selection.js";
 import * as localRuntime from "../src/local-runtime.js";
@@ -35,17 +36,7 @@ function codeManifest() {
 }
 
 function runtimeProfile() {
-  const identity = {
-    contract_version: "contentmd.pairwise-runtime-profile/0.1.0" as const,
-    node_version: "24.14.0" as const,
-    v8_version: "13.6.233.17-node.41",
-    icu_version: "78.2",
-    unicode_version: "17.0",
-    platform: "darwin",
-    architecture: "arm64",
-    endianness: "LE" as const,
-  };
-  return admitPairwiseRuntime({ ...identity, profile_digest: sha256Canonical(identity) });
+  return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
 function rankingFixture() {

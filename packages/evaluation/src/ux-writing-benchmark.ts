@@ -59,6 +59,13 @@ export type UxWritingBenchmarkAdjudicationState =
   | "revised"
   | "excluded";
 
+const UX_WRITING_BENCHMARK_ADJUDICATION_STATES: readonly string[] = [
+  "pending_qualified_review",
+  "accepted",
+  "revised",
+  "excluded",
+];
+
 export interface UxWritingBenchmarkAdjudication {
   contract_version: "contentmd.ux-writing-benchmark-adjudication/0.1.0";
   benchmark_version: "0.1.0";
@@ -160,6 +167,12 @@ function exactEqual(left: unknown, right: unknown): boolean {
   return canonicalJson(left) === canonicalJson(right);
 }
 
+function isCanonicalUtcTimestamp(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  const milliseconds = Date.parse(value);
+  return Number.isFinite(milliseconds) && new Date(milliseconds).toISOString() === value;
+}
+
 function validateExpected(expected: UxWritingBenchmarkExpectedResult, label: string): void {
   invariant(expected !== null && typeof expected === "object", `${label}:expected_shape`);
   invariant(expected.scope_status === "in_scope" || expected.scope_status === "out_of_scope", `${label}:scope`);
@@ -197,13 +210,16 @@ function validateInputs(
     invariant(caseIds.has(adjudication.case_id), `${adjudication.case_id}:unknown_adjudication`);
     invariant(!byCase.has(adjudication.case_id), `${adjudication.case_id}:duplicate_adjudication`);
     invariant(adjudication.authority_effect === "none", `${adjudication.case_id}:adjudication_authority`);
+    invariant(UX_WRITING_BENCHMARK_ADJUDICATION_STATES.includes(adjudication.state), `${adjudication.case_id}:adjudication_state`);
     if (adjudication.state === "pending_qualified_review") {
       invariant(adjudication.reviewer === null && adjudication.reviewed_at === null
         && adjudication.rationale === null && adjudication.expected_override === null,
       `${adjudication.case_id}:pending_fields`);
     } else {
       invariant(adjudication.reviewer?.role === "qualified_ux_content_reviewer", `${adjudication.case_id}:reviewer`);
-      invariant(typeof adjudication.reviewed_at === "string" && adjudication.reviewed_at.length > 0, `${adjudication.case_id}:reviewed_at`);
+      invariant(typeof adjudication.reviewer.reviewer_id === "string"
+        && adjudication.reviewer.reviewer_id.trim().length > 0, `${adjudication.case_id}:reviewer_id`);
+      invariant(isCanonicalUtcTimestamp(adjudication.reviewed_at), `${adjudication.case_id}:reviewed_at`);
       invariant(typeof adjudication.rationale === "string" && adjudication.rationale.trim().length > 0, `${adjudication.case_id}:rationale`);
       if (adjudication.state === "revised") {
         invariant(adjudication.expected_override !== null, `${adjudication.case_id}:override_required`);

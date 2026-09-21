@@ -73,7 +73,7 @@ Official standards and design-system guidance are implementation precedents, not
 | Complete coordinate with no route | 10 | Fully classified but unsupported combinations |
 | Text-only non-evidence | 10 | Copy strings that must not become product-state evidence |
 
-The paired `adjudication-v0.1.jsonl` contains one record per case. Every record begins in `pending_qualified_review` with blank reviewer fields. `accepted`, `revised`, and `excluded` require reviewer provenance, timestamp, and rationale; revised cases also require a complete replacement expectation. The generated bank is therefore a deterministic regression corpus, not human gold, production approval, or evidence of classifier validity.
+The paired `adjudication-v0.1.jsonl` contains one record per case. Every record begins in `pending_qualified_review` with blank reviewer fields. `accepted`, `revised`, and `excluded` require a non-empty qualified reviewer ID, a canonical UTC ISO timestamp, and a rationale; revised cases also require a complete replacement expectation. Unknown states and malformed provenance fail closed. The generated bank is therefore a deterministic regression corpus, not human gold, production approval, or evidence of classifier validity.
 
 `ux-writing-benchmark.ts` reports each criterion separately: deterministic replay, language scope, axis values, resolution status/reason, route, candidate routes, missing axes, missing facts, and authority boundary. It preserves case-level evidence and separate provisional and qualified metrics. It deliberately emits no aggregate quality score. A fully green provisional replay still returns `hold_for_qualified_review` until the adjudication packet is complete.
 

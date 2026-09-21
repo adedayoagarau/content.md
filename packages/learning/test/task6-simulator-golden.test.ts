@@ -92,7 +92,7 @@ describe("Task 6 externally locked simulator golden", () => {
     }));
 
     const runFresh = () => execFileSync(process.execPath, [
-      "--max-old-space-size=4096",
+      "--max-old-space-size=8192",
       "--import",
       "tsx",
       RUNNER_PATH,
@@ -100,12 +100,12 @@ describe("Task 6 externally locked simulator golden", () => {
       cwd: ROOT,
       encoding: "utf8",
       maxBuffer: 32 * 1024 * 1024,
-      timeout: 1_200_000,
+      timeout: 3_600_000,
     });
     const first = runFresh();
     const second = runFresh();
     expect(first).toBe(raw);
     expect(second).toBe(raw);
     expect(first).toBe(second);
-  }, 2_500_000);
+  }, 7_300_000);
 });

@@ -93,14 +93,27 @@ describe("English UX-writing benchmark", () => {
     expect(report.release_disposition).toBe("hold_for_qualified_review");
   });
 
-  it("rejects malformed or unqualified adjudication state instead of treating it as approval", () => {
-    const malformed = adjudications.map((item, index) => index === 0 ? {
-      ...item,
-      reviewer: { reviewer_id: "not-allowed", role: "qualified_ux_content_reviewer" as const },
-    } : item);
-    expect(() => evaluateUxWritingBenchmark({ cases, adjudications: malformed })).toThrow(
-      "ux_writing_benchmark_invalid",
-    );
+  it("rejects malformed state and reviewer provenance instead of treating either as approval", () => {
+    const reviewed = {
+      state: "accepted",
+      reviewer: { reviewer_id: "reviewer.fixture", role: "qualified_ux_content_reviewer" },
+      reviewed_at: "2026-09-20T12:00:00.000Z",
+      rationale: "Fixture acceptance for contract testing.",
+    };
+    const malformedPatches: Record<string, unknown>[] = [
+      { reviewer: { reviewer_id: "not-allowed", role: "qualified_ux_content_reviewer" } },
+      { ...reviewed, state: "approved_without_contract" },
+      { ...reviewed, reviewer: { reviewer_id: " ", role: "qualified_ux_content_reviewer" } },
+      { ...reviewed, reviewed_at: "not-a-timestamp" },
+    ];
+    for (const patch of malformedPatches) {
+      const malformed = adjudications.map((item, index) => index === 0
+        ? { ...item, ...patch } as UxWritingBenchmarkAdjudication
+        : item);
+      expect(() => evaluateUxWritingBenchmark({ cases, adjudications: malformed })).toThrow(
+        "ux_writing_benchmark_invalid",
+      );
+    }
   });
 
   it("regenerates the exact frozen bytes", () => {
