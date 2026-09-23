@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.071-ai-draft-missing-source",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "ai_automation",
+    "state_type": "evidence_gap",
+    "risk_level": "high",
+    "surface_family": "banner",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An AI-assisted report editor",
+    "person": "A person using an AI-assisted report editor",
+    "journey_stage": "AI draft contains an unsupported claim",
+    "surface": "In-product banner",
+    "user_goal": "Remove or replace the claim using verified source material."
+  },
+  "product_state": {
+    "preceding_state": "A generated draft states a customer-retention percentage that is not present in the connected sources.",
+    "current_state": "The 18% figure has no supporting source. Three other claims have linked evidence.",
+    "known_facts": [
+      "The 18% figure has no supporting source.",
+      "Three other claims have linked evidence.",
+      "The unsupported sentence is highlighted.",
+      "The user can remove it or replace it with sourced wording."
+    ],
+    "forbidden_claims": [
+      "The 18% figure is correct.",
+      "All claims are verified.",
+      "The model retrieved a private source."
+    ]
+  },
+  "current_content": {
+    "heading": "Heads up!",
+    "body": "Review the latest information and continue.",
+    "action": "Learn more"
+  },
+  "challenge": "Rewrite the in-product banner so the person can understand ai draft contains an unsupported claim, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "action": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review the highlighted unsupported sentence.",
+    "secondary_action": "Remove the sentence from the draft.",
+    "consequence_to_preserve": "Publishing the draft would present an unverified metric as fact.",
+    "recovery_to_preserve": "Remove or replace the claim using verified source material."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "direct",
+      "evidence-aware",
+      "non-authoritative"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "action"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { Command, CommanderError } from "commander";
 import { registerApply } from "./commands/apply.js";
 import { registerBridge } from "./commands/bridge.js";
+import { registerBenchmark } from "./commands/benchmark.js";
 import { registerConnect } from "./commands/connect.js";
 import { registerDecision } from "./commands/decision.js";
 import { registerDiff } from "./commands/diff.js";
@@ -39,6 +40,7 @@ export function buildProgram(): Command {
   registerStart(program);
   registerInit(program);
   registerBridge(program);
+  registerBenchmark(program);
   registerConnect(program);
   registerDoctor(program);
   registerDiscover(program);

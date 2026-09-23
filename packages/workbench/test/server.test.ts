@@ -101,6 +101,10 @@ describe("local workbench server", () => {
       const html = await (await fetch(server.url)).text();
       expect(html).toContain("Content inventory");
       expect(html).toContain("Top review findings");
+      expect(html).toContain("Your repository scan is ready");
+      expect(html).toContain("No deterministic issue was promoted from this scan.");
+      expect(html).toContain("Inspect the repository evidence below");
+      expect(html).not.toContain("Improve the highest-priority content issue");
       expect(html).toContain("qualified");
       expect((await fetch(`${server.url}model.json`)).status).toBe(200);
     } finally {
@@ -120,6 +124,7 @@ describe("local workbench server", () => {
     try {
       const html = await (await fetch(server.url)).text();
       expect(html).toContain('class="improvement-form"');
+      expect(html).toContain('<details open>');
       expect(html).toContain("<fieldset><legend>Establish the missing facts</legend>");
       expect(html).toContain('role="status" aria-live="polite"');
       expect(html).toContain('type="submit">Compare candidate</button>');

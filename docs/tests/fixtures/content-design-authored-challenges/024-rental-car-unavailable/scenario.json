@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.024-rental-car-unavailable",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "travel_mobility",
+    "state_type": "recoverable_error",
+    "risk_level": "high",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A car rental application",
+    "person": "A person using a car rental application",
+    "journey_stage": "Reserved rental car unavailable",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Accept the offered car at no additional rental cost or cancel without a fee."
+  },
+  "product_state": {
+    "preceding_state": "The reserved compact car is unavailable at pickup, and a larger car is offered.",
+    "current_state": "The compact car is unavailable. A midsize car is available now.",
+    "known_facts": [
+      "The compact car is unavailable.",
+      "A midsize car is available now.",
+      "The midsize car costs no more than the original booking.",
+      "The person can decline and cancel without a fee."
+    ],
+    "forbidden_claims": [
+      "The upgrade has already been accepted.",
+      "Fuel costs are included.",
+      "Declining affects another reservation."
+    ]
+  },
+  "current_content": {
+    "headline": "Something went wrong",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand reserved rental car unavailable, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Accept the midsize car at the original rate.",
+    "secondary_action": "Decline and cancel without a fee.",
+    "consequence_to_preserve": "The reserved vehicle cannot be provided.",
+    "recovery_to_preserve": "Accept the offered car at no additional rental cost or cancel without a fee."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "transparent",
+      "solution-focused"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

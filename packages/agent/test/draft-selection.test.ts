@@ -39,7 +39,7 @@ function runtimeProfile() {
   return admitPairwiseRuntime(pairwiseRuntimeProfileInput());
 }
 
-function rankingFixture() {
+function createRankingFixture() {
   const fixture = task5FeatureMatrixFixture();
   const dataset = verifyLearningDatasetForTraining({
     record_mode: "development_fixture",
@@ -84,6 +84,13 @@ function rankingFixture() {
     row.candidate_b.vectorization_input.candidate.payload.expression,
   ] as const;
   return { model, candidates, candidateReplays, expressions, request, training };
+}
+
+let cachedRankingFixture: ReturnType<typeof createRankingFixture> | undefined;
+
+function rankingFixture(): ReturnType<typeof createRankingFixture> {
+  cachedRankingFixture ??= createRankingFixture();
+  return cachedRankingFixture;
 }
 
 function objectRef(label: string): Task6ObjectRef {

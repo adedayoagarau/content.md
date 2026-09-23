@@ -42,10 +42,16 @@ The complete verification is intentionally expensive: full Task 4 replay is exha
 | `fixtures/learning-ranking/preferences.jsonl` | `a4d36aaf02bac56ae319b1a7c30416da8783fcb279b1c35b3a08bfb7a64bcd59` |
 | `fixtures/learning-ranking/leakage-groups.jsonl` | `abc8d5db87f2e4446185ee189f07e48b36cd272ae7c9520292bab23d4e4aefa6` |
 | `fixtures/learning-ranking/dataset-manifest.json` | `8001c9a40cd0e24bcccac490585d6b60c5447f7a315ca8b3ee6ed52d0ac498be` |
-| `fixtures/learning-ranking/feature-profile.json` | `f39a5514eaa0e2006dc506808a84494b39e2aba864994c94370cefbe7e7ae38d` |
-| `fixtures/learning-ranking/shadow-plan.json` | `8b05ac63dc66c0e074ed161326fbc11eebf9468ee837d8b6660c29afdef76c3e` |
-| `fixtures/learning-ranking/golden-model.json` | `81fe9e4982c39cec8dd31a3e676bbee89fc71010530d87e486f64d0dbde96483` |
-| `fixtures/learning-ranking/task6-simulator-golden.json` | `6049094accbdb4c7291f717a9889eb43237dd596355db952bbca56ce80c96cdc` |
+| `fixtures/learning-ranking/feature-profile.json` | `9a3c0960f717c8c8cd2d121c4ead2d785e8ce4e1ee9f6802583da07bfc6a6bbc` |
+| `fixtures/learning-ranking/shadow-plan.json` | `835b8fca0c585001cd522bfae00627598c050d71d42519acec1d7983693a88aa` |
+| `fixtures/learning-ranking/golden-model.json` | `b6842e00db59c992ebb23df4d35d274e1791d214685e0175bbf6f0d518981ad9` |
+| `fixtures/learning-ranking/task6-simulator-golden.json` | `57de570d63b5e653455604abf09f20c9fc07add5e050645cab1bf4a1313a2fbd` |
+
+These identities were requalified on 2026-09-19 under exact Node `24.14.0`
+after persisted-model verification gained a single-pass, byte-exact training
+result verifier. The pairwise and Task 6 source manifests, model golden,
+simulator golden, feature profile, and shadow plan were regenerated together;
+dataset, preference, and leakage-group bytes remained unchanged.
 
 ## Boundary
 

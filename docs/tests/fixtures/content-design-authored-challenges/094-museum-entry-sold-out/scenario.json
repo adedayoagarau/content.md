@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.094-museum-entry-sold-out",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "events_bookings",
+    "state_type": "availability_error",
+    "risk_level": "low",
+    "surface_family": "inline",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A museum booking site",
+    "person": "A person using a museum booking site",
+    "journey_stage": "Museum entry time sold out",
+    "surface": "Inline error and recovery control",
+    "user_goal": "Select another currently available time and complete checkout separately."
+  },
+  "product_state": {
+    "preceding_state": "The selected 11:00 AM entry sold out while the visitor was entering guest details.",
+    "current_state": "No tickets were reserved. Guest details remain in the form.",
+    "known_facts": [
+      "No tickets were reserved.",
+      "Guest details remain in the form.",
+      "The 11:30 AM and 12:00 PM times are available now.",
+      "Choosing another time does not submit payment."
+    ],
+    "forbidden_claims": [
+      "The visitor lost paid tickets.",
+      "The museum is sold out all day.",
+      "The alternative times are guaranteed until checkout."
+    ]
+  },
+  "current_content": {
+    "error_message": "Something went wrong. Try again.",
+    "recovery_link": "Continue"
+  },
+  "challenge": "Rewrite the inline error and recovery control so the person can understand museum entry time sold out, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "error_message": {
+        "required": true,
+        "max_characters": 140
+      },
+      "recovery_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Choose an available entry time.",
+    "secondary_action": "Leave booking without losing the entered guest details during this session.",
+    "consequence_to_preserve": "The original time cannot be purchased.",
+    "recovery_to_preserve": "Select another currently available time and complete checkout separately."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "neutral",
+      "helpful",
+      "time-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "error_message",
+      "recovery_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

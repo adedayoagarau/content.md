@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.080-ad-opt-out-processing",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "privacy_permissions",
+    "state_type": "pending_preference",
+    "risk_level": "medium",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A retail application",
+    "person": "A person using a retail application",
+    "journey_stage": "Personalized ads opt-out processing",
+    "surface": "In-product status card",
+    "user_goal": "Wait up to 48 hours, then contact privacy support if personalized ads continue."
+  },
+  "product_state": {
+    "preceding_state": "The person opted out of personalized advertising, but preference propagation is still in progress.",
+    "current_state": "The opt-out was recorded today. Personalized ad selection may continue for up to 48 hours.",
+    "known_facts": [
+      "The opt-out was recorded today.",
+      "Personalized ad selection may continue for up to 48 hours.",
+      "Order recommendations inside the application are controlled separately.",
+      "The person does not need to submit the opt-out again."
+    ],
+    "forbidden_claims": [
+      "The opt-out failed.",
+      "All advertising stops.",
+      "Product recommendations are already disabled."
+    ]
+  },
+  "current_content": {
+    "heading": "You're all set!",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand personalized ads opt-out processing, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View advertising and recommendation preferences.",
+    "secondary_action": "Return to the application while processing continues.",
+    "consequence_to_preserve": "Some personalized ads may appear during the propagation window.",
+    "recovery_to_preserve": "Wait up to 48 hours, then contact privacy support if personalized ads continue."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "transparent",
+      "calm",
+      "specific"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

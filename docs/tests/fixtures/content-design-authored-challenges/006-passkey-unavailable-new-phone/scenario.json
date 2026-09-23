@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.006-passkey-unavailable-new-phone",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "account_security",
+    "state_type": "blocked_recovery",
+    "risk_level": "high",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A password manager",
+    "person": "A person using a password manager",
+    "journey_stage": "Passkey unavailable after phone replacement",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Use the account password or a saved recovery code."
+  },
+  "product_state": {
+    "preceding_state": "After replacing their phone, the person cannot use the passkey stored on the old device.",
+    "current_state": "The passkey is unavailable on the new phone. Password sign-in remains available.",
+    "known_facts": [
+      "The passkey is unavailable on the new phone.",
+      "Password sign-in remains available.",
+      "A saved recovery code is also accepted.",
+      "Using another method does not delete the old passkey."
+    ],
+    "forbidden_claims": [
+      "The account was deleted.",
+      "The password no longer works.",
+      "Support can recreate the old passkey."
+    ]
+  },
+  "current_content": {
+    "headline": "Something went wrong",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand passkey unavailable after phone replacement, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open password sign-in.",
+    "secondary_action": "Leave recovery without changing the account.",
+    "consequence_to_preserve": "Passkey sign-in cannot continue on this device.",
+    "recovery_to_preserve": "Use the account password or a saved recovery code."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "direct",
+      "security-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

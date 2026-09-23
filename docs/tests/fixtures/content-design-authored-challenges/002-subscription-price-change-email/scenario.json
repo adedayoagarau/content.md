@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.002-subscription-price-change-email",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "context": {
+    "product": "An annual meal-planning subscription",
+    "person": "An existing subscriber whose plan is scheduled to renew",
+    "journey_stage": "Thirty days before annual renewal",
+    "surface": "Transactional subscription email",
+    "user_goal": "Understand the price change and decide whether to keep or cancel the plan"
+  },
+  "product_state": {
+    "preceding_state": "The person has an active annual plan priced at $48 a year.",
+    "current_state": "The service sends a price-change email on September 15, 2026, before the next renewal.",
+    "known_facts": [
+      "The current annual price is $48.",
+      "The plan is scheduled to renew automatically on October 15, 2026.",
+      "The renewal price will be $60 a year.",
+      "The person can cancel in Billing through October 14, 2026, to avoid the $60 renewal charge.",
+      "If the person cancels before renewal, access continues through October 14, 2026."
+    ],
+    "forbidden_claims": [
+      "The person will be charged $60 today.",
+      "The price change improves the plan.",
+      "The person cannot cancel before renewal.",
+      "Cancellation ends access immediately."
+    ]
+  },
+  "current_content": {
+    "subject": "An update to your plan",
+    "heading": "We're making some changes",
+    "body": "Your plan is getting better. The new price will apply soon.",
+    "primary_link": "Learn more"
+  },
+  "challenge": "Rewrite the email so the person can understand the old and new annual prices, when renewal happens, what happens without action, how to avoid the charge, and what cancellation does to current access.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 55
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 280
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 22
+      }
+    },
+    "character_counting_rule": "Count spaces, currency symbols, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open the subscriber's Billing page, where the renewal and cancellation controls are available.",
+    "consequence_to_preserve": "Without cancellation, the plan renews for $60 a year on October 15, 2026.",
+    "recovery_to_preserve": "Cancel in Billing through October 14, 2026, to avoid the renewal charge.",
+    "continued_access_to_preserve": "Cancellation before renewal preserves access through October 14, 2026."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "transparent",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "timely",
+      "neutral"
+    ],
+    "avoid": [
+      "promotional framing",
+      "vague timing",
+      "pressure",
+      "euphemism"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the email represents both prices and the exact renewal timing.",
+      "Explain how the cancellation choice, deadline, and continued access remain visible.",
+      "Explain why the subject and heading make the email understandable on their own.",
+      "Report the character count for every candidate field.",
+      "Name unresolved product questions instead of inventing terms."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.083-chart-text-alternative",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "accessibility_assistive",
+    "state_type": "accessibility_guidance",
+    "risk_level": "medium",
+    "surface_family": "form",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A business analytics dashboard",
+    "person": "A person using a business analytics dashboard",
+    "journey_stage": "Chart needs a text alternative",
+    "surface": "Form label, guidance, and validation",
+    "user_goal": "Provide a summary and data-table path before publishing."
+  },
+  "product_state": {
+    "preceding_state": "A report author added a color-coded revenue chart without a text summary.",
+    "current_state": "The chart compares four quarters. Color is the only visual distinction between two series.",
+    "known_facts": [
+      "The chart compares four quarters.",
+      "Color is the only visual distinction between two series.",
+      "A data table is available.",
+      "Publishing is allowed only after an accessible summary or table link is provided."
+    ],
+    "forbidden_claims": [
+      "The chart is inaccessible to every user.",
+      "Changing colors alone supplies all meaning.",
+      "The data table is already linked in the report."
+    ]
+  },
+  "current_content": {
+    "field_label": "Details",
+    "helper_text": "Enter the requested information.",
+    "error_message": "This doesn't look right."
+  },
+  "challenge": "Rewrite the form label, guidance, and validation so the person can understand chart needs a text alternative, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "field_label": {
+        "required": true,
+        "max_characters": 40
+      },
+      "helper_text": {
+        "required": true,
+        "max_characters": 140
+      },
+      "error_message": {
+        "required": true,
+        "max_characters": 140
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Add a concise summary and link the data table.",
+    "secondary_action": "Return to chart editing without publishing.",
+    "consequence_to_preserve": "The report does not yet expose the chart's meaning in a nonvisual form.",
+    "recovery_to_preserve": "Provide a summary and data-table path before publishing."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "instructional",
+      "specific",
+      "accessibility-first"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "field_label",
+      "helper_text",
+      "error_message"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

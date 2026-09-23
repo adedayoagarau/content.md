@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.032-assignment-upload-incomplete",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "education_applications",
+    "state_type": "interrupted_upload",
+    "risk_level": "high",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A learning management system",
+    "person": "A person using a learning management system",
+    "journey_stage": "Assignment upload incomplete",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Upload the video again before submission or continue editing the draft."
+  },
+  "product_state": {
+    "preceding_state": "The browser lost its connection while a student was attaching a video to an assignment.",
+    "current_state": "The written response was saved. The video upload did not complete.",
+    "known_facts": [
+      "The written response was saved.",
+      "The video upload did not complete.",
+      "The assignment was not submitted.",
+      "The video can be selected again or the draft can be reopened without it."
+    ],
+    "forbidden_claims": [
+      "Everything was saved.",
+      "The assignment was submitted.",
+      "The service can recover the local video automatically."
+    ]
+  },
+  "current_content": {
+    "headline": "Heads up!",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand assignment upload incomplete, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open the file picker and select the video again.",
+    "secondary_action": "Return to the saved assignment draft.",
+    "consequence_to_preserve": "The assignment remains unsubmitted without the required video.",
+    "recovery_to_preserve": "Upload the video again before submission or continue editing the draft."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "practical",
+      "non-blaming"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

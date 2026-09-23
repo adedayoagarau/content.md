@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.011-duplicate-card-charge-unknown",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "payments_billing",
+    "state_type": "unknown_outcome",
+    "risk_level": "critical",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A digital wallet",
+    "person": "A person using a digital wallet",
+    "journey_stage": "Possible duplicate card charge",
+    "surface": "In-product status card",
+    "user_goal": "Wait for the pending charge to resolve, then report it if both charges complete."
+  },
+  "product_state": {
+    "preceding_state": "Two card charges with the same amount appeared after one checkout attempt, but one is still pending.",
+    "current_state": "One charge is completed. The second charge is pending.",
+    "known_facts": [
+      "One charge is completed.",
+      "The second charge is pending.",
+      "The pending charge may disappear within seven days.",
+      "Disputing the completed charge now could interrupt the valid purchase."
+    ],
+    "forbidden_claims": [
+      "Both charges are final.",
+      "The pending charge will definitely disappear.",
+      "Submitting another payment is safe."
+    ]
+  },
+  "current_content": {
+    "heading": "Still working",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand possible duplicate card charge, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "View the completed purchase and its receipt.",
+    "secondary_action": "Set a reminder to check the pending charge after seven days.",
+    "consequence_to_preserve": "The final number of charges is not established while one remains pending.",
+    "recovery_to_preserve": "Wait for the pending charge to resolve, then report it if both charges complete."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "precise",
+      "financially transparent"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

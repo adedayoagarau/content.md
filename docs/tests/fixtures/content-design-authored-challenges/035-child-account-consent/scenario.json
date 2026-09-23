@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.035-child-account-consent",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "education_applications",
+    "state_type": "consent_required",
+    "risk_level": "critical",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A children's reading application",
+    "person": "A person using a children's reading application",
+    "journey_stage": "Parental consent required for a child account",
+    "surface": "Transactional email",
+    "user_goal": "Review the notice, then consent or decline without pressure."
+  },
+  "product_state": {
+    "preceding_state": "A child entered a parent's email to request account activation.",
+    "current_state": "The child account is inactive. The parent must review data collection before consent.",
+    "known_facts": [
+      "The child account is inactive.",
+      "The parent must review data collection before consent.",
+      "Declining deletes the pending account after seven days.",
+      "Consent can be withdrawn later in Parent settings."
+    ],
+    "forbidden_claims": [
+      "The account is already active.",
+      "Consent is required to read the email.",
+      "Declining keeps the child's data indefinitely."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "Heads up!",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand parental consent required for a child account, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review the data notice and give consent.",
+    "secondary_action": "Decline and schedule deletion of the pending account.",
+    "consequence_to_preserve": "The child cannot use the account until valid consent is recorded.",
+    "recovery_to_preserve": "Review the notice, then consent or decline without pressure."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "plain",
+      "protective",
+      "non-promotional"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

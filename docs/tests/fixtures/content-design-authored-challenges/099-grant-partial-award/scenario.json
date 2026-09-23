@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.099-grant-partial-award",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "nonprofit_volunteering",
+    "state_type": "partial_success",
+    "risk_level": "high",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A community grant program",
+    "person": "A person using a community grant program",
+    "journey_stage": "Community grant partially awarded",
+    "surface": "Transactional email",
+    "user_goal": "Revise the project deliberately or decline without future penalty."
+  },
+  "product_state": {
+    "preceding_state": "A neighborhood project requested $20,000 and received an award of $12,000.",
+    "current_state": "The approved amount is $12,000. The project scope must be revised before funds are accepted.",
+    "known_facts": [
+      "The approved amount is $12,000.",
+      "The project scope must be revised before funds are accepted.",
+      "Accepting the award commits to the revised budget and reporting dates.",
+      "The applicant can decline without affecting future applications."
+    ],
+    "forbidden_claims": [
+      "The full request was approved.",
+      "The project scope was revised automatically.",
+      "Declining prevents future applications."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "You're all set!",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand community grant partially awarded, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review and submit a revised scope for the $12,000 award.",
+    "secondary_action": "Decline the partial award.",
+    "consequence_to_preserve": "Funds are not released until a feasible revised scope is accepted.",
+    "recovery_to_preserve": "Revise the project deliberately or decline without future penalty."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "respectful",
+      "transparent",
+      "decision-focused"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

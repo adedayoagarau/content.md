@@ -1,23 +1,41 @@
----
-title: content.md
-status: active-build
-started: 2026-08-17
-updated: 2026-08-25
-foundation_draft: 0.2
-implementation_status: governed-development-system-active
----
-
 # content.md
 
-`content.md` is a repository-native content-design system: a durable content contract plus a governed agent workflow that can understand a product, make content decisions, draft and evaluate language, learn from project-owned comparisons, change implementation safely, and keep the product's language coherent over time.
+`content.md` is a repository-native content-design agent. It finds product
+language in your codebase, explains what needs attention, helps you improve it
+with the facts you provide, and can apply one reviewed change at a time.
 
-The system owns the content-design process and its structured memory. Products and organizations retain authority over facts, policies, approvals, provider access, publication, and product outcomes. The implementation is substantial but remains a development system: it does not prove universal writing effectiveness, production authority, or a released product.
+Run it in an existing repository without adopting a framework or uploading the
+repository:
 
-## Implementation status
+```bash
+npx contentmd
+```
 
-The [universal-agent architecture](docs/superpowers/specs/2026-08-20-contentmd-universal-agent-design.md) and recursive execution plans now produce an 18-package TypeScript workspace and a functional local CLI. The [host-agnostic repository-intelligence verification](docs/verification/host-agnostic-repository-intelligence-0.2.md) proves the mixed-stack discovery, evidence-linked model, bounded IDE handoff, governed task loop, exact apply/readback path, and local workbench without network access. The [Portable Runtime 0.1 verification](docs/verification/portable-runtime.md) proves the governed local runtime against synthetic fixtures. The [recursive learning and ranking release verification](docs/verification/recursive-learning-ranking-0.1.md) binds the sealed 120-example, 30-group, 21-feature model and governed lifecycle fixtures, while the current [governed learning and research verification record](docs/verification/governed-learning-research-2026-08-22.md) distinguishes executable learning evidence from the remaining live-research and release gates. The earlier [foundation verification](docs/verification/foundation-vertical-slice.md) is retained as a historical vertical-slice record.
+The first run is a preview-only scan. It does not edit files, install repository
+configuration, contact a model provider, or treat existing copy as approved.
 
-The current system can adopt a repository; preserve and bridge `PRODUCT.md`, `DESIGN.md`, `AGENTS.md`, `CLAUDE.md`, and `CODEX.md`; detect React, Next.js, TypeScript, Python, FastAPI, templates, and structured product documentation; discover content and IA with exact source coordinates; compile an evidence-linked product model; issue bounded packets to the user's IDE model; review proposed writing deterministically; apply and undo one explicitly confirmed local source change with digest-bound readback; retain a separate governed team approval workflow; and present the model in a loopback-only local workbench. It can also ingest rights-bounded research; compile voice/tone maps and evidence graphs; use governed model execution; learn from sealed project-owned comparisons; retain append-only audit state; and preview uninstall.
+## What you can do
+
+- Find user-facing content with exact source locations.
+- Inspect why a finding was selected and what context is missing.
+- Compare a candidate against repository evidence and explicit constraints.
+- Preview an exact patch before anything changes.
+- Apply only the reviewed patch digest, then undo it if needed.
+- Explore the same evidence in a loopback-only local workbench.
+- Adopt a durable `CONTENT.md` contract and bridge existing agent instructions.
+
+`content.md` assists with content decisions; it does not invent product facts or
+grant approval, publication, policy, or release authority.
+
+The supported open-source surface is the `contentmd` CLI and local workbench.
+Read the [content-design standard](https://github.com/adedayoagarau/content.md/blob/main/docs/content-design-standard.md),
+[content-design effectiveness baseline](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/content-design-effectiveness-baseline-0.1.md),
+[public interface contract](https://github.com/adedayoagarau/content.md/blob/main/docs/public-api.md),
+[contribution guide](https://github.com/adedayoagarau/content.md/blob/main/CONTRIBUTING.md),
+[security policy](https://github.com/adedayoagarau/content.md/blob/main/SECURITY.md),
+and [release-candidate verification](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/open-source-release-candidate-0.1.md).
+Workspace package exports and the public-product research corpus are not a
+stable JavaScript SDK or implicit training data.
 
 ## Use it today
 
@@ -32,9 +50,12 @@ cd /absolute/path/to/project
 
 The public distribution candidate now packages the CLI as one dependency-free
 `contentmd@0.1.0` tarball. Its clean-install smoke test proves the installed
-binary, bare-command scan, local-only `npx` journey, qualified-content
-summary, digest-bound `init` preview, clean uninstall, and non-mutation boundary
-under Node 24:
+binary, bare-command scan, offline local `npx` journey, qualified-content
+summary, packed loopback workbench, compare/preview/apply/undo cycle, fresh
+digest-bound adoption, post-adoption diagnosis, bounded repository uninstall
+preview, package removal, and the relevant non-mutation boundaries under Node
+24. The synthetic adoption remains at `ready_with_governance_warnings` because
+the test does not fabricate a content owner:
 
 ```bash
 pnpm test:distribution
@@ -57,6 +78,146 @@ npx contentmd scan --inspect 1        # inspect the first ranked finding
 npx contentmd scan --improve 1        # see its missing facts and acceptance criteria
 npx contentmd serve                   # open the local interactive proofing desk
 ```
+
+The package retains a historical, locale-bearing 100-scenario packet so its
+deterministic evaluator, reviewer handoff, qualification checks, and comparison
+workflow remain reproducible. The full source matrix was later exposed to
+external models, so this packet is not a current formal English calibration
+set, held-out test, or source of effectiveness evidence. Reviewers must judge
+the supplied English expression only and ignore target-locale metadata.
+
+Create a copy of that immutable diagnostic packet. This works from the
+published package and refuses to overwrite an existing file:
+
+```bash
+npx contentmd benchmark content-design \
+  --sample-out review-sample-100.json
+```
+
+Then run the built-in deterministic baseline before human labels are available:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --out contentmd-predictions.json
+```
+
+The command refuses to overwrite its output and reports predictions as
+`unscored_pending_qualified_gold`. It does not read generator labels, create
+gold, or make the results eligible for learning. The prediction file reports
+its score coverage for every quality dimension, so missing judgments remain
+visible before human gold exists. It also reports pass, fail, unknown, and
+not-applicable counts for every hard dimension, making skipped or unresolved
+checks explicit.
+
+Create the separate response template for an independent reviewer:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --review-template reviewer-response.json
+```
+
+Create the exact non-authoritative handoff an authorized program steward needs
+to issue this reviewer's packet-scoped qualification:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --reviewer-id reviewer.example \
+  --qualification-request-out reviewer-qualification-request.json
+```
+
+The request is create-only and digest-bound. It grants no role or authority;
+the steward must resolve reviewer identity and return a valid issuance bundle.
+
+Or complete the same blinded review one scenario at a time in the loopback-only
+review workbench:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --review-workbench
+```
+
+Progress is saved in that browser, and the reviewer can export and later import
+a packet-bound incomplete backup before exporting the completed JSON
+submission. The workbench never displays generator labels.
+Independent reviewers, program stewards, and benchmark operators should follow
+the [reviewer guide](https://github.com/adedayoagarau/content.md/blob/main/docs/content-design-reviewer-guide.md) so responsibilities,
+blinding, qualification, retained evidence, and adjudication remain separate.
+
+After an independent qualified content designer completes every response and
+attests the review, qualify it for benchmarking and score the prediction set:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --submission reviewer-response.json \
+  --gold-out qualified-gold.json
+
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold qualified-gold.json \
+  --predictions contentmd-predictions.json \
+  --report-out evaluation-report.json
+```
+
+To exercise the disagreement and adjudication path, qualify a second review
+from a different governed reviewer and compare the two immutable files:
+
+```bash
+npx contentmd benchmark content-design \
+  --packet review-sample-100.json \
+  --gold reviewer-a-gold.json \
+  --compare-gold reviewer-b-gold.json \
+  --report-out reviewer-calibration.json
+```
+
+The calibration report measures disposition agreement, per-ability
+disagreement, and agreement or distance separately for every hard and quality
+dimension. It preserves an explicit adjudication queue instead of averaging
+disagreements away. Reviewer agreement does not by itself prove tool accuracy
+or authorize a benchmark claim. Because this packaged packet comes from the
+exposed historical matrix, its comparison report is workflow and rule-diagnostic
+evidence only; it cannot establish the current English content-design
+capability or serve as an independent held-out result.
+
+Evaluation reports expose gold-score, evaluator-score, and comparable-score
+counts plus quality prediction coverage for every reported slice and each
+quality dimension. Voice, tone, accessibility, clarity, and other dimensions
+therefore expose their own missing judgments and error. A baseline cannot
+improve its apparent quality error by silently leaving dimensions unscored.
+Hard requirements are also separated by factual accuracy, state accuracy,
+semantic fidelity, agency, recovery, and authority boundary, with explicit
+comparison coverage and accuracy for each.
+
+Qualification fails closed for incomplete reviews, packet drift, missing
+evidence, missing reviewer attestation, or a missing, stale, revoked, forged, or
+differently scoped governed reviewer-qualification replay. A role string alone
+cannot create gold. The repository intentionally does not self-issue reviewer
+qualification: a program steward with the required policy, grant, approval,
+and control evidence must supply the packet-scoped bundle. Qualified records
+are eligible for this benchmark only;
+they do not become retrieval or training data.
+
+The packaged baseline has been replayed across all 10,000 synthetic scenarios.
+See the [verification record](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/content-design-benchmark-10000.md).
+This demonstrates deterministic execution and coverage—not content-design
+accuracy, which requires qualified human review.
+
+Repository contributors can reproduce the historical 500-item calibration
+cohort and disjoint 500-item reservation with
+`pnpm prepare:content-design-calibration` and
+`pnpm reserve:content-design-evaluation`. Those artifacts are retained for
+regression and protocol inspection only: the entire source matrix was exposed
+to external models, and its locale-bearing design does not satisfy the current
+English-only standard. They are not a current calibration set, held-out test,
+automatic gold, retrieval input, or training input. A future formal benchmark
+must use newly authored English-only cases, freeze the held-out set before any
+review or evaluator change, and obtain independent qualified human judgments.
+These repository fixtures are not part of the published CLI contract or npm
+tarball.
 
 Structured English UX-writing use cases can also be classified without adopting
 a project or writing runtime state. The benchmark evaluator reports provisional
@@ -143,6 +304,26 @@ Removal deletes only the single well-formed managed marker block. It fails
 closed for missing, duplicate, or malformed markers and preserves host-authored
 content outside the block.
 
+### Coding-agent host acceptance
+
+Repository bridges and returned review files do not prove that a coding agent
+can operate the packaged CLI. `content.md` therefore keeps real Codex and
+Claude Code acceptance as a separate, evidence-bound check. The deterministic
+release gate verifies the protocol and its fail-closed bundle verifier without
+using an account, network access, or model budget:
+
+```bash
+pnpm verify:host-agents
+```
+
+That command does **not** certify either host. A compatibility claim requires
+an explicit live run against the exact packed tarball, three recorded
+preview-only commands, a zero exit status, and byte-identical repository
+snapshots. Live runs use existing host authentication, may consume paid model
+usage, and are never started by CI or package installation. See the
+[host-agent acceptance record](https://github.com/adedayoagarau/content.md/blob/main/docs/verification/host-agent-acceptance-0.1.md)
+for the opt-in commands and current certification matrix.
+
 Give the bounded model packet to the intelligent model already available in the IDE, then ingest its cited structured response with `model ingest`. For a specific content issue, prepare a source-bound task, let the IDE model return structured alternatives, and review them before any decision or edit:
 
 ```bash
@@ -181,7 +362,16 @@ The verified portable local runtime exposes 12 focused interfaces for authorized
 
 ## Run the local foundation
 
-Requirements: Node.js `24.20.0` and `pnpm@11.9.0`.
+Requirements for repository development: Node.js `24.14.0` and `pnpm@11.9.0`.
+The published CLI supports the broader Node.js `>=24.14.0 <25` range. Exact-runtime
+learning fixtures are replayed under that same pinned profile and are never silently
+regenerated under another runtime.
+
+```bash
+nvm use
+corepack prepare pnpm@11.9.0 --activate
+pnpm verify:toolchain
+```
 
 ```bash
 pnpm install --frozen-lockfile

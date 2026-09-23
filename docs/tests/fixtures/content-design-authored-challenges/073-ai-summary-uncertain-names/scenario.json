@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.073-ai-summary-uncertain-names",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "ai_automation",
+    "state_type": "uncertainty",
+    "risk_level": "medium",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An AI meeting assistant",
+    "person": "A person using an AI meeting assistant",
+    "journey_stage": "AI meeting summary has uncertain speaker names",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Verify the marked names or remove attribution before sharing."
+  },
+  "product_state": {
+    "preceding_state": "The assistant could not reliably distinguish two speakers in a recorded meeting.",
+    "current_state": "The transcript audio is available. Four summary statements have uncertain speaker attribution.",
+    "known_facts": [
+      "The transcript audio is available.",
+      "Four summary statements have uncertain speaker attribution.",
+      "The uncertain names are marked.",
+      "Sharing the summary does not share the recording unless selected separately."
+    ],
+    "forbidden_claims": [
+      "The marked names are correct.",
+      "The recording will be shared automatically.",
+      "The assistant can identify speakers from private profile data."
+    ]
+  },
+  "current_content": {
+    "headline": "Still working",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand ai meeting summary has uncertain speaker names, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Review marked statements against the recording.",
+    "secondary_action": "Save the summary with speaker names removed.",
+    "consequence_to_preserve": "Incorrect attribution could misrepresent who made a statement.",
+    "recovery_to_preserve": "Verify the marked names or remove attribution before sharing."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "transparent",
+      "careful",
+      "non-defensive"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

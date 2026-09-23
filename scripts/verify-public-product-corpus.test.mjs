@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 
 import {
+  governedBatchNames,
   parseArguments,
   readPublicProductCorpusV2Input,
   verifyPublicProductCorpus,
@@ -118,6 +119,89 @@ test("accepts a bounded evidence-only corpus at its declared target", async () =
       industries_remaining: 0,
       products_below_direct_state_target: 0,
     });
+  });
+});
+
+test("loads an all-unavailable batch with empty evidence files", async () => {
+  await withCorpus({ sources: [SOURCE], observations: [OBSERVATION] }, async (root) => {
+    const batch = path.join(root, "2026-08-23-batch-01");
+    await writeFile(path.join(batch, "sources.jsonl"), "");
+    await writeFile(path.join(batch, "observations.jsonl"), "");
+    const input = await readPublicProductCorpusV2Input({
+      root,
+      asOf: "2026-08-23",
+      targets: { companies: 1, products: 1, industries: 1, directStatesPerProduct: 1 },
+    });
+    assert.equal(input.batches.length, 1);
+    assert.deepEqual(input.batches[0].source_lines, []);
+    assert.deepEqual(input.batches[0].observation_lines, []);
+  });
+});
+
+test("official v0.2 input excludes candidate batches outside governed lineage", async () => {
+  await withCorpus({ sources: [SOURCE], observations: [OBSERVATION] }, async (root) => {
+    await writeFile(path.join(root, "immutable-batch-baseline.json"), `${JSON.stringify({
+      entries: [{ path: "2026-08-23-batch-01/sources.jsonl" }],
+    })}\n`);
+    const candidate = path.join(root, "2026-08-25-batch-77");
+    await mkdir(candidate);
+    await writeFile(path.join(candidate, "sources.jsonl"), "candidate-not-json\n");
+    await writeFile(path.join(candidate, "observations.jsonl"), "candidate-not-json\n");
+
+    assert.deepEqual(governedBatchNames({
+      baseline: { entries: [{ path: "2026-08-23-batch-01/sources.jsonl" }] },
+      dispositionSets: [{ proposed_transitions: [{
+        subject_ref: { batch_id: "2026-08-23-batch-01" },
+        replacement_refs: [{ batch_id: "2026-08-27-batch-77" }],
+      }] }],
+      dispositionEvents: [],
+    }), ["2026-08-23-batch-01", "2026-08-27-batch-77"]);
+
+    const input = await readPublicProductCorpusV2Input({
+      root,
+      asOf: "2026-08-23",
+      targets: { companies: 1, products: 1, industries: 1, directStatesPerProduct: 1 },
+      verificationMode: "official",
+    });
+    assert.deepEqual(input.batches.map((batch) => batch.batch_id), ["2026-08-23-batch-01"]);
+  });
+});
+
+test("official v0.2 input prefers the digest-bound governed batch registry", async () => {
+  await withCorpus({ sources: [SOURCE], observations: [OBSERVATION] }, async (root) => {
+    const preimage = {
+      contract_version: "contentmd.public-product-governed-batch-registry/0.1.0",
+      as_of: "2026-08-23T23:59:59.999-12:00",
+      batch_names: ["2026-08-23-batch-01"],
+      authority_effect: "none",
+    };
+    const { createHash } = await import("node:crypto");
+    await writeFile(path.join(root, "governed-batch-registry.json"), `${JSON.stringify({
+      ...preimage,
+      registry_digest: createHash("sha256").update(JSON.stringify(preimage)).digest("hex"),
+    })}\n`);
+    const candidate = path.join(root, "2026-08-25-batch-77");
+    await mkdir(candidate);
+    await writeFile(path.join(candidate, "sources.jsonl"), "candidate-not-json\n");
+    await writeFile(path.join(candidate, "observations.jsonl"), "candidate-not-json\n");
+
+    const input = await readPublicProductCorpusV2Input({
+      root,
+      asOf: "2026-08-23",
+      targets: { companies: 1, products: 1, industries: 1, directStatesPerProduct: 1 },
+      verificationMode: "official",
+    });
+    assert.deepEqual(input.batches.map((batch) => batch.batch_id), ["2026-08-23-batch-01"]);
+
+    const registry = JSON.parse(await readFile(path.join(root, "governed-batch-registry.json"), "utf8"));
+    registry.batch_names = ["2026-08-25-batch-77"];
+    await writeFile(path.join(root, "governed-batch-registry.json"), `${JSON.stringify(registry)}\n`);
+    await assert.rejects(() => readPublicProductCorpusV2Input({
+      root,
+      asOf: "2026-08-23",
+      targets: { companies: 1, products: 1, industries: 1, directStatesPerProduct: 1 },
+      verificationMode: "official",
+    }), /governed_batch_registry_invalid/);
   });
 });
 

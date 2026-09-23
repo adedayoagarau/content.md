@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.053-library-hold-ready",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "government_civic",
+    "state_type": "success_with_deadline",
+    "risk_level": "low",
+    "surface_family": "push",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A public library application",
+    "person": "A person using a public library application",
+    "journey_stage": "Library hold ready for pickup",
+    "surface": "Mobile push notification",
+    "user_goal": "Pick up with the library card or cancel so the next reader can receive it."
+  },
+  "product_state": {
+    "preceding_state": "A requested book is available at the selected branch.",
+    "current_state": "The book is held at the Central branch. Pickup is available through September 20.",
+    "known_facts": [
+      "The book is held at the Central branch.",
+      "Pickup is available through September 20.",
+      "The library card is required.",
+      "Canceling the hold releases the book to the next reader."
+    ],
+    "forbidden_claims": [
+      "The book was checked out automatically.",
+      "The hold can be picked up at any branch.",
+      "The pickup deadline is flexible."
+    ]
+  },
+  "current_content": {
+    "title": "You're all set!",
+    "body": "Open the app for more information."
+  },
+  "challenge": "Rewrite the mobile push notification so the person can understand library hold ready for pickup, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "title": {
+        "required": true,
+        "max_characters": 45
+      },
+      "body": {
+        "required": true,
+        "max_characters": 120
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open branch hours and pickup details.",
+    "secondary_action": "Cancel the hold.",
+    "consequence_to_preserve": "The hold expires after September 20.",
+    "recovery_to_preserve": "Pick up with the library card or cancel so the next reader can receive it."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "friendly",
+      "concise",
+      "clear"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "title",
+      "body"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

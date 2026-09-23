@@ -1,0 +1,108 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.065-home-inspection-rescheduled",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "insurance_claims",
+    "state_type": "schedule_change",
+    "risk_level": "high",
+    "surface_family": "sms",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A home insurance claim service",
+    "person": "A person using a home insurance claim service",
+    "journey_stage": "Home claim inspection rescheduled",
+    "surface": "Transactional SMS",
+    "user_goal": "Confirm the reserved time or choose another appointment while keeping receipts."
+  },
+  "product_state": {
+    "preceding_state": "Severe weather prevented an adjuster from attending a property inspection.",
+    "current_state": "Today's inspection is canceled. A new appointment is reserved for September 19 from 1 PM to 3 PM.",
+    "known_facts": [
+      "Today's inspection is canceled.",
+      "A new appointment is reserved for September 19 from 1 PM to 3 PM.",
+      "Temporary repair receipts remain eligible for review.",
+      "The policyholder can accept or choose another available time."
+    ],
+    "forbidden_claims": [
+      "The claim was canceled.",
+      "The new appointment is already accepted.",
+      "All temporary repairs are automatically reimbursed."
+    ]
+  },
+  "current_content": {
+    "message": "There's an update. Open the app for more information."
+  },
+  "challenge": "Rewrite the transactional sms so the person can understand home claim inspection rescheduled, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "message": {
+        "required": true,
+        "max_characters": 240
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Accept the reserved inspection time.",
+    "secondary_action": "Open other inspection appointments.",
+    "consequence_to_preserve": "The property will not be inspected today.",
+    "recovery_to_preserve": "Confirm the reserved time or choose another appointment while keeping receipts."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "apologetic",
+      "clear",
+      "practical"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "message"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

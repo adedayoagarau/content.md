@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.093-ticket-transfer-pending",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "events_bookings",
+    "state_type": "pending_recipient_action",
+    "risk_level": "medium",
+    "surface_family": "status",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A sports ticket wallet",
+    "person": "A person using a sports ticket wallet",
+    "journey_stage": "Sports ticket transfer pending",
+    "surface": "In-product status card",
+    "user_goal": "Remind the recipient or cancel before the transfer expires."
+  },
+  "product_state": {
+    "preceding_state": "A ticket holder sent two tickets to a friend who has not accepted them.",
+    "current_state": "The recipient has not accepted the transfer. The sender can still cancel the transfer.",
+    "known_facts": [
+      "The recipient has not accepted the transfer.",
+      "The sender can still cancel the transfer.",
+      "The tickets remain unavailable for resale while pending.",
+      "The transfer expires two hours before the event."
+    ],
+    "forbidden_claims": [
+      "The recipient owns the tickets.",
+      "The tickets were lost.",
+      "Canceling the transfer cancels the event tickets."
+    ]
+  },
+  "current_content": {
+    "heading": "Still working",
+    "body": "We're working on it. Check again later.",
+    "primary_button": "View details",
+    "secondary_button": "Done"
+  },
+  "challenge": "Rewrite the in-product status card so the person can understand sports ticket transfer pending, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 220
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Send the recipient a reminder.",
+    "secondary_action": "Cancel the pending transfer and return tickets to the wallet.",
+    "consequence_to_preserve": "The sender cannot use or resell the tickets while the transfer is pending.",
+    "recovery_to_preserve": "Remind the recipient or cancel before the transfer expires."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "clear",
+      "time-aware",
+      "non-alarming"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

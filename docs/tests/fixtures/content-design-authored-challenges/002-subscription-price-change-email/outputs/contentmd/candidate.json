@@ -1,0 +1,71 @@
+{
+  "contract_version": "contentmd.authored-challenge-candidate/0.1.0",
+  "scenario_id": "content-design.challenge.002-subscription-price-change-email",
+  "generator": {
+    "system": "content.md",
+    "version": "0.1.0",
+    "execution_path": "repository_agent",
+    "host_system": "Codex",
+    "run_id": null
+  },
+  "candidate": {
+    "subject": "Your annual price changes October 15",
+    "heading": "Your plan will renew at $60 a year",
+    "body": "Your current price is $48 a year. Unless you cancel in Billing by October 14, 2026, your plan will renew for $60 on October 15, 2026. If you cancel, access continues through October 14, 2026.",
+    "primary_link": "Review Billing"
+  },
+  "character_counts": {
+    "subject": 36,
+    "heading": 34,
+    "body": 191,
+    "primary_link": 14
+  },
+  "meaning_map": [
+    {
+      "required_meaning": "The current annual price is $48.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The opening sentence identifies the person's current annual price before introducing the change."
+    },
+    {
+      "required_meaning": "The plan renews automatically for $60 a year on October 15, 2026, unless canceled.",
+      "expressed_in": [
+        "subject",
+        "heading",
+        "body"
+      ],
+      "explanation": "The subject signals timing, the heading states the new annual price, and the body ties both to renewal if the person does not cancel."
+    },
+    {
+      "required_meaning": "The person can cancel in Billing through October 14, 2026, to avoid the renewal charge.",
+      "expressed_in": [
+        "body",
+        "primary_link"
+      ],
+      "explanation": "The body gives the deadline and consequence, while the link names the Billing destination."
+    },
+    {
+      "required_meaning": "Cancellation before renewal preserves access through October 14, 2026.",
+      "expressed_in": [
+        "body"
+      ],
+      "explanation": "The final sentence states when access ends after cancellation."
+    }
+  ],
+  "rationale": {
+    "state_accuracy": "The email distinguishes the current $48 annual price from the $60 renewal price and ties the change to the October 15 renewal.",
+    "actions": "Review Billing names the destination containing the renewal and cancellation controls instead of using the vague Learn more label.",
+    "hierarchy": "The subject announces the timed change, the heading names the new price, and the body explains the old price, renewal consequence, cancellation deadline, and continued access.",
+    "voice_and_tone": "The wording is direct, neutral, and respectful. It avoids promotional claims, euphemism, pressure, and vague timing.",
+    "economy": "The email preserves every material price, date, choice, and consequence within the limits without repeating the full explanation in every field."
+  },
+  "unresolved_questions": [],
+  "self_check": {
+    "all_constraints_met": true,
+    "all_required_meanings_mapped": true,
+    "forbidden_claims_absent": true
+  },
+  "review_state": "unreviewed",
+  "authority_effect": "none"
+}

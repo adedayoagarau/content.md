@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.076-contacts-partial-access",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "privacy_permissions",
+    "state_type": "permission_choice",
+    "risk_level": "high",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A messaging application",
+    "person": "A person using a messaging application",
+    "journey_stage": "Partial contacts access",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Continue with limited access or use manual entry."
+  },
+  "product_state": {
+    "preceding_state": "The person selected three contacts through the operating-system contact picker.",
+    "current_state": "The application receives only the selected contacts. Additional contacts can be selected later.",
+    "known_facts": [
+      "The application receives only the selected contacts.",
+      "Additional contacts can be selected later.",
+      "Manual phone-number entry remains available.",
+      "Selected contacts are used to find existing users and are not messaged automatically."
+    ],
+    "forbidden_claims": [
+      "The application receives the entire address book.",
+      "Contact access is required to continue.",
+      "Selected contacts receive invitations automatically."
+    ]
+  },
+  "current_content": {
+    "headline": "Heads up!",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand partial contacts access, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Continue with the three selected contacts.",
+    "secondary_action": "Enter a phone number manually instead.",
+    "consequence_to_preserve": "Only selected contact data is shared with the application.",
+    "recovery_to_preserve": "Continue with limited access or use manual entry."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "plain",
+      "privacy-aware",
+      "choice-preserving"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.021-train-platform-change",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "travel_mobility",
+    "state_type": "service_change",
+    "risk_level": "high",
+    "surface_family": "push",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A rail travel application",
+    "person": "A person using a rail travel application",
+    "journey_stage": "Train platform changed",
+    "surface": "Mobile push notification",
+    "user_goal": "Use station directions, including the east elevator for step-free access."
+  },
+  "product_state": {
+    "preceding_state": "A train departing in 18 minutes was moved to a platform across the station.",
+    "current_state": "Train 624 now departs from Platform 11. The departure time remains 5:42 PM.",
+    "known_facts": [
+      "Train 624 now departs from Platform 11.",
+      "The departure time remains 5:42 PM.",
+      "The previous platform was 3.",
+      "Step-free access to Platform 11 is available by the east elevator."
+    ],
+    "forbidden_claims": [
+      "The train is delayed.",
+      "Platform 3 remains valid.",
+      "The east elevator is out of service."
+    ]
+  },
+  "current_content": {
+    "title": "An update",
+    "body": "Open the app for more information."
+  },
+  "challenge": "Rewrite the mobile push notification so the person can understand train platform changed, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "title": {
+        "required": true,
+        "max_characters": 45
+      },
+      "body": {
+        "required": true,
+        "max_characters": 120
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open walking directions to Platform 11.",
+    "secondary_action": "Dismiss the alert without changing the ticket.",
+    "consequence_to_preserve": "The traveler must reach a different platform before the unchanged departure time.",
+    "recovery_to_preserve": "Use station directions, including the east elevator for step-free access."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "urgent",
+      "clear",
+      "accessible"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "title",
+      "body"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

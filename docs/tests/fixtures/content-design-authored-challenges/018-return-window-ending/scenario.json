@@ -1,0 +1,132 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.018-return-window-ending",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "commerce_delivery",
+    "state_type": "deadline_notice",
+    "risk_level": "medium",
+    "surface_family": "email",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "An online clothing store",
+    "person": "A person using an online clothing store",
+    "journey_stage": "Return window ending",
+    "surface": "Transactional email",
+    "user_goal": "Start the return by the deadline and hand the package to the carrier within five days."
+  },
+  "product_state": {
+    "preceding_state": "An unworn jacket is eligible for return for three more days.",
+    "current_state": "The return deadline is September 19. The item must be unworn with tags attached.",
+    "known_facts": [
+      "The return deadline is September 19.",
+      "The item must be unworn with tags attached.",
+      "Starting a return creates a prepaid shipping label.",
+      "The package must be handed to the carrier within five days after the label is created."
+    ],
+    "forbidden_claims": [
+      "A refund is guaranteed before inspection.",
+      "The item must arrive by September 19.",
+      "Creating a label completes the return."
+    ]
+  },
+  "current_content": {
+    "subject": "An update for you",
+    "heading": "Heads up!",
+    "body": "Some details have changed. Review your account.",
+    "primary_link": "Learn more",
+    "secondary_link": "Other options"
+  },
+  "challenge": "Rewrite the transactional email so the person can understand return window ending, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "subject": {
+        "required": true,
+        "max_characters": 60
+      },
+      "heading": {
+        "required": true,
+        "max_characters": 55
+      },
+      "body": {
+        "required": true,
+        "max_characters": 320
+      },
+      "primary_link": {
+        "required": true,
+        "max_characters": 28
+      },
+      "secondary_link": {
+        "required": true,
+        "max_characters": 28
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Start the return and create a shipping label.",
+    "secondary_action": "Keep the item without starting a return.",
+    "consequence_to_preserve": "Eligibility ends September 19, while carrier handoff has a separate five-day window.",
+    "recovery_to_preserve": "Start the return by the deadline and hand the package to the carrier within five days."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "timely",
+      "clear",
+      "non-pressuring"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "subject",
+      "heading",
+      "body",
+      "primary_link",
+      "secondary_link"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

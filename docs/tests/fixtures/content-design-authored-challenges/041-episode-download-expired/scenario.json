@@ -1,0 +1,120 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.041-episode-download-expired",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "media_subscriptions",
+    "state_type": "content_unavailable",
+    "risk_level": "low",
+    "surface_family": "empty",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A video streaming application",
+    "person": "A person using a video streaming application",
+    "journey_stage": "Downloaded episode expired",
+    "surface": "Unavailable or empty state",
+    "user_goal": "Reconnect to stream or create a fresh offline download."
+  },
+  "product_state": {
+    "preceding_state": "A downloaded episode reached its offline viewing expiration while the device was disconnected.",
+    "current_state": "The offline copy expired. The episode remains available to stream with an active subscription.",
+    "known_facts": [
+      "The offline copy expired.",
+      "The episode remains available to stream with an active subscription.",
+      "Reconnecting allows a new download.",
+      "Viewing progress is preserved."
+    ],
+    "forbidden_claims": [
+      "The episode was removed from the service.",
+      "Viewing progress was lost.",
+      "The subscription expired."
+    ]
+  },
+  "current_content": {
+    "heading": "Nothing here",
+    "body": "This item isn't available.",
+    "primary_button": "Go back"
+  },
+  "challenge": "Rewrite the unavailable or empty state so the person can understand downloaded episode expired, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "heading": {
+        "required": true,
+        "max_characters": 50
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Reconnect and download the episode again.",
+    "secondary_action": "Return to the preserved episode details.",
+    "consequence_to_preserve": "The current offline file cannot be played.",
+    "recovery_to_preserve": "Reconnect to stream or create a fresh offline download."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "helpful",
+      "non-technical"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "heading",
+      "body",
+      "primary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

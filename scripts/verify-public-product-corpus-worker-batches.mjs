@@ -86,6 +86,22 @@ const BLOCK_CLASSES = new Set([
   "site_access_block",
 ]);
 
+const UNAVAILABLE_ATTEMPT_KEYS = [
+  "attempt_digest", "attempted_at", "authority_effect", "batch_name",
+  "benchmark_eligibility", "bypass_attempted", "company", "contract_version",
+  "detail", "disposition_class", "observed_state", "product_system",
+  "profile_isolation_status", "prompt_eligibility", "retained_as_product_evidence",
+  "retry_count", "source_url", "source_worker_plan_digest", "training_eligibility",
+  "worker_id",
+].sort(compareUnicodeScalar);
+
+const UNAVAILABLE_CLASSES = new Set([
+  "not_found",
+  "no_visible_public_ui",
+  "non_https_destination",
+  "render_failure",
+]);
+
 function hasExactKeys(value, expected) {
   return Object.keys(value).sort(compareUnicodeScalar).join("\0") === expected.join("\0");
 }
@@ -104,6 +120,18 @@ export function finalizePublicProductBlockedAttempt(input) {
   if (Object.hasOwn(preimage, "attempt_digest")) delete preimage.attempt_digest;
   const finalized = { ...preimage, attempt_digest: sha256Canonical(preimage) };
   return deepFreeze(finalized);
+}
+
+export function finalizePublicProductUnavailableAttempt(input) {
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    invalid("unavailable_attempt_shape");
+  }
+  const preimage = {
+    contract_version: "contentmd.public-product-discovery-unavailable-attempt/0.1.0",
+    ...input,
+  };
+  if (Object.hasOwn(preimage, "attempt_digest")) delete preimage.attempt_digest;
+  return deepFreeze({ ...preimage, attempt_digest: sha256Canonical(preimage) });
 }
 
 function verifyBlockedAttempt(attempt, { workerPlan, assignment, taskSet }) {
@@ -139,6 +167,46 @@ function verifyBlockedAttempt(attempt, { workerPlan, assignment, taskSet }) {
   }
   if (sha256Canonical(blockedAttemptPreimage(attempt)) !== attempt.attempt_digest) {
     return { valid: false, code: "blocked_attempt_digest" };
+  }
+  return { valid: true };
+}
+
+function verifyUnavailableAttempt(attempt, { workerPlan, assignment, taskSet }) {
+  if (typeof attempt !== "object" || attempt === null || Array.isArray(attempt)
+    || !hasExactKeys(attempt, UNAVAILABLE_ATTEMPT_KEYS)
+    || attempt.contract_version !== "contentmd.public-product-discovery-unavailable-attempt/0.1.0"
+    || !/^[0-9a-f]{64}$/u.test(attempt.source_worker_plan_digest ?? "")
+    || !/^\d{4}-\d{2}-\d{2}-batch-\d+$/u.test(attempt.batch_name ?? "")
+    || !nonemptyText(attempt.worker_id)
+    || !nonemptyText(attempt.company)
+    || !nonemptyText(attempt.product_system)
+    || !/^https:\/\//u.test(attempt.source_url ?? "")
+    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/u.test(attempt.attempted_at ?? "")
+    || !UNAVAILABLE_CLASSES.has(attempt.disposition_class)
+    || !nonemptyText(attempt.detail)
+    || !/^[0-9a-f]{64}$/u.test(attempt.attempt_digest ?? "")) {
+    return { valid: false, code: "unavailable_attempt_shape" };
+  }
+  if (attempt.source_worker_plan_digest !== workerPlan.plan_digest
+    || attempt.batch_name !== assignment.batch_name
+    || attempt.worker_id !== assignment.worker_id
+    || !taskSet.has(productKey(attempt))) {
+    return { valid: false, code: "unavailable_attempt_outside_assignment" };
+  }
+  if (!Number.isSafeInteger(attempt.retry_count) || attempt.retry_count < 2
+    || attempt.profile_isolation_status !== "established_fresh_per_attempt"
+    || attempt.observed_state !== "not_observed"
+    || attempt.bypass_attempted !== false
+    || attempt.retained_as_product_evidence !== false
+    || attempt.authority_effect !== "none"
+    || attempt.prompt_eligibility !== "never"
+    || attempt.training_eligibility !== "never"
+    || attempt.benchmark_eligibility !== false) {
+    return { valid: false, code: "unavailable_attempt_policy" };
+  }
+  const { attempt_digest: ignored, ...preimage } = attempt;
+  if (sha256Canonical(preimage) !== attempt.attempt_digest) {
+    return { valid: false, code: "unavailable_attempt_digest" };
   }
   return { valid: true };
 }
@@ -213,6 +281,7 @@ function verifyAssignmentBatch(workerPlan, assignment, batch) {
   const companySet = new Set(assignment.companies);
   const completedTasks = new Set();
   const blockedTasks = new Set();
+  const unavailableTasks = new Set();
   const sourceIds = new Set();
   const observationIds = new Set();
   const localSources = new Map();
@@ -223,10 +292,11 @@ function verifyAssignmentBatch(workerPlan, assignment, batch) {
     || batch.batch_name !== assignment.batch_name
     || !Array.isArray(batch.sources)
     || !Array.isArray(batch.observations)
-    || (batch.blocked_attempts !== undefined && !Array.isArray(batch.blocked_attempts))) {
+    || (batch.blocked_attempts !== undefined && !Array.isArray(batch.blocked_attempts))
+    || (batch.unavailable_attempts !== undefined && !Array.isArray(batch.unavailable_attempts))) {
     addError(errors, "assignment_batch_shape", assignment.batch_name,
       "batch must have the exact reserved name plus sources, observations, and optional blocked attempts");
-    return { errors, sourceCount, observationCount, completedTasks, blockedTasks };
+    return { errors, sourceCount, observationCount, completedTasks, blockedTasks, unavailableTasks };
   }
 
   for (const [index, source] of batch.sources.entries()) {
@@ -301,15 +371,37 @@ function verifyAssignmentBatch(workerPlan, assignment, batch) {
     blockedTasks.add(identity);
   }
 
+  for (const [index, attempt] of (batch.unavailable_attempts ?? []).entries()) {
+    const location = `${assignment.batch_name}/unavailable-attempts.jsonl:${index + 1}`;
+    const result = verifyUnavailableAttempt(attempt, { workerPlan, assignment, taskSet });
+    if (!result.valid) {
+      addError(errors, result.code, location, "unavailable attempt failed its closed contract");
+      continue;
+    }
+    const identity = productKey(attempt);
+    if (unavailableTasks.has(identity)) {
+      addError(errors, "duplicate_unavailable_attempt", location,
+        `${attempt.company} / ${attempt.product_system}`);
+      continue;
+    }
+    if (completedTasks.has(identity) || blockedTasks.has(identity)) {
+      addError(errors, "unavailable_attempt_conflict", location,
+        "task has evidence or a blocked disposition plus an unavailable disposition");
+      continue;
+    }
+    unavailableTasks.add(identity);
+  }
+
   for (const task of assignment.tasks) {
     const identity = productKey(task);
-    if (!completedTasks.has(identity) && !blockedTasks.has(identity)) {
+    if (!completedTasks.has(identity) && !blockedTasks.has(identity)
+      && !unavailableTasks.has(identity)) {
       addError(errors, "incomplete_task", `${task.company} / ${task.product_system}`,
-        "assigned product has neither retained observation nor a valid blocked-attempt disposition");
+        "assigned product has no retained observation, blocked disposition, or unavailable disposition");
     }
   }
   errors.sort(compareErrors);
-  return { errors, sourceCount, observationCount, completedTasks, blockedTasks };
+  return { errors, sourceCount, observationCount, completedTasks, blockedTasks, unavailableTasks };
 }
 
 export function verifyPublicProductCorpusWorkerAssignment({ workerPlan, assignmentId, batch }) {
@@ -334,7 +426,9 @@ export function verifyPublicProductCorpusWorkerAssignment({ workerPlan, assignme
       observations: result.observationCount,
       completed_tasks: result.completedTasks.size,
       blocked_tasks: result.blockedTasks.size,
-      incomplete_tasks: assignment.tasks.length - result.completedTasks.size - result.blockedTasks.size,
+      unavailable_tasks: result.unavailableTasks.size,
+      incomplete_tasks: assignment.tasks.length - result.completedTasks.size
+        - result.blockedTasks.size - result.unavailableTasks.size,
     },
     errors: result.errors,
     aggregate_corpus_verification_required: true,
@@ -358,7 +452,8 @@ export function verifyPublicProductCorpusWorkerBatches({ workerPlan, batches }) 
       || !nonemptyText(batch.batch_name)
       || !Array.isArray(batch.sources)
       || !Array.isArray(batch.observations)
-      || (batch.blocked_attempts !== undefined && !Array.isArray(batch.blocked_attempts))) {
+      || (batch.blocked_attempts !== undefined && !Array.isArray(batch.blocked_attempts))
+      || (batch.unavailable_attempts !== undefined && !Array.isArray(batch.unavailable_attempts))) {
       addError(errors, "batch_shape", `batches[${index}]`,
         "batch must contain a name, sources, observations, and optional blocked attempts");
       continue;
@@ -381,6 +476,7 @@ export function verifyPublicProductCorpusWorkerBatches({ workerPlan, batches }) 
   const globalObservationIds = new Set();
   const completedTasks = new Set();
   const blockedTasks = new Set();
+  const unavailableTasks = new Set();
   let sourceCount = 0;
   let observationCount = 0;
   for (const assignment of workerPlan.assignments) {
@@ -463,14 +559,35 @@ export function verifyPublicProductCorpusWorkerBatches({ workerPlan, batches }) 
       }
       blockedTasks.add(identity);
     }
+    for (const [index, attempt] of (batch.unavailable_attempts ?? []).entries()) {
+      const location = `${assignment.batch_name}/unavailable-attempts.jsonl:${index + 1}`;
+      const result = verifyUnavailableAttempt(attempt, { workerPlan, assignment, taskSet });
+      if (!result.valid) {
+        addError(errors, result.code, location, "unavailable attempt failed its closed contract");
+        continue;
+      }
+      const identity = productKey(attempt);
+      if (unavailableTasks.has(identity)) {
+        addError(errors, "duplicate_unavailable_attempt", location,
+          `${attempt.company} / ${attempt.product_system}`);
+        continue;
+      }
+      if (completedTasks.has(identity) || blockedTasks.has(identity)) {
+        addError(errors, "unavailable_attempt_conflict", location,
+          "task has evidence or a blocked disposition plus an unavailable disposition");
+        continue;
+      }
+      unavailableTasks.add(identity);
+    }
   }
 
   const allTasks = workerPlan.assignments.flatMap((assignment) => assignment.tasks);
   for (const task of allTasks) {
     const identity = productKey(task);
-    if (!completedTasks.has(identity) && !blockedTasks.has(identity)) {
+    if (!completedTasks.has(identity) && !blockedTasks.has(identity)
+      && !unavailableTasks.has(identity)) {
       addError(errors, "incomplete_task", `${task.company} / ${task.product_system}`,
-        "assigned product has neither retained observation nor a valid blocked-attempt disposition");
+        "assigned product has no retained observation, blocked disposition, or unavailable disposition");
     }
   }
   errors.sort(compareErrors);
@@ -485,7 +602,9 @@ export function verifyPublicProductCorpusWorkerBatches({ workerPlan, batches }) 
       observations: observationCount,
       completed_tasks: completedTasks.size,
       blocked_tasks: blockedTasks.size,
-      incomplete_tasks: allTasks.length - completedTasks.size - blockedTasks.size,
+      unavailable_tasks: unavailableTasks.size,
+      incomplete_tasks: allTasks.length - completedTasks.size - blockedTasks.size
+        - unavailableTasks.size,
     },
     errors,
     aggregate_corpus_verification_required: true,
@@ -497,15 +616,19 @@ export function verifyPublicProductCorpusWorkerBatches({ workerPlan, batches }) 
   return deepFreeze({ ...preimage, report_digest: sha256Canonical(preimage) });
 }
 
-async function readJsonLines(file) {
+export async function readJsonLines(file, { allowEmpty = false } = {}) {
   const raw = await readFile(file, "utf8");
-  if (raw === "" || !raw.endsWith("\n")) invalid("batch_file");
+  if (raw === "") {
+    if (allowEmpty) return [];
+    invalid("batch_file");
+  }
+  if (!raw.endsWith("\n")) invalid("batch_file");
   return raw.trimEnd().split("\n").map((line) => JSON.parse(line));
 }
 
 async function readOptionalJsonLines(file) {
   try {
-    return await readJsonLines(file);
+    return await readJsonLines(file, { allowEmpty: true });
   } catch (error) {
     if (error?.code === "ENOENT") return [];
     throw error;
@@ -533,11 +656,15 @@ export function parseArguments(argv) {
   return { root, asOf, planFile, assignmentId };
 }
 
+export function unwrapWorkerPlan(parsedPlan) {
+  return parsedPlan?.worker_plan ?? parsedPlan?.discovery_worker_plan ?? parsedPlan;
+}
+
 async function main() {
   try {
     const options = parseArguments(process.argv.slice(2));
     const parsedPlan = JSON.parse(await readFile(options.planFile, "utf8"));
-    const workerPlan = parsedPlan.worker_plan ?? parsedPlan;
+    const workerPlan = unwrapWorkerPlan(parsedPlan);
     verifyWorkerPlan(workerPlan);
     if (options.assignmentId !== undefined) {
       const assignment = workerPlan.assignments.find((item) => item.worker_id === options.assignmentId);
@@ -545,16 +672,18 @@ async function main() {
       let batch = null;
       try {
         const batchRoot = path.join(options.root, assignment.batch_name);
-        const [sources, observations, blockedAttempts] = await Promise.all([
-          readJsonLines(path.join(batchRoot, "sources.jsonl")),
-          readJsonLines(path.join(batchRoot, "observations.jsonl")),
+        const [sources, observations, blockedAttempts, unavailableAttempts] = await Promise.all([
+          readJsonLines(path.join(batchRoot, "sources.jsonl"), { allowEmpty: true }),
+          readJsonLines(path.join(batchRoot, "observations.jsonl"), { allowEmpty: true }),
           readOptionalJsonLines(path.join(batchRoot, "blocked-attempts.jsonl")),
+          readOptionalJsonLines(path.join(batchRoot, "unavailable-attempts.jsonl")),
         ]);
         batch = {
           batch_name: assignment.batch_name,
           sources,
           observations,
           blocked_attempts: blockedAttempts,
+          unavailable_attempts: unavailableAttempts,
         };
       } catch {
         batch = { batch_name: assignment.batch_name, sources: [], observations: [] };
@@ -575,16 +704,18 @@ async function main() {
     for (const assignment of workerPlan.assignments) {
       try {
         const batchRoot = path.join(options.root, assignment.batch_name);
-        const [sources, observations, blockedAttempts] = await Promise.all([
-          readJsonLines(path.join(batchRoot, "sources.jsonl")),
-          readJsonLines(path.join(batchRoot, "observations.jsonl")),
+        const [sources, observations, blockedAttempts, unavailableAttempts] = await Promise.all([
+          readJsonLines(path.join(batchRoot, "sources.jsonl"), { allowEmpty: true }),
+          readJsonLines(path.join(batchRoot, "observations.jsonl"), { allowEmpty: true }),
           readOptionalJsonLines(path.join(batchRoot, "blocked-attempts.jsonl")),
+          readOptionalJsonLines(path.join(batchRoot, "unavailable-attempts.jsonl")),
         ]);
         batches.push({
           batch_name: assignment.batch_name,
           sources,
           observations,
           blocked_attempts: blockedAttempts,
+          unavailable_attempts: unavailableAttempts,
         });
       } catch {
         // Missing or malformed batches are reported by the pure verifier as absent.

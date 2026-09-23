@@ -1,0 +1,114 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.089-courier-reassigned",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "logistics_inventory",
+    "state_type": "service_change",
+    "risk_level": "low",
+    "surface_family": "push",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A restaurant delivery application",
+    "person": "A person using a restaurant delivery application",
+    "journey_stage": "Order courier reassigned",
+    "surface": "Mobile push notification",
+    "user_goal": "Track the new courier or contact support if the estimate changes again."
+  },
+  "product_state": {
+    "preceding_state": "The original courier reported a bicycle problem and another courier accepted the pickup.",
+    "current_state": "The restaurant still has the order. A new courier is assigned.",
+    "known_facts": [
+      "The restaurant still has the order.",
+      "A new courier is assigned.",
+      "The estimated delivery moved from 7:10 PM to 7:25 PM.",
+      "The total and tip are unchanged."
+    ],
+    "forbidden_claims": [
+      "The order was remade.",
+      "The courier canceled the order.",
+      "The tip transferred to a different order."
+    ]
+  },
+  "current_content": {
+    "title": "An update",
+    "body": "Open the app for more information."
+  },
+  "challenge": "Rewrite the mobile push notification so the person can understand order courier reassigned, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "title": {
+        "required": true,
+        "max_characters": 45
+      },
+      "body": {
+        "required": true,
+        "max_characters": 120
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Open live order tracking.",
+    "secondary_action": "Dismiss the update without changing the order.",
+    "consequence_to_preserve": "Delivery is expected 15 minutes later.",
+    "recovery_to_preserve": "Track the new courier or contact support if the estimate changes again."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "brief",
+      "helpful",
+      "non-dramatic"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "title",
+      "body"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}

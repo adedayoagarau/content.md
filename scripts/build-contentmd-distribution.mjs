@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { chmod, copyFile, mkdir } from "node:fs/promises";
+import { chmod, copyFile, mkdir, readFile } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { build } from "esbuild";
@@ -8,6 +9,21 @@ import { build } from "esbuild";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const distribution = path.join(root, "distribution/contentmd");
 const output = path.join(distribution, "dist/contentmd.cjs");
+const reviewPacket = await readFile(path.join(root, "docs/tests/fixtures/content-design-scenarios/review-sample-100.json"), "utf8");
+
+const compiled = spawnSync(process.execPath, [
+  path.join(root, "node_modules/typescript/bin/tsc"),
+  "-b",
+  path.join(root, "tsconfig.json"),
+  "--pretty",
+  "false",
+], {
+  cwd: root,
+  encoding: "utf8",
+});
+if (compiled.status !== 0) {
+  throw new Error(`contentmd_workspace_build_failed\n${compiled.stdout}\n${compiled.stderr}`);
+}
 
 await mkdir(path.dirname(output), { recursive: true });
 await build({
@@ -28,7 +44,10 @@ await build({
   platform: "node",
   format: "cjs",
   target: "node24",
-  define: { "import.meta.url": "undefined" },
+  define: {
+    "import.meta.url": "undefined",
+    CONTENTMD_BUILTIN_REVIEW_PACKET: JSON.stringify(reviewPacket),
+  },
   banner: { js: "#!/usr/bin/env node" },
   legalComments: "none",
 });

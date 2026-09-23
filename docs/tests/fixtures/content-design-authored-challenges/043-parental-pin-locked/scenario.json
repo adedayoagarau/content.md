@@ -1,0 +1,126 @@
+{
+  "contract_version": "contentmd.authored-content-design-challenge/0.2.0",
+  "scenario_id": "content-design.challenge.043-parental-pin-locked",
+  "status": "authored_synthetic_unreviewed",
+  "language_scope": "English",
+  "provenance": {
+    "authorship": "project_authored_synthetic",
+    "structural_inspiration_url": "https://uxcontent.com/the-daily-ux-writing-challenge-then-and-now/",
+    "source_use": "exercise_structure_only",
+    "source_expression_copied": false
+  },
+  "coverage": {
+    "domain": "media_subscriptions",
+    "state_type": "temporary_lock",
+    "risk_level": "medium",
+    "surface_family": "dialog",
+    "corpus_role": "authored_scenario_awaiting_contentmd"
+  },
+  "context": {
+    "product": "A family streaming service",
+    "person": "A person using a family streaming service",
+    "journey_stage": "Parental controls PIN temporarily locked",
+    "surface": "Decision or recovery dialog",
+    "user_goal": "Wait for the lock to end or reset the PIN with the disclosed sign-out effect."
+  },
+  "product_state": {
+    "preceding_state": "Five incorrect parental-control PIN attempts triggered a temporary lock.",
+    "current_state": "PIN entry is locked for 15 minutes. Existing child profiles remain restricted.",
+    "known_facts": [
+      "PIN entry is locked for 15 minutes.",
+      "Existing child profiles remain restricted.",
+      "The account owner can reset the PIN by email.",
+      "Resetting the PIN signs out television devices."
+    ],
+    "forbidden_claims": [
+      "The account is permanently locked.",
+      "Child restrictions are disabled.",
+      "Resetting affects only this device."
+    ]
+  },
+  "current_content": {
+    "headline": "Something went wrong",
+    "body": "Review this update to continue.",
+    "primary_button": "Continue",
+    "secondary_button": "Not now"
+  },
+  "challenge": "Rewrite the decision or recovery dialog so the person can understand parental controls pin temporarily locked, the material consequence, and the available next action or recovery without unsupported claims.",
+  "constraints": {
+    "fields": {
+      "headline": {
+        "required": true,
+        "max_characters": 40
+      },
+      "body": {
+        "required": true,
+        "max_characters": 180
+      },
+      "primary_button": {
+        "required": true,
+        "max_characters": 24
+      },
+      "secondary_button": {
+        "required": true,
+        "max_characters": 24
+      }
+    },
+    "character_counting_rule": "Count spaces, numbers, and punctuation as characters."
+  },
+  "interaction_contract": {
+    "primary_action": "Send a PIN reset email to the account owner.",
+    "secondary_action": "Wait 15 minutes and try the existing PIN again.",
+    "consequence_to_preserve": "Protected settings cannot be changed during the lock.",
+    "recovery_to_preserve": "Wait for the lock to end or reset the PIN with the disclosed sign-out effect."
+  },
+  "expression_direction": {
+    "intended_voice": [
+      "plain",
+      "specific",
+      "respectful"
+    ],
+    "situational_tone": [
+      "calm",
+      "specific",
+      "security-aware"
+    ],
+    "avoid": [
+      "vague reassurance",
+      "unsupported certainty",
+      "blame",
+      "hidden consequences",
+      "pressure"
+    ]
+  },
+  "required_output": {
+    "candidate_fields": [
+      "headline",
+      "body",
+      "primary_button",
+      "secondary_button"
+    ],
+    "rationale_requirements": [
+      "Explain how the wording represents the established product state without adding facts.",
+      "Explain how the material consequence and recovery remain visible.",
+      "Explain how each action or instruction matches its documented effect.",
+      "Report the character count for every candidate field.",
+      "Name unresolved questions instead of inventing policy, timing, certainty, or reassurance."
+    ]
+  },
+  "evaluation_order": [
+    "evidence_and_authority",
+    "truth_and_state_accuracy",
+    "action_consequence_and_recovery",
+    "semantic_fidelity",
+    "accessibility_readiness",
+    "comprehension_and_structure",
+    "voice_tone_and_economy"
+  ],
+  "governance": {
+    "review_state": "unreviewed",
+    "authority_effect": "none",
+    "retrieval_eligibility": "never",
+    "training_eligibility": "never",
+    "benchmark_eligibility": false,
+    "effectiveness_claim_eligibility": false
+  }
+}
