@@ -150,11 +150,13 @@ export interface UxWritingCoordinateInput {
   audience?: string | null;
 }
 
-export type UxWritingCoordinateAxis =
-  | "work_intent" | "journey" | "state" | "event_state" | "message_purposes"
-  | "content_slot" | "interaction_pattern" | "action_family" | "channel" | "attention_mode"
-  | "task_structure" | "state_cause" | "content_scope" | "reversibility" | "conversation_state"
-  | "locale" | "risk";
+export const UX_WRITING_COORDINATE_AXES = [
+  "work_intent", "journey", "state", "event_state", "message_purposes",
+  "content_slot", "interaction_pattern", "action_family", "channel", "attention_mode",
+  "task_structure", "state_cause", "content_scope", "reversibility", "conversation_state",
+  "locale", "risk",
+] as const;
+export type UxWritingCoordinateAxis = typeof UX_WRITING_COORDINATE_AXES[number];
 
 export interface UxWritingCoordinateClassification {
   contract_version: "contentmd.ux-writing-coordinate-classification/0.3.0";

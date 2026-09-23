@@ -11,6 +11,8 @@ import evaluationSchema from "./model-output/evaluation.schema.json" with { type
 import rewriteSchema from "./model-output/rewrite.schema.json" with { type: "json" };
 import strategySchema from "./model-output/strategy.schema.json" with { type: "json" };
 import uxRepairRewriteSchema from "./model-output/ux-repair-rewrite.schema.json" with { type: "json" };
+import uxCoordinateClassificationSchema from "./model-output/ux-coordinate-classification.schema.json" with { type: "json" };
+import uxCoordinateEvaluationSchema from "./model-output/ux-coordinate-evaluation.schema.json" with { type: "json" };
 
 export const MODEL_OUTPUT_SCHEMA_IDS = [
   "contentmd.strategy-model-output/0.1.0",
@@ -20,6 +22,8 @@ export const MODEL_OUTPUT_SCHEMA_IDS = [
   "contentmd.classification-model-output/0.1.0",
   "contentmd.evaluation-model-output/0.1.0",
   "contentmd.candidate-ranking-model-output/0.1.0",
+  "contentmd.ux-coordinate-classification-model-output/0.1.0",
+  "contentmd.ux-coordinate-evaluation-model-output/0.1.0",
 ] as const;
 
 export type ModelOutputSchemaId = (typeof MODEL_OUTPUT_SCHEMA_IDS)[number];
@@ -92,6 +96,8 @@ const SCHEMA_DOCUMENTS: Readonly<Record<ModelOutputSchemaId, SchemaDocument>> = 
   "contentmd.classification-model-output/0.1.0": classificationSchema as SchemaDocument,
   "contentmd.evaluation-model-output/0.1.0": evaluationSchema as SchemaDocument,
   "contentmd.candidate-ranking-model-output/0.1.0": candidateRankingSchema as SchemaDocument,
+  "contentmd.ux-coordinate-classification-model-output/0.1.0": uxCoordinateClassificationSchema as SchemaDocument,
+  "contentmd.ux-coordinate-evaluation-model-output/0.1.0": uxCoordinateEvaluationSchema as SchemaDocument,
 });
 
 const MAXIMUM_OUTPUT_BYTES: Readonly<Record<ModelOutputSchemaId, number>> = Object.freeze({
@@ -102,6 +108,8 @@ const MAXIMUM_OUTPUT_BYTES: Readonly<Record<ModelOutputSchemaId, number>> = Obje
   "contentmd.classification-model-output/0.1.0": 32_768,
   "contentmd.evaluation-model-output/0.1.0": 131_072,
   "contentmd.candidate-ranking-model-output/0.1.0": 131_072,
+  "contentmd.ux-coordinate-classification-model-output/0.1.0": 131_072,
+  "contentmd.ux-coordinate-evaluation-model-output/0.1.0": 131_072,
 });
 
 function failCanonical(path: string, detail: string): never {

@@ -77,13 +77,17 @@ describe("English UX-writing benchmark", () => {
     expect(first.by_route.some(({ key }) => key === "none")).toBe(true);
   });
 
-  it("reports accepted review separately while pending cases keep release on hold", () => {
+  it("accepts AI adjudication while pending cases keep release on hold", () => {
     const first = adjudications[0];
     expect(first).toBeDefined();
     const reviewed = adjudications.map((item, index): UxWritingBenchmarkAdjudication => index === 0 ? {
       ...item,
       state: "accepted",
-      reviewer: { reviewer_id: "reviewer.fixture", role: "qualified_ux_content_reviewer" },
+      reviewer: {
+        reviewer_id: "ai-adjudication.fixture",
+        role: "ai_classifier_evaluator",
+        exception_reason_code: null,
+      },
       reviewed_at: "2026-09-20T12:00:00.000Z",
       rationale: "Fixture acceptance for contract testing.",
     } : item);
@@ -96,14 +100,19 @@ describe("English UX-writing benchmark", () => {
   it("rejects malformed state and reviewer provenance instead of treating either as approval", () => {
     const reviewed = {
       state: "accepted",
-      reviewer: { reviewer_id: "reviewer.fixture", role: "qualified_ux_content_reviewer" },
+      reviewer: {
+        reviewer_id: "ai-adjudication.fixture",
+        role: "ai_classifier_evaluator",
+        exception_reason_code: null,
+      },
       reviewed_at: "2026-09-20T12:00:00.000Z",
       rationale: "Fixture acceptance for contract testing.",
     };
     const malformedPatches: Record<string, unknown>[] = [
       { reviewer: { reviewer_id: "not-allowed", role: "qualified_ux_content_reviewer" } },
       { ...reviewed, state: "approved_without_contract" },
-      { ...reviewed, reviewer: { reviewer_id: " ", role: "qualified_ux_content_reviewer" } },
+      { ...reviewed, reviewer: { reviewer_id: " ", role: "ai_classifier_evaluator", exception_reason_code: null } },
+      { ...reviewed, reviewer: { reviewer_id: "human.fixture", role: "qualified_ux_content_exception_reviewer", exception_reason_code: "" } },
       { ...reviewed, reviewed_at: "not-a-timestamp" },
     ];
     for (const patch of malformedPatches) {

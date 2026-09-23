@@ -61,7 +61,8 @@ npx contentmd serve                   # open the local interactive proofing desk
 Structured English UX-writing use cases can also be classified without adopting
 a project or writing runtime state. The benchmark evaluator reports provisional
 and qualified evidence separately and exits with governance code `20` while its
-human adjudication packet is incomplete:
+independent AI adjudication packet is incomplete. Human review is an explicit
+authority or failure exception, not the default label source:
 
 ```bash
 contentmd usecase classify --input /absolute/path/to/usecase-request.json --json
@@ -213,9 +214,10 @@ pnpm contentmd draft-select \
 2. [Candidate content-decision system model](research/08-synthesis/candidate-system-model.md) — the ontology, orthogonal evidence dimensions, independent decision and delivery states, typed control records, scope, and compiler boundary to test.
 3. [Content Decision Contract and Universal Assurance Kernel](docs/verification/content-decision-contract-and-assurance-kernel.md) — the executable English-only classify, decide, contract, and criterion-level assurance loop.
 4. [Contextual Assurance Overlays and Tone Construct Reconciliation](docs/verification/contextual-assurance-overlays-and-tone-reconciliation.md) — deterministic product, risk, interaction, channel, accessibility, and governance routing plus the evidence-bounded nine-feature tone review.
-5. [Governed UX content corpus ingestion](docs/verification/ux-content-corpus-ingestion.md) — deterministic manifests, metadata-only projections, corpus crosswalks, leakage-safe review partitions, and fail-closed eligibility for the 200-product collection.
-6. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
-7. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
+5. [Governed UX content corpus ingestion](docs/verification/ux-content-corpus-ingestion.md) — deterministic manifests, metadata-only projections, explicit label layers, leakage-safe AI adjudication partitions, and fail-closed eligibility for the 200-product collection.
+6. [AI-first UX-coordinate adjudication](docs/verification/ai-adjudication-runner.md) — strict classifier and blinded evaluator contracts, bounded revision, abstention, and authority-only human exceptions.
+7. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
+8. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
 
 ## What the current synthesis supports
 

@@ -496,8 +496,10 @@ const manifest = {
     source_kind: "authored_synthetic",
     external_corpora_used: [],
     excluded_corpora: [{ id: "goodmicrocopy", reason: "awaiting_classifier_and_not_eligible_as_gold_or_benchmark_authority" }],
+    human_review_default: false,
     human_gold_claimed: false,
-    qualified_review_required: true,
+    independent_adjudication_required: true,
+    primary_adjudicator: "ai_classifier_evaluator",
   },
 };
 const manifestRaw = canonicalJson(manifest);

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentmd.ux-coordinate-classification-model-output/0.1.0",
+  "type": "object",
+  "properties": {
+    "authority_effect": { "const": "none" },
+    "decision_state": { "const": "model_proposed" },
+    "model_processing_purpose": { "const": "classification_only" },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "axis": {
+            "enum": [
+              "work_intent",
+              "journey",
+              "state",
+              "event_state",
+              "message_purposes",
+              "content_slot",
+              "interaction_pattern",
+              "action_family",
+              "channel",
+              "attention_mode",
+              "task_structure",
+              "state_cause",
+              "content_scope",
+              "reversibility",
+              "conversation_state",
+              "locale",
+              "risk"
+            ]
+          },
+          "status": { "enum": ["exact", "ambiguous", "unclassified"] },
+          "values": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1, "maxLength": 200 },
+            "minItems": 0,
+            "maxItems": 32
+          },
+          "rationale": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1, "maxLength": 500 },
+            "minItems": 0,
+            "maxItems": 500
+          },
+          "uncertainty": { "enum": ["none", "bounded", "material"] }
+        },
+        "required": ["axis", "status", "values", "rationale", "evidence_refs", "uncertainty"],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 17
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 4000 },
+      "minItems": 0,
+      "maxItems": 100
+    }
+  },
+  "required": ["authority_effect", "decision_state", "model_processing_purpose", "labels", "uncertainties"],
+  "additionalProperties": false
+}

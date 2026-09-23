@@ -19,3 +19,4 @@ export * from "./ux-writing-benchmark.js";
 export * from "./content-decision-contract.js";
 export * from "./universal-assurance-kernel.js";
 export * from "./contextual-assurance-overlays.js";
+export * from "./ai-adjudication.js";

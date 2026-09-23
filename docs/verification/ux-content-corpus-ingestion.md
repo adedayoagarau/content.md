@@ -15,22 +15,55 @@ raw public-product evidence
   -> validate structure, language, rights, provenance, and missingness
   -> project metadata and line-bounded candidates
   -> crosswalk candidate classification questions
-  -> queue human adjudication with product-level leakage groups
+  -> queue AI classification plus independent AI evaluation
+  -> accept | revise | abstain | route a genuine authority/failure exception
   -> remain ineligible for prompts, training, benchmarks, and metrics
 ```
 
-## Why this is not yet a classifier dataset
+## What labels already exist
 
-The dossiers contain observations and analysis, not independently adjudicated
-labels for the Content Decision Contract or UX-writing coordinate axes. T1–T14
-are collection categories: they help locate evidence but are not interchangeable
-with user intent, event state, action, risk, voice, tone, or outcome. The
-crosswalk therefore names dimensions a reviewer should consider and includes a
-non-equivalence warning for every category. It assigns no gold labels.
+The dossiers are not label-free. Product metadata and T1–T14 placement are
+source labels; split and leakage-group assignments are deterministic derived
+labels. They are useful evidence, but T1–T14 are collection categories rather
+than substitutes for user intent, event state, action, risk, voice, tone, or
+outcome. The crosswalk therefore names coordinate axes the AI should decide and
+keeps a non-equivalence warning for every category.
 
-Every review unit has `expected_labels: null`, `eligible_for_metrics: false`, and
-`adjudication_required: true`. Voice and tone remain expression constraints;
-T14 cannot stand in for use-case classification.
+Every review unit now carries explicit `source_labels`, `derived_labels`, an
+empty `ai_labels` layer, and an empty `human_override` layer. Its primary
+adjudicator is AI; its ordinary state is `pending_ai_adjudication`. Voice and
+tone remain expression constraints, so T14 still cannot stand in for use-case
+classification. Records outside the English-only scope are excluded before any
+provider call.
+
+## AI adjudication boundary
+
+The runner performs a strict classifier–evaluator loop:
+
+```text
+source + existing labels
+  -> classify requested coordinate axes
+  -> deterministic ontology/evidence checks
+  -> independent evaluator checks six fixed criteria
+  -> accept | revise (bounded) | abstain | authority exception
+```
+
+An evaluator pass creates an AI-accepted semantic label decision; it does not
+wait for routine human approval. The evaluator is sent the proposed values,
+evidence references, and uncertainty but is blinded to the classifier's
+rationale. An unchanged revision digest stops the loop instead of spending
+indefinitely.
+
+Human involvement is an exception route for external legal, policy,
+publication, or implementation authority; exhausted or stalled revisions; or
+invalid model behavior. Missing evidence produces abstention, not automatic
+human labeling.
+
+Model processing is also distinct from model reuse. Eligible source text may be
+read only for classification and evaluation under an explicit per-run
+authorization, with transient retention and provider storage disabled. Prompt
+grounding for generation, retrieval reuse, training, benchmark scoring, and
+publication remain prohibited.
 
 ## Deterministic controls
 
@@ -66,7 +99,8 @@ reports:
 These findings deliberately do not stop deterministic projection generation.
 They do keep `controlled_corpus_eligibility` false. Fixing structure alone also
 cannot change benchmark, prompt, or training eligibility; those states require
-separate rights decisions and human adjudication.
+separate evidence, calibration, and authority decisions. AI label acceptance
+does not change them.
 
 ## Commands
 
