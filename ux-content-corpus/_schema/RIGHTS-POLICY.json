@@ -1,0 +1,47 @@
+{
+  "$schema_version": "contentmd.ux-content-corpus-rights-policy/0.1.0",
+  "default": {
+    "allowed_uses": [
+      "human_review",
+      "metadata_indexing",
+      "source_discovery"
+    ],
+    "authority_effect": "none",
+    "benchmark_eligibility": false,
+    "prompt_eligibility": "never",
+    "rights_status": "rights_unknown_evidence_only",
+    "training_eligibility": "never"
+  },
+  "overrides": [
+    {
+      "allowed_uses": [
+        "legal_review",
+        "metadata_indexing"
+      ],
+      "product_rank": 114,
+      "reason_code": "source_terms_flagged_in_corpus_index",
+      "rights_status": "excluded_pending_legal_review"
+    },
+    {
+      "allowed_uses": [
+        "legal_review",
+        "metadata_indexing"
+      ],
+      "product_rank": 115,
+      "reason_code": "source_terms_flagged_in_corpus_index",
+      "rights_status": "excluded_pending_legal_review"
+    }
+  ],
+  "prohibited_until_separately_authorized": [
+    "benchmark_scoring",
+    "commercial_reuse",
+    "fine_tuning",
+    "model_prompt_grounding",
+    "retrieval_augmented_generation",
+    "training"
+  ],
+  "quotation_review": {
+    "rule": "Every verbatim span requires source-level rights and quotation review before reuse.",
+    "status": "required"
+  }
+}

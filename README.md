@@ -211,8 +211,11 @@ pnpm contentmd draft-select \
 
 1. [Foundational findings](research/08-synthesis/foundational-findings.md) — the cross-workstream answer and current product implications.
 2. [Candidate content-decision system model](research/08-synthesis/candidate-system-model.md) — the ontology, orthogonal evidence dimensions, independent decision and delivery states, typed control records, scope, and compiler boundary to test.
-3. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
-4. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
+3. [Content Decision Contract and Universal Assurance Kernel](docs/verification/content-decision-contract-and-assurance-kernel.md) — the executable English-only classify, decide, contract, and criterion-level assurance loop.
+4. [Contextual Assurance Overlays and Tone Construct Reconciliation](docs/verification/contextual-assurance-overlays-and-tone-reconciliation.md) — deterministic product, risk, interaction, channel, accessibility, and governance routing plus the evidence-bounded nine-feature tone review.
+5. [Governed UX content corpus ingestion](docs/verification/ux-content-corpus-ingestion.md) — deterministic manifests, metadata-only projections, corpus crosswalks, leakage-safe review partitions, and fail-closed eligibility for the 200-product collection.
+6. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
+7. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
 
 ## What the current synthesis supports
 
