@@ -44,7 +44,7 @@ export function registerUsecase(program: Command): void {
           ? "findings_present" as const : "completed" as const,
         record_refs: [report.report_digest],
         next_actions: blocked
-          ? ["Complete qualified UX-content adjudication; do not treat provisional authored labels as human gold."]
+          ? ["Run qualified AI classifier-evaluator adjudication; use a person only for an explicit authority or failure exception."]
           : [],
         data: report,
       };

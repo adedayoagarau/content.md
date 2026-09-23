@@ -62,6 +62,7 @@ test("build is deterministic, complete, product-grouped, and fail-closed", async
     assert.equal(product.benchmark_eligibility, false);
     assert.equal(product.governance.prompt_eligibility, "never");
     assert.equal(product.governance.training_eligibility, "never");
+    assert.equal(product.governance.processing_authorization_required, true);
     verifyRecordDigest(product, "product_projection_digest");
   }
   assert.deepEqual([...domainCounts.values()].sort((left, right) => left - right), Array(10).fill(20));
@@ -69,9 +70,17 @@ test("build is deterministic, complete, product-grouped, and fail-closed", async
   for (const unit of first.review_queue) {
     assert.equal(unit.split, productSplits.get(unit.product_id));
     assert.equal(unit.leakage_group_id, unit.product_id);
-    assert.equal(unit.expected_labels, null);
     assert.equal(unit.eligible_for_metrics, false);
     assert.equal(unit.adjudication_required, true);
+    assert.equal(unit.primary_adjudicator, "ai");
+    assert.equal(unit.fallback_route, "human_exception_only");
+    assert.equal(unit.processing_authorization_required, true);
+    assert.equal(unit.processing_authorization_ref, null);
+    assert.equal(unit.label_layers.ai_labels, null);
+    assert.equal(unit.label_layers.human_override, null);
+    assert.equal(unit.label_layers.source_labels[0].value, unit.taxonomy_id);
+    assert.ok(unit.label_layers.derived_labels.some((label) =>
+      label.dimension === "corpus_split" && label.value === unit.split));
     verifyRecordDigest(unit, "review_unit_digest");
   }
   const metricEligible = first.review_queue.filter((unit) => unit.eligible_for_metrics);
@@ -111,10 +120,25 @@ test("audit preserves known missingness, language boundaries, and rights exclusi
   const excludedProducts = artifacts.product_records.filter((product) =>
     product.governance.rights_status === "excluded_pending_legal_review");
   assert.deepEqual(excludedProducts.map((product) => product.corpus_rank), [114, 115]);
+  assert.ok(excludedProducts.every((product) =>
+    product.governance.model_processing_eligibility === "never"
+    && product.governance.model_retention_eligibility === "never"));
   assert.ok(artifacts.review_queue
     .filter((unit) => new Set(["uxcorpus.product.114", "uxcorpus.product.115"]).has(unit.product_id))
     .every((unit) => unit.review_status === "excluded_pending_legal_review"
-      && unit.blocked_by.includes("rights_review")));
+      && unit.blocked_by.includes("rights_review")
+      && unit.model_processing_eligibility === "never"));
+  assert.ok(artifacts.review_queue
+    .filter((unit) => !new Set(["uxcorpus.product.114", "uxcorpus.product.115"]).has(unit.product_id))
+    .filter((unit) => !new Set(["uxcorpus.product.049", "uxcorpus.product.113"]).has(unit.product_id))
+    .every((unit) => unit.review_status === "pending_ai_adjudication"
+      && unit.model_processing_eligibility
+        === "classification_and_evaluation_with_explicit_run_authorization"));
+  assert.ok(artifacts.review_queue
+    .filter((unit) => new Set(["uxcorpus.product.049", "uxcorpus.product.113"]).has(unit.product_id))
+    .every((unit) => unit.review_status === "excluded_outside_language_scope"
+      && unit.blocked_by.includes("language_scope")
+      && unit.model_processing_eligibility === "never"));
 });
 
 test("projections contain locators and metadata, not copied dossier prose", async () => {

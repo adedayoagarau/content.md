@@ -3,7 +3,7 @@ import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve, sep } from "node:path";
 
 export const UX_CONTENT_CORPUS_COMPILER_VERSION =
-  "contentmd.ux-content-corpus-compiler/0.1.0";
+  "contentmd.ux-content-corpus-compiler/0.2.0";
 
 export const GENERATED_DIRECTORY = "ux-content-corpus/_generated";
 
@@ -344,12 +344,27 @@ function parseProduct(path, text, rightsPolicy) {
 }
 
 function validateRightsPolicy(policy) {
-  assert(policy?.$schema_version === "contentmd.ux-content-corpus-rights-policy/0.1.0", "rights_policy_version");
+  assert(policy?.$schema_version === "contentmd.ux-content-corpus-rights-policy/0.2.0", "rights_policy_version");
   assert(policy.default?.authority_effect === "none", "rights_policy_authority");
+  assert(policy.default?.model_processing_eligibility
+    === "classification_and_evaluation_with_explicit_run_authorization",
+    "rights_policy_model_processing_eligibility");
+  assert(policy.default?.model_retention_eligibility === "transient_only",
+    "rights_policy_model_retention_eligibility");
+  assert(policy.default?.processing_authorization_required === true,
+    "rights_policy_processing_authorization");
   assert(policy.default?.prompt_eligibility === "never", "rights_policy_prompt_eligibility");
   assert(policy.default?.training_eligibility === "never", "rights_policy_training_eligibility");
   assert(policy.default?.benchmark_eligibility === false, "rights_policy_benchmark_eligibility");
   assert(Array.isArray(policy.overrides), "rights_policy_overrides");
+  for (const override of policy.overrides) {
+    if (override.rights_status === "excluded_pending_legal_review") {
+      assert(override.model_processing_eligibility === "never",
+        `rights_policy_excluded_model_processing:${override.product_rank}`);
+      assert(override.model_retention_eligibility === "never",
+        `rights_policy_excluded_model_retention:${override.product_rank}`);
+    }
+  }
 }
 
 function validateCrosswalk(crosswalk) {
@@ -646,6 +661,7 @@ function buildAudit(products, indexText) {
     issues,
     prompt_eligibility: "never",
     source_scope: "public_unauthenticated_surfaces_as_declared_by_source_files",
+    model_processing_eligibility: "per_record_policy_with_explicit_run_authorization",
     training_eligibility: "never",
   }, "audit_digest");
 }
@@ -656,17 +672,30 @@ function makeProductRecords(products, splits, rawFileMap) {
     const split = splits.get(product.rank);
     const missingSections = TAXONOMY_IDS.filter((taxonomyId) =>
       !product.section_records.some((section) => section.taxonomy_id === taxonomyId));
+    const languageBlocked = product.language_review_status !== "english_indicated";
+    const modelProcessingEligibility = languageBlocked
+      ? "never" : product.rights.model_processing_eligibility;
+    const modelRetentionEligibility = modelProcessingEligibility === "never"
+      ? "never" : product.rights.model_retention_eligibility;
+    const modelProcessingBlockers = [
+      ...(product.rights.rights_status === "excluded_pending_legal_review" ? ["rights_review"] : []),
+      ...(languageBlocked ? ["language_scope"] : []),
+    ].sort(lexical);
     return withDigest({
       authority_effect: "none",
       auth_state: product.auth_state,
       benchmark_eligibility: false,
-      classifier_status: "candidate_input_not_label",
+      classifier_status: "source_labels_available_ai_coordinate_decision_pending",
       corpus_rank: product.rank,
       domain: product.domain,
       evidence_counts: product.product_evidence,
       governance: {
         allowed_uses: product.rights.allowed_uses,
+        model_processing_blockers: modelProcessingBlockers,
+        model_processing_eligibility: modelProcessingEligibility,
+        model_retention_eligibility: modelRetentionEligibility,
         prompt_eligibility: "never",
+        processing_authorization_required: product.rights.processing_authorization_required,
         rights_status: product.rights.rights_status,
         training_eligibility: "never",
       },
@@ -687,7 +716,7 @@ function makeProductRecords(products, splits, rawFileMap) {
       primary_host: product.primary_host,
       primary_url: product.primary_url,
       product_id: productId,
-      projection_version: "contentmd.ux-content-product-projection/0.1.0",
+      projection_version: "contentmd.ux-content-product-projection/0.2.0",
       source: {
         byte_count: rawFileMap.get(product.source_file)?.byte_count ?? null,
         line_count: product.line_count,
@@ -709,6 +738,15 @@ function makeSectionRecords(products, splits, crosswalkMap) {
   for (const product of products) {
     const productId = `uxcorpus.product.${String(product.rank).padStart(3, "0")}`;
     const split = splits.get(product.rank);
+    const languageBlocked = product.language_review_status !== "english_indicated";
+    const modelProcessingEligibility = languageBlocked
+      ? "never" : product.rights.model_processing_eligibility;
+    const modelRetentionEligibility = modelProcessingEligibility === "never"
+      ? "never" : product.rights.model_retention_eligibility;
+    const modelProcessingBlockers = [
+      ...(product.rights.rights_status === "excluded_pending_legal_review" ? ["rights_review"] : []),
+      ...(languageBlocked ? ["language_scope"] : []),
+    ].sort(lexical);
     for (const section of product.section_records) {
       const crosswalk = crosswalkMap.get(section.taxonomy_id);
       records.push(withDigest({
@@ -721,9 +759,35 @@ function makeSectionRecords(products, splits, crosswalkMap) {
         },
         evidence_counts: section.evidence_counts,
         evidence_statuses: section.evidence_statuses,
+        label_layers: {
+          ai_labels: null,
+          derived_labels: [{
+            dimension: "corpus_split",
+            evidence_refs: [],
+            label_id: `derived-label.${section.digest}.corpus-split`,
+            layer: "derived",
+            value: split.split,
+          }],
+          human_override: null,
+          source_labels: [{
+            dimension: "taxonomy_section",
+            evidence_refs: [`source-section.${section.digest}`],
+            label_id: `source-label.${section.digest}.taxonomy-section`,
+            layer: "source",
+            value: section.taxonomy_id,
+          }],
+        },
+        language_scope: {
+          project_scope: "english_only",
+          review_status: product.language_review_status,
+        },
+        model_processing_blockers: modelProcessingBlockers,
+        model_processing_eligibility: modelProcessingEligibility,
+        model_retention_eligibility: modelRetentionEligibility,
         product_id: productId,
-        projection_version: "contentmd.ux-content-section-projection/0.1.0",
+        projection_version: "contentmd.ux-content-section-projection/0.2.0",
         prompt_eligibility: "never",
+        processing_authorization_required: product.rights.processing_authorization_required,
         rights_status: product.rights.rights_status,
         section_id: `uxcorpus.section.${String(product.rank).padStart(3, "0")}.${section.taxonomy_id.toLocaleLowerCase("en-US")}`,
         source_ref: {
@@ -851,23 +915,34 @@ function makeOverlapRecords(products, existingRecords, dependencyDigest) {
 function makeReviewQueue(sectionRecords, crosswalkMap) {
   return sectionRecords.map((section) => {
     const crosswalk = crosswalkMap.get(section.taxonomy_id);
-    const blockedBy = section.rights_status === "excluded_pending_legal_review"
-      ? ["rights_review"] : [];
+    const blockedBy = [...new Set(section.model_processing_blockers)].sort(lexical);
+    const reviewStatus = blockedBy.includes("rights_review")
+      ? "excluded_pending_legal_review"
+      : blockedBy.includes("language_scope")
+        ? "excluded_outside_language_scope"
+        : "pending_ai_adjudication";
     return withDigest({
       adjudication_required: true,
+      adjudication_system: "contentmd.ai-adjudication/0.1.0",
       authority_effect: "none",
       blocked_by: blockedBy,
       eligible_for_metrics: false,
-      expected_labels: null,
+      fallback_route: "human_exception_only",
+      label_layers: section.label_layers,
       leakage_group_id: section.split.leakage_group_id,
+      model_processing_eligibility: section.model_processing_eligibility,
+      model_retention_eligibility: section.model_retention_eligibility,
+      primary_adjudicator: "ai",
+      processing_authorization_ref: null,
+      processing_authorization_required: section.processing_authorization_required,
       product_id: section.product_id,
       requested_labels: {
         content_decision_dimensions: crosswalk.content_decision_dimensions,
         coordinate_axes: crosswalk.coordinate_axes,
       },
-      review_status: blockedBy.length > 0 ? "excluded_pending_legal_review" : "pending_human_adjudication",
+      review_status: reviewStatus,
       review_unit_id: `review.${section.section_id}`,
-      schema_version: "contentmd.ux-content-review-unit/0.1.0",
+      schema_version: "contentmd.ux-content-review-unit/0.2.0",
       source_ref: section.source_ref,
       split: section.split.split,
       taxonomy_id: section.taxonomy_id,
@@ -921,7 +996,7 @@ function generatedCrosswalk(crosswalk, sourceDigest) {
     crosswalk_version: "contentmd.ux-content-taxonomy-crosswalk-projection/0.1.0",
     entries: crosswalk.entries,
     source_digest: sourceDigest,
-    status: "candidate_crosswalk_requires_human_validation",
+    status: "candidate_crosswalk_available_for_ai_adjudication",
   }, "crosswalk_digest");
 }
 
@@ -1005,6 +1080,7 @@ export async function buildUxContentCorpusArtifacts({ repositoryRoot }) {
     files: witnesses,
     manifest_version: "contentmd.ux-content-projection-manifest/0.1.0",
     prompt_eligibility: "never",
+    model_processing_eligibility: "per_record_policy_with_explicit_run_authorization",
     raw_manifest_digest: rawManifest.manifest_digest,
     training_eligibility: "never",
   }, "projection_manifest_digest");

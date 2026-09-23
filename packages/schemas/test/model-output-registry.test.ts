@@ -14,6 +14,8 @@ const UX_REPAIR_REWRITE_ID = "contentmd.ux-repair-rewrite-model-output/0.1.0" as
 const CLASSIFICATION_ID = "contentmd.classification-model-output/0.1.0" as const;
 const EVALUATION_ID = "contentmd.evaluation-model-output/0.1.0" as const;
 const RANKING_ID = "contentmd.candidate-ranking-model-output/0.1.0" as const;
+const UX_COORDINATE_CLASSIFICATION_ID = "contentmd.ux-coordinate-classification-model-output/0.1.0" as const;
+const UX_COORDINATE_EVALUATION_ID = "contentmd.ux-coordinate-evaluation-model-output/0.1.0" as const;
 
 const VALID_OUTPUTS: Readonly<Record<ModelOutputSchemaId, unknown>> = {
   [STRATEGY_ID]: {
@@ -139,10 +141,40 @@ const VALID_OUTPUTS: Readonly<Record<ModelOutputSchemaId, unknown>> = {
     tie_break_required: false,
     uncertainty: [],
   },
+  [UX_COORDINATE_CLASSIFICATION_ID]: {
+    authority_effect: "none",
+    decision_state: "model_proposed",
+    model_processing_purpose: "classification_only",
+    labels: [{
+      axis: "journey",
+      status: "exact",
+      values: ["commitment"],
+      rationale: "The source describes the point where a user commits to payment.",
+      evidence_refs: ["evidence.checkout.commitment"],
+      uncertainty: "none",
+    }],
+    uncertainties: [],
+  },
+  [UX_COORDINATE_EVALUATION_ID]: {
+    authority_effect: "none",
+    model_processing_purpose: "evaluation_only",
+    verdict: "pass",
+    criteria: [
+      { criterion: "evidence_relation", status: "pass", rationale: "The label cites the source.", evidence_refs: ["evidence.checkout.commitment"] },
+      { criterion: "requested_axis_coverage", status: "pass", rationale: "Every requested axis is present.", evidence_refs: [] },
+      { criterion: "source_label_compatibility", status: "pass", rationale: "No source label conflicts with the result.", evidence_refs: ["evidence.checkout.commitment"] },
+      { criterion: "ontology_conformance", status: "pass", rationale: "The value belongs to the journey vocabulary.", evidence_refs: [] },
+      { criterion: "internal_consistency", status: "pass", rationale: "The label and rationale agree.", evidence_refs: ["evidence.checkout.commitment"] },
+      { criterion: "uncertainty_is_honest", status: "pass", rationale: "The evidence supports an exact result.", evidence_refs: ["evidence.checkout.commitment"] },
+    ],
+    corrections: [],
+    unresolved: [],
+    authority_escalation_reasons: [],
+  },
 };
 
 describe("model output schema registry", () => {
-  it("registers the seven exact governed model-output schema IDs", () => {
+  it("registers the nine exact governed model-output schema IDs", () => {
     expect(MODEL_OUTPUT_SCHEMA_IDS).toEqual([
       STRATEGY_ID,
       DRAFT_ID,
@@ -151,6 +183,8 @@ describe("model output schema registry", () => {
       CLASSIFICATION_ID,
       EVALUATION_ID,
       RANKING_ID,
+      UX_COORDINATE_CLASSIFICATION_ID,
+      UX_COORDINATE_EVALUATION_ID,
     ]);
 
     for (const schemaId of MODEL_OUTPUT_SCHEMA_IDS) {
