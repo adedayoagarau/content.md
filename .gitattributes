@@ -1,0 +1,3 @@
+# Preserve byte-exact contributed corpus Markdown, including source whitespace.
+ux-content-corpus/*.md -whitespace
+ux-content-corpus/**/*.md -whitespace
