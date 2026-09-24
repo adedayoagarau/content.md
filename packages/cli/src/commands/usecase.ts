@@ -1,7 +1,9 @@
 import {
   classifyLocalUxWritingUseCase,
+  createCorpusAdjudicationRemoteLaunchRequest,
   createCorpusAdjudicationPlan,
   evaluateLocalUxWritingUseCaseBenchmark,
+  inspectLocalProviderConfiguration,
   runCorpusAdjudicationBatch,
   type AiAdjudicationModelContext,
 } from "@contentmd/agent";
@@ -29,6 +31,19 @@ interface CorpusAdjudicationOptions extends JsonOptions {
   mode: string;
   cassette?: string;
   processingAuthorizationRef?: string;
+  classifierModel: string;
+  evaluatorModel: string;
+  maximumRefinementRounds: number;
+}
+
+interface CorpusLaunchOptions extends JsonOptions {
+  root: string;
+  queue: string;
+  products: string;
+  crosswalk: string;
+  split: string;
+  sampleMatrix: string;
+  provider: string;
   classifierModel: string;
   evaluatorModel: string;
   maximumRefinementRounds: number;
@@ -155,7 +170,7 @@ export function registerUsecase(program: Command): void {
           record_refs: [plan.plan_id, plan.plan_digest],
           warnings: ["Planning made no model call and wrote no adjudication state."],
           next_actions: [
-            "Authorize the exact plan, prepare a digest-bound recorded cassette, then rerun with --mode recorded.",
+            "For remote processing, run usecase prepare-corpus-run with exact model IDs; for offline replay, authorize the exact plan and provide a digest-bound cassette.",
           ],
           data: { mode: "plan" as const, plan },
         };
@@ -201,6 +216,80 @@ export function registerUsecase(program: Command): void {
           ? [`${findingCount} units require abstention or an explicit failure/authority exception.`]
           : [],
         data: { mode: "recorded" as const, ...result },
+      };
+    }));
+
+  usecase.command("prepare-corpus-run")
+    .description("prepare an exact no-network authorization request for the remote corpus pilot")
+    .requiredOption("--root <path>", "repository root containing ux-content-corpus")
+    .option("--queue <path>", "review queue relative to the repository root", "ux-content-corpus/_generated/review-queue.jsonl")
+    .option("--products <path>", "product projection relative to the repository root", "ux-content-corpus/_generated/products.jsonl")
+    .option("--crosswalk <path>", "taxonomy crosswalk relative to the repository root", "ux-content-corpus/_schema/TAXONOMY-CROSSWALK.json")
+    .option("--split <name>", "corpus split; this pilot is discovery-only", "discovery")
+    .option("--sample-matrix <axes>", "sampling matrix; must be domain,taxonomy", "domain,taxonomy")
+    .option("--provider <id>", "remote provider; currently openai", "openai")
+    .requiredOption("--classifier-model <id>", "exact classifier model id")
+    .requiredOption("--evaluator-model <id>", "exact evaluator model id")
+    .option("--maximum-refinement-rounds <count>", "bounded classifier revision rounds (0-3)", refinementRounds, 2)
+    .option("--json", "emit the stable JSON envelope")
+    .action(async (options: CorpusLaunchOptions) => runCommand(options, async () => {
+      if (options.split !== "discovery") {
+        throw new Error("corpus_adjudication_launch_invalid:split:discovery_only");
+      }
+      if (options.sampleMatrix !== "domain,taxonomy") {
+        throw new Error("corpus_adjudication_launch_invalid:sample_matrix");
+      }
+      if (options.provider !== "openai") {
+        throw new Error(`unsupported_provider:${options.provider}`);
+      }
+      const [plan, providerConfiguration] = await Promise.all([
+        createCorpusAdjudicationPlan({
+          project_root: options.root,
+          queue_path: options.queue,
+          products_path: options.products,
+          taxonomy_crosswalk_path: options.crosswalk,
+          split: "discovery",
+        }),
+        inspectLocalProviderConfiguration(options.root),
+      ]);
+      const launchRequest = createCorpusAdjudicationRemoteLaunchRequest({
+        plan,
+        target: {
+          provider_id: "provider.openai",
+          adapter_id: "adapter.openai.responses",
+          destination_origin: "https://api.openai.com",
+        },
+        classifier: { requested_model_id: options.classifierModel },
+        evaluator: { requested_model_id: options.evaluatorModel },
+        provider_configuration: providerConfiguration,
+        maximum_refinement_rounds: options.maximumRefinementRounds,
+      });
+      const blocked = launchRequest.configuration_readiness.status === "blocked";
+      return {
+        command_id: "usecase.prepare-corpus-run",
+        status: "completed" as const,
+        record_refs: [
+          launchRequest.request_id,
+          launchRequest.authorization_subject.subject_id,
+        ],
+        warnings: [
+          "Preparation made no model call, sent no corpus data, wrote no state, and granted no authority.",
+          ...launchRequest.configuration_readiness.reason_codes.map((reason) =>
+            `Launch configuration is blocked: ${reason}.`),
+          ...launchRequest.configuration_readiness.advisory_codes.map((reason) =>
+            `Launch advisory: ${reason}.`),
+        ],
+        next_actions: blocked
+          ? [
+              "Install one current digest-valid provider configuration for the exact model, classify/evaluate operations, schemas, data classes, project, and zero-data-retention boundary; then rerun this command.",
+            ]
+          : [
+              `Explicitly authorize processing and remote egress for subject ${launchRequest.authorization_subject.subject_id} at digest ${launchRequest.authorization_subject.subject_digest}; preparation alone is not authorization.`,
+            ],
+        data: {
+          mode: "remote_launch_preparation" as const,
+          launch_request: launchRequest,
+        },
       };
     }));
 }

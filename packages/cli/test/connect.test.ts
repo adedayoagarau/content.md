@@ -56,7 +56,8 @@ describe("provider connection CLI", () => {
     temporaryDirectories.push(root);
 
     const { envelope, stdout } = await run([
-      "connect", "openai", "--propose", "--model", "gpt-fixture", "--root", root, "--json",
+      "connect", "openai", "--propose", "--model", "gpt-fixture",
+      "--operations", "classify,evaluate", "--root", root, "--json",
     ]);
 
     expect(envelope).toMatchObject({
@@ -65,6 +66,7 @@ describe("provider connection CLI", () => {
       data: {
         provider_id: "provider.openai",
         requested_model_id: "gpt-fixture",
+        proposed_operations: ["classify", "evaluate"],
         connection_effect: "none",
         authority_effect: "none",
       },

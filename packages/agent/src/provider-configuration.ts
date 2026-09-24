@@ -267,14 +267,32 @@ export class FilesystemProviderConfigurationResolver implements ProviderConfigur
 export interface LocalProviderConfigurationInspection {
   configured: boolean;
   configuration_id: string | null;
+  configuration_digest: string | null;
   provider_id: string | null;
   adapter_id: string | null;
   requested_model_id: string | null;
+  model_profile_id: string | null;
+  model_profile_status: string | null;
+  data_handling_profile_id: string | null;
+  data_handling_profile_status: string | null;
   account_id: string | null;
   project_id: string | null;
   destination_origin: string | null;
   connection_status: string | null;
   grant_status: string | null;
+  zero_data_retention_status: string | null;
+  abuse_monitoring_retention: string | null;
+  prompt_caching: string | null;
+  training_opt_in: boolean | null;
+  supported_operations: string[];
+  supported_output_schema_ids: string[];
+  granted_operations: string[];
+  granted_output_schema_ids: string[];
+  granted_data_classes: string[];
+  maximum_input_tokens: number | null;
+  maximum_output_tokens: number | null;
+  timeout_ms: number | null;
+  maximum_retries: number | null;
   secret_ref_id: string | null;
   authority_effect: "none";
 }
@@ -291,14 +309,32 @@ export async function inspectLocalProviderConfiguration(
       return deepFreeze({
         configured: false,
         configuration_id: null,
+        configuration_digest: null,
         provider_id: null,
         adapter_id: null,
         requested_model_id: null,
+        model_profile_id: null,
+        model_profile_status: null,
+        data_handling_profile_id: null,
+        data_handling_profile_status: null,
         account_id: null,
         project_id: null,
         destination_origin: null,
         connection_status: null,
         grant_status: null,
+        zero_data_retention_status: null,
+        abuse_monitoring_retention: null,
+        prompt_caching: null,
+        training_opt_in: null,
+        supported_operations: [],
+        supported_output_schema_ids: [],
+        granted_operations: [],
+        granted_output_schema_ids: [],
+        granted_data_classes: [],
+        maximum_input_tokens: null,
+        maximum_output_tokens: null,
+        timeout_ms: null,
+        maximum_retries: null,
         secret_ref_id: null,
         authority_effect: "none",
       });
@@ -309,14 +345,32 @@ export async function inspectLocalProviderConfiguration(
   return deepFreeze({
     configured: true,
     configuration_id: bundle.configuration_id,
+    configuration_digest: bundle.configuration_digest,
     provider_id: bundle.model_profile.provider_id,
     adapter_id: bundle.adapter_id,
     requested_model_id: bundle.model_profile.requested_model_id,
+    model_profile_id: bundle.model_profile.profile_id,
+    model_profile_status: bundle.model_profile.status,
+    data_handling_profile_id: bundle.data_handling_profile.profile_id,
+    data_handling_profile_status: bundle.data_handling_profile.status,
     account_id: bundle.connection.account_id,
     project_id: bundle.connection.project_id,
     destination_origin: bundle.connection.origin,
     connection_status: bundle.connection.status,
     grant_status: bundle.provider_grant.revocation_state,
+    zero_data_retention_status: bundle.data_handling_profile.zero_data_retention_status,
+    abuse_monitoring_retention: bundle.data_handling_profile.abuse_monitoring_retention,
+    prompt_caching: bundle.data_handling_profile.prompt_caching,
+    training_opt_in: bundle.data_handling_profile.training_opt_in,
+    supported_operations: sorted(bundle.model_profile.supported_operations),
+    supported_output_schema_ids: sorted(bundle.model_profile.supported_output_schema_ids),
+    granted_operations: sorted(bundle.provider_grant.operations),
+    granted_output_schema_ids: sorted(bundle.provider_grant.output_schema_ids),
+    granted_data_classes: sorted(bundle.provider_grant.data_classes),
+    maximum_input_tokens: bundle.model_profile.maximum_input_tokens,
+    maximum_output_tokens: bundle.model_profile.maximum_output_tokens,
+    timeout_ms: bundle.model_profile.timeout_ms,
+    maximum_retries: bundle.model_profile.maximum_retries,
     secret_ref_id: bundle.secret_ref.secret_ref_id,
     authority_effect: "none",
   });
@@ -332,7 +386,7 @@ export interface OpenAIConnectionProposal {
   requested_model_id: string;
   destination_origin: "https://api.openai.com";
   endpoint_class: "responses";
-  proposed_operations: ["strategy", "draft", "rewrite"];
+  proposed_operations: ProviderProposalOperation[];
   provider_application_state: "none";
   required_records: string[];
   project_scope_digest: string;
@@ -343,14 +397,41 @@ export interface OpenAIConnectionProposal {
   authority_effect: "none";
 }
 
+export type ProviderProposalOperation =
+  | "strategy"
+  | "draft"
+  | "rewrite"
+  | "classify"
+  | "evaluate";
+
+const MODEL_OPERATION_ORDER = [
+  "strategy", "draft", "rewrite", "classify", "evaluate",
+] as const satisfies readonly ProviderProposalOperation[];
+
+function proposalOperations(
+  provided: readonly string[] | undefined,
+  defaults: readonly ProviderProposalOperation[],
+): ProviderProposalOperation[] {
+  const operations = provided === undefined ? [...defaults] : [...provided];
+  if (operations.length === 0 || new Set(operations).size !== operations.length
+    || operations.some((operation) => !MODEL_OPERATION_ORDER.includes(
+      operation as ProviderProposalOperation,
+    ))) {
+    throw new ProviderConfigurationError("provider_configuration_invalid");
+  }
+  return MODEL_OPERATION_ORDER.filter((operation) => operations.includes(operation));
+}
+
 export function proposeOpenAIProviderConfiguration(input: {
   project_root: string;
   requested_model_id: string;
+  operations?: readonly string[];
 }): Readonly<OpenAIConnectionProposal> {
   if (typeof input.project_root !== "string" || input.project_root.length === 0
     || typeof input.requested_model_id !== "string" || input.requested_model_id.length === 0) {
     throw new ProviderConfigurationError("provider_configuration_invalid");
   }
+  const operations = proposalOperations(input.operations, ["strategy", "draft", "rewrite"]);
   const base = {
     schema_version: "contentmd.provider-connection-proposal/0.1.0" as const,
     provider_id: "provider.openai" as const,
@@ -359,7 +440,7 @@ export function proposeOpenAIProviderConfiguration(input: {
     requested_model_id: input.requested_model_id,
     destination_origin: "https://api.openai.com" as const,
     endpoint_class: "responses" as const,
-    proposed_operations: ["strategy", "draft", "rewrite"] as ["strategy", "draft", "rewrite"],
+    proposed_operations: operations,
     provider_application_state: "none" as const,
     required_records: [
       "model_profile",
@@ -395,15 +476,13 @@ export interface ProviderAuthorizationProposal {
   proposal_id: string;
   proposal_digest: string;
   provider_id: "provider.openai";
-  operations: Array<"strategy" | "draft" | "rewrite">;
+  operations: ProviderProposalOperation[];
   requested_action: "model.generate";
   capability_grant_state: "none";
   project_scope_digest: string;
   grant_effect: "none";
   authority_effect: "none";
 }
-
-const WRITER_OPERATION_ORDER = ["strategy", "draft", "rewrite"] as const;
 
 export function proposeProviderAuthorization(input: {
   project_root: string;
@@ -412,13 +491,10 @@ export function proposeProviderAuthorization(input: {
 }): Readonly<ProviderAuthorizationProposal> {
   if (typeof input.project_root !== "string" || input.project_root.length === 0
     || input.provider_id !== "openai" || !Array.isArray(input.operations)
-    || input.operations.length === 0 || new Set(input.operations).size !== input.operations.length
-    || input.operations.some((operation) => !WRITER_OPERATION_ORDER.includes(
-      operation as (typeof WRITER_OPERATION_ORDER)[number],
-    ))) {
+    || input.operations.length === 0 || new Set(input.operations).size !== input.operations.length) {
     throw new ProviderConfigurationError("provider_configuration_invalid");
   }
-  const operations = WRITER_OPERATION_ORDER.filter((operation) => input.operations.includes(operation));
+  const operations = proposalOperations(input.operations, []);
   const base = {
     schema_version: "contentmd.provider-authorization-proposal/0.1.0" as const,
     provider_id: "provider.openai" as const,
