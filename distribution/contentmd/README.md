@@ -61,7 +61,8 @@ npx contentmd serve                   # open the local interactive proofing desk
 Structured English UX-writing use cases can also be classified without adopting
 a project or writing runtime state. The benchmark evaluator reports provisional
 and qualified evidence separately and exits with governance code `20` while its
-human adjudication packet is incomplete:
+independent AI adjudication packet is incomplete. Human review is an explicit
+authority or failure exception, not the default label source:
 
 ```bash
 contentmd usecase classify --input /absolute/path/to/usecase-request.json --json
@@ -69,11 +70,17 @@ contentmd usecase evaluate \
   --benchmark fixtures/ux-writing-usecases/benchmark-v0.1.jsonl \
   --adjudications fixtures/ux-writing-usecases/adjudication-v0.1.jsonl \
   --json
+contentmd usecase adjudicate-corpus \
+  --root /absolute/path/to/content.md \
+  --mode plan \
+  --json
 ```
 
-The bundled 200-case corpus is English-only, authored synthetic, authority-free,
-and pending qualified UX-content review. It is a deterministic regression bank,
-not human gold or production approval.
+The bundled 200-case use-case benchmark is English-only, authored synthetic,
+authority-free, and pending qualified UX-content review. It is a deterministic
+regression bank, not human gold or production approval. The separate
+200-product public-evidence corpus remains classification/evaluation-only under
+explicit run authorization; it is not prompt, RAG, benchmark, or training data.
 
 To measure whether the qualification system is identifying meaningful content
 rather than arbitrary strings, generate an explicit review packet. The packet
@@ -211,8 +218,13 @@ pnpm contentmd draft-select \
 
 1. [Foundational findings](research/08-synthesis/foundational-findings.md) — the cross-workstream answer and current product implications.
 2. [Candidate content-decision system model](research/08-synthesis/candidate-system-model.md) — the ontology, orthogonal evidence dimensions, independent decision and delivery states, typed control records, scope, and compiler boundary to test.
-3. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
-4. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
+3. [Content Decision Contract and Universal Assurance Kernel](docs/verification/content-decision-contract-and-assurance-kernel.md) — the executable English-only classify, decide, contract, and criterion-level assurance loop.
+4. [Contextual Assurance Overlays and Tone Construct Reconciliation](docs/verification/contextual-assurance-overlays-and-tone-reconciliation.md) — deterministic product, risk, interaction, channel, accessibility, and governance routing plus the evidence-bounded nine-feature tone review.
+5. [Governed UX content corpus ingestion](docs/verification/ux-content-corpus-ingestion.md) — deterministic manifests, metadata-only projections, explicit label layers, leakage-safe AI adjudication partitions, and fail-closed eligibility for the 200-product collection.
+6. [AI-first UX-coordinate adjudication](docs/verification/ai-adjudication-runner.md) — strict classifier and blinded evaluator contracts, bounded revision, abstention, and authority-only human exceptions.
+7. [Deterministic UX-content corpus adjudication pilot](docs/verification/corpus-adjudication-pilot.md) — the source-bound 10-domain by 14-taxonomy plan, offline replay adapter, immutable result store, and calibration metrics.
+8. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
+9. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
 
 ## What the current synthesis supports
 

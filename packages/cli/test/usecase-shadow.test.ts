@@ -77,4 +77,36 @@ describe("UX-writing use-case shadow CLI", () => {
     });
     expect(await readdir(emptyWorkingDirectory)).toEqual([]);
   });
+
+  it("builds the complete read-only domain by taxonomy corpus pilot plan", async () => {
+    const { stdout } = await execute(process.execPath, [
+      "--import", tsxLoader, cliSource,
+      "usecase", "adjudicate-corpus", "--root", workspaceRoot,
+      "--mode", "plan", "--json",
+    ], { cwd: emptyWorkingDirectory, env: { ...process.env, NO_COLOR: "1" }, maxBuffer: 32 * 1024 * 1024 });
+    const result = JSON.parse(stdout) as any;
+    expect(result).toMatchObject({
+      command_id: "usecase.adjudicate-corpus",
+      status: "completed",
+      exit_code: 0,
+      data: {
+        mode: "plan",
+        plan: {
+          contract_version: "contentmd.corpus-adjudication-plan/0.1.0",
+          split: "discovery",
+          sample_matrix: ["domain", "taxonomy"],
+          counts: {
+            selected_unit_count: 140,
+            matrix_cell_count: 140,
+            unique_product_count: 136,
+            verified_source_section_count: 140,
+          },
+          authority_effect: "none",
+        },
+      },
+    });
+    expect(result.data.plan.units).toHaveLength(140);
+    expect(result.warnings).toContain("Planning made no model call and wrote no adjudication state.");
+    expect(await readdir(emptyWorkingDirectory)).toEqual([]);
+  });
 });
