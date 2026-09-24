@@ -88,6 +88,26 @@ and domain/taxonomy slices. These measurements are the evidence needed to
 improve the taxonomy and calibrate later classifiers; they do not promote this
 public corpus to benchmark or training use.
 
+## Prepare a remote launch without sending data
+
+Use the separate launch preflight to bind the exact plan, model IDs, provider
+configuration, processing boundary, and worst-case call ceiling before seeking
+authorization:
+
+```bash
+contentmd usecase prepare-corpus-run \
+  --root /absolute/path/to/content.md \
+  --classifier-model <exact-model-id> \
+  --evaluator-model <exact-model-id> \
+  --json
+```
+
+The command is read-only and network-free. It reports configuration blockers
+and emits an exact authorization subject, but it cannot approve that subject.
+See the [corpus adjudication launch contract](corpus-adjudication-launch-contract.md)
+for the provider, zero-retention, operation, schema, data-class, workload, and
+explicit remote-egress gates.
+
 ## Verification boundary
 
 The implementation and deterministic 140-cell plan are verified. The exact

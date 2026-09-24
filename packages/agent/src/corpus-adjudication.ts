@@ -489,23 +489,56 @@ function assertPlan(plan: CorpusAdjudicationPlan): void {
   if (plan.contract_version !== "contentmd.corpus-adjudication-plan/0.1.0"
     || plan.plan_kind !== "english_ux_content_discovery_pilot"
     || plan.split !== "discovery"
+    || canonicalJson(plan.sample_matrix) !== canonicalJson(["domain", "taxonomy"])
     || plan.selection_strategy !== SELECTION_STRATEGY
     || plan.authority_effect !== "none"
     || plan.units.length !== plan.counts.selected_unit_count
-    || plan.counts.matrix_cell_count !== plan.domains.length * plan.taxonomy_ids.length) {
+    || plan.counts.matrix_cell_count !== plan.domains.length * plan.taxonomy_ids.length
+    || plan.counts.selected_unit_count !== plan.counts.matrix_cell_count
+    || plan.counts.verified_source_section_count !== plan.units.length
+    || plan.processing_boundary.language_scope !== "english_only"
+    || plan.processing_boundary.model_processing
+      !== "classification_and_evaluation_with_explicit_run_authorization"
+    || plan.processing_boundary.retention !== "transient_only"
+    || plan.processing_boundary.prompt_reuse !== "never"
+    || plan.processing_boundary.training !== "never"
+    || plan.processing_boundary.benchmark_scoring !== false) {
     invalid("plan:contract");
   }
+  const expectedDomains = UX_CONTENT_PILOT_DOMAINS.filter((domain) => plan.domains.includes(domain));
+  const expectedTaxonomies = UX_CONTENT_PILOT_TAXONOMIES.filter((taxonomy) =>
+    plan.taxonomy_ids.includes(taxonomy));
+  if (plan.domains.length === 0 || plan.taxonomy_ids.length === 0
+    || canonicalJson(plan.domains) !== canonicalJson(expectedDomains)
+    || canonicalJson(plan.taxonomy_ids) !== canonicalJson(expectedTaxonomies)) {
+    invalid("plan:matrix");
+  }
+  for (const [name, witness] of Object.entries(plan.source_witnesses)) {
+    if (typeof witness.path !== "string" || witness.path.length === 0
+      || !DIGEST.test(witness.raw_bytes_digest)) invalid(`plan:witness:${name}`);
+  }
+  const cells = new Set<string>();
   for (const [index, unit] of plan.units.entries()) {
     const { unit_digest: claimed, ...preimage } = unit;
-    if (unit.sequence !== index + 1 || claimed !== sha256Canonical(preimage)) {
+    const cell = `${unit.domain}\u0000${unit.taxonomy.taxonomy_id}`;
+    if (unit.sequence !== index + 1
+      || !plan.domains.includes(unit.domain)
+      || !plan.taxonomy_ids.includes(unit.taxonomy.taxonomy_id)
+      || cells.has(cell)
+      || claimed !== sha256Canonical(preimage)) {
       invalid(`plan:unit:${index + 1}`);
     }
+    cells.add(cell);
   }
   const { plan_id: claimedId, plan_digest: claimedDigest, ...preimage } = plan;
   const digest = sha256Canonical(preimage);
   if (claimedDigest !== digest || claimedId !== `corpus_adjudication_plan.${digest.slice(0, 32)}`) {
     invalid("plan:digest");
   }
+}
+
+export function verifyCorpusAdjudicationPlan(plan: CorpusAdjudicationPlan): void {
+  assertPlan(plan);
 }
 
 export async function createCorpusAdjudicationPlan(

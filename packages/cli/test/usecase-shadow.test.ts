@@ -109,4 +109,49 @@ describe("UX-writing use-case shadow CLI", () => {
     expect(result.warnings).toContain("Planning made no model call and wrote no adjudication state.");
     expect(await readdir(emptyWorkingDirectory)).toEqual([]);
   });
+
+  it("prepares an exact remote launch request without network, writes, or authority", async () => {
+    const { stdout } = await execute(process.execPath, [
+      "--import", tsxLoader, cliSource,
+      "usecase", "prepare-corpus-run", "--root", workspaceRoot,
+      "--classifier-model", "model.fixture.ux-adjudication",
+      "--evaluator-model", "model.fixture.ux-adjudication",
+      "--json",
+    ], { cwd: emptyWorkingDirectory, env: { ...process.env, NO_COLOR: "1" }, maxBuffer: 8 * 1024 * 1024 });
+    const result = JSON.parse(stdout) as any;
+    expect(result).toMatchObject({
+      command_id: "usecase.prepare-corpus-run",
+      status: "completed",
+      exit_code: 0,
+      data: {
+        mode: "remote_launch_preparation",
+        launch_request: {
+          contract_version: "contentmd.corpus-adjudication-remote-launch-request/0.1.0",
+          configuration_readiness: {
+            status: "blocked",
+            reason_codes: ["provider_configuration_missing"],
+          },
+          required_authorization: {
+            status: "blocked_by_configuration",
+          },
+          authorization_subject: {
+            plan_ref: {
+              plan_id: "corpus_adjudication_plan.84be84e286488331f70663ef190da7a7",
+              plan_digest: "84be84e286488331f70663ef190da7a72f2afd864b44c5bbd271a993c4ab0275",
+            },
+            workload_ceiling: {
+              maximum_model_calls: 840,
+            },
+          },
+          network_effect: "none",
+          write_effect: "none",
+          authority_effect: "none",
+        },
+      },
+    });
+    expect(result.warnings).toContain(
+      "Preparation made no model call, sent no corpus data, wrote no state, and granted no authority.",
+    );
+    expect(await readdir(emptyWorkingDirectory)).toEqual([]);
+  });
 });

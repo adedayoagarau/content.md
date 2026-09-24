@@ -74,6 +74,11 @@ contentmd usecase adjudicate-corpus \
   --root /absolute/path/to/content.md \
   --mode plan \
   --json
+contentmd usecase prepare-corpus-run \
+  --root /absolute/path/to/content.md \
+  --classifier-model <exact-model-id> \
+  --evaluator-model <exact-model-id> \
+  --json
 ```
 
 The bundled 200-case use-case benchmark is English-only, authored synthetic,
@@ -223,8 +228,9 @@ pnpm contentmd draft-select \
 5. [Governed UX content corpus ingestion](docs/verification/ux-content-corpus-ingestion.md) — deterministic manifests, metadata-only projections, explicit label layers, leakage-safe AI adjudication partitions, and fail-closed eligibility for the 200-product collection.
 6. [AI-first UX-coordinate adjudication](docs/verification/ai-adjudication-runner.md) — strict classifier and blinded evaluator contracts, bounded revision, abstention, and authority-only human exceptions.
 7. [Deterministic UX-content corpus adjudication pilot](docs/verification/corpus-adjudication-pilot.md) — the source-bound 10-domain by 14-taxonomy plan, offline replay adapter, immutable result store, and calibration metrics.
-8. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
-9. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
+8. [Corpus adjudication launch contract](docs/verification/corpus-adjudication-launch-contract.md) — the no-network provider/model preflight, exact authorization subject, workload ceiling, and fail-closed remote-processing gates.
+9. [Research gap register](research/08-synthesis/research-gap-register.md) — the evidence still required before a responsible public specification.
+10. [Research index](research/INDEX.md) — every current artifact and source record in this working corpus.
 
 ## What the current synthesis supports
 

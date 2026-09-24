@@ -7,6 +7,7 @@ import { runCommand, withRoot, type RootOptions } from "./shared.js";
 
 interface OpenAIProposalOptions extends RootOptions {
   model: string;
+  operations: string;
   propose: boolean;
 }
 
@@ -23,6 +24,11 @@ export function registerConnect(program: Command): void {
   withRoot(connect.command("openai").description("propose governed OpenAI configuration"))
     .requiredOption("--propose", "emit a proposal without applying provider state")
     .requiredOption("--model <id>", "requested OpenAI model identifier")
+    .option(
+      "--operations <list>",
+      "comma-separated model operations",
+      "strategy,draft,rewrite",
+    )
     .action(async (options: OpenAIProposalOptions) => runCommand(options, async () => ({
       command_id: "connect.openai.propose",
       warnings: ["store:false is not zero provider retention."],
@@ -32,6 +38,7 @@ export function registerConnect(program: Command): void {
       data: proposeOpenAIProviderConfiguration({
         project_root: options.root,
         requested_model_id: options.model,
+        operations: options.operations.split(","),
       }),
     })));
 }

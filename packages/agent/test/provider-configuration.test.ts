@@ -16,6 +16,9 @@ import {
   FilesystemProviderConfigurationResolver,
   ProviderConfigurationError,
   createProviderConfigurationBundle,
+  inspectLocalProviderConfiguration,
+  proposeOpenAIProviderConfiguration,
+  proposeProviderAuthorization,
 } from "../src/provider-configuration.js";
 
 const temporaryDirectories: string[] = [];
@@ -69,6 +72,21 @@ describe("provider configuration bundle", () => {
     )).toBe(true);
     expect(resolved).not.toHaveProperty("request");
     expect(JSON.stringify(resolved)).not.toContain("api_key_value");
+
+    const inspection = await inspectLocalProviderConfiguration(root);
+    expect(inspection).toMatchObject({
+      configured: true,
+      configuration_id: bundle.configuration_id,
+      configuration_digest: bundle.configuration_digest,
+      model_profile_id: bundle.model_profile.profile_id,
+      data_handling_profile_id: bundle.data_handling_profile.profile_id,
+      supported_operations: bundle.model_profile.supported_operations,
+      granted_operations: bundle.provider_grant.operations,
+      granted_data_classes: bundle.provider_grant.data_classes,
+      maximum_input_tokens: bundle.model_profile.maximum_input_tokens,
+      maximum_output_tokens: bundle.model_profile.maximum_output_tokens,
+      authority_effect: "none",
+    });
   });
 
   it("rejects lookup drift, bundle tamper, and credential material", async () => {
@@ -102,5 +120,25 @@ describe("provider configuration bundle", () => {
         secret_value: "api_key_value",
       } as never,
     })).toThrow("provider_configuration_secret_material_present");
+  });
+
+  it("proposes classify and evaluate capabilities without granting or connecting them", () => {
+    const connection = proposeOpenAIProviderConfiguration({
+      project_root: "/project",
+      requested_model_id: "model.fixture",
+      operations: ["classify", "evaluate"],
+    });
+    const authorization = proposeProviderAuthorization({
+      project_root: "/project",
+      provider_id: "openai",
+      operations: ["classify", "evaluate"],
+    });
+
+    expect(connection.proposed_operations).toEqual(["classify", "evaluate"]);
+    expect(connection.network_effect).toBe("none");
+    expect(connection.grant_effect).toBe("none");
+    expect(authorization.operations).toEqual(["classify", "evaluate"]);
+    expect(authorization.capability_grant_state).toBe("none");
+    expect(authorization.authority_effect).toBe("none");
   });
 });
