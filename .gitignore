@@ -8,6 +8,7 @@ coverage/
 .contentmd/local/
 .contentmd/cache/
 .contentmd/runtime/
+.contentmd/adjudication/
 .pnpm-store/
 .worktrees/
 distribution/contentmd/*.tgz

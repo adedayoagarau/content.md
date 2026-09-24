@@ -119,6 +119,9 @@ importers:
       '@contentmd/core':
         specifier: workspace:*
         version: link:../core
+      '@contentmd/model-provider-sdk':
+        specifier: workspace:*
+        version: link:../model-provider-sdk
       '@contentmd/model-provider-openai':
         specifier: workspace:*
         version: link:../model-provider-openai
